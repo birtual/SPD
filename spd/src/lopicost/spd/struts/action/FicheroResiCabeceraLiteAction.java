@@ -51,6 +51,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		
 		//inicializamos para que no haya datos de otros módulos al venir de un borrado por ejemplo
 		formulari.setOidFicheroResiCabecera(0);
+		formulari.setIdUsuario(getIdUsuario());
 		//formulari.setListaFicheroResiCabeceraBean(dao.getListaDivisionResidenciasCargadas(getIdUsuario()));
 		//formulari.setListaProcesosCargados(dao.getProcesosCargados(getIdUsuario(), formulari.getOidDivisionResidencia()));
 		//formulari.setListaEstadosCabecera(dao.getEstados(getIdUsuario(), formulari.getOidDivisionResidencia(), formulari.getFiltroProceso()));

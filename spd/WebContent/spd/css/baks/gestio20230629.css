@@ -1,0 +1,549 @@
+
+
+/* deixo aquí els css generals */
+body {
+	margin: 0 7px 7px 10px;
+	padding: 0;
+	font: normal 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	color: #000;
+	background-color: #FFF;
+	overflow: auto;
+	}
+	
+.table-responsive {
+  overflow-x: auto;
+  
+  
+a {
+	color: #00256B;
+	}
+a img {
+	border: 0;
+}
+
+
+/* titols */
+h1 {
+	color: #00256B;
+	font: bold 14px Georgia, Arial, Verdana;
+	margin: 0;
+	padding: 0 0 15px 0;
+	_width: 100%;
+	}
+h2 {
+	color: #00256B;
+	font: bold 14px Georgia, Arial, Verdana;
+	margin: 0;
+	padding: 0 0 15px 0;
+	_width: 100%;
+	}
+h3 {
+	color: #5981C8;
+	font: bold 11px Verdana;
+	margin: 0;
+	padding: 0;
+	}
+h4 {
+	color: #00256B;
+	font: bold 11px Verdana;
+	margin: 0;
+	padding: 0;
+	}
+h5 {
+	color: #000;
+	font:  bold 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0 0 10px 0;
+	}
+div#titol h2 {
+	padding-bottom: 5px;
+}
+div#titol h3 {
+	float: left;
+}
+div#titol h4 {
+	float: left;
+	margin-left: 10px;
+}
+div#titol h5 {
+	float: left;
+	margin-left: 10px;
+}
+	
+/* botons */
+button {	
+	margin: 0px;
+	padding: 2px 0 0 0;
+	font: normal 9px  Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	color: #000; 
+	background-color: #F9C62D;
+	border: 1px solid  #C6A00D;
+	border-top-color: #FEE38A;
+	border-left-color: #FEE38A;
+	height: 16px;
+	cursor: pointer;
+}
+.clsButtonStyle {
+	margin: 0px;
+	padding: 2px 0 0 0;
+	font: normal 9px  Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	color: #000; 
+	background-color: #F9C62D;
+	border: 1px solid  #C6A00D;
+	border-top-color: #FEE38A;
+	border-left-color: #FEE38A;
+	cursor: pointer;
+}
+a.boto {
+	margin: 0px;
+	padding: 3px 5px;
+	font: normal 9px  Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	color: #000; 
+	background-color: #F9C62D;
+	border: 1px solid  #C6A00D;
+	border-top-color: #FEE38A;
+	border-left-color: #FEE38A;
+	float: left;
+}
+.botons, #botons {
+	padding: 0 0 10px 0;
+	margin: 0;
+}
+.botons p, #botons p {
+	margin: 0;
+	padding: 0;
+	float: right;
+	
+}
+
+/* formularis */
+form {
+	margin: 0;
+	padding: 0;
+}
+input {
+	font: normal 10px Verdana, Arial, sans-serif;
+	color: #777;
+	margin: 0;
+	padding: 2px;
+	background-color: #FFF;
+	border: 1px solid  #A2A39E; /*#84dfcd;*/
+	vertical-align: middle;
+}
+input.checkbox {
+	border: 1px solid #FFF;
+	margin: 0px;
+}
+select {
+	font: normal 10px Verdana,Arial,sans-serif;
+	color: #000;
+	margin: 0;
+	background-color: #FFF;
+	//border: 1px solid   #A2A2A2; /*#84dfcd;*/
+	vertical-align: middle;
+	width: 175px;
+}
+textarea {
+	font: normal 10px Verdana,Arial,sans-serif;
+	color: #000;
+	/* anterior */
+	height: 60px;
+	width: 275px;
+	background-color: #FFF;
+	border: 1px solid #CCC; /*#84dfcd;*/
+}
+fieldset {
+	padding: 10px 10px 0 10px;
+	margin: 0 0 10px 0;
+	/* border: 1px solid #01266C; */
+	border:  1px solid #A2A39E; /*#84dfcd;*/
+	}
+fieldset div {
+	width: 98%;
+	float: left;
+	padding: 0 0 10px 0;
+	}
+fieldset div p {
+	margin: 0;
+	padding: 0 0 8px 0;
+	/*float: left;
+	clear: left;*/
+	width: 100%;
+	}
+html > body fieldset div p {
+	float: left;
+	clear: left;
+}
+fieldset h3 {
+	background-color: #C7D4EB ;
+	padding: 3px 10px;
+	margin: 0 0 10px 0;
+	font: bold 11px Verdana;
+	color: #00256B;
+	_width: 100%;
+}
+fieldset div#unico {
+	/* width: 70%; */
+	float: left;
+	_float: none;
+	width: 100%;
+	padding: 0;
+	/* padding: 10px 0px; */
+	}
+fieldset.element {
+	padding: 10px;
+	/* margin-top: 10px; */
+}	
+legend {
+	background-color: #A2A39E;
+	padding: 3px 10px;
+	margin: 0 0 10px 0;
+	font: bold 11px Verdana;
+	color: #FFF;
+	}
+label {
+	width: 45%;
+	padding: 0 2px 2px 2px;
+	margin: 0 5px 5px 0;
+	border-bottom:  1px dotted #A2A2A2;
+	font-size: 10px;
+}
+html > body label {
+	float: left;
+	clear: left;
+}
+#filtrar,.dreta {
+	float: right;	
+	margin-right: 3px;
+	margin-top: 7px;
+	margin-bottom: 5px;
+	background-color: Fuchsia;
+	}
+#nuevo, #salvar, .bdreta {
+	float: right;
+	margin-right: 20px;
+	border: 1px solid #89B6D3;
+	background-color: Lime;
+	}
+.ocult { /* per no mostrar el label */
+	display: none;
+	}
+.contenedor {
+	padding: 5px;
+	width: 90%;
+	border: 1px solid #A2A2A2; /*#84dfcd;*/
+}
+.contenedor p {
+	text-align: right;
+}
+.contenedor label {
+	border-bottom: none;
+	padding: 0;
+	width: auto;
+}
+.contenedor .labelimp {
+	width: 100%;
+	margin-bottom: 10px;
+	background-color: #C7D4EB;
+}
+.dia {
+	width: 100px;
+	_width: 80px;
+}
+.hora {
+	width: 50px;
+}
+.numero {
+	width: 40px;
+}
+
+
+/* caixes */
+div#caixa {
+	background-color: #FFF;
+}
+
+
+div#head {
+	background-image: url(../img/logo_lopicost.jpg);
+	background-color: #DFE0D2; /*#85f1d9;*/
+	background-repeat: no-repeat;
+	background-position: 0px;
+	margin: 0px 0px 0px 0px;
+	height: 100%;	
+	padding: 20px 5px 55px 15px;
+	}
+
+
+	
+div#contingut {
+	padding: 0;
+	margin: 0;
+	background-color: #FFF;
+	_width: 100%;
+	clear: both;
+	}
+
+/* taules */
+table {
+	/*width: 100%; */
+	border-collapse: collapse;
+	margin: 0 0 5px 0;
+	padding: 0;
+}
+caption {
+	background-color: #4C6697;
+	font: bold 12px Arial, sans-serif;
+	color: #FFF;
+	padding: 3px 5px;
+	margin: 0;
+	border: 1px solid #FFF;
+	border-width: 0 2px 3px 0;
+	text-align: left;
+}
+th {
+	background-color: #2dff96;
+	font: bold 11px Arial, sans-serif;
+	padding: 2px 4px;
+	color: #000;
+	text-align: left;
+	border: 1px solid #FFF;
+	border-width: 0 2px 3px 0;
+}
+td {
+	font: normal 10px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	/*background-color: #EEE;*/ /*#85f1d9*/
+	border: 1px solid #85f1d9;
+	border-width: 0 2px 2px 0;
+	padding: 5px; 
+}
+tr.alerta td {
+	background-color: red;
+}
+tr.alertaSustXResi td {
+	background-color: orange;
+}
+tr.par td {
+	background-color:  #FFF;
+}
+td.alerta {
+	background-color: red;
+}
+td.alertaSustXResi {
+	background-color: red;
+}
+td.info {
+	background-color: orange;
+}
+td.infoSustXResi {
+	background-color: orange;
+}
+tr.NO_PINTAR td {
+	background-color: #a2a39e;
+}
+
+.llistat {
+	background: transparent url(../images/li.gif) no-repeat 0 5px;
+}
+td a {
+	text-decoration: none;
+	font: bold 11px Arial, sans-serif;
+	color: #606060;
+}
+/* tabula data */
+table.tabla {
+	width: 300px;
+}
+table.tabla td {
+	padding: 0;
+	text-align: center;
+}
+td a span {
+	display: none;
+	}
+td.editar {
+	width: 20px;	
+	}
+td.editar a:link, td.editar a:visited {
+	background-image: url(../images/edita.png);
+	background-repeat: no-repeat;
+	background-position: 0px;
+	display: block;
+	width: 18px;
+	height: 16px;
+	text-indent: -1000px;
+	}
+td.editar a:hover {
+	background-image: url(../images/editah.png);
+	}
+td.borrar {
+	width: 20px;
+	}
+td.borrar a:link, td.borrar a:visited {
+	background-image: url(../images/borrar.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	width: 18px;
+	height: 16px;
+	text-indent: -1000px;
+	}
+td.borrar a:hover {
+	background-image: url(../images/borrarh.png);
+	}
+td.pdf {
+	width: 20px;	
+	}
+td.pdf a:link, td.pdf a:visited {
+	background-image: url(../images/pdf.png);
+	background-repeat: no-repeat;
+	background-position: 0px;
+	display: block;
+	width: 18px;
+	height: 16px;
+	text-indent: -1000px;
+	}
+td.pdf a:hover {
+	background-image: url(../images/pdfh.png);
+	}
+td.veure {
+	width: 20px;	
+	}
+td.nombreMedicamentoConsejo {
+	height: 120px;	
+	}	
+td.veure a:link, td.veure a:visited {
+	background-image: url(../images/veure.png);
+	background-repeat: no-repeat;
+	background-position: 0px;
+	display: block;
+	width: 18px;
+	height: 16px;
+	text-indent: -1000px;
+	}
+td.veure a:hover {
+	background-image: url(../images/veureh.png);
+	}
+li.fitxa a:link, li.fitxa a:visited {
+	background-image: url(../images/pdf.png);
+	background-repeat: no-repeat;
+	background-position: 0px;
+	display: block;
+	float: left;
+	width: 18px;
+	height: 16px;
+	text-indent: -1000px;
+	}
+li.fitxa a:hover {
+	background-image: url(../images/pdfh.png);
+	}
+/* això només funx amb navegadors mosk (mozilla opera safari konkeror) */	
+tr:hover {
+	background-color: #EFEFEF;
+	}
+/* fi tabular data */
+#quatre.tabla {
+	padding: 0px 0px;
+	margin-top: 0px;
+}
+
+
+/* Llista d'aules */
+/* #prgformacio .opciones {
+	width: 60px;
+}*/
+.opciones {
+	width: 40px;
+}
+.logo {
+	width: 24px;
+}
+.logo img {
+	width: 16px;
+	height: 16px;
+}
+.imagelogo {
+	width: 16px;
+	height: 16px;
+}
+
+/* llegenda */
+.llegenda {
+	background-color: #EFEFEF;
+	color: #00256B;
+	font-size: 9px;
+	text-align: right;
+	vertical-align: middle;
+	padding: 3px;
+}
+td.llegenda {
+	border-bottom: none;
+	padding-left: 0;
+}
+.llegenda img {
+	margin: 0 5px 0 10px;
+	vertical-align: middle;
+}
+
+/* paginador */
+#paginador {
+	border: 1px solid #CCC;
+	background-color: #DFDFDF;
+	font-size: 10px;
+	color: #777;
+	text-align: center;
+	/* float: left; */
+	_width: 100%;
+	/* min-height: 18px;*/
+	padding: 1px 0;
+	/* border-top: 5px solid #FFF;*/
+	vertical-align: middle;
+	margin: 0 0 10px 0;
+}
+
+#paginador * {
+	display: inline;
+}
+#paginador input {
+	/* border: 1px solid #00216B; */
+	font-weight: bold;
+	/* color: #; */
+	text-align: center;
+	margin: 0 5px 0 10px;
+}
+#paginador a {
+	color: #777;
+	text-decoration: none;
+}
+#paginador span {
+	padding: 2px 5px 0 0;
+}
+#paginador span.npagines {
+	font-weight: bold;
+}
+
+/* avisos i notes */
+.nota {
+	background-color: #DFE0D2;
+	padding: 20px;
+	text-align: center;
+	margin: 0 0 10px 0;
+}
+.avis {
+	color: #CC6633;
+	background: transparent url(../images/avisInfo.png) no-repeat 0 0;
+	padding: 0 0 0 15px;
+}
+fieldset .avis {
+	padding: 15px 0;
+}
+
+/* distribució */
+.left {
+	text-align: left;
+}
+
+

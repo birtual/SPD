@@ -1,0 +1,653 @@
+@import "pestanyes.css";
+@import "assistent.css";
+@import "especifics.css";
+
+/* deixo aquí els css generals */
+body {
+	background: #fff;
+	font: 0.7em Verdana, Arial, sans-serif;
+	margin: 0;
+	padding: 10px;
+	overflow: auto;
+	}
+a {
+	color: #039;
+	}
+a img {
+	border: none;
+}
+
+
+/* titols */
+/* h1 {
+	color: #00256B;
+	font: bold 14px Georgia, Arial, Verdana;
+	margin: 0;
+	padding: 0 0 15px 0;
+	_width: 100%;
+	}
+h2 {
+	color: #00256B;
+	font: bold 14px Georgia, Arial, Verdana;
+	margin: 0;
+	padding: 0 0 15px 0;
+	_width: 100%;
+	}
+h3 {
+	color: #5981C8;
+	font: bold 11px Verdana;
+	margin: 0;
+	padding: 0;
+	}
+h4 {
+	color: #00256B;
+	font: bold 11px Verdana;
+	margin: 0;
+	padding: 0;
+	}
+h5 {
+	color: #000;
+	font:  bold 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0 0 10px 0;
+	}*/
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Trebuchet MS", Verdana, Arial, sans-serif;
+	margin: 0 0 10px 0;
+	padding: 0;
+	}
+h2, h1 {
+	font-size: 1.7em;
+	border-bottom: 1px solid #ccc;
+	margin: 0 0 10px 0;
+	padding: 0 0 5px 0;
+	color: #999;
+	}
+/* h2 {
+	font-size: 1.5em;
+	border-bottom: 1px solid #eee;
+	}*/
+h3 {
+	font-size: 1.3em;
+	}
+h4 {
+	font-size: 1.1em;
+	padding-top: 3px;
+	}
+h5, h6 {
+	font-size: 1em;
+	}
+div#titol {
+	width: 100%;
+}
+
+div#titol h3 {
+	float: left;
+}
+div#titol h4 {
+	float: left;
+	margin-left: 10px;
+}
+div#titol h5 {
+	float: left;
+	margin-left: 10px;
+}
+	
+/* botons */
+button {	
+	/* margin: 0px;
+	padding: 2px 0 0 0;
+	font: normal 9px  Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	color: #000; 
+	background-color: #F9C62D;
+	border: 1px solid  #C6A00D;
+	border-top-color: #FEE38A;
+	border-left-color: #FEE38A;
+	height: 16px;*/
+	background: #DADADA;
+	border: 1px solid #ccc;
+	border-color: #ccc #333 #333 #ccc;
+	cursor: pointer;
+	padding: 2px 6px;
+	_padding: 1px;
+	_vertical-align: middle;
+	cursor: pointer;
+}
+.clsButtonStyle {
+	/* margin: 0px;
+	padding: 2px 0 0 0;
+	font: normal 9px  Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	color: #000; 
+	background-color: #F9C62D;
+	border: 1px solid  #C6A00D;
+	border-top-color: #FEE38A;
+	border-left-color: #FEE38A;
+	cursor: pointer; */
+	float: none;
+	background: #DADADA;
+	border: 1px solid #ccc;
+	border-color: #ccc #333 #333 #ccc;
+	cursor: pointer;
+	padding: 2px 6px;
+	_padding: 1px;
+	_vertical-align: middle;
+}
+/* a.boto {
+	margin: 0px;
+	padding: 3px 5px;
+	font: normal 9px  Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	color: #000; 
+	background-color: #F9C62D;
+	border: 1px solid  #C6A00D;
+	border-top-color: #FEE38A;
+	border-left-color: #FEE38A;
+	float: left;
+}*/
+.boto {
+	background: #DADADA;
+	border: 1px solid #ccc;
+	border-color: #ccc #333 #333 #ccc;
+	cursor: pointer;
+	margin: 0;
+	text-decoration: none;
+	white-space: nowrap;
+	color: #000;
+}
+a.boto {
+	padding: 3px 8px;
+	_padding: 2px 8px 3px 8px;
+}
+.botons, #botons {
+	padding: 0 0 10px 0;
+	margin: 0;
+}
+.botons p, #botons p {
+	margin: 0;
+	padding: 0;
+}
+
+/* formularis */
+form {
+	margin: 0;
+	padding: 0;
+}
+/* input {
+	font: normal 10px Verdana, Arial, sans-serif;
+	color: #777;
+	margin: 0;
+	padding: 2px;
+	background-color: #FFF;
+	border: 1px solid #A2A2A2;
+	vertical-align: middle;
+}
+input.checkbox {
+	border: 1px solid #FFF;
+	margin: 0px;
+}
+select {
+	font: normal 10px Verdana,Arial,sans-serif;
+	color: #000;
+	margin: 0;
+	background-color: #FFF;
+	border: 1px solid #A2A2A2;
+	vertical-align: middle;
+}
+textarea {
+	font: normal 10px Verdana,Arial,sans-serif;
+	color: #000;
+	
+	height: 60px;
+	width: 275px;
+	background-color: #FFF;
+	border: 1px solid #CCC;
+}*/
+input, select, textarea {
+	font: normal 1em  Verdana, Geneva, Arial, Helvetica, sans-serif;
+	background: #fefefe;
+	border: 1px solid #eee;
+	border-color: #ccc #eee #eee #ccc;
+	padding-left: 3px;
+	vertical-align: middle;
+}
+input.checkbox {
+	border: none;
+	background: transparent;
+}
+textarea {
+	height: 60px;
+	width: 275px;
+}
+/*fieldset {
+	padding: 10px 10px 0 10px;
+	margin: 0 0 10px 0;
+	
+	border:  1px solid #A2A39E;
+	}*/
+fieldset {
+	margin: 0 0 5px 0;
+	padding: 10px;
+	border: 0;
+	background: #eee;
+	border: 1px solid #eee;
+	border-color: #fff #ccc #ccc #eee;
+	_border-left-color: #FFF;
+	clear: both;
+	}
+
+fieldset div {
+	width: 49.5%;
+	float: left;
+	padding: 0 0 10px 0;
+	}
+fieldset div p {
+	margin: 0;
+	padding: 0 0 8px 0;
+	/*float: left;
+	clear: left;*/
+	width: 100%;
+	}
+html > body fieldset div p {
+	float: left;
+	clear: left;
+}
+fieldset h3 {
+	/* background-color: #C7D4EB ;
+	padding: 3px 10px;
+	margin: 0 0 10px 0;
+	font: bold 11px Verdana;
+	color: #00256B; */
+	_width: 100%;
+}
+fieldset div#unico {
+	/* width: 70%; */
+	float: left;
+	_float: none;
+	width: 100%;
+	padding: 0;
+	/* padding: 10px 0px; */
+	}
+fieldset.element {
+	padding: 10px;
+	/* margin-top: 10px; */
+}	
+legend {
+	font: bold 1.3em "Trebuchet MS", Verdana, Arial, sans-serif;
+	padding-bottom: 20px;
+	color: #000;
+	}
+label {
+	width: 45%;
+	/* padding: 0 2px 2px 2px;
+	margin: 0 5px 5px 0;
+	border-bottom:  1px dotted #A2A2A2;
+	font-size: 10px; */
+	background: #f5f5f5;
+	width: 200px;
+	text-align: right;
+	padding: 2px 5px;
+	margin-right: 10px;
+}
+html > body label {
+	float: left;
+	clear: left;
+}
+#filtrar,.dreta {
+	float: right;	
+	margin-right: 3px;
+	margin-top: 7px;
+	margin-bottom: 5px;
+	/* background-color: Fuchsia; */
+	}
+#nuevo, #salvar, .bdreta {
+	float: right;
+	margin-right: 20px;
+	border: 1px solid #89B6D3;
+	/* background-color: Lime; */
+	}
+.ocult { /* per no mostrar el label */
+	display: none;
+	}
+.contenedor {
+	/* padding: 5px;
+	
+	border: 1px solid #A2A2A2; */
+	width: 90%;
+	margin: 0;
+	padding: 10px;
+	border: 0;
+	background: #eee;
+	border: 1px solid #eee;
+	border-color: #fff #ccc #ccc #eee;
+	_border-left-color: #FFF;
+	clear: both;
+	position: relative;
+}
+.contenedor p {
+	text-align: right;
+}
+.contenedor label {
+	/* border-bottom: none;
+	padding: 0;
+	width: auto; */
+}
+.contenedor .labelimp {
+	width: 100%;
+	margin-bottom: 10px;
+	/* background-color: #C7D4EB; */
+	text-align: left;
+	background: #EEE;
+	font: bold 1em "Trebuchet MS", Verdana, Arial, sans-serif;;
+}
+.dia {
+	width: 100px;
+	_width: 80px;
+}
+.hora {
+	width: 50px;
+}
+.numero {
+	width: 40px;
+}
+
+
+/* caixes */
+div#caixa {
+	background-color: #FFF;
+}
+
+div#contingut {
+	padding: 0;
+	margin: 0;
+	background-color: #FFF;
+	_width: 100%;
+	clear: both;
+	}
+
+/* taules */
+/* table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0 0 5px 0;
+	padding: 0;
+}
+caption {
+	background-color: #4C6697;
+	font: bold 12px Arial, sans-serif;
+	color: #FFF;
+	padding: 3px 5px;
+	margin: 0;
+	border: 1px solid #FFF;
+	border-width: 0 2px 3px 0;
+	text-align: left;
+}
+th {
+	background-color: #DFE0D2;
+	font: bold 11px Arial, sans-serif;
+	padding: 2px 4px;
+	color: #000;
+	text-align: left;
+	border: 1px solid #FFF;
+	border-width: 0 2px 3px 0;
+}
+td {
+	font: normal 10px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	background-color: #EEE;
+	border: 1px solid #FFF;
+	border-width: 0 2px 2px 0;
+	padding: 5px; 
+} 
+
+tr.inpar td {
+	background-color: #EEE;
+}
+tr.par td {
+	background-color:  #FFF;
+}
+.llistat {
+	background: transparent url(../images/li.gif) no-repeat 0 5px;
+}
+td a {
+	text-decoration: none;
+	font: bold 11px Arial, sans-serif;
+	color: #606060;
+}
+*/
+table {
+	background: #eee;
+	color: #333;
+	border: 1px solid #eee;
+	border-color: #fff #ccc #ccc #fff;
+	padding: 2px 5px;
+	text-decoration: none;
+	font: 1em Verdana, Arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	margin-bottom: 5px;
+	}
+thead th {
+	background: #888;
+	color: #eee;
+	}
+tbody tr.inpar th {
+	background: #ddd;
+	}
+tbody tr.par th {
+	background: #e9e9e9;
+	}
+tbody tr.par td {
+	background: #f9f9f9;
+	}
+th, td {
+	padding: 10px;
+	text-align: left;
+	border: 1px inset #fff;
+	}
+tbody tr:hover td, tbody tr:hover th {
+	background: #fefea2;
+	color: #000;
+	}
+table a {
+	color: #039;
+	}
+
+tfoot {
+	background: #f5f5f5;
+	}
+caption {
+	background: #6D6D6D; 
+	color: #FFF;
+	text-align: left;
+	font: bold 1.2em "Trebuchet MS", Verdana, Arial, sans-serif;
+	padding: 5px 10px 10px 10px;
+}
+
+/* tabula data */
+table.tabla {
+	width: 300px;
+}
+table.tabla td {
+	padding: 0;
+	text-align: center;
+}
+td a span {
+	display: none;
+	}
+td.editar {
+	width: 20px;	
+	}
+td.editar a:link, td.editar a:visited {
+	background-image: url(../images/edita.png);
+	background-repeat: no-repeat;
+	background-position: 0px;
+	display: block;
+	width: 18px;
+	height: 18px;
+	text-indent: -1000px;
+	}
+td.editar a:hover {
+	background-image: url(../images/editah.png);
+	}
+td.borrar {
+	width: 20px;
+	}
+td.borrar a:link, td.borrar a:visited {
+	background-image: url(../images/borrar.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	width: 18px;
+	height: 18px;
+	text-indent: -1000px;
+	}
+td.borrar a:hover {
+	background-image: url(../images/borrarh.png);
+	}
+td.pdf {
+	width: 20px;	
+	}
+td.pdf a:link, td.pdf a:visited {
+	background-image: url(../images/pdf.png);
+	background-repeat: no-repeat;
+	background-position: 0px;
+	display: block;
+	width: 18px;
+	height: 18px;
+	text-indent: -1000px;
+	}
+td.pdf a:hover {
+	background-image: url(../images/pdfh.png);
+	}
+td.veure {
+	width: 20px;	
+	}
+td.veure a:link, td.veure a:visited {
+	background-image: url(../images/veure.png);
+	background-repeat: no-repeat;
+	background-position: 0px;
+	display: block;
+	width: 18px;
+	height: 18px;
+	text-indent: -1000px;
+	}
+td.veure a:hover {
+	background-image: url(../images/veureh.png);
+	}
+li.fitxa a:link, li.fitxa a:visited {
+	background-image: url(../images/pdf.png);
+	background-repeat: no-repeat;
+	background-position: 0px;
+	display: block;
+	float: left;
+	width: 18px;
+	height: 18px;
+	text-indent: -1000px;
+	}
+li.fitxa a:hover {
+	background-image: url(../images/pdfh.png);
+	}
+/* això només funx amb navegadors mosk (mozilla opera safari konkeror) */	
+tr:hover {
+	background-color: #EFEFEF;
+	}
+/* fi tabular data */
+#quatre.tabla {
+	padding: 0px 0px;
+	margin-top: 0px;
+}
+
+
+/* Llista d'aules */
+/* #prgformacio .opciones {
+	width: 60px;
+}*/
+.opciones {
+	width: 40px;
+}
+.logo {
+	width: 24px;
+}
+.logo img {
+	width: 16px;
+	height: 16px;
+}
+.imagelogo {
+	width: 16px;
+	height: 16px;
+}
+
+/* llegenda */
+.llegenda {
+	background-color: #EFEFEF;
+	color: #00256B;
+	font-size: 9px;
+	text-align: right;
+	vertical-align: middle;
+	padding: 3px;
+}
+td.llegenda {
+	border-bottom: none;
+	padding-left: 0;
+}
+.llegenda img {
+	margin: 0 5px 0 10px;
+	vertical-align: middle;
+}
+
+/* paginador */
+#paginador {
+	border: 1px solid #CCC;
+	background-color: #DFDFDF;
+	font-size: 10px;
+	color: #777;
+	text-align: center;
+	/* float: left; */
+	_width: 100%;
+	/* min-height: 18px;*/
+	padding: 1px 0;
+	/* border-top: 5px solid #FFF;*/
+	vertical-align: middle;
+	margin: 0 0 10px 0;
+}
+
+#paginador * {
+	display: inline;
+}
+#paginador input {
+	/* border: 1px solid #00216B; */
+	font-weight: bold;
+	/* color: #; */
+	text-align: center;
+	margin: 0 5px 0 10px;
+}
+#paginador a {
+	color: #777;
+	text-decoration: none;
+}
+#paginador span {
+	padding: 2px 5px 0 0;
+}
+#paginador span.npagines {
+	font-weight: bold;
+}
+
+/* avisos i notes */
+.nota {
+	margin: 0 0 10px 0;
+}
+.avis {
+	/* color: #CC6633;
+	background: transparent url(../images/avisInfo.png) no-repeat 0 0; */
+	color: #700;
+	font-weight: bold;
+}
+fieldset .avis {
+	padding: 15px 0;
+}
+
+/* distribució */
+.left {
+	text-align: left;
+}

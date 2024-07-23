@@ -1,0 +1,53 @@
+package lopicost.spd.struts.helper;
+
+import java.util.*;
+
+import lopicost.spd.persistence.ExtReDAO;
+
+/**
+ 
+ *Logica de negocio 
+ */
+public class ExtReHelper {
+
+
+	private final static String cLOGGERHEADER = "ExtReHelper: ";
+	private final String cLOGGERHEADER_ERROR = cLOGGERHEADER + "ERROR: ExtReHelper: ";
+
+
+	/**
+	 * 
+	 * @param spdUsuario
+	 * @return
+	 * @throws Exception
+	 */
+	
+	public static List getDatosProcesoCaptacion(String spdUsuario)throws Exception {
+		return ExtReDAO.getDatosProcesoCaptacion(spdUsuario);
+		}
+
+	
+	public static List getCipsSinProcesarTrat(String spdUsuario, String idDivisionResidencia)throws Exception {
+		return ExtReDAO.getCipsSinProcesarTrat(spdUsuario, idDivisionResidencia);
+		}
+	
+	public static List getCipsSinProcesarPendientes(String spdUsuario, String idDivisionResidencia)throws Exception {
+		return ExtReDAO.getCipsSinProcesarPendientes(spdUsuario, idDivisionResidencia);
+		}
+	
+
+	
+		
+}
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	

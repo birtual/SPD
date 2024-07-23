@@ -1,0 +1,55 @@
+<%@ page  import="java.util.ResourceBundle" %>
+<%@ page  import="java.text.SimpleDateFormat" %>
+<%@ page  import="java.util.Hashtable" %>
+<%@ page  import="java.util.Enumeration" %>
+<%@ taglib uri="/WEB-INF/dbforms.tld" prefix="db"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	<%! 
+	//Rutinilla para pillar literales
+	public static ResourceBundle literals=null;
+	public static String getString(String literal){
+		try{
+			if( literals==null ) literals = ResourceBundle.getBundle("dbFormsLiterals");
+			return literals.getString(literal);
+		}catch(Exception e){
+			return "!["+literal+"]";
+		}
+	}
+%>
+<html>
+<head>
+<script language="JavaScript" type="text/javascript" src="IFrame.js"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Cross-Browser Rich Text Editor</title>
+
+<style type="text/css">
+.btnImage {cursor: pointer; cursor: hand;}
+</style>
+
+</head>
+<body>
+
+<script>
+
+
+var text = new richText('edit','<%=getString("pathImagenes")%>');
+text.setValue(opener.<%=request.getParameter("getFunction")%>());
+text.crearIFrame();
+text.crear();
+
+</script>
+
+<table>
+<tr>
+<td>
+<a href="javascript:opener.<%=request.getParameter("setFunction")%>(text.getValue());self.close();"><%=getString("guardar")%></a>
+</td>
+<td>
+<a href="javascript:self.close();"><%=getString("tancar")%></a>
+</td>
+</tr>
+<table>
+
+</body>
+</html>

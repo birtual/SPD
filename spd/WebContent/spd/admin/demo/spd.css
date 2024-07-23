@@ -1,0 +1,36 @@
+
+
+table td {
+	padding: 0 10px;
+	vertical-align: middle;
+}
+thead th.seleccio { 
+	width: 160px;
+}
+.firstField {
+	padding: 0;
+}
+.firstField a,
+.firstField div {
+	display: block;
+	padding: 15px 10px 15px 25px;
+	height: 100%;
+}
+.firstField a.obrir {
+	background: url(../../img/common/obrir.png) no-repeat 5px 17px;
+}
+.firstField a.tancar {
+	background: url(../../img/common/tancar.png) no-repeat 5px 17px;
+}
+.level2 .firstField a,
+.level2 .firstField div {
+	border-left: 15px solid #FFF;
+}
+.level3 .firstField a,
+.level3 .firstField div {
+	border-left: 30px solid #FFF;
+}
+.level4 .firstField a,
+.level4 .firstField div {
+	border-left: 45px solid #FFF;
+}

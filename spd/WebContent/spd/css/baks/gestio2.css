@@ -1,0 +1,266 @@
+@import url("pestanyes.css");
+@import url("assistent.css");
+
+body {
+	background-color: #fff;
+	color: #666;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.7em;
+	}
+
+/* caixa blava */
+	
+div#caixa {
+	background-color: #abd2e2;
+	}
+
+div#titol {
+	float: right;
+}
+
+	
+div#caixa h2 {
+	color: #F1F7FA;
+	margin: 0px;
+	padding: 0px 18px;
+	text-align: right;
+	font-size: 1.5em;
+	font-family: "Trebuchet MS" ,Verdana, Arial, Helvetica, sans-serif;
+	}
+	
+div#contingut {
+	padding: 5px 15px 10px 15px;
+	/*margin-top: 30px;*/
+	}	
+
+div#fonslt {
+	background-image: url(../images/corn_lt.png);
+	background-repeat: no-repeat;
+	width: 10px;
+	height: 10px;
+	float: left;
+	}
+
+div#fonsrt {
+	background-image: url(../images/corn_rt.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	/*width: 10px;*/
+	height: 10px;
+	}
+
+div#fonslb {
+	background-image: url(../images/corn_lb.png);
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	width: 10px;
+	height: 10px;
+	float: left;
+	}
+
+div#fonsrb {
+	background-image: url(../images/corn_rb.png);
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	/*width: 10px;*/
+	height: 10px;
+	}
+	
+/* fi caixa blava */
+
+/* caixa blanca */
+	
+div#caixa2 {
+	background-color: #fff;
+	display: block;
+	clear: both;
+	}
+
+div#datos {
+	padding: 15px;
+	}
+
+div#fonslt2 {
+	background-image: url(../images/corn_lt2.png);
+	background-repeat: no-repeat;
+	width: 10px;
+	height: 10px;
+	float: left;
+	}
+
+div#fonsrt2 {
+	background-image: url(../images/corn_rt2.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	height: 10px;
+	}
+
+div#fonslb2 {
+	background-image: url(../images/corn_lb2.png);
+	background-repeat: no-repeat;
+	background-position: bottom;
+	width: 10px;
+	height: 10px;
+	float: left;
+	}
+
+div#fonsrb2 {
+	background-image: url(../images/corn_rb2.png);
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	/*width: 10px;*/
+	height: 10px;
+	}
+	
+/* fi caixa blanca */
+
+
+
+/* formulari */
+
+
+div#formdata{
+	background-color: transparent;
+	}
+
+fieldset{
+	padding: 15px 15px 0px 15px;
+	margin: 0px 2px 10px 2px;
+	border: 1px solid #abd2e2;
+	}
+	
+fieldset div {
+	text-align: right;
+	width: 49%;
+	float: left;
+	padding: 10px 0px;
+	}
+
+fieldset div#unico {
+	text-align: right;
+	width: 70%;
+	float: left;
+	padding: 10px 0px;
+	}
+	
+legend{
+	color: #666;
+	font-weight: bold;
+	text-align: center;
+	padding: 0px 5px;
+	}
+
+textarea{
+	height: 200px;
+	width: 200px;
+	background-color: #fff;
+	vertical-align: top;
+	border: 1px solid #abd2e2;
+	}
+input, select {
+	margin: 3px;
+	background-color: #fff;
+	border: 1px solid #abd2e2;
+	vertical-align: middle;
+	font-size: 0.9em;
+	}
+
+label {
+	vertical-align: middle;
+	}
+	
+button{
+	color: #333;
+	background-color: #F1F7FA;
+	border: 1px solid #abd2e2;
+	font-size: 0.95em;
+	font-weight: bold;
+	cursor: pointer;
+	}
+
+
+#filtrar,.dreta {
+	float: right;	
+	margin-right: 3px;
+	margin-top: 7px;
+	margin-bottom: 5px;
+	}
+
+#nuevo, #salvar, .bdreta {
+	float: right;
+	margin-right: 20px;
+	border: 1px solid #89B6D3;
+	}
+
+.ocult { /* per no mostrar el label */
+	display: none;
+	}
+
+/* tabula data */
+table {
+	width: 100%;
+	}
+
+th {
+	border: 1px solid #abd2e2;
+	padding: 2px 10px;
+	text-align: left;
+	background-color: #F1F7FA;
+	}
+
+td {
+	border: 1px solid #abd2e2;
+	padding: 2px 10px;
+	}
+
+td a span {
+	display: none;
+	}
+
+td.editar {
+	width: 12px;	
+	}
+	
+td.editar a:link, td.editar a:visited {
+	background-image: url(../images/edita.png);
+	background-repeat: no-repeat;
+	background-position: 0px;
+	display: block;
+	width: 10px;
+	height: 11px;
+	}
+td.editar a:hover {
+	background-image: url(../images/editah.png);
+	background-repeat: no-repeat;
+	background-position: 0px;
+	display: block;
+	width: 10px;
+	height: 11px;
+	}
+
+td.borrar {
+	width: 10px;
+	}
+	
+td.borrar a:link, td.borrar a:visited {
+	background-image: url(../images/borrar.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	width: 10px;
+	height: 11px;
+	}
+td.borrar a:hover {
+	background-image: url(../images/borrarh.png);
+	background-repeat: no-repeat;
+	background-position: 0px;
+	display: block;
+	width: 10px;
+	height: 11px;
+	}
+
+/* això només funx amb navegadors mosk (mozilla opera safari konkeror) */	
+tr:hover {
+	background-color: #F1F7FA;
+	}
+/* fi tabular data */

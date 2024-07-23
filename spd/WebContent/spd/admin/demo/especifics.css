@@ -1,0 +1,378 @@
+/* conté els estils específics de certs aplicatius, normalment distingits per un id al body */
+/* modalitat dels cursos */
+.libre {
+	font-weight: bold;
+	font-size: 9px;
+	color: #009900;
+	display: inline;
+}
+.preinscribible {
+	font-weight: bold;
+	font-size: 9px;
+	color: #FF6600;
+	display: inline;
+}
+.solicitable {
+	font-weight: bold;
+	font-size: 9px;
+	color: #003399;
+	display: inline;
+}
+.nou {
+	color: #A42C30;
+	font: bold 9px Trebuchet MS, Arial, sans-serif;
+	text-transform: uppercase;
+}
+#comboVirtagora {
+	margin: 0 0 0 7px;
+}
+#comboVirtagora form {
+	padding: 0 3px;
+	height: 25px;
+	background: #FFF url(../images/fons_menu2.png) repeat-x 0 0;
+}
+#comboVirtagora form select {
+	font: normal 10px Verdana,Arial,sans-serif;
+	color: #000;
+	margin: 3px 0;
+	background-color: #fff;
+	vertical-align: middle;
+	
+}
+
+/* la meva formació */
+#listadoaulas #prgformacio.datos  {
+	padding-bottom: 20px;
+	}
+/*#listadoaulas th {
+	background-color: #FFF;
+	padding: 1px 5px;
+}*/
+#listadoaulas #prgformacio  th.opciones {
+	width: 25px;
+}
+#listadoaulas  p {
+	margin: 0;
+	padding: 0 0 10px 0;
+}
+
+
+#detallePrograma #contingut {
+	border-top-width: 3px;
+}
+#detallePrograma #programa.datos h2 {
+	background-color: #4C6697;
+	font: bold 12px Georgia, Arial;
+	color: #FFF;
+	padding: 5px;
+	margin: 0 0 10px 0;
+	border-bottom: 1px solid #FFF;
+	border-right: 1px solid #FFF;
+	text-align: left;
+}
+#detallePrograma #programa.datos h2 strong {
+	margin-right: 5px;
+}
+#detallePrograma #programa.datos h2 .opciones {
+	float: right;
+}
+#detallePrograma #programa.datos .graella {
+	margin-bottom: 10px;
+}
+#detallePrograma #programa.datos caption {
+	background-color: #8194B6;
+	font: normal 11px Arial;
+}
+#detallePrograma #programa.datos caption strong {
+	margin-right: 5px;
+	font-weight: bold;
+}
+
+
+/* catalàleg */
+/* #catalog h2 {
+	padding: 10px 10px 0 10px;
+	margin: 0;
+	background-color: #FFF;
+	
+}*/
+#catalog fieldset {
+	padding: 4px 4px 0 4px;
+	float: none;
+}
+#catalog fieldset p {
+	float: left;
+	clear: none;
+	width: auto;
+	padding: 0 0 0 10px;
+	white-space: nowrap;
+	_height: 25px;
+	}
+#catalog fieldset label {
+	/* font: bold 10px Verdana;*/
+	width: auto;
+	padding: 5px 2px 3px 2px;
+	margin: 0 5px 5px 0;
+	border-bottom: none;
+	}
+#catalog #capaAccions th {
+	background-color: #FFF;
+	/*padding: 1px 5px;*/
+}
+/*#catalog #capaAccions .imagelogo {
+	width: 16px;
+	height: 16px;
+}*/
+#catalog #capaAccions th.logo {
+	width: 26px;
+}
+#catalog #capaAccions td {
+	
+}
+#catalog .tornar {
+	float: right;
+	margin: 0;
+	padding: 5px 0 0 0;
+}
+	
+#catalog .tornar .clsButtonStyle {
+	border: none;
+	background: transparent url(../images/tornar.gif) no-repeat 0 3px;
+	padding: 0 0 0 15px;
+	margin: 0;
+	cursor: pointer;
+	color: #00256B;
+}
+
+#catalog #capaResultats h3 {
+	font: bold 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	background: #DFE0D2 /* url(../images/diagonal.png) no-repeat right top */; 
+	border: 1px solid #CCCCCA;
+	border-width: 1px 1px 0 1px;
+	color: #000;
+	padding: 5px 10px;
+	float: left;
+	margin: 0;
+}
+#catalog #capaResultats #resultats {
+	border-top: 1px solid #A2A39E;
+	border-bottom: 1px solid #A2A39E;
+	padding: 0;
+	clear: both;
+	_width: 100%;
+	background: #FFF;
+	
+}
+#catalog #capaResultats #resultats ul {
+	list-style: none;
+	margin: 0;
+	padding: 10px 0;
+	background: #F6F6F6;
+	min-height: 190px;
+	_height: 190px;
+}
+#catalog #capaResultats #resultats li {
+	padding: 5px 10px;
+}
+#catalog #capaResultats #resultats li.acces {
+	float: right;
+	width: 285px;
+	padding: 0;
+	margin: 20px;
+	_margin: 15px 10px;
+	background: #FFF;
+	min-height: 150px;
+	_height: 150px;
+	border: 1px solid #A2A2A2;
+	border-width: 1px 0;
+}
+
+#catalog #capaResultats #resultats li.acces h4 {
+	font: bold 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	color: #000;
+	margin: 0;
+	padding: 10px 10px 100px 10px;
+	background: #FFF  url(../images/solicitudAcces.jpg) no-repeat bottom;
+}
+#catalog #capaResultats #resultats li.acces p {
+	padding: 10px;
+	margin: 0;
+}
+#catalog #capaResultats #resultats li.acces p a {
+	font-weight: bold;
+	text-decoration: underline;
+}
+#catalog #capaResultats #resultats li.url  {
+	background: #FFF url(../images/libreAcces.jpg) no-repeat center -10px;
+}
+#catalog #capaResultats #resultats li.url p {
+	border: 1px solid #A2A2A2;
+	border-width: 0 0 1px 0;
+	margin: 0;
+	padding: 20px;
+	text-align: center;
+	background-color: #FFF;
+}
+#catalog #capaResultats #resultats li.url p a {
+	float: none;
+	text-decoration: none;
+}
+#catalog #capaResultats #resultats li.editiongrup {
+	width: 400px;
+	background: #EFEEE9;
+	border: 1px solid #A2A39E;
+	border-width: 1px 0;
+}
+#catalog #capaResultats #resultats li.editiongrup table {
+	border-top: 1px dotted #A2A2A2;
+	border-bottom: 1px dotted #A2A2A2;
+}
+#catalog #capaResultats #resultats li.editiongrup table td {
+	background: #FFF;
+	border: none;
+	/*border-bottom: 1px dotted #8D9EBD;*/
+	padding: 4px 1px; 
+}
+#catalog #capaResultats #resultats li.editiongrup table td.on {
+	padding-left: 10px;
+}
+#catalog #capaResultats #resultats li.editiongrup table a {
+	text-decoration: underline;
+	font-weight: normal;
+}
+#catalog #capaResultats #resultats li.editiongrup table tr.selec td {
+	font-weight: bold;
+}
+#catalog #capaResultats #resultats li.editiongrup table tr.selec td a {
+	font-weight: bold;
+}
+#catalog #capaResultats #resultats li.fitxa a:link, #catalog #capaResultats #resultats li.fitxa a:visited {
+	background-image: none;
+	display: inline;
+	float: none;
+	width: auto;
+	height: auto;
+	text-indent: 0;
+	}
+
+#catalog #capaResultats #resultats li.fitxa a:hover {
+	background-image: none;
+	}
+
+
+/* oferta formativa */
+#ofertaformativa {
+	margin: 0;
+	padding: 0;
+	overflow: auto;
+}
+#ofertaformativa h2 {
+	background: #4C6697;
+	font: bold 12px Arial, Helvetica, sans-serif;
+	color: #FFF;
+	padding: 3px 5px;
+	margin: 0 0 10px 0;
+}
+#ofertaformativa .graella td {
+	border: none;
+	border-bottom: 1px dotted #8D9EBD;
+	padding: 4px;
+	background-color: transparent;
+}
+#ofertaformativa .graella td .llistat {
+	background: none;
+}
+#ofertaformativa #accesCursos {
+	background: #EBEBEB;
+	padding: 0 4px 5px 4px;
+	text-align: right;
+}
+#ofertaformativa #accesCursos a {
+	font-size: 9px;
+}
+
+#resourcesData #contingut {
+	padding: 10px;
+}
+#resourcesData fieldset {
+	padding: 20px;
+	margin-bottom: 10px;
+}
+#resourcesData fieldset p {
+	padding: 5px 0;
+	margin: 0;
+}
+#resourcesData fieldset p.nota {
+	padding: 20px;
+	text-align: left;
+}
+#resourcesData .botons {
+	padding: 0;
+}
+
+#studentNew label {
+	padding-top: 0;
+	width: 200px;
+}
+#studentNew fieldset p {
+	float: left;
+}
+#studentNew fieldset p .clsButtonStyle {
+	margin-left: 5px;
+}
+
+#resourcesDetailCentersList fieldset {
+	margin-top: 10px;
+}
+#resourcesDetailCentersList fieldset h3 {
+	color: #5981C8;
+	font: bold 12px Georgia, Arial, Verdana;
+	margin: 0;
+	padding: 0;
+}
+#resourcesDetailAvailabilityList fieldset p label {
+	clear: none;
+	float: none;
+}
+html > body#resourcesDetailAvailabilityList fieldset p * {
+	float: left;
+}
+html > body#resourcesDetailAvailabilityList fieldset  p input {
+	margin-top: 3px;
+}
+html > body#resourcesDetailAvailabilityList fieldset p span {
+	margin: 8px 0 0 5px;
+}
+#resourcesDetailAvailabilityList fieldset p {
+	clear: left;
+}
+#resourcesDetailAvailabilityList fieldset span {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#coursesDetailActivitiesList .botons {
+	padding-top: 10px;
+}
+#courseDetailDataActivity .contenedor p {
+	text-align: left;
+}
+#courseDetailDataActivity  h5 {
+	margin-bottom: 0;
+	padding-bottom: 5px;
+}
+#courseDetailDataActivity  .contenedor {
+	width: 90%;
+}
+
+#coursesDetailRequiredResources .nota {
+	margin-bottom: 0;
+}
+#OccupationStudentNew #unico {
+	width: 90%;
+}
+#dataConversionInitStudents label {
+	width: 180px;
+}
+#dataConversionInitStudents #unico {
+	width: 95%;
+}

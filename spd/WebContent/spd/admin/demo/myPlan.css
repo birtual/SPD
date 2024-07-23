@@ -1,0 +1,136 @@
+/* CSS Document */
+body {
+	margin: 0;
+	padding: 5px 10px;
+}
+p#accionesFormativas {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #999;
+	margin: 0 0 5px 0;
+	padding: 0;
+}
+p#accionesFormativas select{
+	border: 1px solid #999;
+	font-size: 10px;
+}
+a#actualizarPag {
+	position: absolute;
+	right: 30px;
+	top: 40px;
+	_top: 55px;
+	color: #999;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	background-image: url(../../sga/myplan/img/reload.gif);
+	background-position: bottom right;
+	background-repeat: no-repeat;
+	padding: 0 15px 3px 0px;
+}
+h1 {
+	margin: 7px 0 10px 0;
+	padding: 3px 5px;
+	color: #999;
+	font-size: 10px;
+	font-size: 20px;
+	text-transform: none;
+	font-family: "Trebuchet MS", Verdana, Arial;
+	border-bottom: 1px solid #fff;
+}	
+table {
+	background: #999;
+	color: #fff;
+	border: 1px solid #fff;
+	border-color: #fff #fff #fff #fff;
+	padding: 2px 5px;
+	text-decoration: none;
+	font: 1em Verdana, Arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+table tbody tr td {
+	padding: 3px;
+	margin: 0;
+	font-weight: normal;
+	text-align: center;
+	vertical-align: text-top;
+}
+table caption {
+	padding: 3px 5px;
+	margin:0px;
+	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 13px;
+	color: #fff;
+	background-color: #999;
+	border-right: 1px solid #fff;
+	border-left: 1px solid #fff;
+	border-top: 1px solid #fff;
+	text-align: left;	
+}
+table thead tr th {
+	font-family: Arial, Verdana, sans-serif;
+	background-color: #999;
+	color: #fff;
+	font-weight: normal;
+	text-align: center;
+	_border-left: 1px solid #fff;
+}
+
+table tbody tr td {
+	font-size: 10px;
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	color: #000;
+	_border-left: 1px solid #fff;
+}
+table tbody tr td.taleft {
+	text-align: left;
+}
+table tbody tr td a {
+	font-size: 11px;
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	color: #006388;
+	font-weight: bold;
+}
+table tbody tr td a:hover {
+	color: #ff0000;
+}
+table td.iniciado {
+	height: 14px;
+	background-image: url(../../sga/myplan/img/enCurso.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+table td.noIniciado {
+	height: 14px;
+	background-image: url(../../sga/myplan/img/noIniciado.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+table td.finalizado {
+	height: 14px;
+	background-image: url(../../sga/myplan/img/finalizado.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.leyenda {
+	background-color: #fff;
+	border: 1px solid #999;
+	margin: 10px 0;
+	padding: 0;
+}
+.leyenda p {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 10px;
+	margin: 0;
+	padding: 5px;
+}
+.leyenda .tituloLeyenda {
+	
+	color: #000;
+	font-weight: bold;
+}
+table{
+	margin: 10px 0;
+}

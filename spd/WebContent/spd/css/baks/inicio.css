@@ -1,0 +1,33 @@
+/* Estilos de la página de login e inicio*/
+
+    /* Estilo para divs con id específicos */		
+    div[id="Pacientes"],		
+    div[id="Pañales"],		
+    div[id="Recetas"],		
+    div[id="Pedidos"],		
+    div[id="Producciones"],		
+    div[id="Admin"],		
+    div[id="AdminTest"],		
+    div[id="-"] {		
+      width: 50%; /* Anchura del div al 70% del ancho de la ventana */		
+      border: 0.3em solid #0077cc; /* Borde para los divs específicos */		
+      border-radius: 1em; /* Bordes redondeados para los divs específicos */		
+      padding: 1em; /* Relleno para los divs específicos */		
+      margin: 0.6em auto; /* Margen para separar y centrar los divs específicos horizontalmente */		
+    }		
+
+    /* Estilo para el texto del título */
+    div[id="Pacientes"] .titulo,
+    div[id="Pañales"] .titulo,
+    div[id="Recetas"] .titulo,
+    div[id="Pedidos"] .titulo,
+    div[id="Producciones"] .titulo,
+    div[id="Admin"] .titulo,
+    div[id="AdminTest"] .titulo,
+    div[id="-"] .titulo {
+      font-size: 1.3em; /* Tamaño de fuente para el título */
+      font-weight: bold; /* Texto en negrita para el título */
+      color: #0077cc; /* Color del texto para el título */
+      margin-bottom: 0.5em; /* Margen inferior para separar el título del contenido */
+    }
+

@@ -1,0 +1,378 @@
+body {
+	background-color: #fff;
+	color: #666;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+	}
+
+/* caixa blava */
+	
+div#caixa {
+	background-color: #abd2e2;
+	margin-left: 180px;
+	}
+
+div#head {
+	background-color: #abd2e2;
+	margin: 0px 0px 10px 0px;
+	}
+
+div#head div#contingut {
+	background-image: url(../images/logos.png);
+	background-repeat: no-repeat;
+	background-position: 15px;
+	height: 40px;	
+	}
+	
+	
+div#contingut {
+	padding: 0px 15px 15px 15px;
+	/*margin-top: 30px;*/
+	}	
+
+div#fonslt {
+	background-image: url(../images/corn_lt.png);
+	background-repeat: no-repeat;
+	width: 10px;
+	height: 10px;
+	float: left;
+	}
+
+div#fonsrt {
+	background-image: url(../images/corn_rt.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	/*width: 10px;*/
+	height: 10px;
+	}
+
+div#fonslb {
+	background-image: url(../images/corn_lb.png);
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	width: 10px;
+	height: 10px;
+	float: left;
+	}
+
+div#fonsrb {
+	background-image: url(../images/corn_rb.png);
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	/*width: 10px;*/
+	height: 10px;
+	}
+	
+/* fi caixa blava */
+
+/* caixa blanca */
+	
+div#caixa2 {
+	background-color: #fff;
+	display: block;
+	clear: both;
+	}
+
+.si {
+	padding: 15px;
+	}
+
+.no {
+	display: none;
+	}	
+
+div#fonslt2 {
+	background-image: url(../images/corn_lt2.png);
+	background-repeat: no-repeat;
+	width: 10px;
+	height: 10px;
+	float: left;
+	}
+
+div#fonsrt2 {
+	background-image: url(../images/corn_rt2.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	height: 10px;
+	}
+
+div#fonslb2 {
+	background-image: url(../images/corn_lb2.png);
+	background-repeat: no-repeat;
+	background-position: bottom;
+	width: 10px;
+	height: 10px;
+	float: left;
+	}
+
+div#fonsrb2 {
+	background-image: url(../images/corn_rb2.png);
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	/*width: 10px;*/
+	height: 10px;
+	}
+	
+/* fi caixa blanca */
+
+
+/* pestanyes */
+
+#pestanyes {
+	margin: 10px 0px 0px 25px;
+	font-size: 0.9em;
+	line-height: normal;
+	}
+#pestanyes ul {
+	margin: 0px;
+	padding: 5px 5px;
+	list-style: none;
+	}
+#pestanyes li {
+	display: inline;
+	margin: 0px;
+	padding: 0px;
+	}
+#pestanyes a {
+	float: left;
+	background: url("../images/left_both.png") no-repeat left top;
+	margin: 0px 3px 0px 0px;
+	padding: 0px 0px 0px 9px;
+	text-decoration: none;
+	}
+#pestanyes a span {
+	float: left;
+	display: block;
+	background: url("../images/right_both.png") no-repeat right top;
+	padding: 3px 15px 2px 6px;
+	font-weight: bold;
+	color: #fff;
+	}
+
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+#pestanyes span {float:none;}
+/* End IE5-Mac hack */
+	
+#pestanyes a:hover span {
+	color:#333;
+	}
+#pestanyes .current a {
+	background-position:0 -150px;
+	border-width:0;
+	}
+#pestanyes .current a span {
+	background-position:100% -150px;
+	padding-bottom:3px;
+	color:#333;
+	}
+#pestanyes a:hover {
+	background-position:0% -150px;
+	}
+#pestanyes a:hover span {
+	background-position:100% -150px;
+	}
+		
+/* fi pestanyes */
+
+
+/* menu */
+
+div#caixamenu {
+	background: url("../images/menublau.png") no-repeat;
+	float: left;
+	background-color: #abd2e2;
+	width: 160px;
+	}
+div#caixamenu2 {
+	background: url("../images/menublau2.png") no-repeat bottom;
+	width: 160px;
+	height: 7px;
+	}
+div#caixamenub {
+	background: url("../images/menublanc.png") no-repeat;
+	background-color: #fff;
+	display: block;
+	margin: 10px 10px 3px 10px;
+	}
+div#caixamenub2 {
+	background: url("../images/menublanc2.png") no-repeat bottom;
+	background-color: #F1F7FA;
+	width: 140px;
+	height: 13px;
+	border-top: 2px solid #fff;
+	margin: 0px;
+	padding: 0px;
+	}
+
+	
+ul#menu{
+	margin: 0px;
+	padding: 11px 0px 0px 0px;
+	font-size: 0.8em;
+	}
+
+ul#menu ul{
+	width: 10em;
+	margin: 0px;
+	padding: 0px;
+	}
+
+ul#menu a{
+	color: #89c0d6;
+	font-weight: bold;
+	display:block;
+	background-color: #F1F7FA;
+	text-decoration:none;
+	border-top: 2px solid #fff;
+	margin: 0px;
+	padding: 2px 2px 2px 6px;
+    }
+
+ul#menu ul a{
+	width: 118px;
+	background-color: #FCFEFE;
+	margin: 0px;
+	padding: 2px 2px 2px 20px;
+	background-image: url(../images/ico_menu_n2.png);
+	background-repeat: no-repeat;
+	background-position: 6px 5px;
+	}
+    
+ul#menu a:hover{
+    background-color: #89c0d6;
+    color:#fff;
+    }
+
+/* hide some accessibility stuff */
+
+#menu span {
+	display: none;
+	}
+
+#menu li{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:inline;
+    }
+
+body {
+	margin: 0 7px 7px 10px;
+	padding: 0;
+	font: normal 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	color: #000;
+	background-color: #FFF;
+	overflow: auto;
+}
+td {
+	font: normal 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+a {
+	color: #844222;
+	text-decoration: none;
+}
+h1 {
+	color: #5981C8;
+	font: bold 22px Arial, Verdana;
+	margin: 0;
+	padding: 0 0 10px 0 ;
+}
+h1 .h1 {
+	color: #00256B;
+}
+button {
+	margin: 0px;
+	padding: 1px 0;
+	color: #00256B; 
+	background-color: #FFF;
+	border: 1px ridge #00256B;
+	border-bottom-width: 2px;
+	border-right-width: 2px;
+	cursor: pointer;
+}
+input {
+	font: normal 10px Verdana,Arial,sans-serif;
+	color:#000;
+}
+input.boton {
+	margin: 0px;
+	padding: 1px 0;
+	color: #00256B; 
+	background-color: #FFF;
+	border: 1px ridge #00256B;
+	border-bottom-width: 2px;
+	border-right-width: 2px;
+}
+select {
+	font: normal 10px Verdana,Arial,sans-serif;
+	color:#000;
+}
+
+textarea {
+	font: normal 10px Verdana,Arial,sans-serif;
+	color:#000;
+}
+.graella {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0;
+	padding: 0;
+}
+.graella caption {
+	background-color: #4C6697;
+	font: bold 12px Georgia, Arial;
+	color: #FFF;
+	padding: 5px;
+	margin: 0 0 3px 0;
+	text-align: left;
+}
+.graella td {
+	border-bottom: 1px dashed #D8D8D8;
+	padding: 4px;
+}
+.llegenda {
+	background-color: #EFEFEF;
+	color: #00256B;
+	font-size: 9px;
+	text-align: right;
+	vertical-align: middle;
+	padding: 3px;
+}
+td.llegenda {
+	border-bottom: none;
+	padding-left: 0;
+}
+.llegenda img {
+	margin: 0 5px 0 10px;
+	vertical-align: middle;
+}
+.llistat {
+	background: transparent url(../images/li.gif) no-repeat 0 5px;
+}
+#ofertaformativa {
+	width: 100%;
+}
+#ofertaformativa h2 {
+	background-color: #4C6697;
+	font: bold 12px Georgia, Arial;
+	color: #FFF;
+	padding: 5px;
+	margin: 0 0 3px 0;
+	text-align: left;
+}
+#ofertaformativa .graella a {
+	padding: 0 0 0 10px;
+}
+#ofertaformativa td.nou {
+	width: 5px;
+	text-align: right;
+	margin: 0;
+	padding: 0;
+}
+#ofertaformativa td.tipus {
+	width: 5px;
+	padding-right: 0;
+	text-align: right;
+}
+	 
+/* fi menu */

@@ -1,0 +1,781 @@
+		<form-validation>
+   <formset>
+      <form name="CALENDAR">
+         <field depends="required" property="IDCALENDAR">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CALENDAR_IDCALENDAR" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMECALENDAR">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CALENDAR_NAMECALENDAR" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="CALENDARRANGENOHABIL">
+         <field depends="required" property="OIDCALENDAR">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CALENDARRANGENOHABIL_OIDCALENDAR" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="CALENDARRANGE">
+         <field depends="required" property="OIDCALENDAR">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CALENDARRANGE_OIDCALENDAR" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="CENTER">
+         <field depends="required" property="IDCENTER">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CENTER_IDCENTER" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMECENTER">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CENTER_NAMECENTER" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="LEARNINGCENTER">
+         <field depends="required" property="IDLEARNINGCENTER">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="LEARNINGCENTER_IDLEARNINGCENTER" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMELEARNINGCENTER">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="LEARNINGCENTER_NAMELEARNINGCENTER" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="ADDRESS">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="LEARNINGCENTER_ADDRESS" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDDISTRICT">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="LEARNINGCENTER_OIDDISTRICT" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="TOWN">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="LEARNINGCENTER_TOWN" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDCALENDAR">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="LEARNINGCENTER_OIDCALENDAR" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="CENTERLEARNINGCENTER">
+         <field depends="required" property="OIDCENTER">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CENTERLEARNINGCENTER_OIDCENTER" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDLEARNINGCENTER">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CENTERLEARNINGCENTER_OIDLEARNINGCENTER" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="LEARNINGCENTERLEARNINGRESOURCE">
+         <field depends="required" property="OIDLEARNINGCENTER">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="LEARNINGCENTERLEARNINGRESOURCE_OIDLEARNINGCENTER" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDLEARNINGRESOURCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="LEARNINGCENTERLEARNINGRESOURCE_OIDLEARNINGRESOURCE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="CLEVEL">
+         <field depends="required" property="IDCLEVEL">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CLEVEL_IDCLEVEL" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMECLEVEL">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CLEVEL_NAMECLEVEL" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="COLLECTIVE">
+         <field depends="required" property="IDCOLLECTIVE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COLLECTIVE_IDCOLLECTIVE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMECOLLECTIVE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COLLECTIVE_NAMECOLLECTIVE" resource="true" name="required"/>
+         </field>
+         <field depends="float" property="WEIGHT">
+            <msg key="WEIGHT expects a float value (approximately 3.4E–38 to 3.4E+38)" resource="false" name="float"/>
+         </field>
+      </form>
+      <form name="COMPETENCE">
+         <field depends="required" property="IDCOMPETENCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COMPETENCE_IDCOMPETENCE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMECOMPETENCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COMPETENCE_NAMECOMPETENCE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="CATALOG">
+         <field depends="required" property="IDCATALOG">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CATALOG_IDCATALOG" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMECATALOG">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CATALOG_NAMECATALOG" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="CATALOGCATEGORY">
+         <field depends="required" property="IDCATEGORY">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CATALOGCATEGORY_IDCATEGORY" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMECATEGORY">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CATALOGCATEGORY_NAMECATEGORY" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="COMPETENCEOCCUPATION">
+         <field depends="required" property="OIDOCCUPATION">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COMPETENCEOCCUPATION_OIDOCCUPATION" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDCOMPETENCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COMPETENCEOCCUPATION_OIDCOMPETENCE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="COMPETENCETYPE">
+         <field depends="required" property="IDCOMPETENCETYPE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COMPETENCETYPE_IDCOMPETENCETYPE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="COURSE">
+         <field depends="required" property="REFCOURSE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COURSE_REFCOURSE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMECOURSE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COURSE_NAMECOURSE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OBJECTIVECOURSE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COURSE_OBJECTIVECOURSE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="CONTENTCOURSE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COURSE_CONTENTCOURSE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDMETHODOLOGY">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COURSE_OIDMETHODOLOGY" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDSTATUS">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COURSE_OIDSTATUS" resource="true" name="required"/>
+         </field>
+         <field depends="float,required" property="HOURSCOURSE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COURSE_HOURSCOURSE" resource="true" name="required"/>
+            <msg key="HOURSCOURSE expects a float value (approximately 3.4E–38 to 3.4E+38)" resource="false" name="float"/>
+         </field>
+         <field depends="float,required" property="STUDENTPRICE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COURSE_STUDENTPRICE" resource="true" name="required"/>
+            <msg key="STUDENTPRICE expects a float value (approximately 3.4E–38 to 3.4E+38)" resource="false" name="float"/>
+         </field>
+         <field depends="float,required" property="HOURPRICE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COURSE_HOURPRICE" resource="true" name="required"/>
+            <msg key="HOURPRICE expects a float value (approximately 3.4E–38 to 3.4E+38)" resource="false" name="float"/>
+         </field>
+      </form>
+      <form name="COURSECATALOGCATEGORY">
+         <field depends="required" property="OIDCATEGORY">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COURSECATALOGCATEGORY_OIDCATEGORY" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDCOURSE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COURSECATALOGCATEGORY_OIDCOURSE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="THEMATICAREA">
+         <field depends="required" property="IDTHEMATICAREA">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="THEMATICAREA_IDTHEMATICAREA" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMETHEMATICAREA">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="THEMATICAREA_NAMETHEMATICAREA" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="DOMAIN">
+         <field depends="required" property="IDDOMAIN">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="DOMAIN_IDDOMAIN" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMEDOMAIN">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="DOMAIN_NAMEDOMAIN" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="DOMAININHERITANCE">
+         <field depends="required" property="OIDDOMAIN">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="DOMAININHERITANCE_OIDDOMAIN" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDINHERITANCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="DOMAININHERITANCE_OIDINHERITANCE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="DOMAINTYPE">
+         <field depends="required" property="IDDOMAINTYPE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="DOMAINTYPE_IDDOMAINTYPE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMEDOMAINTYPE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="DOMAINTYPE_NAMEDOMAINTYPE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="FUNCTION">
+         <field depends="required" property="IDFUNCTION">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="FUNCTION_IDFUNCTION" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMEFUNCTION">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="FUNCTION_NAMEFUNCTION" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="HOURSSTOCK">
+         <field depends="required" property="OIDCENTER">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="HOURSSTOCK_OIDCENTER" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="INHERITANCE">
+         <field depends="required" property="IDINHERITANCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="INHERITANCE_IDINHERITANCE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="INHERITANCETYPE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="INHERITANCE_INHERITANCETYPE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="METHODOLOGY">
+         <field depends="required" property="IDMETHODOLOGY">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="METHODOLOGY_IDMETHODOLOGY" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMEMETHODOLOGY">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="METHODOLOGY_NAMEMETHODOLOGY" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="OCCUPATION">
+         <field depends="required" property="IDOCCUPATION">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="OCCUPATION_IDOCCUPATION" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMEOCCUPATION">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="OCCUPATION_NAMEOCCUPATION" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="OCCUPATIONTYPE">
+         <field depends="required" property="IDOCCUPATIONTYPE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="OCCUPATIONTYPE_IDOCCUPATIONTYPE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="PLAN">
+         <field depends="required" property="IDPLAN">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="PLAN_IDPLAN" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMEPLAN">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="PLAN_NAMEPLAN" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="STATUS">
+         <field depends="required" property="IDSTATUS">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="STATUS_IDSTATUS" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMESTATUS">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="STATUS_NAMESTATUS" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="STUDENT">
+         <field depends="date" property="BIRDDATE">
+            <msg key="BIRDDATE should be formatted as ${var:datePattern}" resource="false" name="date"/>
+            <arg0 key="${var:datePattern}" resource="false" name="date"/>
+            <var>
+               <var-name>datePattern</var-name>
+               <var-value>dd/MM/yyyy</var-value>
+            </var>
+         </field>
+         <field depends="date" property="INITDATE">
+            <msg key="INITDATE should be formatted as ${var:datePattern}" resource="false" name="date"/>
+            <arg0 key="${var:datePattern}" resource="false" name="date"/>
+            <var>
+               <var-name>datePattern</var-name>
+               <var-value>dd/MM/yyyy</var-value>
+            </var>
+         </field>
+         <field depends="date" property="ENDDATE">
+            <msg key="ENDDATE should be formatted as ${var:datePattern}" resource="false" name="date"/>
+            <arg0 key="${var:datePattern}" resource="false" name="date"/>
+            <var>
+               <var-name>datePattern</var-name>
+               <var-value>dd/MM/yyyy</var-value>
+            </var>
+         </field>
+      </form>
+      <form name="OCCUPATIONSTUDENT">
+         <field depends="required" property="OIDOCCUPATION">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="OCCUPATIONSTUDENT_OIDOCCUPATION" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDSTUDENT">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="OCCUPATIONSTUDENT_OIDSTUDENT" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDSTATUS">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="OCCUPATIONSTUDENT_OIDSTATUS" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="SEX">
+         <field depends="required" property="IDSEX">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="SEX_IDSEX" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMESEX">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="SEX_NAMESEX" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="DISTRICT">
+         <field depends="required" property="IDDISTRICT">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="DISTRICT_IDDISTRICT" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMEDISTRICT">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="DISTRICT_NAMEDISTRICT" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="CODEDISTRICT">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="DISTRICT_CODEDISTRICT" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="STUDENTTITLE">
+         <field depends="required" property="IDSTUDENTTITLE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="STUDENTTITLE_IDSTUDENTTITLE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMESTUDENTTITLE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="STUDENTTITLE_NAMESTUDENTTITLE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="STUDENTPLAN">
+         <field depends="required" property="OIDPLAN">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="STUDENTPLAN_OIDPLAN" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDSTUDENT">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="STUDENTPLAN_OIDSTUDENT" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDCENTER">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="STUDENTPLAN_OIDCENTER" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDCOMPETENCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="STUDENTPLAN_OIDCOMPETENCE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDOCCUPATION">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="STUDENTPLAN_OIDOCCUPATION" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDCOURSE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="STUDENTPLAN_OIDCOURSE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="ACTIVITY">
+         <field depends="required" property="IDACTIVITY">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="ACTIVITY_IDACTIVITY" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDACTIVITYTYPE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="ACTIVITY_OIDACTIVITYTYPE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="ACTIVITYTYPE">
+         <field depends="required" property="IDACTIVITYTYPE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="ACTIVITYTYPE_IDACTIVITYTYPE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMEACTIVITYTYPE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="ACTIVITYTYPE_NAMEACTIVITYTYPE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="BACKGROUND_COLOR">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="ACTIVITYTYPE_BACKGROUND_COLOR" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="TEXT_COLOR">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="ACTIVITYTYPE_TEXT_COLOR" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="CAUSE">
+         <field depends="required" property="IDCAUSE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CAUSE_IDCAUSE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="DESCRIPTIONCAUSE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CAUSE_DESCRIPTIONCAUSE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="COMPETENCELEVEL">
+         <field depends="required" property="OIDCOMPETENCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COMPETENCELEVEL_OIDCOMPETENCE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDCLEVEL">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COMPETENCELEVEL_OIDCLEVEL" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="COMPETENCECAPACITY">
+         <field depends="required" property="OIDCOMPETENCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COMPETENCECAPACITY_OIDCOMPETENCE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDCLEVEL">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COMPETENCECAPACITY_OIDCLEVEL" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="CAPACITY">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COMPETENCECAPACITY_CAPACITY" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="COMPETENCELEVELCOURSE">
+         <field depends="required" property="OIDCOMPETENCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COMPETENCELEVELCOURSE_OIDCOMPETENCE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDCLEVEL">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COMPETENCELEVELCOURSE_OIDCLEVEL" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDCOURSE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COMPETENCELEVELCOURSE_OIDCOURSE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="TYPERESOURCE">
+         <field depends="required" property="IDTYPERESOURCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="TYPERESOURCE_IDTYPERESOURCE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMETYPERESOURCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="TYPERESOURCE_NAMETYPERESOURCE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="LEARNINGRESOURCE">
+         <field depends="required" property="IDRESOURCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="LEARNINGRESOURCE_IDRESOURCE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMERESOURCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="LEARNINGRESOURCE_NAMERESOURCE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="GRAPHDISTANCE">
+         <field depends="required" property="FROMOIDDISTRICT">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="GRAPHDISTANCE_FROMOIDDISTRICT" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="TOOIDDISTRICT">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="GRAPHDISTANCE_TOOIDDISTRICT" resource="true" name="required"/>
+         </field>
+         <field depends="float" property="DISTANCE">
+            <msg key="DISTANCE expects a float value (approximately 3.4E–38 to 3.4E+38)" resource="false" name="float"/>
+         </field>
+      </form>
+      <form name="GENERICRESOURCE">
+         <field depends="required" property="OIDMETHODOLOGY">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="GENERICRESOURCE_OIDMETHODOLOGY" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDTYPERESOURCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="GENERICRESOURCE_OIDTYPERESOURCE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="REQUIREDGENERICRESOURCE">
+         <field depends="required" property="OIDCOURSE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="REQUIREDGENERICRESOURCE_OIDCOURSE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDTYPERESOURCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="REQUIREDGENERICRESOURCE_OIDTYPERESOURCE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="RESOURCETEMPLATE">
+         <field depends="required" property="OIDACTIVITYTYPE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="RESOURCETEMPLATE_OIDACTIVITYTYPE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDTYPERESOURCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="RESOURCETEMPLATE_OIDTYPERESOURCE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="DOCENTPLAN"/>
+      <form name="MATERIALTYPE">
+         <field depends="required" property="IDMATERIALTYPE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="MATERIALTYPE_IDMATERIALTYPE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMEMATERIALTYPE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="MATERIALTYPE_NAMEMATERIALTYPE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="MATERIAL">
+         <field depends="required" property="IDMATERIAL">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="MATERIAL_IDMATERIAL" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="NAMEMATERIAL">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="MATERIAL_NAMEMATERIAL" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDMATERIALTYPE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="MATERIAL_OIDMATERIALTYPE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDTYPERESOURCE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="MATERIAL_OIDTYPERESOURCE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="GENERICDISK"/>
+      <form name="GENERICDISKFILE">
+         <field depends="required" property="OIDGENERICDISK">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="GENERICDISKFILE_OIDGENERICDISK" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="MIMETYPE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="GENERICDISKFILE_MIMETYPE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="GROUPCOST">
+         <field depends="required" property="IDGROUPCOST">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="GROUPCOST_IDGROUPCOST" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="GROUPNAME">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="GROUPCOST_GROUPNAME" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="TYPECOSTS">
+         <field depends="required" property="DESCRIPTION">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="TYPECOSTS_DESCRIPTION" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="COSTSEDITIONGROUP">
+         <field depends="required" property="DESCRIPTION">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COSTSEDITIONGROUP_DESCRIPTION" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="IDPLAN">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COSTSEDITIONGROUP_IDPLAN" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="IDCOURSE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COSTSEDITIONGROUP_IDCOURSE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="IDEDITION">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COSTSEDITIONGROUP_IDEDITION" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="IDEDITIONGROUP">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="COSTSEDITIONGROUP_IDEDITIONGROUP" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="TYPECOSTSCOURSE">
+         <field depends="required" property="OIDTYPECOST">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="TYPECOSTSCOURSE_OIDTYPECOST" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="OIDCOURSE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="TYPECOSTSCOURSE_OIDCOURSE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="DESCRIPTION">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="TYPECOSTSCOURSE_DESCRIPTION" resource="true" name="required"/>
+         </field>
+         <field depends="float,required" property="PRICE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="TYPECOSTSCOURSE_PRICE" resource="true" name="required"/>
+            <msg key="PRICE expects a float value (approximately 3.4E–38 to 3.4E+38)" resource="false" name="float"/>
+         </field>
+      </form>
+      <form name="CUSTOMER">
+         <field depends="required" property="IDCUSTOMER">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CUSTOMER_IDCUSTOMER" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="CUSTOMERNAME">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CUSTOMER_CUSTOMERNAME" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="CUSTOMERNIF">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CUSTOMER_CUSTOMERNIF" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="CUSTOMERADRESS">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CUSTOMER_CUSTOMERADRESS" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="CUSTOMERCITY">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="CUSTOMER_CUSTOMERCITY" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="INVOICEGROUP">
+         <field depends="required" property="DESCRIPTION">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="INVOICEGROUP_DESCRIPTION" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="INVOICES">
+         <field depends="date,required" property="FECHA">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="INVOICES_FECHA" resource="true" name="required"/>
+            <msg key="FECHA should be formatted as ${var:datePattern}" resource="false" name="date"/>
+            <arg0 key="${var:datePattern}" resource="false" name="date"/>
+            <var>
+               <var-name>datePattern</var-name>
+               <var-value>dd/MM/yyyy</var-value>
+            </var>
+         </field>
+         <field depends="date" property="DATECREATED">
+            <msg key="DATECREATED should be formatted as ${var:datePattern}" resource="false" name="date"/>
+            <arg0 key="${var:datePattern}" resource="false" name="date"/>
+            <var>
+               <var-name>datePattern</var-name>
+               <var-value>dd/MM/yyyy</var-value>
+            </var>
+         </field>
+         <field depends="date" property="DATEUPDATED">
+            <msg key="DATEUPDATED should be formatted as ${var:datePattern}" resource="false" name="date"/>
+            <arg0 key="${var:datePattern}" resource="false" name="date"/>
+            <var>
+               <var-name>datePattern</var-name>
+               <var-value>dd/MM/yyyy</var-value>
+            </var>
+         </field>
+      </form>
+      <form name="INVOICESDETAIL">
+         <field depends="required" property="IDCOURSE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="INVOICESDETAIL_IDCOURSE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="DESCRIPTION">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="INVOICESDETAIL_DESCRIPTION" resource="true" name="required"/>
+         </field>
+         <field depends="float,required" property="UNITPRICE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="INVOICESDETAIL_UNITPRICE" resource="true" name="required"/>
+            <msg key="UNITPRICE expects a float value (approximately 3.4E–38 to 3.4E+38)" resource="false" name="float"/>
+         </field>
+         <field depends="float,required" property="TOTAL">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="INVOICESDETAIL_TOTAL" resource="true" name="required"/>
+            <msg key="TOTAL expects a float value (approximately 3.4E–38 to 3.4E+38)" resource="false" name="float"/>
+         </field>
+      </form>
+      <form name="EDITIONGROUPINVOICE">
+         <field depends="required" property="IDPLAN">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="EDITIONGROUPINVOICE_IDPLAN" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="IDCOURSE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="EDITIONGROUPINVOICE_IDCOURSE" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="IDEDITION">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="EDITIONGROUPINVOICE_IDEDITION" resource="true" name="required"/>
+         </field>
+         <field depends="required" property="IDEDITIONGROUP">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="EDITIONGROUPINVOICE_IDEDITIONGROUP" resource="true" name="required"/>
+         </field>
+         <field depends="date,required" property="STARTDATE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="EDITIONGROUPINVOICE_STARTDATE" resource="true" name="required"/>
+            <msg key="STARTDATE should be formatted as ${var:datePattern}" resource="false" name="date"/>
+            <arg0 key="${var:datePattern}" resource="false" name="date"/>
+            <var>
+               <var-name>datePattern</var-name>
+               <var-value>dd/MM/yyyy</var-value>
+            </var>
+         </field>
+         <field depends="date,required" property="ENDDATE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="EDITIONGROUPINVOICE_ENDDATE" resource="true" name="required"/>
+            <msg key="ENDDATE should be formatted as ${var:datePattern}" resource="false" name="date"/>
+            <arg0 key="${var:datePattern}" resource="false" name="date"/>
+            <var>
+               <var-name>datePattern</var-name>
+               <var-value>dd/MM/yyyy</var-value>
+            </var>
+         </field>
+         <field depends="float,required" property="PRICE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="EDITIONGROUPINVOICE_PRICE" resource="true" name="required"/>
+            <msg key="PRICE expects a float value (approximately 3.4E–38 to 3.4E+38)" resource="false" name="float"/>
+         </field>
+      </form>
+      <form name="EXPERTTYPE">
+         <field depends="required" property="NAMEEXPERTTYPE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="EXPERTTYPE_NAMEEXPERTTYPE" resource="true" name="required"/>
+         </field>
+      </form>
+      <form name="EXPERTTYPEEVALUATION">
+         <field depends="required" property="OIDEXPERTTYPE">
+            <msg key="RequiredField" resource="true" name="required"/>
+            <arg0 key="EXPERTTYPEEVALUATION_OIDEXPERTTYPE" resource="true" name="required"/>
+         </field>
+      </form>
+   </formset>
+</form-validation>

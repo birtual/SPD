@@ -1,0 +1,157 @@
+body {
+	background-color: #fff;
+	color: #666;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+	}
+
+
+
+	
+ul#menu{
+	margin: 0px;
+	padding: 11px 0px 0px 0px;
+	font-size: 0.8em;
+	}
+
+ul#menu ul{
+	width: 10em;
+	margin: 0px;
+	padding: 0px;
+	}
+
+ul#menu a{
+	color: #89c0d6;
+	font-weight: bold;
+	display:block;
+	background-color: #F1F7FA;
+	text-decoration:none;
+	border-top: 2px solid #fff;
+	margin: 0px;
+	padding: 2px 2px 2px 6px;
+    }
+
+ul#menu ul a{
+	width: 118px;
+	background-color: #FCFEFE;
+	margin: 0px;
+	padding: 2px 2px 2px 20px;
+	background-image: url(../images/ico_menu_n2.png);
+	background-repeat: no-repeat;
+	background-position: 6px 5px;
+	}
+    
+ul#menu a:hover{
+    background-color: #89c0d6;
+    color:#fff;
+    }
+
+/* hide some accessibility stuff */
+
+#menu span {
+	display: none;
+	}
+
+#menu li{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:inline;
+    }
+
+body {
+	margin: 0 7px 7px 10px;
+	padding: 0;
+	font: normal 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	color: #000;
+	background-color: #FFF;
+	overflow: auto;
+}
+td {
+	font: normal 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+a {
+	color: #844222;
+	text-decoration: none;
+}
+h1 {
+	color: #5981C8;
+	font: bold 22px Arial, Verdana;
+	margin: 0;
+	padding: 0 0 10px 0 ;
+}
+h1 .h1 {
+	color: #00256B;
+}
+button {
+	margin: 0px;
+	padding: 1px 0;
+	color: #00256B; 
+	background-color: #FFF;
+	border: 1px ridge #00256B;
+	border-bottom-width: 2px;
+	border-right-width: 2px;
+	cursor: pointer;
+}
+input {
+	font: normal 10px Verdana,Arial,sans-serif;
+	color:#000;
+}
+input.boton {
+	margin: 0px;
+	padding: 1px 0;
+	color: #00256B; 
+	background-color: #FFF;
+	border: 1px ridge #00256B;
+	border-bottom-width: 2px;
+	border-right-width: 2px;
+}
+select {
+	font: normal 10px Verdana,Arial,sans-serif;
+	color:#000;
+}
+
+textarea {
+	font: normal 10px Verdana,Arial,sans-serif;
+	color:#000;
+}
+.graella {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0;
+	padding: 0;
+}
+.graella caption {
+	background-color: #4C6697;
+	font: bold 12px Georgia, Arial;
+	color: #FFF;
+	padding: 5px;
+	margin: 0 0 3px 0;
+	text-align: left;
+}
+
+.llegenda {
+	background-color: #EFEFEF;
+	color: #00256B;
+	font-size: 9px;
+	text-align: right;
+	vertical-align: middle;
+	padding: 3px;
+}
+td.llegenda {
+	border-bottom: none;
+	padding-left: 0;
+}
+.llegenda img {
+	margin: 0 5px 0 10px;
+	vertical-align: middle;
+}
+.llistat {
+	background: transparent url(../images/li.gif) no-repeat 0 5px;
+}
+
+td.resiToma {
+	border-bottom: none;
+	padding-left: 0;
+}
+/* fi menu */

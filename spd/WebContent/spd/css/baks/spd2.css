@@ -1,0 +1,992 @@
+ul#menu{		
+	margin: 0px;	
+	padding: 11px 0px 0px 0px;	
+	font-size: 0.8em;	
+	}	
+    		
+ul#menu ul{		
+	width: 10em;	
+	margin: 0px;	
+	padding: 0px;	
+	}	
+    		
+ul#menu a{		
+	color: #89c0d6;	
+	font-weight: bold;	
+	display:block;	
+	background-color: #F1F7FA;	
+	text-decoration:none;	
+	border-top: 2px solid #fff;	
+	margin: 0px;	
+	padding: 2px 2px 2px 6px;	
+    }		
+    		
+ul#menu ul a{		
+	width: 118px;	
+	background-color: #FCFEFE;	
+	margin: 0px;	
+	padding: 2px 2px 2px 20px;	
+	background-image: url(../images/ico_menu_n2.png);	
+	background-repeat: no-repeat;	
+	background-position: 6px 5px;	
+	}	
+    		
+ul#menu a:hover{		
+    background-color: #89c0d6;		
+    color:#fff;		
+    }		
+		
+/* hide some accessibility stuff */		
+		
+#menu span {		
+	display: none;	
+	}	
+		
+#menu li{		
+    list-style:none;		
+    margin:0;		
+    padding:0;		
+    display:inline;		
+    }		
+a {		
+	color: #844222;	
+	text-decoration: none;	
+}		
+h1 {		
+	color: #5981C8;	
+	font: bold 22px Arial, Verdana;	
+	margin: 0;	
+	padding: 0 0 10px 0 ;	
+}		
+h1 .h1 {		
+	color: #00256B;	
+}		
+button {		
+	margin: 0px;	
+	padding: 1px 0;	
+	color: #00256B; 	
+	background-color: #FFF;	
+	border: 1px ridge #00256B;	
+	border-bottom-width: 2px;	
+	border-right-width: 2px;	
+	cursor: pointer;	
+}		
+input {		
+	font: normal 10px Verdana,Arial,sans-serif;	
+	color:#000;	
+}		
+input.boton {		
+	margin: 0px;	
+	padding: 1px 0;	
+	color: #00256B; 	
+	background-color: #FFF;	
+	border: 1px ridge #00256B;	
+	border-bottom-width: 2px;	
+	border-right-width: 2px;	
+}		
+		
+textarea {		
+	font: normal 10px Verdana,Arial,sans-serif;	
+	color:#000;	
+}		
+.graella {		
+	width: 100%;	
+	border-collapse: collapse;	
+	margin: 0;	
+	padding: 0;	
+}		
+.graella caption {		
+	background-color: #4C6697;	
+	font: bold 12px Georgia, Arial;	
+	color: #FFF;	
+	padding: 5px;	
+	margin: 0 0 3px 0;	
+	text-align: left;	
+}		
+		
+.llegenda {		
+	background-color: #EFEFEF;	
+	color: #00256B;	
+	font-size: 9px;	
+	text-align: right;	
+	vertical-align: middle;	
+	padding: 3px;	
+}		
+td.llegenda {		
+	border-bottom: none;	
+	padding-left: 0;	
+}		
+.llegenda img {		
+	margin: 0 5px 0 10px;	
+	vertical-align: middle;	
+}		
+.llistat {		
+	background: transparent url(../images/li.gif) no-repeat 0 5px;	
+}		
+		
+td.resiToma {		
+	border-bottom: none;	
+	padding-left: 0;	
+}		
+/* fi menu */		
+}		
+		
+select.select_resis 		
+ {		
+	width: 40em;	
+	height: 20em;	
+}		
+		
+
+		
+textarea {		
+	color: #000;	
+	height: 6em;	
+	width: 27.5em;	
+	border: 0.1em solid #CCC;	
+}		
+fieldset.spdOK {		
+	width: auto;	
+	padding: 1em 2em 1em 1em;	
+	margin: 1em 2em 2em 2em;	
+	border: 2em solid #1bbcb8;	
+}		
+		
+fieldset div {		
+	width: 98%;	
+	float: left;	
+	padding: 0 0 1em 0;	
+}		
+		
+fieldset div p {		
+	margin: 0;	
+	padding: 0 0 0.8e 0;	
+	width: 100%;	
+}		
+		
+html > body fieldset div p {		
+	float: left;	
+	clear: left;	
+}		
+		
+fieldset h3 {		
+	background-color: #C7D4EB;	
+	padding: 0.3em 1em;	
+	margin: 0 0 1em 0;	
+	font: bold 0.8em Verdana;	
+	color: #00256B;	
+	width: 100%;	
+}		
+		
+fieldset div#unico {		
+	width: 100%;	
+	float: left;	
+	padding: 0;	
+}		
+		
+fieldset.element {		
+	padding: 1em;	
+}		
+		
+legend {		
+	background-color: #A2A39E;	
+	padding: 0.3em 1em;	
+	margin: 0 0 1em 0;	
+	font: bold 0.8em Verdana;	
+	color: #FFF;	
+}		
+html > body label {		
+	float: left;	
+	clear: left;	
+}		
+		
+#filtrar,		
+.dreta {		
+	float: right;	
+	margin-right: 0.3em;	
+	margin-top: 0.7em;	
+	margin-bottom: 0.5em;	
+	background-color: Fuchsia;	
+}		
+		
+#nuevo,		
+#salvar,		
+.bdreta {		
+	float: right;	
+	margin-right: 2em;	
+	border: 0.1em solid #89B6D3;	
+	background-color: Lime;	
+}		
+		
+.contenedor {		
+	padding: 0.5em;	
+	width: 90%;	
+	border: 0.1em solid #A2A2A2; /*#84dfcd;*/	
+}		
+		
+.contenedor p {		
+	text-align: right;	
+}		
+		
+.contenedor label {		
+	border-bottom: none;	
+	padding: 0;	
+	width: auto;	
+}		
+		
+.contenedor .labelimp {		
+	width: 100%;	
+	margin-bottom: 1em;	
+	background-color: #C7D4EB;	
+}		
+		
+.dia {		
+	width: 10em;	
+	_width: 8em;	
+}		
+		
+.hora {		
+	width: 5em;	
+}		
+		
+.numero {		
+	width: 4em;	
+}		
+		
+/* caixes */		
+div#caixa {		
+	background-color: #FFF;	
+}		
+		
+div#head {		
+	background-image: url(../img/logo_lopicost.jpg);	
+	background-repeat: no-repeat;	
+	background-position: 0em;	
+	margin: 0em 0em 0em 0em;	
+	height: 100%;	
+}		
+		
+div#contingut {		
+	padding: 0;	
+	margin: 0;	
+	background-color: #FFF;	
+	_width: 100%;	
+	clear: both;	
+}		
+div#editCip {		
+	background-color: #FFF;	
+}		
+.medidaTotal {		
+	width: 100%; 	
+		
+		
+}		
+		
+		
+caption {		
+	background-color: #4C6697;	
+	font: bold 0.8em Arial, sans-serif;	
+	color: #FFF;	
+	padding: 0.3em 0.5em;	
+	margin: 0;	
+	border: 0.1em solid #FFF; 	
+	border-width: 0 0.2em 0.3em 0; 	
+	text-align: left;	
+}		
+th.nombres {		
+	width: 5em;	
+}		
+.llistat {		
+	background: transparent url(../images/li.gif) no-repeat 0 0.5em;	
+}		
+		
+td a {		
+	/*text-decoration: none;*/	
+	/*font: bold 1em Arial, sans-serif;*/	
+	/*font: 0.8em Arial, sans-serif;*/	
+	color: #000080;	
+}		
+		
+/* tabula data */		
+table.tabla {		
+	width: 50%;	
+	align: left;	
+	vertical-align: middle;	
+}		
+table.tablaResi {		
+	width: 50%;	
+	background-color: #ffff80;	
+	width:auto;	
+	border: 0.1em solid #400040; 	
+	border-width: 1 1.2em 1.3em 1; 	
+}		
+table.tablaSpdOk {		
+	width: 50%;	
+	background-color: #00ff00;	
+	width:auto;	
+	border: 0.5em solid #0080ff; 	
+	border-width: 2 2em 1.3em 1; 	
+}		
+		
+table.tabla td {		
+	padding: 0;	
+	text-align: center;	
+}		
+		
+td a span {		
+	display: none;	
+}		
+		
+td.editar {		
+	width: 2em;	
+}		
+		
+td.fecha {		
+	width: 2.5em;	
+	text-align: center;	
+}		
+		
+td.pautasDia {		
+	width: 2em;	
+	text-align: center;	
+}		
+th.pautasDia {		
+	width: 2em;	
+	text-align: center;	
+}		
+tr.pautasDia {		
+	width: 80%;	
+}		
+		
+td.editar a:link,		
+td.editar a:visited {		
+	background-image: url(../images/editar.png);	
+	background-repeat: no-repeat;	
+	background-position: 0em;	
+	display: block;	
+	width: 1.8em;	
+	height: 1.6em;	
+	text-indent: -100em;	
+}		
+		
+td.editar a:hover {		
+	background-image: url(../images/editah.png);	
+}		
+		
+td.borrar {		
+	width: 2em;	
+}		
+		
+td.borrar a:link,		
+td.borrar a:visited {		
+	background-image: url(../images/borrar.png);	
+	background-repeat: no-repeat;	
+	background-position: center center;	
+	display: block;	
+	width: 1.8em;	
+	height: 1.6em;	
+	text-indent: -100em;	
+}		
+		
+td.borrar a:hover {		
+	background-image: url(../images/borrarh.png);	
+}		
+		
+td.pdf {		
+	width: 2em;	
+}		
+		
+td.pdf a:link,		
+td.pdf a:visited {		
+	background-image: url(../images/pdf.png);	
+	background-repeat: no-repeat;	
+	background-position: 0em;	
+	display: block;	
+	width: 1.8em;	
+	height: 1.6em;	
+	text-indent: -100em;	
+}		
+		
+td.pdf a:hover {		
+	background-image: url(../images/pdfh.png);	
+}		
+		
+td.veure {		
+	width: 2em;	
+}		
+		
+td.mensajeAlerta {		
+		
+	color: #ff0000;	
+}		
+td.nombreMedicamentoConsejo {		
+	height: 12em;	
+}		
+		
+td.veure a:link,		
+td.veure a:visited {		
+	background-image: url(../images/veure.png);	
+	background-repeat: no-repeat;	
+	background-position: 0em;	
+	display: block;	
+	width: 1.8em;	
+	height: 1.6em;	
+	text-indent: -100em;	
+}		
+		
+td.veure a:hover {		
+	background-image: url(../images/veureh.png);	
+}		
+		
+li.fitxa a:link,		
+li.fitxa a:visited {		
+	background-image: url(../images/pdf.png);	
+	background-repeat: no-repeat;	
+	background-position: 0em;	
+	display: block;	
+	float: left;	
+	width: 1.8em;	
+	height: 1.6em;	
+	text-indent: -100em;	
+}		
+		
+li.fitxa a:hover {		
+	background-image: url(../images/pdfh.png);	
+}		
+		
+/* això només funx amb navegadors mosk (mozilla opera safari konkeror) */ 		
+		
+		
+.right {		
+	text-align: right;	
+}		
+		
+.center {		
+	text-align: center;	
+}		
+		
+.float-left {		
+	float: left;	
+}		
+		
+.float-right {		
+	float: right;	
+}		
+		
+.clearfix::after {		
+	content: "";	
+	display: table;	
+	clear: both;	
+}		
+		
+/* Medios de comunicación */		
+@media only screen and (max-width: 76.8em) {		
+	/* Estilos para pantallas más pequeñas */	
+	.table-responsive {	
+		overflow-x: auto;
+	}	
+		
+	.table-responsive table {	
+		width: 100%;
+	}	
+		
+	.table-responsive td,	
+	.table-responsive th {	
+		white-space: nowrap;
+	}	
+		
+	/* Ajustar tamaños de imagen */	
+	.logo img,	
+	.imagelogo {	
+		width: 1.2em;
+		height: 1.2em;
+	}	
+		
+	/* Estilos para acordeón en pantallas más pequeñas */	
+	.acordeo dt {	
+		height: auto;
+		line-height: 1.5;
+	}	
+		
+	.acordeo dt:hover {	
+		background-color: #EFEFEF;
+	}	
+		
+	.acordeo dt:after {	
+		content: '+';
+		display: inline-block;
+		margin-left: 0.5em;
+	}	
+		
+	.acordeo .collapsed {	
+		display: none;
+	}	
+		
+	.acordeo dt.open:after {	
+		content: '-';
+	}	
+		
+	.acordeo dd div p img {	
+		display: none;
+	}	
+		
+	.acordeo dd div p span {	
+		width: auto;
+	}	
+}		
+		
+tr:hover {		
+	background-color: #EFEFEF;	
+}		
+		
+/* Estilos para la tabla #quatre */		
+#quatre.tabla {		
+	padding: 0;	
+	margin-top: 0;	
+}		
+		
+/* Estilos para la lista de aulas */		
+.opciones {		
+	width: 4em;	
+}		
+		
+/* Estilos para el logo */		
+.logo {		
+	width: 2.4em;	
+}		
+		
+.logo img {		
+	width: 1.6em;	
+	height: 1.6em;	
+}		
+		
+/* Estilos para imagelogo */		
+.imagelogo {		
+	width: 1.6em;	
+	height: 1.6em;	
+}		
+		
+/* Estilos para la leyenda */		
+.llegenda {		
+	background-color: #EFEFEF;	
+	color: #00256B;	
+	font-size: 0.8em;	
+	text-align: right;	
+	vertical-align: middle;	
+	padding: 0.3em;	
+}		
+		
+td.llegenda {		
+	border-bottom: none;	
+	padding-left: 0;	
+}		
+		
+.llegenda img {		
+	margin: 0 0.5em 0 1em;	
+	vertical-align: middle;	
+}		
+		
+/* Estilos para el paginador */		
+#paginador {		
+	border: 0.1em solid #CCC;	
+	background-color: #DFDFDF;	
+	padding: 0.1em 0;	
+	vertical-align: middle;	
+	margin: 0 0 1em 0;	
+}		
+		
+#paginador * {		
+	display: inline;	
+}		
+		
+/* Estilos para los enlaces dentro del paginador */		
+#paginador a {		
+	color: #777;	
+	text-decoration: none;	
+}		
+		
+#paginador span {		
+	padding: 0.2em 0.5em 0 0;	
+}		
+		
+#paginador span.npagines {		
+	font-weight: bold;	
+}		
+		
+/* Estilos para las notas */		
+.nota {		
+	background-color: #DFE0D2;	
+	padding: 2em;	
+	text-align: center;	
+	margin: 0 0 1em 0;	
+}		
+		
+/* Estilos para los avisos */		
+.avis {		
+	color: #CC6633;	
+	background: transparent url(../images/avisInfo.png) no-repeat 0 0;	
+	padding: 0 0 0 1.5em;	
+}		
+		
+/* Estilos para los avisos dentro de los fieldsets */		
+fieldset .avis {		
+	padding: 1.5em 0;	
+}		
+		
+/* Estilos para la distribución */		
+.left {		
+	text-align: left;	
+}		
+#paginat {		
+	text-align: center;	
+}		
+		
+#paginat input {		
+	width: 2em;	
+	text-align: center;	
+}		
+		
+#paginat a {		
+	background: #eee;	
+	border: 1px solid #eee;	
+	border-color: #fff #ccc #ccc #fff;	
+	color: #333;	
+	text-decoration: none;	
+	padding: 0.3em 0.5em;	
+}		
+		
+/* Estilos responsivos para select.nombreDivisionResidencia */		
+select.nombreDivisionResidencia {		
+	width: 100%;	
+	max-width: 25em;	
+	box-sizing: border-box;	
+}		
+		
+select.spdCn {		
+	width: 50%;	
+	max-width: 1em;	
+	box-sizing: border-box;	
+}		
+		
+		
+/* Estilos responsivos para input.nombreConsejo */		
+input.nombreConsejo {		
+	width: 100%;	
+	max-width: 50em;	
+	box-sizing: border-box;	
+}		
+		
+/* Estilos responsivos para select.nombreCortoOK */		
+select.nombreCortoOK {		
+	width: 100%;	
+	max-width: 50em;	
+	box-sizing: border-box;	
+}		
+		
+/* Estilos responsivos para input.nombreCortoOK */		
+input.nombreCortoOK {		
+	width: 100%;	
+	max-width: 25em;	
+	box-sizing: border-box;	
+}		
+		
+/* Estilos responsivos para input.cn_resi */		
+input.cn_resi {		
+	width: 100%;	
+	max-width: 5em;	
+	box-sizing: border-box;	
+}		
+		
+/* Estilos responsivos para input.cn7_ok */		
+input.cn7_ok {		
+	width: 100%;	
+	max-width: 5em;	
+	box-sizing: border-box;	
+}		
+		
+/* Estilos responsivos para input.medicamentoResi */		
+input.medicamentoResi {		
+	width: 100%;	
+	max-width: 50em;	
+	box-sizing: border-box;	
+}		
+		
+/* Estilos responsivos para input.comentario */		
+input.comentario {		
+	height: 100%;	
+	width: 100%;	
+	max-width: 50em;	
+	min-width: 5em;	
+	max-height: 18em;	
+	box-sizing: border-box;	
+}		
+		
+/* Estilos responsivos para input.resiToma */		
+input.resiToma {		
+	width: 100%;	
+	max-width: 3em;	
+	box-sizing: border-box;	
+	text-align: center;	
+}		
+		
+input.resiSiPrecisa {		
+	width: 100%;	
+	max-width: 3em;	
+	box-sizing: border-box;	
+    vertical-align: middle;		
+	text-align: center; /* Centra horizontalmente los elementos */	
+  	display: flex;	
+  	align-items: center; /* Centra verticalmente los elementos */	
+}		
+		
+input[type="checkbox" i] {		
+    background-color: initial;		
+    cursor: default;		
+    appearance: auto;		
+    box-sizing: border-box;		
+    margin: 1px 1px 1px 1px;		
+    padding: initial;		
+    border: initial;		
+    vertical-align: middle;		
+	text-align: center; /* Centra horizontalmente los elementos */	
+  	display: flex;	
+  	align-items: center; /* Centra verticalmente los elementos */	
+}		
+		
+.botons {		
+  position: relative; /* Asegura que el contenido dentro de .botons esté contenido dentro del espacio del botón */		
+}		
+		
+		
+.botons {		
+  position: relative;		
+}		
+		
+.boton-borrar {		
+  padding-left: 1.2em;		
+  background-color: transparent;		
+  background-image: url(../../spd/img/borra.png);		
+  background-repeat: no-repeat;		
+  background-position: left center;		
+}		
+.boton-editar {		
+  padding-left: 1.2em;		
+  background-color: transparent;		
+  background-image: url(../../spd/img/edita.png);		
+  background-repeat: no-repeat;		
+  background-position: left center;		
+}		
+.boton-actualizar {		
+  padding-left: 1.2em;		
+  background-color: transparent;		
+  background-image: url(../../spd/img/actualiza.png);		
+  background-repeat: no-repeat;		
+  background-position: left center;		
+}		
+.boton-subir {		
+  padding-left: 1.2em;		
+  background-color: transparent;		
+  background-image: url(../../spd/img/asc.gif);		
+  background-repeat: no-repeat;		
+  background-position: left center;		
+}		
+.boton-bajar {		
+  padding-left: 1.2em;		
+  background-color: transparent;		
+  background-image: url(../../spd/img/desc.gif);		
+  background-repeat: no-repeat;		
+  background-position: left center;		
+}		
+		
+/* Estilos para los enlaces */		
+.enlaceTabla {		
+	width: 80%;	
+}		
+		
+.enlaceRow {		
+	background-color: #d1eaf3; /*#2dff96;*/	
+	font: bold 1.1em Arial, sans-serif;	
+	padding: 0.2em 0.4em;	
+	color: #000;	
+	text-align: left;	
+	border: 0.1em solid #000000;	
+	border-width: 0 0.1em 0.1em 0;	
+}		
+		
+.enlaceId {		
+		
+	background-color: #9bd1e6;	
+	padding: 1em;	
+	text-align: center;	
+	margin: 0 0 1em 0;	
+	width: 5%;	
+	border: 0.1em solid #000000;	
+	border-width: 0 0.1em 0.1em 0;	
+}		
+		
+.enlaceNombre {		
+	text-align: left;	
+	width: 40%;	
+	border: 0.1em solid #000000;	
+	border-width: 0 0.1em 0.1em 0;	
+		
+}		
+.enlaceDescripcion {		
+	text-align: left;	
+	width: 40%;	
+}		
+		
+.pautasDia {		
+    width: 2em; /* Cambia el valor según tus necesidades */		
+}		
+        /* Estilos para los iconos de acción */		
+        .action-icon {		
+            font-size: 1.5em;		
+            font-weight: 100; /* Hace que la fuente sea más fina */		
+            color: #400040; /* Color del ícono */		
+            cursor: pointer;		
+        }		
+		
+        .selected {		
+            background-color: #ADD8E6;		
+        }		
+		a {		
+	color: #3d88a0;	
+}		
+		
+a img {		
+	border: 0;	
+}		
+		
+/* titols */		
+h1,		
+h2,		
+h3,		
+h4,		
+h5 {		
+	color: #00256B;	
+/*	font: bold 1.4em Georgia, Arial, Verdana;*/	
+	margin: 0;	
+/*	padding: 0 0 1.5em 0;*/	
+	width: 100%;	
+}		
+		
+h3 {		
+	color: #5981C8;	
+	font: bold 1.1em Verdana;	
+}		
+		
+h5 {		
+	color: #000;	
+	font: bold 1.1em Verdana, Geneva, Arial, Helvetica, sans-serif;	
+	padding: 0 0 1em 0;	
+}		
+		
+div#titol h2 {		
+	padding-bottom: 0.5em;	
+}		
+		
+div#titol h3 {		
+	float: left;	
+}		
+		
+div#titol h4 {		
+	float: left;	
+	margin-left: 1em;	
+}		
+		
+div#titol h5 {		
+	float: left;	
+	margin-left: 1em;	
+}		
+		
+button,		
+.clsButtonStyle,		
+a.boto {		
+  border: none; 		
+  color: black; 		
+  padding: 1.4em 2.8em; 		
+  cursor: pointer; 		
+  border-radius: 0.5em; 		
+}		
+		
+.primary {background-color: white; border: 0.2em solid #0065d5;} 		
+.primary:hover {background: #0b7dda; color: white;}		
+		
+		
+		
+a.boto {		
+	margin: 0em;	
+	padding: 0.3em 0.5em;	
+	float: left;	
+}		
+		
+.botons,		
+#botons {		
+/* 	padding: 0 0 1em 0; */	
+	margin: 0;	
+}		
+		
+.botons p,		
+#botons p {		
+	margin: 0;	
+	padding: 0;	
+	float: right;	
+}		
+input,		
+select,		
+textarea {		
+	font: normal 0.8em Verdana, Arial, sans-serif;	
+	margin: 0;	
+	background-color: #FFF;	
+		
+}		
+		
+input {		
+	color: #000;	
+	background-color: #c8f7f5;	
+	padding: 0.2em;	
+	border: 0.15em solid #1bbcb8;	
+	vertical-align: middle;	
+}		
+.inputLargo {		
+    width: 20e;		
+    		
+}		
+#spdCn {		
+	width: 5em;	
+}		
+#spdNombreBolsa {		
+	width: 25em;	
+}		
+#spdNombreMedicamento,  #excepciones,  #aux1,  #aux2 {		
+	width: 30em;	
+}		
+input.checkbox {		
+	border: 0.1em solid #FFF;	
+}		
+		
+select {		
+	color: #000;	
+	/*width: 17.5em;*/	
+	width:auto;	
+}		
+select.select_corto 		
+ {		
+	width: 17.5em;*/	
+}		
+		
+		#container {		
+    max-width: 100%;		
+    margin: 0 auto;		
+    background-color: #fff;		
+    padding: 0,5em;		
+}		
+		
+/* Media query para pantallas más pequeñas (móviles) */		
+@media screen and (max-width: 768px) {		
+    th, td {		
+        padding: 0,5em;		
+    }		
+}		
+		

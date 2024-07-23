@@ -1,0 +1,364 @@
+input, select, textarea {
+	font: normal 1em  Verdana, Geneva, Arial, Helvetica, sans-serif;
+	background: #fefefe;
+	border: 1px solid #eee;
+	border-color: #ccc #eee #eee #ccc;
+	padding-left: 3px;
+	vertical-align: middle;
+	}
+form {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+fieldset {
+	margin: 0;
+	padding: 10px;
+	border: 0;
+	background: #eee;
+	border: 1px solid #eee;
+	border-color: #fff #ccc #ccc #eee;
+	_border-left-color: #FFF;
+	clear: both;
+	}
+fieldset legend {
+	background: #fff;
+	}
+fieldset label {
+	float: left;
+	background: #f5f5f5;
+	width: 200px;
+	text-align: right;
+	padding: 2px 5px;
+	margin-right: 10px;
+	}
+fieldset input, fieldset select, fieldset textarea {
+	float: left;
+	}
+fieldset p {
+	clear: left;
+	}
+fieldset p a {
+	float: left;
+	background: #eee;
+	border: 1px solid #eee;
+	border-color: #fff #ccc #ccc #fff;
+	color: #000;
+	padding: 2px 6px;
+	margin-left: 10px;
+	text-decoration: none;
+	} 
+fieldset p a:hover {
+	background: #fefefe;
+	}	
+
+/* label */ 
+fieldset label.moreInfo {
+	background: transparent;
+	width: auto;
+	text-align: left;
+	margin-left: 5px;
+	margin-right: 0;
+	}
+fieldset label.moreInfo a {
+	background: transparent;
+	border: none;
+	float: none;
+	text-decoration: underline;
+	margin: 0;
+	}
+fieldset label.moreInfo a:hover {
+	background: transparent;
+	}
+fieldset label.llarg {
+	width: auto;
+	}
+	
+label.radiobutton,
+label.checkbox {
+	background: transparent;
+	width: auto;
+	text-align: left;
+	padding-left: 0;
+	}
+label.checkbox input,
+label.radiobutton input {
+	background: transparent;
+	border: none;
+	width: auto;
+	padding-left: 0;
+	}
+label.checkbox a {
+	background: transparent;
+	border: 0;
+	margin: 0;
+	padding: 0 3px;
+	color: #039;
+	text-decoration: underline;
+	}
+
+input.longText {
+	width: 350px;
+	}
+input.shortText {
+	width: 50px;
+	}
+input.miniText {
+	width: 13px;
+	}
+input.inputData {
+	width: 73px;
+	}
+input.inputCheck {
+	background: transparent;
+	border: none;
+	}
+
+textarea.resposta {
+	width: 350px;
+	height: 150px;
+	}
+textarea.longText {
+	width: 350px;
+	height: 100px;
+}
+
+
+fieldset.doscol {
+	_width: 100%;
+}
+fieldset.doscol p {
+	clear: none;
+	float: left;
+	width: 50%;
+	padding-bottom: 0;
+	_padding-bottom: 20px;
+	}
+fieldset.doscol p.botons {
+	width: 100%;
+	}
+fieldset .text {
+	float: left;
+	padding: 2px 5px;
+	margin-right: 10px;
+	}
+p.uploadFoto {
+	padding-left: 220px;
+	_padding-left: 210px;
+	
+}
+/*cercador*/
+.cercador {
+	margin: 0;
+	padding: 0;
+	_width: 100%;
+	}
+.cercador fieldset  {
+	padding-bottom: 0;
+	/* margin-bottom: 3px; */
+	_width: 100%;
+	margin: 0;
+	}
+.cercador fieldset legend {
+	display: none;
+	}
+.cercador fieldset label {
+	float: none;
+	background: transparent;
+	width: auto;
+	text-align: left;
+	margin-right: auto;
+	}
+.cercador fieldset input, .cercador fieldset select {
+	float: none;
+	}
+.cercador fieldset p {
+	/* display: inline; */
+	float: left;
+	margin: 0;
+	margin-right: 10px;
+	padding: 3px 0 10px 0;
+	clear: none;
+	/* padding-bottom: 0; */
+	white-space: nowrap;
+	}
+.cercador fieldset p.botons {
+	float: none;
+	margin-right: 0;
+	padding-bottom: 10px;
+	}
+.cercador fieldset.doscol label {
+	float: left;
+	background: #f5f5f5;
+	width: 200px;
+	text-align: right;
+	padding: 2px 5px;
+	margin-right: 10px;
+	}
+.cercador fieldset.doscol p {
+	width: 45%;
+	}
+.cercador fieldset.doscol p.botons {
+	float: right;
+	width: 100%;
+	text-align: right;
+	}
+.cercador fieldset.doscol input, .cercador fieldset.doscol select {
+	float: left;
+	padding-bottom: 0;
+	}
+.cercador fieldset.doscol .botons input {
+	/* float: right;*/
+	float: none;
+	}
+/*.cercador fieldset.doscol {
+	_width: 100%;
+}
+.cercador fieldset.doscol label {
+	float: left;
+	background: #f5f5f5;
+	width: 200px;
+	text-align: right;
+	padding: 2px 5px;
+	margin-right: 10px;
+	}
+.cercador fieldset.doscol p {
+	clear: none;
+	float: left;
+	width: 49%;
+	padding-bottom: 0;
+	_padding-bottom: 20px;
+	}
+.cercador fieldset input, .cercador fieldset select {
+	float: left;
+	}
+.cercador fieldset.doscol p.botons {
+	width: 100%;
+	}*/
+
+/* a eliminar quan estigui corregit arreu */
+#cercador {
+	margin: 0;
+	padding: 0;
+	}
+#cercador fieldset {
+	margin-bottom: 3px;
+	}
+#cercador fieldset legend {
+	display: none;
+	}
+#cercador fieldset label {
+	float: none;
+	background: transparent;
+	width: auto;
+	text-align: left;
+	margin-right: auto;
+	}
+#cercador fieldset input, #cercador fieldset select {
+	float: none;
+	}
+#cercador fieldset p {
+	display: inline;
+	margin-right: 10px;
+	clear: none;
+	padding-bottom: 0;
+	}
+#cercador input, #cercador select {
+	_vertical-align: middle;
+}
+/*paginat*/	
+#paginat {
+	margin: 0;
+	padding: 20px 0 0 0;
+	}
+#paginat fieldset {
+	background: transparent;
+	border: 0;
+	padding: 0;
+	}
+#paginat ul {
+	margin: 0;
+	padding: 0;
+	_padding: 10px;
+	list-style: none;
+	margin: auto;
+	text-align: center;
+	}
+#paginat li {
+	display: inline;
+	}
+#paginat a {
+	background: #eee;
+	border: 1px solid #eee;
+	border-color: #fff #ccc #ccc #fff;
+	color: #333;
+	text-decoration: none;
+	padding: 3px 5px;
+	}
+#paginat a.noActiu {
+	background: #fefefe;
+	border: 1px solid #eee;
+	border-color: #fff #ccc #ccc #fff;
+	color: #eee;
+	text-decoration: none;
+	padding: 3px 5px;
+	}
+#paginat a:hover {
+	background: #fefefe;
+	}
+	
+/*form NO editable*/
+.noEditable input, .noEditable select {
+	color: #06f;
+	}
+.noEditable .botons input {
+	color:  #999;
+	}
+.noEditable .botons input:hover {
+	background: #DADADA;
+	}
+.notificacio {
+	background: #fff;
+	border: 1px solid #eee;
+	border-color: #ccc #fff #fff #ccc;
+	padding: 10px;
+	}
+
+label strong {
+	color: #900;
+	font-size: 1.3em;
+	font-weight: bold;
+	padding: 3px 0 0 0;
+	_padding: 2px 0 0 0;
+	margin: 0 0 -7px 0;
+	float: left;
+	}
+.obligatori {
+	color: #900;
+	font-size: 1.3em;
+	font-weight: bold;
+}
+.error {
+	color: #700;
+	font-weight: bold;
+	}
+fieldset .error {
+	color: #000;
+	font-weight: normal;
+	float: none;
+	padding: 0 0 20px 0;
+	background: transparent;
+	border: 0;
+	}
+.error label {
+	color: #fff;
+	background: #900;
+	font-weight: bold;
+	}
+.error label strong {
+	color: #fff;
+	}
+.alerta {
+	color: #700;
+	font-weight: bold;
+	}

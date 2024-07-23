@@ -1,0 +1,556 @@
+/*LOS SIGUIENTES ESTILOS SOLO SE APLICAN EN AQUELLAS PÁGINAS CUYO BODY TENGA UN ID="MODULO",
+ QUE SON AQUELLAS QUE FORMAN PARTE DEL MODULO DE GESTIÓN DE FACTURAS*/
+
+
+body#modulo {
+	background-color: #fff;
+	color: #666;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.7em;
+	}
+
+/* caixa blava */
+	
+body#modulo div#caixa {
+	background-color: #abd2e2;
+	}
+
+body#modulo div#titol {
+	float: right;
+}
+
+	
+body#modulo div#caixa h2 {
+	color: #F1F7FA;
+	margin: 0px;
+	padding: 0px 18px;
+	text-align: right;
+	font-size: 1.5em;
+	font-family: "Trebuchet MS" ,Verdana, Arial, Helvetica, sans-serif;
+	}
+	/*COLOR PARA EL NOMBRE DEL ALUMNO EN NS*/
+html > body#modulo  div#caixa div#marcas .nombrealumno{
+color:#4E9CC2;
+}
+/*COLOR PARA EL NOMBRE DEL ALUMNO EN EXPLORER*/
+body#modulo  div#caixa div#marcas .nombrealumno{
+color:#F1F7FA;
+}
+	
+body#modulo div#contingut {
+	padding: 5px 15px 10px 15px;
+	/*margin-top: 30px;*/
+	}	
+
+body#modulo div#fonslt {
+/*Atención a la ruta de la imagen que hace esquina*/
+	background-image: url(../images/corn_lt.png);
+	background-repeat: no-repeat;
+	width: 10px;
+	height: 10px;
+	float: left;
+	}
+
+body#modulo div#fonsrt {
+/*Atención a la ruta de la imagen que hace esquina*/
+	background-image: url(../images/corn_rt.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	/*width: 10px;*/
+	height: 10px;
+	}
+
+body#modulo div#fonslb {
+/*Atención a la ruta de la imagen que hace esquina*/
+	background-image: url(../images/corn_lb.png);
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	width: 10px;
+	height: 10px;
+	float: left;
+	}
+
+body#modulo div#fonsrb {
+/*Atención a la ruta de la imagen que hace esquina*/
+	background-image: url(../images/corn_rb.png);
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	/*width: 10px;*/
+	height: 10px;
+	}
+	
+body#modulo div#marcas {
+	background-image: url(../images/logos.jpg);
+	background-repeat: no-repeat;
+	background-position: 15px;
+	position:float;
+	height: 38px;
+	padding: 0px;
+	text-align:right
+	}
+/* fi caixa blava */
+
+/* caixa blanca */
+	
+body#modulo div#caixa2 {
+	background-color: #fff;
+	display: block;
+	clear: both;
+	}
+
+body#modulo div#datos {
+	padding: 15px;
+	}
+
+body#modulo div#fonslt2 {
+/*Atención a la ruta de la imagen que hace esquina*/
+	background-image: url(../images/corn_lt2.png);
+	background-repeat: no-repeat;
+	width: 10px;
+	height: 10px;
+	float: left;
+	}
+
+body#modulo div#fonsrt2 {
+/*Atención a la ruta de la imagen que hace esquina*/
+	background-image: url(../images/corn_rt2.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	height: 10px;
+	}
+
+body#modulo div#fonslb2 {
+/*Atención a la ruta de la imagen que hace esquina*/
+	background-image: url(../images/corn_lb2.png);
+	background-repeat: no-repeat;
+	background-position: bottom;
+	width: 10px;
+	height: 10px;
+	float: left;
+	}
+
+body#modulo div#fonsrb2 {
+/*Atención a la ruta de la imagen que hace esquina*/
+	background-image: url(../images/corn_rb2.png);
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	/*width: 10px;*/
+	height: 10px;
+	}
+	
+/* fi caixa blanca */
+
+
+
+/* formulari */
+
+
+body#modulo div#formdata{
+	background-color: transparent;
+	}
+
+body#modulo fieldset{
+	padding: 15px 15px 0px 15px;
+	margin: 0px 2px 10px 2px;
+	border: 1px solid #abd2e2;
+	}
+	
+body#modulo fieldset div {
+	text-align: right;
+	width: 49%;
+	float: left;
+	padding: 10px 0px;
+	}
+
+body#modulo fieldset div#unico {
+	text-align: right;
+	width: 70%;
+	float: left;
+	padding: 10px 0px;
+	}
+body#modulo .tercioizq {
+	text-align: left;
+	width: 40%;
+	float: left;
+	padding: 10px 0px;
+}
+body#modulo .terciomed {
+	text-align: left;
+	width: 30%;
+	float: left;
+	padding: 10px 0px;
+}
+body#modulo .tercioder {
+	text-align: right;
+	width: 30%;
+	float: left;
+	padding: 10px 0px;
+}
+
+body#modulo .mitadizq {
+	text-align: left;
+	width: 50%;
+	float: left;
+	padding: 10px 0px;
+}
+
+body#modulo .mitader {
+	text-align: right;
+	width: 50%;
+	float: right;
+	padding: 10px 0px;
+}
+
+body#modulo fieldset div#grande {
+	text-align: left;
+	width: 100%;
+	float: left;
+	padding: 10px 0px;
+	}
+	
+body#modulo legend{
+	color: #666;
+	font-weight: bold;
+	text-align: center;
+	padding: 0px 5px;
+	}
+
+body#modulo textarea{
+	height: 200px;
+	width: 200px;
+	background-color: #fff;
+	vertical-align: top;
+	border: 1px solid #abd2e2;
+	}
+body#modulo input, select {
+	margin: 3px;
+	background-color: #fff;
+	border: 1px solid #abd2e2;
+	vertical-align: middle;
+	font-size: 0.9em;
+	}
+
+body#modulo label {
+	vertical-align: middle;
+	}
+	
+body#modulo button{
+	color: #333;
+	background-color: #F1F7FA;
+	border: 1px solid #abd2e2;
+	font-size: 0.95em;
+	font-weight: bold;
+	cursor: pointer;
+	}
+
+
+body#modulo #filtrar,.dreta {
+	float: right;	
+	margin-right: 3px;
+	margin-top: 7px;
+	margin-bottom: 5px;
+	}
+
+body#modulo #nuevo, #salvar, .bdreta {
+	float: right;
+	margin-right: 20px;
+	border: 1px solid #89B6D3;
+	}
+
+body#modulo .ocult { /* per no mostrar el label */
+	display: none;
+	}
+
+/* tabula data */
+body#modulo table {
+	width: 100%;
+	}
+
+body#modulo th {
+	border: 1px solid #abd2e2;
+	padding: 2px 10px;
+	text-align: left;
+	background-color: #F1F7FA;
+	font-size: 11px;
+	}
+
+body#modulo td {
+	border: 1px solid #abd2e2;
+	padding: 2px 10px;
+	font-size: 11px;
+	}
+
+body#modulo td a span {
+	display: none;
+	}
+
+body#modulo td.editar {
+	width: 12px;	
+	}
+	
+body#modulo td.editar a:link, td.editar a:visited {
+	background-image: url(../images/edita.png);
+	background-repeat: no-repeat;
+	background-position: 0px;
+	display: block;
+	width: 10px;
+	height: 11px;
+	}
+body#modulo td.editar a:hover {
+	background-image: url(../images/editah.png);
+	background-repeat: no-repeat;
+	background-position: 0px;
+	display: block;
+	width: 10px;
+	height: 11px;
+	}
+
+body#modulo td.borrar {
+	width: 10px;
+	}
+	
+body#modulo td.borrar a:link, td.borrar a:visited {
+	background-image: url(../images/borrar.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	width: 10px;
+	height: 11px;
+	}
+body#modulo td.borrar a:hover {
+	background-image: url(../images/borrarh.png);
+	background-repeat: no-repeat;
+	background-position: 0px;
+	display: block;
+	width: 10px;
+	height: 11px;
+	}
+body#modulo .par{
+background-color: #F8f8f8;
+}
+body#modulo .inpar{
+background-color: #FFFFFF;
+}
+/* això només funx amb navegadors mosk (mozilla opera safari konkeror) */	
+body#modulo tr:hover {
+	background-color: #F1F7FA;
+	}
+/* fi tabular data */
+/*FIN DE LOS ESTILOS QUE SE APLICAN A LAS PÁGINAS CUYO BODY TIENE UN ID="MODULO",
+QUE SON LAS DEL MÓDULO DE GESTIÓN DE FACTURAS*/
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*AQUÍ EMPIEZAN LOS ESTILOS DEL DBFORMS*/
+
+body {
+	background-color: #fff;
+	color: #666;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.7em;
+	}
+	
+p, ul, li {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+	}
+
+	
+td {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+	}
+
+
+h1 {
+	font-size: 1.5em;
+	font-weight : bold;
+	font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	}
+
+H4 {font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-weight: bold; font-size:10pt; font-style: italic; color: #666666}
+H5 {font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size:8pt; color: #000000}
+
+hr {
+	display: none;
+}
+
+.xmp { border-width:1pt; border-style:solid; border-color:#999999; }
+
+a,a:link,a:visited {
+body {
+	background-color: #fff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+	}
+	
+p, ul, li {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+	}
+
+	
+td {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+	}
+
+h1 {
+	font-size: 1.5em;
+	font-weight : bold;
+	font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	}
+
+H4 {font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-weight: bold; font-size:10pt; font-style: italic; color: #666666}
+H5 {font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size:8pt; color: #000000}
+
+hr {
+	display: none;
+}
+
+.xmp { border-width:1pt; border-style:solid; border-color:#999999; }
+
+a,a:link,a:visited {
+	color: #666666;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 8pt; font-weight: bold;
+	text-decoration:underline;
+}
+
+a:hover {
+	color: #2C6880;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 8pt; font-weight: bold;
+	text-decoration:underline;
+}
+
+
+
+.frmStyle {
+	border: 1px outset; 
+	background-color : #ffffff;
+	color : Black;
+}
+
+.clsPageHeaderMenu {
+	background-color : #000000;
+	color : #FFFFFF;
+}
+
+.clsMainMenuTableRow {
+	background-color: #abd2e2;
+	color: #F1F7FA;
+	margin: 0px;
+	padding: 0px 18px;
+	text-align: right;
+	font-size: 1.4em;
+	font-family: "Trebuchet MS" ,Verdana, Arial, Helvetica, sans-serif;
+}
+
+.clsMainMenu {
+	text-decoration : none;
+	font-weight : bold;
+}
+
+.clsHeaderDataTableCell, .clsOddDataTableRow,.clsHeaderDataTableRow td,.prodTableHeader td 
+{
+	padding: 2px 10px;
+	text-align: left;
+	background-color: #F1F7FA;
+	color: #333;
+}
+
+.clsSearchDataTableRow {
+	background-color : #fff;
+	color : #333;
+	font-weight : normal;
+	text-align : left;
+}
+
+.clsEvenDataTableRow td,.clsOddDataTableRow td {
+	border: 1px solid #abd2e2;
+	padding: 2px 10px;
+	color: #333;
+}
+
+input, select,.clsSelectStyle, .clsInputStyle, .clsInputStyleRO, textarea.clsInputStyle 
+{
+	border: 1px outset; 
+	font-size:9; 
+	font-weight: normal; 
+	margin: 0px 0px 0px 1px; 
+	padding: 1px 1px 1px 1px;
+	backgroung-image: repeat-x;
+}
+
+.clsButtonStyle{
+	color: #333;
+	background-color: #F1F7FA;
+	border: 1px solid #abd2e2;
+	font-size: 0.95em;
+	font-weight: bold;
+	cursor: pointer;
+	}
+	
+	
+/* Nuevos css */
+
+.clsMainMenuHeader {
+	color: black;
+	text-decoration : none;
+	font-weight : bold;
+	border: 1px solid #abd2e2;  
+	padding: 1px 2px;
+	text-align: left;
+	background-color : #abd2e2;
+}
+.clsMenuRow {
+	border: 1px solid #abd2e2;
+	padding: 0px 2px;
+	background-color : #F1F7FA;
+}
+
+.clsExpedientRow {
+	background-color : #006600;
+}
+
+.clsColorMenuHeader {
+	background-color : #abd2e2;
+}
+.clsColorMenuRow {
+	background-color : #F1F7FA;
+}
+
+.clsMainMenu2{
+	color: #F5F5F5;
+	text-decoration : none;
+	font-weight : bold;
+	background-color : #abd2e2;
+}
+
+.clsEvenDataTableRowScheduling {
+	background-color : #FF9966;
+	color : Black;
+	text-align : left;
+}
+
+.clsOddDataTableRowScheduling {
+	background-color : #D7E3EF;
+	color : Black;
+	text-align : left;
+}
+
+.clsMenuRowText {
+	background-color : #F1F7FA;
+	color: #FFFFFF;
+}
+
+.clsMenu {
+	background-color : #efefef;
+}
+
+.clsListTableAlertAssign {
+	background-color : #000000;
+}
+
+.clsListScheduledAlert {
+	background-color : #000000;
+}
+/*AQUÍ TERMINAN LOS ESTILOS DEL DBFORMS*/

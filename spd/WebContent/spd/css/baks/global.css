@@ -1,0 +1,327 @@
+/* Estilo general de la página */
+
+@import url(reset.css); /* Estilos de la página de inicio*/
+@import url(inicio.css); /* Estilos de la página de inicio*/
+
+
+
+/* deixo aquí els css generals */
+body {
+	margin: 0 1% 1% 1%;
+	padding: 0;
+	font: normal 0.8em Verdana, Geneva, Arial, Helvetica, sans-serif;
+	color: #000;
+	background-color: #FFF;
+	overflow: auto;
+}
+
+a {
+	color: #3d88a0;
+}
+
+a img {
+	border: 0;
+}
+
+/* titols */
+h1,
+h2,
+h3,
+h4,
+h5 {
+	color: #00256B;
+/*	font: bold 1.4em Georgia, Arial, Verdana;*/
+	margin: 0;
+/*	padding: 0 0 1.5em 0;*/
+	width: 100%;
+}
+
+h3 {
+	color: #5981C8;
+	font: bold 1.1em Verdana;
+}
+
+h5 {
+	color: #000;
+	font: bold 1.1em Verdana, Geneva, Arial, Helvetica, sans-serif;
+	padding: 0 0 1em 0;
+}
+
+div#titol h2 {
+	padding-bottom: 0.5em;
+}
+
+div#titol h3 {
+	float: left;
+}
+
+div#titol h4 {
+	float: left;
+	margin-left: 1em;
+}
+
+div#titol h5 {
+	float: left;
+	margin-left: 1em;
+}
+
+
+button,
+.clsButtonStyle,
+a.boto {
+  border: none; 
+  color: black; 
+  padding: 1.4em 2.8em; 
+  cursor: pointer; 
+  border-radius: 0.5em; 
+}
+
+.primary {background-color: white; border: 0.2em solid #0065d5;} 
+.primary:hover {background: #0b7dda; color: white;}
+
+
+
+a.boto {
+	margin: 0em;
+	padding: 0.3em 0.5em;
+	float: left;
+}
+
+.botons,
+#botons {
+/* 	padding: 0 0 1em 0; */
+	margin: 0;
+}
+
+.botons p,
+#botons p {
+	margin: 0;
+	padding: 0;
+	float: right;
+}
+
+/* formularis */
+form {
+	margin: 0;
+	padding: 0;
+}
+
+input,
+select,
+textarea {
+	font: normal 0.8em Verdana, Arial, sans-serif;
+	margin: 0;
+	background-color: #FFF;
+	
+}
+
+input {
+	color: #000;
+	background-color: #c8f7f5;
+	padding: 0.2em;
+	border: 0.15em solid #1bbcb8;
+	vertical-align: middle;
+}
+
+
+select {
+	color: #000;
+	/*width: 17.5em;*/
+	width:auto;
+}
+
+
+textarea {
+	color: #000;
+	height: 6em;
+	width: 27.5em;
+	border: 0.1em solid #CCC;
+}
+
+fieldset {
+	padding: 1em 2em 1em 1em;
+	margin: 1em 2em 2em 2em;
+	border: 0.15em solid #1bbcb8;
+}
+
+
+/* taules */
+table {
+	border-collapse: collapse;
+	margin: 0 0 0.5em 0;
+	padding: 0;
+}
+
+caption {
+	background-color: #4C6697;
+	font: bold 0.8em Arial, sans-serif;
+	color: #FFF;
+	padding: 0.3em 0.5em;
+	margin: 0;
+	border: 0.1em solid #FFF; 
+	border-width: 0 0.2em 0.3em 0; 
+	text-align: left;
+}
+
+th {
+	
+	/*width: 100px;*/
+	background-color: #8defed; /*#2dff96;*/
+	font: bold 0.8em Arial, sans-serif;
+	padding: 0.2em 0.4em;
+	color: #000;
+	text-align: left;
+	/*border: 0.1em solid #FFF;*/
+	border: 0.05em solid #000;
+	border-width: 0.05em 0.05em 0.05em 0.05em;
+}
+
+th.BASE {
+	/*background-color: blue;*/
+}
+th.EXTRA {
+	background-color: #00ff00;
+}
+
+td {
+	font: normal 0.8em Verdana, Geneva, Arial, Helvetica, sans-serif;
+	/*font: 0.9em Arial, sans-serif;*/
+	background-color: #EEE; /*#85f1d9*/
+	border: 0.1em solid #000;
+	/*border: 0.1em solid #85f1d9;*/
+	/*border-width: 0 0.2em 0.2em 0;*/
+	/*padding: 0.5em; */
+	padding: 0.2em 0.4em;
+}
+
+tr.alerta td {
+	background-color: red;
+}
+
+tr.alertaSustXResi td {
+	background-color: orange;
+}
+
+tr.par td {
+	background-color:  #FFF;
+}
+
+td.alerta {
+	background-color: red;
+}
+
+td.alertaSustXResi {
+	background-color: red;
+}
+
+td.info {
+	background-color: orange;
+}
+
+td.infoSustXResi {
+	background-color: orange;
+}
+
+tr.NO_PINTAR td {
+	background-color: #a2a39e;
+}
+tr.SI_PRECISA td {
+	background-color: #a2a39e;
+}
+.llistat {
+	background: transparent url(../images/li.gif) no-repeat 0 0.5em;
+}
+
+td a {
+	/*text-decoration: none;*/
+	/*font: bold 1em Arial, sans-serif;*/
+	/*font: 0.8em Arial, sans-serif;*/
+	color: #000080;
+}
+
+
+/* Medios de comunicación */
+@media only screen and (max-width: 76.8em) {
+	/* Estilos para pantallas más pequeñas */
+	.table-responsive {
+		overflow-x: auto;
+	}
+	
+	.table-responsive table {
+		width: 100%;
+	}
+
+	.table-responsive td,
+	.table-responsive th {
+		white-space: nowrap;
+	}
+
+	/* Ajustar tamaños de imagen */
+	.logo img,
+	.imagelogo {
+		width: 1.2em;
+		height: 1.2em;
+	}
+
+	/* Estilos para acordeón en pantallas más pequeñas */
+	.acordeo dt {
+		height: auto;
+		line-height: 1.5;
+	}
+
+	.acordeo dt:hover {
+		background-color: #EFEFEF;
+	}
+
+	.acordeo dt:after {
+		content: '+';
+		display: inline-block;
+		margin-left: 0.5em;
+	}
+
+	.acordeo .collapsed {
+		display: none;
+	}
+
+	.acordeo dt.open:after {
+		content: '-';
+	}
+
+	.acordeo dd div p img {
+		display: none;
+	}
+
+	.acordeo dd div p span {
+		width: auto;
+	}
+}
+
+
+select.ancho_5 
+ {
+	width: 5em;
+}
+
+select.ancho_7 
+ {
+	width: 7em;
+}
+
+select.ancho_10
+ {
+	width: 10em;
+}
+
+select.ancho_17 
+{
+	width: 17em;*/
+}
+select.ancho_23
+{
+	width: 23em;*/
+}
+
+
+	
+/*max-width: 25em;*/
+ 

@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC 
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" 
+"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+
+
+<struts-config>
+	<form-beans>
+		 <!-- Genèric -->
+	    <form-bean name="GenericForm" type="lopicost.spd.struts.form.GenericForm"/>
+	
+    	<form-bean name="GestSustitucionesForm" type="lopicost.spd.struts.form.GestSustitucionesForm"/>
+    	<form-bean name="GestSustitucionesLiteForm" type="lopicost.spd.struts.form.GestSustitucionesLiteForm"/>
+    	<form-bean name="SustXComposicionForm" type="lopicost.spd.struts.form.SustXComposicionForm"/>
+   		<form-bean name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm"/>
+   		<form-bean name="FicheroResiNewForm" type="lopicost.spd.struts.form.FicheroResiNewForm"/>
+     	<form-bean name="BdConsejoForm" type="lopicost.spd.struts.form.BdConsejoForm"/>
+     	<form-bean name="PacientesForm" type="lopicost.spd.struts.form.PacientesForm"/>
+    	<form-bean name="ReportingForm" type="lopicost.spd.struts.form.ReportingForm"/>
+    	<form-bean name="EnlacesForm" type="lopicost.spd.struts.form.EnlacesForm"/>
+    	<form-bean name="LoginForm" type="lopicost.spd.security.form.LoginForm"/>
+    	<form-bean name="MenuForm" type="lopicost.spd.struts.form.MenuForm"/>     
+    	<form-bean name="ControlPrincipioActivoForm" type="lopicost.spd.struts.form.ControlPrincipioActivoForm"/>     
+   		<form-bean name="SpdLogForm" type="lopicost.spd.struts.form.SpdLogForm"/>     
+    		
+
+	<!-- IOSPD Import -->
+		<form-bean  name="ImportIOSpdForm" type="lopicost.spd.iospd.importdata.struts.form.ImportDataForm"/>
+	<!-- IOSPD Export -->
+		<form-bean  name="ExportIOSpdForm" type="lopicost.spd.iospd.exportdata.struts.form.ExportDataForm"/>
+
+        <form-bean name="loginForm" type="lopicost.spd.struts.form.LoginForm">
+            <form-property name="password" type="java.lang.String" />
+         <!--    <form-property name="perfil" type="java.lang.String" />   -->
+         <!--    <form-property name="dominio" type="java.lang.String" />  -->
+            <form-property name="idUsuario" type="java.lang.String" />
+        </form-bean>
+        
+        <form-bean name="GlobalErrorForm" type="lopicost.spd.struts.form.GlobalErrorForm">
+        </form-bean>
+        
+    </form-beans>
+   
+    <!-- ========== Global Forward Definitions =============================== -->
+    <global-forwards>
+        <forward name="global_error" path="/jsp/global_error.jsp" />
+         <!-- <forward name="errorSession" path="/jsp/error/errorSession.jsp" /> -->
+         <forward name="errorSession" path="/spd/app/login/jsp/loginError.jsp" />
+        
+    </global-forwards>
+    
+    <!-- ========== Action Mapping Definitions =============================== -->
+    <action-mappings>
+
+        <action forward="/spd/app/login/login.jsp" path="/inicio" validate="false" />
+
+  		<action path="/login" type="lopicost.spd.security.action.LoginAction"
+			parameter="parameter"  name="LoginForm" 
+			scope="request" input="/spd/app/login/jsp/login.jsp">
+			<forward name="list" path="/spd/app/login/jsp/login.jsp"/>
+			<forward name="error" path="/spd/app/login/jsp/login.jsp" />
+			<forward name="success" path="/spd/jsp/login/indexAdmin.jsp"/>
+			<forward name="inicio" path="/Enlaces.do?parameter=list&amp;ACTIONTODO=INICIO"/>
+		</action>  
+     	<action path="/Pacientes" type="lopicost.spd.struts.action.PacientesAction"  
+		 	parameter="parameter"  name="PacientesForm" 
+		 	scope="request" validate="false">
+        	<forward name="list" path="/spd/app/pacientes/jsp/listPacientes.jsp" />
+        	<forward name="detalle" path="/spd/app/pacientes/jsp/detalle.jsp" />
+        	<forward name="editar" path="/spd/app/pacientes/jsp/editar.jsp" />
+        	<forward name="nuevoCIP" path="/spd/app/pacientes/jsp/nuevoCIP.jsp" />
+        	<forward name="nuevo" path="/spd/app/pacientes/jsp/nuevo.jsp" />
+        	<forward name="nuevoOk" path="/spd/app/pacientes/jsp/nuevoOk.jsp" />
+        	<forward name="listadoProceso" path="/spd/app/pacientes/jsp/listPacientesProceso.jsp" />
+        	<forward name="tratamientos" path="/spd/app/pacientes/jsp/tratamientosPaciente.jsp" />
+        	<forward name="detallBolquers" path="/spd/app/pacientes/jsp/detallBolquersPorCIP.jsp" />
+        	<forward name="detalleDiscrepancias" path="/spd/app/pacientes/jsp/discrepanciasPorCIP.jsp" />
+        	<forward name="detalleTratamientoRct" path="/spd/app/pacientes/jsp/tratamientoRctPorCIP.jsp" />
+        	<forward name="listTratamientosSPD" path="/spd/app/pacientes/jsp/listTratamientosSPDPorCIP.jsp" />
+        	<forward name="detalleTratamientosSPD" path="/spd/app/pacientes/jsp/produccionesSPDPorCIP.jsp" />
+        	  	
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+ 
+
+		 <action path="/SustXComposicion" type="lopicost.spd.struts.action.SustXComposicionAction"  
+		 	parameter="parameter"  name="SustXComposicionForm" 
+		 	scope="request" validate="false">
+        	<forward name="list" path="/spd/app/sustXComposicion/jsp/list.jsp" />
+        	<forward name="editar" path="/spd/app/sustXComposicion/jsp/editar.jsp" />
+         	<forward name="borrar" path="/spd/app/sustXComposicion/jsp/borrar.jsp" />
+        	<forward name="nuevo" path="/spd/app/sustXComposicion/jsp/nuevo.jsp" />
+        	<forward name="nuevoAsignacionMasiva" path="/spd/app/sustXComposicion/jsp/nuevoAsignacionMasiva.jsp" />
+        	<forward name="borradoMasivo" path="/spd/app/sustXComposicion/jsp/borradoMasivo.jsp" />
+        	<forward name="exportExcel" path="/spd/iospd/exportSustXComposicion.jsp"/>
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+      
+      	 <action path="/SustXComposicionLite" type="lopicost.spd.struts.action.SustXComposicionLiteAction"  
+		 	parameter="parameter"  name="SustXComposicionForm" 
+		 	scope="request" validate="false">
+        	<forward name="list" path="/spd/app/sustXComposicionLite/jsp/list.jsp" />
+        	<forward name="editar" path="/spd/app/sustXComposicionLite/jsp/editar.jsp" />
+         	<forward name="borrar" path="/spd/app/sustXComposicionLite/jsp/borrar.jsp" />
+        	<forward name="nuevo" path="/spd/app/sustXComposicionLite/jsp/nuevo.jsp" />
+        	<forward name="nuevoAsignacionMasiva" path="/spd/app/sustXComposicionLite/jsp/nuevoAsignacionMasiva.jsp" />
+        	<forward name="borradoMasivo" path="/spd/app/sustXComposicionLite/jsp/borradoMasivo.jsp" />
+        	<forward name="exportExcel" path="/spd/iospd/exportSustXComposicionLite.jsp"/>
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>   
+        
+  		 <action path="/GestSustituciones" type="lopicost.spd.struts.action.GestSustitucionesAction"  
+		 	parameter="parameter"  name="GestSustitucionesForm"  
+		 	scope="request" validate="false">
+        	<forward name="list" path="/spd/app/gestSustituciones/jsp/list.jsp" />
+        	<forward name="editar" path="/spd/app/gestSustituciones/jsp/editar.jsp" />
+         	<forward name="borrar" path="/spd/app/gestSustituciones/jsp/borrar.jsp" />
+        	<forward name="nuevo" path="/spd/app/gestSustituciones/jsp/nuevo.jsp" />
+        	<forward name="editarSustXResi" path="/spd/app/gestSustituciones/jsp/editarSustXResi.jsp" />
+         	<forward name="borrarSustXResi" path="/spd/app/gestSustituciones/jsp/borrarSustXResi.jsp" />
+        	<forward name="nuevoSustXResi" path="/spd/app/gestSustituciones/jsp/nuevoSustXResi.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+</action>
+       
+<action path="/Autocompletar" type="lopicost.spd.struts.action.AutocompletarAction" name="BdConsejoForm" validate="false">
+    <forward name="json" path="" />
+    <forward name="error" path="/spd/common/jsp/error.jsp"/>
+</action>
+ 
+            <action path="/LookUpBdConsejo" type="lopicost.spd.struts.action.LookUpBdConsejoAction"
+                parameter="parameter" name="BdConsejoForm"    
+                scope="request" validate="false" >
+            <forward name="init" path="/spd/app/lookUp/bdConsejo/jsp/lookUpBdConsejo.jsp" />
+            <forward name="json" path="/spd/app/lookUp/bdConsejo/jsp/autocompletar.jsp" />         
+             <forward name="error" path="/spd/common/jsp/error.jsp"/>
+       </action>  
+       <action path="/LookUpLabsBdConsejo" type="lopicost.spd.struts.action.LookUpBdConsejoAction"
+                parameter="parameter" name="BdConsejoForm"  
+                scope="request" validate="false">
+            <forward name="initLabs" path="/spd/app/lookUp/bdConsejo/jsp/lookUpLabsBdConsejo.jsp" />        
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+       </action>  
+    
+
+        
+     	<action path="/FicheroResiCabecera" type="lopicost.spd.struts.action.FicheroResiCabeceraAction"  
+		 	parameter="parameter"  name="FicheroResiForm" 
+		 	scope="request" validate="false">
+        	<forward name="list" path="/spd/app/ficheroResi/jsp/listCabecera.jsp" />
+         	<forward name="borrar" path="/spd/app/ficheroResi/jsp/borrarCabecera.jsp" />
+       		<forward name="refrescar" path="/spd/app/ficheroResi/jsp/listCabecera.jsp" />
+       		<forward name="detalle" path="/FicheroResiDetalle.do?parameter=list" />
+       		<forward name="detalleNoExistentesBbdd" path="/FicheroResiDetalle.do?parameter=detalleNoExistentesBbdd" />
+       		<forward name="detalleNoExistentesFichero" path="/FicheroResiDetalle.do?parameter=detalleNoExistentesFichero" />
+       		<forward name="detalleMensajesInfo" path="/FicheroResiDetalle.do?parameter=detalleMensajesInfo" />
+       		<forward name="detalleMensajesAlerta" path="/FicheroResiDetalle.do?parameter=detalleMensajesAlerta" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+        
+        
+		 <action path="/FicheroResiDetalle" type="lopicost.spd.struts.action.FicheroResiDetalleAction"  
+		 	parameter="parameter"  name="FicheroResiForm" 
+		 	scope="request" validate="false">
+        	<forward name="list" path="/spd/app/ficheroResi/jsp/listDetalle.jsp" />
+        	<forward name="editar" path="/spd/app/ficheroResi/jsp/editarDetalle.jsp" />
+         	<forward name="borrar" path="/spd/app/ficheroResi/jsp/borrarDetalle.jsp" />
+         	<forward name="borrarMasivoPorProceso" path="/spd/app/ficheroResi/jsp/borrarMasivoPorProcesoDetalle.jsp" />
+        	<forward name="nuevo" path="/spd/app/ficheroResi/jsp/nuevoDetalle.jsp" />
+       		<forward name="refrescar" path="/spd/app/ficheroResi/jsp/listDetalle.jsp" />
+      		<forward name="refrescar2" path="/FicheroResiDetalle.do?parameter=list" />
+         	<forward name="generarFicherosRobot" path="/spd/app/ficheroResi/jsp/generarFicherosRobotDetalle.jsp" />
+         	<forward name="actualizaCipEnFichero" path="/spd/app/ficheroResi/jsp/actualizaCipEnFichero.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+        
+        <!-- VERSION LITE  --> 
+       	<action path="/FicheroResiCabeceraLite" type="lopicost.spd.struts.action.FicheroResiCabeceraLiteAction"  
+		 	parameter="parameter"  name="FicheroResiForm" 
+		 	scope="request" validate="false">
+        	<forward name="list" path="/spd/app/ficheroResiLite/jsp/listCabecera.jsp" />
+         	<forward name="borrar" path="/spd/app/ficheroResiLite/jsp/borrarCabecera.jsp" />
+        	<forward name="editar" path="/spd/app/ficheroResiLite/jsp/editarCabecera.jsp" />
+       		<forward name="refrescar" path="/spd/app/ficheroResiLite/jsp/listCabecera.jsp" />
+       		<forward name="detalle" path="/FicheroResiDetalleLite.do?parameter=list" />
+       		<forward name="exportExcel" path="/spd/app/ficheroResiLite/jsp/origen/listDetalle.jsp" />
+       		<forward name="compararSeleccion" path="/spd/app/ficheroResiLite/jsp/compararSeleccion.jsp" />
+       		<forward name="compararResultado" path="/spd/app/ficheroResiLite/jsp/compararResultado.jsp" />
+       		<forward name="addTratamientosEnProyecto" path="/Iospd/Iospd.do?parameter=addInProcess"  />
+       		<forward name="abrirVentanaErrores" path="/spd/app/ficheroResiLite/jsp/abrirVentanaErrores.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+    	<action path="/FicheroResiDetalleLite" type="lopicost.spd.struts.action.FicheroResiDetalleLiteAction"  
+		 	parameter="parameter"  name="FicheroResiForm" 
+		 	scope="request" validate="false">
+        	<forward name="list" path="/spd/app/ficheroResiLite/jsp/origen/listDetalle.jsp" />
+        	<forward name="listarTipoVista" path="/spd/app/ficheroResiLite/jsp/listarTipoVista.jsp" />
+        	<forward name="editar" path="/spd/app/ficheroResiLite/jsp/editarDetalle.jsp" />
+         	<forward name="borrar" path="/spd/app/ficheroResiLite/jsp/borrarDetalle.jsp" />
+        	<forward name="nuevo" path="/spd/app/ficheroResiLite/jsp/nuevoDetalle.jsp" />
+       		<forward name="refrescar" path="/spd/app/ficheroResiLite/jsp/origen/listDetalle.jsp" />
+       		<forward name="exportExcel" path="/spd/app/ficheroResiLite/jsp/origen/listDetalle.jsp" />
+       		<forward name="exportFilasSinSust" path="/spd/app/ficheroResiLite/jsp/origen/listDetalle.jsp" />
+       		<forward name="infoAlertas" path="/spd/app/ficheroResiLite/jsp/infoAlertas.jsp" />
+       		
+           <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+        
+
+
+
+
+         <action path="/GestSustitucionesLite" type="lopicost.spd.struts.action.GestSustitucionesLiteAction"  
+		 	parameter="parameter"  name="GestSustitucionesLiteForm"  
+		 	scope="request" validate="false">
+        	<forward name="list" path="/spd/app/gestSustitucionesLite/jsp/list.jsp" />
+        	<forward name="editarExpres" path="/spd/app/gestSustitucionesLite/jsp/editarExpres.jsp" />
+        	<forward name="editar" path="/spd/app/gestSustitucionesLite/jsp/editar.jsp" />
+       		<forward name="duplicar" path="/spd/app/gestSustitucionesLite/jsp/duplicar.jsp" />
+         	<forward name="borrar" path="/spd/app/gestSustitucionesLite/jsp/borrar.jsp" />
+        	<forward name="nuevo" path="/spd/app/gestSustitucionesLite/jsp/nuevo.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+        
+        <action path="/FicheroResiCabeceraNewLite" type="lopicost.spd.struts.action.FicheroResiCabeceraNewLiteAction"  
+		 	parameter="parameter"  name="FicheroResiNewForm" 
+		 	scope="request" validate="false">
+        	<forward name="list" path="/spd/app/ficheroResiNewLite/jsp/listCabecera.jsp" />
+       		<forward name="refrescar" path="/spd/app/ficheroResiNewLite/jsp/listCabecera.jsp" />
+       		<forward name="detalle" path="/FicheroResiDetalleNewLite.do?parameter=list" />
+         	<forward name="editar" path="/spd/app/ficheroResiNewLite/jsp/editarCabecera.jsp" />
+         	<forward name="borrar" path="/spd/app/ficheroResiNewLite/jsp/borrarCabecera.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+    	 <action path="/FicheroResiDetalleNewLite" type="lopicost.spd.struts.action.FicheroResiDetalleNewLiteAction"  
+		 	parameter="parameter"  name="FicheroResiNewForm" 
+		 	scope="request" validate="false">
+        	<forward name="list" path="/spd/app/ficheroResiNewLite/jsp/listDetalle.jsp" />
+        	<forward name="editar" path="/spd/app/ficheroResiNewLite/jsp/editarDetalle.jsp" />
+         	<forward name="borrar" path="/spd/app/ficheroResiNewLite/jsp/borrarDetalle.jsp" />
+        	<forward name="nuevo" path="/spd/app/ficheroResiNewLite/jsp/nuevoDetalle.jsp" />
+       		<forward name="refrescar" path="/spd/app/ficheroResiNewLite/jsp/listDetalle.jsp" />
+       		<forward name="exportExcel" path="/spd/app/ficheroResiNewLite/jsp/listDetalle.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+      	 <action path="/ResiCabecerasXLS" type="lopicost.spd.struts.action.ResiCabecerasXLSAction"  
+		 	parameter="parameter"  name="FicheroResiForm" 
+		 	scope="request" validate="false">
+        	<forward name="editar" path="/spd/app/resiCabecerasXLS/jsp/editarDetalle.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+         <action path="/CabecerasXLS" type="lopicost.spd.struts.action.CabecerasXLSAction"  
+		 	parameter="parameter"  name="FicheroResiForm" 
+		 	scope="request" validate="false">
+        	<forward name="list" path="/spd/app/cabecerasXLS/jsp/list.jsp" />
+        	<forward name="editar" path="/spd/app/cabecerasXLS/jsp/editarCabecera.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>       
+ 
+ 		<!-- Histórico producciones-->
+       	<action path="/FicheroResiCabeceraLiteHst" type="lopicost.spd.struts.action.FicheroResiCabeceraLiteHstAction"  
+		 	parameter="parameter"  name="FicheroResiForm" 
+		 	scope="request" validate="false">
+        	<forward name="list" path="/spd/app/ficheroResiLiteHst/jsp/listCabeceraHst.jsp" />
+       		<forward name="detalle" path="/FicheroResiDetalleLiteHst.do?parameter=list" />
+       		<forward name="exportExcel" path="/spd/app/ficheroResiLiteHst/jsp/origen/listDetalleHst.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+    	<action path="/FicheroResiDetalleLiteHst" type="lopicost.spd.struts.action.FicheroResiDetalleLiteHstAction"  
+		 	parameter="parameter"  name="FicheroResiForm" 
+		 	scope="request" validate="false">
+        	<forward name="list" path="/spd/app/ficheroResiLiteHst/jsp/origen/listDetalleHst.jsp" />
+        	<forward name="listarTipoVista" path="/spd/app/ficheroResiLiteHst/jsp/listarTipoVistaHst.jsp" />
+       		<forward name="exportExcel" path="/spd/app/ficheroResiLiteHst/jsp/origen/listDetalleHst.jsp" />
+       		<forward name="infoAlertas" path="/spd/app/ficheroResiLiteHst/jsp/infoAlertasHst.jsp" />
+       		
+           <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+ 
+         <action path="/startProcess" type="lopicost.spd.robot.bean.StartProcessAction" 
+        name="FicheroResiForm" scope="request" validate="false">
+    <forward name="success" path="/spd/app/robot/processStatus.jsp" />
+</action>
+
+<action path="/getProcessStatus" type="lopicost.spd.robot.bean.GetProcessStatusAction" 
+        scope="request" validate="false">
+    <forward name="success" path="/spd/app/robot/jsonStatus.jsp" />
+</action>
+
+
+        
+        <!-- FIN VERSION LITE  --> 
+        
+
+			<!-- IOSPD Importació-->
+        <action path="/Iospd/Iospd" 
+        		type="lopicost.spd.iospd.importdata.struts.action.ImportDataAction"
+                parameter="parameter"  
+                name="ImportIOSpdForm"
+                 scope="session"
+                validate="false">
+            <forward name="list" path="/spd/iospd/importdata.jsp"  />
+            <forward name="addInProcess" path="/spd/iospd/importdataEnProyecto.jsp"  />
+            <forward name="error" path="/spd/iospd/error.jsp"  />
+        </action>
+         <action path="/Iospd/ImportFile"
+                type="lopicost.spd.iospd.importdata.struts.action.ImportDataAction"
+                 parameter="parameter"  
+                 name="ImportIOSpdForm" 
+                 scope="session"
+                validate="false">
+             <forward name="list" path="/spd/iospd/importdata.jsp"  />
+            <forward name="inprocess" path="/spd/iospd/importdata.jsp"  />
+          	<forward name="addExists" path="/spd/iospd/importdataEnProyecto.jsp"  />
+             <forward name="error" path="/spd/iospd/error.jsp"  />
+        </action>
+        <action path="/Iospd/ImportGestion" 
+        		type="lopicost.spd.iospd.importdata.struts.action.ImportDataGestionAction"
+                parameter="parameter"  
+                name="ImportIOSpdForm"
+                 scope="session"
+                validate="false">
+            <forward name="list" path="/spd/iospd/importdataGestion.jsp"  />
+             <forward name="error" path="/spd/iospd/error.jsp"  />
+        </action>
+         <action path="/Iospd/ImportGestionFile" 
+        		type="lopicost.spd.iospd.importdata.struts.action.ImportDataGestionAction"
+                parameter="parameter"  
+                name="ImportIOSpdForm"
+                 scope="session"
+                validate="false">
+            <forward name="list" path="/spd/iospd/importdataGestion.jsp"  />
+            <forward name="inprocessBak" path="/Iospd/ImportGestion.do?parameter=list"  />
+            <forward name="inprocess" path="/spd/iospd/importdataGestion.jsp"  />
+            
+            <forward name="export" path="/spd/iospd/importdataGestion.jsp"  />
+            <forward name="error" path="/spd/iospd/error.jsp"  />
+        </action>
+
+        
+        <!-- IOSPD Exportació-->
+        <action path="/Iospd/ExportData"
+                type="lopicost.spd.iospd.exportdata.struts.action.ExportDataAction"
+                 parameter="parameter"  
+                 name="ExportIOSpdForm"
+                 scope="session"
+                validate="false">
+            <forward name="export" path="/spd/iospd/exportdata.jsp"/>
+            <forward name="error" path="/spd/iospd/error.jsp"/>
+        </action>
+ 
+          <action path="/Iospd/SustXConjExportData"
+                type="lopicost.spd.iospd.exportdata.struts.action.SustXConjHomogExportAction"
+                parameter="parameter"  
+                name="SustXComposicionForm"
+                scope="session"
+                validate="false">
+            <forward name="export" path="/spd/iospd/sustXComposicion.jsp"/>
+            <forward name="success" path="/spd/iospd/error.jsp"/>
+        </action>
+
+
+		<!-- Reporting -->
+     	<action path="/Reporting" 
+     		type="lopicost.spd.struts.action.ReportingAction"  
+		 	parameter="parameter"  
+		 	name="ReportingForm" 
+		 	scope="session" 
+		 	validate="false">
+        	<forward name="listHtml" path="/spd/app/reporting/jsp/list.jsp" />
+        	<forward name="list" path="/spd/app/reporting/jsp/list.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+    		<!-- Enlaces -->
+		<action path="/Enlaces" 
+			type="lopicost.spd.struts.action.EnlacesAction"  
+		 	parameter="parameter"  
+			name="EnlacesForm" 
+			scope="session" 
+			validate="false">
+        	<forward name="admin" path="/spd/app/enlaces/jsp/admin.jsp" />
+        	<forward name="list" path="/spd/app/enlaces/jsp/list.jsp" />
+        	<forward name="nuevo" path="/spd/app/enlaces/jsp/nuevo.jsp" />
+        	<forward name="editar" path="/spd/app/enlaces/jsp/editar.jsp" />
+        	<forward name="borrar" path="/spd/app/enlaces/jsp/borrar.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>      
+        
+      		<!-- Gestión del Menú vs perfiles  -->
+     	<action path="/Menu" 
+     		type="lopicost.spd.struts.action.MenuAction"  
+		 	parameter="parameter"  
+		 	name="MenuForm" 
+		 	scope="session" 
+		 	validate="false">
+        	<forward name="list" path="/spd/app/menu/jsp/list.jsp" />
+        	<forward name="admin" path="/spd/app/menu/jsp/admin.jsp" />
+         	<forward name="nuevo" path="/spd/app/menu/jsp/nuevo.jsp" />
+        	<forward name="editar" path="/spd/app/menu/jsp/editar.jsp" />
+        	<forward name="borrar" path="/spd/app/menu/jsp/editar.jsp" />
+            <forward name="error" path="/spd/menu/jsp/error.jsp"/>
+        </action>      
+      		<!-- Enlaces -->
+		<action path="/ExtRe" 
+			type="lopicost.spd.struts.action.ExtReAction"  
+		 	parameter="parameter"  
+			name="GenericForm" 
+			scope="session" 
+			validate="false">
+        	<forward name="list" path="/spd/app/extRe/jsp/list.jsp" />
+        	<forward name="sinProcesar" path="/spd/app/extRe/jsp/listResidentesSinProcesar.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>      
+
+      		<!-- Enlaces -->
+		<action path="/CtrlPrincActivos" 
+			type="lopicost.spd.struts.action.ControlPrincipioActivoAction"  
+		 	parameter="parameter"  
+			name="ControlPrincipioActivoForm" 
+			scope="session" 
+			validate="false">
+        	<forward name="list" path="/spd/app/controlPrincipioActivo/jsp/list.jsp" />
+        	<forward name="nuevo" path="/spd/app/controlPrincipioActivo/jsp/nuevo.jsp" />
+        	<forward name="borrar" path="/spd/app/controlPrincipioActivo/jsp/borrar.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action> 
+        
+ 		<action path="/ExtRe" 
+			type="lopicost.spd.struts.action.ExtReAction"  
+		 	parameter="parameter"  
+			name="GenericForm" 
+			scope="session" 
+			validate="false">
+        	<forward name="list" path="/spd/app/extRe/jsp/list.jsp" />
+        	<forward name="sinProcesar" path="/spd/app/extRe/jsp/listResidentesSinProcesar.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>            
+          
+          <!-- ControlDatosBBDD -->
+		<action path="/ControlDataImport" 
+			type="lopicost.spd.struts.action.ControlDataImportAction"  
+		 	parameter="parameter"  
+			name="GenericForm" 
+			scope="session" 
+			validate="false">
+        	<forward name="list" path="/spd/app/controlDataImport/jsp/list.jsp" />
+        	<forward name="consulta" path="/spd/app/controlDataImport/jsp/consulta.jsp" />
+        	<forward name="export" path="/spd/app/controlDataImport/jsp/list.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action> 
+        
+                
+              		<!-- Enlaces -->
+		<action path="/SpdLog" 
+			type="lopicost.spd.struts.action.SpdLogAction"  
+		 	parameter="parameter"  
+			name="SpdLogForm" 
+			scope="session" 
+			validate="false">
+        	<forward name="list" path="/spd/app/spdLog/jsp/list.jsp" />
+        	<forward name="consulta" path="/spd/app/spdLog/jsp/consulta.jsp" />
+        	<forward name="export" path="/spd/app/spdLog/jsp/list.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action> 
+        
+               
+	</action-mappings>
+<message-resources parameter="example.ApplicationResources" null="false"/>
+</struts-config>

@@ -1,0 +1,836 @@
+/* deixo aquí els css generals */
+body {
+	margin: 0 1% 1% 1%;
+	padding: 0;
+	font: normal 0.8em Verdana, Geneva, Arial, Helvetica, sans-serif;
+	color: #000;
+	background-color: #FFF;
+	overflow: auto;
+	
+}
+/* Estilo para la tabla */
+table {
+   	width: 95%;
+    border-collapse: collapse;
+    border: 1px solid #1bbcb8;
+    /*margin-top: 1em; */
+}
+  
+  /* Estilos para el encabezado de la tabla fijo */
+  thead th {
+    position: sticky;
+    top: 0;
+     z-index: 1; /* Asegura que el encabezado esté sobre los otros elementos */
+  }
+  
+  
+#container {
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 0,5em;
+}
+a {
+	color: #3d88a0;
+}
+
+a img {
+	border: 0;
+}
+
+/* titols */
+h1,
+h2,
+h3,
+h4,
+h5 {
+	color: #00256B;
+/*	font: bold 1.4em Georgia, Arial, Verdana;*/
+	margin: 0;
+/*	padding: 0 0 1.5em 0;*/
+	width: 100%;
+}
+
+h3 {
+	color: #5981C8;
+	font: bold 1.1em Verdana;
+}
+
+h5 {
+	color: #000;
+	font: bold 1.1em Verdana, Geneva, Arial, Helvetica, sans-serif;
+	padding: 0 0 1em 0;
+}
+
+div#titol h2 {
+	padding-bottom: 0.5em;
+}
+
+div#titol h3 {
+	float: left;
+}
+
+div#titol h4 {
+	float: left;
+	margin-left: 1em;
+}
+
+div input[type="checkbox"] {
+    display: inline-block;
+    /*margin-right: 1em;  Espacio entre los checkboxes */
+}
+div#titol h5 {
+	float: left;
+	margin-left: 1em;
+}
+
+/* botons 
+button,
+.clsButtonStyle,
+a.boto {
+	margin: 0em;
+	padding: 0.2em 0 0 0;
+	font: normal 0.9em Arial, Helvetica, sans-serif;
+	text-transform: uppercase; 
+	color: #000;
+	background-color: #F9C62D;
+	border: 0.1em solid #C6A00D;
+	cursor: pointer;
+}
+*/
+
+button,
+.clsButtonStyle,
+a.boto {
+  border: none; 
+  color: black; 
+  padding: 1.4em 2.8em; 
+  cursor: pointer; 
+  border-radius: 0.5em; 
+}
+
+.primary {background-color: white; border: 0.2em solid #0065d5;} 
+.primary:hover {background: #0b7dda; color: white;}
+
+
+
+a.boto {
+	margin: 0em;
+	padding: 0.3em 0.5em;
+	float: left;
+}
+
+.botons,
+#botons {
+/* 	padding: 0 0 1em 0; */
+	margin: 0;
+}
+
+.botons p,
+#botons p {
+	margin: 0;
+	padding: 0;
+	float: right;
+}
+
+/* formularis */
+form {
+	margin: 0;
+	padding: 0;
+}
+
+input,
+select,
+textarea {
+	font: normal 0.8em Verdana, Arial, sans-serif;
+	margin: 0;
+	background-color: #FFF;
+	
+}
+
+input {
+	color: #000;
+	background-color: #c8f7f5;
+	padding: 0.2em;
+	border: 0.15em solid #1bbcb8;
+	vertical-align: middle;
+}
+
+
+#spdCn {
+	width: 5em;
+}
+#spdNombreBolsa {
+	width: 25em;
+}
+#spdNombreMedicamento,  #excepciones,  #aux1,  #aux2 {
+	width: 30em;
+}
+input.checkbox {
+	border: 0.1em solid #FFF;
+}
+
+input.largo {
+	border: 0.1em solid #FFF;
+	size: 10em;
+}
+
+ 
+select {
+	color: #000;
+	/*width: 17.5em;*/
+	width:auto;
+}
+select.select_corto 
+ {
+	width: 17.5em;*/
+}
+
+select.select_resis 
+ {
+	width: 40em;
+	height: 20em;
+}
+
+select.select_5 
+ {
+	width: 5em;
+}
+select.select_7 
+ {
+	width: 7em;
+}
+
+
+select.select_10 
+ {
+	width: 10em;
+}
+
+
+textarea {
+	color: #000;
+	height: 6em;
+	width: 27.5em;
+	border: 0.1em solid #CCC;
+}
+
+fieldset {
+	padding: 1em 2em 1em 1em;
+	margin: 1em 2em 2em 2em;
+	border: 0.15em solid #1bbcb8;
+}
+fieldset.spdOK {
+	width: auto;
+	padding: 1em 2em 1em 1em;
+	margin: 1em 2em 2em 2em;
+	border: 2em solid #1bbcb8;
+}
+
+fieldset div {
+	width: 98%;
+	float: left;
+	padding: 0 0 1em 0;
+}
+
+fieldset div p {
+	margin: 0;
+	padding: 0 0 0.8e 0;
+	width: 100%;
+}
+
+html > body fieldset div p {
+	float: left;
+	clear: left;
+}
+
+fieldset h3 {
+	background-color: #C7D4EB;
+	padding: 0.3em 1em;
+	margin: 0 0 1em 0;
+	font: bold 0.8em Verdana;
+	color: #00256B;
+	width: 100%;
+}
+
+fieldset div#unico {
+	width: 100%;
+	float: left;
+	padding: 0;
+}
+
+fieldset.element {
+	padding: 1em;
+}
+
+legend {
+	background-color: #A2A39E;
+	padding: 0.3em 1em;
+	margin: 0 0 1em 0;
+	font: bold 0.8em Verdana;
+	color: #FFF;
+}
+
+label {
+	width: 15%;
+	padding: 0 0.2em 0.2em 0.2em;
+	margin: 0 0.5em 0.5em 0;
+	border-bottom:  0.1em dotted #A2A2A2;
+	font-size: 0.8em;
+}
+
+html > body label {
+	float: left;
+	clear: left;
+}
+
+#filtrar,
+.dreta {
+	float: right;
+	margin-right: 0.3em;
+	margin-top: 0.7em;
+	margin-bottom: 0.5em;
+	background-color: Fuchsia;
+}
+
+#nuevo,
+#salvar,
+.bdreta {
+	float: right;
+	margin-right: 2em;
+	border: 0.1em solid #89B6D3;
+	background-color: Lime;
+}
+
+.contenedor {
+	padding: 0.5em;
+	width: 90%;
+	border: 0.1em solid #A2A2A2; /*#84dfcd;*/
+}
+
+.contenedor p {
+	text-align: right;
+}
+
+.contenedor label {
+	border-bottom: none;
+	padding: 0;
+	width: auto;
+}
+
+.contenedor .labelimp {
+	width: 100%;
+	margin-bottom: 1em;
+	background-color: #C7D4EB;
+}
+
+.dia {
+	width: 10em;
+	_width: 8em;
+}
+
+.hora {
+	width: 5em;
+}
+
+.numero {
+	width: 4em;
+}
+
+/* caixes */
+div#caixa {
+	background-color: #FFF;
+}
+
+div#head {
+	background-image: url(../img/logo_lopicost.jpg);
+	background-repeat: no-repeat;
+	background-position: 0em;
+	margin: 0em 0em 0em 0em;
+	height: 100%;	
+}
+
+div#contingut {
+	padding: 0;
+	margin: 0;
+	background-color: #FFF;
+	_width: 100%;
+	clear: both;
+}
+div#editCip {
+	background-color: #FFF;
+}
+
+
+.medidaTotal {
+	width: 100%; 
+}
+
+caption {
+	background-color: #4C6697;
+	font: bold 0.8em Arial, sans-serif;
+	color: #FFF;
+	padding: 0.3em 0.5em;
+	margin: 0;
+	border: 0.1em solid #FFF; 
+	border-width: 0 0.2em 0.3em 0; 
+	text-align: left;
+}
+
+th {
+	
+	/*width: 100px;*/
+	background-color: #8defed; /*#2dff96;*/
+	font:  0.8em Arial, sans-serif;
+	padding: 0.2em 0.4em;
+	color: #000;
+	text-align: center;
+	   /* Establece los colores de los bordes */
+    border-top: 0.05em solid #FFF; /* Borde superior en blanco */
+    border-bottom: 0.05em solid #FFF; /* Borde inferior en blanco */
+    border-left: 0.1em solid #000; /* Borde izquierdo en negro */
+    border-right: 0.1em solid #000; /* Borde derecho en negro */
+}
+
+th.nombres {
+	width: 5em;	
+}
+th.BASE {
+	/*background-color: blue;*/
+}
+th.EXTRA {
+	background-color: #00ff00;
+}
+
+td {
+	font: normal 0.8em Verdana, Geneva, Arial, Helvetica, sans-serif;
+	/*font: 0.9em Arial, sans-serif;*/
+	background-color: #EEE; /*#85f1d9*/
+	border: 0.1em solid black;
+	/*border: 0.1em solid #1bbcb8;*/
+	/*border: 0.1em solid #85f1d9;*/
+	/*border-width: 0 0.2em 0.2em 0;*/
+	/*padding: 0.5em; */
+	padding: 0.2em 0.4em;
+}
+
+tr.clase-1 td {
+	background-color: #00ffff;
+}
+tr.clase-2 td {
+	background-color: #a6ffa6;
+}
+tr.clase-3 td {
+	background-color: #ffffae;
+}
+
+tr.alerta td {
+	background-color: red;
+}
+
+tr.alertaSustXResi td {
+	background-color: orange;
+}
+
+tr.alertaPrincipioActivo td {
+	background-color: yellow;
+}
+tr.amarilloflojo td {
+	background-color: #ffff80;
+}
+tr.amarillo td {
+	background-color: yellow;
+}
+
+tr.par td {
+	background-color:  #FFF;
+}
+
+td.alerta {
+	background-color: red;
+}
+
+td.alertaSustXResi {
+	background-color: red;
+}
+
+td.info {
+	background-color: orange;
+}
+
+td.infoSustXResi {
+	background-color: orange;
+}
+td.amarilloflojo {
+	background-color: #ffff80;
+}
+td.amarillo {
+	background-color: #ffff80;
+}
+
+td.toma
+{
+	text-align: center;
+
+}
+
+tr.NO_PINTAR td {
+	background-color: #a2a39e;
+}
+tr.SI_PRECISA td {
+	background-color: #a2a39e;
+}
+.llistat {
+	background: transparent url(../images/li.gif) no-repeat 0 0.5em;
+}
+
+td a {
+	/*text-decoration: none;*/
+	/*font: bold 1em Arial, sans-serif;*/
+	/*font: 0.8em Arial, sans-serif;*/
+	color: #000080;
+}
+
+/* tabula data */
+table.tabla {
+	width: 50%;
+	align: left;
+	vertical-align: middle;
+}
+table.tablaResi {
+	width: 50%;
+	background-color: #ffff80;
+	width:auto;
+	border: 0.1em solid #400040; 
+	border-width: 1 1.2em 1.3em 1; 
+	
+	
+}
+table.tablaSpdOk {
+	width: 50%;
+	background-color: #00ff00;
+	width:auto;
+	border: 0.5em solid #0080ff; 
+	border-width: 2 2em 1.3em 1; 
+}
+
+table.tabla td {
+	padding: 0;
+	text-align: center;
+}
+
+td a span {
+	display: none;
+}
+
+td.editar {
+	width: 2em;	
+}
+
+td.fecha {
+	width: 2.5em;	
+	text-align: center;
+}
+
+td.pautasDia {
+	width: 2em;	
+	text-align: center;
+}
+th.pautasDia {
+	width: 2em;	
+	text-align: center;
+}
+tr.pautasDia {
+	width: 80%;
+}
+
+td.editar a:link,
+td.editar a:visited {
+	background-image: url(../images/editar.png);
+	background-repeat: no-repeat;
+	background-position: 0em;
+	display: block;
+	width: 1.8em;
+	height: 1.6em;
+	text-indent: -100em;
+}
+
+td.editar a:hover {
+	background-image: url(../images/editah.png);
+}
+
+td.borrar {
+	width: 2em;
+}
+
+td.borrar a:link,
+td.borrar a:visited {
+	background-image: url(../images/borrar.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	width: 1.8em;
+	height: 1.6em;
+	text-indent: -100em;
+}
+
+td.borrar a:hover {
+	background-image: url(../images/borrarh.png);
+}
+
+td.pdf {
+	width: 2em;	
+}
+
+td.pdf a:link,
+td.pdf a:visited {
+	background-image: url(../images/pdf.png);
+	background-repeat: no-repeat;
+	background-position: 0em;
+	display: block;
+	width: 1.8em;
+	height: 1.6em;
+	text-indent: -100em;
+}
+
+td.pdf a:hover {
+	background-image: url(../images/pdfh.png);
+}
+
+td.veure {
+	width: 2em;	
+}
+
+td.mensajeAlerta {
+
+	color: #ff0000;
+}	
+
+.textoAzul {
+    color: blue;
+}
+
+
+.textoRojo {
+    color: red;
+}
+
+td.nombreMedicamentoConsejo {
+	height: 12em;	
+}	
+
+td.veure a:link,
+td.veure a:visited {
+	background-image: url(../images/veure.png);
+	background-repeat: no-repeat;
+	background-position: 0em;
+	display: block;
+	width: 1.8em;
+	height: 1.6em;
+	text-indent: -100em;
+}
+
+td.veure a:hover {
+	background-image: url(../images/veureh.png);
+}
+
+li.fitxa a:link,
+li.fitxa a:visited {
+	background-image: url(../images/pdf.png);
+	background-repeat: no-repeat;
+	background-position: 0em;
+	display: block;
+	float: left;
+	width: 1.8em;
+	height: 1.6em;
+	text-indent: -100em;
+}
+
+li.fitxa a:hover {
+	background-image: url(../images/pdfh.png);
+}
+
+/* això només funx amb navegadors mosk (mozilla opera safari konkeror) */ 
+
+
+.right {
+	text-align: right;
+}
+
+.center {
+	text-align: center;
+}
+
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
+}
+
+.clearfix::after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* Medios de comunicación */
+@media only screen and (max-width: 76.8em) {
+	/* Estilos para pantallas más pequeñas */
+	.table-responsive {
+		overflow-x: auto;
+	}
+	
+	.table-responsive table {
+		width: 100%;
+	}
+
+	.table-responsive td,
+	.table-responsive th {
+		white-space: nowrap;
+	}
+
+	/* Ajustar tamaños de imagen */
+	.logo img,
+	.imagelogo {
+		width: 1.2em;
+		height: 1.2em;
+	}
+
+	/* Estilos para acordeón en pantallas más pequeñas */
+	.acordeo dt {
+		height: auto;
+		line-height: 1.5;
+	}
+
+	.acordeo dt:hover {
+		background-color: #EFEFEF;
+	}
+
+	.acordeo dt:after {
+		content: '+';
+		display: inline-block;
+		margin-left: 0.5em;
+	}
+
+	.acordeo .collapsed {
+		display: none;
+	}
+
+	.acordeo dt.open:after {
+		content: '-';
+	}
+
+	.acordeo dd div p img {
+		display: none;
+	}
+
+	.acordeo dd div p span {
+		width: auto;
+	}
+}
+
+tr:hover {
+	background-color: #EFEFEF;
+}
+
+/* Estilos para la tabla #quatre */
+#quatre.tabla {
+	padding: 0;
+	margin-top: 0;
+}
+
+/* Estilos para la lista de aulas */
+.opciones {
+	width: 4em;
+}
+
+/* Estilos para el logo */
+.logo {
+	width: 2.4em;
+}
+
+.logo img {
+	width: 1.6em;
+	height: 1.6em;
+}
+
+/* Estilos para imagelogo */
+.imagelogo {
+	width: 1.6em;
+	height: 1.6em;
+}
+
+/* Estilos para la leyenda */
+.llegenda {
+	background-color: #EFEFEF;
+	color: #00256B;
+	font-size: 0.8em;
+	text-align: right;
+	vertical-align: middle;
+	padding: 0.3em;
+}
+
+td.llegenda {
+	border-bottom: none;
+	padding-left: 0;
+}
+
+.llegenda img {
+	margin: 0 0.5em 0 1em;
+	vertical-align: middle;
+}
+
+/* Estilos para el paginador */
+#paginador {
+	border: 0.1em solid #CCC;
+	background-color: #DFDFDF;
+	padding: 0.1em 0;
+	vertical-align: middle;
+	margin: 0 0 1em 0;
+}
+
+#paginador * {
+	display: inline;
+}
+
+/* Estilos para los enlaces dentro del paginador */
+#paginador a {
+	color: #777;
+	text-decoration: none;
+}
+
+#paginador span {
+	padding: 0.2em 0.5em 0 0;
+}
+
+#paginador span.npagines {
+	font-weight: bold;
+}
+
+/* Estilos para las notas */
+.nota {
+	background-color: #DFE0D2;
+	padding: 2em;
+	text-align: center;
+	margin: 0 0 1em 0;
+}
+
+/* Estilos para los avisos */
+.avis {
+	color: #CC6633;
+	background: transparent url(../images/avisInfo.png) no-repeat 0 0;
+	padding: 0 0 0 1.5em;
+}
+
+/* Estilos para los avisos dentro de los fieldsets */
+fieldset .avis {
+	padding: 1.5em 0;
+}
+
+/* Estilos para la distribución */
+.left {
+	text-align: left;
+}
+

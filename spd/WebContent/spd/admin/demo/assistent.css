@@ -1,0 +1,56 @@
+body#assistent #caixa {
+	width: 760px;
+	}
+h3.titularEnumerat {
+	font-weight: bold;
+	padding: 20px 7px 10px 7px;
+	font-size: 18px;
+	}
+.enumerat {
+	margin: 0 0 0 3px;
+	padding: 0;
+	background: #ccc;
+	list-style: none;
+	}
+
+.enumerat li {
+	float: left;
+	background: #ddd;
+	width: 67px;
+	_width: 77px;
+	padding: 3px 5px;
+	text-align: center;
+	font-weight: bold;
+	}
+.enumerat li.actiu {
+	background: #999 url(../images/assistent/fletxa-enumerat.png) no-repeat 100% -1px;
+	color: #fff;
+	}
+.enumerat li.fet {
+	background: #999;
+	color: #ccc;
+	}
+
+#assistent fieldset {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	}
+#assistent select {
+	font-size: 9px;
+	}
+
+	
+#assistent fieldset div {
+	text-align: right;
+	width: 49%;
+	width: 50%;
+	float: left;
+	padding: 10px 0;
+	}
+
+	
+#assistent table {
+	_width: auto;
+	font-size: 10px;
+	}

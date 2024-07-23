@@ -1,0 +1,218 @@
+/* Estilo general de la página */
+
+@import url(reset.css); /* Estilos de la página de inicio*/
+@import url(inicio.css); /* Estilos de la página de inicio*/
+
+
+body {		
+	display: flex;
+	margin: 0 1% 1% 1%;	
+	padding: 0;	
+	font-size: 0.8em;	
+	color: #000;	
+	background-color: #FFF;	
+	overflow: auto;	
+	background: linear-gradient(27deg, #34495e 50%, #2c3e50 50%);
+}		
+
+body, table, td, p {
+    font: normal 11px Verdana, Geneva, Arial, Helvetica, sans-serif;	
+}
+
+/* Estilo para la tabla */
+
+table {	
+  	width: 95%;
+    border-collapse: collapse;	
+    border: 1px solid #1bbcb8;	
+    margin-top: 1em;	
+}	
+
+.a40 {
+  max-width: 4em; /* Establece un ancho máximo para la celda ajustada */
+}
+.a90 {
+  max-width: 9em; /* Establece un ancho máximo para la celda ajustada */
+}
+.a120 {
+  max-width: 12em; /* Establece un ancho máximo para la celda ajustada */
+}
+.a140 {
+  max-width: 14em; /* Establece un ancho máximo para la celda ajustada */
+}
+.a150 {
+  max-width: 15em; /* Establece un ancho máximo para la celda ajustada */
+}
+.a190 {
+  max-width: 19em; /* Establece un ancho máximo para la celda ajustada */
+}
+.a250 {
+  max-width: 25em; /* Establece un ancho máximo para la celda ajustada */
+}
+
+
+	
+.derecha {
+  text-align: right;
+}
+	
+td {		
+	background-color: #EEE; /*#85f1d9*/
+	border: 0.1em solid #000;
+	padding: 0.2em 0.4em;
+	/*white-space: nowrap;  Evita que el contenido se divida en varias líneas */
+    overflow: hidden;    /* Oculta cualquier contenido que desborde la celda */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos (...) cuando el contenido se oculta */
+	text-align: left;
+    overflow: hidden;    /* Oculta cualquier contenido que desborde la celda */
+  
+}		
+
+fieldset {	
+	padding: 1em 2em 1em 1em;
+	margin: 1em 2em 2em 2em;
+	border: 0.15em solid #1bbcb8;
+	padding: 10px;
+	clear: both;
+}	
+
+th {		
+	/*width: 100px;*/	
+	background-color: #8defed; /*#2dff96;*/	
+	padding: 0.2em 0.4em;	
+	color: #000;	
+	text-align: left;	
+	/*border: 0.1em solid #FFF;*/	
+	border: 0.05em solid #000;	
+	border-width: 0.05em 0.05em 0.05em 0.05em;	
+    overflow: hidden;    /* Oculta cualquier contenido que desborde la celda */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos (...) cuando el contenido se oculta */
+	
+}		
+
+select {		
+	font: normal 10px Verdana,Arial,sans-serif;	
+	color:#000;	
+}		
+select.select_corto 		
+{		
+	width: 17.5em;	
+}		
+.primary {background-color: white; border: 0.2em solid #0065d5;} 
+.primary:hover {background: #0b7dda; color: white;}
+
+/* Estilo compartido para los botones */
+.botons input[type="button"] {
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    margin: 0.4em 0.2em;
+    cursor: pointer;
+    border-radius: 0.4em;
+}
+
+.botons .verde {
+    background-color: #4CAF50;
+    color: white;
+}
+.botons .rojo {
+    background-color: #f44336;
+    color: white;
+}
+.botons .azul {
+    background-color: #0080ff;
+    color: white;
+}
+.botons .azulCielo {
+    background-color: #8defed;
+}
+.botons .marron {
+    background-color: #800000;
+    color: white;
+}
+
+label {
+	width: 15%;
+	padding: 0 0.2em 0.2em 0.2em;
+	margin: 0 0.5em 0.5em 0;
+	border-bottom:  0.1em dotted #A2A2A2;
+	font-size: 0.8em;
+}
+
+
+a {	
+	color: #000080;
+}	
+
+
+    /* Estilo para los elementos de la lista (li) */
+    li {
+      margin-bottom: 0.6em; /* Margen entre elementos de la lista */
+    }
+    
+
+th.BASE td{		
+	/*background-color: blue;*/	
+}		
+th.EXTRA td{		
+	background-color: #00ff00;	
+}		
+tr.alerta td{		
+	background-color: red;	
+}		
+		
+tr.alertaSustXResi td{		
+	background-color: orange;	
+}		
+		
+tr.par td{		
+	background-color:  #FFF;	
+}		
+		
+td.info {		
+	background-color: orange;	
+}		
+		
+tr.infoSustXResi td{		
+	background-color: orange;	
+}		
+		
+tr.NO_PINTAR td{		
+	background-color: #a2a39e;	
+}		
+tr.SI_PRECISA td{		
+	background-color: #a2a39e;	
+}		
+    
+.boton-up {		
+    background-image: url(../../spd/img/up.png); /* URL de la imagen para el botón "arriba" */		
+}		
+		
+.boton-down {		
+    background-image: url(../../spd/img/down.png); /* URL de la imagen para el botón "abajo" */		
+}		
+	
+.boton-up,		
+.boton-down {		
+    width: 1.2em;		
+    height: 1.2em;		
+    display: inline-block;		
+    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el botón */		
+    text-indent: -9999px; /* Oculta cualquier texto del enlace */		
+}		
+		
+
+
+		
+.azul {		
+    color: blue;		
+}		
+		
+		
+.rojo {		
+    color: red;		
+}		
+		
+
+    

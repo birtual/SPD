@@ -383,6 +383,35 @@ public class ImportGenericLite extends ImportProcessImpl
         return sb.toString();
   //      return StringUtil.quitaEspacios(sb.toString());
     }
+	
+	protected String  crearDetalleRowKeyLite(Vector row, String detalleRow, List<Integer> posicionesEliminar  )throws Exception {
+        
+		
+		// Si la lista de posiciones a eliminar es nula o vacía, devolver detalleRow
+        //if (detalleRow==null  || detalleRow.isEmpty() || posicionesEliminar == null || posicionesEliminar.isEmpty()) {
+        if (posicionesEliminar == null || posicionesEliminar.isEmpty()) 
+        {
+            if (row!=null && row.size()>0) {
+            	return StringUtil.quitaEspacios(detalleRow);
+            }
+           	else return "";
+        }
+
+     
+        // Construir la nueva cadena sin los elementos en las posiciones especificadas
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < row.size(); i++) {
+            if (!deberiaEliminar(i + 1, posicionesEliminar)) { // Las posiciones en la lista comienzan desde 1
+                sb.append(StringUtil.limpiarTextoComentarios(StringUtil.quitaEspaciosYAcentos((String)row.get(i), false))); 
+                if (i < row.size() - 1) {
+                    sb.append("|");
+                }
+            }
+        }
+        return sb.toString();
+  //      return StringUtil.quitaEspacios(sb.toString());
+    }
+	
 
     // Método que determina si un índice debería ser eliminado
     public static boolean deberiaEliminar(int indice, List<Integer> posicionesEliminar) {

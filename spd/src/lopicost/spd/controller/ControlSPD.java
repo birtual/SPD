@@ -170,6 +170,8 @@ public class ControlSPD{
 		String detalleResiActualArreglado= "";
 		String detalleRowKeyActual= "";
 		String detalleRowKeyActualArreglado= "";
+		String detalleRowKeyLiteActual= "";
+		String detalleRowKeyLiteActualArreglado= "";
 		try{ 
 			
 				detalleResiActual 			= medResi!=null && medResi.getDetalleRow()!=null && !medResi.getDetalleRow().equals("") ? medResi.getDetalleRow().toUpperCase():"detalleResiActual"; 
@@ -178,10 +180,14 @@ public class ControlSPD{
 					detalleResiActualArreglado = AegerusHelper.getDetalleRowAegerus(detalleResiActual);
 				detalleRowKeyActual 		= medResi!=null && medResi.getDetalleRowKey()!=null && !medResi.getDetalleRowKey().equals("") ? medResi.getDetalleRowKey().toUpperCase():"detalleRowKeyActual"; 
 				detalleRowKeyActualArreglado  = StringUtil.quitaEspacios(HelperSPD.getDetalleRowFechasOk(detalleRowKeyActual));
-				
+
+				detalleRowKeyLiteActual 		= medResi!=null && medResi.getDetalleRowKeyLite()!=null && !medResi.getDetalleRowKeyLite().equals("") ? medResi.getDetalleRowKeyLite().toUpperCase():"detalleRowKeyActualLite"; 
+				detalleRowKeyLiteActualArreglado  = StringUtil.quitaEspacios(HelperSPD.getDetalleRowFechasOk(detalleRowKeyLiteActual));
+
 			
 			System.out.println(new Date() + " detalleResiActualArreglado -->  " + detalleResiActualArreglado);
 			System.out.println(new Date() + " detalleRowKeyActual -->  " + detalleRowKeyActual);
+			System.out.println(new Date() + " detalleRowKeyLiteActual -->  " + detalleRowKeyLiteActual);
 			
 		}catch(Exception e){}
 		
@@ -189,6 +195,8 @@ public class ControlSPD{
 		String detalleResiAnteriorArreglado= "";
 		String detalleRowKeyAnterior= "";
 		String detalleRowKeyAnteriorArreglado= "";
+		String detalleRowKeyLiteAnterior= "";
+		String detalleRowKeyLiteAnteriorArreglado= "";
 		try{ 
 			detalleResiAnterior = medResiAnterior!=null && medResiAnterior.getDetalleRow()!=null && !medResiAnterior.getDetalleRow().equals("") ? medResiAnterior.getDetalleRow().toUpperCase():"detalleResiAnterior"; 
 			detalleResiAnteriorArreglado=HelperSPD.getDetalleRowFechasOk(StringUtil.quitaEspacios(detalleResiAnterior));
@@ -196,6 +204,10 @@ public class ControlSPD{
 
 			detalleRowKeyAnterior  = medResiAnterior!=null && medResiAnterior.getDetalleRowKey()!=null && !medResiAnterior.getDetalleRowKey().equals("") ? medResiAnterior.getDetalleRowKey().toUpperCase():"detalleRowKeyAnterior"; 
 			detalleRowKeyAnteriorArreglado=HelperSPD.getDetalleRowFechasOk(StringUtil.quitaEspacios(detalleRowKeyAnterior));
+
+			detalleRowKeyLiteAnterior  = medResiAnterior!=null && medResiAnterior.getDetalleRowKeyLite()!=null && !medResiAnterior.getDetalleRowKeyLite().equals("") ? medResiAnterior.getDetalleRowKeyLite().toUpperCase():"detalleRowKeyLiteAnterior"; 
+			detalleRowKeyLiteAnteriorArreglado=HelperSPD.getDetalleRowFechasOk(StringUtil.quitaEspacios(detalleRowKeyLiteAnterior));
+
 			
 			System.out.println(new Date() + " detalleResiAnteriorArreglado -->  " + detalleResiAnteriorArreglado);
 			System.out.println(new Date() + " detalleRowKeyAnterior -->  " + detalleRowKeyAnterior);
@@ -209,23 +221,28 @@ public class ControlSPD{
 		
 		boolean detalleResiIguales = Objects.equals(detalleResiActualArreglado, detalleResiAnteriorArreglado);
 		boolean detalleResiKeyIguales = Objects.equals(detalleRowKeyActual, detalleRowKeyAnterior)
-					|| Objects.equals(detalleRowKeyActualArreglado, detalleRowKeyAnteriorArreglado)
-					|| Objects.equals(detalleResiActualArreglado, detalleRowKeyAnteriorArreglado)
-					|| Objects.equals(detalleRowKeyActualArreglado, detalleResiAnteriorArreglado);
+				|| Objects.equals(detalleRowKeyActualArreglado, detalleRowKeyAnteriorArreglado)
+				|| Objects.equals(detalleResiActualArreglado, detalleRowKeyAnteriorArreglado)
+				|| Objects.equals(detalleRowKeyActualArreglado, detalleResiAnteriorArreglado)
+				;
+		boolean detalleResiKeyLiteIguales = Objects.equals(detalleRowKeyLiteActual, detalleRowKeyLiteAnterior)
+					|| Objects.equals(detalleRowKeyLiteActualArreglado, detalleRowKeyLiteAnteriorArreglado)
+					;
+		
 		boolean detalleSPDIguales = Objects.equals(enviadoSPDActual, enviadoSPDAnterior);
 		System.out.println(new Date() + " detalleResiIguales / detalleSPDIguales -->  " + detalleResiIguales + " / " +  detalleSPDIguales);
 		System.out.println(new Date() + " detalleRowKeyActual / detalleRowKeyAnterior -->  " + detalleResiKeyIguales );
 
 		//CASO 1 - Resi envía igual y SPD se envía igual - No alerta - Reutilizado ok
-		if(( detalleResiIguales || detalleResiKeyIguales)  && detalleSPDIguales)
+		if(( detalleResiIguales || detalleResiKeyIguales || detalleResiKeyLiteIguales)  && detalleSPDIguales)
 			medResi.setControlRegistroAnterior(SPDConstants.CTRL_REGISTRO_ANTERIOR_RI_SI);
 		
 		//CASO 2 - Resi envía diferente y SPD también diferente - No alerta - Registro nuevo (Revisión si cabe)  
-		if(!detalleResiIguales && !detalleResiKeyIguales && !detalleSPDIguales)
+		if(!detalleResiIguales && !detalleResiKeyIguales  && !detalleResiKeyLiteIguales && !detalleSPDIguales)
 			medResi.setControlRegistroAnterior(SPDConstants.CTRL_REGISTRO_ANTERIOR_RD_SD);
 		
 		//CASO 3 -  Resi envía igual y SPD envía diferente al anterior -  Alerta - CONFIRMAR 
-		if(( detalleResiIguales || detalleResiKeyIguales) && !detalleSPDIguales)
+		if(( detalleResiIguales || detalleResiKeyIguales || detalleResiKeyLiteIguales) && !detalleSPDIguales)
 		{
 			//if(!medResi.getConfirmar().equalsIgnoreCase(SPDConstants.REGISTRO_CONFIRMADO)
 			//if(!medResi.getResiPeriodo().contentEquals(SPDConstants.SPD_PERIODO_QUINCENAL)
@@ -241,7 +258,7 @@ public class ControlSPD{
 		}
 		
 		//CASO 4 -  Resi envía diferente y SPD se envía igual que el anterior -  Alerta - Confirmar 
-		if(!detalleResiIguales && !detalleResiKeyIguales && detalleSPDIguales)
+		if(!detalleResiIguales && !detalleResiKeyIguales && !detalleResiKeyLiteIguales && detalleSPDIguales)
 		{
 			//if(!medResi.getValidar().equals(SPDConstants.REGISTRO_VALIDADO))
 				medResi.setValidar(SPDConstants.REGISTRO_VALIDAR);

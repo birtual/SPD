@@ -191,6 +191,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 		private int row;
 		private String detalleRow="";
 		private String detalleRowKey="";
+		private String detalleRowKeyLite="";
 		private BdConsejo bdConsejo;
 		private GestSustitucionesBean gestSustitucionesBean;
 		private SustXComposicionBean gestSustXConjHomogBean;
@@ -254,6 +255,16 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 			public void setDetalleRowKey(String detalleRowKey) 				{		
 				this.detalleRowKey = StringUtil.quitaEspaciosYAcentos(detalleRowKey, true);	 			
 			}
+			
+			public String getDetalleRowKeyLite() {
+				return detalleRowKeyLite;
+			}
+
+			public void setDetalleRowKeyLite(String detalleRowKeyLite) {
+				this.detalleRowKeyLite = StringUtil.quitaEspaciosYAcentos(detalleRowKeyLite, true);
+			}
+			
+			
 			
 
 		  
@@ -340,202 +351,28 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 		  
 	
 
-	public String getIdTratamientoCIP() {
-			return idTratamientoCIP;
-		}
-
-
-	public void setIdTratamientoCIP(String idTratamientoCIP) {
-		this.idTratamientoCIP = idTratamientoCIP;
-	}
-
-	public int getOidDivisionResidencia() {
-		return oidDivisionResidencia;
-	}
-
-
-	public String getMensajesInfo() {
-		return mensajesInfo;
-	}
-
-
-	public void setMensajesInfo(String mensajesInfo) {
-		this.mensajesInfo = mensajesInfo;
-	}
-
-
-	public String getMensajesAlerta() {
-		return mensajesAlerta;
-	}
-
-
-	public void setMensajesAlerta(String mensajesAlerta) {
-		this.mensajesAlerta = mensajesAlerta;
-	}
+	public String getIdTratamientoCIP() {			return idTratamientoCIP;		}	public void setIdTratamientoCIP(String idTratamientoCIP) {		this.idTratamientoCIP = idTratamientoCIP;	}
+	public String getMensajesInfo() {		return mensajesInfo;	}	public void setMensajesInfo(String mensajesInfo) {		this.mensajesInfo = mensajesInfo;	}
+	public String getMensajesAlerta() {		return mensajesAlerta;	}	public void setMensajesAlerta(String mensajesAlerta) {		this.mensajesAlerta = mensajesAlerta;	}
 	public String getMensajesResidencia()		 {		return mensajesResidencia;	}	public void setMensajesResidencia(String mens) {	this.mensajesResidencia = mens;	}
-	
-	
-	public void setOidDivisionResidencia(int oidDivisionResidencia) {		this.oidDivisionResidencia = oidDivisionResidencia;}	
-	
-	public String getResiDiasAutomaticos() {
-		return resiDiasAutomaticos;
-	}
-
-
-	public String getSustituible() {
-		return sustituible;
-	}
-
-
-	public void setSustituible(String sustituible) {
-		this.sustituible = sustituible;
-	}
-
-
-	public void setResiDiasAutomaticos(String resiDiasAutomaticos) {
-		this.resiDiasAutomaticos = resiDiasAutomaticos;
-	}
-		
-	public int getOidGestSustituciones() {
-		return oidGestSustituciones;
-	}
-
-	public void setOidGestSustituciones(int oidGestSustituciones) {
-		this.oidGestSustituciones = oidGestSustituciones;
-	}
-
-
-	public int getOidGestSustitucionesXResi() {
-		return oidGestSustitucionesXResi;
-	}
-
-	public void setOidGestSustitucionesXResi(int oidGestSustitucionesXResi) {
-		this.oidGestSustitucionesXResi = oidGestSustitucionesXResi;
-	}
-
-
-	public String getSpdNombreMedicamento() {
-		return spdNombreMedicamento;
-	}
-
-
-	public void setSpdNombreMedicamento(String spdNombreMedicamento) {
-		this.spdNombreMedicamento = spdNombreMedicamento;
-	}
-
-
-	public String getSpdCodiLab() {
-		return spdCodiLab;
-	}
-
-
-	public void setSpdCodiLab(String spdCodiLab) {
-		this.spdCodiLab = spdCodiLab;
-	}
-
-
-	public String getSpdNombreLab() {
-		return spdNombreLab;
-	}
-
-
-	public void setSpdNombreLab(String spdNombreLab) {
-		this.spdNombreLab = spdNombreLab;
-	}
-
-
-	public String getSpdNota() {
-		return spdNota;
-	}
-
-
-	public void setSpdNota(String spdNota) {
-		this.spdNota = spdNota;
-	}
-
-
-	public String getCodGtVmpp() {
-		return codGtVmpp;
-	}
-
-
-	public void setCodGtVmpp(String codiConjHomog) {
-		this.codGtVmpp = codiConjHomog;
-	}
-
-
-	public String getNomGtVmpp() {
-		return nomGtVmpp;
-	}
-
-
-	public void setNomGtVmpp(String nomConjHomog) {
-		this.nomGtVmpp = nomConjHomog;
-	}
-
-
-	public String getComentarioInterno() {
-		return comentarioInterno;
-	}
-
-	public void setComentarioInterno(String comentarioInterno) {
-		this.comentarioInterno = comentarioInterno;
-	}
-
-	public boolean isBiblia() {
-	return biblia;
-	}
-
-	public void setBiblia(boolean biblia) {
-		this.biblia = biblia;
-	}
-	  
-	public BdConsejo getBdConsejo() {
-		return bdConsejo;
-	}
-
-	public void setBdConsejo(BdConsejo bdConsejo) {
-		this.bdConsejo = bdConsejo;
-	}
-
-	public GestSustitucionesBean getGestSustitucionesBean() {
-		return gestSustitucionesBean;
-	}
-
-	public void setGestSustitucionesBean(GestSustitucionesBean gestSustitucionesBean) {
-		this.gestSustitucionesBean = gestSustitucionesBean;
-	}
-
-	public SustXComposicionBean getGestSustXConjHomogBean() {
-		return gestSustXConjHomogBean;
-	}
-
-
-	public void setGestSustXConjHomogBean(SustXComposicionBean gestSustXConjHomogBean) {
-		this.gestSustXConjHomogBean = gestSustXConjHomogBean;
-	}
-
-
-	public int getRow() {
-		return row;
-	}
-
-
-	public void setRow(int row) {
-		this.row = row;
-	}
-
-	public int getOidFicheroResiDetalle() {
-		return oidFicheroResiDetalle;
-	}
-
-	public void setOidFicheroResiDetalle(int oidGestFicheroResiBolsa) {
-		this.oidFicheroResiDetalle = oidGestFicheroResiBolsa;
-	}
-
-	
-
-
+	public int getOidDivisionResidencia() {		return oidDivisionResidencia;	}	public void setOidDivisionResidencia(int oidDivisionResidencia) {		this.oidDivisionResidencia = oidDivisionResidencia;}	
+	public String getResiDiasAutomaticos() {		return resiDiasAutomaticos;	}	public void setResiDiasAutomaticos(String resiDiasAutomaticos) {		this.resiDiasAutomaticos = resiDiasAutomaticos;	}		
+	public String getSustituible() {		return sustituible;	}	public void setSustituible(String sustituible) {		this.sustituible = sustituible;	}
+	public int getOidGestSustituciones() {		return oidGestSustituciones;	}	public void setOidGestSustituciones(int oidGestSustituciones) {		this.oidGestSustituciones = oidGestSustituciones;	}
+	public int getOidGestSustitucionesXResi() {		return oidGestSustitucionesXResi;	}	public void setOidGestSustitucionesXResi(int oidGestSustitucionesXResi) {		this.oidGestSustitucionesXResi = oidGestSustitucionesXResi;	}
+	public String getSpdNombreMedicamento() {		return spdNombreMedicamento;	}	public void setSpdNombreMedicamento(String spdNombreMedicamento) {		this.spdNombreMedicamento = spdNombreMedicamento;	}
+	public String getSpdCodiLab() {		return spdCodiLab;	}	public void setSpdCodiLab(String spdCodiLab) {		this.spdCodiLab = spdCodiLab;	}
+	public String getSpdNombreLab() {		return spdNombreLab;	}	public void setSpdNombreLab(String spdNombreLab) {		this.spdNombreLab = spdNombreLab;	}
+	public String getSpdNota() {		return spdNota;	}	public void setSpdNota(String spdNota) {		this.spdNota = spdNota;	}
+	public String getCodGtVmpp() {		return codGtVmpp;	}	public void setCodGtVmpp(String codiConjHomog) {		this.codGtVmpp = codiConjHomog;	}
+	public String getNomGtVmpp() {		return nomGtVmpp;	}	public void setNomGtVmpp(String nomConjHomog) {		this.nomGtVmpp = nomConjHomog;	}
+	public String getComentarioInterno() {		return comentarioInterno;	}	public void setComentarioInterno(String comentarioInterno) {		this.comentarioInterno = comentarioInterno;	}
+	public boolean isBiblia() {	return biblia;	}	public void setBiblia(boolean biblia) {		this.biblia = biblia;	}
+	public BdConsejo getBdConsejo() {		return bdConsejo;	}	public void setBdConsejo(BdConsejo bdConsejo) {		this.bdConsejo = bdConsejo;	}
+	public GestSustitucionesBean getGestSustitucionesBean() {		return gestSustitucionesBean;	}	public void setGestSustitucionesBean(GestSustitucionesBean gestSustitucionesBean) {		this.gestSustitucionesBean = gestSustitucionesBean;	}
+	public SustXComposicionBean getGestSustXConjHomogBean() {		return gestSustXConjHomogBean;	}	public void setGestSustXConjHomogBean(SustXComposicionBean gestSustXConjHomogBean) {		this.gestSustXConjHomogBean = gestSustXConjHomogBean;	}
+	public int getRow() {		return row;	}	public void setRow(int row) {		this.row = row;	}
+	public int getOidFicheroResiDetalle() {		return oidFicheroResiDetalle;	}	public void setOidFicheroResiDetalle(int oidGestFicheroResiBolsa) {		this.oidFicheroResiDetalle = oidGestFicheroResiBolsa;	}
 	public String getIdProceso() {		return idProceso;	}
 	public void setIdProceso(String idProceso) {		this.idProceso = idProceso;	}
 	public String getIdDivisionResidencia() {		return idDivisionResidencia;	}
@@ -607,138 +444,26 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 */
 
 
-	public String getResultLog() {
-		return resultLog;
-	}
-
-
-	public void setResultLog(String resultLog) {
-		this.resultLog = resultLog;
-	}
-
-
-	public void setResiFormaMedicacion(String resiFormaMedicacion) {
-		this.resiFormaMedicacion = resiFormaMedicacion;
-	}
-
-	  public String getNombreDivisionResidencia() {
-		return nombreDivisionResidencia;
-	}
-
-
-	public void setNombreDivisionResidencia(String nombreDivisionResidencia) {
-		this.nombreDivisionResidencia = nombreDivisionResidencia;
-	}
-
-
-	public String getResiCodigoPaciente() {
-		return resiCodigoPaciente;
-	}
-
-
-	public void setResiCodigoPaciente(String resiCodigoPaciente) {
-		this.resiCodigoPaciente = resiCodigoPaciente;
-	}
-
-
-	public String getResiNumIdentidadPaciente() {
-		return resiNumIdentidadPaciente;
-	}
-
-
-	public void setResiNumIdentidadPaciente(String resiNumIdentidadPaciente) {
-		this.resiNumIdentidadPaciente = resiNumIdentidadPaciente;
-	}
-
-
-	public String getResiNumSegSocialPaciente() {
-		return resiNumSegSocialPaciente;
-	}
-
-
-	public void setResiNumSegSocialPaciente(String resiNumSegSocialPaciente) {
-		this.resiNumSegSocialPaciente = resiNumSegSocialPaciente;
-	}
-
-
-	public String getResiVariante() {
-		return resiVariante;
-	}
-
-
-	public void setResiVariante(String resiVariante) {
-		this.resiVariante = resiVariante;
-	}
-
-
-	public String getSpdNomGtVmpp() {
-		return spdNomGtVmpp;
-	}
-
-
-	public void setSpdNomGtVmpp(String spdNomConjHomog) {
-		this.spdNomGtVmpp = spdNomConjHomog;
-	}
-
-
-	public String getIdEstado() {
-		return idEstado;
-	}
-
-
-	public void setIdEstado(String idEstado) {
-		this.idEstado = idEstado;
-	}
-
-
+	public String getResultLog() {		return resultLog;	}	public void setResultLog(String resultLog) {		this.resultLog = resultLog;	}
+	public void setResiFormaMedicacion(String resiFormaMedicacion) {		this.resiFormaMedicacion = resiFormaMedicacion;	}  
+	public String getNombreDivisionResidencia() {		return nombreDivisionResidencia;	}	public void setNombreDivisionResidencia(String nombreDivisionResidencia) {		this.nombreDivisionResidencia = nombreDivisionResidencia;	}
+	public String getResiCodigoPaciente() {		return resiCodigoPaciente;	}	public void setResiCodigoPaciente(String resiCodigoPaciente) {		this.resiCodigoPaciente = resiCodigoPaciente;	}
+	public String getResiNumIdentidadPaciente() {		return resiNumIdentidadPaciente;	}	public void setResiNumIdentidadPaciente(String resiNumIdentidadPaciente) {		this.resiNumIdentidadPaciente = resiNumIdentidadPaciente;	}
+	public String getResiNumSegSocialPaciente() {		return resiNumSegSocialPaciente;	}	public void setResiNumSegSocialPaciente(String resiNumSegSocialPaciente) {		this.resiNumSegSocialPaciente = resiNumSegSocialPaciente;	}
+	public String getResiVariante() {		return resiVariante;	}	public void setResiVariante(String resiVariante) {		this.resiVariante = resiVariante;	}
+	public String getSpdNomGtVmpp() {		return spdNomGtVmpp;	}	public void setSpdNomGtVmpp(String spdNomConjHomog) {		this.spdNomGtVmpp = spdNomConjHomog;	}
+	public String getIdEstado() {		return idEstado;	}	public void setIdEstado(String idEstado) {		this.idEstado = idEstado;	}
 	public String getEditado() 		{		return editado;		}	public void setEditado(String editado) 			{		this.editado = editado;			}
 	public boolean isEditable() 	{		return editable;	}	public void setEditable(boolean editable) 		{		this.editable = editable;		}
 	public String getResiPeriodo() 	{		return resiPeriodo;	}	public void setResiPeriodo(String resiPeriodo) 	{		this.resiPeriodo = resiPeriodo;	}
 	public String getSpdCIP() 		{		return spdCIP;		}	public void setSpdCIP(String spdCIP) 			{		this.spdCIP = spdCIP;			}
-
-
-	public int getOidFicheroResiCabecera() {
-		return oidFicheroResiCabecera;
-	}
-	public void setOidFicheroResiCabecera(int oidFicheroResiCabecera) {
-		this.oidFicheroResiCabecera = oidFicheroResiCabecera;
-	}
-	public Date getFechaValidacionDatos() {
-		return fechaValidacionDatos;
-	}
-	public void setFechaValidacionDatos(Date fechaValidacionDatos) {
-		this.fechaValidacionDatos = fechaValidacionDatos;
-	}
-	public Date getFechaCreacionFicheroXML() {
-		return fechaCreacionFicheroXML;
-	}
-	public void setFechaCreacionFicheroXML(Date fechaCreaciónFicheroXML) {
-		this.fechaCreacionFicheroXML = fechaCreaciónFicheroXML;
-	}
-	public String getUsuarioValidacion() {
-		return usuarioValidacion;
-	}
-	public void setUsuarioValidacion(String usuarioValidacion) {
-		this.usuarioValidacion = usuarioValidacion;
-	}
-	public int getFilasTotales() {
-		return filasTotales;
-	}
-	public void setFilasTotales(int filasTotales) {
-		this.filasTotales = filasTotales;
-	}
-	public String getNombreFicheroResi() {
-		return nombreFicheroResi;
-	}
-	public void setNombreFicheroResi(String nombreFicheroResi) {
-		this.nombreFicheroResi = nombreFicheroResi;
-	}
-	public String getNombreFicheroXML() {
-		return nombreFicheroXML;
-	}
-	public void setNombreFicheroXML(String nombreFicheroXML) {
-		this.nombreFicheroXML = nombreFicheroXML;
-	}
+	public int getOidFicheroResiCabecera() {		return oidFicheroResiCabecera;	}	public void setOidFicheroResiCabecera(int oidFicheroResiCabecera) {		this.oidFicheroResiCabecera = oidFicheroResiCabecera;	}	
+	public Date getFechaValidacionDatos() {		return fechaValidacionDatos;	}	public void setFechaValidacionDatos(Date fechaValidacionDatos) {		this.fechaValidacionDatos = fechaValidacionDatos;	}
+	public Date getFechaCreacionFicheroXML() {		return fechaCreacionFicheroXML;	}	public void setFechaCreacionFicheroXML(Date fechaCreaciónFicheroXML) {		this.fechaCreacionFicheroXML = fechaCreaciónFicheroXML;	}
+	public String getUsuarioValidacion() {		return usuarioValidacion;	}	public void setUsuarioValidacion(String usuarioValidacion) {		this.usuarioValidacion = usuarioValidacion;	}
+	public int getFilasTotales() {		return filasTotales;	}	public void setFilasTotales(int filasTotales) {		this.filasTotales = filasTotales;	}
+	public String getNombreFicheroResi() {		return nombreFicheroResi;	}	public void setNombreFicheroResi(String nombreFicheroResi) {		this.nombreFicheroResi = nombreFicheroResi;	}
+	public String getNombreFicheroXML() {		return nombreFicheroXML;	}	public void setNombreFicheroXML(String nombreFicheroXML) {		this.nombreFicheroXML = nombreFicheroXML;	}
 	public int getCipsTotalesProceso() 			{		return cipsTotalesProceso;	}	public void setCipsTotalesProceso(int cipsFicheroOrigen) 		{		this.cipsTotalesProceso = cipsFicheroOrigen;		}
 	public int getCipsFicheroXML() 				{		return cipsFicheroXML;		}	public void setCipsFicheroXML(int cipsFicheroXML) 				{		this.cipsFicheroXML = cipsFicheroXML;				}
 	public int getCipsNoExistentesBbdd() 		{		return cipsNoExistentesBbdd;}	public void setCipsNoExistentesBbdd(int cipsNoExistentesBbdd) 	{		this.cipsNoExistentesBbdd = cipsNoExistentesBbdd;	}
@@ -842,6 +567,8 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	public List getResiTomas() 					{		return resiTomas;			}	public void setResiTomas(List resiTomas) 						{		this.resiTomas = resiTomas;							}
 	public List<String> getResiTomasOrdenadas() {		return resiTomasOrdenadas;	}	public void setResiTomasOrdenadas(List<String> resiTomasOrd) 	{		this.resiTomasOrdenadas = resiTomasOrd;				}
 	public List<String> getNombreTomasOrdenadas() {		return nombreTomasOrdenadas;}	public void setNombreTomasOrdenadas(List<String> nombre) 		{		this.nombreTomasOrdenadas = nombre;					}
+
+
 
 
 

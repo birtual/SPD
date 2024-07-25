@@ -107,7 +107,9 @@ public class ImportSFAssis extends ImportGenericLite
         medResi.setDetalleRow(detalleRow);
     	System.out.println(" detalleRow " + detalleRow);
         medResi.setDetalleRowKey(crearDetalleRowKey(detalleRow, getPosicionesAEliminar()));
-    	System.out.println(" detalleRowKey " + medResi.getDetalleRowKey());
+    	medResi.setDetalleRowKeyLite(crearDetalleRowKeyLite(row, detalleRow, getPosicionesAEliminar()));
+       	System.out.println(" detalleRowKey 		" + medResi.getDetalleRowKey());
+       	System.out.println(" detalleRowKeyLite 	" + medResi.getDetalleRowKeyLite());
 
 		//String siPrecisa = StringUtil.limpiarTextoyEspacios(medResi.getResiVariante());
 		String siPrecisa = StringUtil.limpiarTextoyEspacios(medResi.getResiComentarios());

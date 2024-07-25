@@ -99,7 +99,7 @@ public class FicheroResiDetalleDAO {
 	  	   	qry+= "  resiToma17, resiToma18, resiToma19, resiToma20, resiToma21, resiToma22, resiToma23, resiToma24, ";	 
 	  	   	qry+= "  validar, confirmar, confirmaciones, incidencia, resiPeriodo, fechaDesde, fechaHasta, ";
 	  	   	qry+= "  resultLog, row, mensajesInfo, mensajesAlerta, mensajesResidencia, idEstado, idTratamientoCIP, idTratamientoSPD, oidFicheroResiCabecera, frecuencia, diasMesConcretos,";
-	  	   	qry+= "  diasSemanaConcretos, tipoEnvioHelium, secuenciaGuide, numeroDeTomas, tipoRegistro, diasSemanaMarcados, editable, previsionResi, previsionSPd, detalleRow, detalleRowKey, editado,";
+	  	   	qry+= "  diasSemanaConcretos, tipoEnvioHelium, secuenciaGuide, numeroDeTomas, tipoRegistro, diasSemanaMarcados, editable, previsionResi, previsionSPd, detalleRow, detalleRowKey, detalleRowKeyLite, editado,";
 	  	   	qry+= "  controlValidacionDatos, controlRegistroRobot, controlRegistroAnterior, controlPrincipioActivo, controlNumComprimidos, controlNoSustituible, controlDiferentesGtvmp, controlUnicoGtvm) VALUES ";
 //	       	qry+= "('"+ b.getIdDivisionResidencia()+"', '"+ b.getIdProceso()+"', '"+ b.getResiCIP()+"', ";
 	       	qry+= " (CONVERT(datetime, getdate(), 120),  '"+idDivisionResidencia+"', '"+ idProceso+"', '"+ b.getResiCIP()+"', ";
@@ -125,7 +125,7 @@ public class FicheroResiDetalleDAO {
 			qry+= " REPLACE(COALESCE('"+b.getMensajesResidencia()+"', ''), '''', ''''''), '" + b.getIdEstado()+"', '"+b.getIdTratamientoCIP()+"', '"+b.getIdTratamientoSPD()+"', "+b.getOidFicheroResiCabecera()+", ";
 			qry+= " "+b.getResiFrecuencia()+", '"+b.getDiasMesConcretos()+ "',  '" + b.getDiasSemanaConcretos()+"', '"+b.getTipoEnvioHelium()+"', COALESCE('" + b.getSecuenciaGuide()+"', ''), ";
 			qry+= " '"+b.getNumeroDeTomas()+"',  COALESCE('" + b.getTipoRegistro()+"', ''),  '" + b.getDiasSemanaMarcados()+"','" + editable+ "', "+ b.getPrevisionResi() +", "+ b.getPrevisionSPD()+"," ;
-			qry+= " '" + (b.getDetalleRow()!=null?b.getDetalleRow().replace("'", " "):"")+ "', '" + b.getDetalleRowKey()+"', 'NO',";
+			qry+= " '" + (b.getDetalleRow()!=null?b.getDetalleRow().replace("'", " "):"")+ "', '" + b.getDetalleRowKey()+"', '" + b.getDetalleRowKeyLite()+"', 'NO',";
 			qry+= " '" + b.getControlValidacionDatos() + "', '" + b.getControlRegistroRobot() + "', '" + b.getControlRegistroAnterior() + "', '" + b.getControlPrincipioActivo() + "'," ;
 			qry+= " '" + b.getControlNumComprimidos() + "', '" + b.getControlNoSustituible() + "', '" + b.getControlDiferentesGtvmp() + "', '" + b.getControlUnicoGtvm() + "')" ;
 			
@@ -1620,6 +1620,7 @@ public class FicheroResiDetalleDAO {
 			List<FicheroResiBean>  list = new ArrayList<FicheroResiBean>();
 			String detalleRow=medResiActual.getDetalleRow();
 			String detalleRowKey=medResiActual.getDetalleRowKey();
+			String detalleRowKeyLite=medResiActual.getDetalleRowKeyLite();
 			
 			//caso particular de Aegerus
 			boolean esAegerus =medResiActual.getIdProcessIospd()!=null && medResiActual.getIdProcessIospd().equalsIgnoreCase(SPDConstants.IDPROCESO_AEGERUS);    
@@ -1644,6 +1645,7 @@ public class FicheroResiDetalleDAO {
 							+ " OR g.detalleRow like '"+AegerusHelper.getDetalleRowAegerus(HelperSPD.getDetalleRowFechasOk(detalleRow))+"%' "
 							+ " OR g.detalleRow like '"+detalleRow+"%'"
 							+ " OR g.detalleRowKey like '"+detalleRowKey+"%'"
+							+ " OR g.detalleRowKeyLite like '"+detalleRowKeyLite+"%'"
 							+ ")";
 
 				}
@@ -1658,6 +1660,7 @@ public class FicheroResiDetalleDAO {
 						+ " OR g.detalleRowKey ='"+detalleRow+"'  "
 						+ " OR g.detalleRow ='"+detalleRow+"'  "
 						+ " OR  g.detalleRowKey ='"+detalleRowKey+"'  "
+						+ " OR g.detalleRowKeyLite like '"+detalleRowKeyLite+"%'"
 						
 						/*
 						 * + " OR UPPER(REPLACE(g.detalleRow, ' ', '')) COLLATE Cyrillic_General_CI_AI ='"+StringUtil.quitaEspaciosYAcentos(detalleRow, true)+"' COLLATE Cyrillic_General_CI_AI "

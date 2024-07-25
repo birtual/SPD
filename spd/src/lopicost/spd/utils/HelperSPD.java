@@ -1501,12 +1501,18 @@ public class HelperSPD{
 			medResi.setSpdNombreBolsa(medResiAnterior.getSpdNombreBolsa());
 			medResi.setSpdFormaMedicacion(medResiAnterior.getSpdFormaMedicacion());
 			medResi.setSpdAccionBolsa(medResiAnterior.getSpdAccionBolsa());
-			medResi.setResiInicioTratamiento(medResiAnterior.getResiInicioTratamiento());
-			medResi.setResiFinTratamiento(medResiAnterior.getResiFinTratamiento());
-			medResi.setResiComentarios(medResiAnterior.getResiComentarios());
-			medResi.setResiObservaciones(medResiAnterior.getResiObservaciones());
-			medResi.setResiViaAdministracion(medResiAnterior.getResiViaAdministracion());
-			medResi.setResiVariante(medResiAnterior.getResiVariante());
+			//medResi.setResiInicioTratamiento(medResiAnterior.getResiInicioTratamiento());
+			medResi.setResiInicioTratamiento(medResi.getResiInicioTratamiento());
+			//medResi.setResiFinTratamiento(medResiAnterior.getResiFinTratamiento());
+			medResi.setResiFinTratamiento(medResi.getResiFinTratamiento());
+			//medResi.setResiComentarios(medResiAnterior.getResiComentarios());
+			medResi.setResiComentarios(medResi.getResiComentarios());
+			//medResi.setResiObservaciones(medResiAnterior.getResiObservaciones());
+			medResi.setResiObservaciones(medResi.getResiObservaciones());
+			//medResi.setResiViaAdministracion(medResiAnterior.getResiViaAdministracion());
+			medResi.setResiViaAdministracion(medResi.getResiViaAdministracion());
+			//medResi.setResiVariante(medResiAnterior.getResiVariante());
+			medResi.setResiVariante(medResi.getResiVariante());
 			medResi.setResiD1(medResiAnterior.getResiD1());
 			medResi.setResiD2(medResiAnterior.getResiD2());
 			medResi.setResiD3(medResiAnterior.getResiD3());
@@ -4120,5 +4126,16 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 			detalleRow = detalleRow.toString().replaceAll("[\\[\\]]", "").replaceAll("'", " ");
 			return detalleRow;
 		}
+	    
+	    public String vectorToPipeSeparatedString(Vector<String> row) {
+	        StringBuilder sb = new StringBuilder();
+	        for (int i = 0; i < row.size(); i++) {
+	            sb.append(row.get(i));
+	            if (i < row.size() - 1) {
+	                sb.append('|');
+	            }
+	        }
+	        return sb.toString();
+	    }
 	    
 }

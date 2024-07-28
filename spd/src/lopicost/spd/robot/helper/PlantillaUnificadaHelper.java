@@ -152,6 +152,7 @@ public class PlantillaUnificadaHelper {
         {
      		DetallesTomasBean bean = (DetallesTomasBean)_it.next();
     		aux=XMLRobotDao.procesarDetalleTomasRobot(idUsuario, cabDetalle, bean, tomasGlobal);
+    		if (aux==null || aux.equals("")) continue;
     		
     		rowsInInsert+= queryInsert.toString().split("\\) , ").length;
     		if(rowsInInsert<SPDConstants.MAX_INSERTS_PER_STATEMENT && !aux.equals(""))
@@ -308,29 +309,28 @@ public class PlantillaUnificadaHelper {
 	        try {
 	            String diaHora = DateUtilities.getDatetoString("ddMMyyyy_Hmm", new Date());
 	            String filePath = "c://UTILS/UNIFICADA_DM_" + cab.getIdProceso() + ".xml";
-	            nomFitxer = diaHora + "_UNIFICADA_" + cab.getIdProceso() + ".xml";
+	            nomFitxer = "FILIA_DM_" + cab.getIdProceso() + "_hora_"+diaHora + ".xml";
 	            File file = new File(filePath);
 	
 	        	FileOutputStream fos = new FileOutputStream(file);
 	        	OutputStreamWriter writer = new OutputStreamWriter(fos, "UTF-8");
 	        	marshaller.marshal(medicamentos, writer);
-		        writer.close();
 
-		        
+	            System.out.println("DM XML generado correctamente");
+	            /* Para enviarlo a descargas 
+	            writer.close();
 		        response.setContentType("application/xml");
 		        response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
 		        response.setContentLength((int) file.length());
 		        
-	            System.out.println("DM XML generado correctamente");
-	            try (InputStream fis = new FileInputStream(file);
-	            	     OutputStream outputStream = response.getOutputStream()) {
+	            try (InputStream fis = new FileInputStream(file); OutputStream outputStream = response.getOutputStream()) {
 	            	    byte[] buffer = new byte[1024];
 	            	    int bytesRead;
 	            	    while ((bytesRead = fis.read(buffer)) != -1) {
 	            	        outputStream.write(buffer, 0, bytesRead);
 	            	    }
 	            	}
-	            
+	            */
 	            
 	            
 	            
@@ -431,29 +431,28 @@ public class PlantillaUnificadaHelper {
 	        try {
 	            String diaHora = DateUtilities.getDatetoString("ddMMyyyy_Hmm", new Date());
 	            String filePath = "c://UTILS/UNIFICADA_RX_" + cab.getIdProceso() + ".xml";
-	            nomFitxer = diaHora + "_UNIFICADA_" + cab.getIdProceso() + ".xml";
+	            nomFitxer = "FILIA_RX_" + cab.getIdProceso() + "_hora_"+diaHora + ".xml";
 	            File file = new File(filePath);
 	
 	        	FileOutputStream fos = new FileOutputStream(file);
 	        	OutputStreamWriter writer = new OutputStreamWriter(fos, "UTF-8");
 	        	marshaller.marshal(filiaRX, writer);
-		        writer.close();
+		       // writer.close();
 
 		        
-		        response.setContentType("application/xml");
-		        response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
-		        response.setContentLength((int) file.length());
+		        //response.setContentType("application/xml");
+		        //response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+		        //response.setContentLength((int) file.length());
 		        
 	            System.out.println("RX XML generado correctamente");
-	            try (InputStream fis = new FileInputStream(file);
-	            	     OutputStream outputStream = response.getOutputStream()) {
+	            /*try (InputStream fis = new FileInputStream(file); OutputStream outputStream = response.getOutputStream()) {
 	            	    byte[] buffer = new byte[1024];
 	            	    int bytesRead;
 	            	    while ((bytesRead = fis.read(buffer)) != -1) {
 	            	        outputStream.write(buffer, 0, bytesRead);
 	            	    }
 	            	}
-	            
+	            */
 	            
 	            
 	            

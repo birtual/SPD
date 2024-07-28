@@ -187,8 +187,23 @@
        		<forward name="compararResultado" path="/spd/app/ficheroResiLite/jsp/compararResultado.jsp" />
        		<forward name="addTratamientosEnProyecto" path="/Iospd/Iospd.do?parameter=addInProcess"  />
        		<forward name="abrirVentanaErrores" path="/spd/app/ficheroResiLite/jsp/abrirVentanaErrores.jsp" />
+       		<!--forward name="generarFicherosDMyRX" path="/spd/app/ficheroResiLite/jsp/ficherosDMyRX.jsp" />-->
+    	
+    	    <forward name="generarFicherosDMyRX" path="/spd/app/robot/jsp/ficherosDMyRX.jsp" />
+		    <forward name="checkProgress" path="/spd/app/ficheroResiLite/jsp/ficherosDMyRX.jsp" />
+
+
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
         </action>  
+        
+        <action path="/prepararGeneracion"  type="lopicost.spd.struts.action.FicheroResiCabeceraLiteAction"  
+		 	parameter="parameter"  name="FicheroResiForm" 
+		 	scope="request" validate="false">
+    <forward name="generarFicheros" path="/spd/app/robot/jsp/generarFicheros.jsp" />
+</action>
+
+
+
     	<action path="/FicheroResiDetalleLite" type="lopicost.spd.struts.action.FicheroResiDetalleLiteAction"  
 		 	parameter="parameter"  name="FicheroResiForm" 
 		 	scope="request" validate="false">
@@ -204,9 +219,6 @@
        		
            <forward name="error" path="/spd/common/jsp/error.jsp"/>
         </action>  
-        
-
-
 
 
          <action path="/GestSustitucionesLite" type="lopicost.spd.struts.action.GestSustitucionesLiteAction"  
@@ -278,7 +290,7 @@
  
          <action path="/startProcess" type="lopicost.spd.robot.bean.StartProcessAction" 
         name="FicheroResiForm" scope="request" validate="false">
-    <forward name="success" path="/spd/app/robot/processStatus.jsp" />
+    <forward name="success" path="/spd/app/robot/jsp/processStatus.jsp" />
 </action>
 
 <action path="/getProcessStatus" type="lopicost.spd.robot.bean.GetProcessStatusAction" 

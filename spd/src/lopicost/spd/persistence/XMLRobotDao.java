@@ -144,8 +144,19 @@ public class XMLRobotDao
             			 );
             	
             //si el día está marcado, bucle de los días de producción SPD
-            while(marcado && DateUtilities.isBeetwenTime(bean.getDateDesde(), bean.getDateHasta(), dateObjetivo) && count<32)  //count por seguridad en caso de de recibir fechas dispares por error
+            while(marcado 
+            		&& DateUtilities.isBeetwenTime(bean.getDateDesde(), bean.getDateHasta(), dateObjetivo) 
+            		//&& DateUtilities.isBeetwenTime(bean.getDateInicioTratamiento(), bean.getDateFinTratamiento(), dateObjetivo)
+            		&& count<32)  //count por seguridad en caso de de recibir fechas dispares por error
             {
+            	//si la fecha inicio/fin SPD no está dentro pasamos al siguiente día objetivo en el bucle
+            	if(!DateUtilities.isBeetwenTime(bean.getDateInicioTratamiento(), bean.getDateFinTratamiento(), dateObjetivo))
+            	{
+    	            dateObjetivo = (Date) DateUtilities.addDate(dateObjetivo, 1);
+               		continue;
+    	                           	 
+            	}
+            	
             	fechaTomaInsert= sdf.format(dateObjetivo);
             	fechaTomaParaIdBolsa= sdfIdBolsa.format(dateObjetivo);
     				
@@ -583,13 +594,15 @@ public class XMLRobotDao
  	*/
 		   String qry = " SELECT dtr.CIP AS patientId ";
 		   			qry+=  " , dtr.orderNumber ";
-	   				qry+=  " , frd.resiApellidosNombre as patientName  ";
+	   				//qry+=  " , frd.resiApellidosNombre as patientName  ";
+		   			qry+=  " , (select top 1 resiApellidosNombre from SPD_ficheroResiDetalle where resiCIP=dtr.CIP) as patientName "; 
 					qry+=  " , dtr.planta ";
 					qry+=  " , dtr.habitacion ";
 	   				qry+=  " , dtr.fechaToma AS startDate  ";
 	   				qry+=  " , '' as stockLocation ";
 					qry+=  " , CAST((SELECT CASE dispensar WHEN 'S' THEN '1' WHEN 'N' THEN '0' ELSE '0' END)  AS INT)  as flagBolsa  ";
-					qry+=  " , DATEDIFF(d, fechaDesde, dtr.fechaToma) as offsetDays ";
+					//qry+=  " , DATEDIFF(d, fechaDesde, dtr.fechaToma) as offsetDays ";
+					qry+=  " , DATEDIFF(d, (select top 1 fechaDesde from SPD_ficheroResiDetalle where idProceso=dtr.idProceso), dtr.fechaToma) as offsetDays ";
 					qry+=  " , nombreToma as doseTime ";
 					qry+=  " , dtr.idFreeInformation as freeInformation ";
 					qry+=  " , dtr.idBolsa as idBolsa ";
@@ -599,7 +612,7 @@ public class XMLRobotDao
 					qry+=  " , dtr.idLineaRX as id ";
 					qry+=  " , dtr.nombreMedicamento as textMedicamento ";
 					qry+=  " FROM SPD_XML_detallesTomasRobot dtr ";
-					qry+=  " LEFT JOIN SPD_ficheroResiDetalle frd ON dtr.Cip=frd.resiCIP AND dtr.idDivisionResidencia=frd.idDivisionResidencia AND dtr.idProceso=frd.idProceso AND dtr.CN=frd.spdCnFinal ";
+					//qry+=  " LEFT JOIN SPD_ficheroResiDetalle frd ON dtr.Cip=frd.resiCIP AND dtr.idDivisionResidencia=frd.idDivisionResidencia AND dtr.idProceso=frd.idProceso AND dtr.CN=frd.spdCnFinal ";
 					qry+=  " WHERE 1=1 ";
 					qry+=  " AND dtr.idDivisionResidencia='"+cab.getIdDivisionResidencia()+"' ";
 					qry+=  " AND dtr.idProceso='"+cab.getIdProceso()+"' ";

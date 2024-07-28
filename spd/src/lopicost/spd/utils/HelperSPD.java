@@ -4122,8 +4122,8 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 		   	 		detalleRow = row.subList(0, COLUMNAS).toString();
 			}
 	        // Procesa la cadena de Excel y conviértela en un arreglo o lista, por ejemplo
-	        //detalleRow = StringUtil.quitaEspaciosYAcentos(detalleRow.toString().replaceAll("[\\[\\]]", "").replaceAll("'", " "), true);
-			detalleRow = detalleRow.toString().replaceAll("[\\[\\]]", "").replaceAll("'", " ");
+	       detalleRow = StringUtil.quitaEspaciosYAcentos(detalleRow.toString().replaceAll("[\\[\\]]", "").replaceAll("'", " "), true);
+	       //detalleRow = detalleRow.toString().replaceAll("[\\[\\]]", "").replaceAll("'", " ");
 			return detalleRow;
 		}
 	    

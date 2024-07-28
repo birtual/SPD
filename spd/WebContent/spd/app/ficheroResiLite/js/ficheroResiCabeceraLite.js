@@ -1,6 +1,5 @@
 		function avance()
 		{
-			
 			var f = document.forms[0];
 			f.parameter.value='list';
 			f.ACTIONTODO.value='LIST';
@@ -42,7 +41,6 @@
 			document.location.href='/spd/FicheroResiCabeceraLiteHst.do?parameter=list';
 			return true;
 		}	
-		
 		
 		function volver()
 		{
@@ -118,8 +116,6 @@
 			f.idProcesoComparacion.value= idProceso2;
 			f.submit();
 		}		
-		
-
 				
 		function borrar(oidFicheroResiCabecera)
 		{
@@ -129,6 +125,7 @@
 			f.oidFicheroResiCabecera.value= oidFicheroResiCabecera;
 			f.submit();
 		}
+
 		function borrarOk(oidFicheroResiCabecera)
 		{
 		
@@ -245,19 +242,18 @@
 
 		}
 		
+		/*
 		function generarFicherosRobot(oidFicheroResiCabecera)
 		{
 			var f = document.FicheroResiForm;
-			/*if(f.procesoValido.value=='false'){
-				alert('Existen registros no válidos o por revisar'); 
-				return;				
-			}*/
+
 			//si llega aquí es que es válido
 			f.oidFicheroResiCabecera.value=oidFicheroResiCabecera;
 			f.parameter.value='generarFicherosDMyRX';
 			f.ACTIONTODO.value='GENERAR_FICHEROS';
 			f.submit()
 		}
+		*/
 		
 		
 		function generarFicherosHelium(oidFicheroResiCabecera)
@@ -276,16 +272,22 @@
 		
 		function addTratamientos(idDivisionResidencia, idProceso)
 		{
+			var f = document.FicheroResiForm;
 			var url = "/spd/Iospd/Iospd.do?parameter=listAux&idProceso=" + idProceso + "&idDivisionResidencia=" + idDivisionResidencia+ "&operation=FILTER";
 	 			 
 			 window.open(url, 'addTratamientos', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
 			f.submit()
 		}
 		
+		
+		function generarFicherosRobot(oidFicheroResiCabecera)
+		{
+			var f = document.FicheroResiForm;
+			var url = "/spd/prepararGeneracion.do?parameter=generarFicheros&oidFicheroResiCabecera=" + oidFicheroResiCabecera +  "&operation=GENERAR_FICHEROS";
+	 		window.open(url, 'generarFicherosDMyRX', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
+		}
+		
 
-		
-		
-		
 		
 		
 		

@@ -302,19 +302,29 @@ th.columna-ancho {
 .botons .negro {
     background-color: #000000;
     color: white;
-}		        
+}		       
+
+
+.botons button:disabled,
+.botons input[type="button"]:disabled {
+    background-color: grey; /* Color de fondo para botones desactivados */
+    color: lightgrey; /* Color del texto para botones desactivados */
+    cursor: not-allowed; /* Cursor para indicar que el botón está deshabilitado */
+    border: 1px solid grey; /* Opcional: añade un borde gris para botones desactivados */
+}
+
 select.ancho_5 
- {
+{
 	width: 5em;
 }
 
 select.ancho_7 
- {
+{
 	width: 7em;
 }
 
 select.ancho_10
- {
+{
 	width: 10em;
 }
 

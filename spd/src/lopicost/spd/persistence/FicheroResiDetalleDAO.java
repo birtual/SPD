@@ -1660,7 +1660,7 @@ public class FicheroResiDetalleDAO {
 						+ " OR g.detalleRowKey ='"+detalleRow+"'  "
 						+ " OR g.detalleRow ='"+detalleRow+"'  "
 						+ " OR  g.detalleRowKey ='"+detalleRowKey+"'  "
-						+ " OR g.detalleRowKeyLite like '"+detalleRowKeyLite+"%'"
+						+ " OR g.detalleRowKeyLite = '"+detalleRowKeyLite+"%'"
 						
 						/*
 						 * + " OR UPPER(REPLACE(g.detalleRow, ' ', '')) COLLATE Cyrillic_General_CI_AI ='"+StringUtil.quitaEspaciosYAcentos(detalleRow, true)+"' COLLATE Cyrillic_General_CI_AI "
@@ -1686,6 +1686,7 @@ public class FicheroResiDetalleDAO {
 			else 
 				qry+=  " AND g.idTratamientoCIP ='"+medResiActual.getIdTratamientoCIP()+"' ";
 			
+	   		qry+=  " AND g.resiCIP = '"+medResiActual.getResiCIP()+"' ";
 	   		qry+=  " AND g.idProceso <>'"+medResiActual.getIdProceso()+"' ";
 	   		qry+=  " AND g.numeroDeTomas= '"+medResiActual.getNumeroDeTomas()+"' "; //para que coincida la cabecera
 	   		qry+=  " AND (g.validar <> '"+SPDConstants.REGISTRO_VALIDAR+"' or g.validar is null) ";

@@ -132,6 +132,10 @@
 		   </tr>
  	    	<tbody>
 		 	<logic:iterate id="data" name="formulari" property="listaFicheroResiCabeceraBean" type="lopicost.spd.struts.bean.FicheroResiBean" indexId="position">
+		 	<% 
+			    String oidFicheroResiCabecera = data.getOidFicheroResiCabecera()+"";
+		    %>
+					    
 				<tr>
 					<!-- td><bean:write name="data" property="idDivisionResidencia" /></td> -->
 					<td class="a150"><a href="javascript:goDetalle('<bean:write name="data" property="oidDivisionResidencia" />', '<bean:write name="data" property="idProceso" />', '<bean:write name="data" property="oidFicheroResiCabecera" />');"><bean:write name="data" property="idProceso" /></a> <br></td>
@@ -162,7 +166,7 @@
 							<input type="button" class="azul" onclick="javascript:exportExcel('<bean:write name="data" property="idDivisionResidencia" />', '<bean:write name="data" property="idProceso" />')" value="Exportar "  />
 							<input type="button" class="marron" value="Ficheros Helium" onclick="javascript:generarFicherosHelium('<bean:write name="data" property="oidFicheroResiCabecera" />')" />
 						<logic:equal property="idUsuario" name="formulari" value="admin">
-							<input type="button" class="negro" value="Ficheros DM y RX" onclick="javascript:generarFicherosRobot('<bean:write name="data" property="oidFicheroResiCabecera" />')" />
+							<input type="button" id="generateButton_<%=oidFicheroResiCabecera%>" class="negro" value="Ficheros DM y RX" onclick="javascript:generarFicherosRobot('<bean:write name="data" property="oidFicheroResiCabecera" />')" />
 						</logic:equal>
 						</logic:equal>
 						<logic:equal property="idEstado" name="data" value="<%= SPDConstants.SPD_PROCESO_3_POR_VALIDACION_MASIVA %>">
@@ -171,7 +175,7 @@
 							<input type="button" class="azul" onclick="javascript:exportExcel('<bean:write name="data" property="idDivisionResidencia" />', '<bean:write name="data" property="idProceso" />')" value="Exportar "  />
 							<input type="button"  class="marron" value="Ficheros Helium" onclick="javascript:generarFicherosHelium('<bean:write name="data" property="oidFicheroResiCabecera" />')" />
 						<logic:equal property="idUsuario" name="formulari" value="admin">
-							<input type="button" class="negro" value="Ficheros DM y RX" onclick="javascript:generarFicherosRobot('<bean:write name="data" property="oidFicheroResiCabecera" />')" />
+							<input type="button" id="generateButton_<%=oidFicheroResiCabecera%>" class="negro" value="Ficheros DM y RX" onclick="javascript:generarFicherosRobot('<bean:write name="data" property="oidFicheroResiCabecera" />')" />
 						</logic:equal>
 						</logic:equal>
 						<logic:equal property="idEstado" name="data" value="<%= SPDConstants.SPD_PROCESO_4_CARGA_ERROR %>">

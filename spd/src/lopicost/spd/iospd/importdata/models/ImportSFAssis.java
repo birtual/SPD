@@ -174,7 +174,11 @@ CIP	NHC	Nombre	C.Nacional	Medicamento	Dosis	F. inicio	F. final	Código	Frecuencia
 		List<Integer> result =new ArrayList<Integer>();
 		result.add(2);
 		result.add(6);
+		result.add(7);//TMP
+		result.add(8);//TMP
 		result.add(9);
+		result.add(10);//TMP
+		result.add(11);//TMP
 		return result;
 	}
 	

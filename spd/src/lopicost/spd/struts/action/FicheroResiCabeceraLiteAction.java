@@ -531,7 +531,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 	
 
 
-	public void generarFicherosDMyRX(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward generarFicherosDMyRX(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		FicheroResiForm formulari =  (FicheroResiForm) form;
 		FicheroResiBean cab = dao.getCabeceraByFilters(getIdUsuario(), formulari, 0, 1, null, false);
 		FicheroResiBean cabDetalle  =  FicheroResiDetalleHelper.getCabeceraFicheroResi(getIdUsuario(), cab.getIdDivisionResidencia(), cab.getIdProceso(), false);
@@ -548,14 +548,30 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
     	PlantillaUnificadaHelper.procesarExcepciones(getIdUsuario(),  cabDetalle);
         // Paso6 - Creación del FiliaDM 
    		FiliaDM filiaDM = PlantillaUnificada.creaFicheroDM(getIdUsuario(), cabDetalle);
-       	String nombreFicheroFiliaDM=PlantillaUnificadaHelper.generaFicheroDM(cabDetalle, filiaDM,  response);
-        // Paso7 - Creación del FiliaRX
    		FiliaRX filiaRX = PlantillaUnificada.creaFicheroRX(getIdUsuario(), cabDetalle, div);
-   		String nombreFicheroFiliaRX=PlantillaUnificadaHelper.generaFicheroRX(cabDetalle, filiaRX,  response);
+
+   		String nombreFicheroFiliaDM=PlantillaUnificadaHelper.generaFicheroDM(cabDetalle, filiaDM,  response);
+   	    boolean fileDMGenerated = (nombreFicheroFiliaDM != null && !nombreFicheroFiliaDM.isEmpty());
+   	    String nombreFicheroFiliaRX="";
+   	    if(fileDMGenerated)
+   	    {
+   	        // Paso7 - Creación del FiliaRX
+   	   		nombreFicheroFiliaRX=PlantillaUnificadaHelper.generaFicheroRX(cabDetalle, filiaRX,  response);
+   	    }
+   	    boolean fileRXGenerated = (nombreFicheroFiliaRX != null && !nombreFicheroFiliaRX.isEmpty());
+   	    request.setAttribute("fileDMGenerated", fileDMGenerated); // Indica si el archivo fue generado
+   	    request.setAttribute("fileRXGenerated", fileRXGenerated); // Indica si el archivo fue generado
+   	    request.setAttribute("filePathDM", "c://UTILS/"+nombreFicheroFiliaDM); // Ruta del archivo generado
+   	    request.setAttribute("filePathRX", "c://UTILS/"+nombreFicheroFiliaRX); // Ruta del archivo generado
+   		return mapping.findForward("generarFicherosDMyRX");
 	}
 
-	
-	
+	public ActionForward generarFicheros(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    request.setAttribute("estado", "inicio");
+	    return mapping.findForward("generarFicheros");
+	}
+
+
 	
 	public ActionForward addTratamientosEnProyectoExistente(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		

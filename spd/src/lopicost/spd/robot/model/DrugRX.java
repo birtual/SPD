@@ -24,7 +24,7 @@ public class DrugRX {
 	}
 
 	public void setVal(String val) {
-		this.val = val;
+		this.val = " " + val;
 	}
     
     

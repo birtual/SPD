@@ -8,7 +8,7 @@ import java.util.List;
 @XmlRootElement(name = "filiaServiceRequest")
 @XmlType(propOrder = {"requestType", "drugs"}) // Orden específico
 public class FiliaDM {
-    private int requestType;
+    private int requestType=10;
     private List<DrugDM> drugs;
 
     @XmlElement

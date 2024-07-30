@@ -22,13 +22,19 @@ public class XMLRobotDao
     static TreeMap<String, Integer> detalleContenidoBolsasTratadas=  new TreeMap<>();
 
     //Paso1
-	public static boolean borraProceso(String idUsuario, FicheroResiBean cab) throws ClassNotFoundException, SQLException {
+/*	public static boolean borraProceso(String idUsuario, FicheroResiBean cab) throws ClassNotFoundException, SQLException {
         detalleBolsasTratadas.clear();
     	detalleContenidoBolsasTratadas.clear();
     	String queryBorrado1= "DELETE FROM dbo.SPD_XML_detallesTomasRobot WHERE idDivisionResidencia='"+cab.getIdDivisionResidencia()+"' AND idProceso='"+cab.getIdProceso()+"'";
     	return ejecutarSentencia(queryBorrado1);
 	}
-
+*/
+	public static boolean borraProcesosResidencia(String idUsuario, FicheroResiBean cab) throws ClassNotFoundException, SQLException {
+        detalleBolsasTratadas.clear();
+    	detalleContenidoBolsasTratadas.clear();
+    	String queryBorrado1= "DELETE FROM dbo.SPD_XML_detallesTomasRobot WHERE idDivisionResidencia='"+cab.getIdDivisionResidencia()+"' ";
+    	return ejecutarSentencia(queryBorrado1);
+	}
     //Paso2
 	public static TomasOrdenadas getTomasOrdenadas(String idUsuario, FicheroResiBean cabDetalle) throws SQLException {
         // Obtener la correspondencia de posiciones
@@ -135,24 +141,23 @@ public class XMLRobotDao
 
            	Date dateObjetivo = bean.getDateDesde(); // inicializamos para recorrer los días desde fechaDesde a fechaHasta
            	Calendar calendario = Calendar.getInstance();
-           	calendario.setTime(dateObjetivo);
-                
-           	//miramos si está marcado el día de la semana
-            int diaSemana =calendario.get(Calendar.DAY_OF_WEEK);
-            boolean marcado = ( ( diaSemana==1 && bean.isSpdD1() ) || ( diaSemana==2 && bean.isSpdD2() )  || ( diaSemana==3 && bean.isSpdD3() ) || ( diaSemana==4 && bean.isSpdD4() )
-            			 || ( diaSemana==5 && bean.isSpdD5() ) || ( diaSemana==6 && bean.isSpdD6() ) || ( diaSemana==7 && bean.isSpdD7() )
-            			 );
+           	boolean dateObjetivoMarcado=dateObjetivoMarcado(calendario, dateObjetivo, bean);
+           	
+
             	
             //si el día está marcado, bucle de los días de producción SPD
-            while(marcado 
-            		&& DateUtilities.isBeetwenTime(bean.getDateDesde(), bean.getDateHasta(), dateObjetivo) 
+           	//while(dateObjetivoMarcado && 
+           	while( DateUtilities.isBeetwenTime(bean.getDateDesde(), bean.getDateHasta(), dateObjetivo) 
             		//&& DateUtilities.isBeetwenTime(bean.getDateInicioTratamiento(), bean.getDateFinTratamiento(), dateObjetivo)
             		&& count<32)  //count por seguridad en caso de de recibir fechas dispares por error
             {
             	//si la fecha inicio/fin SPD no está dentro pasamos al siguiente día objetivo en el bucle
             	if(!DateUtilities.isBeetwenTime(bean.getDateInicioTratamiento(), bean.getDateFinTratamiento(), dateObjetivo))
             	{
-    	            dateObjetivo = (Date) DateUtilities.addDate(dateObjetivo, 1);
+     	            //actualizamos calendario con la nueva fecha
+            		dateObjetivo = (Date) DateUtilities.addDate(dateObjetivo, 1);
+    	            dateObjetivoMarcado=dateObjetivoMarcado(calendario, dateObjetivo, bean);
+
                		continue;
     	                           	 
             	}
@@ -168,7 +173,7 @@ public class XMLRobotDao
            			nombreToma=nombresTomas.get(i);
            			idToma=idTomas.get(i);
             			
-           			if(DataUtil.isNumero(valorToma))
+           			if(dateObjetivoMarcado && DataUtil.isNumero(valorToma))
            			{
            				tramoToma="["+posicion+"]_["+nombreToma+"]";
            				IDbolsaFechaDispTramo = bean.getCIP() + "_" + dateObjetivo + "_" + bean.getDispensar()+ "_" + tramoToma;
@@ -181,15 +186,7 @@ public class XMLRobotDao
            				idFreeInformation+=StringUtil.substring(tramoToma, tramoToma.indexOf('[') + 1, 2);
            				idFreeInformation+=bean.getDispensar()!=null&&bean.getDispensar().equalsIgnoreCase("S")?"1":"0";
            				idFreeInformation+=numeroBolsa+"";
-            				
-            					
-           	           	
-           	           	/*sql = "INSERT INTO SPD_XML_detallesTomasRobot ( ";
-           	           	sql+= " idDivisionResidencia, idProceso, CIP, CN, nombreMedicamento "; 
-           	           	sql+= " , cantidadToma, dispensar, fechaToma  ";
-           	           	sql+= " , tramoToma, idLineaRX,  idToma, nombreToma, planta, habitacion ";
-           	           	sql+= " , numBolsa, idBolsa, idFreeInformation, idDetalle)  VALUES (";
-           	           	*/
+
            				
                        	sql+= " ('"+idDivisionResidencia+"' ,'"+idProceso+"','"+bean.getCIP()+"','"+bean.getOrderNumber()+"','"+bean.getCN()+"','"+bean.getNombreMedicamento()+"'";
                        	sql+= ", '"+valorToma+"','"+bean.getDispensar()+"', '"+fechaTomaInsert+"' ";
@@ -200,7 +197,10 @@ public class XMLRobotDao
                         
            			}
           		}
-	            dateObjetivo = (Date) DateUtilities.addDate(dateObjetivo, 1);
+ 	            //actualizamos calendario con la nueva fecha
+        		dateObjetivo = (Date) DateUtilities.addDate(dateObjetivo, 1);
+	            dateObjetivoMarcado=dateObjetivoMarcado(calendario, dateObjetivo, bean);
+
             }
             }catch(Exception e){
             	
@@ -209,6 +209,21 @@ public class XMLRobotDao
         return sql;
     }
 	
+	private static boolean dateObjetivoMarcado(Calendar calendario, Date dateObjetivo, DetallesTomasBean bean) {
+      	calendario.setTime(dateObjetivo);
+       	//miramos si está marcado el día de la semana
+        int diaSemana =calendario.get(Calendar.DAY_OF_WEEK);
+        // Ajustar para que Lunes sea 1, Martes sea 2, ..., Domingo sea 7
+        diaSemana = (diaSemana == Calendar.SUNDAY) ? 7 : diaSemana - 1;
+        
+        boolean marcado = ( ( diaSemana==1 && bean.isSpdD1() ) || ( diaSemana==2 && bean.isSpdD2() )  || ( diaSemana==3 && bean.isSpdD3() ) || ( diaSemana==4 && bean.isSpdD4() )
+        			 || ( diaSemana==5 && bean.isSpdD5() ) || ( diaSemana==6 && bean.isSpdD6() ) || ( diaSemana==7 && bean.isSpdD7() )
+        			 );
+		return marcado;
+
+		
+	}
+
 	/*
 	public static boolean procesarDetalleTomasRobotInsertUnoAUno(String idUsuario, FicheroResiBean cab, DetallesTomasBean  bean, TomasOrdenadas tomasGlobal)throws SQLException, ParseException, ClassNotFoundException {
 		
@@ -485,7 +500,8 @@ public class XMLRobotDao
 		   List<DrugDM>  result = new ArrayList();
 		   FiliaDM dm = new FiliaDM();
 		
-		   String qry = " SELECT DISTINCT RIGHT(d.spdCnFinal, 6) as code ";
+/*
+ * 		   String qry = " SELECT DISTINCT RIGHT(d.spdCnFinal, 6) as code ";
 			   		qry+=  " , SUBSTRING(CONVERT(varchar(45), d.spdNombreBolsa) COLLATE Cyrillic_General_CI_AI ,1,45) as name  ";
 					qry+=  " , '' as stockLocation ";
 					qry+=  " , '847000' + dbo.CalcularCN7(d.spdCnFinal) as barcode ";
@@ -493,13 +509,42 @@ public class XMLRobotDao
 					qry+=  " FROM SPD_ficheroResiDetalle d ";
 					qry+=  " INNER JOIN SPD_ficheroResiCabecera c ON c.oidFicheroResiCabecera=d.oidFicheroResiCabecera ";
 					qry+=  " LEFT JOIN bd_consejo b ON b.codigo=d.spdCnFinal ";
+					qry+=  " LEFT JOIN bd_pacientes p ON d.resiCIP=p.CIP ";
 					qry+=  " WHERE 1=1 ";
 					qry+=  " AND c.oidFicheroResiCabecera= '"+cab.getOidFicheroResiCabecera()+"' ";
 					qry+=  " AND d.spdAccionBolsa in ('SOLO_INFO', 'PASTILLERO') ";
+					qry+=  " AND (p.SPD='S' OR p.SPD is null)  ";
 					qry+=  " AND ISNUMERIC(RIGHT(d.spdCnFinal, 6))=1 ";
 		    		qry+=  " ORDER BY RIGHT(d.spdCnFinal, 6) ";
-					
-		    		System.out.println(className + "--> getEstados" +qry );		
+*/
+		   String 	qry = " WITH cte AS ( ";
+	 				qry+= "		SELECT DISTINCT RIGHT(d.spdCnFinal, 6) as code ";
+	 				qry+= " 	, SUBSTRING(CONVERT(varchar(45), d.spdNombreBolsa) COLLATE Cyrillic_General_CI_AI ,1,45) as name  ";
+	 				//qry+= "  	--		, SUBSTRING(CONVERT(varchar(45), b.nombre+' ' +b.presentacion) COLLATE Cyrillic_General_CI_AI ,1,45) as name ";
+	 				qry+= "  	, '' as stockLocation ";
+	 				qry+= "  	, '847000' + dbo.CalcularCN7(d.spdCnFinal) as barcode ";
+	 				qry+= "  	, COALESCE(b.unidades, bd.contenido, 0)  as oneBottleQuantity ";
+	 				qry+= "  	, ROW_NUMBER() OVER (PARTITION BY SUBSTRING(CONVERT(varchar(45), d.spdNombreBolsa) COLLATE Cyrillic_General_CI_AI, 1, 45) ";
+	 				qry+= "  	ORDER BY RIGHT(d.spdCnFinal, 6) ) AS rn ";
+	 				qry+= "  	FROM SPD_ficheroResiDetalle d ";
+	 				qry+= "  	INNER JOIN SPD_ficheroResiCabecera c ON c.oidFicheroResiCabecera=d.oidFicheroResiCabecera ";
+	 				qry+= "  	INNER JOIN  SPD_ficheroResiDetalle d2 ";
+	 				qry+= "  	ON d.oidFicheroResiCabecera=d2.oidFicheroResiCabecera AND RIGHT(d.spdCnFinal, 6)=RIGHT(d2.spdCnFinal, 6) ";
+	 				qry+= "  	LEFT JOIN bd_consejo b ON b.codigo=d.spdCnFinal ";
+	 				qry+= "  	LEFT JOIN bd_pacientes p ON d.resiCIP=p.CIP ";
+	 				qry+= "  	LEFT JOIN dbo.BDprescripcion bd ON bd.Codigo=RIGHT(d.spdCnFinal, 6) ";		    		
+					qry+= "  	WHERE 1=1  ";
+					qry+= "  	AND c.oidFicheroResiCabecera= '"+cab.getOidFicheroResiCabecera()+"'  ";
+					qry+= "  	AND d.spdAccionBolsa in ('SOLO_INFO', 'PASTILLERO')  ";
+					qry+= "  	AND ISNUMERIC(RIGHT(d.spdCnFinal, 6))=1 ";
+                    qry+= "  	AND (p.SPD='S' or p.SPD is null)  ";
+                    qry+= "  	) ";
+                    qry+= "  SELECT code, name, stockLocation, barcode, oneBottleQuantity ";
+                    qry+= "  FROM cte ";
+                    qry+= "  WHERE rn = 1; ";                    
+                 
+
+		    		System.out.println(className + "--> getMedicamentosDeProceso" +qry );		
 			     	ResultSet resultSet = null;
 		 	 	
 		 	    try {
@@ -583,7 +628,7 @@ public class XMLRobotDao
 		   FiliaRX rx = new FiliaRX();
 		   Basic basic = new Basic();
 		   basic.setLocationId(div.getNombreBolsa());
-		   basic.setMachineNumber(2);
+		   basic.setMachineNumber(1);
 		   rx.setBasic(basic);
 		   TreeMap<String, Patient> CIPS_TreeMap =new TreeMap<String, Patient>();
 		   TreeMap<String, Pouch> bolsas_TreeMap =new TreeMap<String, Pouch>();

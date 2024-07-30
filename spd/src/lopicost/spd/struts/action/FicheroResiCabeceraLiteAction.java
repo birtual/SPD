@@ -537,7 +537,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		FicheroResiBean cabDetalle  =  FicheroResiDetalleHelper.getCabeceraFicheroResi(getIdUsuario(), cab.getIdDivisionResidencia(), cab.getIdProceso(), false);
 		DivisionResidencia div = DivisionResidenciaDAO.getDivisionResidenciaById(getIdUsuario(), cab.getIdDivisionResidencia());
 		// Paso1 - Borrado previo de posibles datos del mismo proceso  
-    	PlantillaUnificadaHelper.borraProceso(getIdUsuario(),  cabDetalle);
+    	PlantillaUnificadaHelper.borraProcesosResidencia(getIdUsuario(),  cabDetalle);
     	// Paso2 - Recuperamos el orden y nombre de las tomas del proceso  
     	TomasOrdenadas tomasOrdenadas = PlantillaUnificadaHelper.getTomasOrdenadas(getIdUsuario(),  cabDetalle);
     	// Paso3 - Recuperamos la lista de detalleTomas ya ordenada

@@ -29,6 +29,7 @@ import lopicost.spd.model.DivisionResidencia;
 import lopicost.spd.persistence.XMLRobotDao;
 import lopicost.spd.robot.bean.DetallesTomasBean;
 import lopicost.spd.robot.model.Bottle;
+import lopicost.spd.robot.model.DrugDM;
 import lopicost.spd.robot.model.DrugRX;
 import lopicost.spd.robot.model.FiliaDM;
 import lopicost.spd.robot.model.FiliaRX;
@@ -51,10 +52,13 @@ public class PlantillaUnificadaHelper {
 	static TreeMap Doses_TreeMap =new TreeMap();
 
 	//Paso1
-	public static boolean borraProceso(String idUsuario, FicheroResiBean cab) throws SQLException, ParseException, ClassNotFoundException {
+/*	public static boolean borraProceso(String idUsuario, FicheroResiBean cab) throws SQLException, ParseException, ClassNotFoundException {
 		return XMLRobotDao.borraProceso(idUsuario,  cab);
 	}
-	
+*/	
+	public static boolean borraProcesosResidencia(String idUsuario, FicheroResiBean cab) throws SQLException, ParseException, ClassNotFoundException {
+		return XMLRobotDao.borraProcesosResidencia(idUsuario,  cab);
+	}
 	//Paso2
 	public static TomasOrdenadas getTomasOrdenadas(String idUsuario, FicheroResiBean cabDetalle) throws SQLException {
 		return XMLRobotDao.getTomasOrdenadas(idUsuario,  cabDetalle);
@@ -297,7 +301,7 @@ public class PlantillaUnificadaHelper {
 	{
 		String nomFitxer="";
 	    try {
-	    	 JAXBContext jaxbContext = JAXBContext.newInstance(FiliaDM.class, DrugRX.class, Bottle.class);
+	    	 JAXBContext jaxbContext = JAXBContext.newInstance(FiliaDM.class, DrugDM.class, Bottle.class);
 	
 	        // Crear el marshaller
 	        Marshaller marshaller = jaxbContext.createMarshaller();

@@ -499,24 +499,7 @@ public class XMLRobotDao
 		   Connection con = Conexion.conectar();
 		   List<DrugDM>  result = new ArrayList();
 		   FiliaDM dm = new FiliaDM();
-		
-/*
- * 		   String qry = " SELECT DISTINCT RIGHT(d.spdCnFinal, 6) as code ";
-			   		qry+=  " , SUBSTRING(CONVERT(varchar(45), d.spdNombreBolsa) COLLATE Cyrillic_General_CI_AI ,1,45) as name  ";
-					qry+=  " , '' as stockLocation ";
-					qry+=  " , '847000' + dbo.CalcularCN7(d.spdCnFinal) as barcode ";
-					qry+=  " , b.unidades        as oneBottleQuantity ";
-					qry+=  " FROM SPD_ficheroResiDetalle d ";
-					qry+=  " INNER JOIN SPD_ficheroResiCabecera c ON c.oidFicheroResiCabecera=d.oidFicheroResiCabecera ";
-					qry+=  " LEFT JOIN bd_consejo b ON b.codigo=d.spdCnFinal ";
-					qry+=  " LEFT JOIN bd_pacientes p ON d.resiCIP=p.CIP ";
-					qry+=  " WHERE 1=1 ";
-					qry+=  " AND c.oidFicheroResiCabecera= '"+cab.getOidFicheroResiCabecera()+"' ";
-					qry+=  " AND d.spdAccionBolsa in ('SOLO_INFO', 'PASTILLERO') ";
-					qry+=  " AND (p.SPD='S' OR p.SPD is null)  ";
-					qry+=  " AND ISNUMERIC(RIGHT(d.spdCnFinal, 6))=1 ";
-		    		qry+=  " ORDER BY RIGHT(d.spdCnFinal, 6) ";
-*/
+
 		   String 	qry = " WITH cte AS ( ";
 	 				qry+= "		SELECT DISTINCT RIGHT(d.spdCnFinal, 6) as code ";
 	 				qry+= " 	, SUBSTRING(CONVERT(varchar(45), d.spdNombreBolsa) COLLATE Cyrillic_General_CI_AI ,1,45) as name  ";
@@ -524,12 +507,12 @@ public class XMLRobotDao
 	 				qry+= "  	, '' as stockLocation ";
 	 				qry+= "  	, '847000' + dbo.CalcularCN7(d.spdCnFinal) as barcode ";
 	 				qry+= "  	, COALESCE(b.unidades, bd.contenido, 0)  as oneBottleQuantity ";
-	 				qry+= "  	, ROW_NUMBER() OVER (PARTITION BY SUBSTRING(CONVERT(varchar(45), d.spdNombreBolsa) COLLATE Cyrillic_General_CI_AI, 1, 45) ";
-	 				qry+= "  	ORDER BY RIGHT(d.spdCnFinal, 6) ) AS rn ";
+	 				qry+= "  	, ROW_NUMBER() OVER ( ";
+	 				qry+= "  			PARTITION BY RIGHT(d.spdCnFinal, 6)  ";
+	 				qry+= "  			 ORDER BY SUBSTRING(CONVERT(varchar(45), d.spdNombreBolsa) COLLATE Cyrillic_General_CI_AI, 1, 45), d.spdCnFinal ";
+	 				qry+= "  	) AS rn ";
 	 				qry+= "  	FROM SPD_ficheroResiDetalle d ";
 	 				qry+= "  	INNER JOIN SPD_ficheroResiCabecera c ON c.oidFicheroResiCabecera=d.oidFicheroResiCabecera ";
-	 				qry+= "  	INNER JOIN  SPD_ficheroResiDetalle d2 ";
-	 				qry+= "  	ON d.oidFicheroResiCabecera=d2.oidFicheroResiCabecera AND RIGHT(d.spdCnFinal, 6)=RIGHT(d2.spdCnFinal, 6) ";
 	 				qry+= "  	LEFT JOIN bd_consejo b ON b.codigo=d.spdCnFinal ";
 	 				qry+= "  	LEFT JOIN bd_pacientes p ON d.resiCIP=p.CIP ";
 	 				qry+= "  	LEFT JOIN dbo.BDprescripcion bd ON bd.Codigo=RIGHT(d.spdCnFinal, 6) ";		    		
@@ -538,11 +521,13 @@ public class XMLRobotDao
 					qry+= "  	AND d.spdAccionBolsa in ('SOLO_INFO', 'PASTILLERO')  ";
 					qry+= "  	AND ISNUMERIC(RIGHT(d.spdCnFinal, 6))=1 ";
                     qry+= "  	AND (p.SPD='S' or p.SPD is null)  ";
+                    qry+= "  	AND COALESCE(NULLIF(resiInicioTratamientoParaSPD, ''), NULLIF(resiInicioTratamiento, ''))<= CAST(fechaHasta AS DATE)  "; //-- fechaInicioResi<= hastaSPD  
+                    qry+= "  	AND COALESCE(NULLIF(resiFinTratamientoParaSPD, ''),  NULLIF(resiFinTratamiento, ''), CAST('2999-12-31' AS DATE))  >= CAST(fechaDesde AS DATE)   "; //  -- fechaFinResi >= inicioSPD   
+                    		                      
                     qry+= "  	) ";
                     qry+= "  SELECT code, name, stockLocation, barcode, oneBottleQuantity ";
                     qry+= "  FROM cte ";
                     qry+= "  WHERE rn = 1; ";                    
-                 
 
 		    		System.out.println(className + "--> getMedicamentosDeProceso" +qry );		
 			     	ResultSet resultSet = null;
@@ -553,7 +538,7 @@ public class XMLRobotDao
 		 	         while (resultSet.next()) {
 		 	        	DrugDM d = new DrugDM();
 		 	        	d.setCode(StringUtil.makeFlat(resultSet.getString("code"), false));
-		 	        	d.setName(StringUtil.makeFlat(resultSet.getString("name"), false));
+		 	        	d.setName(StringUtil.limpiarTextoTomas(resultSet.getString("name"), false));
 		 	        	d.setStockLocation(resultSet.getString("stockLocation"));
 		 	        	Bottle b = new Bottle();
 		 	        	b.setBarcode(StringUtil.makeFlat(resultSet.getString("barcode"), false));

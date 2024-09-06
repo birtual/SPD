@@ -1622,6 +1622,9 @@ public class FicheroResiDetalleDAO {
 			String detalleRowKey=medResiActual.getDetalleRowKey();
 			String detalleRowKeyLite=medResiActual.getDetalleRowKeyLite();
 			
+			medResiActual.getDetalleRowKeyLite();
+
+			
 			//caso particular de Aegerus
 			boolean esAegerus =medResiActual.getIdProcessIospd()!=null && medResiActual.getIdProcessIospd().equalsIgnoreCase(SPDConstants.IDPROCESO_AEGERUS);    
 			if(esAegerus) detalleRow = AegerusHelper.getDetalleRowAegerus(detalleRow);
@@ -1641,26 +1644,39 @@ public class FicheroResiDetalleDAO {
 			{
 				if(esAegerus && detalleRow!=null)	//no filtramos por las fechas
 				{
-					qry+=  " AND ( g.detalleRow like '"+AegerusHelper.getDetalleRowAegerus(detalleRow)+"%'"
-							+ " OR g.detalleRow like '"+AegerusHelper.getDetalleRowAegerus(HelperSPD.getDetalleRowFechasOk(detalleRow))+"%' "
-							+ " OR g.detalleRow like '"+detalleRow+"%'"
-							+ " OR g.detalleRowKey like '"+detalleRowKey+"%'"
-							+ " OR g.detalleRowKeyLite like '"+detalleRowKeyLite+"%'"
-							+ ")";
+					if(AegerusHelper.getDetalleRowAegerus(detalleRow)!=null && !AegerusHelper.getDetalleRowAegerus(detalleRow).equals(""))
+						qry+=  " AND ( g.detalleRow like '"+AegerusHelper.getDetalleRowAegerus(detalleRow)+"%'"; 
+					if(AegerusHelper.getDetalleRowAegerus(HelperSPD.getDetalleRowFechasOk(detalleRow))!=null && !AegerusHelper.getDetalleRowAegerus(HelperSPD.getDetalleRowFechasOk(detalleRow)).equals(""))
+						qry+=  " OR g.detalleRow like '"+AegerusHelper.getDetalleRowAegerus(HelperSPD.getDetalleRowFechasOk(detalleRow))+"%' ";
+					if(detalleRow!=null && !detalleRow.equals(""))
+						qry+=  " OR g.detalleRow like '"+detalleRow+"%'";
+					if(detalleRowKey!=null && !detalleRowKey.equals(""))
+						qry+=  " OR g.detalleRowKey like '"+detalleRowKey+"%'";
+					if(detalleRowKeyLite!=null && !detalleRowKeyLite.equals("")&& !detalleRowKeyLite.equalsIgnoreCase("NULL")) 
+						qry+=  " OR g.detalleRowKeyLite like '"+detalleRowKeyLite+"%'";
+					qry+=  " )";
 
 				}
 				else if (detalleRow!=null)
 				{
 					
 					
-				qry+=  " AND ( g.detalleRow ='"+StringUtil.quitaEspacios(HelperSPD.getDetalleRowFechasOk(detalleRow).toUpperCase())+"' COLLATE Cyrillic_General_CI_AI "
-						+ " OR g.detalleRow ='"+StringUtil.quitaEspacios(HelperSPD.convertirAFechaNumerica(detalleRow).toUpperCase())+"' COLLATE Cyrillic_General_CI_AI "
+				qry+=  " AND ( ";
+				qry+=  "  g.detalleRow ='"+StringUtil.quitaEspacios(HelperSPD.getDetalleRowFechasOk(detalleRow).toUpperCase())+"' COLLATE Cyrillic_General_CI_AI ";
+				qry+=  "  OR g.detalleRow ='"+StringUtil.quitaEspacios(HelperSPD.convertirAFechaNumerica(detalleRow).toUpperCase())+"' COLLATE Cyrillic_General_CI_AI ";
 
-						+ " OR g.detalleRow  ='"+detalleRowKey+"'  "
-						+ " OR g.detalleRowKey ='"+detalleRow+"'  "
-						+ " OR g.detalleRow ='"+detalleRow+"'  "
-						+ " OR  g.detalleRowKey ='"+detalleRowKey+"'  "
-						+ " OR g.detalleRowKeyLite = '"+detalleRowKeyLite+"%'"
+				if(detalleRowKey!=null && !detalleRowKey.equals(""))
+				{
+					qry+=  "  OR g.detalleRow  ='"+detalleRowKey+"'  ";
+					qry+=  "  OR  g.detalleRowKey ='"+detalleRowKey+"'  ";
+				}
+				if(detalleRow!=null && !detalleRow.equals(""))
+				{
+					qry+=  "  OR g.detalleRow ='"+detalleRow+"'  ";
+					qry+=  "  OR g.detalleRowKey ='"+detalleRow+"'  ";
+				}
+				if(detalleRowKeyLite!=null && !detalleRowKeyLite.equals("")&& !detalleRowKeyLite.equalsIgnoreCase("NULL")) 
+					qry+=  "  OR g.detalleRowKeyLite = '"+detalleRowKeyLite+"%'";
 						
 						/*
 						 * + " OR UPPER(REPLACE(g.detalleRow, ' ', '')) COLLATE Cyrillic_General_CI_AI ='"+StringUtil.quitaEspaciosYAcentos(detalleRow, true)+"' COLLATE Cyrillic_General_CI_AI "
@@ -1668,7 +1684,7 @@ public class FicheroResiDetalleDAO {
 						+ " OR UPPER(REPLACE(g.detalleRow, ' ', '')) COLLATE Cyrillic_General_CI_AI ='"+StringUtil.quitaEspaciosYAcentos(detalleRowKey, true)+"' COLLATE Cyrillic_General_CI_AI "
 						+ " OR UPPER(REPLACE(g.detalleRowKey, ' ', '')) COLLATE Cyrillic_General_CI_AI ='"+StringUtil.quitaEspaciosYAcentos(detalleRow, true)+"' COLLATE Cyrillic_General_CI_AI "
 						*/
-						+ ")";
+				qry+=  " )";
 					
 				}
 				

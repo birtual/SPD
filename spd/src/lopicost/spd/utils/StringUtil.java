@@ -113,6 +113,10 @@ public class StringUtil{
 	 * @return
 	 */
 	public final static String limpiarTextoTomas(String text) {
+		return limpiarTextoTomas(text, true) ;
+	}
+	
+	public final static String limpiarTextoTomas(String text, boolean quitaEspacios) {
 		String result=text;
 		if(result!=null&&!result.equals(""))
 		{
@@ -124,7 +128,7 @@ public class StringUtil{
 			result=result.replace(";", ",");
 			result=result.replace("'", ",");
 			result=result.replace("´", " ");
-			result=quitaEspacios(result);
+			if(quitaEspacios) result=quitaEspacios(result);
 			
 			
 		}
@@ -200,6 +204,8 @@ public class StringUtil{
 		q = StringUtil.replaceChar(q,'ü','u');
 		q = StringUtil.replaceChar(q,'ñ','n');
 		q = StringUtil.replaceChar(q,'ç','c');
+		q = StringUtil.replaceChar(q,'ª','.');
+		q = StringUtil.replaceChar(q,'º','.');
 		
 		q = StringUtil.replaceChar(q,'\"',' ');
 		
@@ -814,7 +820,9 @@ public class StringUtil{
         // Reemplazar 'Ñ' y 'ñ' por 'N' y 'n'
         result = result.replace('Ñ', 'N').replace('ñ', 'n');
         result = result.replace('Ç', 'C').replace('ç', 'c');
-        
+        result = result.replace('ª', '.').replace('ª', '.');
+        result = result.replace('º', '.').replace('º', '.');
+
         return result;
     }
     

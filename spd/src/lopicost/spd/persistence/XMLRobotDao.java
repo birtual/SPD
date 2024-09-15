@@ -175,7 +175,10 @@ public class XMLRobotDao
             			
            			if(dateObjetivoMarcado && DataUtil.isNumero(valorToma))
            			{
-           				tramoToma="["+posicion+"]_["+nombreToma+"]";
+           				int posicionVirtual=posiciones.indexOf(posiciones.get(i))+1;
+           				String sPosicionVirtual=String.format("%02d", posicionVirtual);
+           				
+           				tramoToma="["+sPosicionVirtual+"]_["+nombreToma+"]";
            				IDbolsaFechaDispTramo = bean.getCIP() + "_" + dateObjetivo + "_" + bean.getDispensar()+ "_" + tramoToma;
            				numeroBolsa = getNumeroBolsas(IDbolsaFechaDispTramo, valorToma, bean.getDispensar());
            				//idBolsa = bean.getCIP() + fechaTomaParaIdBolsa + tramoToma + bean.getDispensar()+ String.format("%02d", numeroBolsa );

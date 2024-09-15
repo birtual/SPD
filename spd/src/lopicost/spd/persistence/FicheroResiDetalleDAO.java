@@ -971,7 +971,7 @@ public class FicheroResiDetalleDAO {
 			String sufijo = resi.getResiCn() + "_" + SPDConstants.PREFIJO_REGISTRO_SECUENCIA_GUIDE+ "%"; //pongo row para no borrar registros de tratamiento doblado con diferentes pautas alternas (ej. RESINCALCIO Ceritania)
 
 			//if(resi.getTipoEnvioHelium().equals(SPDConstants.TIPO_4_GUIDE_HELIUM))
-				sufijo+= resi.getRow(); //pongo row para no borrar registros de tratamiento doblado con diferentes pautas alternas (ej. RESINCALCIO Ceritania) en los casos de secuencias
+				//sufijo+= resi.getRow(); //pongo row para no borrar registros de tratamiento doblado con diferentes pautas alternas (ej. RESINCALCIO Ceritania) en los casos de secuencias
 
 			
 			

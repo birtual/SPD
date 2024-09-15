@@ -172,6 +172,9 @@ public class FicheroResiDetalleLiteAction extends GenericAction  {
 			  	    
 			  	    if(cambios!=null && !cambios.equals(""))
 			  	    {
+			  	    	//20240915 En estudio, para limpiar las seqGuide al editar
+						HelperSPD.borrarTratamientosSecuencialesPrevios(getIdUsuario(), frb);
+
 						HelperSPD.controlAlertasRegistro(frb);
 				      	HelperSPD.changeSintrom(frb);
 				      	HelperSPD.detectarPeriodoEdicion(getIdUsuario(), frb);

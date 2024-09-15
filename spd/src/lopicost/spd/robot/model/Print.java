@@ -25,6 +25,8 @@ public class Print {
     }
 
     public void setText(String text) {
-        this.text = text;
+    	if(text!=null && text.equals("999"))
+    		text="***";
+        this.text = " "+ text;
     }
 }

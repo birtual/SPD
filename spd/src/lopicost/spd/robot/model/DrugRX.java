@@ -25,9 +25,7 @@ public class DrugRX {
 
     
 	public void setVal(String val) {
-		if(val!=null && val.equals("999"))
-				val="***";
-		this.val = " " + val;
+		this.val = val;
 	}
     
     

@@ -3244,7 +3244,7 @@ public class HelperSPD{
 		//if(medResi.getTipoEnvioHelium()!=null && medResi.getTipoEnvioHelium().contentEquals(SPDConstants.TIPO_4_GUIDE_HELIUM) && !medResi.getIdEstado().equalsIgnoreCase(SPDConstants.REGISTRO_CREADO_AUTOM_SECUENCIA_GUIDE))
 		//if(medResi.getTipoEnvioHelium()!=null && medResi.getTipoEnvioHelium().contentEquals(SPDConstants.TIPO_4_GUIDE_HELIUM) && !medResi.getResiCn().contains(SPDConstants.PREFIJO_REGISTRO_SECUENCIA_GUIDE))
 		{
-			 //HelperSPD.borrarTratamientosSecuencialesPrevios(spdUsuario, medResi);
+			HelperSPD.borrarTratamientosSecuencialesPrevios(spdUsuario, medResi);
 			
 			
 	  	    //HelperSPD.borrarTratamientosSecuencialesPrevios(spdUsuario, medResi);
@@ -3259,9 +3259,6 @@ public class HelperSPD{
 	       {
 		        // Verificar si se han dividido las partes correctamente
 	    	   try{
-	    		   HelperSPD.borrarTratamientosSecuencialesPrevios(spdUsuario, medResi);
-	    		   
-	    		   
 	 	    	   	String[] partes = secuenciaGuide.split("-");
 	 	    	   	int periodosConToma 		= new Integer(partes[0]).intValue(); // primero miramos i=pares (periodoSI  con medicación)
 	 	    	   	int periodosConDescanso	= new Integer(partes[1]).intValue(); // Segunda parte (número)

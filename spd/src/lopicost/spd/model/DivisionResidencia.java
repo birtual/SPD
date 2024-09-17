@@ -17,6 +17,7 @@ public class DivisionResidencia implements Serializable {
 	  private int extRE;
 	  private int extRE_diaSemana;
 	  private String extRE_diaSemanaLiteral;
+	  private String locationId; //nombre que aparece en el robot
 
 	  
 	public String getNombreBolsa() {		return nombreBolsa;	}	public void setNombreBolsa(String nombreBolsa) {		this.nombreBolsa = nombreBolsa;	}
@@ -129,6 +130,12 @@ public class DivisionResidencia implements Serializable {
 	}
 	public void setIdLayout(String idLayout) {
 		this.idLayout = idLayout;
+	}
+	public String getLocationId() {
+		return locationId;
+	}
+	public void setLocationId(String locationId) {
+		this.locationId = locationId;
 	}
 
 	

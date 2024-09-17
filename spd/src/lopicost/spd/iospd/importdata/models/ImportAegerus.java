@@ -107,7 +107,8 @@ public class ImportAegerus extends ImportProcessImpl
     public void procesarCabecera(String idDivisionResidencia, String idProceso) throws Exception 
     {	
       	boolean recuperaPlantillaCabecera = true;
-
+      	if(isCargaAnexa())	//si es una carga auxiliar recuperamos la cabecera del proceso donde lo cargamos
+        	recuperaPlantillaCabecera = false;
 		//recuperamos la cabecera del listado
 		FicheroResiBean cab =  FicheroResiDetalleHelper.getCabeceraFicheroResi(getSpdUsuario(), idDivisionResidencia, idProceso, recuperaPlantillaCabecera);
 		numeroDoses=cab.getNumeroDeTomas();

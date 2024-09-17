@@ -168,6 +168,7 @@ public class DivisionResidenciaDAO {
 	    	c.setExtRE_diaSemana(resultSet.getInt("extRE_diaSemana"));
 	    	c.setExtRE_diaSemanaLiteral(getDiaLiteral(resultSet.getInt("extRE_diaSemana")));
 	    	c.setIdLayout(resultSet.getString("layoutBolsa"));
+	    	c.setLocationId(resultSet.getString("locationID"));
 			
 		}
     	return c;
@@ -192,7 +193,8 @@ public class DivisionResidenciaDAO {
 	public static List<DivisionResidencia> getSecurityListaDivisionResidencias(String spdUsuario) throws Exception {
 	  	
 		   Connection con = Conexion.conectar();
-	        String qry = "SELECT d.* FROM dbo.bd_divisionResidencia d";
+	        String qry = "SELECT d.*, r.* FROM dbo.bd_divisionResidencia d";
+			qry+= " INNER JOIN dbo.bd_residencia r  ON d.idResidencia=r.idResidencia ";
 			qry+= " WHERE d.oidDivisionResidencia IN ( " + VisibilidadHelper.oidDivisionResidenciasVisibles(spdUsuario)  + ")";
    	        qry+= " ORDER BY d.nombreDivisionResidencia";
 

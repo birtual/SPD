@@ -412,9 +412,9 @@ public class AegerusHelper{
 			ejecutaSentencia(query);
 
 			ejecutaSentencia(" UPDATE dbo.SPD_ficheroResiDetalle SET resiToma20 = resiToma19 WHERE TIPOREGISTRO <>  'CABECERA'  AND LEN(resiToma20)=0 AND LEN(resiToma19)>0 AND idProceso='"+medResi.getIdProceso()+"'");
-			ejecutaSentencia(" UPDATE dbo.SPD_ficheroResiDetalle SET resiToma19 = 0 WHERE TIPOREGISTRO <>  'CABECERA'  AND LEN(resiToma19)>0 AND idProceso='"+medResi.getIdProceso()+"'");
+			ejecutaSentencia(" UPDATE dbo.SPD_ficheroResiDetalle SET resiToma19 = '' WHERE TIPOREGISTRO <>  'CABECERA'  AND LEN(resiToma19)>0 AND idProceso='"+medResi.getIdProceso()+"'");
 			ejecutaSentencia(" UPDATE dbo.SPD_ficheroResiDetalle SET resiToma22 = resiToma21 WHERE TIPOREGISTRO <>  'CABECERA'  AND LEN(resiToma22)=0 AND LEN(resiToma21)>0 AND idProceso='"+medResi.getIdProceso()+"'");
-			ejecutaSentencia(" UPDATE dbo.SPD_ficheroResiDetalle SET resiToma21 = 0 WHERE TIPOREGISTRO <>  'CABECERA'  AND LEN(resiToma21)>0 AND idProceso='"+medResi.getIdProceso()+"'");
+			ejecutaSentencia(" UPDATE dbo.SPD_ficheroResiDetalle SET resiToma21 = '' WHERE TIPOREGISTRO <>  'CABECERA'  AND LEN(resiToma21)>0 AND idProceso='"+medResi.getIdProceso()+"'");
 		  	 
 			
 	}

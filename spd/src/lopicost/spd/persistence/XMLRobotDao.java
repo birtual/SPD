@@ -615,7 +615,13 @@ public class XMLRobotDao
 		   List<DrugRX>  result = new ArrayList();
 		   FiliaRX rx = new FiliaRX();
 		   Basic basic = new Basic();
-		   basic.setLocationId(div.getNombreBolsa());
+		   //basic.setLocationId(div.getNombreBolsa());
+		   try{
+			   basic.setLocationId(div.getLocationId()+"_"+cab.getFechaDesde()+"_"+cab.getFechaHasta());
+		   }catch(Exception e)
+		   {
+			   basic.setLocationId(div.getNombreBolsa());
+		   }
 		   basic.setMachineNumber(1);
 		   rx.setBasic(basic);
 		   TreeMap<String, Patient> CIPS_TreeMap =new TreeMap<String, Patient>();

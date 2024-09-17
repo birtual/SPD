@@ -67,22 +67,36 @@ public class ImportAegerus extends ImportProcessImpl
    {
 		boolean result=false;
 		try {
-			result=ioSpdApi.addGestFicheroResi(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso(), filein);
-			if(result)
+			if(isCargaAnexa())
 			{
 				//creación de log en BBDD
 				try{
 					SpdLogAPI.addLog(getSpdUsuario(), "",  this.getIdDivisionResidencia(),  this.getIdProceso(),  SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CARGAFICHERO, SpdLogAPI.C_START
-							, "SpdLog.produccion.cargafichero.inicio", this.getIdProceso()  );
+							, "SpdLog.produccion.cargafichero.anexo", this.getIdProceso()  );
 				}catch(Exception e){} // Inicio de la carga de fichero.
 			}
+			else 
+			{
+				result=ioSpdApi.addGestFicheroResi(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso(), filein);
+				if(result)
+				{
+					//creación de log en BBDD
+					try{
+						SpdLogAPI.addLog(getSpdUsuario(), "",  this.getIdDivisionResidencia(),  this.getIdProceso(),  SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CARGAFICHERO, SpdLogAPI.C_START
+								, "SpdLog.produccion.cargafichero.inicio", this.getIdProceso()  );
+					}catch(Exception e){} // Inicio de la carga de fichero.
+				}
+			}
+			
+			
+			
 			
 		} catch (ClassNotFoundException e) {
 			throw new Exception ("Error en la carga del fichero");
 		}
 		procesarCabecera(this.getIdDivisionResidencia(), this.getIdProceso());
 
-		return result;
+		return result || isCargaAnexa();
    }	
 	
 	
@@ -121,8 +135,9 @@ public class ImportAegerus extends ImportProcessImpl
 		cab.setFechaDesde(fechaDesde);  
     	cab.setFechaHasta(fechaHasta); 
 
-		FicheroResiDetalleDAO.nuevo(idDivisionResidencia, idProceso, cab);
-
+    	if(!isCargaAnexa())
+    		FicheroResiDetalleDAO.nuevo(idDivisionResidencia, idProceso, cab);
+    	
     	tFechasProduccionTeorico = AegerusHelper.getTreeMapDiasRango(fechaDesde, fechaHasta); //TreeMap con todas las fecha entre el rango de fechas inicio/fin 
 		diasProduccionSPD= tFechasProduccionTeorico.size();	//días de producción teóricos
 		
@@ -487,18 +502,22 @@ public class ImportAegerus extends ImportProcessImpl
    	boolean result=false;
    	
 		try {
+			int cipsActivosSPD= ioSpdApi.getCipsActivosSPD(getSpdUsuario(), this.getIdDivisionResidencia());
+			int cipsTotales= ioSpdApi.getCipsTotalesCargaFichero(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso());
+			int filasTotales= this.processedRows;
 			
 			persistirObjectos();
 			result=ioSpdApi.borraDetalleSinCabecera();
 			result=ioSpdApi.actualizaEstadosSinFinalizar();
-		
-			int cipsActivosSPD= ioSpdApi.getCipsActivosSPD(getSpdUsuario(), this.getIdDivisionResidencia());
-			int cipsTotales= ioSpdApi.getCipsTotalesCargaFichero(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso());
+
+			if(isCargaAnexa())
+				filasTotales= ioSpdApi.getLineasProceso(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso());
+
 			int porcent = 0;
 			try { porcent =(cipsTotales*100/cipsActivosSPD);				}catch(Exception e){porcent =0;}
 
 			
-			result=ioSpdApi.editaFinCargaFicheroResi(this.getIdDivisionResidencia(), this.getIdProceso(), this.processedRows, cipsTotales, cipsActivosSPD, porcent, this.errors);
+			result=ioSpdApi.editaFinCargaFicheroResi(this.getIdDivisionResidencia(), this.getIdProceso(), filasTotales, cipsTotales, cipsActivosSPD, porcent, this.errors);
 			if(result)
 			{
 				//creación de log en BBDD

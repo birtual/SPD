@@ -17,7 +17,7 @@ public class DivisionResidencia implements Serializable {
 	  private int extRE;
 	  private int extRE_diaSemana;
 	  private String extRE_diaSemanaLiteral;
-	  private String locationId; //nombre que aparece en el robot
+	  private String locationId; //nombre que aparece en el robot, como identificador de la carga, no en la bolsa
 
 	  
 	public String getNombreBolsa() {		return nombreBolsa;	}	public void setNombreBolsa(String nombreBolsa) {		this.nombreBolsa = nombreBolsa;	}

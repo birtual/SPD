@@ -119,6 +119,8 @@ public class ImportAegerus extends ImportProcessImpl
 		fechaDesde = HelperSPD.obtenerFechaDesde(idProceso);  
 		fechaHasta = HelperSPD.obtenerFechaHasta(idProceso); 
 
+		cab.setFechaDesde(fechaDesde);  
+    	cab.setFechaHasta(fechaHasta); 
 		tFechasProduccionTeorico = AegerusHelper.getTreeMapDiasRango(fechaDesde, fechaHasta); //TreeMap con todas las fecha entre el rango de fechas inicio/fin 
 		diasProduccionSPD= tFechasProduccionTeorico.size();	//días de producción teóricos
 		

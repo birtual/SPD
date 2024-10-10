@@ -215,8 +215,17 @@ public class ExcelFicheroResiDetallePlantUnifLite {
             cell = row.createCell(i);       cell.setCellStyle(cellStyle);  cell.setCellValue(trat.getResiApellidosNombre()); i++;
             cell = row.createCell(i);		cell.setCellStyle(cellStyle);  cell.setCellValue(trat.getResiCn()); i++;
             cell = row.createCell(i);     	cell.setCellStyle(cellStyle);  cell.setCellValue(trat.getResiMedicamento()); i++;
-            cell = row.createCell(i);     	cell.setCellStyle(cellStyle);  cell.setCellValue(trat.getResiSiPrecisa()); i++;
             
+            String valorPosologia=trat.getResiSiPrecisa();
+         
+            try{
+            	if(formulari.getIdDivisionResidencia()!=null && formulari.getIdDivisionResidencia().contentEquals("hestia_stauros"))
+                	valorPosologia=(trat.getResiHabitacion()!=null?trat.getResiHabitacion():"")+(trat.getResiPlanta()!=null?trat.getResiPlanta():"");
+            }
+            catch(Exception e){}
+
+            cell = row.createCell(i);     	cell.setCellStyle(cellStyle);  cell.setCellValue(valorPosologia); i++;
+                
  	        
                 
             String fechaDesde =trat.getResiInicioTratamiento();

@@ -3,6 +3,7 @@ package lopicost.spd.struts.helper;
 import java.util.*;
 
 import lopicost.spd.persistence.ExtReDAO;
+import lopicost.spd.struts.bean.ExtReBean;
 
 /**
  
@@ -26,6 +27,22 @@ public class ExtReHelper {
 		return ExtReDAO.getDatosProcesoCaptacion(spdUsuario);
 		}
 
+	public static List getDatosProcesoCaptacionConErrores(String spdUsuario)throws Exception {
+		List totales = ExtReDAO.getDatosProcesoCaptacion(spdUsuario);
+		Iterator it = totales.iterator();
+		List<ExtReBean> result = new ArrayList<ExtReBean>();
+		
+		while(it.hasNext())
+		{
+			ExtReBean bean = (ExtReBean) it.next();
+			if(bean!=null && ( bean.isErrorDatosProcesadosRecPend() || bean.isErrorDatosProcesadosTrat() || bean.isErrorFechaRecogidaRecPend() || bean.isErrorFechaRecogidaTrat()))
+				result.add(bean);
+		}
+		return result;
+		
+		}
+
+	
 	
 	public static List getCipsSinProcesarTrat(String spdUsuario, String idDivisionResidencia)throws Exception {
 		return ExtReDAO.getCipsSinProcesarTrat(spdUsuario, idDivisionResidencia);
@@ -34,7 +51,7 @@ public class ExtReHelper {
 	public static List getCipsSinProcesarPendientes(String spdUsuario, String idDivisionResidencia)throws Exception {
 		return ExtReDAO.getCipsSinProcesarPendientes(spdUsuario, idDivisionResidencia);
 		}
-	
+
 
 	
 		

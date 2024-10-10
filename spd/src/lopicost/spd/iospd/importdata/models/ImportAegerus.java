@@ -48,6 +48,7 @@ public class ImportAegerus extends ImportProcessImpl
 	TreeMap tFechasProduccionTeorico =new TreeMap();		//fechas que se eligen como inicio / fin para producir
 	TreeMap tFechasProduccionFichero =new TreeMap();		//fechas que se detectan que se reciben en el fichero Aegerus
 	TreeMap tFechasProduccionSPD =new TreeMap();			//fechas intersección de las dos anteriores, que serán las que se envíen a robot
+	TreeMap<String, String>  cipsFicheroAnexo =new TreeMap<>(); // se guardan los CIPS que se cargan de nuevo, para borrar previamente el tratamiento y cargarlo con el nuevo fichero
 
 	
     FicheroResiBean medResi;
@@ -155,6 +156,7 @@ public class ImportAegerus extends ImportProcessImpl
         	
         	if(AegerusHelper.esFechaAegerus((String) row.elementAt(5)))
         	{
+            	
                 this.creaRegistro(row, count);
                 return;
         	}
@@ -205,7 +207,10 @@ public class ImportAegerus extends ImportProcessImpl
         }
 
         
-         
+ 		String detalleRow = HelperSPD.getDetalleRow(row, celdaFinal);
+          // Procesa la cadena de Excel y conviértela en un arreglo o lista, por ejemplo
+ 		detalleRow = StringUtil.quitaEspaciosYAcentos(row.toString().replaceAll("[\\[\\]]", "").replaceAll("'", ""), true);
+
         if (!this.CNSTratados.containsKey(String.valueOf(CIP) + "_" + cnResi+ "_" + diasMesConcretos)) {
         	
         	//si no existe, construimos uno nuevo
@@ -252,9 +257,9 @@ public class ImportAegerus extends ImportProcessImpl
             
             
     		medResi.setOidFicheroResiCabecera(oidFicheroResiCabecera);
-      		String detalleRow = HelperSPD.getDetalleRow(row, celdaFinal);
+      		//String detalleRow = HelperSPD.getDetalleRow(row, celdaFinal);
       	             // Procesa la cadena de Excel y conviértela en un arreglo o lista, por ejemplo
-            detalleRow = StringUtil.quitaEspaciosYAcentos(row.toString().replaceAll("[\\[\\]]", "").replaceAll("'", ""), true);
+            //detalleRow = StringUtil.quitaEspaciosYAcentos(row.toString().replaceAll("[\\[\\]]", "").replaceAll("'", ""), true);
             //medResi.setDetalleRow(HelperSPD.getDetalleRowFechasOk(detalleRow));
     		medResi.setDetalleRow(detalleRow);
     		medResi.setDetalleRowKey(AegerusHelper.getDetalleRowAegerus(medResi.getDetalleRow()));
@@ -299,7 +304,12 @@ public class ImportAegerus extends ImportProcessImpl
     	}
         else {//añadimos los datos que nos interesa, ResiToma, 
          
+         	
+        	
         	this.medResi = (FicheroResiBean)this.CNSTratados.get(String.valueOf(CIP) + "_" + cnResi+ "_" + diasMesConcretos);
+          	//se añade la línea del excel en el detalleRow para consulta desde la web
+        	this.medResi.setDetalleRow(this.medResi.getDetalleRow() + "_" +  detalleRow);
+ 
         	String toma = "0";
         	try {toma = HelperSPD.getPautaStandard(this.medResi,  (String) row.elementAt(7)); } catch(Exception e){}
         	String hora=(String) row.elementAt(9);
@@ -502,11 +512,13 @@ public class ImportAegerus extends ImportProcessImpl
    	boolean result=false;
    	
 		try {
+			
+			persistirObjectos();
+
 			int cipsActivosSPD= ioSpdApi.getCipsActivosSPD(getSpdUsuario(), this.getIdDivisionResidencia());
 			int cipsTotales= ioSpdApi.getCipsTotalesCargaFichero(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso());
 			int filasTotales= this.processedRows;
-			
-			persistirObjectos();
+
 			result=ioSpdApi.borraDetalleSinCabecera();
 			result=ioSpdApi.actualizaEstadosSinFinalizar();
 
@@ -525,6 +537,17 @@ public class ImportAegerus extends ImportProcessImpl
 					SpdLogAPI.addLog(getSpdUsuario(), "",  this.getIdDivisionResidencia(),  this.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CARGAFICHERO, SpdLogAPI.C_START
 							, "SpdLog.produccion.cargafichero.fin", this.getIdProceso()  );
 				}catch(Exception e){}	//Fin de la carga de fichero.
+			}
+			
+			
+			if(!cipsFicheroAnexo.isEmpty() && cipsFicheroAnexo.size()>0)
+			{
+				StringBuilder resultado = new StringBuilder();
+		        for (String clave : cipsFicheroAnexo.keySet()) {
+		        	 resultado.append(clave).append("\n\n");
+		        }
+		        //throw new Exception ("Actualizados los tratamientos de los siguientes CIPS:  " + resultado);
+		        errors.add ("Actualizados los tratamientos de los siguientes CIPS:  " + resultado);
 			}
 			
 			
@@ -572,6 +595,27 @@ public class ImportAegerus extends ImportProcessImpl
      			FicheroResiDetalleHelper.actualizaCIP(getSpdUsuario(), medResi);
      			
      		}   
+     		
+        	//tratamos los casos de un segundo fichero de carga.
+        	//localización de los CIPS a tratar, se borrará lo que se haya cargado previamente y se mete en un TreeMap para no borrarlo de nuevo e insertar los nuevos. 
+        	if(isCargaAnexa())
+        	{
+        		int oidCabecera =-1;
+        		String CIP = medResi.getResiCIP();
+        		if(!cipsFicheroAnexo.containsKey(CIP))
+        		{
+        			oidCabecera =  FicheroResiDetalleHelper.getCabeceraFicheroResi(getSpdUsuario(), idDivisionResidencia, idProceso);
+        			FicheroResiDetalleHelper.borrarTratamientosCIPEnProceso(getSpdUsuario(), medResi);
+        			medResi.setOidFicheroResiCabecera(oidCabecera);
+        			cipsFicheroAnexo.put(CIP, CIP);
+        		}
+        		
+        	}
+        	
+        	
+
+     		
+     		
    	   		//miramos si existe, para no duplicar
    	       	boolean existe = false;
    	       	//existe= FicheroResiDetalleDAO.existeRegistroAegerus(getSpdUsuario(), medResi.getIdProceso(), medResi.getIdDivisionResidencia(), medResi.getResiCIP(), medResi.getResiCn());
@@ -582,6 +626,11 @@ public class ImportAegerus extends ImportProcessImpl
    	  	    	AegerusHelper.aplicarControles(getSpdUsuario(), medResi, true);
    	  	    	
    	  	    	AegerusHelper.aplicarExcepcionesFalguera(getSpdUsuario(), medResi);
+
+   	  	    	
+   	  	    	
+   	  	    	
+   	  	    	
    	  	    	
    	    		FicheroResiDetalleHelper.nuevo(medResi.getIdDivisionResidencia(), medResi.getIdProceso(), medResi);
    	    		//FicheroResiDetalleDAO.nuevo(medResi.getIdDivisionResidencia(), medResi.getIdProceso(), medResi);

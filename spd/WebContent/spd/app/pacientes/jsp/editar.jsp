@@ -52,7 +52,9 @@
 			</td>
 		
 		</tr>
-		
+		<tr>
+			<td>Identificador</td><td class="oidPaciente"><bean:write name="data" property="oidPaciente"/></td>
+		</tr>
 
 		<tr>
 			<td>CIP</td><td><bean:write name="data" property="CIP"/></td>
@@ -110,10 +112,7 @@
 		</tr>
 		<tr>
 			<td>Estado</td>
-			
 		<td>
-
-		
 			<select name="estatus">
 			    <option value=""></option>
 			    <c:forEach items="${formulari.listaEstatusResidente}" var="bean">
@@ -133,7 +132,10 @@
 			<td>idFarmatic</td>
 			<td><bean:write name="data" property="idPharmacy"/></td>
 		</tr>
-				<tr>
+		<tr>
+			<td>Código UP Farmacia</td>
+			<td><bean:write name="data" property="UPFarmacia"/></td>
+		</tr>				<tr>
 			<td>	
 				<p class="botons">
 					<input type="button" onclick="javascript:volver()" value="Volver"/>

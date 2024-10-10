@@ -173,7 +173,7 @@ public class XMLRobotDao
            			nombreToma=nombresTomas.get(i);
            			idToma=idTomas.get(i);
             			
-           			if(dateObjetivoMarcado && DataUtil.isNumero(valorToma))
+           			if(dateObjetivoMarcado && DataUtil.isNumero(valorToma) && DataUtil.isNumeroGreatherThanZero(valorToma))
            			{
            				int posicionVirtual=posiciones.indexOf(posiciones.get(i))+1;
            				String sPosicionVirtual=String.format("%02d", posicionVirtual);
@@ -426,6 +426,8 @@ public class XMLRobotDao
 	   	bean.setPlanta(rs.getString("planta"));
 	   	bean.setHabitacion(rs.getString("habitacion"));
 	   	bean.setCN(rs.getString("CN"));
+	   	if(bean.getCN()!=null && bean.getCN().length()>6)
+	   		bean.setCN(bean.getCN().substring(0, 6));
 		bean.setNombreMedicamento(rs.getString("spdNombreBolsa"));
 
 		String spdAccionBolsa=rs.getString("spdAccionBolsa");

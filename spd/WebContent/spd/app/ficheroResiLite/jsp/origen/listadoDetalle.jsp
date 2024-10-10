@@ -149,6 +149,15 @@
 	  				</c:forEach>                     
 			</html:select><br><br><br>
 	    </th>	 
+	    		<th>Identificador
+			<html:select property="seleccionIdentificador"  value="${formulari.seleccionIdentificador}" onchange="javascript:goSubmit();"> 
+				<html:option value="">Todos</html:option>
+	 				<c:forEach items="${FicheroResiForm.listaIdentificador}" var="bean"> 
+					<option value='${bean}' ${FicheroResiForm.seleccionIdentificador == bean ? 'selected' : ' '}><c:out value="${bean}" ></c:out></option>   
+	  				</c:forEach>                     
+			</html:select><br><br><br>
+	    </th>	
+
 	    
 	    
 		<!-- Nombre paciente -->
@@ -519,7 +528,7 @@
 			<logic:equal property="editable" name="data" value="true">
 		        <i class="fa fa-pencil action-icon" onclick="javascript:editar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Editar"></i>
 		        
-		      <logic:notEqual property="spdCnFinal" name="data" value="/2 DEPRAX 100MG">  
+		      <logic:notEqual property="spdCnFinal" name="data" value="111111">  
   				    <i class="fa fa-refresh action-icon" onclick="javascript:reiniciar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Reiniciar sustitución"></i> 
 	  		  </logic:notEqual>
 		      </logic:equal>		
@@ -575,6 +584,9 @@
 	<td><bean:write name="data" property="spdFormaMedicacion" /></td>
 	<td><bean:write name="data" property="spdAccionBolsa" /></td>
 	<td><html:checkbox disabled="true" name="data" property="resiSiPrecisa" value="X" /></td> 
+	
+	<td class="oidPaciente" align="center"><bean:write name="data" property="oidPaciente" /></td>
+	
 	<td><bean:write name="data" property="resiApellidosNombre" /></td>
     <td><bean:write name="data" property="resiCIP" /></td>
 
@@ -588,7 +600,14 @@
 		        <% variable = "editar"; %>
 		    </c:otherwise>
 		</c:choose>
-    <a href="javascript:actualizaSustitucionLite('<%= variable %>', '<bean:write name="FicheroResiForm" property="oidDivisionResidencia" />', '<bean:write name="data" property="idDivisionResidencia" />','<bean:write name="data" property="resiCn" />', '<bean:write name="data" property="resiMedicamento" />', '<bean:write name="data" property="oidFicheroResiDetalle" />')"><bean:write name="data" property="resiCn" /></a>
+		
+		<logic:equal property="spdCnFinal" name="data" value="111111">  
+    			<bean:write name="data" property="resiCn" />
+		</logic:equal>		
+		<logic:notEqual property="spdCnFinal" name="data" value="111111">  
+   			  <a href="javascript:actualizaSustitucionLite('<%= variable %>', '<bean:write name="FicheroResiForm" property="oidDivisionResidencia" />', '<bean:write name="data" property="idDivisionResidencia" />','<bean:write name="data" property="resiCn" />', '<bean:write name="data" property="resiMedicamento" />', '<bean:write name="data" property="oidFicheroResiDetalle" />')"><bean:write name="data" property="resiCn" /></a>
+		</logic:notEqual>
+					
 	</td>
 	
 	<td><bean:write name="data" property="resiMedicamento" /></td>

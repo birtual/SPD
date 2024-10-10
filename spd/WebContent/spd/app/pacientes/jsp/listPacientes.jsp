@@ -59,6 +59,7 @@
 	   			<html:optionsCollection name="formulari" property="listaDivisionResidencias" label="nombreDivisionResidencia" value="oidDivisionResidencia" />
 			</html:select>
 		</div>	
+
 		<div>
 			<label for="campoGoogle" accesskey="e">Texto a buscar </label>
 		   	<html:text name="formulari" property="campoGoogle" />
@@ -121,6 +122,9 @@
 	<table  id="listaPacientesBean" align="center" border="1">
 		<tr>
 		 	<th>Residencia <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 0, true)"> &uarr;</a> <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 0, false)">&darr;</a></th>
+			<th>Identificador</th>
+	
+
 		 	<th>CIP <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 1, true)"> &uarr;</a> <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 1, false)">&darr;</a></th>
 			<th>Nombre <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 2, true)"> &uarr;</a> <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 2, false)">&darr;</a></th>
 			<th>Apellido1 <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 3, true)"> &uarr;</a> <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 3, false)">&darr;</a></th>
@@ -141,6 +145,8 @@
 		
 	<tr>
 		<td><bean:write name="data" property="idDivisionResidencia" /></td>
+		<td align="center"  class="oidPaciente" ><bean:write name="data" property="oidPaciente" /></td>
+
 		<td align="center"><a href="javascript:goDiscrepancias('<bean:write name="data" property="oidPaciente" />')"><bean:write name="data" property="CIP" /></a></td> 
 		<td><bean:write name="data" property="nombre" /></td>
 		<td><bean:write name="data" property="apellido1" /></td>

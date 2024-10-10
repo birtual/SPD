@@ -238,9 +238,9 @@ public class ControlDataImportDAO
       	query+=			" p.codigoUPfarmacia as UPfarmacia, max(p.fecha) as ultimaFechaEnOrigen, max(p.FechaHoraInsercion) as ultimaFechaRecogida, count(*) as cuantas ";
       	query+=			" from hst_CodigosRecetasDispensados p  ";
       	query+=			" INNER JOIN bd_pacientes pa ON (pa.CIP = p.CIP)";
+      	query+=			" INNER JOIN bd_divisionresidencia d ON d.idDivisionResidencia = pa.idDivisionResidencia ";
        	query+=			" INNER JOIN bd_residencia res on res.idResidencia=d.idResidencia ";
         query+=			" INNER JOIN bd_farmacia f on p.codigoUPfarmacia=f.codigoUP ";
-      	query+=			" INNER JOIN bd_divisionresidencia d ON d.idDivisionResidencia = pa.idDivisionResidencia ";
         query+=			" WHERE  res.status='activa' and   P.FECHA >= getDate()-31 AND p.IdVenta <> 0 ";
         query+=			" group by  f.idFarmacia, f.nombreFarmacia, d.idDivisionResidencia, d.nombreDivisionResidencia, p.codigoUPfarmacia  ";
         query+=			" order by f.nombreFarmacia,  d.nombreDivisionResidencia   ";

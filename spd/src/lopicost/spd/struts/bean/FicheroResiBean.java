@@ -55,6 +55,8 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	  private String nombreDivisionResidencia="";
 	  private Date fechaHoraProceso;
 	  private String fechaCalculoPrevision="";
+
+	  private String oidPaciente="";
 	  private String resiCIP="";
 	  private String resiNombrePaciente="";
 	  private String resiNombrePacienteEnFichero;					//nombre del residente que llega en el fichero de la residencia
@@ -567,6 +569,14 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	public List getResiTomas() 					{		return resiTomas;			}	public void setResiTomas(List resiTomas) 						{		this.resiTomas = resiTomas;							}
 	public List<String> getResiTomasOrdenadas() {		return resiTomasOrdenadas;	}	public void setResiTomasOrdenadas(List<String> resiTomasOrd) 	{		this.resiTomasOrdenadas = resiTomasOrd;				}
 	public List<String> getNombreTomasOrdenadas() {		return nombreTomasOrdenadas;}	public void setNombreTomasOrdenadas(List<String> nombre) 		{		this.nombreTomasOrdenadas = nombre;					}
+
+	public String getOidPaciente() {
+		return oidPaciente;
+	}
+
+	public void setOidPaciente(String oidPaciente) {
+		this.oidPaciente = oidPaciente;
+	}
 
 
 

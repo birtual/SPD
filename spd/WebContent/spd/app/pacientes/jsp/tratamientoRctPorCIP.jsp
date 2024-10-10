@@ -34,6 +34,16 @@
 
 	<div><h3><p>Tratamiento CIP</p></h3></div>
 	<div><p><bean:write name="formulari" property="CIP" />-<bean:write name="formulari" property="nombreApellidos" /></p></div>
+	<div>
+		<p>		
+		<logic:greaterThan name="formulari" property="oidPaciente" value="0">
+			 <div >identificador: <b><bean:write name="formulari" property="oidPaciente" /></b></div>
+		</logic:greaterThan>
+		<logic:lessEqual name="formulari" property="oidPaciente" value="0">
+			 <div ><b>No existe en mantenimiento de residentes</b></div>
+		</logic:lessEqual>
+		</p>
+	</div>
  	<fieldset>
 
 		<table id="listaPacientesBean" align="center" border="1">

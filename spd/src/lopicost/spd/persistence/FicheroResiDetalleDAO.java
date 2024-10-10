@@ -84,6 +84,9 @@ public class FicheroResiDetalleDAO {
 		String confirmar=b.getIncidencia()!=null&&b.getIncidencia().equalsIgnoreCase("SI")?SPDConstants.REGISTRO_CONFIRMAR:b.getConfirmar();
 		String validar=b.getIncidencia()!=null&&b.getIncidencia().equalsIgnoreCase("SI")?SPDConstants.REGISTRO_VALIDAR:b.getValidar();
 		
+		String spdCn=b.getSpdCnFinal();
+		if(spdCn!=null && spdCn.length()>6)
+			spdCn = spdCn.substring(0, 6);
 		
         int result=0;
 		  Connection con = Conexion.conectar();
@@ -111,7 +114,7 @@ public class FicheroResiDetalleDAO {
 	       	qry+= " '" + b.getResiFormaMedicacion() +"', '"+ b.getResiInicioTratamiento() +"', '"+ b.getResiFinTratamiento()+"',  '"+ b.getResiInicioTratamientoParaSPD() +"', '"+ b.getResiFinTratamientoParaSPD()+"',";
    			qry+= " REPLACE('" + b.getResiObservaciones() +"', '''', ''''''),  REPLACE('" +  b.getResiComentarios()+"', '''', ''''''), COALESCE('" +  b.getResiTipoMedicacion()+"', ''), '"+ b.getResiSiPrecisa()+"', ";
 			//qry+= " '" + b.getSpdCnFinal() +"', REPLACE('" +   StringUtil.limpiarTextoComentarios(b.getSpdNombreBolsa()) +"', '''', ''''''), '"+  b.getSpdFormaMedicacion() +"', ";
-   			qry+= " '" + b.getSpdCnFinal() +"', REPLACE('" +   StringUtil.replaceInvalidChars(b.getSpdNombreBolsa()) +"', '''', ''''''), '"+  b.getSpdFormaMedicacion() +"', ";
+   			qry+= " '" + spdCn +"', REPLACE('" +   StringUtil.replaceInvalidChars(b.getSpdNombreBolsa()) +"', '''', ''''''), '"+  b.getSpdFormaMedicacion() +"', ";
 			qry+= " '" + b.getSpdAccionBolsa()+"', COALESCE('"+ b.getSpdNomGtVmpp()+"', ''), ";
 			qry+= " '" + b.getResiD1()+"', '"+b.getResiD2()+"', '"+b.getResiD3()+"', '"+b.getResiD4()+"', '"+b.getResiD5()+"', '"+b.getResiD6()+"', '"+ b.getResiD7()+"', ";      
 			qry+= " '" + b.getResiDiasAutomaticos()+"',   COALESCE('" + b.getResiViaAdministracion()+"', ''), COALESCE('" + b.getResiVariante()+"', ''), ";
@@ -256,7 +259,7 @@ public class FicheroResiDetalleDAO {
 		String qryOrder= "  order by  g.row, g.idProceso, g.resiCIP, g.resiMedicamento, COALESCE(g.resiInicioTratamientoParaSPD, g.resiInicioTratamiento) ";
 		if(orderBy!=null && !orderBy.equals(""))
 			qryOrder= "  order by  " + orderBy + ", g.row";
-		String camposSelect = "  g.*, p.nom, p.apellido1, p.apellido2, d.idProcessIospd ";
+		String camposSelect = "  g.*, p.nom, p.apellido1, p.apellido2, d.idProcessIospd, p.oidPaciente, p.planta, p.habitacion ";
 
 		if(distinctCampo!=null && !distinctCampo.equals(""))  //nos llega un campo concreto
 		{
@@ -322,6 +325,9 @@ public class FicheroResiDetalleDAO {
 
 			if(StringUtil.limpiarTextoyEspacios(form.getSeleccionResiCn())!=null && !StringUtil.limpiarTextoyEspacios(form.getSeleccionResiCn()).trim().equals(""))
 				qry+=  " and g.resiCn = '"+StringUtil.limpiarTextoyEspacios(form.getSeleccionResiCn()) +"' ";
+
+			if(form.getSeleccionIdentificador()!=null && !form.getSeleccionIdentificador().equals(""))
+				qry+=  " and p.oidPaciente = '"+form.getSeleccionIdentificador() +"' ";
 
 			if(form.getSeleccionResiCIP()!=null && !form.getSeleccionResiCIP().equals(""))
 				qry+=  " and g.resiCIP = '"+form.getSeleccionResiCIP() +"' ";
@@ -1346,6 +1352,8 @@ public class FicheroResiDetalleDAO {
 
 			qry+=  " AND g.idDivisionResidencia='"+idDivisionResidencia+"' ";
 	   		qry+=  " AND g.idProceso='"+idProceso+"'";
+	   		qry+=  " AND g.resiCIP <>'' ";
+	   		qry+=  " AND g.resiCIP IS NOT NULL ";
 	   		
 	   		System.out.println(className + "--> getCipsTotalesCargaFichero --> " +qry );		
 			     ResultSet resultSet = null;
@@ -1948,9 +1956,18 @@ public class FicheroResiDetalleDAO {
 					apellido2=(resultSet.getString("apellido2")!=null?resultSet.getString("apellido2"):apellido2);
 					apellidosNombre=(resultSet.getString("cognomsNom")!=null?resultSet.getString("cognomsNom"):apellidosNombre);
 
-				}catch(Exception e){
-					
-				}
+				}catch(Exception e){}
+				
+				try{
+					f.setOidPaciente(String.valueOf(resultSet.getInt("oidPaciente")));
+					if(f.getOidPaciente()!=null && f.getOidPaciente().equals("0"))
+						f.setOidPaciente("");
+					}catch(Exception e){};
+				try{
+					f.setResiPlanta(resultSet.getString("planta"));
+					f.setResiHabitacion(resultSet.getString("habitacion"));
+						}catch(Exception e){};
+
 				f.setResiNombrePaciente(nombre!=null&&!nombre.equals("")?nombre:resultSet.getString("resiCIP"));
 
 				f.setResiApellido1(apellido1);

@@ -30,6 +30,11 @@ public class pruebas {
 	        // Concatena la fecha formateada con los 18 dígitos aleatorios
 	        String result = formattedDateTime + randomDigits;
             System.out.println(result);
+            
+            String cn ="1234567";
+        	if(cn!=null && cn.length()>6)
+        		cn = cn.substring(0, 6);
+        	System.out.println(cn);
 				
 		}
 		

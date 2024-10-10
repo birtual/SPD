@@ -38,11 +38,22 @@
 	<div><h3><p>Producciones CIP</p></h3></div>
 	<div><p><bean:write name="formulari" property="CIP"/>-<bean:write name="formulari" property="nombreApellidos"/></p></div>
 	<div>
+		<p>		
+		<logic:greaterThan name="formulari" property="oidPaciente" value="0">
+			 <div >identificador: <b><bean:write name="formulari" property="oidPaciente" /></b></div>
+		</logic:greaterThan>
+		<logic:lessEqual name="formulari" property="oidPaciente" value="0">
+			 <div ><b>No existe en mantenimiento de residentes</b></div>
+		</logic:lessEqual>
+		</p>
+	</div>
+	<div>
 		<label for="campoGoogle" accesskey="e">Producciones</label>
 			<html:select property="idProceso"  onchange="submit()"> 
 	   			<html:optionsCollection name="formulari" property="listaProcesosCargados" label="idEstado" value="idProceso" />
 			</html:select>
 		</div>	
+	
 		
 		
  	<fieldset>
@@ -85,7 +96,8 @@
 		<th>Forma medicacion</th>
 		<th>Acción bolsa</th> 	
 		<th>Si Precisa</th>	 
-		<th>Nombre paciente</th>	
+		<th>Identificador residente</th>	
+		<th>Nombre </th>	
 		<th>CIP</th>	
 		<th>CN</th>	
 		<th>Medicamento resi</th>	
@@ -121,6 +133,7 @@
 	<td><bean:write name="data" property="spdFormaMedicacion" /></td>
 	<td><bean:write name="data" property="spdAccionBolsa" /></td>
 	<td><html:checkbox disabled="true" name="data" property="resiSiPrecisa" value="X" /></td> 
+	<td class="oidPaciente" align="center"><bean:write name="PacientesForm" property="oidPaciente" /></td>
 	<td><bean:write name="data" property="resiApellidosNombre" /></td>
     <td><bean:write name="data" property="resiCIP" /></td>
 	<td><bean:write name="data" property="resiCn" /></td>

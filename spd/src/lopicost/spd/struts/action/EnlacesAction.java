@@ -17,7 +17,9 @@ import lopicost.spd.model.Usuario;
 import lopicost.spd.persistence.EnlaceDAO;
 import lopicost.spd.persistence.UsuarioDAO;
 import lopicost.spd.struts.form.EnlacesForm;
+import lopicost.spd.struts.helper.ControlDataImportHelper;
 import lopicost.spd.struts.helper.EnlacesHelper;
+import lopicost.spd.struts.helper.ExtReHelper;
 
 public class EnlacesAction extends GenericAction  {
 
@@ -30,7 +32,8 @@ public class EnlacesAction extends GenericAction  {
 		EnlacesForm enlacesForm =  (EnlacesForm) form; 
 		List errors = new ArrayList();
 		enlacesForm.setErrors(errors);
-
+		
+		
 		Usuario user = UsuarioDAO.findByIdUser(enlacesForm.getIdUsuario());
 		if(user==null) 
 		{
@@ -47,6 +50,11 @@ public class EnlacesAction extends GenericAction  {
 		List menus = 	EnlaceDAO.findByIdUserAndTypeAndLevel(user, enlacesForm.getACTIONTODO(), nivel);
 		List menuArreglado = 	EnlacesHelper.listadoPorApartados(user, menus);
 		enlacesForm.setListaEnlaces(menuArreglado);
+		
+		//20240923 - Comprobamos si la recogida de datos ha sido correcta. En este caso se mira la parte de los datos de las fechas de recogida que afectan a la RE del iofwin. 
+		//TO-DO   -  NO se analiza el contenido de la recogida,  
+		List beansResi = ExtReHelper.getDatosProcesoCaptacionConErrores(enlacesForm.getIdUsuario());
+		enlacesForm.setListaBeans(beansResi);
 		
 		//return mapping.findForward("listHtml");
 		 mapping.findForward("list");

@@ -322,8 +322,12 @@ public class ExtReDAO
 		        }
 		        return listaPacientes;
     }
-		
-    
+
+	public static Object checkControlRecogidaRe(String spdUsuario) {
+		// TODO Esbozo de método generado automáticamente
+		return null;
+	}
+
     
     
 }

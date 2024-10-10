@@ -32,6 +32,17 @@
 
 <div id="contingut">
  	
+ 		<div>
+		<p>		
+		<logic:greaterThan name="formulari" property="oidPaciente" value="0">
+			 <div >identificador: <b><bean:write name="formulari" property="oidPaciente" /></b></div>
+		</logic:greaterThan>
+		<logic:lessEqual name="formulari" property="oidPaciente" value="0">
+			 <div ><b>No existe en mantenimiento de residentes</b></div>
+		</logic:lessEqual>
+		</p>
+	</div>
+	
  	<fieldset>
 
 		<table  id="listaPacientesBean" align="center" border="1">
@@ -39,6 +50,7 @@
 			 	<th>Fecha proceso</th>
 			 	<th>CIP</th>
 				<th>Nombre</th>
+			 	<th>Identificador residente</th>
 				<th>servir pañales</th>
 			 	<th>CN</th>
 			 	<th>Nombre pañal</th>
@@ -56,6 +68,7 @@
 				<td><bean:write name="data" property="fechaProceso" /></td>
 				<td><bean:write name="data" property="CIP" /></td>
 				<td><bean:write name="data" property="apellidosNombre" /></td>
+				<td class="oidPaciente" align="center"><bean:write name="PacientesForm" property="oidPaciente" /></td>
 				<td><bean:write name="data" property="servirBolquers" /></td>
 				<td><bean:write name="data" property="cn" /></td>
 				<td><bean:write name="data" property="medicamento" /></td>

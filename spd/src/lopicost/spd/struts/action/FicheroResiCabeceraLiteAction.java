@@ -1,7 +1,7 @@
 package lopicost.spd.struts.action;
 
 
-import java.sql.SQLException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -559,10 +559,12 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
    	   		nombreFicheroFiliaRX=PlantillaUnificadaHelper.generaFicheroRX(cabDetalle, filiaRX,  response);
    	    }
    	    boolean fileRXGenerated = (nombreFicheroFiliaRX != null && !nombreFicheroFiliaRX.isEmpty());
+   	    String path = SPDConstants.PATH_DOCUMENTOS+"/robot/";
+   	    
    	    request.setAttribute("fileDMGenerated", fileDMGenerated); // Indica si el archivo fue generado
    	    request.setAttribute("fileRXGenerated", fileRXGenerated); // Indica si el archivo fue generado
-   	    request.setAttribute("filePathDM", "c://UTILS/"+nombreFicheroFiliaDM); // Ruta del archivo generado
-   	    request.setAttribute("filePathRX", "c://UTILS/"+nombreFicheroFiliaRX); // Ruta del archivo generado
+   	    request.setAttribute("filePathDM", path + nombreFicheroFiliaDM); // Ruta del archivo generado
+   	    request.setAttribute("filePathRX", path + nombreFicheroFiliaRX); // Ruta del archivo generado
    		return mapping.findForward("generarFicherosDMyRX");
 	}
 

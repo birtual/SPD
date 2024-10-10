@@ -183,7 +183,10 @@ public class HeliumHelper {
 	
 	        try {
 	        	String diaHora = DateUtilities.getDatetoString("ddMMyyyy_Hmm", new Date());
-	        	String filePath = "c://UTILS/"+diaHora+"_HELIUM_" + careHome.getIdProceso() + ".xml";
+	        	
+	        	
+	        	String filePath = SPDConstants.PATH_DOCUMENTOS+"/helium/"+diaHora+"_HELIUM_" + careHome.getIdProceso() + ".xml";      
+	        	//String filePath = "c://UTILS/"+diaHora+"_HELIUM_" + careHome.getIdProceso() + ".xml";
 	        	nomFitxer = diaHora+"_HELIUM_" + careHome.getIdProceso() + ".xml";
 	        	File file = new File(filePath);
 	

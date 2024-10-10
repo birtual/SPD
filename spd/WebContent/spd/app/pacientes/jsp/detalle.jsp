@@ -42,6 +42,9 @@
 			<td id="campo1" >Residencia</td><td><bean:write name="data" property="idDivisionResidencia" /></td>
 		</tr>
 		<tr>
+			<td>Identificador</td><td class="oidPaciente"><bean:write name="data" property="oidPaciente"/></td>
+		</tr>
+		<tr>
 			<td>CIP</td><td><bean:write name="data" property="CIP"/></td>
 		</tr>
 		<tr>
@@ -79,11 +82,16 @@
 			<td><textarea rows="4" cols="50" readonly><bean:write name="data" property="comentarios"/></textarea></td>
 		</tr>
 		<tr>
-			<td>Actividad / Estado / Exitus</br>
-			idFarmatic</br>
-			</td>
-			<td><bean:write name="data" property="activo"/> / <bean:write name="data" property="estatus"/> / <bean:write name="data" property="exitus"/></br>
-			<bean:write name="data" property="idPharmacy"/></td>
+			<td>Actividad</td><td><bean:write name="data" property="activo"/></td>
+		</tr>			
+		<tr>
+			<td>Estado</td><td><bean:write name="data" property="estatus"/></td>
+		</tr>			
+		<tr>
+			<td>idFarmatic</td><td><bean:write name="data" property="idPharmacy"/></td>
+		</tr>			
+		<tr>
+			<td>UPFarmacia</td><td><bean:write name="data" property="UPFarmacia"/></td>
 		</tr>
 		<tr>
 			<td>	

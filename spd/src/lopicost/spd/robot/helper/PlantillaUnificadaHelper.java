@@ -312,7 +312,9 @@ public class PlantillaUnificadaHelper {
 	
 	        try {
 	            String diaHora = DateUtilities.getDatetoString("ddMMyyyy_Hmm", new Date());
-	            String filePath = "c://UTILS/UNIFICADA_DM_" + cab.getIdProceso() + ".xml";
+	            //String filePath = "c://UTILS/UNIFICADA_DM_" + cab.getIdProceso() + ".xml";
+	       	    String filePath = SPDConstants.PATH_DOCUMENTOS+"/robot/FILIA_DM_"+ cab.getIdProceso() + ".xml";
+	            
 	            nomFitxer = "FILIA_DM_" + cab.getIdProceso() + "_hora_"+diaHora + ".xml";
 	            File file = new File(filePath);
 	
@@ -434,7 +436,8 @@ public class PlantillaUnificadaHelper {
 	
 	        try {
 	            String diaHora = DateUtilities.getDatetoString("ddMMyyyy_Hmm", new Date());
-	            String filePath = "c://UTILS/UNIFICADA_RX_" + cab.getIdProceso() + ".xml";
+	            //String filePath = "c://UTILS/UNIFICADA_RX_" + cab.getIdProceso() + ".xml";
+	       	    String filePath = SPDConstants.PATH_DOCUMENTOS+"/robot/FILIA_RX_"+ cab.getIdProceso() + ".xml";
 	            nomFitxer = "FILIA_RX_" + cab.getIdProceso() + "_hora_"+diaHora + ".xml";
 	            File file = new File(filePath);
 	

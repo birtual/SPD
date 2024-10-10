@@ -43,6 +43,7 @@ public class GenericForm extends ActionForm
 
 	private String[] oidVariasDivisionResidencia;
 	private int oidGestSustituciones = -1;
+	private String oidPaciente = "";
 	
 	//	private String filtroProcesoFichero="";
 	//	private String filtroIdEstadoProcesoFichero="";
@@ -61,6 +62,7 @@ public class GenericForm extends ActionForm
 	
 	//listas 
 	private List<?> errors;
+	private List<?> avisos;
 	private List<?>  listaBdConsejo;
 	private List<?>  listaConjuntosHomogeneos;
 	private List<?>  listaGtVmp;
@@ -353,6 +355,14 @@ public class GenericForm extends ActionForm
 		this.errors = errors;
 	}
 
+	public List<?> getAvisos() {
+		return avisos;
+	}
+
+	public void setAvisos(List<?> avisos) {
+		this.avisos = avisos;
+	}
+
 	public String getFieldName1() {
 		return fieldName1;
 	}
@@ -607,6 +617,14 @@ public class GenericForm extends ActionForm
 
 	public void setIdDivisionResidenciaFiltro(String idDivisionResidenciaFiltro) {
 		this.idDivisionResidenciaFiltro = idDivisionResidenciaFiltro;
+	}
+
+	public String getOidPaciente() {
+		return oidPaciente;
+	}
+
+	public void setOidPaciente(String oidPaciente) {
+		this.oidPaciente = oidPaciente;
 	}
 
 

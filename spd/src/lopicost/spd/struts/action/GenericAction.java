@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lopicost.spd.security.form.LoginForm;
-import lopicost.spd.utils.SPDConstants;
 import lopicost.spd.utils.TextManager;
 
 public abstract class GenericAction extends DispatchAction
@@ -31,8 +30,7 @@ public abstract class GenericAction extends DispatchAction
 	private String idUsuario = null;
 	private boolean debug= false;
 	public String logDirectory = null;
-
-
+	List avisos = new ArrayList();
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 	        HttpServletRequest request, HttpServletResponse response)
@@ -89,9 +87,6 @@ public abstract class GenericAction extends DispatchAction
 	    	session.setAttribute("error", "Error sesión usuario, es necesario volver a hacer login");
 	        return mapping.findForward("errorSession");
 	    }
-		
-	    
-
 
 	    // Realizar otras operaciones específicas de la acción madre aquí
 	    return super.execute(mapping, form, request, response);
@@ -115,26 +110,29 @@ public abstract class GenericAction extends DispatchAction
 		if(TextManager.getMensaje("error.persistence")!=null && !TextManager.getMensaje("error.persistence").equals(""))
 			text=TextManager.getMensaje("error.persistence");
 		return text;
-	
-			
 	}
-
 	
-	
-	
-	public String getLogDirectory() {
+	public String getLogDirectory() { 
 		return logDirectory;
 	}
-
 
 	public void setLogDirectory(String logDirectory) {
 		this.logDirectory = logDirectory;
 	}
 
-
 	public void log (String message, int level)
 	{
 		Logger.log("SPDLogger",message,level);	
+	}
+
+
+	public List getAvisos() {
+		return this.avisos;
+	}
+
+
+	public void setAvisos(List avisos) {
+		this.avisos = avisos;
 	}
 	
 	

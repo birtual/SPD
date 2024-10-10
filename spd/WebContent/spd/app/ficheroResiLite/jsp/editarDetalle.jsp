@@ -97,6 +97,13 @@
 
 <fieldset>
 		<div><bean:write name="data" property="resiNombrePaciente" /> <bean:write name="data" property="resiApellido1" /> <bean:write name="data" property="resiApellido2" /> - <html:text name="data" property="resiCIP" /></div>
+		
+		<logic:greaterThan name="formulari" property="oidPaciente" value="0">
+			 <div >identificador: <b><bean:write name="formulari" property="oidPaciente" /></b></div>
+		</logic:greaterThan>
+		<logic:lessEqual name="formulari" property="oidPaciente" value="0">
+			 <div ><b>No existe en mantenimiento de residentes</b></div>
+		</logic:lessEqual>
 	<fieldset>
 	<table class="tablaResi">
 		<tr>	

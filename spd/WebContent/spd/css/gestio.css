@@ -84,6 +84,13 @@ div#titol h5 {
 	margin-left: 1em;
 }
 
+
+div#oidPaciente {
+	background-color: #58c9c9;
+}
+
+
+
 /* botons 
 button,
 .clsButtonStyle,
@@ -489,8 +496,12 @@ td.amarillo {
 td.toma
 {
 	text-align: center;
-
 }
+
+td.oidPaciente {
+	background-color: #58c9c9;
+}
+
 
 tr.NO_PINTAR td {
 	background-color: #a2a39e;

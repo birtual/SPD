@@ -34,6 +34,16 @@
 
 	<div><h3><p>Discrepancias por CIP (cálculos realizados sobre 14 días)</p></h3></div>
 	<div><p><bean:write name="formulari" property="CIP" />-<bean:write name="formulari" property="nombreApellidos" /></p></div>
+	<div>
+		<p>		
+		<logic:greaterThan name="formulari" property="oidPaciente" value="0">
+			 <div >identificador: <b><bean:write name="formulari" property="oidPaciente" /></b></div>
+		</logic:greaterThan>
+		<logic:lessEqual name="formulari" property="oidPaciente" value="0">
+			 <div ><b>No existe en mantenimiento de residentes</b></div>
+		</logic:lessEqual>
+		</p>
+	</div>
  	<fieldset>
 
 		<table id="listaPacientesBean" align="center" border="1">
@@ -77,7 +87,6 @@
 		<logic:notEqual  name="data" property="cuadraPrevision" value="true">
 			<tr class="alertaSustXResi">
 		</logic:notEqual>			
-
 				<td><bean:write name="data" property="resiCn" /></td>
 				<td><bean:write name="data" property="resiMedicamento" /></td>
 				<td><bean:write name="data" property="spdCnSust" /></td>

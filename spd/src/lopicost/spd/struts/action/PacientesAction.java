@@ -62,8 +62,6 @@ public class PacientesAction extends GenericAction  {
 		}
 		else if(f.getACTIONTODO()!=null && f.getACTIONTODO().equals("NUEVO"))
 		{
-			
-			
 			f.setListaDivisionResidencias(DivisionResidenciaDAO.getListaDivisionResidencias(getIdUsuario()));
 			f.setListaEstatusResidente(PacienteDAO.getEstatusResidente(getIdUsuario()));
 			f.setListaEstadosResidente(PacienteDAO.getEstadosResidente(getIdUsuario()));
@@ -168,7 +166,12 @@ public class PacientesAction extends GenericAction  {
 		formulari.setNombreApellidos(pac.getNombreApellidos()!=null?pac.getNombreApellidos():null);
 		formulari.setCIP(pac.getCIP()!=null?pac.getCIP():null);
 		formulari.setListaBeans(PacientesHelper.getDiscrepanciasPorCIP(getIdUsuario(), pac, formulari.getDiasCalculo()));
-
+		try
+		{
+			formulari.setOidPaciente(String.valueOf(pac.getOidPaciente()));
+		}catch(Exception e){
+			
+		}
 		//String url = "/Pacientes.do?parameter=detalle&oidPaciente=" + formulari.getOidPaciente();
         // Puedes guardar la URL como un atributo de sesión
 		//request.getSession().setAttribute("url", url);
@@ -186,7 +189,12 @@ public class PacientesAction extends GenericAction  {
 		formulari.setNombreApellidos(pac.getNombreApellidos()!=null?pac.getNombreApellidos():null);
 		formulari.setCIP(pac.getCIP()!=null?pac.getCIP():null);
 		formulari.setListaBeans(PacientesHelper.getTratamientoRctPorCIP(getIdUsuario(), pac));
-		
+		try
+		{
+			formulari.setOidPaciente(String.valueOf(pac.getOidPaciente()));
+		}catch(Exception e){
+			
+		}
  		return mapping.findForward("detalleTratamientoRct");
 	}
 	
@@ -197,7 +205,12 @@ public class PacientesAction extends GenericAction  {
 		formulari.setNombreApellidos(pac.getNombreApellidos()!=null?pac.getNombreApellidos():null);
 		formulari.setCIP(pac.getCIP()!=null?pac.getCIP():null);
 		formulari.setListaProcesosCargados(PacientesHelper.getListTratamientosSPDPorCIP(getIdUsuario(), pac, false));
-		
+		try
+		{
+			formulari.setOidPaciente(String.valueOf(pac.getOidPaciente()));
+		}catch(Exception e){
+			
+		}
 		String idProceso=formulari.getIdProceso();
 		if(idProceso==null || idProceso.contentEquals(""))
 		{

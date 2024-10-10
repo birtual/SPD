@@ -82,7 +82,102 @@ public class PacientesHelper  {
 	 * @param p PacienteBean sobre el que se realiza el cambio
 	 * @throws SQLException 
 	 */
+
 	public static void actualizaDatosClaveSegunEstatus(String idUsuario, PacienteBean p) throws SQLException {
+		
+		boolean cambios=false;
+		String spd =p.getSpd();
+		String bolquers =p.getBolquers();
+		String activo =p.getActivo();
+		int exitus =p.getExitus();
+
+		String querySet="";
+		if(p!=null)
+		{
+			String estatus=p.getEstatus()!=null?p.getEstatus():"";
+	
+			//en caso que sea baja o similar, spd y pañales pasan a N
+			if(StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("CENTRODEDIA")
+					|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("HOSPITALIZADO")
+					|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("BAJAVOLUNTARIA")
+					|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("EXITUS")
+				)
+				{
+					if(p.getSpd().equalsIgnoreCase("S"))
+					{
+						p.setSpd("N"); 
+						if(cambios) querySet+=" , ";
+						querySet+=" SPD='N' ";
+						cambios=true;
+					} 
+					if(p.getBolquers().equalsIgnoreCase("S"))
+					{
+						p.setBolquers("N"); 
+						if(cambios) querySet+=" , ";
+						querySet+=" bolquers='N' ";
+						cambios=true;
+					} 
+					if(p.getActivo().equalsIgnoreCase("ACTIVO"))
+					{
+						p.setActivo("INACTIVO");
+						if(cambios) querySet+=" , ";
+						querySet+=" ACTIVO='INACTIVO' ";
+						cambios=true;
+					}
+					if(p.getExitus()==0)
+					{
+						p.setExitus(1);
+						if(cambios) querySet+=" , ";
+						querySet+=" EXITUS=1 ";
+						cambios=true;
+					}
+
+				}
+			
+			
+			//en caso que sea alta, dejamos spd y pañales a elección del gestor.
+			if(StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("ALTA"))
+			{
+				if(p.getActivo().equalsIgnoreCase("INACTIVO"))
+				{
+					p.setActivo("ACTIVO");
+					if(cambios) querySet+=" , ";
+					querySet+=" ACTIVO='ACTIVO' ";
+					cambios=true;
+				}
+				if(p.getExitus()==1)
+				{
+					p.setExitus(0);
+					if(cambios) querySet+=" , ";
+					querySet+=" EXITUS=0 ";
+					cambios=true;
+				}
+			}
+			
+
+			
+		if(cambios) 
+		{
+			String antesAuto 	=  " | spd: "+ spd + " | pañales: "+ bolquers + " | activo: "+ activo + " | exitus: "+ exitus ;
+			String despuesAuto 	=  " | spd: "+ p.getSpd() + " | pañales: "+ p.getBolquers() + " | activo: "+ p.getActivo() + " | exitus: "+ p.getExitus();
+			String queryAuto=" UPDATE SPDAC.dbo.bd_pacientes SET " + querySet + "   WHERE  OIDPACIENTE='"+p.getOidPaciente()+"'";
+			
+			cambios = PacienteDAO.edita(queryAuto);
+			//INICIO creación de log automática en base al estado en BBDD
+			try{
+				SpdLogAPI.addLog(idUsuario, p.getCIP(),  p.getIdDivisionResidencia(), null, SpdLogAPI.A_RESIDENTE, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.residente.edicion.automatica.segunEstado", 
+						 new String[]{idUsuario, p.getCIP(), antesAuto, despuesAuto} );
+			}catch(Exception e){}	// Cambios--> @@.
+			//FIN creación de log en BBDD
+		}
+
+		}
+	}
+	
+	
+	
+/*
+ * 	public static void actualizaDatosClaveSegunEstatus(String idUsuario, PacienteBean p) throws SQLException {
 		
 		boolean cambios=false;
 		String spd =p.getSpd();
@@ -195,11 +290,9 @@ public class PacientesHelper  {
 		}
 
 		}
-	
-	
 	}
 	
-	
+*/	
 	
 	
 	/**

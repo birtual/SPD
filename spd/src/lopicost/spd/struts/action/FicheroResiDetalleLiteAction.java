@@ -23,7 +23,6 @@ import lopicost.spd.iospd.exportdata.process.ExcelFicheroResiDetallePlantUnifLit
 import lopicost.spd.iospd.exportdata.process.ExcelFilasConInfo;
 import lopicost.spd.iospd.exportdata.process.ExcelSustitucionesPendientes;
 import lopicost.spd.model.DivisionResidencia;
-
 import lopicost.spd.persistence.DivisionResidenciaDAO;
 import lopicost.spd.persistence.FicheroResiCabeceraDAO;
 import lopicost.spd.persistence.FicheroResiDetalleDAO;
@@ -32,7 +31,9 @@ import lopicost.spd.security.helper.PermisosHelper;
 import lopicost.spd.struts.bean.CamposPantallaBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.bean.InfoAlertasBean;
+import lopicost.spd.struts.bean.PacienteBean;
 import lopicost.spd.struts.form.FicheroResiForm;
+import lopicost.spd.struts.helper.PacientesHelper;
 import lopicost.spd.utils.DateUtilities;
 import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
@@ -121,7 +122,12 @@ public class FicheroResiDetalleLiteAction extends GenericAction  {
 		//FicheroResiBean  frb = FicheroResiDetalleHelper.getFicheroResiDetalleByIdOid(formulari, getIdUsuario());
 		
 		FicheroResiBean  frb = FicheroResiDetalleDAO.getFicheroResiDetalleByIdOid(getIdUsuario(), formulari.getOidFicheroResiDetalle());
-		
+		try
+		{
+			PacienteBean pac = PacientesHelper.getPacientePorCIP(frb.getResiCIP());
+			if(pac!=null && pac.getCIP()!=null) formulari.setOidPaciente(String. valueOf(pac.getOidPaciente()));
+		}
+		catch(Exception e){}
 		//Cabecera con los datos resumen 
 		FicheroResiBean  topCabecera = FicheroResiCabeceraDAO.getFicheroResiCabecera(getIdUsuario(), formulari);
 		//de momento, hasta que lo cambie a trabajo por objetos

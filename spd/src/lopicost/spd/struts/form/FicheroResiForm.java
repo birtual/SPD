@@ -99,6 +99,10 @@ public class FicheroResiForm   extends GenericForm {
 	private String seleccionResiCIP = "";
 	private List listaResiCIP = new ArrayList();
 	
+	//private String identificador = "";
+	private String seleccionIdentificador = "";
+	private List<String> listaIdentificador = new ArrayList();
+	
 	private String resiNombrePaciente = "";
 	private String seleccionResiNombrePaciente = "";
 	private List<String> listaResiNombrePaciente = new ArrayList();
@@ -1580,6 +1584,22 @@ public class FicheroResiForm   extends GenericForm {
 	public boolean isFiltroMostrarGeneradosSeq()		{return filtroMostrarGeneradosSeq;			}	public void setFiltroMostrarGeneradosSeq(boolean f)			{	this.filtroMostrarGeneradosSeq = f;			}
 	public boolean isFiltroCheckedMostrarGeneradosSeq() {return filtroCheckedMostrarGeneradosSeq;	}	public void setFiltroCheckedMostrarGeneradosSeq(boolean f) 	{ 	this.filtroCheckedMostrarGeneradosSeq = f;	}
 	public boolean isFiltroUnicoGtvm() 				{return filtroUnicoGtvm;					}	public void setFiltroUnicoGtvm(boolean filtroVariosGtvm) 	{	this.filtroUnicoGtvm = filtroVariosGtvm;	}
+
+	public String getSeleccionIdentificador() {
+		return seleccionIdentificador;
+	}
+
+	public void setSeleccionIdentificador(String seleccionIdentificador) {
+		this.seleccionIdentificador = seleccionIdentificador;
+	}
+
+	public List<String> getListaIdentificador() {
+		return listaIdentificador;
+	}
+
+	public void setListaIdentificador(List<String> listaIdentificador) {
+		this.listaIdentificador = listaIdentificador;
+	}
 
 
 	

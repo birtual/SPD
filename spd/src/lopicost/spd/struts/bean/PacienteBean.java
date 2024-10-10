@@ -37,6 +37,7 @@ public class PacienteBean {
 	  private List listaTratamientosFichero;
 	  private String activo; 
 	  private String idPharmacy;					//Id Farmatic
+	  private String UPFarmacia;					//Codigo UP Farmacia
 	  private String mutua;						    //mutua	              varchar(20) DEFAULT 'S',
 	  private String mensajeTratamiento;	
 	  private String mensajePendientes;	
@@ -106,5 +107,7 @@ public class PacienteBean {
 	  public void setMensajePendientes(String mensaje)			{			this.mensajePendientes = mensaje;				}
 	  public String getClaseId() 								{			return claseId;									}
 	  public void setClaseId(String claseId) 					{			this.claseId = claseId;							}
+	  public String getUPFarmacia() 							{			return UPFarmacia;								}
+	  public void setUPFarmacia(String uPFarmacia) 				{			UPFarmacia = uPFarmacia;						}
   
 }	

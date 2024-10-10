@@ -1,3 +1,4 @@
+<%@page import="lopicost.spd.utils.SPDConstants"%>
 <%@page import="lopicost.spd.model.Enlace"%>
 <%@ page language="java" %>
 <%@ page import="java.util.*" %>
@@ -44,6 +45,28 @@
 		</font>
 		</ul>
 	</logic:notEmpty>
+ 	
+ 	<div>	
+	</br>
+ 	<table align="center" style="width:50%">
+	<h3 align="center" >Avisos en la actualización de datos </h3>
+		<thead>
+		<th>Residencia</th>
+		<th>Residentes activos</th>
+		
+		<th>% Tratamientos recogidos ok (fecha)</th>
+		<th>% Ventana activa recogida ok (fecha)</th>					
+		</thead>
+ 			<logic:iterate id="data" name="formulari" property="listaBeans" type="lopicost.spd.struts.bean.ExtReBean" indexId="position">
+			<tr>
+				<td style=" text-align: left;"><font color="red"><bean:write name="data" property="nombreDivisionResidencia" /></font></td>
+				<td style=" text-align: center;"><bean:write name="data" property="cipsActivos" /></td>
+				<td style=" text-align: center;"><bean:write name="data" property="percentTrat" />% (<bean:write name="data" property="fechaUltimoProcesoTrat" />)</td>
+				<td style=" text-align: center;"><bean:write name="data" property="percentRecPend" />% (<bean:write name="data" property="fechaUltimoProcesoRecPend" />)</td>					
+			</tr>
+			</logic:iterate>
+		</table>
+	</div>	
 
 	<logic:iterate id="lista" name="formulari" property="listaEnlaces">
 	<%
@@ -79,6 +102,7 @@
 		</div>
 	</logic:iterate>
  	<div>
+
 		<!--  input type="button" class="btn primary" value="Inicio" onclick="javascript:goInicio();" /> -->
 		<input type="button" class="azulCielo" value="Salir" onclick="javascript:salir();" />
 	</div>

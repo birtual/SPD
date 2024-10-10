@@ -165,13 +165,14 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 			throws Exception {
 		GestSustitucionesLiteForm f =  (GestSustitucionesLiteForm) form;
 		GestSustitucionesLite sustitucionLite = GestSustitucionesLiteDAO.getSustitucionLiteByOid(getIdUsuario(), f);
-		String logAntes = sustitucionLite.getSpdCn() + " " + sustitucionLite.getResiMedicamento() + "  " + sustitucionLite.getSpdCn() + "  " + sustitucionLite.getSpdNombreBolsa() + "  " + sustitucionLite.getSpdFormaMedicacion()+ "  " + sustitucionLite.getSpdAccionBolsa() +" ";
 		// INICIO Creación automática de la sustitución
 		if(sustitucionLite==null)
 		{
 			sustitucionLite = crearNuevaaPartirFichero(request.getParameter("oidFicheroResiDetalle"));
 
 		}
+		String logAntes = sustitucionLite.getSpdCn() + " " + sustitucionLite.getResiMedicamento() + "  " + sustitucionLite.getSpdCn() + "  " + sustitucionLite.getSpdNombreBolsa() + "  " + sustitucionLite.getSpdFormaMedicacion()+ "  " + sustitucionLite.getSpdAccionBolsa() +" ";
+
 		//FIN Creación automática de la sustitución
 		f.setListaTiposAccion(GestSustitucionesLiteDAO.getListaTiposAccion());
 		f.setFiltroGtVm(f.getFiltroGtVm());

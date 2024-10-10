@@ -134,7 +134,7 @@ public class PacienteDAO extends GenericDAO{
 
 		//if(oidPaciente>0)
 		if(oidPaciente!=null && !oidPaciente.equals(""))
-			qryWhere+=  " and p.oidPaciente ='" +oidPaciente+"' ";			
+			qryWhere+=  " and CAST( p.oidPaciente as CHAR) ='" +oidPaciente+"' ";			
 		
 		//forzamos que siempre sea una resi válida
 		if(oidDivisionResidencia>0)
@@ -149,7 +149,8 @@ public class PacienteDAO extends GenericDAO{
 				//qryWhere+=" 		p.nom like '%"+campoGoogle+"%'  OR ";
 				qryWhere+=" 		(p.nom  + ' ' + p.apellido1 + ' ' + p.apellido2 ) like '%"+campoGoogle+"%'  OR ";
 				//qryWhere+=" 		p.apellido2 like '%"+campoGoogle+"%'  OR ";
-				qryWhere+=" 		p.comentarios like '%"+campoGoogle+"%'   ";
+				qryWhere+=" 		p.comentarios like '%"+campoGoogle+"%' OR   ";
+				qryWhere+=" 		CAST( p.oidPaciente as CHAR) = '"+campoGoogle+"'   ";				
 				qryWhere+=" 	) ";
 				
 			}
@@ -275,7 +276,7 @@ public class PacienteDAO extends GenericDAO{
 
 		//default
 		String 	qrySelect = " select distinct coalesce(  p.CIP, rd.resiCIP) as CIP, rd.resiNombre, rd.resiApellido1, rd.resiApellido2, p.oidPaciente,  p.nom, p.apellido1, p.apellido2, p.bolquers, ";
-				qrySelect+= " p.idPacienteResidencia, p.cognoms, p.cognomsNom, p.nIdentidad, p.segSocial, p.planta, p.habitacion, p.idDivisionResidencia, p.spd, p.ACTIVO, p.idFarmatic,  ";                      
+				qrySelect+= " p.idPacienteResidencia, p.cognoms, p.cognomsNom, p.nIdentidad, p.segSocial, p.planta, p.habitacion, p.idDivisionResidencia, p.spd, p.ACTIVO, p.idFarmatic, p.codigoUP,  ";                      
 				qrySelect+= " p.fechaProceso, p.exitus, p.estatus, p.comentarios, p.fechaAltaPaciente, p.mutua    ";  
 		String 	qryFrom=  	" from dbo.bd_pacientes p inner join bd_divisionResidencia d on (p.idDivisionResidencia=d.idDivisionResidencia) ";
 				qryFrom+=	" full outer join SPD_ficheroResiDetalle rd ";
@@ -626,6 +627,8 @@ public class PacienteDAO extends GenericDAO{
 		 c.setFechaAltaPaciente(resultSet.getString("fechaAltaPaciente"));
 		 c.setIdPharmacy(resultSet.getString("idFarmatic"));
 		 c.setMutua(resultSet.getString("mutua"));
+		 c.setUPFarmacia(resultSet.getString("codigoUP"));
+		 
 		 
 		return c;
 	}
@@ -680,9 +683,9 @@ public class PacienteDAO extends GenericDAO{
  }
 
 	public static   PacienteBean getPacientePorOID(String spdUsuario, String oidPaciente) throws Exception {
-
+		
 		  String qry = "SELECT * FROM bd_pacientes p ";
-		  	qry+=  " WHERE  p.oidPaciente='"+oidPaciente+"'";
+		  	qry+=  " WHERE  CAST( p.oidPaciente as CHAR)='"+oidPaciente+"'";
 	        qry+=  " AND p.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
 		  
 		  Connection con = Conexion.conectar();
@@ -826,7 +829,7 @@ public class PacienteDAO extends GenericDAO{
         	sql+= " from SPDAC.dbo.v_previsionReceta v  left join bd_pacientes p on v.CIP = p.CIP ";
         	sql+= " WHERE 1=1 ";
         	sql+= " and ( v.GRUP_TERAPEUTIC  like 'O02%' OR v.GRUP_TERAPEUTIC  like '23%')  ";
-           	sql+= " and p.oidPaciente like '"+oidPaciente+"'";
+           	sql+= " and CAST( p.oidPaciente as CHAR) like '"+oidPaciente+"'";
            	sql+= " order by v.PROCESOTRACTAMENT, v.NOM_MEDICAMENT ";
           	
 	        final Connection con = Conexion.conectar();

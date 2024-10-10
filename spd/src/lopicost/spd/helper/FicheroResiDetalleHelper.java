@@ -38,6 +38,7 @@ public class FicheroResiDetalleHelper {
 			
 			List listaProcesosCargados = new ArrayList();
 			List<Date> listaFechaFichero = new ArrayList();
+			List<String> listaIdentificador = new ArrayList();
 			List<String> listaResiCIP = new ArrayList();
 			List<String> listaResiNombrePaciente = new ArrayList();
 			List<String> listaResiApellidosNombre = new ArrayList();
@@ -69,6 +70,7 @@ public class FicheroResiDetalleHelper {
 						
 			formulari.setListaFechaFichero(listaFechaFichero);
 			formulari.setListaProcesosCargados(listaProcesosCargados);
+			formulari.setListaIdentificador(listaIdentificador);
 			formulari.setListaResiCIP(listaResiCIP);
 			formulari.setListaResiNombrePaciente(listaResiNombrePaciente);
 			formulari.setListaResiApellidosNombre(listaResiApellidosNombre);
@@ -108,6 +110,8 @@ public class FicheroResiDetalleHelper {
 			//	if(!listaProcesosCargados.contains( grb.getIdProceso()) && grb.getIdProceso()!=null && !grb.getIdProceso().equals(""))									
 			//		listaProcesosCargados.add((String) grb.getIdProceso());
 			//	Collections.sort(listaProcesosCargados);
+				if(!listaIdentificador.contains( grb.getOidPaciente()) && grb.getOidPaciente()!=null && !grb.getOidPaciente().equals(""))									
+					listaIdentificador.add((String) grb.getOidPaciente());
 				if(!listaResiCIP.contains( grb.getResiCIP()) && grb.getResiCIP()!=null && !grb.getResiCIP().equals(""))									
 					listaResiCIP.add((String) grb.getResiCIP());
 				Collections.sort(listaResiCIP);

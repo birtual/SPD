@@ -620,7 +620,10 @@ public class XMLRobotDao
 		   Basic basic = new Basic();
 		   //basic.setLocationId(div.getNombreBolsa());
 		   try{
-			   basic.setLocationId(div.getLocationId()+"_"+cab.getFechaDesde()+"_"+cab.getFechaHasta());
+			   // String fechaSpdDesde=DateUtilities.convertFormatDateString(cab.getFechaDesde(), "YYYYMMDD", "DDMM");
+			   //String fechaSpdHasta=DateUtilities.convertFormatDateString(cab.getFechaHasta(), "YYYYMMDD", "DDMM");
+			   // basic.setLocationId(div.getLocationId()+"_"+fechaSpdDesde+"_"+fechaSpdHasta);
+			   basic.setLocationId(div.getLocationId()+"_"+cab.getFechaDesde());
 		   }catch(Exception e)
 		   {
 			   basic.setLocationId(div.getNombreBolsa());

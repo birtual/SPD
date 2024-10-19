@@ -45,9 +45,11 @@
 		</font>
 		</ul>
 	</logic:notEmpty>
+ 	<logic:notEmpty name="formulari" property="listaBeans">	
  	
  	<div>	
 	</br>
+		
  	<table align="center" style="width:50%">
 	<h3 align="center" >Avisos en la actualización de datos </h3>
 		<thead>
@@ -67,6 +69,7 @@
 			</logic:iterate>
 		</table>
 	</div>	
+	</logic:notEmpty>
 
 	<logic:iterate id="lista" name="formulari" property="listaEnlaces">
 	<%

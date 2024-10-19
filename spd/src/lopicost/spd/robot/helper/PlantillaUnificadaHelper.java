@@ -311,12 +311,12 @@ public class PlantillaUnificadaHelper {
 	        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 	
 	        try {
-	            String diaHora = DateUtilities.getDatetoString("ddMMyyyy_Hmm", new Date());
+	        	 // String diaHora = DateUtilities.getDatetoString("ddMMyyyy_Hmm", new Date());
 	            //String filePath = "c://UTILS/UNIFICADA_DM_" + cab.getIdProceso() + ".xml";
-	       	    String filePath = SPDConstants.PATH_DOCUMENTOS+"/robot/FILIA_DM_"+ cab.getIdProceso() + ".xml";
+	            nomFitxer = "FILIA_DM_" + cab.getIdProceso() + ".xml";
+	        	String filePath = SPDConstants.PATH_DOCUMENTOS+"/robot/"+ nomFitxer;
 	            
-	            nomFitxer = "FILIA_DM_" + cab.getIdProceso() + "_hora_"+diaHora + ".xml";
-	            File file = new File(filePath);
+	        	File file = new File(filePath);
 	
 	        	FileOutputStream fos = new FileOutputStream(file);
 	        	OutputStreamWriter writer = new OutputStreamWriter(fos, "UTF-8");
@@ -435,10 +435,11 @@ public class PlantillaUnificadaHelper {
 	        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 	
 	        try {
-	            String diaHora = DateUtilities.getDatetoString("ddMMyyyy_Hmm", new Date());
+	           // String diaHora = DateUtilities.getDatetoString("ddMMyyyy_Hmm", new Date());
 	            //String filePath = "c://UTILS/UNIFICADA_RX_" + cab.getIdProceso() + ".xml";
-	       	    String filePath = SPDConstants.PATH_DOCUMENTOS+"/robot/FILIA_RX_"+ cab.getIdProceso() + ".xml";
-	            nomFitxer = "FILIA_RX_" + cab.getIdProceso() + "_hora_"+diaHora + ".xml";
+	       	    nomFitxer = "FILIA_RX_" + cab.getIdProceso() +  ".xml";
+	       	    String filePath = SPDConstants.PATH_DOCUMENTOS+"/robot/"+nomFitxer;
+	            //nomFitxer = "FILIA_RX_" + cab.getIdProceso() + "_hora_"+diaHora + ".xml";
 	            File file = new File(filePath);
 	
 	        	FileOutputStream fos = new FileOutputStream(file);

@@ -203,6 +203,16 @@
 </action>
 
 
+<action path="/DescargarArchivos" 
+        type="lopicost.spd.struts.action.DescargarArchivosAction"  parameter="parameter"  
+        name="FicheroResiForm" 
+        scope="request" 
+        validate="false">
+    
+    <forward name="error" path="/spd/common/jsp/error.jsp"/>
+</action>
+
+
 
     	<action path="/FicheroResiDetalleLite" type="lopicost.spd.struts.action.FicheroResiDetalleLiteAction"  
 		 	parameter="parameter"  name="FicheroResiForm" 

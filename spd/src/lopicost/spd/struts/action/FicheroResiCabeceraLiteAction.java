@@ -2,6 +2,9 @@ package lopicost.spd.struts.action;
 
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -258,8 +261,8 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			String fechaHasta = HelperSPD.obtenerFechaHasta(cab.getIdProceso()); 
 			String nombreFichero  = " OK_"+cab.getIdDivisionResidencia().replace("general_",  "")+"_"+fechaDesde+"_" + fechaHasta+"_"+"1.xls";
 			
-			if(cab.getNumeroDeTomas()>6)
-				nombreFichero="OJO_REORDENAR_COLUMNAS_"+nombreFichero;
+			//if(cab.getNumeroDeTomas()>6)
+			//	nombreFichero="OJO_REORDENAR_COLUMNAS_"+nombreFichero;
 				
 	        response.setHeader("Content-Disposition", "attachment; filename=/"+nombreFichero);
 	        ServletOutputStream out = response.getOutputStream();
@@ -561,8 +564,10 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
    	    boolean fileRXGenerated = (nombreFicheroFiliaRX != null && !nombreFicheroFiliaRX.isEmpty());
    	    String path = SPDConstants.PATH_DOCUMENTOS+"/robot/";
    	    
-   	    request.setAttribute("fileDMGenerated", fileDMGenerated); // Indica si el archivo fue generado
+  	    request.setAttribute("fileDMGenerated", fileDMGenerated); // Indica si el archivo fue generado
    	    request.setAttribute("fileRXGenerated", fileRXGenerated); // Indica si el archivo fue generado
+  	    request.setAttribute("nombreFicheroFiliaDM", nombreFicheroFiliaDM); // Indica si el archivo fue generado
+   	    request.setAttribute("nombreFicheroFiliaRX", nombreFicheroFiliaRX); // Indica si el archivo fue generado
    	    request.setAttribute("filePathDM", path + nombreFicheroFiliaDM); // Ruta del archivo generado
    	    request.setAttribute("filePathRX", path + nombreFicheroFiliaRX); // Ruta del archivo generado
    		return mapping.findForward("generarFicherosDMyRX");
@@ -605,6 +610,9 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		return mapping.findForward("addTratamientosEnProyecto");
 	}
 
+
+	
+  
 
 	
 	

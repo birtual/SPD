@@ -12,6 +12,9 @@
         // Obtener atributos de request
         Boolean fileDMGenerated = (Boolean) request.getAttribute("fileDMGenerated");
         Boolean fileRXGenerated = (Boolean) request.getAttribute("fileRXGenerated");
+        
+        
+        
 
         // Comprobar si es la primera carga de la página
         boolean isFirstLoad = (fileDMGenerated == null && fileRXGenerated == null);
@@ -37,7 +40,7 @@
     <% } else { %>
         <p>
         <% if (fileDMGenerated != null && fileDMGenerated) { %>
-            Archivo DM generado. Ruta: <%= (String) request.getAttribute("filePathDM") %>
+            Archivo DM generado.  <a href="DescargarArchivos.do?parameter=descarga&fileName=<%= (String) request.getAttribute("nombreFicheroFiliaDM") %>">Descargar archivo 1 DM</a><br>
         <% } else { %>
             Generando archivo DM...
         <% } %>
@@ -45,7 +48,7 @@
         
         <p>
         <% if (fileRXGenerated != null && fileRXGenerated) { %>
-            Archivo RX generado. Ruta: <%= (String) request.getAttribute("filePathRX") %>
+            Archivo RX generado. <a href="DescargarArchivos.do?parameter=descarga&fileName=<%= (String) request.getAttribute("nombreFicheroFiliaRX") %>">Descargar archivo 2 RX</a>
         <% } else if (fileDMGenerated != null && fileDMGenerated) { %>
             Generando archivo RX...
         <% } else { %>
@@ -55,6 +58,12 @@
         
         <% if (allFilesGenerated) { %>
             <p>Ambos archivos han sido generados exitosamente.</p>
+
+			
+	
+			
+
+
            	<script>
                 // Reactivar el botón en la ventana principal al completar el proceso
                 if (window.opener || window.close) {

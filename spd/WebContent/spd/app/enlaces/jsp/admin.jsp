@@ -129,10 +129,10 @@ function getContextPath() {
     <p class="botonBuscar">
 	
 		<!-- input type="button" class="btn primary" value="Inicio" onclick="javascript:goInicio();" /> -->
-		<input type="button" class="azulCielo" value="Salir" onclick="javascript:salir();" />
 		<input type="button" onclick="javascript:buscar();"  value="Buscar"  />  
 		<input type="button" onclick="javascript:nuevo();"  value="Nuevo"  />  
 		<input type="button" onclick="javascript:goAdminMenu();" value="Ir a gestión de  menú"/>
+		<input type="button" class="azulCielo" value="Salir" onclick="javascript:salir();" />
 	</p>
 	
 	
@@ -140,7 +140,6 @@ function getContextPath() {
 	<tr>
 		<th class="segunda">idapartado</th>
 		<th class="segunda">idEnlace</th>
-		<th class="segunda">Enlace</th>
 		<th class="segunda">Nombre enlace</th>
 		<th class="segunda">Descripción</th>
 		<!-- th class="segunda">preEnlace</th> -->
@@ -153,14 +152,15 @@ function getContextPath() {
 	<tr>
 		<td><bean:write name="data" property="idApartado" /></td>
 		<td><bean:write name="data" property="idEnlace" /></td>
-		<td><bean:write name="data" property="aliasEnlace" /></td>
 		<td><bean:write name="data" property="nombreEnlace" /></td>
 		<td><bean:write name="data" property="descripcion" /></td>
 		<!-- th><bean:write name="data" property="preEnlace" /></th> -->
 		<td><bean:write name="data" property="linkEnlace" /></td>
 		<!-- th><bean:write name="data" property="paramsEnlace" /></th> -->
-		<td><bean:write name="data" property="activo" /></td>
-		<td><bean:write name="data" property="nuevaVentana" /></td>
+		<td>${data.activo ? 'Sí' : 'No'}</td>
+		<td>${data.nuevaVentana ? 'Sí' : 'No'}</td>
+		
+		
 			<td>
 				<p class="botons">
 						<input type="button" onclick="javascript:editar('<bean:write name="data" property="idEnlace" />');"  value="Editar"  />

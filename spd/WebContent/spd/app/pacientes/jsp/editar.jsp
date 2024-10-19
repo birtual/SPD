@@ -40,7 +40,7 @@
  
  
  	
-  		<table class="paciente">
+  		<table class="detallePaciente">
   		<tr >
 			<td>Residencia</td><td>
 		
@@ -112,20 +112,17 @@
 		</tr>
 		<tr>
 			<td>Estado</td>
-		<td>
-			<select name="estatus">
-			    <option value=""></option>
-			    <c:forEach items="${formulari.listaEstatusResidente}" var="bean">
-			        <option value="${bean}" 
-			            <c:if test="${bean == 'Alta'}">selected</c:if>
-			        >
-			            <c:out value="${bean}" />
-			        </option>
-			    </c:forEach>
-			</select>
-					
-			  (<bean:write name="data" property="activo"/>)</br>
-
+			<td>
+				<select name="estatus">
+				    <option value=""></option>
+				    <c:forEach items="${formulari.listaEstatusResidente}" var="bean">
+				        <option value="${bean}" 
+				            ${bean == data.estatus ? 'selected="selected"' : ''}>
+				            <c:out value="${bean}" />
+				        </option>
+				    </c:forEach>
+				</select>
+				  (<bean:write name="data" property="activo"/>)</br>
 			</td>
 		</tr>
 		<tr>
@@ -135,7 +132,8 @@
 		<tr>
 			<td>Código UP Farmacia</td>
 			<td><bean:write name="data" property="UPFarmacia"/></td>
-		</tr>				<tr>
+		</tr>				
+		<tr>
 			<td>	
 				<p class="botons">
 					<input type="button" onclick="javascript:volver()" value="Volver"/>
@@ -144,10 +142,6 @@
 			</td>	
 		</tr>	
 	</table>
-	
-
-		     
-	
 </div>	
 </html:form>
 

@@ -104,10 +104,10 @@
 	   	<div>	
 		    <p class="botons">
 				<!-- input type="button" class="azulCielo" onclick="javascript:goInicio();" value="Inicio" /> -->
-				<input type="button" class="azulCielo" value="Salir" onclick="javascript:salir();" />
 				<input type="button" class="azulCielo" onclick="javascript:listado();"  value="Buscar"  />  
 				<input type="button" class="azulCielo" onclick="javascript:go('/spd/Iospd/Iospd.do?parameter=list&operation=FILTER')"  value="Carga de ficheros resi" />  
 				<input type="button" class="azulCielo" onclick="javascript:goHistorico()"  value="Historico de producciones"  />  
+				<input type="button" class="azulCielo" value="Salir" onclick="javascript:salir();" />
 			</p> 
 		</div>
 
@@ -203,9 +203,7 @@
 	<!--  paginación  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
-		<table border="0" width="100%">
-			<tr>
-				<td align="center">
+			<p align="center">
 				<logic:greaterThan name="formulari" property="currpage" value="0">
 					<a href="javascript:atras();" ><<</a>
 				</logic:greaterThan>
@@ -213,9 +211,7 @@
 				<logic:lessThan name="formulari" property="currpage" value="<%= String.valueOf(formulari.getNumpages() -1)%>">
 					<a href="javascript:avance();" >>></a>
 				</logic:lessThan>
-				</td>
-			</tr>
-		</table>
+		</p>
 		</logic:greaterThan>
 	</div>
 	<!--  paginación   -->

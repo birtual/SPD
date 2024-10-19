@@ -89,8 +89,8 @@
 		if(contador==1)
 		{ 
 	%>
-		<div id="${enlace.idApartado}">	
-		    <span class="titulo">${enlace.idApartado}</span>
+		<div id="menu">	
+		    <span class="titulo">${enlace.nombreApartado}</span>
 		    <ul>
 		    	
 	<% 

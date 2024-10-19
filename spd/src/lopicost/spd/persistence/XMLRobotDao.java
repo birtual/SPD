@@ -72,7 +72,7 @@ public class XMLRobotDao
             List<String> idTomas = tomasGlobal.getIdTomas();
 
             // Construir la consulta dinámica
-            StringBuilder query = new StringBuilder(" SELECT ISNULL(p.planta, '') AS planta, d.resiCip as CIP, ISNULL(p.habitacion, '') AS habitacion, RIGHT(d.spdCnFinal, 6) as CN  ");
+            StringBuilder query = new StringBuilder(" SELECT ISNULL(p.planta, '') AS planta, d.resiCip as CIP, ISNULL(p.habitacion, '') AS habitacion, LEFT(d.spdCnFinal, 6) as CN  ");
             query.append(" , d.spdNombreBolsa, CASE d.spdAccionBolsa WHEN 'PASTILLERO' then 'S' ELSE 'N' END dispensar, d.spdNombreBolsa, d.spdAccionBolsa "  );
             query.append(" , d.fechaDesde, d.fechaHasta, d.resiD1, d.resiD2, d.resiD3, d.resiD4, d.resiD5, d.resiD6, d.resiD7  "  );
             //query.append(" , d.resiD1, d.resiD2, d.resiD3, d.resiD4, d.resiD5, d.resiD6, d.resiD7  "  );
@@ -89,7 +89,7 @@ public class XMLRobotDao
             query.append(" AND ISNUMERIC(RIGHT(d.spdCnFinal, 6))=1 ");
             //query.append(" AND resiCIP='SOFI1570624009' ");
             //query.append(" ORDER BY d.resiCip, d.spdNombreBolsa ");
-            query.append(" ORDER BY d.resiCip, RIGHT(d.spdCnFinal, 6) ");
+            query.append(" ORDER BY d.resiCip, LEFT(d.spdCnFinal, 6) ");
 
             
             // Ejecutar la consulta
@@ -338,7 +338,7 @@ public class XMLRobotDao
 	public static boolean procesarTomasPautasRobot(String idUsuario, FicheroResiBean cab) throws ClassNotFoundException, SQLException {
 		boolean resultado=true;
 		
-		String query =" INSERT INTO SPD_XML_tomasPautasRobot ( ";
+		String query =" INSERT INTO SPD_XML_detallesTomasRobot ( ";
 			query+= " [fechaHoraProceso],[idDivisionResidencia],[idProceso],[planta],[CIP],[habitacion],[idBolsa],[fechaPauta],[tramoToma],[flagBolsa],[numBolsa],[idToma])  ";
 			query+="  SELECT DISTINCT GETDATE() as fechaHoraPROCESO ";
 			query+=" , idDivisionResidencia, idProceso  ";
@@ -386,6 +386,7 @@ public class XMLRobotDao
 		if(dispensar!=null && dispensar.equals("N"))
 		{
 			valorDeCorteBolsa=SPDConstants.MAX_LINEAS_SOLO_INFO_POR_BOLSA;
+			valorToma="1"; //si es solo_info solo miramos lineas, ponemos 1 para que no cuente de más como comp
 		}
 			
 			//comprimidos hasta ahora (se redondea al entero más próximo porque media pastilla cuenta como una)
@@ -595,8 +596,8 @@ public class XMLRobotDao
 			String horaFinUltimoDia="1500";
 			String fechaDesde = cab.getFechaDesde();
 			String fechaHasta = cab.getFechaHasta();
-			sql=" 	DELETE SPD_XML_tomasPautasRobot where idDivisionResidencia='"+cab.getIdDivisionResidencia()+"' and idProceso='"+cab.getIdProceso()+"' ";
-			//sql=" 	SELECT * from  SPD_XML_tomasPautasRobot where idDivisionResidencia='"+cab.getIdDivisionResidencia()+"' and idProceso='"+cab.getIdProceso()+"' ";
+			sql=" 	DELETE SPD_XML_detallesTomasRobot where idDivisionResidencia='"+cab.getIdDivisionResidencia()+"' and idProceso='"+cab.getIdProceso()+"' ";
+			//sql=" 	SELECT * from  SPD_XML_detallesTomasRobot where idDivisionResidencia='"+cab.getIdDivisionResidencia()+"' and idProceso='"+cab.getIdProceso()+"' ";
 			sql+=" 	AND ( ";
 			sql+=" 	(substring(idBolsa,charindex('[',idBolsa)-8,8) = '"+fechaDesde+"' AND CAST(idToma AS INT)  < CAST('" + horaInicioPrimerDia + "' AS INT))";
 			sql+=" 	 OR ";

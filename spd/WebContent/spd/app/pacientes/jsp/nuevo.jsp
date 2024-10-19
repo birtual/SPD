@@ -30,7 +30,7 @@
     <html:hidden property="parameter" value="nuevo"/>
     <html:hidden property="ACTIONTODO"/>
 
-  		<table class="paciente">
+  		<table class="detallePaciente">
 		<tr >
 
 		<td>Residencia</td><td>

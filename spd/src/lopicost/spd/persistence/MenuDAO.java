@@ -22,10 +22,12 @@ public class MenuDAO
         final List<Menu> result = new ArrayList<Menu>();
         Menu menu = new Menu();
         String qry = " select pe.IDPERFIL, e.IDAPARTADO, e.IDENLACE, pe.ACTIVO, pe.ORDEN,  e.ALIASENLACE, e.NOMBREENLACE,  ";
-        qry = String.valueOf(qry) + " e.PREENLACE, e.LINKENLACE, e.DESCRIPCION,  e.PARAMSENLACE, e.ACTIVO, e.NUEVAVENTANA ";
+        qry = String.valueOf(qry) + " e.PREENLACE, e.LINKENLACE, e.DESCRIPCION,  e.PARAMSENLACE, e.ACTIVO, e.NUEVAVENTANA, ea.ORDEN ";
         qry = String.valueOf(qry) + " from SPD_enlace e  ";
+        qry = String.valueOf(qry) + " left join SPD_enlaceApartados ea on e.idApartado=ea.idApartado ";
         qry = String.valueOf(qry) + " left join SPD_perfil_enlace pe  on pe.IDENLACE=e.IDENLACE  and pe.idperfil='" + idperfil + "' ";
-        qry = String.valueOf(qry) + "order by e.IDAPARTADO asc, e.IDENLACE asc";
+        
+        qry = String.valueOf(qry) + "  order by ea.ORDEN, pe.ORDEN asc ";
         final Connection con = Conexion.conectar();
         System.out.println(String.valueOf(MenuDAO.className) + "--> findByIdProfile  -->" + qry);
         ResultSet resultSet = null;
@@ -54,7 +56,6 @@ public class MenuDAO
         if (resultSet!=null) {
         	Enlace enlace = null;
           enlace = new Enlace();
-          enlace.setAliasEnlace(resultSet.getString("aliasenlace"));
           enlace.setIdEnlace(resultSet.getString("idEnlace"));
           enlace.setIdApartado(resultSet.getString("idApartado"));
           enlace.setNombreEnlace(resultSet.getString("nombreEnlace"));
@@ -134,6 +135,24 @@ public class MenuDAO
 	        return menu;
 	    }
 
+
+		public static void cambiarPosicion(String idPerfil, String idEnlace, int posicion) throws SQLException {
+	        int result = 0;
+	        final Connection con = Conexion.conectar();
+	        String qry = " update SPD_perfil_enlace set orden = orden + " + posicion + " where idPerfil = '" + idPerfil+ "' and idEnlace= '"+idEnlace+"'";
+	        System.out.println("cambiarPosicion  -->" + qry);
+	        try {
+	            PreparedStatement pstat = con.prepareStatement(qry);
+	            result = pstat.executeUpdate();
+	        }
+	        catch (SQLException e) {
+	            e.printStackTrace();
+	        }finally {con.close();}
+	        
+	        
+	    }
+		
+		
 		public static void intercambiarPosicion(String idPerfil, String idEnlace, int posicion, int desplazamiento) throws SQLException {
 	        int result = 0;
 	        final Connection con = Conexion.conectar();
@@ -154,6 +173,28 @@ public class MenuDAO
 	        
 	    }
 
+		
+	    public static int countByIdEnlace(String idEnlace) throws ClassNotFoundException, SQLException {
+		       
+	    	int result =0;
+	        String qry = " select count(*) as quants ";
+	        qry = String.valueOf(qry) + " from SPD_perfil_enlace pe  where pe.idEnlace='" + idEnlace + "' ";
+	        final Connection con = Conexion.conectar();
+	        System.out.println(String.valueOf(MenuDAO.className) + "--> countByIdEnlace  -->" + qry);
+	     	ResultSet resultSet = null;
+	 	 	
+	    
+			try {
+				PreparedStatement pstat = con.prepareStatement(qry);
+			    resultSet = pstat.executeQuery();
+			    resultSet.next();
+			    result = resultSet.getInt("quants");
+			   } catch (SQLException e) {
+			       e.printStackTrace();
+		   }finally {con.close();}
+		   return result;
+		}
+	    
     
     
 }

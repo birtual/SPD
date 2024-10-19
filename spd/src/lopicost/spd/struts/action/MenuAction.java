@@ -55,7 +55,9 @@ public class MenuAction extends DispatchAction
         final String idPerfil = menuForm.getIdPerfil();
         final Menu menu = MenuDAO.findById(idPerfil, idEnlace);
         int posicion=menu.getOrden();
-        MenuDAO.intercambiarPosicion(idPerfil, idEnlace, posicion-1, 1);
+        MenuDAO.cambiarPosicion(idPerfil, idEnlace, posicion-1);
+        
+       // MenuDAO.intercambiarPosicion(idPerfil, idEnlace, posicion-1, 1);
 		return this.list(mapping, form, request, response);
     }
     public ActionForward bajar(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
@@ -64,7 +66,8 @@ public class MenuAction extends DispatchAction
         final String idPerfil = menuForm.getIdPerfil();
         final Menu menu = MenuDAO.findById(idPerfil, idEnlace);
         int posicion=menu.getOrden();
-        MenuDAO.intercambiarPosicion(idPerfil, idEnlace, posicion+1, -1);
+       // MenuDAO.intercambiarPosicion(idPerfil, idEnlace, posicion+1, -1);
+        MenuDAO.cambiarPosicion(idPerfil, idEnlace, posicion+1);
 		return this.list(mapping, form, request, response);
     }
 

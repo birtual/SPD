@@ -10,7 +10,8 @@ body {
 }
 /* Estilo para la tabla */
 table {
-   	width: 95%;
+   /*	width: 95%;*/
+   width: 100%;
     border-collapse: collapse;
     border: 1px solid #1bbcb8;
     /*margin-top: 1em; */
@@ -533,7 +534,7 @@ table.tablaResi {
 	border: 0.1em solid #400040; 
 	border-width: 1 1.2em 1.3em 1; 
 }
-table.paciente{
+table.detallePaciente, table.detalleEnlace{
 	width: 50%;
 	width:auto;
 	border: 0.1em solid #400040; 

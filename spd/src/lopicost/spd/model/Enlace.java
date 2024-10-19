@@ -6,8 +6,9 @@ import java.io.Serializable;
 public class Enlace implements Serializable
 {
     private String idEnlace;
-    private String aliasEnlace;
+  //  private String aliasEnlace;
     private String idApartado;
+    private String nombreApartado;
     private String aliasApartado;
     private String nombreEnlace;
     private String preEnlace;
@@ -24,7 +25,7 @@ public class Enlace implements Serializable
 
 	
     public String getIdEnlace() 	{   return this.idEnlace;    	}   public void setIdEnlace(final String idEnlace) 			{   this.idEnlace = idEnlace;    		}    
-    public String getAliasEnlace() 	{   return this.aliasEnlace;    }   public void setAliasEnlace(final String aliasEnlace) 	{   this.aliasEnlace = aliasEnlace;  	}    
+   // public String getAliasEnlace() 	{   return this.aliasEnlace;    }   public void setAliasEnlace(final String aliasEnlace) 	{   this.aliasEnlace = aliasEnlace;  	}    
     public String getAliasApartado(){   return this.aliasApartado;  }   public void setAliasApartado(final String aliasApartado){   this.aliasApartado = aliasApartado; }    
     public String getIdApartado() 	{   return this.idApartado;    	}   public void setIdApartado(final String idApartado) 		{   this.idApartado = idApartado;    	}    
     public String getNombreEnlace() {   return this.nombreEnlace;   }   public void setNombreEnlace(final String nombreEnlace) 	{   this.nombreEnlace = nombreEnlace;	}    
@@ -38,5 +39,6 @@ public class Enlace implements Serializable
     public boolean isNuevaVentana() {	return nuevaVentana;		}	public void setNuevaVentana(boolean nuevaVentana) 		{	this.nuevaVentana = nuevaVentana;	}
 	public int getNivel() 			{	return nivel;				}	public void setNivel(int nivel) 						{	this.nivel = nivel;					}
 	
-	
+    public String getNombreApartado() {return nombreApartado;	}	public void setNombreApartado(String nombreApartado) {		this.nombreApartado = nombreApartado;	}
+
 }

@@ -56,7 +56,6 @@
 	<table>
 		<tr>
 			<th class="segunda">idEnlace</th>
-			<th class="segunda">Enlace</th>
 			<th class="segunda">Nombre enlace</th>
 			<th class="segunda">Descripción</th>
 			<th class="segunda">idapartado</th>
@@ -66,7 +65,6 @@
 			<th class="segunda">activo</th>
 		</tr>
 		<th><bean:write name="data" property="idEnlace" /></th>
-		<th><bean:write name="data" property="aliasEnlace" /></th>
 		<th><bean:write name="data" property="nombreEnlace" /></th>
 		<th><bean:write name="data" property="descripcion" /></th>
 		<th><bean:write name="data" property="idApartado" /></th>

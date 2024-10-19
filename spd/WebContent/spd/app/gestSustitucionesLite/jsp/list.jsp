@@ -148,19 +148,17 @@
 	<!--  paginación  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
-		<table border="0" width="100%">
-			<tr>
-				<td align="center">
-				<logic:greaterThan name="formulari" property="currpage" value="0">
-					<a href="javascript:pageDown();" ><<</a>
-				</logic:greaterThan>
-				&nbsp;<input type="text" name="newPage" value="<%= formulari.getCurrpage()+1 %>" size="1" maxlength="4" onkeypress="gotoPage(this.value,<%=formulari.getNumpages()%>);">/<%= formulari.getNumpages() %>&nbsp;
-				<logic:lessThan name="formulari" property="currpage" value="<%= String.valueOf(formulari.getNumpages() -1)%>">
-					<a href="javascript:pageUp();" >>></a>
-				</logic:lessThan>
-				</td>
-			</tr>
-		</table>
+
+		<p align="center">
+			<logic:greaterThan name="formulari" property="currpage" value="0">
+				<a href="javascript:pageDown();" ><<</a>
+			</logic:greaterThan>
+			&nbsp;<input type="text" name="newPage" value="<%= formulari.getCurrpage()+1 %>" size="1" maxlength="4" onkeypress="gotoPage(this.value,<%=formulari.getNumpages()%>);">/<%= formulari.getNumpages() %>&nbsp;
+			<logic:lessThan name="formulari" property="currpage" value="<%= String.valueOf(formulari.getNumpages() -1)%>">
+				<a href="javascript:pageUp();" >>></a>
+			</logic:lessThan>
+		</p>
+
 		</logic:greaterThan>
 	</div>
 	<!--  paginación   -->

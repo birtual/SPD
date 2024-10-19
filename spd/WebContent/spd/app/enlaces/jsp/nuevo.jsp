@@ -35,10 +35,6 @@
 			
 				if(f.idEnlace.value=='')
 					alert('Falta indicar el idEnlace');
-				//else if(f.formaFarmaceutica.value=='')
-					//alert('Falta indicar la forma');
-				else if(f.aliasEnlace.value=='')
-					alert('Falta indicar el aliasEnlace');
 				else if(f.nombreEnlace.value=='')
 					alert('Falta indicar el nombre del enlace ');
 				else if(f.descripcion.value=='')
@@ -91,9 +87,7 @@
 		<tr>
 			<th class="segunda">idEnlace</th><th><html:text name="data" property="idEnlace" styleClass="inputLargo" /></th>
 		</tr>
-		<tr>
-			<th class="segunda">Enlace</th><th><html:text name="data" property="aliasEnlace" styleClass="inputLargo" /></th>
-		</tr>
+
 		<tr>
 			<th class="segunda">Nombre enlace</th><th><html:text name="data" property="nombreEnlace" styleClass="inputLargo" /></th>
 		</tr>
@@ -113,10 +107,22 @@
 			<th class="segunda">Parámetros</th><th><html:text name="data" property="paramsEnlace" styleClass="inputLargo" /></th>
 		</tr>
 		<tr>
-			<th class="segunda">activo</th><th><html:text name="data" property="activo" styleClass="inputLargo" /></th>
+			<th class="segunda">activo</th>
+			<td>
+				<select name="activo" style="text-align: left;">>
+				    <option value="true" ${data.activo ? 'selected="selected"' : ''}>Sí</option>
+				    <option value="false" ${!data.activo ? 'selected="selected"' : ''}>No</option>
+				</select>
+			</td>
 		</tr>
 		<tr>
-			<th class="segunda">abrir en nueva ventana</th><th><html:text name="data" property="nuevaVentana" styleClass="inputLargo" /></th>
+			<th class="segunda">abrir en nueva ventana</th>
+			<td>
+				<select name="nuevaVentana" style="text-align: left;">
+				    <option value="true" ${data.nuevaVentana ? 'selected="selected"' : ''}>Sí</option>
+				    <option value="false" ${!data.nuevaVentana ? 'selected="selected"' : ''}>No</option>
+				</select>
+			</td>
 		</tr>
 			
 		</table>

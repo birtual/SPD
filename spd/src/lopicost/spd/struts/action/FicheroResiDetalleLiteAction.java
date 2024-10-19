@@ -204,6 +204,10 @@ public class FicheroResiDetalleLiteAction extends GenericAction  {
 						//HelperSPD.desdoblarTratamientosSecuenciales(getIdUsuario(), frb, null);
 						HelperSPD.desdoblarTratamientosSecuenciales(getIdUsuario(), frb, DateUtilities.getDate(frb.getResiInicioTratamiento(), "dd/MM/yyyy"));
 
+						/**
+						 * 20241015 - Este punto es importante, aunque haya redundancia del método de nuevo, hay que volver a llamarlo para que trate los ttos que se desdoblan y que son periódicos. (Aegerus)
+						 */
+				      	HelperSPD.detectarPeriodoEdicion(getIdUsuario(), frb);
 				  	    
 						
 						frb.setValidar(SPDConstants.REGISTRO_VALIDAR);	//al reiniciar la sustitución forzamos una confirmación posterior
@@ -545,7 +549,12 @@ public class FicheroResiDetalleLiteAction extends GenericAction  {
 				HelperSPD.desdoblarTratamientosSecuenciales(getIdUsuario(), frbean, DateUtilities.getDate(frbean.getResiInicioTratamiento(), "dd/MM/yyyy"));
 				
 				
-					
+				/**
+				 * 20241015 - Este punto es importante, aunque haya redundancia del método de nuevo, hay que volver a llamarlo para que trate los ttos que se desdoblan y que son periódicos. (Aegerus)
+				 */
+		      	HelperSPD.detectarPeriodoEdicion(getIdUsuario(), frbean);
+		  	    
+	
 		  	    
 				
 				//HelperSPD.controlGtvmpCnResiCnSpd(frbean);

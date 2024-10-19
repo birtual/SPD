@@ -37,7 +37,7 @@
 	<html:hidden property="filtroEstadosSPD"/>
 	<html:hidden property="campoGoogle"/>
 		
-  		<table class="paciente">
+  		<table class="detallePaciente">
 		<tr >
 			<td id="campo1" >Residencia</td><td><bean:write name="data" property="idDivisionResidencia" /></td>
 		</tr>

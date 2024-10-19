@@ -59,17 +59,18 @@ public class EnlaceDAO
     public static List findByIdUserAndTypeAndLevel(final Usuario usuario, final String idApartado, int nivel) throws ClassNotFoundException, SQLException {
         final List result = new ArrayList();
         Enlace enlace = null;
-        String qry = " SELECT distinct pe.orden, pe.nivel, pe.IDPERFIL, e.*, p.* ";
+        String qry = " SELECT distinct pe.orden, pe.nivel, pe.IDPERFIL, ea.ORDEN, ea.ALIASAPARTADO,  e.*, p.* ";
         qry = String.valueOf(qry) + " FROM SPD_PERFIL p ";
         qry = String.valueOf(qry) + " INNER JOIN SPD_PERFIL_ENLACE pe ON p.IDPERFIL=pe.IDPERFIL ";
         qry = String.valueOf(qry) + " INNER JOIN SPD_ENLACE e ON e.IDENLACE=pe.IDENLACE ";
+        qry = String.valueOf(qry) + " LEFT JOIN SPD_ENLACEAPARTADOS ea ON e.IDAPARTADO = ea.IDAPARTADO ";
         qry = String.valueOf(qry) + " INNER JOIN SPD_usuarios u ON u.perfil=p.OIDPERFIL ";
         qry = String.valueOf(qry) + " and u.idUsuario='" + ((usuario != null) ? usuario.getIdUsuario() : null) + "' ";
         qry = String.valueOf(qry) + " and pe.nivel='" + nivel+ "'   ";
         if(idApartado!=null && !idApartado.equalsIgnoreCase("INICIO"))
         	qry = String.valueOf(qry) + " and e.idApartado='" + idApartado + "' ";
-        qry = String.valueOf(qry) + " and pe.ACTIVO='1' and e.ACTIVO='1'  and p.ACTIVO='1'  ";
-        qry = String.valueOf(qry) + " order by e.idApartado, pe.ORDEN, e.IDENLACE  ";
+        qry = String.valueOf(qry) + " and pe.ACTIVO='1' and e.ACTIVO='1'  and ea.ACTIVO='1'  and p.ACTIVO='1'  ";
+        qry = String.valueOf(qry) + " order by ea.ORDEN, e.idApartado, pe.ORDEN, e.IDENLACE  ";
         final Connection con = Conexion.conectar();
         System.out.println(String.valueOf(EnlaceDAO.className) + "--> findByIdUserAndType  -->" + qry);
         ResultSet resultSet = null;
@@ -98,13 +99,14 @@ public class EnlaceDAO
     	Enlace enlace = new Enlace();
     	if(resultSet!=null)
     	{
-    		enlace.setAliasEnlace(resultSet.getString("aliasEnlace"));
+    		//enlace.setAliasEnlace(resultSet.getString("aliasEnlace"));
             enlace.setIdEnlace(resultSet.getString("idEnlace"));
             String idApartado = resultSet.getString("idApartado");
-            idApartado=EnlacesHelper.remplazaTexto(idApartado);
+            String nombreApartado = resultSet.getString("aliasapartado");
+        //   idApartado=EnlacesHelper.remplazaTexto(idApartado);
             
             enlace.setIdApartado(idApartado);
-            
+            enlace.setNombreApartado(nombreApartado);
             enlace.setNombreEnlace(resultSet.getString("nombreEnlace"));
             String preEnlace = resultSet.getString("preEnlace");
             preEnlace=preEnlace.replace("$BIRT$", SPDConstants.BIRT_URL);
@@ -131,8 +133,10 @@ public class EnlaceDAO
 
 	public static Enlace findById(final String idEnlace) throws ClassNotFoundException, SQLException {
         Enlace enlace = null;
-        String qry = " SELECT * from  SPD_ENLACE e ";
-        qry = String.valueOf(qry) + "where e.idEnlace='" + idEnlace + "' ";
+        String qry = " SELECT e.*, ea.ALIASAPARTADO, ea.orden  ";
+        qry+= " from SPD_enlace e ";
+        qry+= " LEFT JOIN SPD_enlaceApartados ea ON e.IDAPARTADO = ea.IDAPARTADO ";
+         qry = String.valueOf(qry) + "where e.idEnlace='" + idEnlace + "' ";
         final Connection con = Conexion.conectar();
         System.out.println(String.valueOf(EnlaceDAO.className) + "--> findByIdUserAndType  -->" + qry);
         ResultSet resultSet = null;
@@ -158,13 +162,16 @@ public class EnlaceDAO
     public static List findAll(final Usuario usuario, final String campoGoogle) throws ClassNotFoundException, SQLException {
         final List result = new ArrayList();
         Enlace enlace = null;
-        String qry = " SELECT distinct * ";
-        qry+=  "FROM  SPD_ENLACE e where 1=1";
-        if(campoGoogle!=null && !campoGoogle.equals(""))
+        String qry = " SELECT distinct e.*, ea.ALIASAPARTADO, ea.orden ";
+        qry+=  " FROM  SPD_ENLACE e  ";
+        qry+=  " LEFT JOIN SPD_ENLACEAPARTADOS ea ON e.IDAPARTADO = ea.IDAPARTADO ";
+        qry+=  " where 1=1 ";
+       if(campoGoogle!=null && !campoGoogle.equals(""))
         {
             qry+=  " AND e.IDAPARTADO like '%" + campoGoogle+"%' ";
+            qry+=  " OR ea.ALIASAPARTADO like '%" + campoGoogle+"%' ";
             qry+=  " OR e.IDENLACE like '%" + campoGoogle+"%' ";
-            qry+=  " OR e.ALIASENLACE like '%" + campoGoogle+"%' ";
+          //  qry+=  " OR e.ALIASENLACE like '%" + campoGoogle+"%' ";
             qry+=  " OR e.NOMBREENLACE like '%" + campoGoogle+"%' ";
             qry+=  " OR e.PREENLACE like '%" + campoGoogle+"%' ";
             qry+=  " OR e.PARAMSENLACE like '%" + campoGoogle+"%' ";
@@ -173,7 +180,7 @@ public class EnlaceDAO
         }
     	final Usuario user = UsuarioDAO.findByIdUser((usuario != null) ? usuario.getIdUsuario() : null);
        	
-        qry = String.valueOf(qry) + "order by e.IDAPARTADO, e.IDENLACE asc";
+        qry = String.valueOf(qry) + " order by ea.orden, e.idenlace asc ";
         final Connection con = Conexion.conectar();
         System.out.println(String.valueOf(EnlaceDAO.className) + "--> findByIdUserAndType  -->" + qry);
         ResultSet resultSet = null;
@@ -202,7 +209,7 @@ public class EnlaceDAO
         int result=0;
 		  Connection con = Conexion.conectar();
 	  	   String qry = "UPDATE dbo.SPD_ENLACE ";
-	  	   		qry+= " set  aliasEnlace= '"+enlace.getAliasEnlace()+"', ";
+	  	   		//qry+= " set  aliasEnlace= '"+enlace.getAliasEnlace()+"', ";
 	  	   		//qry+= " idApartado= '"+enlace.getIdApartado()+"', ";
 	  	   		qry+= " nombreEnlace= '"+enlace.getNombreEnlace()+"', ";
 	  	   		qry+= " preEnlace= '"+enlace.getPreEnlace()+"', ";
@@ -232,11 +239,11 @@ public class EnlaceDAO
 		  Connection con = Conexion.conectar();
 		  String qry = "INSERT INTO SPD_enlace  ";
 		  		qry+= " ( ";
-		  		qry+= " 	IDENLACE, ALIASENLACE, IDAPARTADO, NOMBREENLACE, ";
+		  		qry+= " 	IDENLACE, IDAPARTADO, NOMBREENLACE, ";
 		  		qry+= " 	PREENLACE, LINKENLACE, PARAMSENLACE, DESCRIPCION,"; 
 		  		qry+= " 	ACTIVO, NUEVAVENTANA ";
 		  		qry+= " ) VALUES ( ";
-	  	   		qry+= " '"+f.getIdEnlace()+"', '"+f.getAliasEnlace()+"', '"+f.getIdApartado()+"', '"+f.getNombreEnlace()+"', ";
+	  	   		qry+= " '"+f.getIdEnlace()+"', '"+f.getIdApartado()+"', '"+f.getNombreEnlace()+"', ";
 	  	   		qry+= " '"+f.getPreEnlace()+"', '"+f.getLinkEnlace()+"', '"+f.getParamsEnlace()+"', '"+f.getDescripcion()+"', ";
 	  	   		qry+= " '"+(f.isActivo()?1:0)+"', '"+(f.isNuevaVentana()?1:0)+"' ";
 		  		qry+= " )  ";

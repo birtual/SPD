@@ -2,7 +2,6 @@
 <%@ page language="java" %>
 <%@ page import="java.util.*" %>
 
-
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
@@ -13,25 +12,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
 <head>
-<jsp:include page="/spd/jsp/global/head.jsp"/>
-
-<title>Discrepancias por CIP </title>
+	<jsp:include page="/spd/jsp/global/head.jsp"/>
+	<title>Discrepancias por CIP </title>
 </head>
-
-
 
 <bean:define id="formulari" name="PacientesForm" type="lopicost.spd.struts.form.PacientesForm" />
 <script language="javaScript" src="/spd/spd/app/pacientes/js/pacientes.js"></script>
 
 
 <body id="general">
-
 <html:form action="/Pacientes.do" method="post">	
 <html:errors/>
 
-
 <div id="contingut">
-
 	<div><h3><p>Discrepancias por CIP (cálculos realizados sobre 14 días)</p></h3></div>
 	<div><p><bean:write name="formulari" property="CIP" />-<bean:write name="formulari" property="nombreApellidos" /></p></div>
 	<div>
@@ -45,7 +38,8 @@
 		</p>
 	</div>
  	<fieldset>
-
+	
+	<logic:notEmpty  name="formulari" property="listaBeans">
 		<table id="listaPacientesBean" align="center" border="1">
 			<tr>
 				<th class="amarilloClaro"></th>
@@ -122,17 +116,18 @@
 				<td align="right"><bean:write name="data" property="totalRecetasDisponibles" /></td>
 			</tr>
 	    </logic:iterate>
+	</table>
 
-			</table>
-				<p class="botons">
-					<input type="button" onclick="javascript:cerrar()" value="Cerrar"/>
-				</p>	
-
-
+	</logic:notEmpty>
+	<logic:empty  name="formulari" property="listaBeans">
+		No existen registros a mostrar
+	</logic:empty>
+		
 	</fieldset>
+	<p class="botons">
+		<input type="button" onclick="javascript:cerrar()" value="Cerrar"/>
+	</p>	
 	</div>		
-	
-	</html:form>
-
+</html:form>
 </body>
 </html>

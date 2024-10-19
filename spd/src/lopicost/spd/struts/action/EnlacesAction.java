@@ -108,7 +108,7 @@ public class EnlacesAction extends GenericAction  {
 			Enlace enlaceBase = EnlaceDAO.findById(f.getIdEnlace());
 			
 			enlace.setIdEnlace(enlaceBase.getIdEnlace()+" (modificar o sumar 1)");
-			enlace.setAliasEnlace(enlaceBase.getAliasEnlace());
+		//	enlace.setAliasEnlace(enlaceBase.getAliasEnlace());
 			enlace.setIdApartado(enlaceBase.getIdApartado());
 		    enlace.setNombreEnlace(enlaceBase.getNombreEnlace());
 		    enlace.setPreEnlace(enlaceBase.getPreEnlace());
@@ -157,7 +157,7 @@ public class EnlacesAction extends GenericAction  {
 		boolean result=false;
 		if(f.getACTIONTODO()!=null && f.getACTIONTODO().equals("EDITA_OK"))
 		{
-			enlace.setAliasEnlace(f.getAliasEnlace());
+			//enlace.setAliasEnlace(f.getAliasEnlace());
 			
 			enlace.setIdApartado(f.getIdApartado());
 		    enlace.setNombreEnlace(f.getNombreEnlace());
@@ -203,6 +203,16 @@ public class EnlacesAction extends GenericAction  {
 
 		Enlace enlace = EnlaceDAO.findById(formulari.getIdEnlace());
 		formulari.setEnlace(enlace);;
+		
+		boolean borrable = EnlacesHelper.checkBorrable(enlace);
+		if(!borrable) 
+		{
+	    	errors.add( "El enlace no es borrable, actualmente está asignado a algún perfil");
+			formulari.setIdEnlace("");
+			formulari.setACTIONTODO("");
+			action=  mapping.findForward("admin");
+		}
+
 		
 		
 		boolean result=false;

@@ -1,11 +1,13 @@
 package lopicost.spd.struts.helper;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import lopicost.spd.model.Enlace;
 import lopicost.spd.model.Usuario;
+import lopicost.spd.persistence.MenuDAO;
 
 
 /**
@@ -47,6 +49,14 @@ public class EnlacesHelper {
 
 
 
+	public static boolean checkBorrable(Enlace enlace) throws ClassNotFoundException, SQLException {
+		int cont = MenuDAO.countByIdEnlace(enlace.getIdEnlace());
+		if(cont>0) return false;
+		return true;
+	}
+
+
+/*
 	public static String remplazaTexto(String idApartado) {
 		  String resultado = "-";
     	
@@ -71,6 +81,7 @@ public class EnlacesHelper {
     return resultado;
 		
 	}
+	*/
 
 
 

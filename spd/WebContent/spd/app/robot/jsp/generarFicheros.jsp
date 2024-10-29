@@ -16,7 +16,9 @@
     %>
     
     <% if ("inicio".equals(estado)) { %>
-        <p>Iniciando la generación de archivos. Por favor, espera...</p>
+        <p>Iniciando la generación de archivos. <br>En unos segundos podrán descargarse desde esta página
+          </p>
+         <p align="center"> <img src="/spd/spd/img/Loading_2.gif" alt="Cargando..." /></p>
         <script>
             // Desactivar el botón en la ventana principal
             if (window.opener) {

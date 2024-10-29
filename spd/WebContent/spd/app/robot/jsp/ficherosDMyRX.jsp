@@ -13,9 +13,6 @@
         Boolean fileDMGenerated = (Boolean) request.getAttribute("fileDMGenerated");
         Boolean fileRXGenerated = (Boolean) request.getAttribute("fileRXGenerated");
         
-        
-        
-
         // Comprobar si es la primera carga de la página
         boolean isFirstLoad = (fileDMGenerated == null && fileRXGenerated == null);
         
@@ -29,14 +26,18 @@
 
     %>
     <jsp:include page="/spd/jsp/global/head.jsp"/>
-    
+   
 </head>
 
 <body>
     <h2>Estado de la Generación de Archivos DM y RX</h2>
-    
+      
     <% if (isFirstLoad) { %>
-        <p>Iniciando la generación de archivos. Por favor, espera...</p>
+        <p>Iniciando la generación de archivos. Por favor, espera...
+         <img src="img/Loading_2.gif" alt="Cargando..." />
+       
+         </p>
+         
     <% } else { %>
         <p>
         <% if (fileDMGenerated != null && fileDMGenerated) { %>

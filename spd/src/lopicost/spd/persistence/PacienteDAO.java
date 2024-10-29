@@ -177,7 +177,7 @@ public class PacienteDAO extends GenericDAO{
 		}
 		if(estatusResidente!=null && !estatusResidente.equals(""))
 		{
-			qryWhere+=" and ( estatus = '"+estatusResidente+"' OR COALESCE(activo, 'SIN_ESTADO') + ' - ' + COALESCE(estatus, 'SIN_ESTATUS') = '"+estatusResidente+"'  )";
+			qryWhere+=" and ( UPPER(estatus) = '"+estatusResidente.toUpperCase()+"' OR COALESCE(activo, 'SIN_ESTADO') + ' - ' + COALESCE(estatus, 'SIN_ESTATUS') = '"+estatusResidente+"'  )";
 		}
     	
     	qryAux = 	getOtrosSql2008(inicio, inicio+SPDConstants.PAGE_ROWS, count);
@@ -315,7 +315,7 @@ public class PacienteDAO extends GenericDAO{
     			}
     			if(estatusResidente!=null) //puede ser vacío
     			{
-    				qryWhere+=" and ( estatus = '"+estatusResidente+"' OR estado + ' - ' + estatus = '"+estatusResidente+"'  )";
+    				qryWhere+=" and ( UPPER(estatus) = '"+estatusResidente.toUpperCase()+"' OR estado + ' - ' + estatus = '"+estatusResidente+"'  )";
     			}
     			
     	String 	qryOrder=  	" order by CIP"; 
@@ -733,7 +733,7 @@ public class PacienteDAO extends GenericDAO{
 	        return listaEstadosResidente;
 	    }
 
-
+/*
 	 public static List getEstatusResidente(String spdUsuario) throws Exception {
 	        final List<String> listaEstatusResidente = new ArrayList<>();
 	       // final String qry = "SELECT DISTINCT COALESCE(activo, 'SIN_ESTADO') + ' - ' +  COALESCE(estatus, 'SIN_ESTATUS') as actividad  FROM dbo.bd_pacientes  order by  actividad ";
@@ -765,7 +765,7 @@ public class PacienteDAO extends GenericDAO{
 	     
 	        return listaEstatusResidente;
 	    }
-
+*/
 
 	public static boolean nuevo(PacientesForm f) throws SQLException {
 		

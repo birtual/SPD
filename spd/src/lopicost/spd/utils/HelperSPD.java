@@ -2689,7 +2689,7 @@ public class HelperSPD{
 		
 	
 	
-	public static void actualizarBeanConFormulario(FicheroResiBean frb, FicheroResiForm formulari) throws ClassNotFoundException {
+	public static void actualizarBeanConFormulario(FicheroResiBean frb, FicheroResiForm formulari) throws ClassNotFoundException, SQLException {
 		if(frb!=null){
 			String cambios ="| en "+frb.getResiMedicamento()+" |" ;
 			if(existenDiferencias(frb.getResiCIP(), formulari.getResiCIP())){ 
@@ -2700,6 +2700,7 @@ public class HelperSPD{
 			{
 				cambios+="ResiCN: " + frb.getResiCn() + "  cambiado a: " + formulari.getResiCn() + " | "; 
 				frb.setResiCn(formulari.getResiCn());
+
 			}
 			if(existenDiferencias(frb.getResiMedicamento(), formulari.getResiMedicamento())) 
 			{
@@ -2816,6 +2817,10 @@ public class HelperSPD{
 			{
 				cambios+="SpdCnFinal: " + frb.getSpdCnFinal() + "  cambiado a: " + formulari.getSpdCnFinal() + " | "; 
 				frb.setSpdCnFinal(formulari.getSpdCnFinal());
+				BdConsejo bdc = BdConsejoDAO.getBdConsejobyCN(formulari.getSpdCnFinal());
+				if(bdc!=null){
+					frb.setSpdFormaMedicacion(bdc.getNombreFormaFarmaceutica());
+				}
 			}
 			if(existenDiferencias(frb.getSpdNombreBolsa(), formulari.getSpdNombreBolsa()))
 			{

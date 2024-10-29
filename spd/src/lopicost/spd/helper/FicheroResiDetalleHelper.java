@@ -3,7 +3,8 @@ package lopicost.spd.helper;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
+import java.util.Comparator;
+import java.util.Date; 
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,7 +24,6 @@ import lopicost.spd.utils.StringUtil;
   * Logica de negocio 
  */
 public class FicheroResiDetalleHelper {
-
 
 	private final String cLOGGERHEADER = "ExtReHelper: ";
 	private final String cLOGGERHEADER_ERROR = cLOGGERHEADER + "ERROR: ";
@@ -112,6 +112,8 @@ public class FicheroResiDetalleHelper {
 			//	Collections.sort(listaProcesosCargados);
 				if(!listaIdentificador.contains( grb.getOidPaciente()) && grb.getOidPaciente()!=null && !grb.getOidPaciente().equals(""))									
 					listaIdentificador.add((String) grb.getOidPaciente());
+				//Collections.sort(listaIdentificador);
+				Collections.sort(listaIdentificador, (a, b) -> Integer.compare(Integer.parseInt(a), Integer.parseInt(b)));
 				if(!listaResiCIP.contains( grb.getResiCIP()) && grb.getResiCIP()!=null && !grb.getResiCIP().equals(""))									
 					listaResiCIP.add((String) grb.getResiCIP());
 				Collections.sort(listaResiCIP);

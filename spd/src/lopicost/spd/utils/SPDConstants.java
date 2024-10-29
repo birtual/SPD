@@ -132,8 +132,12 @@ public class SPDConstants
 	private static boolean 					theFirstAccess 			= true;
 
 	//Posibles estados de un dominio
-	public static String STATUS_DOMAIN_ACTIVE= "ALTA";
-	public static String STATUS_DOMAIN_INACTIVE= "BAJA";
+	public static String STATUS_PACIENTE_ALTA= "Alta";
+	public static String STATUS_PACIENTE_BAJA= "Baja";
+	public static String STATUS_PACIENTE_EXITUS= "Exitus";
+	public static String STATUS_PACIENTE_HOSPITAL= "Hospitalizado";
+	public static String STATUS_PACIENTE_BAJAVOLUNTARIA= "Baja voluntaria";
+	public static String STATUS_PACIENTE_CENTRODEDIA= "Centro de Dia";
 	
 	/**
 	 * Constantes para el upload de ficheros

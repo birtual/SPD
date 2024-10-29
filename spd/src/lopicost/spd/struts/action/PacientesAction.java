@@ -44,7 +44,8 @@ public class PacientesAction extends GenericAction  {
 		//paginación
 		int currpage = actualizaCurrentPage(formulari, dao.getCountBdPacientes(getIdUsuario(), formulari));
 		formulari.setListaDivisionResidencias(DivisionResidenciaDAO.getListaDivisionResidencias(getIdUsuario()));
-		formulari.setListaEstatusResidente(PacienteDAO.getEstatusResidente(getIdUsuario()));
+//		formulari.setListaEstatusResidente(PacienteDAO.getEstatusResidente(getIdUsuario()));
+		formulari.setListaEstatusResidente(PacientesHelper.getEstatusResidente());
 		formulari.setListaEstadosResidente(PacienteDAO.getEstadosResidente(getIdUsuario()));
 		formulari.setListaPacientesBean(dao.getPacientes(getIdUsuario(), formulari, currpage*SPDConstants.PAGE_ROWS,(currpage+1)*SPDConstants.PAGE_ROWS, null));
 	
@@ -63,7 +64,8 @@ public class PacientesAction extends GenericAction  {
 		else if(f.getACTIONTODO()!=null && f.getACTIONTODO().equals("NUEVO"))
 		{
 			f.setListaDivisionResidencias(DivisionResidenciaDAO.getListaDivisionResidencias(getIdUsuario()));
-			f.setListaEstatusResidente(PacienteDAO.getEstatusResidente(getIdUsuario()));
+			//f.setListaEstatusResidente(PacienteDAO.getEstatusResidente(getIdUsuario()));
+			f.setListaEstatusResidente(PacientesHelper.getEstatusResidente());
 			f.setListaEstadosResidente(PacienteDAO.getEstadosResidente(getIdUsuario()));
 
 			String nuevoCIP = f.getCIP();
@@ -102,7 +104,8 @@ public class PacientesAction extends GenericAction  {
 		f.setPacienteBean(pac);
 
 		List errors = new ArrayList();
-		f.setListaEstatusResidente(PacienteDAO.getEstatusResidente(getIdUsuario()));
+		//f.setListaEstatusResidente(PacienteDAO.getEstatusResidente(getIdUsuario()));
+		f.setListaEstatusResidente(PacientesHelper.getEstatusResidente());
 		f.setListaDivisionResidencias(DivisionResidenciaDAO.getListaDivisionResidencias(getIdUsuario()));
 		if(f.getACTIONTODO()!=null && f.getACTIONTODO().equals("EDITAR"))
 		{

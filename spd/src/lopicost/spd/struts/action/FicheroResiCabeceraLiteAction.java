@@ -570,6 +570,38 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
    	    request.setAttribute("nombreFicheroFiliaRX", nombreFicheroFiliaRX); // Indica si el archivo fue generado
    	    request.setAttribute("filePathDM", path + nombreFicheroFiliaDM); // Ruta del archivo generado
    	    request.setAttribute("filePathRX", path + nombreFicheroFiliaRX); // Ruta del archivo generado
+   	    
+		//aprovechamos y lanzamos el cálculo de previsión de comprimidos necesarios. En caso que no se haya calculado previamente
+        if(fileRXGenerated)
+        {
+        	// Crear un hilo para ejecutar el método actualizarPrevision()
+            Thread actualizarPrevisionThread = new Thread(() -> {
+                try {
+					actualizarPrevision(cab, formulari);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+                // Aquí puedes enviar algún tipo de señal al cliente, como un mensaje o un código de estado
+                // (esto dependerá de tu lógica específica y de cómo manejas la respuesta en el cliente)
+                // response.getWriter().write("Proceso actualizadoPrevision completado");
+            });
+
+            // Iniciar el hilo
+            actualizarPrevisionThread.start();
+
+            try {
+                // Esperar a que el hilo termine antes de continuar
+                actualizarPrevisionThread.join();
+            } catch (InterruptedException e) {
+                // Manejar la interrupción si es necesario
+                e.printStackTrace();
+            }
+        }
+        
+        
+        
    		return mapping.findForward("generarFicherosDMyRX");
 	}
 

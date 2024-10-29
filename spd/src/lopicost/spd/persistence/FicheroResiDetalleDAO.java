@@ -31,10 +31,11 @@ public class FicheroResiDetalleDAO {
 	public static FicheroResiBean getFicheroResiDetalleByIdOid(String spdUsuario, int oidFicheroResiDetalle) throws Exception {
 		return getFicheroResiDetalleByIdOid(spdUsuario, oidFicheroResiDetalle, false);
 	}
-	
+	 
 	public static FicheroResiBean getFicheroResiDetalleByIdOid(String spdUsuario, int oidFicheroResiDetalle, boolean historico) throws Exception {
 		
 		String tabla = historico ? TABLA_HISTORICO : TABLA_ACTIVA;
+		String tabla2 = historico ? TABLA_HISTORICO : TABLA_ACTIVA;
 		
 		FicheroResiBean c = new FicheroResiBean();
 		Connection con = Conexion.conectar();
@@ -2375,6 +2376,7 @@ public class FicheroResiDetalleDAO {
 			qry+=  " FROM dbo.SPD_ficheroResiDetalle g left join dbo.bd_divisionResidencia d  on g.idDivisionResidencia=d.idDivisionResidencia    ";
 			qry+=  " WHERE g.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
 	   		qry+=  " AND g.idProceso = '"+idProceso+"' ";
+	   		qry+=  " AND g.tipoRegistro = 'LINEA' ";
 	   		qry+=  " AND ( 	";
 	   		qry+=  " 	(g.mensajesAlerta <>'' AND g.mensajesAlerta is not null AND  UPPER(g.mensajesAlerta) <>'NULL' )	 		";
 	   		qry+=  " 	OR	(g.mensajesResidencia <>'' AND g.mensajesResidencia is not null AND  UPPER(g.mensajesResidencia) <>'NULL' )	 		";

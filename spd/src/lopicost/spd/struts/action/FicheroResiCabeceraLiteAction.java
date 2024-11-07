@@ -598,6 +598,14 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
                 // Manejar la interrupción si es necesario
                 e.printStackTrace();
             }
+            
+			//dejamos log
+			try{
+				SpdLogAPI.addLog(getIdUsuario(), "",  formulari.getIdDivisionResidencia(), cab.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CREACION, SpdLogAPI.C_FICHERO_ROBOT_UNIFICADA
+						, "SpdLog.produccion.creacion.ficheroRobotUnificada", nombreFicheroFiliaDM + " y " +  nombreFicheroFiliaRX);
+			}catch(Exception e){}	//Creación del fichero Helium con nombre @@.
+			
+
         }
         
         

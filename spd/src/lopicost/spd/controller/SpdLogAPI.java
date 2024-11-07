@@ -26,6 +26,7 @@ public class SpdLogAPI
 	//accion - Constantes de segundo nivel 
 	public static final String B_CONSULTA= "CONSULTA";
 	public static final String B_CARGAFICHERO= "CARGAFICHERO";
+	public static final String B_DESCARGAFICHERO= "DESCARGAFICHERO";
 	public static final String B_EDICION= "EDICION";
 	public static final String B_BORRADO= "BORRADO";
 	public static final String B_CREACION= "CREACION";
@@ -47,6 +48,7 @@ public class SpdLogAPI
 	public static final String C_END= "FIN";	
 	public static final String C_PREVISION= "PREVISION";
 	public static final String C_FICHERO_HELIUM= "FICHERO_HELIUM";
+	public static final String C_FICHERO_ROBOT_UNIFICADA= "FICHERO_ROBOT_UNIFICADA";
 	public static final String C_FICHERO_IOSPD_ANEXO = "C_FICHERO_IOSPD_ANEXO";
 	public static final String C_CONTROL_PRINCIPIO_ACTIVO= "CONTROL_PRINCIPIO_ACTIVO";
 

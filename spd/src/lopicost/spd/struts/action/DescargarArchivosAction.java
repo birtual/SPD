@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.util.*;
 
+import lopicost.spd.controller.SpdLogAPI;
 import lopicost.spd.persistence.*;
 import lopicost.spd.utils.SPDConstants;
 
@@ -54,6 +55,15 @@ public class DescargarArchivosAction extends GenericAction
 	            out.flush();
 	            out.close();
 
+	            /*
+				//dejamos log
+				try{
+					SpdLogAPI.addLog(getIdUsuario(), "",  form.getIdDivisionResidencia(), cab.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_DESCARGAFICHERO, SpdLogAPI.C_FICHERO_ROBOT_UNIFICADA
+							, "SpdLog.produccion.descarga.ficheroRobotUnificada", fileName );
+				}catch(Exception e){}	//Creación del fichero Helium con nombre @@.
+				*/
+				
+				
 	            // Finalizar sin hacer un forward
 	            return null;
 	        } else {

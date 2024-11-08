@@ -361,7 +361,14 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		return mapping.findForward("abrirVentanaErrores");
 	}
 	
-	
+	public ActionForward resumenCIPS(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		FicheroResiForm formulari =  (FicheroResiForm) form;
+		FicheroResiBean cab =  FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(getIdUsuario(), formulari.getOidFicheroResiCabecera());
+		formulari.setFicheroResiDetalleBean(cab);
+		return mapping.findForward("resumenCIPS");
+	}
 	
 	//public void actualizarPrevision(ActionMapping mapping, ActionForm form,		HttpServletRequest request, HttpServletResponse response)
 	public void actualizarPrevision(FicheroResiBean cab, FicheroResiForm formulari)

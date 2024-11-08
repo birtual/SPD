@@ -529,7 +529,9 @@ public class ImportAegerus extends ImportProcessImpl
 			try { porcent =(cipsTotales*100/cipsActivosSPD);				}catch(Exception e){porcent =0;}
 
 			
-			result=ioSpdApi.editaFinCargaFicheroResi(this.getIdDivisionResidencia(), this.getIdProceso(), filasTotales, cipsTotales, cipsActivosSPD, porcent, this.errors);
+			//result=ioSpdApi.editaFinCargaFicheroResi(this.getIdDivisionResidencia(), this.getIdProceso(), filasTotales, cipsTotales, cipsActivosSPD, porcent, this.errors);
+			result=FicheroResiDetalleHelper.editaFinCargaFicheroResi(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso(), filasTotales, cipsTotales, cipsActivosSPD, porcent, this.errors);
+
 			if(result)
 			{
 				//creación de log en BBDD

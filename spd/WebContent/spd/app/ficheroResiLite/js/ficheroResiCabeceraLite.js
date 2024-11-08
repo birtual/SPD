@@ -192,9 +192,19 @@
 			 
 			 window.open(url, 'abrirVentanaErrores', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
 			f.submit();
-
 	    }
 
+		  // Función para abrir una nueva ventana con el contenido de los errores
+	    function abrirResumenCIPS(oidFicheroResiCabecera,idProceso) {
+			var url = "/spd/FicheroResiCabeceraLite.do?parameter=resumenCIPS&idProceso=" + idProceso  + "&oidFicheroResiCabecera=" + oidFicheroResiCabecera;
+			 
+			 window.open(url, 'resumenCIPS', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
+			f.submit();
+	    }
+
+	    		
+	    		
+	    		
 	    // Agregar un controlador de eventos al enlace
 	    var enlaceMostrarErrores = document.getElementById("mostrarErrores");
 	    enlaceMostrarErrores.addEventListener("click", function (event) {

@@ -5,6 +5,7 @@
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
@@ -143,7 +144,23 @@
 					<td class="derecha"><bean:write name="data" property="filasTotales" /></td>
 					<!-- td class="derecha"><a href="javascript:abrirVentanaErrores('<bean:write name="data" property="oidFicheroResiCabecera" />', '<bean:write name="data" property="errores" />');"><bean:write name="data" property="numErrores" /></a></td> -->
 					<td class="derecha"><a href="javascript:abrirVentanaErrores('<bean:write name="data" property="oidFicheroResiCabecera" />', '<bean:write name="data" property="idProceso" />');"><bean:write name="data" property="numErrores" /></a></td> 
-					<td class="derecha"><bean:write name="data" property="cipsTotalesProceso" /></td>
+					<td class="derecha">
+						<c:choose>
+			    		<c:when test="${(fn:contains(idUsuario, 'test') || fn:contains(idUsuario, 'admin')) && data.oidFicheroResiCabecera > 1365}">
+							<a href="javascript:abrirResumenCIPS('<bean:write name="data" property="oidFicheroResiCabecera" />', '<bean:write name="data" property="idProceso" />');"><bean:write name="data" property="cipsTotalesProceso" /></a> 
+			    		</c:when>
+			    		<c:otherwise>
+			        		<bean:write name="data" property="cipsTotalesProceso" />
+			    		</c:otherwise>
+						</c:choose>
+					</td>
+					    
+					
+					
+					
+					
+				
+
 					<td class="derecha"><bean:write name="data" property="cipsActivosSPD" /></td>
 					<td><bean:write name="data" property="usuarioCreacion" /></td>
 					<td class="derecha"><bean:write name="data" property="numeroValidacionesPendientes" /></td>
@@ -178,9 +195,7 @@
 							<input type="button" class="rojo" onclick="javascript:borrar('<bean:write name="data" property="oidFicheroResiCabecera" />');"  value="Borrar"  />
 						</logic:equal>
 
-
-
-						
+					
 						</p>
 					</td>
 				<td><bean:write name="data" property="idEstado" />
@@ -201,7 +216,7 @@
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
 				<logic:greaterThan name="formulari" property="currpage" value="0">
-					<a href="javascript:atras();" ><<</a>
+					<a href="javascript:atras();" > << </a>
 				</logic:greaterThan>
 				&nbsp;<input type="text" name="newPage" value="<%= formulari.getCurrpage()+1 %>" size="1" maxlength="4" onkeypress="irAPagina(this.value,<%=formulari.getNumpages()%>);">/<%= formulari.getNumpages() %>&nbsp;
 				<logic:lessThan name="formulari" property="currpage" value="<%= String.valueOf(formulari.getNumpages() -1)%>">

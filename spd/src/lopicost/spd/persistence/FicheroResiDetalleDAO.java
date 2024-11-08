@@ -12,6 +12,7 @@ import lopicost.spd.controller.ControlSPD;
 import lopicost.spd.security.helper.VisibilidadHelper;
 import lopicost.spd.struts.bean.CamposPantallaBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
+import lopicost.spd.struts.bean.PacienteBean;
 import lopicost.spd.struts.form.FicheroResiForm;
 import lopicost.spd.utils.AegerusHelper;
 import lopicost.spd.utils.HelperSPD;
@@ -22,7 +23,7 @@ import lopicost.spd.utils.StringUtil;
 public class FicheroResiDetalleDAO {
 	
 	static String className="FicheroResiDetalleDAO";
-	
+	static String classNam2e="FicheroResiDetalleDAO";
 	static String TABLA_ACTIVA		=	"dbo.SPD_ficheroResiDetalle";
 	static String TABLA_HISTORICO 	=	"dbo.SPDHst_ficheroResiDetalle";   //tabla de histórico
 	static String TABLA_CAB_ACTIVA		=	"dbo.SPD_ficheroResiCabecera";
@@ -2678,7 +2679,7 @@ public class FicheroResiDetalleDAO {
 		
 		qry+=  " 	AND bd.codigo ='" + medResi.getSpdCnFinal()+"'";
 		
-		System.out.println(className + "--> contarDistintosPActivosPorCIPyGTVM" +qry );		
+		System.out.println(className + "--> contarDistintosPActivosPorCIPyGTVM " +qry );		
 		ResultSet resultSet = null;
 		 	 	
 		int result =0;
@@ -2727,7 +2728,109 @@ public class FicheroResiDetalleDAO {
 	}
 
 
-	
+
+	public static List<PacienteBean> getCipsFicheroResiConSpdNo(String spdUsuario, String idProceso) throws Exception {
+		List<PacienteBean> result = new ArrayList<PacienteBean>();
+		Connection con = Conexion.conectar();
+		String qry = "	SELECT distinct p.oidpaciente, f.resiCIP, f.resiApellidosNombre ";
+		qry+=  " 	FROM dbo.SPD_ficheroResiDetalle f  ";
+		qry+=  " 	LEFT JOIN dbo.bd_pacientes p on p.CIP = f.resiCIP and p.idDivisionResidencia = f.idDivisionResidencia ";
+	   	qry+=  " 	WHERE 1=1 ";
+		qry+=  " 	AND f.idProceso='" +idProceso+ "'";
+		qry+=  " 	AND p.SPD='N' ";
+		qry+=  "	AND f.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
+		qry+=  " 	ORDER BY f.resiApellidosNombre";
+		
+		
+		System.out.println(className + "--> getCipsFicheroResiConSpdNo " + qry );		
+		ResultSet resultSet = null;
+		 	 	
+		
+		try {
+			PreparedStatement pstat = con.prepareStatement(qry);
+			resultSet = pstat.executeQuery();
+			
+			while (resultSet.next()) {
+				PacienteBean pac = new PacienteBean();
+				pac.setOidPaciente(resultSet.getInt("oidPaciente"));
+				pac.setCIP(resultSet.getString("resiCIP"));
+				pac.setApellidosNombre(resultSet.getString("resiApellidosNombre"));
+				result.add(pac);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			}finally {con.close();}
+	   return result;
+	}
+
+	public static List<PacienteBean> getCipsFicheroResiSinMantenimiento(String spdUsuario, String idProceso) throws Exception {
+		List<PacienteBean> result = new ArrayList<PacienteBean>();
+		Connection con = Conexion.conectar();
+		String qry = "	SELECT distinct -1, f.resiCIP, f.resiApellidosNombre ";
+		qry+=  " 	FROM dbo.SPD_ficheroResiDetalle f  ";
+		qry+=  " 	LEFT JOIN dbo.bd_pacientes p on p.CIP = f.resiCIP and p.idDivisionResidencia = f.idDivisionResidencia ";
+	   	qry+=  " 	WHERE 1=1 ";
+		qry+=  " 	AND f.idProceso='" +idProceso+ "'";
+		qry+=  " 	AND p.CIP is null ";
+		qry+=  "	AND f.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
+		qry+=  " 	ORDER BY f.resiApellidosNombre";
+		
+		
+		System.out.println(className + "--> getCipsFicheroResiSinMantenimiento " + qry );		
+		ResultSet resultSet = null;
+		 	 	
+		
+		try {
+			PreparedStatement pstat = con.prepareStatement(qry);
+			resultSet = pstat.executeQuery();
+			while (resultSet.next()) {
+				PacienteBean pac = new PacienteBean();
+				pac.setOidPaciente(resultSet.getInt("oidPaciente"));
+				pac.setCIP(resultSet.getString("resiCIP"));
+				pac.setApellidosNombre(resultSet.getString("resiApellidosNombre"));
+					result.add(pac);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			}finally {con.close();}
+	   return result;
+	}
+
+
+	public static List<PacienteBean> getMantenimientoSinFicheroResi(String spdUsuario, String idDivisionResidencia, String idProceso) throws Exception {
+		List<PacienteBean> result = new ArrayList<PacienteBean>();
+		Connection con = Conexion.conectar();
+		String qry = "	SELECT distinct p.oidpaciente, p.CIP, p.cognomsNom ";
+		qry+=  " 	FROM dbo.bd_pacientes p   ";
+		qry+=  " 	WHERE 1=1   ";
+		qry+=  " 	AND p.idDivisionResidencia='" +idDivisionResidencia+ "'";
+		qry+=  " 	AND p.CIP not in (SELECT distinct f.resiCIP FROM dbo.SPD_ficheroResiDetalle f WHERE f.idProceso='" +idProceso+ "') ";
+		qry+=  " 	AND p.SPD='S' ";
+		qry+=  "	AND p.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
+		qry+=  " 	ORDER BY p.cognomsNom ";
+		
+		System.out.println(className + "--> getMantenimientoSinFicheroResi " + qry );		
+		ResultSet resultSet = null;
+		 	 	
+		
+		try {
+			PreparedStatement pstat = con.prepareStatement(qry);
+			resultSet = pstat.executeQuery();
+			resultSet.next();
+			while (resultSet.next()) {
+				PacienteBean pac = new PacienteBean();
+				pac.setOidPaciente(resultSet.getInt("oidPaciente"));
+				pac.setCIP(resultSet.getString("CIP"));
+				pac.setApellidosNombre(resultSet.getString("cognomsNom"));
+				result.add(pac);
+			} 
+		} catch (SQLException e) {
+			e.printStackTrace();
+			}finally {con.close();}
+	   return result;
+	}
+
+
 
 	
 

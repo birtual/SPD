@@ -30,6 +30,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	  private int cipsActivosSPD=0;
 	  private int cipsFicheroXML=0;
 	  private int cipsFicheroOrigen=0;
+	  private String resumenCIPS="";
 
 	  private int cipsNoExistentesBbdd=0;
 	  private int cipsSpdResiNoExistentesEnProceso=0;
@@ -473,6 +474,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	public int getNumeroMensajesInfo() 			{		return numeroMensajesInfo;	}	public void setNumeroMensajesInfo(int numeroMensajesInfo) 		{		this.numeroMensajesInfo = numeroMensajesInfo;		}
 	public int getNumeroMensajesAlerta() 		{		return numeroMensajesAlerta;}	public void setNumeroMensajesAlerta(int numeroMensajesAlerta) 	{		this.numeroMensajesAlerta = numeroMensajesAlerta;	}
 	public int getCipsFicheroOrigen() 			{		return cipsFicheroOrigen;	}	public void setCipsFicheroOrigen(int cipsFicheroOrigen) 		{		this.cipsFicheroOrigen = cipsFicheroOrigen;			}
+	public String getResumenCIPS() 				{		return resumenCIPS;			}	public void setResumenCIPS(String resumenCIPS) 					{		this.resumenCIPS = resumenCIPS;						}
 	public String getFechaDesde() 				{		return fechaDesde;			}	public void setFechaDesde(String fechaDesde) 					{		this.fechaDesde = fechaDesde;						}
 	public String getFechaHasta() 				{		return fechaHasta;			}	public void setFechaHasta(String fechaHasta) 					{		this.fechaHasta = fechaHasta;						}
 	public String getResiToma1() 				{		return resiToma1;			}	public void setResiToma1(String resiToma1) 						{		this.resiToma1 = resiToma1;							}

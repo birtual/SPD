@@ -360,6 +360,7 @@ public class FicheroResiCabeceraDAO {
 				 c.setNombreDivisionResidencia(resultSet.getString("nombreDivisionResidencia"));
 				 c.setNombreFicheroResi(resultSet.getString("nombreFicheroResi"));
 				 c.setNombreFicheroXML(resultSet.getString("nombreFicheroXML"));
+				 c.setResumenCIPS(resultSet.getString("resumenCIPS"));
 				 c.setOidDivisionResidencia(resultSet.getInt("oidDivisionResidencia"));
 				 c.setOidFicheroResiCabecera(resultSet.getInt("oidFicheroResiCabecera"));
 				 c.setResultLog(resultSet.getString("resultLog"));
@@ -370,6 +371,7 @@ public class FicheroResiCabeceraDAO {
 				 c.setFree2(resultSet.getString("free2"));
 				 c.setFree3(resultSet.getString("free3"));
 				 c.setPorcentajeCIPS(resultSet.getInt("porcentajeCIPS"));
+				 c.setResumenCIPS(resultSet.getString("resumenCIPS"));
 				 //Date fechaCalculoPrevision = resultSet.getTimestamp("fechaCalculoPrevision");
 			     java.sql.Timestamp fechaCalculoPrevision = resultSet.getTimestamp("fechaCalculoPrevision");
 	 		 if(fechaCalculoPrevision!=null) 
@@ -587,7 +589,7 @@ public class FicheroResiCabeceraDAO {
 		 */
 
 	//	public static boolean editaFinCargaFicheroResi(String idDivisionResidencia, String idProceso, int processedRows, int cipsTotales, int cipsNoExistentesBbdd, int cipsSpdResiNoExistentesEnFichero, int numeroMensajesInfo, int numeroMensajesAlerta, List errors) throws ClassNotFoundException {
-		public static boolean editaFinCargaFicheroResi(String idDivisionResidencia, String idProceso, int processedRows, int cipsTotales, int cipsActivosSPD,  int porcent, List errors) throws ClassNotFoundException, SQLException {
+		public static boolean editaFinCargaFicheroResi(String idDivisionResidencia, String idProceso, int processedRows, int cipsTotales, int cipsActivosSPD,  int porcent, List errors, String resumenCIPSFichero) throws ClassNotFoundException, SQLException {
 				int result=0;
 			  Connection con = Conexion.conectar();
 			  String resultLog = SPDConstants.SPD_FICHERO_SUBIDO_OK;
@@ -614,6 +616,8 @@ public class FicheroResiCabeceraDAO {
 		  	    qry+= " ,  cipsFicheroXML="+cipsTotales +" ";
 		  	    qry+= " ,  cipsActivosSPD="+cipsActivosSPD +" ";
 		  	    qry+= " ,  porcentajeCIPS="+porcent +" ";
+		  	    qry+= " ,  resumenCIPS='"+resumenCIPSFichero +"'";
+		  	  
 		  	  //    qry+= "  cipsNoExistentesBbdd="+cipsNoExistentesBbdd +", ";
 		  	  //    qry+= "  numeroMensajesAlerta="+numeroMensajesAlerta+", ";
 		  	  //  qry+= "  numeroMensajesInfo="+numeroMensajesInfo +", ";

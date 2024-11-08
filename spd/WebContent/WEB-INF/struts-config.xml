@@ -187,6 +187,8 @@
        		<forward name="compararResultado" path="/spd/app/ficheroResiLite/jsp/compararResultado.jsp" />
        		<forward name="addTratamientosEnProyecto" path="/Iospd/Iospd.do?parameter=addInProcess"  />
        		<forward name="abrirVentanaErrores" path="/spd/app/ficheroResiLite/jsp/abrirVentanaErrores.jsp" />
+       		<forward name="resumenCIPS" path="/spd/app/ficheroResiLite/jsp/resumenCIPS.jsp" />
+       		
        		<!--forward name="generarFicherosDMyRX" path="/spd/app/ficheroResiLite/jsp/ficherosDMyRX.jsp" />-->
     	
     	    <forward name="generarFicherosDMyRX" path="/spd/app/robot/jsp/ficherosDMyRX.jsp" />

@@ -281,11 +281,11 @@ public static FicheroResiBean checkTratamientoValido(String spdUsuario, FicheroR
 	public boolean editaFinCargaFicheroResi(String idDivisionResidencia, String idProceso, int processedRows, int cipsTotales, int cipsNoExistentesBbdd, int cipsSpdResiNoExistentesEnFichero, int numeroMensajesInfo, int numeroMensajesAlerta, List errors)  throws ClassNotFoundException {
 		return FicheroResiCabeceraDAO.editaFinCargaFicheroResi(idDivisionResidencia, idProceso, processedRows, cipsTotales, cipsNoExistentesBbdd,  cipsSpdResiNoExistentesEnFichero,  numeroMensajesInfo,  numeroMensajesAlerta, errors);
 	}
-*/
+
 	public boolean editaFinCargaFicheroResi(String idDivisionResidencia, String idProceso, int processedRows,  int cipsTotales, int cipsActivosSPD, int porcent, List errors)  throws ClassNotFoundException, SQLException {
 		return FicheroResiCabeceraDAO.editaFinCargaFicheroResi(idDivisionResidencia, idProceso, processedRows,  cipsTotales, cipsActivosSPD, porcent, errors);
 	}
-	
+*/	
 	public int getOidFicheroResiCabecera(String spdUsuario, String idDivisionResidencia, String idProceso) throws Exception {
 		return FicheroResiCabeceraDAO.getOidFicheroResiCabecera(spdUsuario, idDivisionResidencia, idProceso);
 	}

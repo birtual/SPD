@@ -1,6 +1,7 @@
 
 package lopicost.spd.helper;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -15,7 +16,9 @@ import lopicost.spd.persistence.CabecerasXLSDAO;
 import lopicost.spd.persistence.DoseDAO;
 import lopicost.spd.persistence.FicheroResiCabeceraDAO;
 import lopicost.spd.persistence.FicheroResiDetalleDAO;
+import lopicost.spd.persistence.PacienteDAO;
 import lopicost.spd.struts.bean.FicheroResiBean;
+import lopicost.spd.struts.bean.PacienteBean;
 import lopicost.spd.struts.form.FicheroResiForm;
 import lopicost.spd.utils.SPDConstants;
 import lopicost.spd.utils.StringUtil;
@@ -416,8 +419,56 @@ public class FicheroResiDetalleHelper {
 		return oid;
 	}
 	
-
+	public static boolean editaFinCargaFicheroResi(String spdUsuario, String idDivisionResidencia, String idProceso, int processedRows,  int cipsTotales, int cipsActivosSPD, int porcent, List errors)  throws Exception {
+		String resumenCIPSFichero = getResumenCIPSFichero(spdUsuario, idDivisionResidencia, idProceso);
+		return FicheroResiCabeceraDAO.editaFinCargaFicheroResi(idDivisionResidencia, idProceso, processedRows,  cipsTotales, cipsActivosSPD, porcent, errors, resumenCIPSFichero);
+	}
+	public static String getResumenCIPSFichero(String spdUsuario, String idDivisionResidencia, String idProceso) throws Exception
+	{
+		List<PacienteBean> cipsFicheroResiConSpdNo = FicheroResiDetalleDAO.getCipsFicheroResiConSpdNo(spdUsuario, idProceso );
+		List<PacienteBean> cipsFicheroResiSinMantenimiento = FicheroResiDetalleDAO.getCipsFicheroResiSinMantenimiento(spdUsuario, idProceso );
+		List<PacienteBean> cipsMantenimientoSinFicheroResi = FicheroResiDetalleDAO.getMantenimientoSinFicheroResi(spdUsuario, idDivisionResidencia, idProceso );
 	
+		String result = "";
+		if(cipsFicheroResiConSpdNo!=null && cipsFicheroResiConSpdNo.size()>0)
+		{
+			result+="<span class=''textoRojo''><b>Recibidos en fichero y SPD=''N'' en la gestión (no se enviarán a robot):</b></span><br/> <ul>";
+			Iterator it_1 = cipsFicheroResiConSpdNo.iterator();
+			while(it_1.hasNext())
+			{
+				PacienteBean pac = (PacienteBean) it_1.next();
+				result+= "<li>"+pac.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac.getApellidosNombre()) + "</li>";
+			}
+			result+="</ul><br/>";
+		}
+			
+		if(cipsFicheroResiSinMantenimiento!=null && cipsFicheroResiSinMantenimiento.size()>0)
+		{
+			result+="<span class=''textoRojo''><b>Recibidos en fichero y no existen en la gestión ( se enviarán a robot):</b></span><br/> <ul>";
+			Iterator it_2 = cipsFicheroResiSinMantenimiento.iterator();
+			while(it_2.hasNext())
+			{
+				PacienteBean pac = (PacienteBean) it_2.next();
+				result+= "<li>"+pac.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac.getApellidosNombre()) + "</li>";
+			}
+			result+="</ul><br/>";
+		}
+			
+		if(cipsMantenimientoSinFicheroResi!=null && cipsMantenimientoSinFicheroResi.size()>0)
+		{
+			result+="<span class=''textoRojo''><b>Recibidos NO recibidos en fichero y existentes en la gestión:</b></span><br/> <ul>";
+			Iterator it_3 = cipsMantenimientoSinFicheroResi.iterator();
+			while(it_3.hasNext())
+			{
+				PacienteBean pac = (PacienteBean) it_3.next();
+				result+= "<li>"+pac.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac.getApellidosNombre()) + "</li>";
+			}
+			result+="</ul><br/>";
+			
+		}
+		
+		return result;
+	}
 		
 }
 	

@@ -425,15 +425,15 @@ public class FicheroResiDetalleHelper {
 	}
 	public static String getResumenCIPSFichero(String spdUsuario, String idDivisionResidencia, String idProceso) throws Exception
 	{
-		List<PacienteBean> cipsFicheroResiConSpdNo = FicheroResiDetalleDAO.getCipsFicheroResiConSpdNo(spdUsuario, idProceso );
-		List<PacienteBean> cipsFicheroResiSinMantenimiento = FicheroResiDetalleDAO.getCipsFicheroResiSinMantenimiento(spdUsuario, idProceso );
-		List<PacienteBean> cipsMantenimientoSinFicheroResi = FicheroResiDetalleDAO.getMantenimientoSinFicheroResi(spdUsuario, idDivisionResidencia, idProceso );
+		List<PacienteBean> cipsFicheroSiGestionSPDNo = FicheroResiDetalleDAO.getCipsFicheroSiGestionSPDNo(spdUsuario, idProceso );
+		List<PacienteBean> cipsFicheroSiGestionNo = FicheroResiDetalleDAO.getCipsFicheroSiGestionNo(spdUsuario, idDivisionResidencia, idProceso );
+		List<PacienteBean> cipsFicheroNoGestionSi = FicheroResiDetalleDAO.getCipsFicheroNoGestionSi(spdUsuario, idDivisionResidencia, idProceso );
 	
 		String result = "";
-		if(cipsFicheroResiConSpdNo!=null && cipsFicheroResiConSpdNo.size()>0)
+		if(cipsFicheroSiGestionSPDNo!=null && cipsFicheroSiGestionSPDNo.size()>0)
 		{
-			result+="<span class=''textoRojo''><b>Recibidos en fichero y SPD=''N'' en la gestión (no se enviarán a robot):</b></span><br/> <ul>";
-			Iterator it_1 = cipsFicheroResiConSpdNo.iterator();
+			result+="<span class=''textoRojo''><b>Fichero SI  -  Gestión SI pero SPD=''N''</b></span><br/> <ul>";
+			Iterator it_1 = cipsFicheroSiGestionSPDNo.iterator();
 			while(it_1.hasNext())
 			{
 				PacienteBean pac = (PacienteBean) it_1.next();
@@ -442,10 +442,10 @@ public class FicheroResiDetalleHelper {
 			result+="</ul><br/>";
 		}
 			
-		if(cipsFicheroResiSinMantenimiento!=null && cipsFicheroResiSinMantenimiento.size()>0)
+		if(cipsFicheroSiGestionNo!=null && cipsFicheroSiGestionNo.size()>0)
 		{
-			result+="<span class=''textoRojo''><b>Recibidos en fichero y no existen en la gestión ( se enviarán a robot):</b></span><br/> <ul>";
-			Iterator it_2 = cipsFicheroResiSinMantenimiento.iterator();
+			result+="<span class=''textoRojo''><b>Fichero SI - Gestión NO</b></span><br/> <ul>";
+			Iterator it_2 = cipsFicheroSiGestionNo.iterator();
 			while(it_2.hasNext())
 			{
 				PacienteBean pac = (PacienteBean) it_2.next();
@@ -454,10 +454,10 @@ public class FicheroResiDetalleHelper {
 			result+="</ul><br/>";
 		}
 			
-		if(cipsMantenimientoSinFicheroResi!=null && cipsMantenimientoSinFicheroResi.size()>0)
+		if(cipsFicheroNoGestionSi!=null && cipsFicheroNoGestionSi.size()>0)
 		{
-			result+="<span class=''textoRojo''><b>Recibidos NO recibidos en fichero y existentes en la gestión:</b></span><br/> <ul>";
-			Iterator it_3 = cipsMantenimientoSinFicheroResi.iterator();
+			result+="<span class=''textoRojo''><b>Fichero NO - Gestión SI:</b></span><br/> <ul>";
+			Iterator it_3 = cipsFicheroNoGestionSi.iterator();
 			while(it_3.hasNext())
 			{
 				PacienteBean pac = (PacienteBean) it_3.next();

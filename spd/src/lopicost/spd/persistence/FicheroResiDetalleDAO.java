@@ -2729,7 +2729,7 @@ public class FicheroResiDetalleDAO {
 
 
 
-	public static List<PacienteBean> getCipsFicheroResiConSpdNo(String spdUsuario, String idProceso) throws Exception {
+	public static List<PacienteBean> getCipsFicheroSiGestionSPDNo(String spdUsuario, String idProceso) throws Exception {
 		List<PacienteBean> result = new ArrayList<PacienteBean>();
 		Connection con = Conexion.conectar();
 		String qry = "	SELECT distinct p.oidpaciente, f.resiCIP, f.resiApellidosNombre ";
@@ -2737,12 +2737,13 @@ public class FicheroResiDetalleDAO {
 		qry+=  " 	LEFT JOIN dbo.bd_pacientes p on p.CIP = f.resiCIP and p.idDivisionResidencia = f.idDivisionResidencia ";
 	   	qry+=  " 	WHERE 1=1 ";
 		qry+=  " 	AND f.idProceso='" +idProceso+ "'";
+		qry+=  " 	and f.resiApellidosNombre is not null and f.resiApellidosNombre <>'' ";
 		qry+=  " 	AND p.SPD='N' ";
 		qry+=  "	AND f.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
-		qry+=  " 	ORDER BY f.resiApellidosNombre";
+		qry+=  " 	ORDER BY f.resiCIP";
 		
 		
-		System.out.println(className + "--> getCipsFicheroResiConSpdNo " + qry );		
+		System.out.println(className + "--> getCipsFicheroSiGestionSPDNo " + qry );		
 		ResultSet resultSet = null;
 		 	 	
 		
@@ -2763,10 +2764,47 @@ public class FicheroResiDetalleDAO {
 	   return result;
 	}
 
-	public static List<PacienteBean> getCipsFicheroResiSinMantenimiento(String spdUsuario, String idProceso) throws Exception {
+	
+	public static List<PacienteBean> getCipsFicheroSiGestionNo(String spdUsuario, String idDivisionResidencia, String idProceso) throws Exception {
 		List<PacienteBean> result = new ArrayList<PacienteBean>();
 		Connection con = Conexion.conectar();
-		String qry = "	SELECT distinct -1, f.resiCIP, f.resiApellidosNombre ";
+		String qry = "	SELECT distinct -1 as oidPaciente, f.resiCIP, f.resiApellidosNombre 	  ";
+		qry+=  " 	FROM dbo.SPD_ficheroResiDetalle f ";
+		qry+=  " 	LEFT JOIN dbo.bd_pacientes p on p.CIP = f.resiCIP and p.idDivisionResidencia = f.idDivisionResidencia ";
+	   	qry+=  " 	WHERE 1=1 ";
+		qry+=  " 	AND f.idProceso='" +idProceso+ "'";
+		qry+=  " 	and f.resiApellidosNombre is not null and f.resiApellidosNombre <>'' ";
+		qry+=  " 	AND f.resiCIP  in (SELECT distinct p.CIP FROM dbo.bd_pacientes p WHERE p.idDivisionResidencia='" +idDivisionResidencia+ "' AND p.SPD='S' ) ";
+		qry+=  "	AND f.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
+		qry+=  " 	ORDER BY f.resiCIP";
+		
+		
+		System.out.println(className + "--> getCipsFicheroSiGestionNo " + qry );		
+		ResultSet resultSet = null;
+		 	 	
+		
+		try {
+			PreparedStatement pstat = con.prepareStatement(qry);
+			resultSet = pstat.executeQuery();
+			while (resultSet.next()) {
+				PacienteBean pac = new PacienteBean();
+				pac.setOidPaciente(resultSet.getInt("oidPaciente"));
+				pac.setCIP(resultSet.getString("resiCIP"));
+				pac.setApellidosNombre(resultSet.getString("resiApellidosNombre"));
+					result.add(pac);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			}finally {con.close();}
+	   return result;
+	}
+	
+	
+	
+/*	public static List<PacienteBean> getCipsFicheroSiGestionNo(String spdUsuario, String idProceso) throws Exception {
+		List<PacienteBean> result = new ArrayList<PacienteBean>();
+		Connection con = Conexion.conectar();
+		String qry = "	SELECT distinct -1 as oidPaciente, f.resiCIP, f.resiApellidosNombre ";
 		qry+=  " 	FROM dbo.SPD_ficheroResiDetalle f  ";
 		qry+=  " 	LEFT JOIN dbo.bd_pacientes p on p.CIP = f.resiCIP and p.idDivisionResidencia = f.idDivisionResidencia ";
 	   	qry+=  " 	WHERE 1=1 ";
@@ -2795,9 +2833,9 @@ public class FicheroResiDetalleDAO {
 			}finally {con.close();}
 	   return result;
 	}
+*/
 
-
-	public static List<PacienteBean> getMantenimientoSinFicheroResi(String spdUsuario, String idDivisionResidencia, String idProceso) throws Exception {
+	public static List<PacienteBean> getCipsFicheroNoGestionSi(String spdUsuario, String idDivisionResidencia, String idProceso) throws Exception {
 		List<PacienteBean> result = new ArrayList<PacienteBean>();
 		Connection con = Conexion.conectar();
 		String qry = "	SELECT distinct p.oidpaciente, p.CIP, p.cognomsNom ";
@@ -2807,7 +2845,7 @@ public class FicheroResiDetalleDAO {
 		qry+=  " 	AND p.CIP not in (SELECT distinct f.resiCIP FROM dbo.SPD_ficheroResiDetalle f WHERE f.idProceso='" +idProceso+ "') ";
 		qry+=  " 	AND p.SPD='S' ";
 		qry+=  "	AND p.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
-		qry+=  " 	ORDER BY p.cognomsNom ";
+		qry+=  " 	ORDER BY p.CIP ";
 		
 		System.out.println(className + "--> getMantenimientoSinFicheroResi " + qry );		
 		ResultSet resultSet = null;

@@ -2774,7 +2774,7 @@ public class FicheroResiDetalleDAO {
 	   	qry+=  " 	WHERE 1=1 ";
 		qry+=  " 	AND f.idProceso='" +idProceso+ "'";
 		qry+=  " 	and f.resiApellidosNombre is not null and f.resiApellidosNombre <>'' ";
-		qry+=  " 	AND f.resiCIP  in (SELECT distinct p.CIP FROM dbo.bd_pacientes p WHERE p.idDivisionResidencia='" +idDivisionResidencia+ "' AND p.SPD='S' ) ";
+		qry+=  " 	AND f.resiCIP NOT in (SELECT distinct p.CIP FROM dbo.bd_pacientes p WHERE p.idDivisionResidencia='" +idDivisionResidencia+ "'  ) ";
 		qry+=  "	AND f.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
 		qry+=  " 	ORDER BY f.resiCIP";
 		

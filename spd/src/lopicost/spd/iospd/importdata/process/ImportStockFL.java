@@ -1,28 +1,18 @@
 
 package lopicost.spd.iospd.importdata.process;
 
-import lopicost.spd.controller.SpdLogAPI;
 import lopicost.spd.model.BdConsejo;
-import lopicost.spd.model.DivisionResidencia;
-import lopicost.spd.model.GestSustituciones;
-import lopicost.spd.model.GestSustitucionesXResi;
 import lopicost.spd.model.farmacia.StockFL;
 import lopicost.spd.persistence.BdConsejoDAO;
-import lopicost.spd.persistence.DivisionResidenciaDAO;
-import lopicost.spd.persistence.GestSustitucionesDAO;
 import lopicost.spd.persistence.StockFL_DAO;
-import lopicost.spd.struts.bean.FicheroResiBean;
-import lopicost.spd.struts.form.BdConsejoForm;
-import lopicost.spd.utils.DateUtilities;
 import lopicost.spd.utils.StringUtil;
 import  lopicost.spd.utils.TextManager;
 
-import java.util.Date;
-import java.util.TreeMap;
+
 import java.util.Vector;
 
 /**
- * Método encargado de importar el stock de Farmalogic para cruzarlos con los pedidos de farmacia
+ * Método encargado de importar el stock de Farmalogic, con stock mínimo de farmacias) 
  * @author CARLOS
  *
  */
@@ -48,13 +38,13 @@ public class ImportStockFL extends ImportProcessImpl
     {
     }
      
-    
+
     /*
       * @see lopicost.spd.iospd.importdata.process.ImportProcessImpl#procesarEntrada(java.lang.String, java.lang.String, java.util.Vector, int)
      */
-    public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count) throws Exception 
+    public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception 
     {
-        if (row!=null && row.size()>=11)
+        if (row!=null && row.size()>=2)
         {
      		boolean result = creaRegistro(row);
         
@@ -74,36 +64,58 @@ public class ImportStockFL extends ImportProcessImpl
         	stock.setCn6(stock.getCnFL().substring(0, 6));
     	}
     	catch ( Exception e){
-    		stock.setCn6(stock.getCnFL());
+    		stock.setCn6(stock.getCn6());
     	}
-    	
-    	stock.setNombreMedicamento((String) row.elementAt(1));		
-    	stock.setPrincActivo((String) row.elementAt(2));		
-     	stock.setProveedor((String) row.elementAt(3));							
-     	stock.setExistencias((String) row.elementAt(4));	
-     	stock.setLote((String) row.elementAt(5));	
-     	stock.setCaducidad((String) row.elementAt(6));
-     	stock.setFechaMaximaPedido((String) row.elementAt(7));
-     	stock.setPvl_venta((String) row.elementAt(8));
-     	stock.setDto_venta((String) row.elementAt(9));
-     	stock.setPuv((String) row.elementAt(10));
-    	stock.setAlmacen((String) row.elementAt(11));
-    	     	
 		//Miramos si existe en bbdd consejo 
     	BdConsejo bdConsejo = BdConsejoDAO.getByCN(stock.getCn6());
     	
  		if(bdConsejo!=null)
 		{
-			stock.setCodGtVm(bdConsejo.getCodGtVm());
-			stock.setNomGtVm(bdConsejo.getNomGtVm());
-			stock.setCodGtVmp(bdConsejo.getCodGtVmp());
-			stock.setNomGtVmp(bdConsejo.getNomGtVmp());
+		   	stock.setNombreMedicamento(bdConsejo.getNombreConsejo());
+	     	stock.setCodigoLaboratorio(bdConsejo.getCodigoLaboratorio());							
+	     	stock.setNombreLaboratorio(bdConsejo.getNombreLaboratorio());							
 			stock.setCodGtVmpp(bdConsejo.getCodGtVmpp());
 			stock.setNomGtVmpp(bdConsejo.getNomGtVmpp());
-			
+	     	try{
+	     		stock.setPvl( String.valueOf(bdConsejo.getPvl()));
+	     	}
+	     	catch(Exception e){}
+	     	stock.setStockMinimo((String) row.elementAt(1));	
+	     	stock.setExistencias((String) row.elementAt(2));	
+	     	try{
+	     		stock.setDto_venta((String) row.elementAt(3));
+	     	}
+	     	catch(Exception e){}
+	     	
+			StockFL stockPrevio = StockFL_DAO.getbyCN(stock.getCnFL());
+			if(stockPrevio!=null) StockFL_DAO.eliminaStockFL(stock.getCnFL());
+	 		result=StockFL_DAO.nuevo(stock);
+
+	 		
+	 		
 		}
- 		result=StockFL_DAO.nuevo(stock);
-		if(!result)
+
+ 		
+
+		/*stock.setCodGtVm(bdConsejo.getCodGtVm());
+	   	//stock.setPrincActivo((String) row.elementAt(2));		
+		stock.setNomGtVm(bdConsejo.getNomGtVm());
+		stock.setCodGtVmp(bdConsejo.getCodGtVmp());
+		stock.setNomGtVmp(bdConsejo.getNomGtVmp());
+	   	stock.setCodGtVm(bdConsejo.getCodGtVm());
+	   	stock.setCodGtVmp(bdConsejo.getCodGtVmp());
+	   	stock.setCodGtVmpp(bdConsejo.getCodGtVmpp());
+	   	stock.setNomGtVm(bdConsejo.getNomGtVm());
+	   	stock.setNomGtVmp(bdConsejo.getNomGtVmp());
+	   	stock.setNomGtVmpp(bdConsejo.getNomGtVmpp());
+    	stock.setAlmacen((String) row.elementAt(3));
+     	stock.setLote((String) row.elementAt(5));	
+     	stock.setCaducidad((String) row.elementAt(6));
+     	stock.setFechaMaximaPedido((String) row.elementAt(7));*/
+
+
+ 		
+ 		if(!result)
 		{
 			throw new Exception ("No se ha podido crear el registro STOCK_FL");
 			//errors.add( "Registro sust creado correctamente ");
@@ -120,7 +132,7 @@ public class ImportStockFL extends ImportProcessImpl
 
 	protected boolean beforeStart(String filein) throws Exception 
     {
-        boolean borrado = StockFL_DAO.eliminaTodosRegistros();
+        //boolean borrado = StockFL_DAO.eliminaTodosRegistros();
         return true;
     }
 
@@ -128,12 +140,7 @@ public class ImportStockFL extends ImportProcessImpl
     {
     }
 
-	@Override
-	protected void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count,
-			boolean cargaAnexa) throws Exception {
-		// TODO Esbozo de método generado automáticamente
-		
-	}
+
 
 }
 

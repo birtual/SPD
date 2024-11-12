@@ -53,7 +53,7 @@ public class BdConsejoDAO {
     	
   		String qry = "select distinct c.codigo, coalesce(c.nombre, '') + ' ' + coalesce(c.presentacion, '') as nombreConsejo,  ";
   			qry+=  " c.codiLABO, c.nomLABO, c.CodGtVmp, c.NomGtVmp, c.CodGtVm, c.NomGtVm, c.FormaFarmaceutica, c.NomFormaFarmaceutica, c.CodGtVmpp,   ";
-			qry+=  " c.NomGtVmpp, emblistable, sustituible ";
+			qry+=  " c.NomGtVmpp, emblistable, sustituible, pvl ";
   			qry+=  " from dbo.bd_consejo c ";
   			qry+=  " where 1=1 ";
   			qry+=  " and c.codigo = '"+cn6+"' ";
@@ -662,6 +662,7 @@ public class BdConsejoDAO {
         	c.setCodGtVmpp(resultSet.getString("CodGtVmpp"));
           	c.setNomGtVmpp(resultSet.getString("NomGtVmpp"));               	
            	c.setNombreFormaFarmaceutica(resultSet.getString("nomFormaFarmaceutica"));
+           	c.setPvl(resultSet.getFloat("pvl"));
            	c.setEmblistable(resultSet.getString("emblistable")); 
            	c.setSustituible(resultSet.getString("sustituible"));
            	

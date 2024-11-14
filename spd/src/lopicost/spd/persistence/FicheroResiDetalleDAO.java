@@ -2854,7 +2854,6 @@ public class FicheroResiDetalleDAO {
 		try {
 			PreparedStatement pstat = con.prepareStatement(qry);
 			resultSet = pstat.executeQuery();
-			resultSet.next();
 			while (resultSet.next()) {
 				PacienteBean pac = new PacienteBean();
 				pac.setOidPaciente(resultSet.getInt("oidPaciente"));

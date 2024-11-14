@@ -436,8 +436,9 @@ public class FicheroResiDetalleHelper {
 			Iterator it_1 = cipsFicheroSiGestionSPDNo.iterator();
 			while(it_1.hasNext())
 			{
-				PacienteBean pac = (PacienteBean) it_1.next();
-				result+= "<li>"+pac.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac.getApellidosNombre()) + "</li>";
+				PacienteBean pac1 = (PacienteBean) it_1.next();
+				result+= "<li>"+pac1.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac1.getApellidosNombre()) + "</li>";
+				System.out.println("1 - Se añade Diferencia CIP: " + pac1.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac1.getApellidosNombre()));
 			}
 			result+="</ul><br/>";
 		}
@@ -448,8 +449,9 @@ public class FicheroResiDetalleHelper {
 			Iterator it_2 = cipsFicheroSiGestionNo.iterator();
 			while(it_2.hasNext())
 			{
-				PacienteBean pac = (PacienteBean) it_2.next();
-				result+= "<li>"+pac.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac.getApellidosNombre()) + "</li>";
+				PacienteBean pac2 = (PacienteBean) it_2.next();
+				result+= "<li>"+pac2.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac2.getApellidosNombre()) + "</li>";
+				System.out.println("2 - Se añade Diferencia CIP: " + pac2.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac2.getApellidosNombre()));
 			}
 			result+="</ul><br/>";
 		}
@@ -460,8 +462,9 @@ public class FicheroResiDetalleHelper {
 			Iterator it_3 = cipsFicheroNoGestionSi.iterator();
 			while(it_3.hasNext())
 			{
-				PacienteBean pac = (PacienteBean) it_3.next();
-				result+= "<li>"+pac.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac.getApellidosNombre()) + "</li>";
+				PacienteBean pac3 = (PacienteBean) it_3.next();
+				result+= "<li>"+pac3.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac3.getApellidosNombre()) + "</li>";
+				System.out.println("3 - Se añade Diferencia CIP: " + pac3.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac3.getApellidosNombre()));
 			}
 			result+="</ul><br/>";
 			

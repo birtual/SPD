@@ -136,8 +136,10 @@
 		 	<% 
 			    String oidFicheroResiCabecera = data.getOidFicheroResiCabecera()+"";
 		    %>
+				
 					    
-				<tr>
+				
+					<tr>
 					<!-- td><bean:write name="data" property="idDivisionResidencia" /></td> -->
 					<td class="a150"><a href="javascript:goDetalle('<bean:write name="data" property="oidDivisionResidencia" />', '<bean:write name="data" property="idProceso" />', '<bean:write name="data" property="oidFicheroResiCabecera" />');"><bean:write name="data" property="idProceso" /></a> <br></td>
 					<td class="derecha a40"><bean:write name="data" property="fechaHoraProceso" /></td>
@@ -145,8 +147,10 @@
 					<!-- td class="derecha"><a href="javascript:abrirVentanaErrores('<bean:write name="data" property="oidFicheroResiCabecera" />', '<bean:write name="data" property="errores" />');"><bean:write name="data" property="numErrores" /></a></td> -->
 					<td class="derecha"><a href="javascript:abrirVentanaErrores('<bean:write name="data" property="oidFicheroResiCabecera" />', '<bean:write name="data" property="idProceso" />');"><bean:write name="data" property="numErrores" /></a></td> 
 					<td class="derecha">
+
+						<!--c:when test="${(fn:contains(idUsuario, 'test') || fn:contains(idUsuario, 'admin')) && data.oidFicheroResiCabecera > 1365}" -->
 						<c:choose>
-			    		<c:when test="${(fn:contains(idUsuario, 'test') || fn:contains(idUsuario, 'admin')) && data.oidFicheroResiCabecera > 1365}">
+			    		<c:when test="${ data.oidFicheroResiCabecera > 1365}"> 
 							<a href="javascript:abrirResumenCIPS('<bean:write name="data" property="oidFicheroResiCabecera" />', '<bean:write name="data" property="idProceso" />');"><bean:write name="data" property="cipsTotalesProceso" /></a> 
 			    		</c:when>
 			    		<c:otherwise>

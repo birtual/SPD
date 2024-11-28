@@ -1,5 +1,6 @@
 package lopicost.spd.persistence;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -766,7 +767,7 @@ public class FicheroResiDetalleDAO {
 			   String tablaCab = historico ? TABLA_CAB_HISTORICO : TABLA_CAB_ACTIVA;
 			   
 
-			   String qry =   " SELECT distinct g.idProceso, g.idProceso + ' - ' + c.idEstado as idEstado";
+			   String qry =   " SELECT distinct g.oidFicheroResiCabecera, g.idProceso, g.idProceso + ' - ' + c.idEstado as idEstado";
 			    		qry+= " FROM "+tabla+" g INNER JOIN "+tablaCab+" c ON g.oidFicheroResiCabecera = c.oidFicheroResiCabecera  ";
 						qry+= " WHERE g.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
 			    		qry+= " AND g.resiCIP ='" + CIP+"' ";
@@ -780,6 +781,7 @@ public class FicheroResiDetalleDAO {
 			 	         resultSet = pstat.executeQuery();
 			 	         while (resultSet.next()) {
 			 	        	FicheroResiBean f = new FicheroResiBean();
+			 	        	f.setOidFicheroResiCabecera(resultSet.getInt("oidFicheroResiCabecera"));
 			 	        	f.setIdProceso(resultSet.getString("idProceso"));
 			 	        	f.setIdEstado(resultSet.getString("idEstado"));
 				 	       	result.add(f);
@@ -1933,7 +1935,7 @@ public class FicheroResiDetalleDAO {
 		
 		
 
-		private static FicheroResiBean creaFicheroResiBean(ResultSet resultSet) throws SQLException {
+		private static FicheroResiBean creaFicheroResiBean(ResultSet resultSet) throws SQLException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 			FicheroResiBean f = new FicheroResiBean();
 	         if (resultSet!=null) {
 		     	f.setIdDivisionResidencia(resultSet.getString("idDivisionResidencia"));
@@ -1982,30 +1984,16 @@ public class FicheroResiDetalleDAO {
 				f.setResiInicioTratamientoParaSPD(resultSet.getString("resiInicioTratamientoParaSPD")!=null&&!resultSet.getString("resiInicioTratamientoParaSPD").equalsIgnoreCase("null")?resultSet.getString("resiInicioTratamientoParaSPD"):""); 
 				f.setResiFinTratamiento(resultSet.getString("resiFinTratamiento")!=null&&!resultSet.getString("resiFinTratamiento").equalsIgnoreCase("null")?resultSet.getString("resiFinTratamiento"):""); 
 				f.setResiFinTratamientoParaSPD(resultSet.getString("resiFinTratamientoParaSPD")!=null&&!resultSet.getString("resiFinTratamientoParaSPD").equalsIgnoreCase("null")?resultSet.getString("resiFinTratamientoParaSPD"):""); 
-		     	f.setResiToma1(resultSet.getString("resiToma1")!=null&&!resultSet.getString("resiToma1").equalsIgnoreCase("null")?resultSet.getString("resiToma1"):""); 
-		     	f.setResiToma2(resultSet.getString("resiToma2")!=null&&!resultSet.getString("resiToma2").equalsIgnoreCase("null")?resultSet.getString("resiToma2"):""); 
-		     	f.setResiToma3(resultSet.getString("resiToma3")!=null&&!resultSet.getString("resiToma3").equalsIgnoreCase("null")?resultSet.getString("resiToma3"):""); 
-		     	f.setResiToma4(resultSet.getString("resiToma4")!=null&&!resultSet.getString("resiToma4").equalsIgnoreCase("null")?resultSet.getString("resiToma4"):""); 
-		     	f.setResiToma5(resultSet.getString("resiToma5")!=null&&!resultSet.getString("resiToma5").equalsIgnoreCase("null")?resultSet.getString("resiToma5"):""); 
-		     	f.setResiToma6(resultSet.getString("resiToma6")!=null&&!resultSet.getString("resiToma6").equalsIgnoreCase("null")?resultSet.getString("resiToma6"):""); 
-		     	f.setResiToma7(resultSet.getString("resiToma7")!=null&&!resultSet.getString("resiToma7").equalsIgnoreCase("null")?resultSet.getString("resiToma7"):""); 
-		     	f.setResiToma8(resultSet.getString("resiToma8")!=null&&!resultSet.getString("resiToma8").equalsIgnoreCase("null")?resultSet.getString("resiToma8"):""); 
-		     	f.setResiToma9(resultSet.getString("resiToma9")!=null&&!resultSet.getString("resiToma9").equalsIgnoreCase("null")?resultSet.getString("resiToma9"):""); 
-		     	f.setResiToma10(resultSet.getString("resiToma10")!=null&&!resultSet.getString("resiToma10").equalsIgnoreCase("null")?resultSet.getString("resiToma10"):""); 
-		     	f.setResiToma11(resultSet.getString("resiToma11")!=null&&!resultSet.getString("resiToma11").equalsIgnoreCase("null")?resultSet.getString("resiToma11"):""); 
-		     	f.setResiToma12(resultSet.getString("resiToma12")!=null&&!resultSet.getString("resiToma12").equalsIgnoreCase("null")?resultSet.getString("resiToma12"):""); 
-		     	f.setResiToma13(resultSet.getString("resiToma13")!=null&&!resultSet.getString("resiToma13").equalsIgnoreCase("null")?resultSet.getString("resiToma13"):""); 
-		     	f.setResiToma14(resultSet.getString("resiToma14")!=null&&!resultSet.getString("resiToma14").equalsIgnoreCase("null")?resultSet.getString("resiToma14"):""); 
-		     	f.setResiToma15(resultSet.getString("resiToma15")!=null&&!resultSet.getString("resiToma15").equalsIgnoreCase("null")?resultSet.getString("resiToma15"):""); 
-		     	f.setResiToma16(resultSet.getString("resiToma16")!=null&&!resultSet.getString("resiToma16").equalsIgnoreCase("null")?resultSet.getString("resiToma16"):""); 
-		     	f.setResiToma17(resultSet.getString("resiToma17")!=null&&!resultSet.getString("resiToma17").equalsIgnoreCase("null")?resultSet.getString("resiToma17"):""); 
-		     	f.setResiToma18(resultSet.getString("resiToma18")!=null&&!resultSet.getString("resiToma18").equalsIgnoreCase("null")?resultSet.getString("resiToma18"):""); 
-		     	f.setResiToma19(resultSet.getString("resiToma19")!=null&&!resultSet.getString("resiToma19").equalsIgnoreCase("null")?resultSet.getString("resiToma19"):""); 
-		     	f.setResiToma20(resultSet.getString("resiToma20")!=null&&!resultSet.getString("resiToma20").equalsIgnoreCase("null")?resultSet.getString("resiToma20"):""); 
-		     	f.setResiToma21(resultSet.getString("resiToma21")!=null&&!resultSet.getString("resiToma21").equalsIgnoreCase("null")?resultSet.getString("resiToma21"):""); 
-		     	f.setResiToma22(resultSet.getString("resiToma22")!=null&&!resultSet.getString("resiToma22").equalsIgnoreCase("null")?resultSet.getString("resiToma22"):""); 
-		     	f.setResiToma23(resultSet.getString("resiToma23")!=null&&!resultSet.getString("resiToma23").equalsIgnoreCase("null")?resultSet.getString("resiToma23"):""); 
-		     	f.setResiToma24(resultSet.getString("resiToma24")!=null&&!resultSet.getString("resiToma24").equalsIgnoreCase("null")?resultSet.getString("resiToma24"):""); 
+
+		     	// Usar un bucle para asignar los valores
+				// optimiza y sustituye al f.setResiToma24(resultSet.getString("resiToma24")!=null&&!resultSet.getString("resiToma24").equalsIgnoreCase("null")?resultSet.getString("resiToma24"):""); 
+
+		     	for (int i = 1; i <= 24; i++) {
+		     	    String columnName = "resiToma" + i;
+		     	    f.getClass().getMethod("setResiToma" + i, String.class).invoke(f, getSafeString(resultSet, columnName));
+		     	}
+		     	
+		     	
 		     	HelperSPD.eliminaTomasCero(f);			
 		     	boolean hayAsteriscos=HelperSPD.hayNumerosAsteriscos(f);
 		     	f.setRow(resultSet.getInt("row"));
@@ -2032,6 +2020,13 @@ public class FicheroResiDetalleDAO {
 				f.setResiD5(resultSet.getString("resiD5")!=null&&!resultSet.getString("resiD5").equalsIgnoreCase("null")?resultSet.getString("resiD5"):""); 
 				f.setResiD6(resultSet.getString("resiD6")!=null&&!resultSet.getString("resiD6").equalsIgnoreCase("null")?resultSet.getString("resiD6"):""); 
 				f.setResiD7(resultSet.getString("resiD7")!=null&&!resultSet.getString("resiD7").equalsIgnoreCase("null")?resultSet.getString("resiD7"):""); 
+		     	
+				for (int i = 1; i <= 7; i++) {
+		     	    String columnName = "resiD" + i;
+		     	    f.getClass().getMethod("setResiD" + i, String.class).invoke(f, getSafeString(resultSet, columnName));
+		     	}
+		     	
+		     	
 				f.setResiDiasAutomaticos(resultSet.getString("diasAutomaticos")!=null&&!resultSet.getString("diasAutomaticos").equalsIgnoreCase("null")?resultSet.getString("diasAutomaticos"):""); 
 				f.setFechaDesde(resultSet.getString("fechaDesde")!=null&&!resultSet.getString("fechaDesde").equalsIgnoreCase("null")?resultSet.getString("fechaDesde"):""); 
 				f.setFechaHasta(resultSet.getString("fechaHasta")!=null&&!resultSet.getString("fechaHasta").equalsIgnoreCase("null")?resultSet.getString("fechaHasta"):""); 
@@ -2410,7 +2405,7 @@ public class FicheroResiDetalleDAO {
 		}
 
 
-		public static List<FicheroResiBean> getCambiosProcesos(String idUsuario, String proceso1, String proceso2) throws SQLException {
+		public static List<FicheroResiBean> getCambiosProcesos(String idUsuario, String proceso1, String proceso2) throws SQLException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 			Connection con = Conexion.conectar();
 			List<FicheroResiBean>  list = new ArrayList<FicheroResiBean>();
 			 
@@ -2867,6 +2862,11 @@ public class FicheroResiDetalleDAO {
 	   return result;
 	}
 
+    // Método auxiliar para obtener el valor limpio del resultSet
+ 	private static String getSafeString(ResultSet resultSet, String columnName) throws SQLException {
+ 	    String value = resultSet.getString(columnName);
+ 	    return (value != null && !value.equalsIgnoreCase("null")) ? value : "";
+ 	}
 
 
 	

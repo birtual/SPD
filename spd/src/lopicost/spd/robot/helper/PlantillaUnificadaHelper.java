@@ -60,12 +60,12 @@ public class PlantillaUnificadaHelper {
 		return XMLRobotDao.borraProcesosResidencia(idUsuario,  cab);
 	}
 	//Paso2
-	public static TomasOrdenadas getTomasOrdenadas(String idUsuario, FicheroResiBean cabDetalle) throws SQLException {
-		return XMLRobotDao.getTomasOrdenadas(idUsuario,  cabDetalle);
+	public static TomasOrdenadas getTomasOrdenadas(String idUsuario, FicheroResiBean cab) throws SQLException {
+		return XMLRobotDao.getTomasOrdenadas(idUsuario,  cab);
 	}
 	
 	//Paso3
-	public static List<DetallesTomasBean> getDetalleTomasRobot(String idUsuario, FicheroResiBean cabDetalle, TomasOrdenadas tomasGlobal) throws SQLException, ClassNotFoundException, ParseException {
+	public static List<DetallesTomasBean> getDetalleTomasRobot(String idUsuario, FicheroResiBean cabDetalle, TomasOrdenadas tomasGlobal) throws Exception {
 		return XMLRobotDao.getDetalleTomasRobot(idUsuario,  cabDetalle, tomasGlobal);
 	}
 	
@@ -188,8 +188,8 @@ public class PlantillaUnificadaHelper {
 	}
 	
 	//Paso5
-	public static boolean procesarExcepciones(String idUsuario, FicheroResiBean cab) throws SQLException, ParseException, ClassNotFoundException {
-		 return  XMLRobotDao.procesarExcepciones(idUsuario,  cab);
+	public static boolean procesarExcepciones(String idUsuario, FicheroResiBean cabGlobal, FicheroResiBean cabDetalle) throws Exception {
+		 return  XMLRobotDao.procesarExcepciones(idUsuario,  cabGlobal, cabDetalle);
     }
 	
 	

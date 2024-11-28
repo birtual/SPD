@@ -1,10 +1,6 @@
 package lopicost.spd.struts.action;
 
 
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -25,59 +21,46 @@ import lopicost.spd.helium.model.*;
 import lopicost.spd.helper.FicheroResiDetalleHelper;
 import lopicost.spd.iospd.IOSpdApi;
 import lopicost.spd.iospd.exportdata.process.ExcelFicheroResiDetallePlantUnifLite;
-import lopicost.spd.model.DivisionResidencia;
-import lopicost.spd.model.FicheroResiCabecera;
+import lopicost.spd.model.*;
 
 import lopicost.spd.persistence.*;
 import lopicost.spd.robot.bean.DetallesTomasBean;
 import lopicost.spd.robot.helper.PlantillaUnificada;
 import lopicost.spd.robot.helper.PlantillaUnificadaHelper;
-import lopicost.spd.robot.model.FiliaDM;
-import lopicost.spd.robot.model.FiliaRX;
-import lopicost.spd.robot.model.TomasOrdenadas;
+import lopicost.spd.robot.model.*;
+import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.form.FicheroResiForm;
 import lopicost.spd.utils.DateUtilities;
 import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
+import lopicost.spd.utils.StringUtil;
 public class FicheroResiCabeceraLiteAction extends GenericAction  {
 
 	FicheroResiCabeceraDAO dao= new  FicheroResiCabeceraDAO();
 	FicheroResiDetalleDAO daoDetalle= new  FicheroResiDetalleDAO();
 	
 	   
-	public ActionForward list(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ActionForward list(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<FicheroResiCabecera> resultList= new ArrayList<FicheroResiCabecera>();
 		FicheroResiForm formulari =  (FicheroResiForm) form;
 		
 		//inicializamos para que no haya datos de otros módulos al venir de un borrado por ejemplo
 		formulari.setOidFicheroResiCabecera(0);
 		formulari.setIdUsuario(getIdUsuario());
-		//formulari.setListaFicheroResiCabeceraBean(dao.getListaDivisionResidenciasCargadas(getIdUsuario()));
-		//formulari.setListaProcesosCargados(dao.getProcesosCargados(getIdUsuario(), formulari.getOidDivisionResidencia()));
-		//formulari.setListaEstadosCabecera(dao.getEstados(getIdUsuario(), formulari.getOidDivisionResidencia(), formulari.getFiltroProceso()));
 		//paginación
 		int currpage = actualizaCurrentPage(formulari, dao.getCountGestFicheroResi(getIdUsuario(), formulari));
 		formulari.setListaDivisionResidenciasCargadas(dao.getListaDivisionResidenciasCargadas(getIdUsuario()));
 	
 		formulari.setListaFicheroResiCabeceraBean(dao.getGestFicheroResi(getIdUsuario(), formulari, currpage*SPDConstants.PAGE_ROWS,(currpage+1)*SPDConstants.PAGE_ROWS, null, false));
-	
-		//creación de log en BBDD
-		/*
-		try{
-			SpdLogAPI.addLog(getIdUsuario(), "",  formulari.getIdDivisionResidencia(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CONSULTA, SpdLogAPI.C_LISTADO, "SpdLog.produccion.consulta.listado", "." );
-		}catch(Exception e){}	
-		*/
-		IOSpdApi.actualizaEstadosSinFinalizar(); //control de procesos colgados
+		//control y eliminación de procesos colgados
+		IOSpdApi.actualizaEstadosSinFinalizar(); 
 		
 		return mapping.findForward("list");
 	}
 	
 
-	public ActionForward detalle(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ActionForward detalle(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		FicheroResiForm formulari =  (FicheroResiForm) form;
 		//creación de log en BBDD
 		try{
@@ -88,10 +71,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 	}
 	
 
-	public ActionForward borrar(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		
+	public ActionForward borrar(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List errors = new ArrayList();
 
 		FicheroResiForm formulari =  (FicheroResiForm) form;
@@ -111,16 +91,13 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			
 		if(result)
 		{
-		//	errors.add(SPDConstants.MSG_LEVEL_INFO, new ActionMessage("Registro borrado correctamente Info"));
 			errors.add( "Registro borrado correctamente ");
 			//creación de log en BBDD
 			try{
 				SpdLogAPI.addLog(getIdUsuario(), "", formulari.getIdDivisionResidencia(), formulari.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_BORRADO, "", "SpdLog.produccion.borrado", formulari.getIdProceso() );
 			}catch(Exception e){}	//Borrado de la producción.
 		}
-		else
-		
-		if (!result){
+		else if (!result){
 			 errors.add( new Date() +  " Error en el borrado del proceso");
 			 log(" [FicheroResiCabeceraAction_BORRABLE] -borrar()- ERROR borrando filas del proceso: "+formulari.getIdDivisionResidencia() +" - " + formulari.getIdProceso(),Logger.ERROR);
 			throw new Exception(new Date() +  " Error al eliminar filas del proceso");					
@@ -129,38 +106,76 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			formulari.setErrors(errors);
 			return mapping.findForward("list");
 		}
-
-	
 		return mapping.findForward("borrar");
 	}
 
 	
 
-	public ActionForward editar(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ActionForward editar(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		List errors = new ArrayList();
 				
 		FicheroResiForm formulari =  (FicheroResiForm) form;
-		
-	
-		List cabs = dao.getGestFicheroResi(getIdUsuario(), formulari, 0, 1, null, false);
-		
-		FicheroResiBean cab =null;
-		try {cab =(FicheroResiBean)cabs.get(0);}catch(Exception e){}
+
+	    FicheroResiBean cab = FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(getIdUsuario(), formulari.getOidFicheroResiCabecera());
 		formulari.setFicheroResiDetalleBean(cab);
+		
+		String fechaDesde=cab.getFechaDesde();
+		if(fechaDesde==null || fechaDesde.equals("") || fechaDesde.equalsIgnoreCase("null"))
+			fechaDesde = DateUtilities.getDate(HelperSPD.obtenerFechaDesde(cab.getIdProceso()), "yyyyMMdd", "dd/MM/yyyy");  
+		
+		String fechaHasta=cab.getFechaHasta();			
+		if(fechaHasta==null || fechaHasta.equals("") || fechaHasta.equalsIgnoreCase("null"))
+			fechaHasta = DateUtilities.getDate(HelperSPD.obtenerFechaHasta(cab.getIdProceso()), "yyyyMMdd", "dd/MM/yyyy");  
+		
+		//Lógica dedicada a extraer una nueva fecha desde y hasta (siempre dentro del rango de fechas escogido) En caso que no existan se indican los escogidos de la carga
+		String nuevaFechaDesde = cab.getNuevaFechaDesde();
+		if(nuevaFechaDesde==null || nuevaFechaDesde.equals("") || nuevaFechaDesde.equalsIgnoreCase("null"))
+			nuevaFechaDesde= fechaDesde;
+		
+		String nuevaFechaHasta = cab.getNuevaFechaHasta();
+		if(nuevaFechaHasta==null || nuevaFechaHasta.equals("") || nuevaFechaHasta.equalsIgnoreCase("null"))
+	    	nuevaFechaHasta= fechaHasta;  
+
+		//recuperamos las tomas
+		List<CabecerasXLSBean> tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), cab.getOidDivisionResidencia(), cab.getOidFicheroResiCabecera());
+		formulari.setListaTomasCabecera(tomasCabecera);
+		//recuperamos las tomas de inicio/fin, en caso que existan
+		String nuevaTomaDesde=cab.getNuevaTomaDesde();
+		String nuevaTomaHasta=cab.getNuevaTomaHasta();
+
+		if(nuevaTomaDesde==null || nuevaTomaDesde.equals(""))
+		{
+			CabecerasXLSBean primerDiaDesdeToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, null, null, null, true, false);
+			if(primerDiaDesdeToma!=null)
+				nuevaTomaDesde=primerDiaDesdeToma.getIdToma();
+		}
+		if(nuevaTomaHasta==null || nuevaTomaHasta.equals(""))
+		{
+			CabecerasXLSBean ultimoDiaHastaToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, null, null, null, false, true);
+			if(ultimoDiaHastaToma!=null)
+			{
+				nuevaTomaHasta = ultimoDiaHastaToma.getIdToma();
+			}
+		}
+
+  	    
 		boolean result=false;
 		if(errors.isEmpty() && formulari.getACTIONTODO()!=null && formulari.getACTIONTODO().equals("CONFIRMADO_OK"))
 		{
-			String antesCab=cab.getFree1() + " | " +cab.getFree2()+ " | " + cab.getFree3()+ " | " ;
-			result=dao.editarFrees(getIdUsuario(), cab,  formulari);
-			String despuesCab=formulari.getFree1() + " | " +formulari.getFree2()+ " | " + formulari.getFree3()+ " | " ;
-			boolean hayCambios =   ! Objects.equals(antesCab, despuesCab);
+			nuevaFechaDesde = formulari.getNuevaFechaDesde();
+			nuevaFechaHasta = formulari.getNuevaFechaHasta();
+			nuevaTomaDesde = formulari.getNuevaTomaDesde();
+			nuevaTomaHasta = formulari.getNuevaTomaHasta();
+			
+			String antesCab= " | Nueva FechaDesde  " +cab.getNuevaFechaDesde() + " | Nueva FechaHasta " +cab.getNuevaFechaHasta() + " | toma 1er día desde  " +cab.getNuevaTomaDesde() + " | toma último día hasta " +cab.getNuevaTomaHasta() + " | Nota 1 " +cab.getFree1() + " | Nota 2 " +cab.getFree2()+ " | Nota 3 " + cab.getFree3()+ " | " ;
+			result=dao.editarCabecera(getIdUsuario(), cab,  formulari);
+			String despuesCab = " | Nueva FechaDesde  " +formulari.getNuevaFechaDesde() + " | Nueva FechaHasta " +formulari.getNuevaFechaHasta() + " | toma 1er día desde  " +formulari.getNuevaTomaDesde() + " | toma último día hasta " +formulari.getNuevaTomaHasta() + " | Nota 1 " +formulari.getFree1() + " | Nota 2 " +formulari.getFree2()+ " | Nota 3 " + formulari.getFree3()+ " | " ;
+			boolean hayCambios =   ! Objects.equals(StringUtil.limpiarTextoTomas(antesCab), StringUtil.limpiarTextoTomas(despuesCab));
 			if(result && hayCambios)
 			{
 			//	errors.add(SPDConstants.MSG_LEVEL_INFO, new ActionMessage("Registro borrado correctamente Info"));
-				errors.add( new Date() +  " Registro modificado correctamente ");
+				errors.add(" Registro modificado correctamente ");
 				try{
 					SpdLogAPI.addLog(getIdUsuario(), "",  cab.getIdDivisionResidencia(), cab.getIdProceso(),  SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_EDICION, "", "SpdLog.produccion.edicion"
 							, new String[]{antesCab, despuesCab} );
@@ -173,12 +188,20 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 				throw new Exception("Error al editar la cabecera del proceso");					
 			}
 			
+
 			
 			list( mapping,  form,  request,  response);
 			formulari.setErrors(errors);
 			return mapping.findForward("list");
 		}
-
+		
+  	    formulari.setFechaDesde(fechaDesde);
+		formulari.setFechaHasta(fechaHasta);
+  	    formulari.setNuevaFechaDesde(nuevaFechaDesde);
+  	    formulari.setNuevaFechaHasta(nuevaFechaHasta);
+  	    formulari.setNuevaTomaDesde(nuevaTomaDesde);
+  	    formulari.setNuevaTomaHasta(nuevaTomaHasta);
+ 
 		return mapping.findForward("editar");
 	}
 
@@ -276,49 +299,10 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 						,  nombreFichero );
 			}catch(Exception e){}	//Exportada a Excel, nombre fichero @@.
 			
-			
-			/*
-			
-			//aprovechamos y lanzamos el cálculo de previsión de comprimidos necesarios.
-	        if((cab.getFechaCalculoPrevision()==null || cab.getFechaCalculoPrevision().equals("")) && cab.isProcesoValido())
-	        {
-	        	// Crear un hilo para ejecutar el método actualizarPrevision()
-	            Thread actualizarPrevisionThread = new Thread(() -> {
-	                try {
-						actualizarPrevision(cab, formulari);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 
-	                // Aquí puedes enviar algún tipo de señal al cliente, como un mensaje o un código de estado
-	                // (esto dependerá de tu lógica específica y de cómo manejas la respuesta en el cliente)
-	                // response.getWriter().write("Proceso actualizadoPrevision completado");
-	            });
-
-	            // Iniciar el hilo
-	            actualizarPrevisionThread.start();
-
-	            try {
-	                // Esperar a que el hilo termine antes de continuar
-	                actualizarPrevisionThread.join();
-	            } catch (InterruptedException e) {
-	                // Manejar la interrupción si es necesario
-	                e.printStackTrace();
-	            }
-	        }
-	        
-	        */
-			
-		        //formulari.setParameter("list");
-	    	//return mapping.findForward("list");
-			
 			return actionForward;
 	}
 
-	
-	//actualizarPrevision
-	
 
 
 	public void log (String message, int level)
@@ -439,13 +423,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 					try{
 						SpdLogAPI.addLog("AUTO", "",  formulari.getIdDivisionResidencia(), formulari.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CREACION, SpdLogAPI.C_PREVISION, "SpdLog.produccion.creacion.prevision", formulari.getIdProceso() );
 					}catch(Exception e){}	//De forma automática se actualiza la previsión para report de discrepancias de la residencia@@
-					
 		        }
-		        
-		        
-					
-				
-				
 			}
 			else
 				if (!result){
@@ -453,7 +431,6 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 				 log("[FicheroResiCabeceraAction_BORRABLE] - actualizarPrevision () - actualizando previsión de la fila: "+formulari.getIdDivisionResidencia() +" - " + formulari.getIdProceso(),Logger.ERROR);
 			//	throw new Exception("Error en la actualización de previsión de consumo");					
 			}
-	
 		
 			formulari.setErrors(errors);
 			
@@ -487,55 +464,41 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			Center careHome = HeliumHelper.getCenterFicherosHelium(getIdUsuario(), formulari);
 			String nombreFichero=HeliumHelper.generaFichero(careHome,  response);
 
-		//	PlantillaUnificadaHelper.procesaDetalleTomasRobot(getIdUsuario(), cabDetalle, div);
-
-			//	FiliaDM filiaDM = PlantillaUnificada.creaFicheroDM(getIdUsuario(), cabDetalle, div);
-			//	FiliaRX filiaRX = PlantillaUnificada.creaFicheroRX(getIdUsuario(), cabDetalle, div);
-			//	String nombreFicheroFiliaDM=PlantillaUnificadaHelper.generaFichero(cabDetalle, filiaDM,  response);
-			//	String nombreFicheroFiliaRX=PlantillaUnificadaHelper.generaFicheroRX(cabDetalle, filiaRX,  response);
-
+			//dejamos log
+			try{
+				SpdLogAPI.addLog(getIdUsuario(), "",  formulari.getIdDivisionResidencia(), cab.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CREACION, SpdLogAPI.C_FICHERO_HELIUM
+						, "SpdLog.produccion.creacion.ficherohelium", nombreFichero );
+			}catch(Exception e){}	//Creación del fichero Helium con nombre @@.
+				
 			
-				//dejamos log
-				try{
-					SpdLogAPI.addLog(getIdUsuario(), "",  formulari.getIdDivisionResidencia(), cab.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CREACION, SpdLogAPI.C_FICHERO_HELIUM
-							, "SpdLog.produccion.creacion.ficherohelium", nombreFichero );
-				}catch(Exception e){}	//Creación del fichero Helium con nombre @@.
-				
-				
-				//aprovechamos y lanzamos el cálculo de previsión de comprimidos necesarios. En caso que no se haya calculado previamente
-		        if(nombreFichero!=null && !nombreFichero.equals("") && (cab.getFechaCalculoPrevision()==null || cab.getFechaCalculoPrevision().equals("")))
-		        {
-		        	// Crear un hilo para ejecutar el método actualizarPrevision()
-		            Thread actualizarPrevisionThread = new Thread(() -> {
-		                try {
-							actualizarPrevision(cab, formulari);
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+			//aprovechamos y lanzamos el cálculo de previsión de comprimidos necesarios. En caso que no se haya calculado previamente
+	        if(nombreFichero!=null && !nombreFichero.equals("") && (cab.getFechaCalculoPrevision()==null || cab.getFechaCalculoPrevision().equals("")))
+	        {
+	        	// Crear un hilo para ejecutar el método actualizarPrevision()
+	            Thread actualizarPrevisionThread = new Thread(() -> {
+	                try {
+						actualizarPrevision(cab, formulari);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+               // Aquí se puede enviar algún tipo de señal al cliente, como un mensaje o un código de estado
+               // response.getWriter().write("Proceso actualizadoPrevision completado");
+	            });
 
-		                // Aquí puedes enviar algún tipo de señal al cliente, como un mensaje o un código de estado
-		                // (esto dependerá de tu lógica específica y de cómo manejas la respuesta en el cliente)
-		                // response.getWriter().write("Proceso actualizadoPrevision completado");
-		            });
-
-		            // Iniciar el hilo
-		            actualizarPrevisionThread.start();
-
-		            try {
-		                // Esperar a que el hilo termine antes de continuar
-		                actualizarPrevisionThread.join();
-		            } catch (InterruptedException e) {
-		                // Manejar la interrupción si es necesario
-		                e.printStackTrace();
-		            }
-		        }
-		        
-		        
-		}
+	            // Iniciar el hilo
+	            actualizarPrevisionThread.start();
+	            try {
+                // Esperar a que el hilo termine antes de continuar
+	                actualizarPrevisionThread.join();
+	            } catch (InterruptedException e) {
+	                // Manejar la interrupción si es necesario
+	                e.printStackTrace();
+	            }
+	        }
+			}
 		else 
 			formulari.getErrors().add("Proceso con registros a confirmar o revisar");
-			
 	}
 
 	
@@ -555,11 +518,12 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
     	// Paso4 - Procesar los detallesBean para insertarlos en BBDD
     	PlantillaUnificadaHelper.procesarDetalleTomasRobot(getIdUsuario(), cabDetalle, listaDetallesTomas, tomasOrdenadas);
     	 // Paso5 - Procesar Excepciones (Falguera) 
-    	PlantillaUnificadaHelper.procesarExcepciones(getIdUsuario(),  cabDetalle);
+    	PlantillaUnificadaHelper.procesarExcepciones(getIdUsuario(), cab,  cabDetalle);
         // Paso6 - Creación del FiliaDM 
    		FiliaDM filiaDM = PlantillaUnificada.creaFicheroDM(getIdUsuario(), cabDetalle);
    		FiliaRX filiaRX = PlantillaUnificada.creaFicheroRX(getIdUsuario(), cabDetalle, div);
 
+   		
    		String nombreFicheroFiliaDM=PlantillaUnificadaHelper.generaFicheroDM(cabDetalle, filiaDM,  response);
    	    boolean fileDMGenerated = (nombreFicheroFiliaDM != null && !nombreFicheroFiliaDM.isEmpty());
    	    String nombreFicheroFiliaRX="";
@@ -569,6 +533,14 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
    	   		nombreFicheroFiliaRX=PlantillaUnificadaHelper.generaFicheroRX(cabDetalle, filiaRX,  response);
    	    }
    	    boolean fileRXGenerated = (nombreFicheroFiliaRX != null && !nombreFicheroFiliaRX.isEmpty());
+   		
+   		try
+   		{
+   			fileRXGenerated = !filiaRX.getPatients().isEmpty();
+   		}catch(Exception e){
+   			fileRXGenerated=false;
+   		}
+   	    
    	    String path = SPDConstants.PATH_DOCUMENTOS+"/robot/";
    	    
   	    request.setAttribute("fileDMGenerated", fileDMGenerated); // Indica si el archivo fue generado
@@ -608,23 +580,101 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
             
 			//dejamos log
 			try{
-				SpdLogAPI.addLog(getIdUsuario(), "",  formulari.getIdDivisionResidencia(), cab.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CREACION, SpdLogAPI.C_FICHERO_ROBOT_UNIFICADA
+				SpdLogAPI.addLog(getIdUsuario(), "",  cab.getIdDivisionResidencia(), cab.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CREACION, SpdLogAPI.C_FICHERO_ROBOT_UNIFICADA
 						, "SpdLog.produccion.creacion.ficheroRobotUnificada", nombreFicheroFiliaDM + " y " +  nombreFicheroFiliaRX);
 			}catch(Exception e){}	//Creación del fichero Helium con nombre @@.
-			
-
         }
-        
-        
-        
+        else 
+        	return mapping.findForward("sinDatosRX");
+          
    		return mapping.findForward("generarFicherosDMyRX");
 	}
 
+	public ActionForward confirmacionFicheros(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<String> avisos = new ArrayList<>();
+		request.setAttribute("estado", "confirma");
+	    FicheroResiForm formulari =  (FicheroResiForm) form;
+	    FicheroResiBean cab = FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(getIdUsuario(), formulari.getOidFicheroResiCabecera());
+	    String fechaDesde=cab.getFechaDesde();
+	    String fechaHasta=cab.getFechaHasta();
+	    String nuevaFechaDesde=cab.getNuevaFechaDesde();
+	    String nuevaFechaHasta=cab.getNuevaFechaHasta();
+	    
+		if(fechaDesde==null || fechaDesde.equals(""))
+			fechaDesde = DateUtilities.getDate(HelperSPD.obtenerFechaDesde(cab.getIdProceso()), "yyyyMMdd", "dd/MM/yyyy");  
+		if(fechaHasta==null || fechaHasta.equals(""))
+			fechaHasta = DateUtilities.getDate(HelperSPD.obtenerFechaHasta(cab.getIdProceso()), "yyyyMMdd", "dd/MM/yyyy");  
+		if(nuevaFechaDesde==null || nuevaFechaDesde.equals(""))
+			nuevaFechaDesde= fechaDesde;
+		if(nuevaFechaHasta==null || nuevaFechaHasta.equals(""))
+	    	nuevaFechaHasta= fechaHasta;  
+
+  	    formulari.setFechaDesde(fechaDesde);
+		formulari.setFechaHasta(fechaHasta);
+  	    formulari.setNuevaFechaDesde(nuevaFechaDesde);
+  	    formulari.setNuevaFechaHasta(nuevaFechaHasta);
+	    
+	    //gestión de las tomas de inicio del primer día y de fñin del último día
+  	    String inicioTomaPrimerDia="";
+	   	String finTomaUltimoDia="";
+  	    
+	   	CabecerasXLSBean primerDiaDesdeToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, null, null, null, true, false);
+		CabecerasXLSBean ultimoDiaHastaToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, null, null, null, false, true);
+		if(primerDiaDesdeToma==null || ultimoDiaHastaToma==null)
+		{
+			TomasOrdenadas tomasOrdenadas = PlantillaUnificadaHelper.getTomasOrdenadas(getIdUsuario(),  cab);	
+			try{
+				if(primerDiaDesdeToma==null)
+				{
+	  	   			primerDiaDesdeToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, tomasOrdenadas.getIdTomas().get(0), null, null, false, false);
+				}
+				//else inicioTomaPrimerDia = primerDiaDesdeToma.getIdToma();
+	  	   	}catch(Exception e){}
+			try{
+				if(ultimoDiaHastaToma==null)
+				{
+					ultimoDiaHastaToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, tomasOrdenadas.getIdTomas().get(tomasOrdenadas.getIdTomas().size()-1), null, null, false, true);
+				}
+				//else finTomaUltimoDia = ultimoDiaHastaToma.getIdToma();
+	  	   	}catch(Exception e){}
+		}
+ 	   	
+	    //si alguna de las nuevaFecha son diferentes a las escogidas para la carga se envía aviso informando el nuevo rango para producción
+  	    avisos.add("Datos originales en la carga -->  Desde el " + fechaDesde + " ("+(primerDiaDesdeToma!=null?primerDiaDesdeToma.getNombreToma():"") + ") hasta el " +  fechaHasta  +" ("+(ultimoDiaHastaToma!=null?ultimoDiaHastaToma.getNombreToma():"") + ")\n");
+  	  
+		//una vez tenemos las tomas de inicio/fin estándar, miramos si el gestor ha modificado las tomas en esta producción, que tendrían preferencia.
+ 	   	if(cab.getNuevaTomaDesde()!=null && !cab.getNuevaTomaDesde().equals("") && inicioTomaPrimerDia!=null && !cab.getNuevaTomaDesde().equals(inicioTomaPrimerDia))
+    		primerDiaDesdeToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, cab.getNuevaTomaDesde(), null, null, false, false);
+    	if(cab.getNuevaTomaHasta()!=null && !cab.getNuevaTomaHasta().equals("") && finTomaUltimoDia!=null && !cab.getNuevaTomaHasta().equals(finTomaUltimoDia))
+    		ultimoDiaHastaToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, cab.getNuevaTomaHasta(), null, null, false, false);
+
+    	
+    	if(
+    		(nuevaFechaDesde!=null && !nuevaFechaDesde.equals("") && fechaDesde!=null && !nuevaFechaDesde.equals(fechaDesde))
+	    		||
+	    	(nuevaFechaHasta!=null && !nuevaFechaHasta.equals("") && fechaHasta!=null && !nuevaFechaHasta.equals(fechaHasta))	
+    			||
+        	(cab.getNuevaTomaDesde()!=null && !cab.getNuevaTomaDesde().equals("") && inicioTomaPrimerDia!=null && !cab.getNuevaTomaDesde().equals(inicioTomaPrimerDia))
+    			||
+	    	(cab.getNuevaTomaHasta()!=null && !cab.getNuevaTomaHasta().equals("") && finTomaUltimoDia!=null && !cab.getNuevaTomaHasta().equals(finTomaUltimoDia))	
+	    	)
+    	{
+    		avisos.clear();
+    		avisos.add(" Atención - Las fechas se han modificado en la edición");
+    		avisos.add(" Desde el " + nuevaFechaDesde + " ("+(primerDiaDesdeToma!=null?primerDiaDesdeToma.getNombreToma():"") + ") ");
+    		avisos.add(" hasta el " + nuevaFechaHasta + " ("+(ultimoDiaHastaToma!=null?ultimoDiaHastaToma.getNombreToma():"") + ") ");
+    	}
+
+
+   	
+    	//formulari.setErrors(errors);
+    	request.setAttribute("avisos", avisos);
+	    return mapping.findForward("generarFicheros");
+	}
 	public ActionForward generarFicheros(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 	    request.setAttribute("estado", "inicio");
 	    return mapping.findForward("generarFicheros");
 	}
-
 
 	
 	public ActionForward addTratamientosEnProyectoExistente(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -653,15 +703,9 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
         request.setAttribute("url", url);
 
         
-        
 		return mapping.findForward("addTratamientosEnProyecto");
 	}
 
-
-	
-  
-
-	
 	
 	/**
 	 * método de ayuda a la paginación

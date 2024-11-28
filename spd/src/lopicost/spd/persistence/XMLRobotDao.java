@@ -7,6 +7,7 @@ import lopicost.spd.model.DivisionResidencia;
 import lopicost.spd.robot.bean.DetallesTomasBean;
 import lopicost.spd.robot.helper.PlantillaUnificadaHelper;
 import lopicost.spd.robot.model.*;
+import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.utils.*;
 import lopicost.config.pool.dbaccess.Conexion;
@@ -36,12 +37,12 @@ public class XMLRobotDao
     	return ejecutarSentencia(queryBorrado1);
 	}
     //Paso2
-	public static TomasOrdenadas getTomasOrdenadas(String idUsuario, FicheroResiBean cabDetalle) throws SQLException {
+	public static TomasOrdenadas getTomasOrdenadas(String idUsuario, FicheroResiBean cab) throws SQLException {
         // Obtener la correspondencia de posiciones
         Connection con = Conexion.conectar();
         ResultSet rs = null;
         PreparedStatement pstat = null;
-        String ordenQuery = "SELECT posicionEnBBDD, posicionEnVistas, nombreToma, idToma FROM dbo.SPD_cabecerasXLS WHERE idDivisionResidencia = '"+cabDetalle.getIdDivisionResidencia()+"' ORDER BY posicionEnVistas ";
+        String ordenQuery = "SELECT posicionEnBBDD, posicionEnVistas, nombreToma, idToma FROM dbo.SPD_cabecerasXLS WHERE idDivisionResidencia = '"+cab.getIdDivisionResidencia()+"' ORDER BY posicionEnVistas ";
         pstat = con.prepareStatement(ordenQuery);
         rs = pstat.executeQuery();
 
@@ -61,7 +62,7 @@ public class XMLRobotDao
 	}
 
 	//Paso3 - Recuperar Listado de detalleTomas ya ordenadas
-	public static List<DetallesTomasBean> getDetalleTomasRobot(String idUsuario, FicheroResiBean cab, TomasOrdenadas tomasGlobal)throws SQLException, ParseException, ClassNotFoundException {
+	public static List<DetallesTomasBean> getDetalleTomasRobot(String idUsuario, FicheroResiBean cab, TomasOrdenadas tomasGlobal)throws Exception {
 		List<DetallesTomasBean> resultado = new ArrayList<DetallesTomasBean>();
         Connection con = Conexion.conectar();
         ResultSet rs = null;
@@ -97,7 +98,7 @@ public class XMLRobotDao
             rs = pstat.executeQuery();
             while (rs.next()) 
             {
-            	DetallesTomasBean bean = creaBeanPaso1DetallesTomas(cab, rs, posiciones, nombresTomas);
+            	DetallesTomasBean bean = creaBeanPaso1DetallesTomas(idUsuario, cab, rs, posiciones, nombresTomas);
             	resultado.add(bean);
               		  
             }
@@ -417,10 +418,12 @@ public class XMLRobotDao
 	}
 
 
-	private static DetallesTomasBean creaBeanPaso1DetallesTomas(FicheroResiBean cab, ResultSet rs, List<Integer> posiciones, List<String> nombresTomas) throws ParseException, SQLException {
+	private static DetallesTomasBean creaBeanPaso1DetallesTomas(String idUsuario, FicheroResiBean cab, ResultSet rs, List<Integer> posiciones, List<String> nombresTomas) throws Exception {
 
 		DetallesTomasBean bean = new DetallesTomasBean();
 
+		FicheroResiBean cabeceraTop=FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(idUsuario, cab.getOidFicheroResiCabecera());
+		
 	   	bean.setCIP(rs.getString("CIP"));
 	   	
 	   	bean.setCIP(rs.getString("CIP"));
@@ -440,10 +443,24 @@ public class XMLRobotDao
 		
 	   	SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyyMMdd");
         SimpleDateFormat formatoObjetivo = new SimpleDateFormat("dd/MM/yyyy");
-            // Convertir las fechas del rango a objetos Date
-        Date dateDesde = (Date) formatoEntrada.parse(rs.getString("fechaDesde"));
-        Date dateHasta = (Date) formatoEntrada.parse(rs.getString("fechaHasta"));
 
+        //fecha de inicio SPD, teniendo en cuenta las posibles nuevas Fechas modificadas 
+        String fechaInicioSPD = cabeceraTop.getNuevaFechaDesde();
+        if(fechaInicioSPD==null || fechaInicioSPD.equals(""))
+        	fechaInicioSPD = cabeceraTop.getFechaDesde();
+        if(fechaInicioSPD==null || fechaInicioSPD.equals(""))
+        	fechaInicioSPD=DateUtilities.getDateOrDateDefault(rs.getString("fechaDesde"), "yyyyMMdd", "dd/MM/yyyy");
+        Date dateDesde = (Date) formatoObjetivo.parse(fechaInicioSPD);
+        	
+        //fecha fin de SPD
+        String fechaFinSPD = cabeceraTop.getNuevaFechaHasta();
+        if(fechaFinSPD==null || fechaFinSPD.equals(""))
+        	fechaFinSPD=DateUtilities.getDateOrDateDefault(cabeceraTop.getFechaHasta(), "yyyyMMdd", "dd/MM/yyyy");
+        if(fechaFinSPD==null || fechaFinSPD.equals(""))
+        	fechaFinSPD=DateUtilities.getDateOrDateDefault(rs.getString("fechaHasta"), "yyyyMMdd", "dd/MM/yyyy");
+        Date dateHasta = (Date) formatoObjetivo.parse(fechaFinSPD);
+        	
+ 
        	String fechaInicioTratamiento=rs.getString("resiInicioTratamiento");
        	String fechaFinTratamiento=rs.getString("resiFinTratamiento");
       	String fechaInicioTratamientoSPD=rs.getString("resiInicioTratamientoParaSPD");
@@ -527,8 +544,8 @@ public class XMLRobotDao
 					qry+= "  	AND d.spdAccionBolsa in ('SOLO_INFO', 'PASTILLERO')  ";
 					qry+= "  	AND ISNUMERIC(RIGHT(d.spdCnFinal, 6))=1 ";
                     qry+= "  	AND (p.SPD='S' or p.SPD is null)  ";
-                    qry+= "  	AND COALESCE(NULLIF(resiInicioTratamientoParaSPD, ''), NULLIF(resiInicioTratamiento, ''))<= CAST(fechaHasta AS DATE)  "; //-- fechaInicioResi<= hastaSPD  
-                    qry+= "  	AND COALESCE(NULLIF(resiFinTratamientoParaSPD, ''),  NULLIF(resiFinTratamiento, ''), CAST('2999-12-31' AS DATE))  >= CAST(fechaDesde AS DATE)   "; //  -- fechaFinResi >= inicioSPD   
+                    qry+= "  	AND COALESCE(NULLIF(resiInicioTratamientoParaSPD, ''), NULLIF(resiInicioTratamiento, ''))<= CAST(d.fechaHasta AS DATE)  "; //-- fechaInicioResi<= hastaSPD  
+                    qry+= "  	AND COALESCE(NULLIF(resiFinTratamientoParaSPD, ''),  NULLIF(resiFinTratamiento, ''), CAST('2999-12-31' AS DATE))  >= CAST(d.fechaDesde AS DATE)   "; //  -- fechaFinResi >= inicioSPD   
                     		                      
                     qry+= "  	) ";
                     qry+= "  SELECT code, name, stockLocation, barcode, oneBottleQuantity ";
@@ -586,25 +603,50 @@ public class XMLRobotDao
 
 
 
-	public static boolean procesarExcepciones(String idUsuario, FicheroResiBean cab) throws ClassNotFoundException, SQLException {
+	public static boolean procesarExcepciones(String idUsuario, FicheroResiBean cabGlobal, FicheroResiBean cabDetalle) throws Exception {
 		//Excepción Falguera, eliminar bolsas anteriores a las 16h del primer día y posteriores a las 15h del último día
 		boolean result=true;
 		String sql ="";
-		if(cab.getIdDivisionResidencia()!=null && cab.getIdDivisionResidencia().equalsIgnoreCase("general_mt_falguera")) 
+		
+		String fechaDesde = (cabGlobal.getNuevaFechaDesde()!=null && !cabGlobal.getNuevaFechaDesde().equals("")?cabGlobal.getNuevaFechaDesde():cabGlobal.getFechaDesde());
+		if(fechaDesde==null || fechaDesde.equals(""))
+			fechaDesde = cabDetalle.getFechaDesde();
+		
+		String fechaHasta = (cabGlobal.getNuevaFechaHasta()!=null && !cabGlobal.getNuevaFechaHasta().equals("")?cabGlobal.getNuevaFechaHasta():cabGlobal.getFechaHasta());
+		if(fechaHasta==null || fechaHasta.equals(""))
+			fechaHasta = cabDetalle.getFechaHasta();
+		
+		fechaDesde = DateUtilities.convertFormatDateString(fechaDesde, "dd/MM/yyyy", "yyyyMMdd");
+		fechaHasta = DateUtilities.convertFormatDateString(fechaHasta, "dd/MM/yyyy", "yyyyMMdd");
+
+		
+		//tratamiento de las tomas de inicio en el primer día y las finales del último. Por el siguiente orden:
+		//1 - Se recupera de la configuración de la cabecera global de la producción en curso por si se han modificado. 
+		//2 - En caso que no exista se recupera de la configuración general de las tomas de la residencia
+		//3 - Si existe alguno de los dos valores se borran los registros previos o posteriores.
+		
+		String horaInicioPrimerDia = cabGlobal.getNuevaTomaDesde();
+		String horaFinUltimoDia = cabGlobal.getNuevaTomaHasta();
+		
+		CabecerasXLSBean primerDiaDesdeToma = CabecerasXLSDAO.findByFilters(cabGlobal.getOidDivisionResidencia(), -1, -1, null, null, null, true, false);
+		CabecerasXLSBean ultimoDiaHastaToma = CabecerasXLSDAO.findByFilters(cabGlobal.getOidDivisionResidencia(), -1, -1, null, null, null, false, true);
+		
+		horaInicioPrimerDia=(cabGlobal.getNuevaTomaDesde()!=null && !cabGlobal.getNuevaTomaDesde().equals("")?cabGlobal.getNuevaTomaDesde():primerDiaDesdeToma.getIdToma());
+		horaFinUltimoDia=(cabGlobal.getNuevaTomaHasta()!=null && !cabGlobal.getNuevaTomaHasta().equals("")?cabGlobal.getNuevaTomaHasta():ultimoDiaHastaToma.getIdToma());
+
+		if((horaInicioPrimerDia!=null && !horaInicioPrimerDia.equals("")) || (horaFinUltimoDia!=null && !horaFinUltimoDia.equals("")))
+		//if(cabDetalle.getIdDivisionResidencia()!=null && cabDetalle.getIdDivisionResidencia().equalsIgnoreCase("general_mt_falguera")) 
 		{
-			String horaInicioPrimerDia="1600";
-			String horaFinUltimoDia="1500";
-			String fechaDesde = cab.getFechaDesde();
-			String fechaHasta = cab.getFechaHasta();
-			sql=" 	DELETE SPD_XML_detallesTomasRobot where idDivisionResidencia='"+cab.getIdDivisionResidencia()+"' and idProceso='"+cab.getIdProceso()+"' ";
-			//sql=" 	SELECT * from  SPD_XML_detallesTomasRobot where idDivisionResidencia='"+cab.getIdDivisionResidencia()+"' and idProceso='"+cab.getIdProceso()+"' ";
+			 //horaInicioPrimerDia="1600";
+			 //horaFinUltimoDia="1500";
+
+			sql=" 	DELETE SPD_XML_detallesTomasRobot where idDivisionResidencia='"+cabDetalle.getIdDivisionResidencia()+"' and idProceso='"+cabDetalle.getIdProceso()+"' ";
 			sql+=" 	AND ( ";
 			sql+=" 	(substring(idBolsa,charindex('[',idBolsa)-8,8) = '"+fechaDesde+"' AND CAST(idToma AS INT)  < CAST('" + horaInicioPrimerDia + "' AS INT))";
 			sql+=" 	 OR ";
 			sql+=" 	(substring(idBolsa,charindex('[',idBolsa)-8,8) = '"+fechaHasta+"' AND CAST(idToma AS INT)  > CAST('" + horaFinUltimoDia + "' AS INT))";
 			sql+=" 	) ";
 			result=ejecutarSentencia(sql) ;
-			
 		}
 
 		return result;

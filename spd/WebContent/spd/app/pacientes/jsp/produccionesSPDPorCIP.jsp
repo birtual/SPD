@@ -42,6 +42,23 @@
 			</logic:lessEqual>
 			</p>
 		</div>
+		
+		<logic:notEmpty  name="formulari" property="listaProcesosCargados" >	
+		<bean:define id="listaProcesos" name="formulari" property="listaProcesosCargados" />	 	
+	<% 
+	        // Acceder al primer elemento de la lista en un scriptlet
+	        List<?> procesos = (List<?>) pageContext.findAttribute("listaProcesos");
+	        Object beanDos = null;
+	        if (procesos != null && !procesos.isEmpty()) {
+	            beanDos = procesos.get(0);
+	            pageContext.setAttribute("beanDos", beanDos);
+	        }
+    %>
+		</logic:notEmpty> 	
+	<!-- Usar el bean definido (beanDos) en tu JSP -->
+		
+		    
+		
 		<logic:notEmpty  name="formulari" property="listaProcesosCargados">
 			<div>
 				<label for="campoGoogle" accesskey="e">Producciones</label>
@@ -50,8 +67,6 @@
 				</html:select>
 			</div>	
 		</logic:notEmpty>
-	
-	
 	<fieldset>
 
 	<logic:notEmpty  name="formulari" property="listaBeans">
@@ -125,40 +140,25 @@
 			    </c:when>
 			</c:choose>
 			</td>
-			<td><html:checkbox disabled="true" name="data" property="resiD1" value="X" /></td>
-			<td><html:checkbox disabled="true" name="data" property="resiD2" value="X" /></td>
-			<td><html:checkbox disabled="true" name="data" property="resiD3" value="X"/></td>
-			<td><html:checkbox disabled="true" name="data" property="resiD4" value="X"/></td>
-			<td><html:checkbox disabled="true" name="data" property="resiD5" value="X"/></td>
-			<td><html:checkbox disabled="true" name="data" property="resiD6" value="X"/></td>
-			<td><html:checkbox disabled="true" name="data" property="resiD7" value="X"/></td>
+
 		
-		
-			<logic:equal property="visibleToma1" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma1" /></td></logic:equal>
-			<logic:equal property="visibleToma2" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma2" /></td></logic:equal>
-			<logic:equal property="visibleToma3" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma3" /></td></logic:equal>
-			<logic:equal property="visibleToma4" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma4" /></td></logic:equal>
-			<logic:equal property="visibleToma5" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma5" /></td></logic:equal>
-			<logic:equal property="visibleToma6" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma6" /></td></logic:equal>
-			<logic:equal property="visibleToma7" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma7" /></td></logic:equal>
-			<logic:equal property="visibleToma8" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma8" /></td></logic:equal>
-			<logic:equal property="visibleToma9" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma9" /></td></logic:equal>
-			<logic:equal property="visibleToma10" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma10" /></td></logic:equal>
-			<logic:equal property="visibleToma11" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma11" /></td></logic:equal>
-			<logic:equal property="visibleToma12" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma12" /></td></logic:equal>
-			<logic:equal property="visibleToma13" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma13" /></td></logic:equal>
-			<logic:equal property="visibleToma14" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma14" /></td></logic:equal>
-			<logic:equal property="visibleToma15" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma15" /></td></logic:equal>
-			<logic:equal property="visibleToma16" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma16" /></td></logic:equal>
-			<logic:equal property="visibleToma17" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma17" /></td></logic:equal>
-			<logic:equal property="visibleToma18" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma18" /></td></logic:equal>
-			<logic:equal property="visibleToma19" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma19" /></td></logic:equal>
-			<logic:equal property="visibleToma20" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma20" /></td></logic:equal>
-			<logic:equal property="visibleToma21" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma21" /></td></logic:equal>
-			<logic:equal property="visibleToma22" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma22" /></td></logic:equal>
-			<logic:equal property="visibleToma23" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma23" /></td></logic:equal>
-			<logic:equal property="visibleToma24" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma24" /></td></logic:equal>
-		
+		<!-- DIAS <td><html:checkbox disabled="true" name="data" property="resiD7" value="X"/></td> -->
+		<c:forEach begin="1" end="7" var="i">
+		 	<td>
+				<html:checkbox disabled="true" name="data" property="resiD${i}" value="X"/>
+			</td>
+		</c:forEach>
+			
+		<!-- TOMAS <logic:equal property="visibleToma1" name="campos" value="true"><td class="toma"><bean:write name="data" property="resiToma1" /></td></logic:equal> -->
+		<c:forEach begin="1" end="24" var="i">
+		    <logic:equal property="visibleToma${i}" name="campos" value="true">
+		        <td class="toma">
+		            <bean:write name="data" property="resiToma${i}" />
+		        </td>
+		    </logic:equal>
+		</c:forEach>
+
+
 			<td><bean:write name="data" property="idEstado" /></td>
 			<td><bean:write name="data" property="editado" /></td>
 		</tr>

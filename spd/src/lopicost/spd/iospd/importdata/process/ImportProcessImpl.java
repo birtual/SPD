@@ -183,7 +183,7 @@ public abstract class ImportProcessImpl implements ImportProcess
 					this.setProcessedRows(this.getProcessedRows()+1);
 					// 3.- En caso de errores escribirlo en la salida
 					if(errores!=null)
-							this.setLastError(errores);
+							this.setLastError(StringUtil.limpiarTextoComentarios(errores));
 					errores = null;
 					
 					this.afterprocesarEntrada(rowInProcess);

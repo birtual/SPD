@@ -132,13 +132,13 @@ try {
 			f.submit();
 		}
 		
-		
-		function abrirVentanaFlotante(oidPaciente) {
-			
-		   
-		    // Abre una nueva ventana con la URL especificada
-		    
-		    
-		}
 
+		
+		
+		function confirmacionFicherosRobotResidente(oidPaciente, oidFicheroResiCabecera)
+		{
+			var url = "/spd/PrepararGeneracion.do?parameter=confirmacionFicheros&oidPaciente="+ oidPaciente + "&oidFicheroResiCabecera=" + oidFicheroResiCabecera +  "&operation=GENERAR_FICHEROS";
+	 		window.open(url, 'generarFicherosDMyRX', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
+		}
+		
     

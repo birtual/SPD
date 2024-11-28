@@ -13,12 +13,14 @@ public class CabecerasXLSBean {
     private String horaToma;
     private int langToma;
     private String tipo;
+    private boolean desdeTomaPrimerDia;
+    private boolean hastaTomaUltimoDia;
 
     // Constructor por defecto
     public CabecerasXLSBean() {
     }
 
-    public CabecerasXLSBean(String idDivisionResidencia, String horaToma, String nombreToma, int posicionEnBBDD, String tipo) {
+    public CabecerasXLSBean(String idDivisionResidencia, String horaToma, String nombreToma, int posicionEnBBDD, String tipo, boolean desdeTomaPrimerDia, boolean hastaTomaUltimoDia) {
     	this.idDivisionResidencia=idDivisionResidencia;
     	this.horaToma=horaToma;
     	this.nombreToma=nombreToma;
@@ -26,6 +28,8 @@ public class CabecerasXLSBean {
     	this.posicionEnVistas=posicionEnBBDD;
     	this.tipo=tipo;
     	this.idDivisionResidencia=idDivisionResidencia;
+    	this.desdeTomaPrimerDia = desdeTomaPrimerDia;
+    	this.hastaTomaUltimoDia = hastaTomaUltimoDia;
     }
     
     
@@ -109,4 +113,22 @@ public class CabecerasXLSBean {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+	public boolean isDesdeTomaPrimerDia() {
+		return desdeTomaPrimerDia;
+	}
+
+	public void setDesdeTomaPrimerDia(boolean desdeTomaPrimerDia) {
+		this.desdeTomaPrimerDia = desdeTomaPrimerDia;
+	}
+
+	public boolean isHastaTomaUltimoDia() {
+		return hastaTomaUltimoDia;
+	}
+
+	public void setHastaTomaUltimoDia(boolean hastaTomaUltimoDia) {
+		this.hastaTomaUltimoDia = hastaTomaUltimoDia;
+	}
+    
+    
 }

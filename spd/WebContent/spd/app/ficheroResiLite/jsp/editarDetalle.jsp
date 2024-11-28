@@ -189,17 +189,21 @@
 			<td><html:text name="data" property="spdCnFinal" /></td>
 			<td><html:textarea name="data" property="spdNombreBolsa" /></td>
 			<td nowrap><html:text name="data" property="resiInicioTratamientoParaSPD" /> - <html:text name="data" property="resiFinTratamientoParaSPD" /></td>
-			<td>
-				</br>
-				<logic:notEmpty name="FicheroResiForm" property="listaSpdAccionBolsa">	
-				<html:select property="spdAccionBolsa"  value="${data.spdAccionBolsa}" > 
-	   			<c:forEach items="${FicheroResiForm.listaSpdAccionBolsa}" var="bean"> 
-		       		 <option value='${bean}' ${data.spdAccionBolsa == bean ? 'selected' : ' '}><c:out value="${bean}" ></c:out></option>   
-	    		</c:forEach>                     
-				</html:select>
-			     </logic:notEmpty>	
-			</td>
 
+			<td>
+			    </br>
+			    <logic:notEmpty name="FicheroResiForm" property="listaSpdAccionBolsa">    
+			        <html:select property="spdAccionBolsa" value="${data.spdAccionBolsa != null ? data.spdAccionBolsa : ''}">
+			            <!-- Agregar opción vacía por defecto si no hay valor seleccionado -->
+			            <option value="" ${empty data.spdAccionBolsa ? 'selected' : ''}>Seleccione una opción</option> 
+			            <c:forEach items="${FicheroResiForm.listaSpdAccionBolsa}" var="bean"> 
+			                <option value='${bean}' ${data.spdAccionBolsa == bean ? 'selected' : ' '}>
+			                    <c:out value="${bean}" />
+			                </option>   
+			            </c:forEach>                     
+			        </html:select>
+			    </logic:notEmpty>  
+			</td>
 		  	<td class="pautasDia"><html:checkbox name="data" property="resiSiPrecisa" value="X" disabled="true" /></td>
 			<td><bean:write name="data" property="spdFormaMedicacion" /></td>
 			<td>

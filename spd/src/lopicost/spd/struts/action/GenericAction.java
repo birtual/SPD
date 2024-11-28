@@ -84,7 +84,7 @@ public abstract class GenericAction extends DispatchAction
 	    if (idUsuario == null || idUsuario.equals("")) 
 	    {
 	    	//errors.add( "Error sesión usuario, es necesario volver a hacer login");
-	    	session.setAttribute("error", "Error sesión usuario, es necesario volver a hacer login");
+	    	session.setAttribute("error", "Error sesión usuario, es necesario volver a hacer login.");
 	        return mapping.findForward("errorSession");
 	    }
 

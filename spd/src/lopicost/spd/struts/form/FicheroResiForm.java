@@ -253,6 +253,10 @@ public class FicheroResiForm   extends GenericForm {
 
 	private String fechaDesde;
 	private String fechaHasta;
+	private String nuevaFechaDesde;
+	private String nuevaFechaHasta;
+	private String nuevaTomaDesde;
+	private String nuevaTomaHasta;
 	
 	private String mensajesAlerta = "";
 	private String mensajesInfo = "";
@@ -1601,8 +1605,39 @@ public class FicheroResiForm   extends GenericForm {
 		this.listaIdentificador = listaIdentificador;
 	}
 
+	public String getNuevaFechaDesde() {
+		return nuevaFechaDesde;
+	}
 
-	
+	public void setNuevaFechaDesde(String nuevaFechaDesde) {
+		this.nuevaFechaDesde = nuevaFechaDesde;
+	}
+
+	public String getNuevaFechaHasta() {
+		return nuevaFechaHasta;
+	}
+
+	public void setNuevaFechaHasta(String nuevaFechaHasta) {
+		this.nuevaFechaHasta = nuevaFechaHasta;
+	}
+
+	public String getNuevaTomaDesde() {
+		return nuevaTomaDesde;
+	}
+
+	public void setNuevaTomaDesde(String nuevaTomaDesde) {
+		this.nuevaTomaDesde = nuevaTomaDesde;
+	}
+
+	public String getNuevaTomaHasta() {
+		return nuevaTomaHasta;
+	}
+
+	public void setNuevaTomaHasta(String nuevaTomaHasta) {
+		this.nuevaTomaHasta = nuevaTomaHasta;
+	}
+
+
 	
 	
 	

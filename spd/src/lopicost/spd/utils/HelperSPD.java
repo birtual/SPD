@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -2691,7 +2692,8 @@ public class HelperSPD{
 	
 	public static void actualizarBeanConFormulario(FicheroResiBean frb, FicheroResiForm formulari) throws ClassNotFoundException, SQLException {
 		if(frb!=null){
-			String cambios ="| en "+frb.getResiMedicamento()+" |" ;
+			String cabecera ="| en "+frb.getResiMedicamento()+" |" ;
+			String cambios ="" ;
 			if(existenDiferencias(frb.getResiCIP(), formulari.getResiCIP())){ 
 				cambios+="CIP: " + frb.getResiCIP() + "  cambiado a: " + formulari.getResiCIP() + " | "; 
 				frb.setResiCIP(formulari.getResiCIP());
@@ -2789,12 +2791,13 @@ public class HelperSPD{
 				
 				
 			}
-			
+			/* Este campo no lo cambia el usuario
 			if(!Objects.equals(frb.getResiFrecuencia(), formulari.getResiFrecuencia())) 
 			{
 				cambios+="ResiFrecuencia: " + frb.getResiFrecuencia() + "  cambiado a: " + formulari.getResiFrecuencia() + " | "; 
 				frb.setResiFrecuencia(formulari.getResiFrecuencia());
 			}
+			*/
 			if(existenDiferencias(frb.getResiPeriodo(), formulari.getResiPeriodo()))
 			{
 				cambios+="ResiPeriodo: " + frb.getResiPeriodo() + "  cambiado a: " + formulari.getResiPeriodo() + " | "; 
@@ -2842,163 +2845,56 @@ public class HelperSPD{
 				}
 				else frb.setResiSiPrecisa("");
 			}
-			if(existenDiferencias(frb.getResiD1(), formulari.getResiD1()))
-			{
-				cambios+="D1: " + frb.getResiD1() + "  cambiado a: " + formulari.getResiD1() + " | "; 
-				frb.setResiD1(formulari.getResiD1());
-			}
-			if(existenDiferencias(frb.getResiD2(), formulari.getResiD2()))
-			{
-				cambios+="D2: " + frb.getResiD2() + "  cambiado a: " + formulari.getResiD2() + " | "; 
-				frb.setResiD2(formulari.getResiD2());
-			}
-			if(existenDiferencias(frb.getResiD3(), formulari.getResiD3()))
-			{
-				cambios+="D3: " + frb.getResiD3() + "  cambiado a: " + formulari.getResiD3() + " | "; 
-				frb.setResiD3(formulari.getResiD3());
-			}
-			if(existenDiferencias(frb.getResiD4(), formulari.getResiD4()))
-			{
-				cambios+="D4: " + frb.getResiD4() + "  cambiado a: " + formulari.getResiD4() + " | "; 
-				frb.setResiD4(formulari.getResiD4());
-			}
-			if(existenDiferencias(frb.getResiD5(), formulari.getResiD5()))
-			{
-				cambios+="D5: " + frb.getResiD5() + "  cambiado a: " + formulari.getResiD5() + " | "; 
-				frb.setResiD5(formulari.getResiD5());
-			}
-			if(existenDiferencias(frb.getResiD6(), formulari.getResiD6())) 
-			{
-				cambios+="D6: " + frb.getResiD6() + "  cambiado a: " + formulari.getResiD6() + " | "; 
-				frb.setResiD6(formulari.getResiD6());
-			}
-			if(existenDiferencias(frb.getResiD7(), formulari.getResiD7())) 
-			{
-				cambios+="D7: " + frb.getResiD7() + "  cambiado a: " + formulari.getResiD7() + " | "; 
-				frb.setResiD7(formulari.getResiD7());
-			}
-			if(existenDiferencias(frb.getResiToma1(), formulari.getResiToma1()))
-			{
-				cambios+="T1: " + frb.getResiToma1() + "  cambiado a: " + formulari.getResiToma1() + " | "; 
-				frb.setResiToma1(formulari.getResiToma1());
-			}
-			if(existenDiferencias(frb.getResiToma2(), formulari.getResiToma2()))
-			{	
-				cambios+="T2: " + frb.getResiToma2() + "  cambiado a: " + formulari.getResiToma2() + " | "; 
-				frb.setResiToma2(formulari.getResiToma2());
-			}
-			if(existenDiferencias(frb.getResiToma3(), formulari.getResiToma3()))
-			{	
-				cambios+="T3: " + frb.getResiToma3() + "  cambiado a: " + formulari.getResiToma3() + " | "; 
-				frb.setResiToma3(formulari.getResiToma3());
-			}
-			if(existenDiferencias(frb.getResiToma4(), formulari.getResiToma4()))
-			{	
-				cambios+="T4: " + frb.getResiToma4() + "  cambiado a: " + formulari.getResiToma4() + " | "; 
-				frb.setResiToma4(formulari.getResiToma4());
-			}
-			if(existenDiferencias(frb.getResiToma5(), formulari.getResiToma5()))
-			{	
-				cambios+="T5: " + frb.getResiToma5() + "  cambiado a: " + formulari.getResiToma5() + " | "; 
-				frb.setResiToma5(formulari.getResiToma5());
-			}
-			if(existenDiferencias(frb.getResiToma6(), formulari.getResiToma6()))
-			{	
-				cambios+="T6: " + frb.getResiToma6() + "  cambiado a: " + formulari.getResiToma6() + " | "; 
-				frb.setResiToma6(formulari.getResiToma6());
-			}
-			if(existenDiferencias(frb.getResiToma7(), formulari.getResiToma7()))
-			{	
-				cambios+="T7: " + frb.getResiToma7() + "  cambiado a: " + formulari.getResiToma7() + " | "; 
-				frb.setResiToma7(formulari.getResiToma7());
-			}
-			if(existenDiferencias(frb.getResiToma8(), formulari.getResiToma8()))
-			{	
-				cambios+="T8: " + frb.getResiToma8() + "  cambiado a: " + formulari.getResiToma8() + " | "; 
-				frb.setResiToma8(formulari.getResiToma8());
-			}
-			if(existenDiferencias(frb.getResiToma9(), formulari.getResiToma9()))
-			{	
-				cambios+="T9: " + frb.getResiToma9() + "  cambiado a: " + formulari.getResiToma9() + " | "; 
-				frb.setResiToma9(formulari.getResiToma9());
-			}
-			if(existenDiferencias(frb.getResiToma10(), formulari.getResiToma10()))
-			{	
-				cambios+="T10: " + frb.getResiToma10() + "  cambiado a: " + formulari.getResiToma10() + " | "; 
-				frb.setResiToma10(formulari.getResiToma10());
-			}
-			if(existenDiferencias(frb.getResiToma11(), formulari.getResiToma11()))
-			{	
-				cambios+="T11: " + frb.getResiToma11() + "  cambiado a: " + formulari.getResiToma11() + " | "; 
-				frb.setResiToma11(formulari.getResiToma11());
-			}
-			if(existenDiferencias(frb.getResiToma12(), formulari.getResiToma12()))
-			{	
-				cambios+="T12: " + frb.getResiToma12() + "  cambiado a: " + formulari.getResiToma12() + " | "; 
-				frb.setResiToma12(formulari.getResiToma12());
-			}
-			if(existenDiferencias(frb.getResiToma13(), formulari.getResiToma13()))
-			{	
-				cambios+="T13: " + frb.getResiToma13() + "  cambiado a: " + formulari.getResiToma13() + " | "; 
-				frb.setResiToma13(formulari.getResiToma13());
-			}
-			if(existenDiferencias(frb.getResiToma14(), formulari.getResiToma14()))
-			{	
-				cambios+="T14: " + frb.getResiToma14() + "  cambiado a: " + formulari.getResiToma14() + " | "; 
-				frb.setResiToma14(formulari.getResiToma14());
-			}
-			if(existenDiferencias(frb.getResiToma15(), formulari.getResiToma15())) 
-			{	
-				cambios+="T15: " + frb.getResiToma15() + "  cambiado a: " + formulari.getResiToma15() + " | "; 
-				frb.setResiToma15(formulari.getResiToma15());
-			}
-			if(existenDiferencias(frb.getResiToma16(), formulari.getResiToma16()))
-			{	
-				cambios+="T16: " + frb.getResiToma16() + "  cambiado a: " + formulari.getResiToma16() + " | "; 
-				frb.setResiToma16(formulari.getResiToma16());
-			}
-			if(existenDiferencias(frb.getResiToma17(), formulari.getResiToma17())) 
-			{	
-				cambios+="T17: " + frb.getResiToma17() + "  cambiado a: " + formulari.getResiToma17() + " | "; 
-				frb.setResiToma17(formulari.getResiToma17());
-			}
-			if(existenDiferencias(frb.getResiToma18(), formulari.getResiToma18()))
-			{	
-				cambios+="T18: " + frb.getResiToma18() + "  cambiado a: " + formulari.getResiToma18() + " | "; 
-				frb.setResiToma18(formulari.getResiToma18());
-			}
-			if(existenDiferencias(frb.getResiToma19(), formulari.getResiToma19()))
-			{	
-				cambios+="T19: " + frb.getResiToma19() + "  cambiado a: " + formulari.getResiToma19() + " | "; 
-				frb.setResiToma19(formulari.getResiToma19());
-			}
-			if(existenDiferencias(frb.getResiToma20(), formulari.getResiToma20()))
-			{
-				cambios+="T20: " + frb.getResiToma20() + "  cambiado a: " + formulari.getResiToma20() + " | "; 
-				frb.setResiToma20(formulari.getResiToma20());
-			}
-			if(existenDiferencias(frb.getResiToma21(), formulari.getResiToma21())) 
-			{
-				cambios+="T21: " + frb.getResiToma21() + "  cambiado a: " + formulari.getResiToma21() + " | "; 
-				frb.setResiToma21(formulari.getResiToma21());
-			}
-			if(existenDiferencias(frb.getResiToma22(), formulari.getResiToma22()))
-			{
-				cambios+="T22: " + frb.getResiToma22() + "  cambiado a: " + formulari.getResiToma22() + " | "; 
-				frb.setResiToma22(formulari.getResiToma22());
-			}
+
+				if(!frb.getResiPeriodo().equals(SPDConstants.SPD_PERIODO_DIARIO))  //en caso que sea diario no se permiten cambios
+				{
+					for (int i = 1; i <= 7; i++) {
+					    try {
+					        // Obtén el método getResiToma correspondiente
+					        Method getMethod = frb.getClass().getMethod("getResiD" + i);
+					        Method setMethod = frb.getClass().getMethod("setResiD" + i, String.class);
+					        
+					        // Obtén el valor de frb y formulari para la toma actual
+					        String frbValue = (String) getMethod.invoke(frb);
+					        String formulariValue = (String) formulari.getClass().getMethod("getResiD" + i).invoke(formulari);
+					        String text="" ;
+					        // Comprueba si hay diferencias y actualiza
+					        if (existenDiferencias(frbValue, formulariValue)) {
+					            cambios += "Día " +i + ":  Cambiado de ''" + frbValue + "'' a: ''" + formulariValue + "'' | ";
+					            setMethod.invoke(frb, formulariValue); // Establece el nuevo valor en frb
+					        }
+					    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+					        e.printStackTrace();
+					    }
+					}	
+				}
+				
+			List listaTomas = formulari.getListaTomasCabecera();
 			
-			if(existenDiferencias(frb.getResiToma23(), formulari.getResiToma23()))
-			{
-				cambios+="T23: " + frb.getResiToma23() + "  cambiado a: " + formulari.getResiToma23() + " | "; 
-				frb.setResiToma23(formulari.getResiToma23());
+			for (int i = 1; i <= 24; i++) {
+			    try {
+			        // Obtén el método getResiToma correspondiente
+			        Method getMethod = frb.getClass().getMethod("getResiToma" + i);
+			        Method setMethod = frb.getClass().getMethod("setResiToma" + i, String.class);
+			        
+			        // Obtén el valor de frb y formulari para la toma actual
+			        String frbValue = (String) getMethod.invoke(frb);
+			        String formulariValue = (String) formulari.getClass().getMethod("getResiToma" + i).invoke(formulari);
+			        String text="" ;
+			        // Comprueba si hay diferencias y actualiza
+			        if (existenDiferencias(frbValue, formulariValue)) {
+			        	try{
+			        		lopicost.spd.helium.model.Dose toma = (lopicost.spd.helium.model.Dose)listaTomas.get(i-1);
+			        		text=toma.getNombreDose();
+			        	}catch(Exception e){text="T"+i ;}
+			            cambios += text + ":  Cambiado de ''" + frbValue + "'' a: ''" + formulariValue + "'' | ";
+			            setMethod.invoke(frb, formulariValue); // Establece el nuevo valor en frb
+			        }
+			    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+			        e.printStackTrace();
+			    }
 			}
-			if(existenDiferencias(frb.getResiToma24(), formulari.getResiToma24()))
-			{
-				cambios+="T24: " + frb.getResiToma24() + "  cambiado a: " + formulari.getResiToma24() + " | "; 
-				frb.setResiToma24(formulari.getResiToma24());
-			}
-			
+	
 			boolean hayAsteriscos= hayNumerosAsteriscos(frb);
 			if(existenDiferencias(frb.getMensajesInfo(), formulari.getMensajesInfo()))
 			{
@@ -3010,7 +2906,9 @@ public class HelperSPD{
 				cambios+="MensajesResidencia: " + frb.getMensajesResidencia() + "  cambiado a: " + formulari.getMensajesResidencia() + " | "; 
 				frb.setMensajesResidencia(formulari.getMensajesResidencia());
 		}
-			frb.setFree3(cambios); //guardamos los mensajes para el log
+			if(!cambios.equals(""))
+			frb.setFree3(cabecera + " " + cambios); //guardamos los mensajes para el log
+			else frb.setFree3(null);
 			
 		}
 		frb.setDiasConToma(getDiasMarcados(frb));

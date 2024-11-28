@@ -78,6 +78,7 @@
         	<forward name="detalleTratamientoRct" path="/spd/app/pacientes/jsp/tratamientoRctPorCIP.jsp" />
         	<forward name="listTratamientosSPD" path="/spd/app/pacientes/jsp/listTratamientosSPDPorCIP.jsp" />
         	<forward name="detalleTratamientosSPD" path="/spd/app/pacientes/jsp/produccionesSPDPorCIP.jsp" />
+        	<forward name="producirSPDResidente" path="/PrepararGeneracion.do" redirect="true"/>
         	  	
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
         </action>  
@@ -192,16 +193,19 @@
        		<!--forward name="generarFicherosDMyRX" path="/spd/app/ficheroResiLite/jsp/ficherosDMyRX.jsp" />-->
     	
     	    <forward name="generarFicherosDMyRX" path="/spd/app/robot/jsp/ficherosDMyRX.jsp" />
+    	    <forward name="sinDatosRX" path="/spd/app/robot/jsp/sinDatosRX.jsp" />
+    	    
 		    <forward name="checkProgress" path="/spd/app/ficheroResiLite/jsp/ficherosDMyRX.jsp" />
 
 
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
         </action>  
         
-        <action path="/prepararGeneracion"  type="lopicost.spd.struts.action.FicheroResiCabeceraLiteAction"  
+        <action path="/PrepararGeneracion"  type="lopicost.spd.struts.action.FicheroResiCabeceraLiteAction"  
 		 	parameter="parameter"  name="FicheroResiForm" 
 		 	scope="request" validate="false">
     <forward name="generarFicheros" path="/spd/app/robot/jsp/generarFicheros.jsp" />
+   
 </action>
 
 

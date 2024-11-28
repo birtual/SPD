@@ -28,6 +28,7 @@
         // window.location.href = '/tuApp/list';  // Para redirigir a un mapeo específico
     }
 
+</script>
 	
 	
 </script>
@@ -160,10 +161,6 @@
 					</td>
 					    
 					
-					
-					
-					
-				
 
 					<td class="derecha"><bean:write name="data" property="cipsActivosSPD" /></td>
 					<td><bean:write name="data" property="usuarioCreacion" /></td>
@@ -186,14 +183,14 @@
 							<input type="button" class="rojo" onclick="javascript:borrar('<bean:write name="data" property="oidFicheroResiCabecera" />');"  value="Borrar"  />
 							<input type="button" class="azul" onclick="javascript:exportExcel('<bean:write name="data" property="idDivisionResidencia" />', '<bean:write name="data" property="idProceso" />')" value="Exportar "  />
 							<input type="button" class="marron" value="Ficheros Helium" onclick="javascript:generarFicherosHelium('<bean:write name="data" property="oidFicheroResiCabecera" />')" />
-							<input type="button" id="generateButton_<%=oidFicheroResiCabecera%>" class="negro" value="Ficheros DM y RX" onclick="javascript:generarFicherosRobot('<bean:write name="data" property="oidFicheroResiCabecera" />')" />
+							<input type="button" id="generateButton_<%=oidFicheroResiCabecera%>" class="negro" value="Ficheros DM y RX" onclick="javascript:confirmacionFicherosRobot('<bean:write name="data" property="oidFicheroResiCabecera" />')" />
 						</logic:equal>
 						<logic:equal property="idEstado" name="data" value="<%= SPDConstants.SPD_PROCESO_3_POR_VALIDACION_MASIVA %>">
 							<input type="button" class=verde onclick="javascript:editar('<bean:write name="data" property="oidFicheroResiCabecera" />');"  value="Editar"  />
 							<input type="button" class="rojo" onclick="javascript:borrar('<bean:write name="data" property="oidFicheroResiCabecera" />');"  value="Borrar"  />
 							<input type="button" class="azul" onclick="javascript:exportExcel('<bean:write name="data" property="idDivisionResidencia" />', '<bean:write name="data" property="idProceso" />')" value="Exportar "  />
 							<input type="button"  class="marron" value="Ficheros Helium" onclick="javascript:generarFicherosHelium('<bean:write name="data" property="oidFicheroResiCabecera" />')" />
-							<input type="button" id="generateButton_<%=oidFicheroResiCabecera%>" class="negro" value="Ficheros DM y RX" onclick="javascript:generarFicherosRobot('<bean:write name="data" property="oidFicheroResiCabecera" />')" />
+							<input type="button" id="generateButton_<%=oidFicheroResiCabecera%>" class="negro" value="Ficheros DM y RX" onclick="javascript:confirmacionFicherosRobot('<bean:write name="data" property="oidFicheroResiCabecera" />')" />
 						</logic:equal>
 						<logic:equal property="idEstado" name="data" value="<%= SPDConstants.SPD_PROCESO_4_CARGA_ERROR %>">
 							<input type="button" class="rojo" onclick="javascript:borrar('<bean:write name="data" property="oidFicheroResiCabecera" />');"  value="Borrar"  />

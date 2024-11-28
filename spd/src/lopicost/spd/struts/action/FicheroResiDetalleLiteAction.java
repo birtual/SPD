@@ -19,24 +19,14 @@ import lopicost.spd.controller.ControlSPD;
 import lopicost.spd.controller.SpdLogAPI;
 import lopicost.spd.helper.FicheroResiDetalleHelper;
 import lopicost.spd.iospd.IOSpdApi;
-import lopicost.spd.iospd.exportdata.process.ExcelFicheroResiDetallePlantUnifLite;
-import lopicost.spd.iospd.exportdata.process.ExcelFilasConInfo;
-import lopicost.spd.iospd.exportdata.process.ExcelSustitucionesPendientes;
+import lopicost.spd.iospd.exportdata.process.*;
 import lopicost.spd.model.DivisionResidencia;
-import lopicost.spd.persistence.DivisionResidenciaDAO;
-import lopicost.spd.persistence.FicheroResiCabeceraDAO;
-import lopicost.spd.persistence.FicheroResiDetalleDAO;
-import lopicost.spd.persistence.GestSustitucionesLiteDAO;
+import lopicost.spd.persistence.*;
 import lopicost.spd.security.helper.PermisosHelper;
-import lopicost.spd.struts.bean.CamposPantallaBean;
-import lopicost.spd.struts.bean.FicheroResiBean;
-import lopicost.spd.struts.bean.InfoAlertasBean;
-import lopicost.spd.struts.bean.PacienteBean;
+import lopicost.spd.struts.bean.*;
 import lopicost.spd.struts.form.FicheroResiForm;
 import lopicost.spd.struts.helper.PacientesHelper;
-import lopicost.spd.utils.DateUtilities;
-import lopicost.spd.utils.HelperSPD;
-import lopicost.spd.utils.SPDConstants;
+import lopicost.spd.utils.*;
 
 
 public class FicheroResiDetalleLiteAction extends GenericAction  {
@@ -377,7 +367,7 @@ public class FicheroResiDetalleLiteAction extends GenericAction  {
 		//actualizamos campos que lanzan el botón para que no se valide de nuevo en caso de entrar por segunda vez 
 		formulari.setFree1("");
 		formulari.setFree3(SPDConstants.SPD_PROCESO_3_POR_VALIDACION_MASIVA); 
-		FicheroResiCabeceraDAO.editarFrees(getIdUsuario(), cabeceraGeneral, formulari);
+		FicheroResiCabeceraDAO.editarCabecera(getIdUsuario(), cabeceraGeneral, formulari);
 		
 		
 		boolean  confirmable = PermisosHelper.confirmacion(getIdUsuario(), formulari.getIdDivisionResidencia());

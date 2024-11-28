@@ -139,7 +139,7 @@ public class ImportDataGestionAction extends DispatchAction
         
        // String nFile = SPDConstants.FILEUPLOAD_REAL_PATH+SPDConstants.FILEUPLOAD_RELATIVE_PATH+SPDConstants.PLANTILLAS_IO_RELATIVE_PATH + "/" + formulario.getIdProcessIospd() + "." +formulario.getFileType();
         String nFile = SPDConstants.PATH_DOCUMENTOS+SPDConstants.FILEUPLOAD_RELATIVE_PATH+SPDConstants.PLANTILLAS_IO_RELATIVE_PATH + "/" + formulario.getIdProcessIospd() + "." +formulario.getFileType();
-		//"c:/eclipse/workspace/spd/WebContent/tmp/iospd/plantillas/importSustXComposicion.xls";
+    	//"c:/eclipse/workspace/spd/WebContent/tmp/iospd/plantillas/importSustXComposicion.xls";
 	    File n =new File(nFile);
 	    if(n.exists())
 	    	formulario.setExistePlantilla(true);

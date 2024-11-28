@@ -251,7 +251,17 @@ public class PacientesAction extends GenericAction  {
 		return mapping.findForward("listadoProceso");
 	}
 	
+	public ActionForward producirSPDResidente(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		PacientesForm formulari =  (PacientesForm) form;
+		//paginación
 
+        String path = mapping.findForward("producirSPDResidente").getPath();
+        path += "?oid=" + formulari.getOidFicheroResiCabecera();
+        
+        return new ActionForward(path, true);
+	}
+	
 
 	/**
 	 * método de ayuda a la paginación

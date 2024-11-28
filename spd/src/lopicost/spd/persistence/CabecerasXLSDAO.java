@@ -1,20 +1,15 @@
 package lopicost.spd.persistence;
 
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Vector;
 
 import lopicost.config.pool.dbaccess.Conexion;
-import lopicost.spd.model.DivisionResidencia;
-import lopicost.spd.model.FicheroResiDetalle;
 import lopicost.spd.security.helper.VisibilidadHelper;
 import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
@@ -75,6 +70,8 @@ public class CabecerasXLSDAO {
 			c.setPosicionEnBBDD(resultSet.getInt("posicionEnBBDD"));
 			c.setPosicionEnVistas(resultSet.getInt("posicionEnVistas"));
 			c.setTipo(resultSet.getString("tipo"));
+			c.setDesdeTomaPrimerDia(resultSet.getInt("desdeTomaPrimerDia")==1);
+		    c.setHastaTomaUltimoDia(resultSet.getInt("hastaTomaUltimoDia")==1);
 		}
 		return c;
 	}
@@ -283,8 +280,9 @@ public class CabecerasXLSDAO {
 			{
 				resiTomaX = "resiToma" + (i);
 	 				
-				String qry = "INSERT INTO SPD_cabecerasXLS (idDivisionResidencia, idToma, nombreToma, posicionEnBBDD, posicionEnVistas, horaToma, langToma, tipo)  ";
-				qry+= " select '"+ultimaCabecera.getIdDivisionResidencia() +"',  '"+getIdToma("'" +resiTomaX+"'", i)+"' , "+resiTomaX+", " + i + ", " + i + ", '"+getHoraToma("+'"+resiTomaX+"'", i)+"' , 0, '"+getBase(i)+"'";
+				String qry = "INSERT INTO SPD_cabecerasXLS (idDivisionResidencia, idToma, nombreToma, posicionEnBBDD, posicionEnVistas, horaToma, langToma, tipo, desdeTomaPrimerDia, hastaTomaUltimoDia)  ";
+				qry+= " SELECT '"+ultimaCabecera.getIdDivisionResidencia() +"',  ";
+				qry+= " '"+getIdToma("'" +resiTomaX+"'", i)+"' , "+resiTomaX+", " + i + ", " + i + ", '"+getHoraToma("+'"+resiTomaX+"'", i)+"' , 0, '"+getBase(i)+"', 0, 0 ";
 				qry+= " FROM SPD_ficheroResiDetalle WHERE oidFicheroResiCabecera= '"+form.getOidFicheroResiCabecera() +"' AND tipoRegistro='CABECERA'";
 				System.out.println(className + "  - esCampoBorrable -->  " +qry );		
 				
@@ -358,10 +356,10 @@ public class CabecerasXLSDAO {
        	Connection con = Conexion.conectar();
 
         try {     	
-				String qry = "INSERT INTO SPD_cabecerasXLS (idDivisionResidencia, idToma, nombreToma, posicionEnBBDD, posicionEnVistas, horaToma, langToma, tipo)  ";
+				String qry = "INSERT INTO SPD_cabecerasXLS (idDivisionResidencia, idToma, nombreToma, posicionEnBBDD, posicionEnVistas, horaToma, langToma, tipo, desdeTomaPrimerDia, hastaTomaUltimoDia )  ";
 				qry+= " VALUES ( '"+nuevaToma.getIdDivisionResidencia() +"',  '"+getIdToma(nuevaToma.getHoraToma(), nuevaToma.getPosicionEnBBDD())+"' , ";
 				qry+= "'"+ nuevaToma.getNombreToma()+"', " + nuevaToma.getPosicionEnBBDD() + ", " + nuevaToma.getPosicionEnBBDD() + ", ";
-				qry+= "'"+getHoraToma(nuevaToma.getHoraToma(),  nuevaToma.getPosicionEnBBDD())+"' , 0, '"+getBase(nuevaToma.getPosicionEnBBDD())+"')";
+				qry+= "'"+getHoraToma(nuevaToma.getHoraToma(),  nuevaToma.getPosicionEnBBDD())+"' , 0, '"+getBase(nuevaToma.getPosicionEnBBDD())+"', 0, 0)";
 				System.out.println(className + "  - addNuevaToma -->  " +qry );		
 				
 				PreparedStatement pstat = con.prepareStatement(qry);
@@ -406,7 +404,7 @@ public class CabecerasXLSDAO {
 
 
 
-	public static CabecerasXLSBean findByFilters(int oidDivisionResidencia, int oidCabeceraXLS, int posicionEnVistas, String horaToma, String horaTomaLiteral  ) throws Exception {
+	public static CabecerasXLSBean findByFilters(int oidDivisionResidencia, int oidCabeceraXLS, int posicionEnVistas, String idToma, String horaToma, String horaTomaLiteral, boolean desdeTomaPrimerDia, boolean hastaTomaUltimoDia  ) throws Exception {
      	
     	Connection con = Conexion.conectar();
     	CabecerasXLSBean  c =new CabecerasXLSBean();
@@ -418,10 +416,17 @@ public class CabecerasXLSDAO {
  			qry+= " AND oidCabeceraXLS= '"+oidCabeceraXLS+"'  ";
  		if(posicionEnVistas>0)
  			qry+= " AND posicionEnVistas= '"+posicionEnVistas+"'";
+ 		if(idToma!=null && !idToma.equals(""))
+ 			qry+= " AND idToma= '"+idToma+"'";
  		if((horaToma!=null && !horaToma.equals("")) || ((horaTomaLiteral!=null && !horaTomaLiteral.equals(""))))
  		{
  			qry+= " AND (horaToma= '"+horaToma+"' OR nombreToma= '"+horaTomaLiteral+"')";
  		}
+ 		if(desdeTomaPrimerDia)
+ 			qry+=" AND desdeTomaPrimerDia = 1 ";
+ 		if(hastaTomaUltimoDia)
+ 			qry+=" AND hastaTomaUltimoDia = 1 ";
+ 		
 			System.out.println(className + "  - findTomaByOid -->  " +qry );		
 	         ResultSet resultSet = null;
 	       try {

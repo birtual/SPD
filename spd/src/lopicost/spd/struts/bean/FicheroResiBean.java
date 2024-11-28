@@ -203,6 +203,11 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 		private int fechaInicioInt;
 		private int fechaFinInt;
 		
+		private String nuevaFechaDesde="";
+		private String nuevaFechaHasta="";
+		private String nuevaTomaDesde="";
+		private String nuevaTomaHasta="";
+        
 		/**
 		 * 0 --> Otros (no_pintar, Si_precisa, pauta 0,1)
 		 * 1 --> Diario
@@ -349,6 +354,11 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 		        this.biblia = true;
 		        this.editable = true;
 		        this.resultLog = "";
+		         this.nuevaFechaDesde="";
+		         this.nuevaFechaHasta="";
+		         this.nuevaTomaDesde="";
+		         this.nuevaTomaHasta="";
+
 		    }
 		  
 		  
@@ -572,13 +582,11 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	public List<String> getResiTomasOrdenadas() {		return resiTomasOrdenadas;	}	public void setResiTomasOrdenadas(List<String> resiTomasOrd) 	{		this.resiTomasOrdenadas = resiTomasOrd;				}
 	public List<String> getNombreTomasOrdenadas() {		return nombreTomasOrdenadas;}	public void setNombreTomasOrdenadas(List<String> nombre) 		{		this.nombreTomasOrdenadas = nombre;					}
 
-	public String getOidPaciente() {
-		return oidPaciente;
-	}
-
-	public void setOidPaciente(String oidPaciente) {
-		this.oidPaciente = oidPaciente;
-	}
+	public String getOidPaciente() {		return oidPaciente;	}	public void setOidPaciente(String oidPaciente) {		this.oidPaciente = oidPaciente;	}	
+	public String getNuevaFechaDesde() {		return nuevaFechaDesde;	}	public void setNuevaFechaDesde(String nuevaFechaDesde) {		this.nuevaFechaDesde = nuevaFechaDesde;	}
+	public String getNuevaFechaHasta() {		return nuevaFechaHasta;	}	public void setNuevaFechaHasta(String nuevaFechaHasta) {		this.nuevaFechaHasta = nuevaFechaHasta;	}
+	public String getNuevaTomaDesde() {		return nuevaTomaDesde;	}	public void setNuevaTomaDesde(String nuevaTomaDesde) {		this.nuevaTomaDesde = nuevaTomaDesde;	}
+	public String getNuevaTomaHasta() {		return nuevaTomaHasta;	}	public void setNuevaTomaHasta(String nuevaTomaHasta) {		this.nuevaTomaHasta = nuevaTomaHasta;	}
 
 
 

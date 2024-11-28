@@ -42,13 +42,13 @@ public class CabecerasXLSAction extends GenericAction  {
     	cab.setNumeroDeTomas(tomasCabecera.size());
     	
     	boolean existeTomaPrevia = CabecerasXLSHelper.existeTomaPrevia(tomasCabecera, formulari.getResiToma(), formulari.getResiTomaLiteral());
-    	CabecerasXLSBean existeIdToma = CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), -1, -1, formulari.getResiToma(), formulari.getResiTomaLiteral());
+    	CabecerasXLSBean existeIdToma = CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), -1, -1, null, formulari.getResiToma(), formulari.getResiTomaLiteral(), false, false);
     	if(existeTomaPrevia)
     		 errors.add( "La hora y el nombre de la toma son obligatorios y han de ser diferentes a los existentes");
 
     	else 
     	{
-        	CabecerasXLSBean nuevaToma = new CabecerasXLSBean( cab.getIdDivisionResidencia(), formulari.getResiToma(),  formulari.getResiTomaLiteral(), cab.getNumeroDeTomas()+1, "EXTRA"); 
+        	CabecerasXLSBean nuevaToma = new CabecerasXLSBean( cab.getIdDivisionResidencia(), formulari.getResiToma(),  formulari.getResiTomaLiteral(), cab.getNumeroDeTomas()+1, "EXTRA", false, false); 
         	result = CabecerasXLSHelper.nuevaToma(getIdUsuario(), cab, nuevaToma);
     	}
     	//actualización con la nueva toma
@@ -80,7 +80,7 @@ public class CabecerasXLSAction extends GenericAction  {
 		if(formulari.getACTIONTODO()!=null && formulari.getACTIONTODO().equals("BORRAR_OK"))
 		{
 			FicheroResiBean  cab = FicheroResiDetalleDAO.getGestFicheroResiBolsaByForm(getIdUsuario(), 0, formulari, true, false, false);
-			CabecerasXLSBean resiToma = CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), formulari.getOidResiToma(), -1, null, null);
+			CabecerasXLSBean resiToma = CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), formulari.getOidResiToma(), -1, null, null, null, false, false);
 			//boolean borrable = CabecerasXLSDAO.esCampoBorrable(getIdUsuario(), formulari.getOidFicheroResiCabecera(), formulari.getResiToma());
 			boolean borrable = CabecerasXLSDAO.esCampoBorrable(getIdUsuario(), formulari.getOidFicheroResiCabecera(), resiToma.getPosicionEnBBDD());
 		
@@ -113,20 +113,19 @@ public class CabecerasXLSAction extends GenericAction  {
 	    	FicheroResiForm formulari =  (FicheroResiForm) form;
 	    	
 	    	String accion = formulari.getACTIONTODO();
-	    	
-	    	CabecerasXLSBean cabResiToma = CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), formulari.getOidResiToma(), -1, null, null);
+	    	CabecerasXLSBean cabResiToma = CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), formulari.getOidResiToma(), -1, null, null, null, false, false);
 	    	CabecerasXLSBean cabResiTomaAIntercambiar = null;
 	    	
 	    	if(cabResiToma!=null && accion!=null && accion.equalsIgnoreCase("SUBIR"))
 	    	{
 	    		cabResiToma.setPosicionEnVistas(cabResiToma.getPosicionEnVistas()-1);
-	    		cabResiTomaAIntercambiar=CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), -1, cabResiToma.getPosicionEnVistas(), null, null);
+	    		cabResiTomaAIntercambiar=CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), -1, cabResiToma.getPosicionEnVistas(), null, null, null, false, false);
 	    		cabResiTomaAIntercambiar.setPosicionEnVistas(cabResiTomaAIntercambiar.getPosicionEnVistas()+1);
 	    	}
 	    	if(cabResiToma!=null && accion!=null && accion.equalsIgnoreCase("BAJAR"))
 	    	{
 	    		cabResiToma.setPosicionEnVistas(cabResiToma.getPosicionEnVistas()+1);
-	    		cabResiTomaAIntercambiar=CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), -1, cabResiToma.getPosicionEnVistas(), null, null);
+	    		cabResiTomaAIntercambiar=CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), -1, cabResiToma.getPosicionEnVistas(), null, null, null, false, false);
 	    		cabResiTomaAIntercambiar.setPosicionEnVistas(cabResiTomaAIntercambiar.getPosicionEnVistas()-1);
 	    	}
 	    	if(cabResiTomaAIntercambiar!=null)
@@ -143,7 +142,6 @@ public class CabecerasXLSAction extends GenericAction  {
 	    	//list(mapping,  form,  request,  response);
 	    	return mapping.findForward("list");
 	    }
-	   
 	   
 	   
 	private void crearPlantilla(FicheroResiForm formulari) throws Exception {

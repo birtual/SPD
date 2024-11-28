@@ -600,13 +600,13 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 	    String nuevaFechaDesde=cab.getNuevaFechaDesde();
 	    String nuevaFechaHasta=cab.getNuevaFechaHasta();
 	    
-		if(fechaDesde==null || fechaDesde.equals(""))
+		if(fechaDesde==null || fechaDesde.equals("") || fechaDesde.equalsIgnoreCase("null"))
 			fechaDesde = DateUtilities.getDate(HelperSPD.obtenerFechaDesde(cab.getIdProceso()), "yyyyMMdd", "dd/MM/yyyy");  
-		if(fechaHasta==null || fechaHasta.equals(""))
+		if(fechaHasta==null || fechaHasta.equals("")|| fechaHasta.equalsIgnoreCase("null"))
 			fechaHasta = DateUtilities.getDate(HelperSPD.obtenerFechaHasta(cab.getIdProceso()), "yyyyMMdd", "dd/MM/yyyy");  
-		if(nuevaFechaDesde==null || nuevaFechaDesde.equals(""))
+		if(nuevaFechaDesde==null || nuevaFechaDesde.equals("") || nuevaFechaDesde.equals("") || nuevaFechaDesde.equals("null"))
 			nuevaFechaDesde= fechaDesde;
-		if(nuevaFechaHasta==null || nuevaFechaHasta.equals(""))
+		if(nuevaFechaHasta==null || nuevaFechaHasta.equals("") || nuevaFechaHasta.equals("") || nuevaFechaHasta.equals("null"))
 	    	nuevaFechaHasta= fechaHasta;  
 
   	    formulari.setFechaDesde(fechaDesde);
@@ -639,20 +639,32 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 	  	   	}catch(Exception e){}
 		}
  	   	
-	    //si alguna de las nuevaFecha son diferentes a las escogidas para la carga se envía aviso informando el nuevo rango para producción
-  	    avisos.add("Datos originales en la carga -->  Desde el " + fechaDesde + " ("+(primerDiaDesdeToma!=null?primerDiaDesdeToma.getNombreToma():"") + ") hasta el " +  fechaHasta  +" ("+(ultimoDiaHastaToma!=null?ultimoDiaHastaToma.getNombreToma():"") + ")\n");
   	  
 		//una vez tenemos las tomas de inicio/fin estándar, miramos si el gestor ha modificado las tomas en esta producción, que tendrían preferencia.
- 	   	if(cab.getNuevaTomaDesde()!=null && !cab.getNuevaTomaDesde().equals("") && inicioTomaPrimerDia!=null && !cab.getNuevaTomaDesde().equals(inicioTomaPrimerDia))
-    		primerDiaDesdeToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, cab.getNuevaTomaDesde(), null, null, false, false);
-    	if(cab.getNuevaTomaHasta()!=null && !cab.getNuevaTomaHasta().equals("") && finTomaUltimoDia!=null && !cab.getNuevaTomaHasta().equals(finTomaUltimoDia))
-    		ultimoDiaHastaToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, cab.getNuevaTomaHasta(), null, null, false, false);
-
+  	    
+ 	   	if(cab.getNuevaTomaDesde()==null 
+ 	   			|| cab.getNuevaTomaDesde().equals("") 
+ 	   			|| cab.getNuevaTomaDesde().equalsIgnoreCase("null") 
+ 	   			|| inicioTomaPrimerDia==null 
+ 	   			|| inicioTomaPrimerDia.equals("") 
+ 	   			|| !cab.getNuevaTomaDesde().equals(inicioTomaPrimerDia)
+ 	   			)
+ 	   	{
+ 	   		primerDiaDesdeToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, cab.getNuevaTomaDesde(), null, null, true, false);
+ 	   		inicioTomaPrimerDia=(primerDiaDesdeToma!=null?primerDiaDesdeToma.getNombreToma():"");
+	   		
+ 	   	}
+     	if(cab.getNuevaTomaHasta()==null || cab.getNuevaTomaHasta().equals("")  || cab.getNuevaTomaHasta().equalsIgnoreCase("null") || finTomaUltimoDia ==null  || finTomaUltimoDia.equals("")  || !cab.getNuevaTomaHasta().equals(finTomaUltimoDia))
+ 	   	{
+     		ultimoDiaHastaToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, cab.getNuevaTomaHasta(), null, null, false, true);
+     		finTomaUltimoDia=(ultimoDiaHastaToma!=null?ultimoDiaHastaToma.getNombreToma():"");
+	   	}
+     	 
     	
     	if(
     		(nuevaFechaDesde!=null && !nuevaFechaDesde.equals("") && fechaDesde!=null && !nuevaFechaDesde.equals(fechaDesde))
 	    		||
-	    	(nuevaFechaHasta!=null && !nuevaFechaHasta.equals("") && fechaHasta!=null && !nuevaFechaHasta.equals(fechaHasta))	
+	    	(nuevaFechaHasta!=null && !nuevaFechaHasta.equals("")  && fechaHasta!=null && !nuevaFechaHasta.equals(fechaHasta))	
     			||
         	(cab.getNuevaTomaDesde()!=null && !cab.getNuevaTomaDesde().equals("") && inicioTomaPrimerDia!=null && !cab.getNuevaTomaDesde().equals(inicioTomaPrimerDia))
     			||
@@ -664,6 +676,10 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
     		avisos.add(" Desde el " + nuevaFechaDesde + " ("+(primerDiaDesdeToma!=null?primerDiaDesdeToma.getNombreToma():"") + ") ");
     		avisos.add(" hasta el " + nuevaFechaHasta + " ("+(ultimoDiaHastaToma!=null?ultimoDiaHastaToma.getNombreToma():"") + ") ");
     	}
+    	else
+    	    //si alguna de las nuevaFecha son diferentes a las escogidas para la carga se envía aviso informando el nuevo rango para producción
+      	    avisos.add("Datos originales en la carga -->  Desde el " + fechaDesde + " ("+(primerDiaDesdeToma!=null?primerDiaDesdeToma.getNombreToma():"") + ") hasta el " +  fechaHasta  +" ("+(ultimoDiaHastaToma!=null?ultimoDiaHastaToma.getNombreToma():"") + ")\n");
+
 
 
    	

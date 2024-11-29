@@ -879,6 +879,29 @@ public class FicheroResiCabeceraDAO {
 
 		return result>0;
 	}
+
+	public static boolean editaFechas(FicheroResiBean cab) throws SQLException {
+		int result=0;
+		Connection con = Conexion.conectar();
+		
+		String qry = " UPDATE dbo.SPD_ficheroResiCabecera ";
+  	    qry+= "  SET fechaDesde ='"+cab.getFechaDesde()+"', fechaHasta ='"+cab.getFechaHasta()+"'  ";
+		qry+= "  WHERE idDivisionResidencia ='"+ cab.getIdDivisionResidencia() +"' "; 
+	  	qry+= "  AND idProceso='"+ cab.getIdProceso() +"' "; 
+	  	qry+= "  AND oidFicheroResiCabecera ='"+cab.getOidFicheroResiCabecera() +"' ";   	    		
+	  	
+	  	System.out.println(className + "--> editaFechas -->" +qry );		
+
+	  	try {
+	         PreparedStatement pstat = con.prepareStatement(qry);
+	         result=pstat.executeUpdate();
+	     } catch (SQLException e) {
+	         e.printStackTrace();
+	     }finally {con.close();}
+
+		return result>0;
+	}
+
 		
 
 

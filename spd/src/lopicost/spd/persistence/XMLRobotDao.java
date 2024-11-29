@@ -446,17 +446,17 @@ public class XMLRobotDao
 
         //fecha de inicio SPD, teniendo en cuenta las posibles nuevas Fechas modificadas 
         String fechaInicioSPD = cabeceraTop.getNuevaFechaDesde();
-        if(fechaInicioSPD==null || fechaInicioSPD.equals(""))
+        if(fechaInicioSPD==null || fechaInicioSPD.equals("")|| fechaInicioSPD.equals("null"))
         	fechaInicioSPD = cabeceraTop.getFechaDesde();
-        if(fechaInicioSPD==null || fechaInicioSPD.equals(""))
+        if(fechaInicioSPD==null || fechaInicioSPD.equals("")|| fechaInicioSPD.equals("null"))
         	fechaInicioSPD=DateUtilities.getDateOrDateDefault(rs.getString("fechaDesde"), "yyyyMMdd", "dd/MM/yyyy");
         Date dateDesde = (Date) formatoObjetivo.parse(fechaInicioSPD);
         	
         //fecha fin de SPD
         String fechaFinSPD = cabeceraTop.getNuevaFechaHasta();
-        if(fechaFinSPD==null || fechaFinSPD.equals(""))
+        if(fechaFinSPD==null || fechaFinSPD.equals("") || fechaFinSPD.equals("null"))
         	fechaFinSPD=DateUtilities.getDateOrDateDefault(cabeceraTop.getFechaHasta(), "yyyyMMdd", "dd/MM/yyyy");
-        if(fechaFinSPD==null || fechaFinSPD.equals(""))
+        if(fechaFinSPD==null || fechaFinSPD.equals("")|| fechaFinSPD.equals("null"))
         	fechaFinSPD=DateUtilities.getDateOrDateDefault(rs.getString("fechaHasta"), "yyyyMMdd", "dd/MM/yyyy");
         Date dateHasta = (Date) formatoObjetivo.parse(fechaFinSPD);
         	

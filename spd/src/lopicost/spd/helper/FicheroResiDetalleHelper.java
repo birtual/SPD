@@ -472,6 +472,25 @@ public class FicheroResiDetalleHelper {
 		
 		return result;
 	}
+
+
+	public static boolean checkFechasCabecera(FicheroResiBean cab, String fDesde, String fHasta) throws SQLException {
+		boolean check =true;
+		if(cab.getFechaDesde()==null || cab.getFechaDesde().equals(""))
+		{
+			cab.setFechaDesde(fDesde);
+			check=false;
+		}
+		if(cab.getFechaHasta()==null || cab.getFechaHasta().equals(""))
+		{
+			cab.setFechaHasta(fHasta);
+			check=false;
+		}
+
+		
+		if(!check) check=FicheroResiCabeceraDAO.editaFechas(cab);
+		return check;
+	}
 		
 }
 	

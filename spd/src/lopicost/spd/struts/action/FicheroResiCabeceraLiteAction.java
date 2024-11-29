@@ -638,8 +638,11 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 				//else finTomaUltimoDia = ultimoDiaHastaToma.getIdToma();
 	  	   	}catch(Exception e){}
 		}
- 	   	
-  	  
+		String fDesde =fechaDesde;
+		String fHasta =fechaHasta;
+		String tDesde = (primerDiaDesdeToma!=null?primerDiaDesdeToma.getNombreToma():"");
+		String tHasta = (ultimoDiaHastaToma!=null?ultimoDiaHastaToma.getNombreToma():"");
+	  	  
 		//una vez tenemos las tomas de inicio/fin estándar, miramos si el gestor ha modificado las tomas en esta producción, que tendrían preferencia.
   	    
  	   	if(cab.getNuevaTomaDesde()==null 
@@ -671,16 +674,29 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 	    	(cab.getNuevaTomaHasta()!=null && !cab.getNuevaTomaHasta().equals("") && finTomaUltimoDia!=null && !cab.getNuevaTomaHasta().equals(finTomaUltimoDia))	
 	    	)
     	{
+       		fDesde = nuevaFechaDesde;
+    		fHasta = nuevaFechaHasta;
+ 
     		avisos.clear();
     		avisos.add(" Atención - Las fechas se han modificado en la edición");
-    		avisos.add(" Desde el " + nuevaFechaDesde + " ("+(primerDiaDesdeToma!=null?primerDiaDesdeToma.getNombreToma():"") + ") ");
-    		avisos.add(" hasta el " + nuevaFechaHasta + " ("+(ultimoDiaHastaToma!=null?ultimoDiaHastaToma.getNombreToma():"") + ") ");
-    	}
+    		avisos.add(" Desde el " + fDesde + " ("+ tDesde + ") ");
+    		avisos.add(" hasta el " + fHasta + " ("+ tHasta + ") ");
+     	}
     	else
+    	{
     	    //si alguna de las nuevaFecha son diferentes a las escogidas para la carga se envía aviso informando el nuevo rango para producción
       	    avisos.add("Datos originales en la carga -->  Desde el " + fechaDesde + " ("+(primerDiaDesdeToma!=null?primerDiaDesdeToma.getNombreToma():"") + ") hasta el " +  fechaHasta  +" ("+(ultimoDiaHastaToma!=null?ultimoDiaHastaToma.getNombreToma():"") + ")\n");
+    		
+    	}
 
-
+		 fDesde = formulari.getNuevaFechaDesde();
+		 fHasta = formulari.getNuevaFechaHasta();
+		 tDesde = (primerDiaDesdeToma!=null?primerDiaDesdeToma.getNombreToma():"");
+		 tHasta = (ultimoDiaHastaToma!=null?ultimoDiaHastaToma.getNombreToma():"");
+		
+		//nos aseguramos que tengan fechas
+    	FicheroResiDetalleHelper.checkFechasCabecera(cab, fDesde, fHasta);
+    	
 
    	
     	//formulari.setErrors(errors);

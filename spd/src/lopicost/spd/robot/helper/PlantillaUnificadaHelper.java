@@ -36,6 +36,7 @@ import lopicost.spd.robot.model.FiliaRX;
 import lopicost.spd.robot.model.TomasOrdenadas;
 import lopicost.spd.robot.model.Print;
 import lopicost.spd.struts.bean.FicheroResiBean;
+import lopicost.spd.struts.bean.PacienteBean;
 import lopicost.spd.utils.DateUtilities;
 import lopicost.spd.utils.SPDConstants;
 
@@ -65,8 +66,8 @@ public class PlantillaUnificadaHelper {
 	}
 	
 	//Paso3
-	public static List<DetallesTomasBean> getDetalleTomasRobot(String idUsuario, FicheroResiBean cabDetalle, TomasOrdenadas tomasGlobal) throws Exception {
-		return XMLRobotDao.getDetalleTomasRobot(idUsuario,  cabDetalle, tomasGlobal);
+	public static List<DetallesTomasBean> getDetalleTomasRobot(String idUsuario, FicheroResiBean cabDetalle, TomasOrdenadas tomasGlobal, PacienteBean pac) throws Exception {
+		return XMLRobotDao.getDetalleTomasRobot(idUsuario,  cabDetalle, tomasGlobal, pac);
 	}
 	
 	//Paso4

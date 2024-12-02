@@ -15,8 +15,11 @@
 
     <h2>Generación de Archivos DM y RX</h2>
     
-    <% String estado = (String) request.getAttribute("estado");
+    <% 
+    String estado = (String) request.getAttribute("estado");
     String oidFicheroResiCabecera = request.getParameter("oidFicheroResiCabecera");
+    String oidPaciente = request.getParameter("oidPaciente");
+    
      String buttonId = "generateButton_" + oidFicheroResiCabecera; // ID del botón
     %>
    
@@ -43,8 +46,8 @@
         </logic:notEqual>
         <br />
     </logic:iterate>
+   <input type="button" id="generateButton_<%=oidFicheroResiCabecera%>" class="negro" value="Confirmar" onclick="javascript:generarFicherosResidente('<bean:write name="formulari" property="oidPaciente" />', '<bean:write name="formulari" property="oidFicheroResiCabecera" />')" />
 	<input type="button" onclick="javascript:cerrar()" value="Cancelar"/>
-   	<input type="button" id="generateButton_<%=oidFicheroResiCabecera%>" class="negro" value="Confirmar y generar Ficheros DM y RX" onclick="javascript:generarFicherosRobot('<%= oidFicheroResiCabecera %>')" />
 
 		
 </fieldset>
@@ -76,6 +79,22 @@
         
         <!-- Redirigir a la URL después de 0 segundos -->
         <meta http-equiv="refresh" content="0;URL='<%=request.getContextPath()%>/FicheroResiCabeceraLite.do?parameter=generarFicherosDMyRX&oidFicheroResiCabecera=<%= oidFicheroResiCabecera %>'">
+ <% } else if ("inicioResidente".equals(estado)) { %>
+        <p>Iniciando la generación de archivos. <br>En unos segundos podrán descargarse desde esta página
+          </p>
+         <p align="center"> <img src="/spd/spd/img/Loading_2.gif" alt="Cargando..." /></p>
+        <script>
+            // Desactivar el botón en la ventana principal
+            if (window.opener) {
+                var btn = window.opener.document.getElementById('<%= buttonId %>');
+                if (btn) {
+                    btn.disabled = true;
+                }
+            }
+        </script>    
+        
+        <!-- Redirigir a la URL después de 0 segundos -->
+        <meta http-equiv="refresh" content="0;URL='<%=request.getContextPath()%>/FicheroResiCabeceraLite.do?parameter=generarFicherosDMyRX&oidFicheroResiCabecera=<%= oidFicheroResiCabecera %>&oidPaciente=<%= oidPaciente %>'">
     <% } else if ("completado".equals(estado)) { %>
         <script>
             // Reactivar el botón en la ventana principal después de completar el proceso
@@ -93,7 +112,9 @@
         <p class="botons">
 			<input type="button" onclick="javascript:cerrar()" value="Cerrar"/>
 		</p>	
-		        
+		
+		
+		
     <% } else { %>
         <!-- Mensaje de espera y refresco -->
         <p>Esperando la generación de archivos...</p>

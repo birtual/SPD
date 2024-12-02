@@ -137,8 +137,11 @@ try {
 		
 		function confirmacionFicherosRobotResidente(oidPaciente, oidFicheroResiCabecera)
 		{
-			var url = "/spd/PrepararGeneracion.do?parameter=confirmacionFicheros&oidPaciente="+ oidPaciente + "&oidFicheroResiCabecera=" + oidFicheroResiCabecera +  "&operation=GENERAR_FICHEROS";
-	 		window.open(url, 'generarFicherosDMyRX', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
-		}
-		
+			//var url = "/spd/PrepararGeneracion.do?parameter=confirmacionFicheros&oidPaciente="+ oidPaciente + "&oidFicheroResiCabecera=" + oidFicheroResiCabecera +  "&operation=GENERAR_FICHEROS";
+			var f = document.FicheroResiForm;
+			document.location.href='/spd/FicheroResiCabeceraLite.do?parameter=editar&oidPaciente='+ oidPaciente + '&oidFicheroResiCabecera=' + oidFicheroResiCabecera +  '&ACTIONTODO=FICHEROS_RESIDENTE';
+				//window.open(url, 'generarFicherosDMyRX', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
+			return true;
+		}	
+				
     

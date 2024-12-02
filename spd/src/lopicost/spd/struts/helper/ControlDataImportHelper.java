@@ -57,7 +57,7 @@ public class ControlDataImportHelper {
 		 * 2- bd_consejo
 		 */
 		ControlDataImportBean tabla2 = new ControlDataImportBean();
-		tabla2.setNombreTabla("bd_consejo");
+		tabla2.setNombreTabla("bd_consejo (cada 7 días)");
 		tabla2.setIdFarmacia("NO");
 		tabla2.setIdDivisionResidencia("NO");
 		tabla2.setNumeroCIPs(-1);

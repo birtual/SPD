@@ -30,7 +30,9 @@ import lopicost.spd.robot.helper.PlantillaUnificadaHelper;
 import lopicost.spd.robot.model.*;
 import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
+import lopicost.spd.struts.bean.PacienteBean;
 import lopicost.spd.struts.form.FicheroResiForm;
+import lopicost.spd.struts.helper.PacientesHelper;
 import lopicost.spd.utils.DateUtilities;
 import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
@@ -172,6 +174,8 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			result=dao.editarCabecera(getIdUsuario(), cab,  formulari);
 			String despuesCab = " | Nueva FechaDesde  " +formulari.getNuevaFechaDesde() + " | Nueva FechaHasta " +formulari.getNuevaFechaHasta() + " | toma 1er día desde  " +formulari.getNuevaTomaDesde() + " | toma último día hasta " +formulari.getNuevaTomaHasta() + " | Nota 1 " +formulari.getFree1() + " | Nota 2 " +formulari.getFree2()+ " | Nota 3 " + formulari.getFree3()+ " | " ;
 			boolean hayCambios =   ! Objects.equals(StringUtil.limpiarTextoTomas(antesCab), StringUtil.limpiarTextoTomas(despuesCab));
+
+			
 			if(result && hayCambios)
 			{
 			//	errors.add(SPDConstants.MSG_LEVEL_INFO, new ActionMessage("Registro borrado correctamente Info"));
@@ -188,6 +192,17 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 				throw new Exception("Error al editar la cabecera del proceso");					
 			}
 			
+			if(formulari.getOidPaciente()!=null && !formulari.getOidPaciente().equals(""))
+			{
+		        String path = mapping.findForward("prepararFicherosResidente").getPath();
+		        path += "&oidFicheroResiCabecera=" + formulari.getOidFicheroResiCabecera()+"&oidPaciente=" + formulari.getOidPaciente();
+		        //http://localhost:8080/spd/PrepararGeneracion.do?parameter=confirmacionFicheros&oidFicheroResiCabecera=14395&operation=GENERAR_FICHEROS
+		        
+		        return new ActionForward(path, true);
+
+				//return mapping.findForward("prepararFicherosResidente");
+			}
+
 
 			
 			list( mapping,  form,  request,  response);
@@ -202,6 +217,10 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
   	    formulari.setNuevaTomaDesde(nuevaTomaDesde);
   	    formulari.setNuevaTomaHasta(nuevaTomaHasta);
  
+  	    if(formulari.getACTIONTODO().equals("FICHEROS_RESIDENTE"))
+  			return mapping.findForward("editarFechasResidente");
+  	    	
+  	    
 		return mapping.findForward("editar");
 	}
 
@@ -509,12 +528,18 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		FicheroResiBean cab = dao.getCabeceraByFilters(getIdUsuario(), formulari, 0, 1, null, false);
 		FicheroResiBean cabDetalle  =  FicheroResiDetalleHelper.getCabeceraFicheroResi(getIdUsuario(), cab.getIdDivisionResidencia(), cab.getIdProceso(), false);
 		DivisionResidencia div = DivisionResidenciaDAO.getDivisionResidenciaById(getIdUsuario(), cab.getIdDivisionResidencia());
+		
+		//en caso que sea para un paciente
+		PacienteBean pac = null;
+		if(formulari.getOidPaciente()!=null && !formulari.getOidPaciente().equals(""))
+			pac=PacientesHelper.getPacientePorOID(getIdUsuario(), formulari.getOidPaciente());
+		
 		// Paso1 - Borrado previo de posibles datos del mismo proceso  
     	PlantillaUnificadaHelper.borraProcesosResidencia(getIdUsuario(),  cabDetalle);
     	// Paso2 - Recuperamos el orden y nombre de las tomas del proceso  
     	TomasOrdenadas tomasOrdenadas = PlantillaUnificadaHelper.getTomasOrdenadas(getIdUsuario(),  cabDetalle);
     	// Paso3 - Recuperamos la lista de detalleTomas ya ordenada
-    	List<DetallesTomasBean> listaDetallesTomas  = PlantillaUnificadaHelper.getDetalleTomasRobot(getIdUsuario(),  cabDetalle, tomasOrdenadas);
+    	List<DetallesTomasBean> listaDetallesTomas  = PlantillaUnificadaHelper.getDetalleTomasRobot(getIdUsuario(),  cabDetalle, tomasOrdenadas, pac);
     	// Paso4 - Procesar los detallesBean para insertarlos en BBDD
     	PlantillaUnificadaHelper.procesarDetalleTomasRobot(getIdUsuario(), cabDetalle, listaDetallesTomas, tomasOrdenadas);
     	 // Paso5 - Procesar Excepciones (Falguera) 
@@ -589,7 +614,94 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
           
    		return mapping.findForward("generarFicherosDMyRX");
 	}
+	
+	
+	public ActionForward confirmacionFicheros(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<String> avisos = new ArrayList<>();
+		request.setAttribute("estado", "confirma");
+	    FicheroResiForm formulari =  (FicheroResiForm) form;
+	    FicheroResiBean cab = FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(getIdUsuario(), formulari.getOidFicheroResiCabecera());
+	    
+	    //Fechas desde / hasta
+	    String fDesde=cab.getFechaDesde();
+	    String fHasta=cab.getFechaHasta();
+	    String nuevaFechaDesde=cab.getNuevaFechaDesde();
+	    String nuevaFechaHasta=cab.getNuevaFechaHasta();
+	    
+		if(fDesde==null || fDesde.equals("") || fDesde.equalsIgnoreCase("null"))
+			fDesde = DateUtilities.getDate(HelperSPD.obtenerFechaDesde(cab.getIdProceso()), "yyyyMMdd", "dd/MM/yyyy");  
+		if(fHasta==null || fHasta.equals("")|| fHasta.equalsIgnoreCase("null"))
+			fHasta = DateUtilities.getDate(HelperSPD.obtenerFechaHasta(cab.getIdProceso()), "yyyyMMdd", "dd/MM/yyyy");  
+		if(nuevaFechaDesde==null || nuevaFechaDesde.equals("") || nuevaFechaDesde.equals("") || nuevaFechaDesde.equals("null"))
+			nuevaFechaDesde= fDesde;
+		if(nuevaFechaHasta==null || nuevaFechaHasta.equals("") || nuevaFechaHasta.equals("") || nuevaFechaHasta.equals("null"))
+	    	nuevaFechaHasta= fHasta;  
 
+  	    formulari.setFechaDesde(fDesde);
+		formulari.setFechaHasta(fHasta);
+  	    formulari.setNuevaFechaDesde(nuevaFechaDesde);
+  	    formulari.setNuevaFechaHasta(nuevaFechaHasta);
+	    //Fin fechas desde / hasta
+	    
+	    //gestión de las tomas de inicio del primer día y de fñin del último día
+  		CabecerasXLSBean primerDiaDesdeToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, cab.getNuevaTomaDesde(), null, null, false, false);
+		CabecerasXLSBean ultimoDiaHastaToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, cab.getNuevaTomaHasta(), null, null, false, false);
+		
+		if(primerDiaDesdeToma==null)
+		{
+			primerDiaDesdeToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, null, null, null, true, false);
+		}
+		if(ultimoDiaHastaToma==null )
+		{
+			ultimoDiaHastaToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, null, null, null, false, true);
+		}
+
+		
+		//una vez tenemos las tomas de inicio/fin estándar, miramos si el gestor ha modificado las tomas en esta producción, que tendrían preferencia.
+
+	    String tDesde = (primerDiaDesdeToma!=null?primerDiaDesdeToma.getNombreToma():"");
+	   	String tHasta = (ultimoDiaHastaToma!=null?ultimoDiaHastaToma.getNombreToma():"");
+
+    	if(
+    		(nuevaFechaDesde!=null && !nuevaFechaDesde.equals("") && fDesde!=null && !nuevaFechaDesde.equals(fDesde))
+	    		||
+	    	(nuevaFechaHasta!=null && !nuevaFechaHasta.equals("")  && fHasta!=null && !nuevaFechaHasta.equals(fHasta))	
+ 	    	)
+    	{
+       		fDesde = nuevaFechaDesde;
+    		fHasta = nuevaFechaHasta;
+ 
+     	}
+   		avisos.clear();
+		avisos.add(" Se generarán los ficheros con las siguientes fechas: ");
+		avisos.add(" Desde el " + fDesde + " ("+ tDesde + ") ");
+		avisos.add(" hasta el " + fHasta + " ("+ tHasta + ") ");
+
+
+		//nos aseguramos que tengan fechas
+    	FicheroResiDetalleHelper.checkFechasCabecera(cab, fDesde, fHasta);
+    	
+
+   	
+    	//formulari.setErrors(errors);
+    	request.setAttribute("avisos", avisos);
+		
+    	if(formulari.getOidPaciente()!=null && !formulari.getOidPaciente().equals(""))
+		{
+	        String path = mapping.findForward("prepararFicherosResidente").getPath();
+	        path += "&oidFicheroResiCabecera=" + formulari.getOidFicheroResiCabecera()+"&oidPaciente=" + formulari.getOidPaciente();
+	        
+	        return new ActionForward(path, true);
+
+			//return mapping.findForward("generarFicherosResidente");
+		}
+	    return mapping.findForward("generarFicheros");
+	}
+	
+	
+	
+	
+/*
 	public ActionForward confirmacionFicheros(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<String> avisos = new ArrayList<>();
 		request.setAttribute("estado", "confirma");
@@ -701,11 +813,29 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
    	
     	//formulari.setErrors(errors);
     	request.setAttribute("avisos", avisos);
+		
+    	if(formulari.getOidPaciente()!=null && !formulari.getOidPaciente().equals(""))
+		{
+	        String path = mapping.findForward("prepararFicherosResidente").getPath();
+	        path += "&oidFicheroResiCabecera=" + formulari.getOidFicheroResiCabecera()+"&oidPaciente=" + formulari.getOidPaciente();
+	        
+	        return new ActionForward(path, true);
+
+			//return mapping.findForward("generarFicherosResidente");
+		}
 	    return mapping.findForward("generarFicheros");
 	}
+	
+*/	
+	
 	public ActionForward generarFicheros(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 	    request.setAttribute("estado", "inicio");
 	    return mapping.findForward("generarFicheros");
+	}
+
+	public ActionForward generarFicherosResidente(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    request.setAttribute("estado", "inicioResidente");
+	    return mapping.findForward("generarFicherosResidente");
 	}
 
 	

@@ -102,8 +102,32 @@
     			f.oidFicheroResiCabecera.value= oidFicheroResiCabecera;
     			f.submit();
          }
-            
-            
+		}		
+           
+    		function editarOkResidente(oidPaciente, oidFicheroResiCabecera)
+    		{
+    			var f = document.FicheroResiForm;
+    			
+    	        const nuevaFechaDesde = document.getElementById('nuevaFechaDesde').value;
+    	        const nuevaFechaHasta = document.getElementById('nuevaFechaHasta').value;
+    	        
+                // Convertir las fechas a formato Date
+                const fechaDesdeObj = new Date(nuevaFechaDesde.split('/').reverse().join('-')); // Formato de fecha desde
+                const fechaHastaObj = new Date(nuevaFechaHasta.split('/').reverse().join('-')); // Formato de fecha hasta
+
+                // Verificar si la fecha hasta es anterior a la fecha desde
+                if (fechaHastaObj < fechaDesdeObj) {
+                    alert("La fecha 'Hasta' no puede ser anterior a la fecha 'Desde'. Por favor, revisa las fechas.");
+                    return; // No ejecutar la acción si las fechas no son correctas
+                } else {
+                    // Llamada a la función editarOk si las fechas son válidas
+        			f.parameter.value='editar';
+        			f.ACTIONTODO.value='CONFIRMADO_OK';
+        			f.oidPaciente.value= oidPaciente;
+        			f.oidFicheroResiCabecera.value= oidFicheroResiCabecera;
+        			f.submit();
+             }
+                     
             
 
 		}		
@@ -323,7 +347,18 @@
 	 		window.open(url, 'generarFicherosDMyRX', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
 		}
 		
+
+		function confirmaFicherosResidente(oidFicheroResiCabecera, oidPaciente)
+		{
+			var f = document.FicheroResiForm;
+			var url = "/spd/PrepararGeneracion.do?parameter=confirmacionFicheros&oidFicheroResiCabecera=" + oidFicheroResiCabecera +  "&oidPaciente="+oidPaciente+"=&operation=GENERAR_FICHEROS";
+	 		window.open(url, 'generarFicherosDMyRX', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
+		}
 		
 		
-		
-	
+		function generaFicherosResidente(oidFicheroResiCabecera, oidPaciente)
+		{
+			var f = document.FicheroResiForm;
+			var url = "/spd/PrepararGeneracion.do?parameter=generarFicherosResidente&oidFicheroResiCabecera=" + oidFicheroResiCabecera +  "&oidPaciente="+oidPaciente+"&operation=GENERAR_FICHEROS";
+	 		window.open(url, 'generarFicherosDMyRX', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
+		}

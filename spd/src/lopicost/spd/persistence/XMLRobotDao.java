@@ -9,6 +9,7 @@ import lopicost.spd.robot.helper.PlantillaUnificadaHelper;
 import lopicost.spd.robot.model.*;
 import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
+import lopicost.spd.struts.bean.PacienteBean;
 import lopicost.spd.utils.*;
 import lopicost.config.pool.dbaccess.Conexion;
 
@@ -62,7 +63,7 @@ public class XMLRobotDao
 	}
 
 	//Paso3 - Recuperar Listado de detalleTomas ya ordenadas
-	public static List<DetallesTomasBean> getDetalleTomasRobot(String idUsuario, FicheroResiBean cab, TomasOrdenadas tomasGlobal)throws Exception {
+	public static List<DetallesTomasBean> getDetalleTomasRobot(String idUsuario, FicheroResiBean cab, TomasOrdenadas tomasGlobal, PacienteBean pac)throws Exception {
 		List<DetallesTomasBean> resultado = new ArrayList<DetallesTomasBean>();
         Connection con = Conexion.conectar();
         ResultSet rs = null;
@@ -87,6 +88,9 @@ public class XMLRobotDao
             query.append(" AND d.oidFicheroResiCabecera = '"+cab.getOidFicheroResiCabecera()+"'  ");
             query.append(" AND d.spdAccionBolsa in ('SOLO_INFO', 'PASTILLERO') ");
             query.append(" AND (p.SPD is null OR p.SPD <> 'N') ");
+            if(pac!=null && pac.getCIP()!=null)
+                query.append(" AND d.resiCIP='"+pac.getCIP()+"'  ");
+      	
             query.append(" AND ISNUMERIC(RIGHT(d.spdCnFinal, 6))=1 ");
             //query.append(" AND resiCIP='SOFI1570624009' ");
             //query.append(" ORDER BY d.resiCip, d.spdNombreBolsa ");

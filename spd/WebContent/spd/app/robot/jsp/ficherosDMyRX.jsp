@@ -62,7 +62,10 @@
 
 			
 	
-			
+			        
+        <p class="botons">
+			<input type="button" onclick="javascript:cerrar()" value="Cerrar"/>
+		</p>	
 
 
            	<script>

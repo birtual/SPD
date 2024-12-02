@@ -1,3 +1,4 @@
+<%@page import="lopicost.spd.struts.bean.FicheroResiBean"%>
 <%@page import="lopicost.spd.utils.SPDConstants"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" %>
@@ -43,9 +44,9 @@
 			</p>
 		</div>
 		
-		<logic:notEmpty  name="formulari" property="listaProcesosCargados" >	
+	<logic:notEmpty  name="formulari" property="listaProcesosCargados" >
 		<bean:define id="listaProcesos" name="formulari" property="listaProcesosCargados" />	 	
-	<% 
+<% 
 	        // Acceder al primer elemento de la lista en un scriptlet
 	        List<?> procesos = (List<?>) pageContext.findAttribute("listaProcesos");
 	        Object beanDos = null;
@@ -53,21 +54,39 @@
 	            beanDos = procesos.get(0);
 	            pageContext.setAttribute("beanDos", beanDos);
 	        }
-    %>
+%>
 		</logic:notEmpty> 	
-	<!-- Usar el bean definido (beanDos) en tu JSP -->
-		
-		    
 		
 		<logic:notEmpty  name="formulari" property="listaProcesosCargados">
 			<div>
 				<label for="campoGoogle" accesskey="e">Producciones</label>
-					<html:select property="idProceso"  onchange="submit()"> 
-		   			<html:optionsCollection name="formulari" property="listaProcesosCargados" label="idEstado" value="idProceso" />
+					<html:select property="oidFicheroResiCabecera"  onchange="submit()"> 
+		   			<html:optionsCollection name="formulari" property="listaProcesosCargados" label="idEstado" value="oidFicheroResiCabecera" />
 				</html:select>
+    			<logic:notEmpty name="beanDos">
+				
+<%
+				FicheroResiBean bean = (FicheroResiBean) pageContext.findAttribute("beanDos");
+        		String oidFicheroResiCabecera = new String().valueOf(bean.getOidFicheroResiCabecera());
+%>
+			<input type="button" 
+				id="generateButton_<%=oidFicheroResiCabecera%>" 
+				class="negro" 
+				value="Ficheros DM y RX" 
+				onclick="javascript:confirmacionFicherosRobotResidente('<bean:write name="formulari" property="oidPaciente" />', '<bean:write name="beanDos" property="oidFicheroResiCabecera" />')" 
+				/>
+			</logic:notEmpty>
+
 			</div>	
 		</logic:notEmpty>
+			
 	<fieldset>
+
+
+
+
+
+
 
 	<logic:notEmpty  name="formulari" property="listaBeans">
 	<table class="blueTable" border="1">

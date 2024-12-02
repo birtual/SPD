@@ -407,7 +407,7 @@ public class CabecerasXLSDAO {
 	public static CabecerasXLSBean findByFilters(int oidDivisionResidencia, int oidCabeceraXLS, int posicionEnVistas, String idToma, String horaToma, String horaTomaLiteral, boolean desdeTomaPrimerDia, boolean hastaTomaUltimoDia  ) throws Exception {
      	
     	Connection con = Conexion.conectar();
-    	CabecerasXLSBean  c =new CabecerasXLSBean();
+    	CabecerasXLSBean  c =null;
       
     	String qry = "SELECT * FROM dbo.SPD_cabecerasXLS g  ";
  		qry+= " WHERE 1=1 ";

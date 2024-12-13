@@ -340,11 +340,20 @@ public class ControlSPD{
 	private static void controlarUnicoGtvm(String idUsuario, FicheroResiBean medResi) throws Exception {
 		if(medResi!=null && medResi.getSpdAccionBolsa()!=null && (medResi.getSpdAccionBolsa().equals(SPDConstants.SPD_ACCIONBOLSA_PASTILLERO) || medResi.getSpdAccionBolsa().equals(SPDConstants.SPD_ACCIONBOLSA_SOLO_INFO)))
 		{
-			int cuantos = FicheroResiDetalleDAO.contarDistintosPActivosPorCIPyGTVM(medResi);
-			if(cuantos>=1) 
+			int cuantos = 0;
+			try {
+				cuantos = FicheroResiDetalleDAO.contarDistintosPActivosPorCIPyGTVM(medResi);
+			}
+			catch(Exception e){
+				
+			}
+			System.out.println(new Date() + " 1 cuantos: " + cuantos);
+			if(cuantos>0) 
 				medResi.setControlUnicoGtvm(SPDConstants.CTRL_UNICO_GTVM_ALERTA);
 			else  
 				medResi.setControlUnicoGtvm(SPDConstants.CTRL_UNICO_GTVM_OK);
+
+			System.out.println(new Date() + " 2 medResi.getControlUnicoGtvm(): " + medResi.getControlUnicoGtvm());
 
 			if(medResi!=null && medResi.getControlUnicoGtvm().equalsIgnoreCase(SPDConstants.CTRL_UNICO_GTVM_ALERTA))
 			{

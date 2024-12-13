@@ -1,8 +1,6 @@
 package lopicost.spd.iospd;
 
-import lopicost.config.logger.Logger;
 import lopicost.config.pool.dbaccess.Conexion;
-import lopicost.spd.helper.*;
 
 import lopicost.spd.model.*;
 
@@ -11,30 +9,16 @@ import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.form.SustXComposicionForm;
 import lopicost.spd.utils.DateUtilities;
 import lopicost.spd.utils.MessageManager;
-import lopicost.spd.utils.SPDConstants;
-import lopicost.spd.utils.StringUtil;
-import lopicost.spd.utils.TextManager;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.struts.action.ActionErrors;
-
-
 
 
 public class IOSpdApi 

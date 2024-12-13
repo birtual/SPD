@@ -1,72 +1,52 @@
 package lopicost.spd.struts.action;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
 import org.apache.struts.actions.DispatchAction;
 
 import lopicost.spd.iospd.exportdata.process.ExcelSustXComposicion;
 import lopicost.spd.model.BdConsejo;
 import lopicost.spd.model.SustXComposicion;
 
-//import lopicost.spd.struts.action.GenericAction; //revisar si es mejor poner este GenericAction
-//import lopicost.spd.commons.action.GenericAction;
-
 import lopicost.spd.persistence.BdConsejoDAO;
-import lopicost.spd.persistence.FicheroResiDetalleDAO;
 import lopicost.spd.persistence.RobotDAO;
 import lopicost.spd.persistence.SustXComposicionDAO;
-import lopicost.spd.struts.form.FicheroResiForm;
 import lopicost.spd.struts.form.SustXComposicionForm;
 import lopicost.spd.utils.DataUtil;
 import lopicost.spd.utils.SPDConstants;
 public class SustXComposicionAction extends DispatchAction  {
 
 	SustXComposicionDAO dao= new  SustXComposicionDAO();
-
-
 	   
 	public ActionForward list(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 	
-		
-	//	List<SustXComposicion> resultList= new ArrayList<SustXComposicion>();
 		SustXComposicionForm formulari =  (SustXComposicionForm) form;
 	//	inicializamos para que no haya datos de otros módulos
 		formulari.setOidSustXComposicion(0);
 		formulari.setCodGtVmp("");
-	//	formulari.setCodiLab("");
 		formulari.setNombreLab(SustXComposicionDAO.getNombreLaboratorio(formulari.getFiltroCodiLaboratorio()));
 		formulari.setListaRobots(RobotDAO.getListaRobots());
-	//	formulari.setFiltroLabsSoloAsignados(formulari.isFiltroLabsSoloAsignados());
 		formulari.setFiltroCodigoMedicamento(formulari.getCnOk());
 		
 		int getCountSustXComposicion= dao.getCountSustXComposicion(formulari);
 		int currpage = actualizaCurrentPage(formulari, getCountSustXComposicion);
 		formulari.setListaSustXComposicion(dao.getSustXComposicion(formulari, currpage*SPDConstants.PAGE_ROWS,(currpage+1)*SPDConstants.PAGE_ROWS));
 		formulari.setListaGtVm(BdConsejoDAO.getListaGtVmDeConsejo(formulari.getFiltroCodiLaboratorio(), formulari.isFiltroCheckedLabsSoloAsignados(), formulari.isFiltroCheckedComposicionSinLabs()));
-	//	formulari.setListaPresentacion(BdConsejoDAO.getListaPresentacion());
 		formulari.setListaGtVmp(BdConsejoDAO.getListaGtVmp(formulari.getFiltroCodiLaboratorio(),  formulari.getFiltroCodGtVm(), formulari.getFiltroNomGtVm(), formulari.isFiltroCheckedLabsSoloAsignados(), formulari.isFiltroCheckedComposicionSinLabs()));
 		formulari.setListaGtVmpp(BdConsejoDAO.getListaGtVmpp(formulari.getFiltroCodiLaboratorio(), formulari.getFiltroCodGtVm(), formulari.getFiltroNomGtVm(),formulari.getFiltroCodGtVmp(), formulari.getFiltroNomGtVmp(), formulari.isFiltroCheckedLabsSoloAsignados(), formulari.isFiltroCheckedComposicionSinLabs()));
-	//	formulari.setListaConjuntosHomogeneos(BdConsejoDAO.getListaConjuntosHomogeneos(formulari.getFiltroCodiLaboratorio(), /*formulari.getFiltroListaConjuntosHomogeneos(), */ formulari.getFiltroListaPrincipioActivo(), formulari.getFiltroCodGtVmp(), formulari.isFiltroCheckedLabsSoloAsignados(), formulari.isFiltroCheckedConjHomogSinLabs()));
-	//	formulari.setListaLabs(BdConsejoDAO.getLabsBdConsejo(formulari.getFiltroCodiLaboratorio(), formulari.getFiltroNombreLaboratorio(), 0,10000)) ;
 		formulari.setListaLabs(BdConsejoDAO.getLabsBdConsejo(null, null, 0,10000, formulari.getFiltroCodGtVm(), formulari.getFiltroNomGtVm(), formulari.getFiltroCodGtVmp(), formulari.getFiltroNomGtVmp(), formulari.getFiltroCodGtVmpp(), formulari.getFiltroNomGtVmpp())) ;
-	//	formulari.setListaLabsBiblia(BdConsejoDAO.getLabsAsignadosAConjHomog(formulari.getFiltroCodiLaboratorioBiblia(), formulari.getFiltroNombreLaboratorioBiblia(), 0,10000)) ;
 
 		formulari.setNombreConsejo(formulari.getNombreConsejo());
 		List errors = new ArrayList();
@@ -79,13 +59,11 @@ public class SustXComposicionAction extends DispatchAction  {
 	}
 	
 	
-	public ActionForward editar(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
+	public ActionForward editar(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		SustXComposicionForm formulari =  (SustXComposicionForm) form;
 		SustXComposicion sust = SustXComposicionDAO.getSustXComposicionByOid(formulari);
 		formulari.setSustXComposicion(sust);
-		//6594070
 			
 		List errors = new ArrayList();
 		boolean result=false;
@@ -124,20 +102,14 @@ public class SustXComposicionAction extends DispatchAction  {
 			list( mapping,  form,  request,  response);
 			formulari.setErrors(errors);
 			return mapping.findForward("list");
-			
 		}
-
 			
 		return mapping.findForward("editar");
 	}
 
 	
-	public ActionForward borrar(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		
+	public ActionForward borrar(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List errors = new ArrayList();
-
 		SustXComposicionForm formulari =  (SustXComposicionForm) form;
 		formulari.setSustXComposicion(SustXComposicionDAO.getSustXComposicionByOid(formulari));
 		boolean result=false;
@@ -164,49 +136,36 @@ public class SustXComposicionAction extends DispatchAction  {
 			throws Exception {
 		//inicializamos para que no haya datos de otros módulos
 		SustXComposicionForm formulari =  (SustXComposicionForm) form;
-//			formulari.setListaConjuntosHomogeneos(BdConsejoDAO.getListaConjuntosHomogeneos());
-//			formulari.setListaConjuntosHomogeneos(BdConsejoDAO.getListaConjuntosHomogeneos(formulari.getFiltroListaConjuntosHomogeneos(), formulari.getFiltroListaPrincipioActivo(), formulari.getFiltroCodGtVmp()));
-			formulari.setListaGtVm(BdConsejoDAO.getListaGtVmDeConsejo());
-			formulari.setListaPresentacion(BdConsejoDAO.getListaPresentacion());
-			formulari.setListaGtVmpp(BdConsejoDAO.getListaGtVmpp(formulari.getFiltroCodGtVm(), formulari.getFiltroNomGtVm(), formulari.getFiltroCodGtVmp(), formulari.getFiltroNomGtVmp()));
+		formulari.setListaGtVm(BdConsejoDAO.getListaGtVmDeConsejo());
+		formulari.setListaPresentacion(BdConsejoDAO.getListaPresentacion());
+		formulari.setListaGtVmpp(BdConsejoDAO.getListaGtVmpp(formulari.getFiltroCodGtVm(), formulari.getFiltroNomGtVm(), formulari.getFiltroCodGtVmp(), formulari.getFiltroNomGtVmp()));
+		formulari.setListaLabs(BdConsejoDAO.getLabsBdConsejo(null, null, 0,10000)) ;
 
-			formulari.setListaLabs(BdConsejoDAO.getLabsBdConsejo(null, null, 0,10000)) ;
-
-			//formulari.setFiltroCodigoMedicamento(formulari.getFiltroCodigoMedicamento());
-
+		List errors = new ArrayList();
+		boolean result=false;
+		System.out.println("SustXComposicionForm.getACTIONTODO() main "  +formulari.getACTIONTODO());
+		if(formulari.getACTIONTODO()!=null && formulari.getACTIONTODO().equals("NUEVO"))
+		{
+			formulari.setComentarios("");
+			formulari.setOidSustXComposicion(0);
+			formulari.setPonderacion(0);
+			formulari.setRentabilidad(0);
+			formulari.setSustituible("NO");
+		}
+		else if(formulari.getACTIONTODO()!=null && formulari.getACTIONTODO().equals("NUEVO_OK"))
+		{
+			result=SustXComposicionDAO.nuevo(formulari);
+			if(result)
+			{
+				errors.add( "Registro creado correctamente ");
+			}
+			else errors.add( "No se ha podido crear el registro");
 			
-			List errors = new ArrayList();
-			boolean result=false;
-			System.out.println("SustXComposicionForm.getACTIONTODO() main "  +formulari.getACTIONTODO());
-			 if(formulari.getACTIONTODO()!=null && formulari.getACTIONTODO().equals("NUEVO"))
-			{
-				// formulari.setCodConjHomog("");
-				// formulari.setCodiLab("");
-				 formulari.setComentarios("");
-				// formulari.setNombreLab("");
-				// formulari.setNomConjHomog("");
-				 formulari.setOidSustXComposicion(0);
-				 formulari.setPonderacion(0);
-				 formulari.setRentabilidad(0);
-				 formulari.setSustituible("NO");
-				// formulari.setFiltroCodiLaboratorio(formulari.getFiltroCodiLaboratorio());
-
-			}
-			else if(formulari.getACTIONTODO()!=null && formulari.getACTIONTODO().equals("NUEVO_OK"))
-			{
-				result=SustXComposicionDAO.nuevo(formulari);
-				if(result)
-				{
-					errors.add( "Registro creado correctamente ");
-				}
-				else errors.add( "No se ha podido crear el registro");
-
-				list( mapping,  form,  request,  response);
-				formulari.setErrors(errors);
-				return mapping.findForward("list");
-				
-			}
-			return mapping.findForward("nuevo");
+			list( mapping,  form,  request,  response);
+			formulari.setErrors(errors);
+			return mapping.findForward("list");
+		}
+		return mapping.findForward("nuevo");
 	}
 	
 	
@@ -220,7 +179,6 @@ public class SustXComposicionAction extends DispatchAction  {
 		formulari.setOidSustXComposicion(0);
 		formulari.setListaSustXComposicion(dao.getSustXComposicion(formulari, 0, 100000));
 		formulari.setNombreLab(SustXComposicionDAO.getNombreLaboratorio(formulari.getFiltroCodiLaboratorio()));
-		//formulari.setListaConjuntosHomogeneos(BdConsejoDAO.getListaConjuntosHomogeneos(formulari.getFiltroListaConjuntosHomogeneos(), formulari.getFiltroListaPrincipioActivo(), formulari.getFiltroCodGtVmp()));
 
 		List errors = new ArrayList();
 		formulari.setErrors(errors);
@@ -272,7 +230,6 @@ public class SustXComposicionAction extends DispatchAction  {
 			result=SustXComposicionDAO.desAsignacionMasiva(formulari);
 			if(result)
 			{
-			//	errors.add(SPDConstants.MSG_LEVEL_INFO, new ActionMessage("Registro borrado correctamente Info"));
 				errors.add( "Registros borrados correctamente ");
 			}
 			else errors.add( "Error en el borrado masivo de registros");
@@ -305,35 +262,24 @@ public class SustXComposicionAction extends DispatchAction  {
 		
 	}
 
-	    public ActionForward exportExcel(ActionMapping mapping, ActionForm form,
-	            HttpServletRequest request, HttpServletResponse response)
-	            throws Exception {
-
-	    		List errors = new ArrayList();
-	    		SustXComposicionForm formulari =  (SustXComposicionForm) form;
-	    	//	inicializamos para que no haya datos de otros módulos
-	    		formulari.setOidSustXComposicion(0);
-	    		ExcelSustXComposicion excelCreator = new ExcelSustXComposicion();
+	    public ActionForward exportExcel(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    	List errors = new ArrayList();
+	    	SustXComposicionForm formulari =  (SustXComposicionForm) form;
+	    //	inicializamos para que no haya datos de otros módulos
+	    	formulari.setOidSustXComposicion(0);
+	    	ExcelSustXComposicion excelCreator = new ExcelSustXComposicion();
 	    		 
-	    		
-		        HSSFWorkbook workbook = excelCreator.createWorkbook(formulari, dao.getSustXComposicion(formulari,0,100000));
-		        response.setHeader("Content-Disposition", "attachment; filename=c:/UserDetails.xls");
-		        ServletOutputStream out = response.getOutputStream();
-		        workbook.write(out);
-		        out.flush();
-		        out.close();
-		       // return mapping.findForward(SUCCESS);
+	    	HSSFWorkbook workbook = excelCreator.createWorkbook(formulari, dao.getSustXComposicion(formulari,0,100000));
+		    response.setHeader("Content-Disposition", "attachment; filename=c:/UserDetails.xls");
+		    ServletOutputStream out = response.getOutputStream();
+		    workbook.write(out);
+		    out.flush();
+		    out.close();
 
-	    	
-	    		formulari.setErrors(errors);
+		    formulari.setErrors(errors);
 	
-	    		return mapping.findForward("exportExcel");
-
-
+	    	return mapping.findForward("exportExcel");
 	    }
-
-
-	    
 	
 	
 }

@@ -1,12 +1,15 @@
 package lopicost.spd.struts.action;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -14,12 +17,15 @@ import org.apache.struts.action.ActionMapping;
 import lopicost.config.logger.Logger;
 import lopicost.spd.model.Enlace;
 import lopicost.spd.model.Usuario;
+import lopicost.spd.persistence.AvisosDAO;
 import lopicost.spd.persistence.EnlaceDAO;
 import lopicost.spd.persistence.UsuarioDAO;
 import lopicost.spd.struts.form.EnlacesForm;
 import lopicost.spd.struts.helper.ControlDataImportHelper;
 import lopicost.spd.struts.helper.EnlacesHelper;
 import lopicost.spd.struts.helper.ExtReHelper;
+import lopicost.spd.utils.DateUtilities;
+import lopicost.spd.utils.StringUtil;
 
 public class EnlacesAction extends GenericAction  {
 
@@ -56,6 +62,11 @@ public class EnlacesAction extends GenericAction  {
 		List beansResi = ExtReHelper.getDatosProcesoCaptacionConErrores(enlacesForm.getIdUsuario());
 		enlacesForm.setListaBeans(beansResi);
 		
+
+        List avisos = ExtReHelper.getAvisosDeHoy(enlacesForm.getIdUsuario(), null, false, new Date());
+        
+		enlacesForm.setAvisos(avisos);
+
 		//return mapping.findForward("listHtml");
 		 mapping.findForward("list");
 		ActionForward  actionForward =mapping.findForward("list");

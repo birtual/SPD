@@ -74,7 +74,7 @@
 		</tr>
 		<tr>
 			<td>Hacer spd</td>
-			<td><select name=spd" >
+			<td><select name="spd" >
 			   	 	<option value="S"  selected>SI</option>
 			   	 	<option value="N"  >NO</option>
 				</select>

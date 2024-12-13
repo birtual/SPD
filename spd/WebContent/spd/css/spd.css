@@ -489,4 +489,24 @@ select.ancho_23
      padding-right: 0.5em; /* Espacio entre el texto y la flecha */
  }
 
-
+/*Tipos de aviso*/
+ .ALERTA {
+    background-color: yellow;
+    text-align: left; 
+    font-size: 20px; 
+    color: red;
+    
+}
+ .INCIDENCIA {
+ 	background-color: #EEE;
+    text-align: left; 
+    font-size: 20px; 
+    color: red;
+    
+}
+ .INFO {
+    text-align: left; 
+    font-size: 15px; 
+    color: black;
+    
+}

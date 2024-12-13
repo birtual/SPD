@@ -1,7 +1,10 @@
 package lopicost.spd.struts.helper;
 
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.*;
 
+import lopicost.spd.persistence.AvisosDAO;
 import lopicost.spd.persistence.ExtReDAO;
 import lopicost.spd.struts.bean.ExtReBean;
 
@@ -51,6 +54,10 @@ public class ExtReHelper {
 	public static List getCipsSinProcesarPendientes(String spdUsuario, String idDivisionResidencia)throws Exception {
 		return ExtReDAO.getCipsSinProcesarPendientes(spdUsuario, idDivisionResidencia);
 		}
+
+	public static List getAvisosDeHoy(String idUsuario, String idFarmacia, boolean actuales, Date fecha) throws ClassNotFoundException, SQLException, ParseException {
+		return AvisosDAO.getAvisosDeHoy(idUsuario, idFarmacia, actuales, fecha );
+	}
 
 
 	

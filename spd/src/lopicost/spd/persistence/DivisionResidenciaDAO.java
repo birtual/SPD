@@ -38,7 +38,6 @@ public class DivisionResidenciaDAO {
 
 	            while (resultSet.next()) {
 	            	c=creaObjetoDivisionResidencia(resultSet);
-	            	
 	            }
 	            
 	        } catch (SQLException e) {
@@ -101,7 +100,7 @@ public class DivisionResidenciaDAO {
 	            resultSet = pstat.executeQuery();
 
 	            while (resultSet.next()) {
-	            	DivisionResidencia  c =creaObjetoDivisionResidencia(resultSet);
+	            	DivisionResidencia  c = creaObjetoDivisionResidencia(resultSet);
 	            	if(c!=null)
 	            		listaDivisionResidencias.add(c);
 	            }
@@ -111,8 +110,6 @@ public class DivisionResidenciaDAO {
 	 
 	        return listaDivisionResidencias;
 }
-
-	
 
     
 	public static List<DivisionResidencia> getListaDivisionResidenciasSinSustXResi(String spdUsuario, int oidGestSustituciones) throws Exception {
@@ -147,14 +144,12 @@ public class DivisionResidenciaDAO {
 }
 	
 	
-
-    
-	
 	private static DivisionResidencia creaObjetoDivisionResidencia(ResultSet resultSet) throws SQLException {
         
 		DivisionResidencia  c =null;
 		if(resultSet!=null){
 			c =new DivisionResidencia();
+			c.setOidResidencia(resultSet.getInt("oidResidencia"));
 			c.setIdResidencia(resultSet.getString("idResidencia"));
 	    	c.setNombreDivisionResidencia(resultSet.getString("nombreDivisionResidencia"));
 	    	c.setIdDivisionResidencia(resultSet.getString("idDivisionResidencia"));
@@ -266,7 +261,49 @@ public class DivisionResidenciaDAO {
 			return result>0;
 		}
 		
+	/**
+	 * Método para dar de alta una divisionResidencia,
+	 * @param spdUsuario
+	 * @param div
+	 * @return
+	 * @throws Exception
+	 * Previamente ha de existir Farmacia, Residencia, Robot
+	 */
+	public static boolean nuevo(String spdUsuario, DivisionResidencia div) throws Exception {
+	      int result=0;
+		  Connection con = Conexion.conectar();
+ 	  	  
+		  String qry = " INSERT INTO bd_divisionResidencia  ";
+		  	qry+=" ( ";
+		  	qry+=" 	idDivisionResidencia, nombreDivisionResidencia, ";		  	
+		  	qry+=" 	oidResidencia, idResidencia, ";
+		  	qry+=" 	idFarmacia, idRobot, fechaAlta, ";
+		  	qry+=" 	nombreBolsa, idProcessIospd, tipoCLIfarmatic, ";
+		  	qry+=" 	extRE, extRE_diaSemana  ";
+		  	qry+=" ) VALUES ( ";
+		  	qry+=" '"+ div.getIdDivisionResidencia()+"', '"+ div.getNombreDivisionResidencia()+"', ";
+		  	qry+=" '"+ div.getResidencia().getOidResidencia()+"' , '"+ div.getResidencia().getIdResidencia()+"', ";
+		  	qry+=" '"+ div.getIdFarmacia()+"' , '"+ div.getIdRobot()+"', CONVERT(datetime, getdate(), 120),   ";
+		  	qry+=" '"+ div.getNombreBolsa()+"', '"+ div.getIdProcessIospd()+"', '"+ div.getTipoCLIfarmatic()+"', ";
+		  	qry+=" '"+ div.getExtRE()+"', '"+ div.getExtRE_diaSemana()+"' ";
+		  	
+			  	   		
+		  	System.out.println(className + "  - nuevo-->  " +qry );		
+		    try {
+		         PreparedStatement pstat = con.prepareStatement(qry);
+		         result=pstat.executeUpdate();
+		       
+		     } catch (SQLException e) {
+		         e.printStackTrace();
+		     }
+		    finally {con.close();}
+			return result>0;
+		}
+		
 	
+	
+	  
+
 	
 }
 

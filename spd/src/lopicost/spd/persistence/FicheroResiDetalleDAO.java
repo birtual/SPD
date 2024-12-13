@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import lopicost.config.pool.dbaccess.Conexion;
@@ -2656,8 +2657,8 @@ public class FicheroResiDetalleDAO {
 
 	public static int contarDistintosPActivosPorCIPyGTVM(FicheroResiBean medResi) throws Exception {
 		Connection con = Conexion.conectar();
-		String qry = "	SELECT  distinct d.cuantos AS  cuantos ";
-		qry+=  " 	FROM  bd_consejo bd INNER JOIN ";
+		String qry = "	SELECT  distinct coalesce(d.cuantos, 0) AS  cuantos ";
+		qry+=  " 	FROM  bd_consejo bd LEFT JOIN ";
 		qry+=  " 	( ";
 	   	qry+=  " 		SELECT  c.NomGtVm, count('1') AS cuantos  ";
 	   	qry+=  " 		FROM dbo.SPD_ficheroResiDetalle d inner join bd_consejo c  on (d.spdCnFinal=c.codigo or d.resiCn=c.codigo ) ";
@@ -2665,7 +2666,6 @@ public class FicheroResiDetalleDAO {
 	   	qry+=  " 		AND d.spdNomGtVmpp<>'' and d.spdNomGtVmpp is not null ";
 		qry+=  " 		AND d.idProceso ='" + medResi.getIdProceso()+"'";
 		qry+=  " 		AND d.spdAccionBolsa NOT IN ('"+SPDConstants.SPD_ACCIONBOLSA_SI_PRECISA+"') ";
-		qry+=  " 		AND idProceso ='" + medResi.getIdProceso()+"'";
 		qry+=  " 		AND d.resiCIP ='" + medResi.getResiCIP()+"'";
 		qry+=  " 		AND d.oidFicheroResiDetalle <>'" + medResi.getOidFicheroResiDetalle()+"'";
 		qry+=  " 		group by c.NomGtVm ";
@@ -2688,6 +2688,7 @@ public class FicheroResiDetalleDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			}finally {con.close();}
+		System.out.println(new Date() + " 0 result cuantos: " + result);
 	   return result;
 	}
 	

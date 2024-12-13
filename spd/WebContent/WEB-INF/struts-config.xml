@@ -22,6 +22,8 @@
     	<form-bean name="MenuForm" type="lopicost.spd.struts.form.MenuForm"/>     
     	<form-bean name="ControlPrincipioActivoForm" type="lopicost.spd.struts.form.ControlPrincipioActivoForm"/>     
    		<form-bean name="SpdLogForm" type="lopicost.spd.struts.form.SpdLogForm"/>     
+  		<form-bean name="DivResidenciasForm" type="lopicost.spd.struts.form.DivResidenciasForm"/>     
+  		<form-bean name="AvisosForm" type="lopicost.spd.struts.form.AvisosForm"/>     
     		
 
 	<!-- IOSPD Import -->
@@ -78,8 +80,9 @@
         	<forward name="detalleTratamientoRct" path="/spd/app/pacientes/jsp/tratamientoRctPorCIP.jsp" />
         	<forward name="listTratamientosSPD" path="/spd/app/pacientes/jsp/listTratamientosSPDPorCIP.jsp" />
         	<forward name="detalleTratamientosSPD" path="/spd/app/pacientes/jsp/produccionesSPDPorCIP.jsp" />
-        	<forward name="producirSPDResidente" path="/PrepararGeneracion.do" redirect="true"/>
+        	<!--  forward name="producirSPDResidente" path="/PrepararGeneracion.do" redirect="true"/>-->
         	  	
+        	<forward name="producirSPDResidente" path="/spd/app/ficheroResiLite/jsp/editarCabecera.jsp" redirect="true"/>
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
         </action>  
  
@@ -181,6 +184,9 @@
         	<forward name="list" path="/spd/app/ficheroResiLite/jsp/listCabecera.jsp" />
          	<forward name="borrar" path="/spd/app/ficheroResiLite/jsp/borrarCabecera.jsp" />
         	<forward name="editar" path="/spd/app/ficheroResiLite/jsp/editarCabecera.jsp" />
+        	<forward name="editarFechasResidente" path="/spd/app/ficheroResiLite/jsp/editarCabeceraResidente.jsp" />
+        	<forward name="prepararFicherosResidente" path="/PrepararGeneracion.do?parameter=generarFicherosResidente" redirect="true"/>
+        	
        		<forward name="refrescar" path="/spd/app/ficheroResiLite/jsp/listCabecera.jsp" />
        		<forward name="detalle" path="/FicheroResiDetalleLite.do?parameter=list" />
        		<forward name="exportExcel" path="/spd/app/ficheroResiLite/jsp/origen/listDetalle.jsp" />
@@ -204,7 +210,8 @@
         <action path="/PrepararGeneracion"  type="lopicost.spd.struts.action.FicheroResiCabeceraLiteAction"  
 		 	parameter="parameter"  name="FicheroResiForm" 
 		 	scope="request" validate="false">
-    <forward name="generarFicheros" path="/spd/app/robot/jsp/generarFicheros.jsp" />
+    		<forward name="generarFicheros" path="/spd/app/robot/jsp/generarFicheros.jsp" />
+			<forward name="generarFicherosResidente" path="/spd/app/robot/jsp/generarFicherosResidente.jsp" />   		
    
 </action>
 
@@ -477,7 +484,7 @@
         </action> 
         
                 
-              		<!-- Enlaces -->
+        <!-- Enlaces -->
 		<action path="/SpdLog" 
 			type="lopicost.spd.struts.action.SpdLogAction"  
 		 	parameter="parameter"  
@@ -490,7 +497,30 @@
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
         </action> 
         
-               
+       <!-- Residencias -->
+		<action path="/DivResidencias" type="lopicost.spd.struts.action.DivResidenciasAction"  
+		 	parameter="parameter"  name="DivResidenciasForm" 
+			scope="request" validate="false">
+        	<forward name="admin" path="/spd/app/divResidencias/jsp/admin.jsp" />
+        	<forward name="list" path="/spd/app/divResidencias/jsp/list.jsp" />
+        	<forward name="nuevo" path="/spd/app/divResidencias/jsp/nuevo.jsp" />
+        	<forward name="detalle" path="/spd/app/divResidencias/jsp/detalle.jsp" />
+        	<forward name="editar" path="/spd/app/divResidencias/jsp/editar.jsp" />
+        	<!--  forward name="borrar" path="/spd/app/divResidencias/jsp/borrar.jsp" />-->
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>     
+
+		<action path="/Avisos" type="lopicost.spd.struts.action.AvisosAction"  
+		 	parameter="parameter"  name="AvisosForm" 
+			scope="request" validate="false">
+        	<forward name="admin" path="/spd/app/avisos/jsp/admin.jsp" />
+        	<forward name="list" path="/spd/app/avisos/jsp/list.jsp" />
+        	<forward name="nuevo" path="/spd/app/avisos/jsp/nuevo.jsp" />
+        	<forward name="detalle" path="/spd/app/avisos/jsp/detalle.jsp" />
+        	<forward name="editar" path="/spd/app/avisos/jsp/editar.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>     
+        
 	</action-mappings>
 <message-resources parameter="example.ApplicationResources" null="false"/>
 </struts-config>

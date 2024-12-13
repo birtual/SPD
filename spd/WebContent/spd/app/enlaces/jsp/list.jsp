@@ -5,6 +5,7 @@
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="java.util.concurrent.atomic.AtomicInteger" %>
 
 <%@ page session="true" %>
@@ -45,11 +46,27 @@
 		</font>
 		</ul>
 	</logic:notEmpty>
- 	<logic:notEmpty name="formulari" property="listaBeans">	
+	
  	
+ 	<logic:notEmpty name="formulari" property="avisos">	
+	<div style="width: 50%; margin: 0 auto;">
+    <h3>Avisos</h3>
+    <logic:iterate id="dat" name="formulari" property="avisos" type="lopicost.spd.model.Aviso" indexId="position">
+        <div class="${dat.tipo}">
+           <fmt:formatDate value="${dat.fechaInicio}" pattern="dd/MM/yyyy" />  - <bean:write name="dat" property="aviso" />
+        </div>
+        <!-- Agregar un espacio vacío entre los avisos -->
+        <div>&nbsp;</div>
+    </logic:iterate>
+</div>
+	</table>
+	</logic:notEmpty>
+		
+		
+ 	<logic:notEmpty name="formulari" property="listaBeans">	
  	<div>	
 	</br>
-		
+ 	
  	<table align="center" style="width:50%">
 	<h3 align="center" >Avisos en la actualización de datos </h3>
 		<thead>

@@ -23,7 +23,7 @@ import lopicost.spd.utils.SPDConstants;
 public class FicheroResiCabeceraDAO {
 	
 	static String className="FicheroResiCabeceraDAO";
-	
+
 	static String TABLA_ACTIVA		=	"dbo.SPD_ficheroResiCabecera";
 	static String TABLA_HISTORICO 	=	"dbo.SPDHst_ficheroResiCabecera";   //tabla de histórico
 

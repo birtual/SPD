@@ -33,16 +33,7 @@
 	<div id="contingut">
 		<div><h3><p>Producciones CIP</p></h3></div>
 		<div><p><bean:write name="formulari" property="CIP"/>-<bean:write name="formulari" property="nombreApellidos"/></p></div>
-		<div>
-			<p>		
-			<logic:greaterThan name="formulari" property="oidPaciente" value="0">
-				 <div >identificador: <b><bean:write name="formulari" property="oidPaciente" /></b></div>
-			</logic:greaterThan>
-			<logic:lessEqual name="formulari" property="oidPaciente" value="0">
-				 <div ><b>No existe en mantenimiento de residentes</b></div>
-			</logic:lessEqual>
-			</p>
-		</div>
+
 		
 	<logic:notEmpty  name="formulari" property="listaProcesosCargados" >
 		<bean:define id="listaProcesos" name="formulari" property="listaProcesosCargados" />	 	
@@ -69,17 +60,22 @@
 				FicheroResiBean bean = (FicheroResiBean) pageContext.findAttribute("beanDos");
         		String oidFicheroResiCabecera = new String().valueOf(bean.getOidFicheroResiCabecera());
 %>
-			<input type="button" 
-				id="generateButton_<%=oidFicheroResiCabecera%>" 
-				class="negro" 
-				value="Ficheros DM y RX" 
-				onclick="javascript:confirmacionFicherosRobotResidente('<bean:write name="formulari" property="oidPaciente" />', '<bean:write name="beanDos" property="oidFicheroResiCabecera" />')" 
-				/>
+
+
 			</logic:notEmpty>
 
 			</div>	
 		</logic:notEmpty>
-			
+					<div>
+			<p>		
+			<logic:greaterThan name="formulari" property="oidPaciente" value="0">
+				 <div >identificador: <b><bean:write name="formulari" property="oidPaciente" /></b></div>
+			</logic:greaterThan>
+			<logic:lessEqual name="formulari" property="oidPaciente" value="0">
+				 <div ><b>No existe en mantenimiento de residentes</b></div>
+			</logic:lessEqual>
+			</p>
+		</div>
 	<fieldset>
 
 

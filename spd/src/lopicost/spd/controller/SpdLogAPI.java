@@ -22,6 +22,7 @@ public class SpdLogAPI
 	public static final String A_TRATAMIENTO= "TRATAMIENTO";
 	public static final String A_IOSPD= "IOSPD";	
 	public static final String A_RESIDENCIA = "RESIDENCIA";
+	public static final String A_AVISO = "AVISOS";
 	
 	
 	//accion - Constantes de segundo nivel 

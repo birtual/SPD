@@ -17,17 +17,15 @@ import org.apache.commons.lang.StringUtils;
 
 import lopicost.config.pool.dbaccess.Conexion;
 import lopicost.spd.model.Aviso;
-import lopicost.spd.model.Report;
-import lopicost.spd.model.Usuario;
+import lopicost.spd.security.helper.VisibilidadHelper;
 
-import lopicost.spd.struts.form.AvisosForm;
-import lopicost.spd.struts.form.EnlacesForm;
 
-public class AvisosDAO {
+public class AvisosDAO extends GenericDAO{
 	
 	
 	static String className="AvisosDAO";
-    
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+
 /*
 	public static List<Aviso> findByFilters(String usuario, String idFarmacia, Date fecha) throws ClassNotFoundException, SQLException {
 	    List<Aviso> result = new ArrayList<>();
@@ -77,18 +75,20 @@ public class AvisosDAO {
 		   }
 	*/    
 
-	public static  List findByFilters(String usuario, String idFarmacia, boolean actuales, Date fecha) throws ClassNotFoundException, SQLException, ParseException {
+	public static  List findByFilters(String usuario, int oidAviso, String idFarmacia, boolean actuales, Date fecha) throws Exception {
 
-		List result=new ArrayList<Report>();
+		List result=new ArrayList<Aviso>();
 		Aviso aviso =null;
 		String qry = " SELECT distinct a.* ";
 				qry+= " FROM SPD_AVISOS a ";
 				qry+= " WHERE 1=1 ";
 				//qry+= "AND a.idFarmacia is null ";
+				if(oidAviso>0)
+					qry+= " AND oidAviso = '"+oidAviso+"' ";
 				if (StringUtils.isNotEmpty(idFarmacia))
 					qry+= " AND idFarmacia = '"+idFarmacia+"' ";
 			    if (actuales){
-			    	qry += " AND CONVERT(datetime, getDate(), 120)   BETWEEN fechaInicio AND fechaFin ";
+			    	qry += " AND fechaInicio <=  CONVERT(datetime, getDate(), 120) AND  fechaFin +1 >= CONVERT(datetime, getDate(), 120)";
 			    }
 			    if (fecha!=null) 
 			    {
@@ -99,9 +99,14 @@ public class AvisosDAO {
 			        
 			        System.out.println(sqlTimestamp);
 			        
-			    	qry += " AND CONVERT(datetime, '"+sqlTimestamp+"', 120)   BETWEEN fechaInicio AND fechaFin ";
+			    	qry += " AND fechaInicio  <=  CONVERT(datetime, '"+sqlTimestamp+"', 120)   AND  fechaFin +1 >= CONVERT(datetime, '"+sqlTimestamp+"', 120) ";
 			    	qry += " AND ACTIVO='SI' ";
 			    }
+				qry+= " AND (idFarmacia IS NULL OR idFarmacia IN ( " + VisibilidadHelper.idFarmaciasVisibles(usuario)  + "))";
+
+				
+				
+			    
 				    	
 		
 
@@ -119,12 +124,26 @@ public class AvisosDAO {
 	    	while (resultSet.next()) {
 	    		aviso = new Aviso();
 	    		aviso.setActivo(resultSet.getString("activo"));
-	    		aviso.setFechaFin(resultSet.getDate("fechaFin"));
-	    		aviso.setFechaInicio(resultSet.getDate("fechaInicio"));
+               
+	    		Date fechaInicioDB = resultSet.getDate("fechaInicio");  // O rs.getTimestamp("fecha_inicio") si es Timestamp
+                if (fechaInicioDB != null) {
+                    // Convertir de java.sql.Date a String con el formato dd/MM/yyyy
+                    String fechaInicioStr = DATE_FORMAT.format(fechaInicioDB);
+                    aviso.setFechaInicio(fechaInicioStr);
+                }
+                // Recuperar la fecha_fin de la base de datos
+                Date fechaFinDB = resultSet.getDate("fechaFin"); // O rs.getTimestamp("fecha_fin") si es Timestamp
+                if (fechaFinDB != null) {
+                    // Convertir de java.sql.Date a String con el formato dd/MM/yyyy
+                    String fechaFinStr = DATE_FORMAT.format(fechaFinDB);
+                    aviso.setFechaFin(fechaFinStr);
+                }
+               
 	    		aviso.setFechaInsert(resultSet.getDate("fechaInsert"));
 	    		aviso.setIdFarmacia(resultSet.getString("idFarmacia"));
 	    		aviso.setOidAviso(resultSet.getInt("oidAviso"));
-	    		aviso.setAviso(resultSet.getString("aviso"));
+	    		aviso.setTexto(resultSet.getString("texto"));
+	    		aviso.setUsuarioCreador(resultSet.getString("usuarioCreador"));
 	    		aviso.setOrden(resultSet.getInt("orden"));
 	    		aviso.setTipo(resultSet.getString("tipo"));
 	    		result.add(aviso);
@@ -141,14 +160,16 @@ public class AvisosDAO {
 	public static boolean nuevo(String idUser, Aviso aviso) throws ClassNotFoundException, SQLException {
 
         int result=0;
+         
 		  Connection con = Conexion.conectar();
 		  String qry = "INSERT INTO dbo.SPD_avisos  ";
 		  		qry+= " ( ";
 		  		qry+= " 	fechaInicio, fechaFin, ";
-		  		qry+= " 	aviso, activo, idFarmacia, usuarioCreador, orden, tipo ";
+		  		qry+= " 	texto, activo, idFarmacia, usuarioCreador, orden, tipo ";
 		  		qry+= " ) VALUES ( ";
-	  	   		qry+= " '"+aviso.getFechaInicio()+"', '"+aviso.getFechaFin()+"', '"+aviso.getAviso()+"', ";
-	  	   		qry+= " '"+aviso.getActivo()+"', '"+aviso.getIdFarmacia()+"', '"+idUser+"', '"+aviso.getOrden()+"', '"+aviso.getTipo()+"";
+	  	   		//qry+= " '"+new Date(aviso.getFechaInicioDate().getTime())+"', '"+new Date(aviso.getFechaFinDate().getTime())+"', '"+aviso.getTexto()+"', ";
+	  	   		qry+= " CONVERT(DATETIME, '"+aviso.getFechaInicio()+"', 103),  CONVERT(DATETIME, '"+aviso.getFechaFin()+"', 103), '"+aviso.getTexto()+"', ";
+	  	   		qry+= " '"+aviso.getActivo()+"', '"+aviso.getIdFarmacia()+"', '"+idUser+"', '"+aviso.getOrden()+"', '"+aviso.getTipo()+"'";
 		  		qry+= " )  ";
 
                 
@@ -164,9 +185,22 @@ public class AvisosDAO {
 		return result>0;
 	}
 
-	public static List getAvisosDeHoy(String idUsuario, String idFarmacia, boolean actuales, Date fecha) throws ClassNotFoundException, SQLException, ParseException {
+	public static List getAvisosDeHoy(String idUsuario, int oidAviso, String idFarmacia, boolean actuales, Date fecha) throws Exception {
 		
-		return findByFilters(idUsuario,  idFarmacia, actuales, fecha);
+		return findByFilters(idUsuario, oidAviso, idFarmacia, actuales, fecha);
+	}
+
+	public static Aviso findByOid(String idUsuario, int oidAviso) throws Exception {
+		List aux = findByFilters(idUsuario, oidAviso,null, false, null);
+		if (aux != null && !aux.isEmpty()) {
+			return (Aviso)aux.get(0);
+		}
+		return null;
+	}
+
+	public static boolean edita(String query) {
+		// TODO Esbozo de método generado automáticamente
+		return false;
 	}
 
 

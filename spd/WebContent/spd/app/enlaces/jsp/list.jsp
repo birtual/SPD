@@ -53,12 +53,12 @@
     <h3>Avisos</h3>
     <logic:iterate id="dat" name="formulari" property="avisos" type="lopicost.spd.model.Aviso" indexId="position">
         <div class="${dat.tipo}">
-           <fmt:formatDate value="${dat.fechaInicio}" pattern="dd/MM/yyyy" />  - <bean:write name="dat" property="aviso" />
+           <bean:write name="dat" property="fechaInicio" /> - <bean:write name="dat" property="texto" />
         </div>
         <!-- Agregar un espacio vacío entre los avisos -->
         <div>&nbsp;</div>
     </logic:iterate>
-</div>
+	</div>
 	</table>
 	</logic:notEmpty>
 		

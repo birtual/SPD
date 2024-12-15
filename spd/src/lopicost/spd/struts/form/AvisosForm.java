@@ -1,25 +1,51 @@
 package lopicost.spd.struts.form;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import lopicost.spd.model.Aviso;
+import lopicost.spd.model.Farmacia;
 
 public class AvisosForm   extends GenericForm {
 	 
-
+	
+	private Aviso aviso;
 	private int oidAviso;
 	private Date fechaInsert;
-	private String aviso;
-	private Date fechaInicio;
-	private Date fechaFin;
+	private String texto;
+	private String fechaInicio;
+	private String fechaFin;
 	private String activo;
 	private String idFarmacia;
+	private String tipo;
 	private String usuarioCreador;
 	private int orden;
+	private List<Farmacia> listaFarmacias= null;
 	
+	
+	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+    private Date parseDate(String dateStr) {
+        try {
+            return dateStr != null && !dateStr.isEmpty() ? DATE_FORMAT.parse(dateStr) : null;
+        } catch (Exception e) {
+            return null; // Manejar la excepción adecuadamente si el formato es incorrecto
+        }
+    }
 
+    // Método para convertir de Date a String (formato dd/MM/yyyy)
+    public String formatDate(Date date) {
+        return date != null ? DATE_FORMAT.format(date) : null;
+    }
+	
+    public Date getFechaInicioDate() {
+        return parseDate(fechaInicio);
+    }
 
+    public Date getFechaFinDate() {
+        return parseDate(fechaFin);
+    }
+	
 	public int getOidAviso() {
 		return oidAviso;
 	}
@@ -32,22 +58,22 @@ public class AvisosForm   extends GenericForm {
 	public void setFechaInsert(Date fechaInsert) {
 		this.fechaInsert = fechaInsert;
 	}
-	public String getAviso() {
-		return aviso;
+	public String getTexto() {
+		return texto;
 	}
-	public void setAviso(String aviso) {
-		this.aviso = aviso;
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
-	public Date getFechaInicio() {
+	public String getFechaInicio() {
 		return fechaInicio;
 	}
-	public void setFechaInicio(Date fechaInicio) {
+	public void setFechaInicio(String fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
-	public Date getFechaFin() {
+	public String getFechaFin() {
 		return fechaFin;
 	}
-	public void setFechaFin(Date fechaFin) {
+	public void setFechaFin(String fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 	public String getActivo() {
@@ -73,6 +99,26 @@ public class AvisosForm   extends GenericForm {
 	}
 	public void setOrden(int orden) {
 		this.orden = orden;
+	}
+	public Aviso getAviso() {
+		return aviso;
+	}
+	public void setAviso(Aviso aviso) {
+		this.aviso = aviso;
+	}
+	public List<Farmacia> getListaFarmacias() {
+		return listaFarmacias;
+	}
+	public void setListaFarmacias(List<Farmacia> listaFarmacias) {
+		this.listaFarmacias = listaFarmacias;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	

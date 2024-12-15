@@ -1,20 +1,14 @@
 package lopicost.spd.struts.helper;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import lopicost.config.pool.dbaccess.Conexion;
 import lopicost.spd.controller.SpdLogAPI;
 import lopicost.spd.persistence.FicheroResiDetalleDAO;
 import lopicost.spd.persistence.PacienteDAO;
-import lopicost.spd.persistence.UsuarioDAO;
-import lopicost.spd.security.helper.VisibilidadHelper;
 import lopicost.spd.struts.bean.BolquersDetalleBean;
 import lopicost.spd.struts.bean.DiscrepanciaBean;
 import lopicost.spd.struts.bean.FicheroResiBean;

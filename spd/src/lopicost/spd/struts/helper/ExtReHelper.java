@@ -55,8 +55,8 @@ public class ExtReHelper {
 		return ExtReDAO.getCipsSinProcesarPendientes(spdUsuario, idDivisionResidencia);
 		}
 
-	public static List getAvisosDeHoy(String idUsuario, String idFarmacia, boolean actuales, Date fecha) throws ClassNotFoundException, SQLException, ParseException {
-		return AvisosDAO.getAvisosDeHoy(idUsuario, idFarmacia, actuales, fecha );
+	public static List getAvisosDeHoy(String idUsuario, int oidAviso, String idFarmacia, boolean actuales, Date fecha) throws Exception {
+		return AvisosDAO.getAvisosDeHoy(idUsuario, oidAviso, idFarmacia, actuales, fecha );
 	}
 
 

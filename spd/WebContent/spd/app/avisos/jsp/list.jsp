@@ -32,13 +32,21 @@
 
 
 
-function borrar(oidAviso)
-{
-	var f = document.AvisosForm;
-	f.parameter.value='borrar';
-	f.ACTIONTODO.value='CONFIRMAR';
-	f.oidAviso.value= oidAviso;
-	f.submit();
+function borrar(oidAviso) {
+    // Mostrar un cuadro de confirmación
+    var confirmacion = window.confirm("¿Estás seguro de que deseas borrar este aviso?");
+    
+    // Si el usuario hace clic en "Aceptar" (true)
+    if (confirmacion) {
+        var f = document.AvisosForm;
+        f.parameter.value = 'borrar';
+        f.ACTIONTODO.value = 'CONFIRMAR';
+        f.oidAviso.value = oidAviso;
+        f.submit(); // Enviar el formulario
+    } else {
+        // Si el usuario hace clic en "Cancelar", no hacer nada
+        return false;
+    }
 }
 
 
@@ -113,7 +121,7 @@ function getContextPath() {
 	</p>
 	
 	
-<table >
+<table style="width:50%">
 	<tr>
 		<th class="segunda">Fecha creación</th>
 		<th class="segunda">Texto</th>
@@ -128,7 +136,7 @@ function getContextPath() {
 	<logic:iterate id="data" name="formulari" property="avisos" type="lopicost.spd.model.Aviso" indexId="position">
 	<tr>
 		<td><bean:write name="data" property="fechaInsert" /></td>
-		<td><bean:write name="data" property="aviso" /></td>
+		<td><bean:write name="data" property="texto" /></td>
 		<td><bean:write name="data" property="fechaInicio" /></td>
 		<td><bean:write name="data" property="fechaFin" /></td>
 		<td><bean:write name="data" property="activo" /></td>

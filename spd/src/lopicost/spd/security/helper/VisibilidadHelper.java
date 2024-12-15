@@ -85,6 +85,31 @@ public class VisibilidadHelper {
 		return sqlPlus;
 	}
 
+	public static String idFarmaciasVisibles(String spdUsuario) throws Exception{
+		
+		String qry="";
+		if (spdUsuario!=null){
+			qry+= "  	select distinct  f.idFarmacia from dbo.bd_farmacia f ";
+			qry+= "  	inner join dbo.bd_divisionResidencia d on d.idFarmacia=f.idFarmacia ";
+			qry+= "  	inner join dbo.bd_residencia r on (d.idResidencia=r.idResidencia)   ";
+			qry+= "  	inner  join SPD_usuarios_permisos up on (  ";
+			qry+= "         (d.idFarmacia = up.idFarmacia and up.idFarmacia is not null)  ";
+			qry+= "         or (d.idDivisionResidencia=up.idDivisionResidencia and up.idDivisionResidencia is not null)  ";
+			qry+= "  	       or (d.idRobot=up.idRobot and up.idRobot is not null)  ";
+			qry+= "  	       or (d.idResidencia=up.idResidencia and up.idResidencia is not null))  ";
+			qry+= "  	inner join SPD_usuarios u on u.idUsuario=up.idUsuario  ";
+			qry+= "  	where up.idUsuario='"+spdUsuario+"' ";
+			qry+= "  	and UPPER(u.estado)='ACTIVO' ";
+			qry+= "  	and UPPER(r.status)='ACTIVA' ";
+
+		}
+		else{
+			Logger.log(SPDConstants.LOG_ID, "no tiene permisos para visualizar datos de esta farmacia", Logger.DEBUG);
+			return "";
+		}
+		
+		return qry;
+	}
 
 
 }

@@ -63,7 +63,7 @@ public class ExtReDAO
     	qry+= "       SELECT iddivisionresidencia, count(*) AS cipsActivos         ";
     	qry+= "       FROM bd_pacientes "; // AND UPPER(CIP) NOT LIKE 'MMTT%'        ";
     	qry+= "       WHERE activo='ACTIVO' ";
-    	qry+= "       AND (mutua IS NULL OR mutua <>'N')    ";
+    	qry+= "       AND (mutua IS NULL OR mutua <>'S')    ";
     	qry+= "       GROUP BY iddivisionresidencia    ";
     	qry+= " ) dat ON dat.iddivisionresidencia=p.idDivisionResidencia   ";
     	qry+= " LEFT JOIN  ";
@@ -75,7 +75,7 @@ public class ExtReDAO
     	qry+= "      INNER JOIN bd_pacientes p ON d.CIP=p.CIP    ";
     	qry+= "      INNER JOIN bd_divisionResidencia di ON di.idDivisionResidencia=p.idDivisionResidencia ";
     	qry+= " 	 WHERE p.activo='ACTIVO' ";
-    	qry+= "      AND (p.mutua IS NULL OR p.mutua <>'N')    ";
+    	qry+= "      AND (p.mutua IS NULL OR p.mutua <>'S')    ";
     	qry+= "      GROUP BY p.idDivisionResidencia ";
     	qry+= " ) recPend ON recPend.idDivisionResidencia=di.idDivisionResidencia ";
 
@@ -88,8 +88,13 @@ public class ExtReDAO
     	qry+= " 	INNER JOIN bd_pacientes p ON d.CIP=p.CIP           ";
     	qry+= " 	INNER JOIN bd_divisionResidencia di ON di.idDivisionResidencia=p.idDivisionResidencia  	  ";
     	qry+= " 	WHERE p.activo='ACTIVO'                ";
-    	qry+= "     AND (p.mutua IS NULL OR p.mutua <>'N')    ";
-    	qry+= " 	AND p_COD_CPF in ('------', '000000')    ";
+    	qry+= "     AND (p.mutua IS NULL OR p.mutua <>'S')    ";
+    	//qry+= " 	AND p_COD_CPF in ('------', '000000')    ";
+    	qry+= " 	AND ( p_COD_CPF  is null  OR p_COD_CPF in ('', '------', '000000'))     ";
+		qry+= " 	AND NOT EXISTS ( ";
+		qry+= "  		select '1' from  ctl_consultaPendentDispensarSIRE c2 where d.CIP=c2.CIP and c2.p_COD_CPF is not null and  c2.p_COD_CPF not in ('------', '000000')"; 
+		qry+= "  )  ";
+    	
     	qry+= " 	GROUP BY p.idDivisionResidencia   ";
     	qry+= " ) recPendNo ON recPendNo.idDivisionResidencia=di.idDivisionResidencia   ";
     	qry+= " LEFT JOIN  ";
@@ -100,14 +105,18 @@ public class ExtReDAO
     	qry+= " 	INNER JOIN bd_pacientes p ON d.CIP=p.CIP           ";    	
     	qry+= " 	INNER JOIN bd_divisionResidencia di ON di.idDivisionResidencia=p.idDivisionResidencia  	  ";
     	qry+= " 	WHERE p.activo='ACTIVO'                ";
-    	qry+= "     AND (p.mutua IS NULL OR p.mutua <>'N')    ";
-    	qry+= " 	AND CODIGO in ('------', '000000')    ";
+    	qry+= "     AND (p.mutua IS NULL OR p.mutua <>'S')    ";
+    	//qry+= " 	AND CODIGO in ('------', '000000')    ";
+    	qry+= " 	AND ( CODIGO is null  OR CODIGO in ('', '------', '000000'))   ";
+		qry+= " 	AND NOT EXISTS ( ";
+		qry+= "  		select '1' from  ctl_consultaTractamentSIRE c2 where d.CIP=c2.CIP and c2.CODIGO is not null and  c2.CODIGO not in ('------', '000000')"; 
+		qry+= "  	)  ";
     	qry+= " 	GROUP BY p.idDivisionResidencia  ";
     	qry+= " ) recTratNo ON recTratNo.idDivisionResidencia=di.idDivisionResidencia   ";
      	
     	qry+= " WHERE 1=1 ";
     	qry+= " AND p.activo='ACTIVO' ";
-    	qry+= " AND (p.mutua IS NULL OR p.mutua <>'N')    ";
+    	qry+= " AND (p.mutua IS NULL OR p.mutua <>'S')    ";
 		qry+= " AND r.status='activa' "; 
 		qry+= " AND di.oidDivisionResidencia IN ( " + VisibilidadHelper.oidDivisionResidenciasVisibles(spdUsuario)  + ") ";
 		qry+= " GROUP BY di.idDivisionResidencia ";
@@ -142,6 +151,7 @@ public class ExtReDAO
 		            			, fechaUltimoProcesoTrat, cipsProcesadosTrat, cipsProcesadosTratNo
 		            			, fechaUltimoProcesoRedPend, cipsProcesadosRecPend, cipsProcesadosRecPendNo, null);
 
+		            	//if(c!=null 	&& (c.isErrorFechaRecogidaTrat() || c.isErrorDatosProcesadosTrat() || c.isErrorFechaRecogidaRecPend() || c.isErrorDatosProcesadosRecPend()))
 		            	if(c!=null)
 		            		listaBeans.add(c);
 		            }
@@ -173,11 +183,14 @@ public class ExtReDAO
 			qry+= " )  ";
 			qry+= " WHERE 1=1 ";
 			qry+= " AND b.activo='ACTIVO'  "; 
-	    	qry+= " AND (b.mutua IS NULL OR b.mutua <>'N')    ";
+	    	qry+= " AND (b.mutua IS NULL OR b.mutua <>'S')    ";
 			qry+= " AND r.status='activa' "; 
 			qry+= " AND di.oidDivisionResidencia IN ( " + VisibilidadHelper.oidDivisionResidenciasVisibles(spdUsuario)  + ") ";
 			qry+= " AND b.idDivisionResidencia='"+idDivisionResidencia+"' ";
-			qry+= "  AND (c.CIP is null  or c.CODIGO in ('------', '000000')  ) ";
+			qry+= "  AND (c.CIP is null  or c.CODIGO is null  OR c.CODIGO in ('------', '000000')  ) ";
+			qry+= " AND NOT EXISTS ( ";
+			qry+= "  		select '1' from  ctl_consultaTractamentSIRE c2 where c.CIP=c2.CIP and c2.CODIGO is not null and  c2.CODIGO not in ('------', '000000')"; 
+			qry+= "  )  ";
 			
 	  	    System.out.println(className + "  - getCipsSinProcesarTrat -->  " +qry );		
 	  	 	Connection con = Conexion.conectar();
@@ -258,11 +271,14 @@ public class ExtReDAO
 			qry+= " )  ";
 			qry+= " WHERE 1=1 ";
 			qry+= " AND b.activo='ACTIVO'  "; 
-	    	qry+= " AND (b.mutua IS NULL OR b.mutua <>'N')    ";
+	    	qry+= " AND (b.mutua IS NULL OR b.mutua <>'S')    ";
 			qry+= " AND r.status='activa' "; 
 			qry+= " AND di.oidDivisionResidencia IN ( " + VisibilidadHelper.oidDivisionResidenciasVisibles(spdUsuario)  + ") ";
 			qry+= " AND b.idDivisionResidencia='"+idDivisionResidencia+"' ";
-			qry+= "  AND (c.CIP is null  or c.p_COD_CPF in ('------', '000000')  ) ";
+			qry+= " AND (c.CIP is null  or p_COD_CPF is null  OR c.p_COD_CPF in ('------', '000000')  ) ";
+			qry+= " AND NOT EXISTS ( ";
+			qry+= "  		select '1' from  ctl_consultaPendentDispensarSIRE c2 where c.CIP=c2.CIP and c2.p_COD_CPF is not null and  c2.p_COD_CPF not in ('------', '000000')"; 
+			qry+= "  )  ";
 			
 	  	    System.out.println(className + "  - getCipsSinProcesarPendientes -->  " +qry );		
 	  	 	Connection con = Conexion.conectar();

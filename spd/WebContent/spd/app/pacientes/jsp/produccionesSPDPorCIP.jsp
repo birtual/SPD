@@ -60,7 +60,12 @@
 				FicheroResiBean bean = (FicheroResiBean) pageContext.findAttribute("beanDos");
         		String oidFicheroResiCabecera = new String().valueOf(bean.getOidFicheroResiCabecera());
 %>
-
+			<input type="button" 
+				id="generateButton_<%=oidFicheroResiCabecera%>" 
+				class="negro" 
+				value="Ficheros DM y RX" 
+				onclick="javascript:confirmacionFicherosRobotResidente('<bean:write name="formulari" property="oidPaciente" />', '<bean:write name="beanDos" property="oidFicheroResiCabecera" />')" 
+				/>
 
 			</logic:notEmpty>
 

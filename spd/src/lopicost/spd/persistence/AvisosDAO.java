@@ -102,9 +102,9 @@ public class AvisosDAO extends GenericDAO{
 			    	qry += " AND fechaInicio  <=  CONVERT(datetime, '"+sqlTimestamp+"', 120)   AND  fechaFin +1 >= CONVERT(datetime, '"+sqlTimestamp+"', 120) ";
 			    	qry += " AND ACTIVO='SI' ";
 			    }
-				qry+= " AND (idFarmacia IS NULL OR idFarmacia IN ( " + VisibilidadHelper.idFarmaciasVisibles(usuario)  + "))";
+				qry+= " AND (idFarmacia IS NULL OR idFarmacia = ''  OR idFarmacia IN ( " + VisibilidadHelper.idFarmaciasVisibles(usuario)  + "))";
 
-				
+				qry+= " ORDER BY a.activo desc, a.orden, a.fechaInicio ";
 				
 			    
 				    	

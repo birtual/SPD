@@ -8,6 +8,7 @@ import lopicost.spd.model.BdConsejo;
 import lopicost.spd.model.FicheroResiCabecera;
 import lopicost.spd.model.GestSustitucionesLite;
 import lopicost.spd.struts.form.FicheroResiForm;
+import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
 import lopicost.spd.utils.StringUtil;
 
@@ -195,6 +196,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 		private String detalleRow="";
 		private String detalleRowKey="";
 		private String detalleRowKeyLite="";
+		private String detalleRowKeyLiteFechas="";
 		private BdConsejo bdConsejo;
 		private GestSustitucionesBean gestSustitucionesBean;
 		private SustXComposicionBean gestSustXConjHomogBean;
@@ -268,15 +270,34 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 				return detalleRowKeyLite;
 			}
 
+			/**
+			 * Añadimos también el valor al campo detalleRowKeyLiteFechas
+			 * @param detalleRowKeyLite
+			 */
 			public void setDetalleRowKeyLite(String detalleRowKeyLite) {
 				this.detalleRowKeyLite = StringUtil.quitaEspaciosYAcentos(detalleRowKeyLite, true);
-			}
-			
-			
-			
+				setDetalleRowKeyLiteFechas(this.detalleRowKeyLite);
 
-		  
-		  public FicheroResiBean() {
+			}
+			  
+		  public String getDetalleRowKeyLiteFechas() {
+				return detalleRowKeyLiteFechas;
+			}
+
+			public void setDetalleRowKeyLiteFechas(String detalleRowKeyLite) {
+				String[] detalles = detalleRowKeyLite.split("\\|"); //hay que escaparlo
+		        StringBuilder sb = new StringBuilder();
+		        for (int i = 0; i < detalles.length; i++) {
+		                sb.append(HelperSPD.getDetalleRowLiteFechasOk(detalles[i]));
+		                if (i < detalles.length - 1) {
+		                    sb.append("|");
+		            }
+		        }
+				
+				this.detalleRowKeyLiteFechas = sb.toString();
+			}
+
+		public FicheroResiBean() {
 		        this.usuarioValidacion = "";
 		        this.filasTotales = 0;
 		        this.cipsTotalesProceso = 0;

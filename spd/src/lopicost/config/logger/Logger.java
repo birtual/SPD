@@ -1,5 +1,6 @@
 package lopicost.config.logger;
 
+import java.io.PrintStream;
 import java.util.Date;
 
 /**
@@ -100,6 +101,13 @@ public class Logger
 		return org.apache.log4j.Logger.getLogger(logId);
 	}
 	
+    /**
+     * Redirigir System.out y System.err a Log4j.
+     */
+    public static void redirectSystemStreams() {
+        System.setOut(new PrintStream(new LogOutputStream(rootLogger, INFO), true));
+        System.setErr(new PrintStream(new LogOutputStream(rootLogger, ERROR), true));
+    }
 	
 }
 

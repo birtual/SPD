@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
+import lopicost.config.logger.Logger;
 import lopicost.config.pool.dbaccess.Conexion;
 import lopicost.spd.security.helper.VisibilidadHelper;
 import lopicost.spd.struts.bean.CamposPantallaBean;
@@ -154,6 +156,7 @@ public class FicheroResiCabeceraDAO {
 			//qryOrder+= " fetch next "+fin+ " rows only";
 		}
 		
+		Logger.log("SPDLogger", "getQueryGestFicheroResi qrySelect " + qrySelect + qryFrom + qryWhere + qryAux ,Logger.INFO);	
 		return qrySelect + qryFrom + qryWhere + qryAux;
 	}
 
@@ -753,7 +756,7 @@ public class FicheroResiCabeceraDAO {
 		  String qry = " INSERT INTO "+TABLA_HISTORICO+" ( ";
 		  	qry+= " fechaHistorico, oidFicheroResiCabecera,  fechaCreacion, idDivisionResidencia, idProceso, resultLog, filasTotales, ";
 		  	qry+= " nombreFicheroResi, nombreFicheroXML, fechaCreacionFicheroXML, fechaValidacionDatos, usuarioValidacion, idEstado, cipsFicheroXML, numErrores, errores, free1, free2, free3, ";
-		  	qry+= " usuarioCreacion, fechaCalculoPrevision, cipsActivosSPD, porcentajeCIPS)  ";
+		  	qry+= " usuarioCreacion, fechaCalculoPrevision, cipsActivosSPD, porcentajeCIPS, fechaDesde, fechaHasta, nuevaFechaDesde, nuevaFechaHasta, nuevaTomaDesde, nuevaTomaHasta )  ";
 		  	qry+= " SELECT getDate(), oidFicheroResiCabecera, fechaCreacion, idDivisionResidencia, idProceso, resultLog, filasTotales, ";
 		  	qry+= " nombreFicheroResi, nombreFicheroXML, fechaCreacionFicheroXML, fechaValidacionDatos, usuarioValidacion, idEstado, cipsFicheroXML, numErrores, errores, free1, free2, free3, ";
 		  	qry+= " usuarioCreacion, fechaCalculoPrevision, cipsActivosSPD, porcentajeCIPS, fechaDesde, fechaHasta, nuevaFechaDesde, nuevaFechaHasta, nuevaTomaDesde, nuevaTomaHasta ";

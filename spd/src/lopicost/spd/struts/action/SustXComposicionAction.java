@@ -21,16 +21,16 @@ import lopicost.spd.model.SustXComposicion;
 import lopicost.spd.persistence.BdConsejoDAO;
 import lopicost.spd.persistence.RobotDAO;
 import lopicost.spd.persistence.SustXComposicionDAO;
+import lopicost.spd.persistence.SustXGtDAO;
 import lopicost.spd.struts.form.SustXComposicionForm;
 import lopicost.spd.utils.DataUtil;
 import lopicost.spd.utils.SPDConstants;
 public class SustXComposicionAction extends DispatchAction  {
 
 	SustXComposicionDAO dao= new  SustXComposicionDAO();
+	SustXGtDAO daoGt= new SustXGtDAO();
 	   
-	public ActionForward list(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ActionForward list(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 	
 		SustXComposicionForm formulari =  (SustXComposicionForm) form;
 	//	inicializamos para que no haya datos de otros módulos
@@ -42,6 +42,7 @@ public class SustXComposicionAction extends DispatchAction  {
 		
 		int getCountSustXComposicion= dao.getCountSustXComposicion(formulari);
 		int currpage = actualizaCurrentPage(formulari, getCountSustXComposicion);
+		//formulari.setListaSustXComposicion(dao.getSustXComposicion(formulari, currpage*SPDConstants.PAGE_ROWS,(currpage+1)*SPDConstants.PAGE_ROWS));
 		formulari.setListaSustXComposicion(dao.getSustXComposicion(formulari, currpage*SPDConstants.PAGE_ROWS,(currpage+1)*SPDConstants.PAGE_ROWS));
 		formulari.setListaGtVm(BdConsejoDAO.getListaGtVmDeConsejo(formulari.getFiltroCodiLaboratorio(), formulari.isFiltroCheckedLabsSoloAsignados(), formulari.isFiltroCheckedComposicionSinLabs()));
 		formulari.setListaGtVmp(BdConsejoDAO.getListaGtVmp(formulari.getFiltroCodiLaboratorio(),  formulari.getFiltroCodGtVm(), formulari.getFiltroNomGtVm(), formulari.isFiltroCheckedLabsSoloAsignados(), formulari.isFiltroCheckedComposicionSinLabs()));

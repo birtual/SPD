@@ -38,7 +38,7 @@ public class PacientesAction extends GenericAction  {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 	
-		log(cLOGGERHEADER + ": hola listado",Logger.INFO);
+		log(cLOGGERHEADER + ": inicio listado",Logger.DEBUG);
 		PacientesForm formulari =  (PacientesForm) form;
 		formulari.setOidPaciente("");
 		//paginación

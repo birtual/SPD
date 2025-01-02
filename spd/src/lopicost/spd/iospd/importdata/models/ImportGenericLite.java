@@ -403,12 +403,16 @@ public class ImportGenericLite extends ImportProcessImpl
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < row.size(); i++) {
             if (!deberiaEliminar(i + 1, posicionesEliminar)) { // Las posiciones en la lista comienzan desde 1
-                sb.append(StringUtil.limpiarTextoComentarios(StringUtil.quitaEspaciosYAcentos((String)row.get(i), false))); 
+            	String cadena = (String)row.get(i);
+            	//cadena = HelperSPD.getDetalleRowFechasOk(cadena);
+            	
+                sb.append(StringUtil.limpiarTextoComentarios(StringUtil.quitaEspaciosYAcentos(cadena, false))); 
                 if (i < row.size() - 1) {
                     sb.append("|");
-                }
+                }  
             }
         }
+        
         return sb.toString();
   //      return StringUtil.quitaEspacios(sb.toString());
     }

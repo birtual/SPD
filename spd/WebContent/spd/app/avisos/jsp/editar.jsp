@@ -108,10 +108,10 @@
 		<tr>
 			<th class="segunda">Activo</th>
 			<td>
-				<select name="activo" style="text-align: left;">>
-				    <option value="SI" ${dat.activo}='SI' ? 'selected="selected"' : ''}>Sí</option>
-				    <option value="No" ${dat.activo}='NO' ? 'selected="selected"' : ''}>No</option>
-				</select>
+			    <select name="activo" style="text-align: left;">
+			        <option value="SI" <c:if test="${data.activo == 'SI'}">selected="selected"</c:if>>Sí</option>
+			        <option value="NO" <c:if test="${data.activo == 'NO'}">selected="selected"</c:if>>No</option>
+			    </select>
 			</td>
 		</tr>
 		<tr>

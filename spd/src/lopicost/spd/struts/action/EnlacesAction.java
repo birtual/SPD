@@ -52,8 +52,13 @@ public class EnlacesAction extends GenericAction  {
 		
 		//20240923 - Comprobamos si la recogida de datos ha sido correcta. En este caso se mira la parte de los datos de las fechas de recogida que afectan a la RE del iofwin. 
 		//TO-DO   -  NO se analiza el contenido de la recogida,  
-		List beansResi = ExtReHelper.getDatosProcesoCaptacionConErrores(enlacesForm.getIdUsuario());
-		enlacesForm.setListaBeans(beansResi);
+		try{
+			List beansResi = ExtReHelper.getDatosProcesoCaptacionConErrores(enlacesForm.getIdUsuario());
+			enlacesForm.setListaBeans(beansResi);
+		}
+		catch(Exception e){
+			
+		}
 		
 		try{
 	        List avisos = ExtReHelper.getAvisosDeHoy(enlacesForm.getIdUsuario(), -1, null, false, new Date());

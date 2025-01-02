@@ -11,6 +11,7 @@ import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.bean.PacienteBean;
 import lopicost.spd.utils.*;
+import lopicost.config.logger.Logger;
 import lopicost.config.pool.dbaccess.Conexion;
 
 import java.util.*;
@@ -32,9 +33,15 @@ public class XMLRobotDao
 	}
 */
 	public static boolean borraProcesosResidencia(String idUsuario, FicheroResiBean cab) throws ClassNotFoundException, SQLException {
-        detalleBolsasTratadas.clear();
-    	detalleContenidoBolsasTratadas.clear();
-    	String queryBorrado1= "DELETE FROM dbo.SPD_XML_detallesTomasRobot WHERE idDivisionResidencia='"+cab.getIdDivisionResidencia()+"' ";
+		System.out.println("inicio detalleBolsasTratadas.clear()");
+		Logger.log("SPDLogger", "inicio detalleBolsasTratadas.clear()",Logger.INFO);	
+	
+		detalleBolsasTratadas.clear();
+		Logger.log("SPDLogger", "inicio detalleContenidoBolsasTratadas.clear()",Logger.INFO);	
+		detalleContenidoBolsasTratadas.clear();
+		Logger.log("SPDLogger", "if cab !=null  " + cab==null?"nulo":"no Nulo",Logger.INFO);	
+		Logger.log("SPDLogger", "inicio DELETE FROM dbo.SPD_XML_detallesTomasRobot WHERE idDivisionResidencia='"+cab.getIdDivisionResidencia()+"'" ,Logger.INFO);	
+	  	String queryBorrado1= "DELETE FROM dbo.SPD_XML_detallesTomasRobot WHERE idDivisionResidencia='"+cab.getIdDivisionResidencia()+"' ";
     	return ejecutarSentencia(queryBorrado1);
 	}
     //Paso2

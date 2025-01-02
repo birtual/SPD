@@ -3958,9 +3958,72 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 	            matcher.appendReplacement(sb, fechaFormateada);
 	        }
 	        matcher.appendTail(sb);
+	        
+
 
 	        return sb.toString();
 	    }
+
+/**
+ * Método UNICAMENTE de momento para detalleRowKeyLiteFechas, para poder comparar las cargas con el anterior.
+ * Devuelve las fechas en formato dd/mm/yyyy pero no está puesto para el resto para no alterar los detalleRow y demás actuales, porque 
+ * provocaría muchas diferencias en cargas posteriores al cambiar el valor del campo
+ * @param cadena
+ * @return
+ */
+	public static String getDetalleRowLiteFechasOk(String cadena) {
+        if (cadena == null) return "";
+
+        // Expresiones regulares para manejar diferentes formatos
+        String regex = 
+            "\\b(\\d{1,2})[-/](\\d{1,2})[-/](\\d{2,4})\\b" + // dd-mm-yy, dd/mm/yyyy
+            "|\\b(\\d{4})[-/](\\d{1,2})[-/](\\d{1,2})\\b" +   // yyyy-mm-dd
+            "|\\b(4\\d{4})\\b";                               // Fechas numéricas de Excel
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(cadena);
+
+        // Formato de salida
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+        	System.out.println( matcher.group());
+
+            String reemplazo;
+            try {
+                if (matcher.group(4) != null) { // Fecha ISO (yyyy-mm-dd)
+                    reemplazo = LocalDate.of(
+                        Integer.parseInt(matcher.group(4)),
+                        Integer.parseInt(matcher.group(5)),
+                        Integer.parseInt(matcher.group(6))
+                    ).format(outputFormatter);
+                } else if (matcher.group(7) != null) { // Fecha numérica de Excel
+                    int diasDesde1900 = Integer.parseInt(matcher.group(7));
+                    reemplazo = LocalDate.of(1900, 1, 1)
+                        .plusDays(diasDesde1900 - 2)
+                        .format(outputFormatter);
+                } else if (matcher.group(1) != null) { // Fechas estándar (dd-mm-yy, dd/mm/yyyy)
+                    int dia = Integer.parseInt(matcher.group(1));
+                    int mes = Integer.parseInt(matcher.group(2));
+                    int anio = Integer.parseInt(
+                        matcher.group(3).length() == 2 
+                        ? "20" + matcher.group(3) 
+                        : matcher.group(3)
+                    );
+                    reemplazo = LocalDate.of(anio, mes, dia).format(outputFormatter);
+                } else {
+                    reemplazo = matcher.group(); // Si no coincide, dejar el texto original
+                }
+            } catch (Exception e) {
+                reemplazo = matcher.group(); // Si hay error, dejar el texto original
+            }
+            matcher.appendReplacement(sb, reemplazo);
+        }
+        matcher.appendTail(sb);
+       
+
+        return sb.toString();
+    }
     
 	  public static LocalDate convertirFechaNumerica(int fechaNumerica) {
 	        // La fecha base de Excel es el 1 de enero de 1900 con un error de 1 día

@@ -175,7 +175,8 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			String despuesCab = " | Nueva FechaDesde  " +formulari.getNuevaFechaDesde() + " | Nueva FechaHasta " +formulari.getNuevaFechaHasta() + " | toma 1er día desde  " +formulari.getNuevaTomaDesde() + " | toma último día hasta " +formulari.getNuevaTomaHasta() + " | Nota 1 " +formulari.getFree1() + " | Nota 2 " +formulari.getFree2()+ " | Nota 3 " + formulari.getFree3()+ " | " ;
 			boolean hayCambios =   ! Objects.equals(StringUtil.limpiarTextoTomas(antesCab), StringUtil.limpiarTextoTomas(despuesCab));
 
-			
+	  	    System.out.println("  - getCipsSinProcesarTrat -->  " );		
+
 			if(result && hayCambios)
 			{
 			//	errors.add(SPDConstants.MSG_LEVEL_INFO, new ActionMessage("Registro borrado correctamente Info"));
@@ -326,7 +327,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 
 	public void log (String message, int level)
 	{
-		Logger.log("SgaLogger",message,level);	
+		Logger.log("SpdLogger",message,level);	
 	}
 	
 	public ActionForward detalleNoExistentesBbdd(ActionMapping mapping, ActionForm form,
@@ -525,6 +526,9 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 
 	public ActionForward generarFicherosDMyRX(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		FicheroResiForm formulari =  (FicheroResiForm) form;
+		
+
+		
 		FicheroResiBean cab = dao.getCabeceraByFilters(getIdUsuario(), formulari, 0, 1, null, false);
 		FicheroResiBean cabDetalle  =  FicheroResiDetalleHelper.getCabeceraFicheroResi(getIdUsuario(), cab.getIdDivisionResidencia(), cab.getIdProceso(), false);
 		DivisionResidencia div = DivisionResidenciaDAO.getDivisionResidenciaById(getIdUsuario(), cab.getIdDivisionResidencia());
@@ -575,33 +579,39 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
    	    request.setAttribute("filePathDM", path + nombreFicheroFiliaDM); // Ruta del archivo generado
    	    request.setAttribute("filePathRX", path + nombreFicheroFiliaRX); // Ruta del archivo generado
    	    
+   	    
 		//aprovechamos y lanzamos el cálculo de previsión de comprimidos necesarios. En caso que no se haya calculado previamente
         if(fileRXGenerated)
         {
-        	// Crear un hilo para ejecutar el método actualizarPrevision()
-            Thread actualizarPrevisionThread = new Thread(() -> {
+        	if(cab!=null && (cab.getFechaCalculoPrevision()==null || cab.getFechaCalculoPrevision().equals("")) )
+        	{
+            	// Crear un hilo para ejecutar el método actualizarPrevision()
+                Thread actualizarPrevisionThread = new Thread(() -> {
+                    try {
+                    	//	System.out.println("");
+    					actualizarPrevision(cab, formulari);
+    				} catch (Exception e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
+    				}
+
+                    // Aquí puedes enviar algún tipo de señal al cliente, como un mensaje o un código de estado
+                    // (esto dependerá de tu lógica específica y de cómo manejas la respuesta en el cliente)
+                    // response.getWriter().write("Proceso actualizadoPrevision completado");
+                });
+
+                // Iniciar el hilo
+                actualizarPrevisionThread.start();
+
                 try {
-					actualizarPrevision(cab, formulari);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                    // Esperar a que el hilo termine antes de continuar
+                    actualizarPrevisionThread.join();
+                } catch (InterruptedException e) {
+                    // Manejar la interrupción si es necesario
+                    e.printStackTrace();
+                }
 
-                // Aquí puedes enviar algún tipo de señal al cliente, como un mensaje o un código de estado
-                // (esto dependerá de tu lógica específica y de cómo manejas la respuesta en el cliente)
-                // response.getWriter().write("Proceso actualizadoPrevision completado");
-            });
-
-            // Iniciar el hilo
-            actualizarPrevisionThread.start();
-
-            try {
-                // Esperar a que el hilo termine antes de continuar
-                actualizarPrevisionThread.join();
-            } catch (InterruptedException e) {
-                // Manejar la interrupción si es necesario
-                e.printStackTrace();
-            }
+        	}
             
 			//dejamos log
 			try{
@@ -644,9 +654,10 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 	    //Fin fechas desde / hasta
 	    
 	    //gestión de las tomas de inicio del primer día y de fñin del último día
-  		CabecerasXLSBean primerDiaDesdeToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, cab.getNuevaTomaDesde(), null, null, false, false);
-		CabecerasXLSBean ultimoDiaHastaToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, cab.getNuevaTomaHasta(), null, null, false, false);
-		
+  		CabecerasXLSBean primerDiaDesdeToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, cab.getNuevaTomaDesde(), null, null, true, false);
+		CabecerasXLSBean ultimoDiaHastaToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, cab.getNuevaTomaHasta(), null, null, false, true);
+
+
 		if(primerDiaDesdeToma==null)
 		{
 			primerDiaDesdeToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, null, null, null, true, false);

@@ -336,8 +336,6 @@ public class BdConsejoDAO {
 		 	     return getListaGtVmp( null, codGtVm, nomGtVm, false, false);
 		 	 }
 		
-
-	 
 	public static List<BdConsejo> getListaGtVmp(String codiLab, String codGtVm, String nomGtVm, boolean labsAsignadosAGtVmp,  boolean labsNoAsignadosAGtVmp) throws ClassNotFoundException, SQLException {
 		   Connection con = Conexion.conectar();
 		   List<BdConsejo>  result = new ArrayList();
@@ -705,6 +703,36 @@ public class BdConsejoDAO {
 
    return result;
 }
+
+	public static List<BdConsejo> getAutoLabs(String term) throws SQLException {
+		List<BdConsejo> result = new ArrayList<BdConsejo>();
+		String qry = "select distinct codiLABO, nomLABO from bd_consejo where nomLABO like '%" +term+ "%'";
+		qry+=  " order by nomLABO";
+	   			 
+		System.out.println("BdConsejoDAO.getAutoGtVm -->" +qry );		
+   		Connection con = Conexion.conectar();
+  
+
+   		ResultSet resultSet = null;
+
+  try {
+       PreparedStatement pstat = con.prepareStatement(qry);
+       resultSet = pstat.executeQuery();
+
+       while (resultSet.next()) {
+	       	BdConsejo  c =new BdConsejo();
+	       	c.setCodigoLaboratorio(resultSet.getString("codiLABO"));
+	       	c.setNombreLaboratorio(resultSet.getString("nomLABO"));
+	       	result.add(c);
+	       }
+
+   } catch (SQLException e) {
+       e.printStackTrace();
+   }finally {con.close();}
+
+   return result;
+}
+
 		
 
 }

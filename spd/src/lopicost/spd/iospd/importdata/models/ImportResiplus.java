@@ -62,7 +62,8 @@ public class ImportResiplus extends ImportGenericLite
 		//detalleRow = row.toString().replaceAll("[\\[\\]]", "").replaceAll("'", " ");
         //medResi.setDetalleRow(HelperSPD.getDetalleRowFechasOk(detalleRow));
 		
-		
+//			f.setDetalleRow(HelperSPD.getDetalleRowFechasOk(resultSet.getString("detalleRow")!=null&&!resultSet.getString("detalleRow").equalsIgnoreCase("null")?resultSet.getString("detalleRow"):"")); 
+
     	String detalleRow = HelperSPD.getDetalleRow(row, COLUMNAS);
         medResi.setDetalleRow(detalleRow);
     	System.out.println(" detalleRow " + detalleRow);
@@ -71,8 +72,6 @@ public class ImportResiplus extends ImportGenericLite
         medResi.setDetalleRowKeyLite(crearDetalleRowKeyLite(row, detalleRow, getPosicionesAEliminar()));
     	System.out.println(" detalleRowKeyLite " + medResi.getDetalleRowKeyLite());
 
-
-		
 		
 		HelperSPD.getDatosPaciente(medResi);
 		

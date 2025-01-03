@@ -160,89 +160,100 @@ public class ControlSPD{
 		FicheroResiBean medResiAnterior = HelperSPD.recuperaDatosAnteriores(spdUsuario, medResi, true);
 		
 		//registro nuevo
-		if(medResiAnterior==null){
+		if(medResiAnterior==null || medResi==null){
 			medResi.setControlRegistroAnterior(SPDConstants.CTRL_REGISTRO_ANTERIOR_RD_SD);
 			return;
 		}
+		//además de ver lo que llega exactamente, miramos también este id para descartar cambios menores en formatos de fecha por ejemplo
+		String idTratamientoCIPActual=medResiAnterior.getIdTratamientoCIP();
+		String idTratamientoCIPAnterior=medResiAnterior.getIdTratamientoCIP();
+		boolean idTratamientosCIPIguales = false;
+		try{
+			idTratamientosCIPIguales = idTratamientoCIPActual.equalsIgnoreCase(idTratamientoCIPAnterior);
+		}catch(Exception e){}
 		
 		
-		String detalleResiActual= "";
-		String detalleResiActualArreglado= "";
+		String detalleRowActual= "";
 		String detalleRowKeyActual= "";
-		String detalleRowKeyActualArreglado= "";
 		String detalleRowKeyLiteActual= "";
-		String detalleRowKeyLiteActualArreglado= "";
+		String detalleRowKeyLiteActualFechas= "";
 		try{ 
 			
-				detalleResiActual 			= medResi!=null && medResi.getDetalleRow()!=null && !medResi.getDetalleRow().equals("") ? medResi.getDetalleRow().toUpperCase():"detalleResiActual"; 
-				detalleResiActualArreglado  = StringUtil.quitaEspacios(HelperSPD.getDetalleRowFechasOk(detalleResiActual));
+				detalleRowActual = medResi!=null && medResi.getDetalleRow()!=null && !medResi.getDetalleRow().equals("") ? medResi.getDetalleRow().toUpperCase():"detalleResiActual"; 
+				detalleRowActual = StringUtil.quitaEspacios(HelperSPD.getDetalleRowFechasOk(detalleRowActual));
 				if(esAegerus) 
-					detalleResiActualArreglado = AegerusHelper.getDetalleRowAegerus(detalleResiActual);
-				detalleRowKeyActual 		= medResi!=null && medResi.getDetalleRowKey()!=null && !medResi.getDetalleRowKey().equals("") ? medResi.getDetalleRowKey().toUpperCase():"detalleRowKeyActual"; 
-				detalleRowKeyActualArreglado  = StringUtil.quitaEspacios(HelperSPD.getDetalleRowFechasOk(detalleRowKeyActual));
+					detalleRowActual = AegerusHelper.getDetalleRowAegerus(detalleRowActual);
+				detalleRowKeyActual  = medResi!=null && medResi.getDetalleRowKey()!=null && !medResi.getDetalleRowKey().equals("") ? medResi.getDetalleRowKey().toUpperCase():"detalleRowKeyActual"; 
+				detalleRowKeyActual  = StringUtil.quitaEspacios(HelperSPD.getDetalleRowFechasOk(detalleRowKeyActual));
 
-				detalleRowKeyLiteActual 		= medResi!=null && medResi.getDetalleRowKeyLite()!=null && !medResi.getDetalleRowKeyLite().equals("") ? medResi.getDetalleRowKeyLite().toUpperCase():"detalleRowKeyActualLite"; 
-				detalleRowKeyLiteActualArreglado  = StringUtil.quitaEspacios(HelperSPD.getDetalleRowFechasOk(detalleRowKeyLiteActual));
+				detalleRowKeyLiteActual  = medResi!=null && medResi.getDetalleRowKeyLite()!=null && !medResi.getDetalleRowKeyLite().equals("") ? medResi.getDetalleRowKeyLite().toUpperCase():"detalleRowKeyActualLite"; 
+				detalleRowKeyLiteActual  = StringUtil.quitaEspacios(HelperSPD.getDetalleRowFechasOk(detalleRowKeyLiteActual));
 
+				//ya llega arreglado
+				detalleRowKeyLiteActualFechas 		= medResi!=null && medResi.getDetalleRowKeyLiteFechas()!=null && !medResi.getDetalleRowKeyLiteFechas().equals("") ? medResi.getDetalleRowKeyLiteFechas().toUpperCase():"detalleRowKeyLiteFechasActual"; 
+				
 			
-			System.out.println(new Date() + " detalleResiActualArreglado -->  " + detalleResiActualArreglado);
+			System.out.println(new Date() + " detalleRowActual -->  " + detalleRowActual);
 			System.out.println(new Date() + " detalleRowKeyActual -->  " + detalleRowKeyActual);
 			System.out.println(new Date() + " detalleRowKeyLiteActual -->  " + detalleRowKeyLiteActual);
+			System.out.println(new Date() + " detalleRowKeyLiteActualFechas -->  " + detalleRowKeyLiteActualFechas);
 			
 		}catch(Exception e){}
 		
-		String detalleResiAnterior= "";
-		String detalleResiAnteriorArreglado= "";
+		String detalleRowAnterior= "";
 		String detalleRowKeyAnterior= "";
-		String detalleRowKeyAnteriorArreglado= "";
 		String detalleRowKeyLiteAnterior= "";
-		String detalleRowKeyLiteAnteriorArreglado= "";
+		String detalleRowKeyLiteAnteriorFechas= "";
 		try{ 
-			detalleResiAnterior = medResiAnterior!=null && medResiAnterior.getDetalleRow()!=null && !medResiAnterior.getDetalleRow().equals("") ? medResiAnterior.getDetalleRow().toUpperCase():"detalleResiAnterior"; 
-			detalleResiAnteriorArreglado=HelperSPD.getDetalleRowFechasOk(StringUtil.quitaEspacios(detalleResiAnterior));
-			if(esAegerus) detalleResiAnteriorArreglado = AegerusHelper.getDetalleRowAegerus(detalleResiAnterior);
+			detalleRowAnterior = medResiAnterior!=null && medResiAnterior.getDetalleRow()!=null && !medResiAnterior.getDetalleRow().equals("") ? medResiAnterior.getDetalleRow().toUpperCase():"detalleResiAnterior"; 
+			detalleRowAnterior=HelperSPD.getDetalleRowFechasOk(StringUtil.quitaEspacios(detalleRowAnterior));
+			if(esAegerus) detalleRowAnterior = AegerusHelper.getDetalleRowAegerus(detalleRowAnterior);
 
+			String a = medResiAnterior.getDetalleRowKeyLite();
+			String b = medResiAnterior.getDetalleRowKeyLiteFechas();
+			
 			detalleRowKeyAnterior  = medResiAnterior!=null && medResiAnterior.getDetalleRowKey()!=null && !medResiAnterior.getDetalleRowKey().equals("") ? medResiAnterior.getDetalleRowKey().toUpperCase():"detalleRowKeyAnterior"; 
-			detalleRowKeyAnteriorArreglado=HelperSPD.getDetalleRowFechasOk(StringUtil.quitaEspacios(detalleRowKeyAnterior));
+			detalleRowKeyAnterior=HelperSPD.getDetalleRowFechasOk(StringUtil.quitaEspacios(detalleRowKeyAnterior));
 
-			detalleRowKeyLiteAnterior  = medResiAnterior!=null && medResiAnterior.getDetalleRowKeyLite()!=null && !medResiAnterior.getDetalleRowKeyLite().equals("") ? medResiAnterior.getDetalleRowKeyLite().toUpperCase():"detalleRowKeyLiteAnterior"; 
-			detalleRowKeyLiteAnteriorArreglado=HelperSPD.getDetalleRowFechasOk(StringUtil.quitaEspacios(detalleRowKeyLiteAnterior));
+			detalleRowKeyLiteAnterior = medResiAnterior!=null && medResiAnterior.getDetalleRowKeyLite()!=null && !medResiAnterior.getDetalleRowKeyLite().equals("") ? medResiAnterior.getDetalleRowKeyLite().toUpperCase():"detalleRowKeyLiteAnterior"; 
+			detalleRowKeyLiteAnterior = HelperSPD.getDetalleRowFechasOk(StringUtil.quitaEspacios(detalleRowKeyLiteAnterior));
+
+			detalleRowKeyLiteAnteriorFechas  = medResiAnterior!=null && medResiAnterior.getDetalleRowKeyLiteFechas()!=null && !medResiAnterior.getDetalleRowKeyLiteFechas().equals("") ? medResiAnterior.getDetalleRowKeyLiteFechas().toUpperCase():"detalleRowKeyLiteFechasAnterior"; 
 
 			
-			System.out.println(new Date() + " detalleResiAnteriorArreglado -->  " + detalleResiAnteriorArreglado);
+			System.out.println(new Date() + " detalleRowAnterior -->  " + detalleRowAnterior);
 			System.out.println(new Date() + " detalleRowKeyAnterior -->  " + detalleRowKeyAnterior);
+
 		}catch(Exception e){}
 		
-		String enviadoSPDActual= "";
-		try{ enviadoSPDActual = medResi.getIdTratamientoSPD().replace("|_|", "|0|");  }catch(Exception e){} //para no tener en cuenta si se ha puesto '0' o es vacío
+		String idTratamientoSPDActual= "";
+		try{ idTratamientoSPDActual = medResi.getIdTratamientoSPD().replace("|_|", "|0|");  }catch(Exception e){} //para no tener en cuenta si se ha puesto '0' o es vacío
 		
-		String enviadoSPDAnterior = "";
-		try{ enviadoSPDAnterior = medResiAnterior.getIdTratamientoSPD().replace("|_|", "|0|"); }catch(Exception e){}  //para no tener en cuenta si se ha puesto '0' o es vacío;
+		String idTratamientoSPDAnterior = "";
+		try{ idTratamientoSPDAnterior = medResiAnterior.getIdTratamientoSPD().replace("|_|", "|0|"); }catch(Exception e){}  //para no tener en cuenta si se ha puesto '0' o es vacío;
 		
-		boolean detalleResiIguales = Objects.equals(detalleResiActualArreglado, detalleResiAnteriorArreglado);
-		boolean detalleResiKeyIguales = Objects.equals(detalleRowKeyActual, detalleRowKeyAnterior)
-				|| Objects.equals(detalleRowKeyActualArreglado, detalleRowKeyAnteriorArreglado)
-				|| Objects.equals(detalleResiActualArreglado, detalleRowKeyAnteriorArreglado)
-				|| Objects.equals(detalleRowKeyActualArreglado, detalleResiAnteriorArreglado)
+		boolean detalleRowKeyIguales =	
+				   Objects.equals(detalleRowActual, detalleRowAnterior)
+				|| Objects.equals(detalleRowKeyActual, detalleRowKeyAnterior)
+				|| Objects.equals(detalleRowKeyActual, detalleRowAnterior)
+				|| Objects.equals(detalleRowActual, detalleRowKeyAnterior)
+				|| Objects.equals(detalleRowKeyLiteActual, detalleRowKeyLiteAnterior)
 				;
-		boolean detalleResiKeyLiteIguales = Objects.equals(detalleRowKeyLiteActual, detalleRowKeyLiteAnterior)
-					|| Objects.equals(detalleRowKeyLiteActualArreglado, detalleRowKeyLiteAnteriorArreglado)
-					;
-		
-		boolean detalleSPDIguales = Objects.equals(enviadoSPDActual, enviadoSPDAnterior);
-		System.out.println(new Date() + " detalleResiIguales / detalleSPDIguales -->  " + detalleResiIguales + " / " +  detalleSPDIguales);
-		System.out.println(new Date() + " detalleRowKeyActual / detalleRowKeyAnterior -->  " + detalleResiKeyIguales );
+
+		boolean idTratamientoSPDIguales = Objects.equals(idTratamientoSPDActual, idTratamientoSPDAnterior);
+
+		System.out.println(new Date() + " detalleRowKeyActual / detalleRowKeyAnterior -->  " + detalleRowKeyIguales );
 
 		//CASO 1 - Resi envía igual y SPD se envía igual - No alerta - Reutilizado ok
-		if(( detalleResiIguales || detalleResiKeyIguales || detalleResiKeyLiteIguales)  && detalleSPDIguales)
+		if((detalleRowKeyIguales)  && idTratamientoSPDIguales)
 			medResi.setControlRegistroAnterior(SPDConstants.CTRL_REGISTRO_ANTERIOR_RI_SI);
 		
 		//CASO 2 - Resi envía diferente y SPD también diferente - No alerta - Registro nuevo (Revisión si cabe)  
-		if(!detalleResiIguales && !detalleResiKeyIguales  && !detalleResiKeyLiteIguales && !detalleSPDIguales)
+		if( !detalleRowKeyIguales && !idTratamientoSPDIguales)
 			medResi.setControlRegistroAnterior(SPDConstants.CTRL_REGISTRO_ANTERIOR_RD_SD);
 		
 		//CASO 3 -  Resi envía igual y SPD envía diferente al anterior -  Alerta - CONFIRMAR 
-		if(( detalleResiIguales || detalleResiKeyIguales || detalleResiKeyLiteIguales) && !detalleSPDIguales)
+		if(( detalleRowKeyIguales || idTratamientosCIPIguales ) && !idTratamientoSPDIguales)
 		{
 			//if(!medResi.getConfirmar().equalsIgnoreCase(SPDConstants.REGISTRO_CONFIRMADO)
 			//if(!medResi.getResiPeriodo().contentEquals(SPDConstants.SPD_PERIODO_QUINCENAL)
@@ -258,7 +269,7 @@ public class ControlSPD{
 		}
 		
 		//CASO 4 -  Resi envía diferente y SPD se envía igual que el anterior -  Alerta - Confirmar 
-		if(!detalleResiIguales && !detalleResiKeyIguales && !detalleResiKeyLiteIguales && detalleSPDIguales)
+		if(!detalleRowKeyIguales && !idTratamientosCIPIguales && idTratamientoSPDIguales)
 		{
 			//if(!medResi.getValidar().equals(SPDConstants.REGISTRO_VALIDADO))
 				medResi.setValidar(SPDConstants.REGISTRO_VALIDAR);

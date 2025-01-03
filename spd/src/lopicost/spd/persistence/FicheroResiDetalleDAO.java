@@ -2058,6 +2058,8 @@ public class FicheroResiDetalleDAO {
 	  			f.setDetalleRow(HelperSPD.getDetalleRowFechasOk(resultSet.getString("detalleRow")!=null&&!resultSet.getString("detalleRow").equalsIgnoreCase("null")?resultSet.getString("detalleRow"):"")); 
 
 	  			f.setDetalleRowKey(resultSet.getString("detalleRowKey")!=null&&!resultSet.getString("detalleRowKey").equalsIgnoreCase("null")?resultSet.getString("detalleRowKey"):""); 
+	  			f.setDetalleRowKeyLite(resultSet.getString("detalleRowKeyLite")!=null&&!resultSet.getString("detalleRowKeyLite").equalsIgnoreCase("null")?resultSet.getString("detalleRowKeyLite"):""); 
+	  			f.setDetalleRowKeyLiteFechas(resultSet.getString("detalleRowKeyLiteFechas")!=null&&!resultSet.getString("detalleRowKeyLiteFechas").equalsIgnoreCase("null")?resultSet.getString("detalleRowKeyLiteFechas"):""); 
 	  			
 				f.setMensajesAlerta(resultSet.getString("mensajesAlerta")==null||resultSet.getString("mensajesAlerta").equalsIgnoreCase("null")?"":resultSet.getString("mensajesAlerta").replace("//", "/"));
 				

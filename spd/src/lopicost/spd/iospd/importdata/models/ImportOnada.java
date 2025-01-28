@@ -3,7 +3,6 @@ package lopicost.spd.iospd.importdata.models;
 
 import lopicost.spd.persistence.GestSustitucionesLiteDAO;
 import lopicost.spd.struts.bean.FicheroResiBean;
-import lopicost.spd.struts.bean.PacienteBean;
 import lopicost.spd.utils.StringUtil;
 import lopicost.spd.utils.DataUtil;
 import lopicost.spd.utils.DateUtilities;

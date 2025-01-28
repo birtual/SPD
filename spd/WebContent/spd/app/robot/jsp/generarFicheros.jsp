@@ -60,11 +60,11 @@
                 }
             }
         </script>    
-    <% } else if ("inicio".equals(estado)) { %>
-        <p>Iniciando la generación de archivos. <br>En unos segundos podrán descargarse desde esta página
-          </p>
-         <p align="center"> <img src="/spd/spd/img/Loading_2.gif" alt="Cargando..." /></p>
-        <script>
+<% } else if ("inicio".equals(estado)) { %>
+    <p>Iniciando la generación de archivos. <br>En unos segundos podrán descargarse desde esta misma página.</p>
+    <p align="center"><img src="/spd/spd/img/Loading_2.gif" alt="Cargando datos..." /></p>
+    
+    <script>
             // Desactivar el botón en la ventana principal
             if (window.opener) {
                 var btn = window.opener.document.getElementById('<%= buttonId %>');
@@ -72,11 +72,13 @@
                     btn.disabled = true;
                 }
             }
-        </script>    
-        
-        <!-- Redirigir a la URL después de 0 segundos -->
-        <meta http-equiv="refresh" content="0;URL='<%=request.getContextPath()%>/FicheroResiCabeceraLite.do?parameter=generarFicherosDMyRX&oidFicheroResiCabecera=<%= oidFicheroResiCabecera %>'">
-    <% } else if ("completado".equals(estado)) { %>
+
+        // Redirigir después de 3 segundos
+        setTimeout(function() {
+            window.location.href = '<%= request.getContextPath() %>/FicheroResiCabeceraLite.do?parameter=generarFicherosDMyRX&oidFicheroResiCabecera=<%= oidFicheroResiCabecera %>';
+        }, 3000); // Redirección en 3000 ms (3 segundos)
+    </script>
+<% }  else if ("completado".equals(estado)) { %>
         <script>
             // Reactivar el botón en la ventana principal después de completar el proceso
             if (window.opener) {

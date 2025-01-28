@@ -17,7 +17,11 @@ import lopicost.spd.utils.*;
 public class ControlSPD{
 	
 	
-
+	/**
+	 * Función para poder transformar las fechas Excel numéricas en días desde el 30/12/1899 al formato DD/MM/YYYY
+	 * @param numeroDeDias
+	 * @return Fecha formateada
+	 */
 	public static String convertirNumeroAFecha(String numeroDeDias) {
         int dias = Integer.parseInt(numeroDeDias);
         

@@ -3941,8 +3941,10 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 
 
 	 public static String getDetalleRowFechasOk(String cadena) {
-	        // Expresión regular para encontrar números de fecha que comienzan con 4 y tienen 5 cifras
-	        String regex = "\\b4\\d{4}\\b";
+	        // Expresión regular para encontrar números de fecha que comienzan con 3 o 4 y tienen 5 cifras
+		 	// Fechas del siglo XX (1900-1999): Números de serie de 1 a 36525 (31/12/1999).
+		 	// Fechas del siglo XXI (2000-): Números de serie de 36526 en adelante.
+	        String regex = "\\b[3-4]\\d{4}\\b";
 	        Pattern pattern = Pattern.compile(regex);
 	        Matcher matcher = pattern.matcher(cadena!=null?cadena:"");
 
@@ -3978,7 +3980,7 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 		    String regex =
 		        "\\b(\\d{1,2})[-/](\\d{1,2})[-/](\\d{2,4})\\b" + // dd-mm-yy, dd/mm/yyyy
 		        "|\\b(\\d{4})[-/](\\d{1,2})[-/](\\d{1,2})\\b" +   // yyyy-mm-dd
-		        "|\\b(4\\d{4})\\b" +                              // Fechas numéricas de Excel
+		        "|\\b([3-4]\\d{4})\\b" +                              // Fechas numéricas de Excel
 		        "|\\b(\\d{2})(\\d{2})(\\d{2,4})\\b";              // ddmmyy o ddmmyyyy
 
 		    Pattern pattern = Pattern.compile(regex);

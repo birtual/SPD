@@ -132,7 +132,7 @@ public class StringUtil{
 			
 			
 		}
-		return result;
+		return result;	
 	}
 
 	/**
@@ -144,9 +144,12 @@ public class StringUtil{
 		String result=text;
 		if(result!=null&&!result.equals(""))
 		{
-			result.trim();
-			result=result.replace(" ", "");
-			result=StringUtils.strip(result, " \t\u00A0\u1680\u180e\u2000\u200a\u202f\u205f\u3000");  
+			result=result.trim();
+			//result=result.replace(" ", "");
+			//result = StringUtils.strip(result, " \t\u00A0\u1680\u180e\u2000\u200a\u202f\u205f\u3000");
+			result = result.replaceAll("[\\s\\u00A0\\u1680\\u180E\\u2000-\\u200A\\u202F\\u205F\\u3000]+", "");
+			//result = result.replaceAll("\\s+", "");
+			
 		}
 		
 		return result;

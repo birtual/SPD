@@ -26,7 +26,7 @@ public class ControlDataImportBean {
 	  private String 	alerta;
 	  private int  		diasDesdeUltimaFecha;
 	  private int  		cuantos;
-		  
+	  private int  		cuantasTolvasRobot;
 		  
 		  
 	public int getCuantos() {
@@ -161,6 +161,15 @@ public class ControlDataImportBean {
 
 	public void setUltimaFechaEnOrigen(String ultimaFechaEnOrigen) {
 		this.ultimaFechaEnOrigen = ultimaFechaEnOrigen;
+	}
+
+
+	public int getCuantasTolvasRobot() {
+		return cuantasTolvasRobot;
+	}
+
+	public void setCuantasTolvasRobot(int cuantasTolvasRobot) {
+		this.cuantasTolvasRobot = cuantasTolvasRobot;
 	}
 
 	

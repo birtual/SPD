@@ -75,7 +75,11 @@
 			</logic:notEqual>					
 			<logic:notEqual property="cuantos" name="data" value="-1">
 				<th>Total dispensadas</th>
-			</logic:notEqual>					
+			</logic:notEqual>			
+			<logic:notEqual property="cuantasTolvasRobot" name="data" value="-1">
+				<th>Total tolvas recogidas</th>
+			</logic:notEqual>			
+					
 		</tr>
 			
 		<logic:present name="data" property="detalleBeans">
@@ -107,6 +111,9 @@
 				<td text-align: left;"><bean:write name="detalle" property="cuantos" /></td>
 			</logic:notEqual>					
 
+			<logic:notEqual property="cuantasTolvasRobot" name="data" value="-1">
+				<td text-align: left;"><bean:write name="detalle" property="cuantasTolvasRobot" /></td>
+			</logic:notEqual>	
 		</tr>
 		</logic:iterate>
 		</logic:present>

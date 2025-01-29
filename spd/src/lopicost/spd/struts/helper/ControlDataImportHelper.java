@@ -51,6 +51,7 @@ public class ControlDataImportHelper {
 		tabla1.setDetalleBeans(ControlDataImportDAO.getDatosBdPacientesFarmatic(idUsuario, SPDConstants.DIAS_MAX_PROCESOS_IMPORT));
 		tabla1.setUltimaFechaEnOrigen("NO");
 		tabla1.setCuantos(-1);
+		tabla1.setCuantasTolvasRobot(-1);
 		listaBeans.add(tabla1);
 	
 		/** 
@@ -63,6 +64,7 @@ public class ControlDataImportHelper {
 		tabla2.setNumeroCIPs(-1);
 		tabla2.setUltimaFechaEnOrigen("NO");
 		tabla2.setCuantos(-1);
+		tabla2.setCuantasTolvasRobot(-1);
 		
 		tabla2.setRelaciones("diferentes reports ");
 		tabla2.setDetalleBeans(ControlDataImportDAO.getDatosBdConsejo(idUsuario, SPDConstants.DIAS_MAX_PROCESOS_IMPORT));
@@ -75,6 +77,7 @@ public class ControlDataImportHelper {
 		tabla3.setNombreTabla("hst_ProductosDispensadosResis");
 		tabla3.setRelaciones("Report Pedido FL");
 		tabla3.setNumeroCIPs(-1);
+		tabla3.setCuantasTolvasRobot(-1);
 	//	tabla3.setUltimaFechaRecogida("NO");
 		tabla3.setDetalleBeans(ControlDataImportDAO.getProductosDispensadosResis(idUsuario, 7));
 		listaBeans.add(tabla3);
@@ -86,6 +89,7 @@ public class ControlDataImportHelper {
 		tabla4.setNombreTabla("hst_CodigosRecetasDispensados (dispensados en los últimos 31 días)");
 		tabla4.setRelaciones("Vista v_pacientesComalisFarmatic / Report Farmatic vs Gestión pacientes / Report Pedido FL ");
 		tabla4.setNumeroCIPs(-1);
+		tabla4.setCuantasTolvasRobot(-1);
 		//	tabla4.setUltimaFechaRecogida("NO");
 		tabla4.setDetalleBeans(ControlDataImportDAO.getCodigosRecetasDispensados(idUsuario, 7));
 		listaBeans.add(tabla4);
@@ -109,11 +113,33 @@ public class ControlDataImportHelper {
 		tabla6.setNombreTabla("tbl_comprasXventasXproveedor (alerta si más de 32 días)");
 		tabla6.setRelaciones("compras recepcionadas a FL en Farmatic ");
 		tabla6.setIdDivisionResidencia("NO");
+		tabla6.setCuantasTolvasRobot(-1);
 		tabla6.setCuantos(-1);
 		tabla6.setNumeroCIPs(-1);
 		tabla6.setDetalleBeans(ControlDataImportDAO.getComprasVentasXProveedor(idUsuario, 32));
 		listaBeans.add(tabla6);	
+
+		/**
+		 * 6 - drugBarcodeMASTERS de las farmacias
+		 */
+		ControlDataImportBean tabla7 = new ControlDataImportBean();
+		tabla7.setNombreTabla("drugBarcodeMASTERS (alerta si más de 7 días)");
+		tabla7.setRelaciones("recogida de datos de tolvas y medicamentos en los robots ");
+		tabla7.setUltimaFechaEnOrigen("NO");
+		tabla7.setIdDivisionResidencia("NO");
+		tabla7.setCuantos(-1);
+		tabla7.setNumeroCIPs(-1);
+		tabla7.setDetalleBeans(ControlDataImportDAO.getInfoDrugCodeMaster(idUsuario, 7));
+		listaBeans.add(tabla7);	
+		
+		
 		return listaBeans;
+		
+		
+
+	
+		
+		
 	}
 
 

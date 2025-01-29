@@ -169,7 +169,7 @@ public class ControlSPD{
 			return;
 		}
 		//además de ver lo que llega exactamente, miramos también este id para descartar cambios menores en formatos de fecha por ejemplo
-		String idTratamientoCIPActual=medResiAnterior.getIdTratamientoCIP();
+		String idTratamientoCIPActual=medResi.getIdTratamientoCIP();
 		String idTratamientoCIPAnterior=medResiAnterior.getIdTratamientoCIP();
 		boolean idTratamientosCIPIguales = false;
 		try{

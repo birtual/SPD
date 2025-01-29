@@ -430,6 +430,58 @@ public class ControlDataImportDAO
     }
 
 
+	public static List<ControlDataImportBean> getInfoDrugCodeMaster(String idUsuario, int diasAlerta) throws SQLException, ParseException {
+	   	String query = " SELECT 'drugBarcodeMASTERS' as nombreTabla, count(cv.drugNumber) as  emes, count(distinct cv.cassette) as  tolvas  ";
+    	query+=			" , cv.nombreRobot, max(cv.FechaHoraRecogida  ) as ultimaFechaRecogida ";
+    	query+=			" FROM drugBarcodeMASTERS cv  ";
+    	query+=			" group by cv.nombreRobot ";
+        
+        	
+   	  	System.out.println(className + "  - getInfoDrugCodeMaster -->  " +query );		
+	  	Connection con = Conexion.conectar();
+	  	
+	  	ResultSet resultSet = null;
+		List<ControlDataImportBean> listaBeans= new ArrayList<ControlDataImportBean>();
+			try {
+				PreparedStatement pstat = con.prepareStatement(query);
+		        resultSet = pstat.executeQuery();
+
+		        while (resultSet.next()) {
+		        	ControlDataImportBean  c =new ControlDataImportBean();
+		            c.setNombreTabla(resultSet.getString("nombreTabla"));
+		            c.setNombreFarmacia(resultSet.getString("nombreRobot"));
+		            c.setCuantos(resultSet.getInt("emes"));
+		            c.setCuantasTolvasRobot(resultSet.getInt("tolvas"));
+
+		            /**FECHA*/
+		            java.sql.Timestamp ultimaFechaRecogida = resultSet.getTimestamp("ultimaFechaRecogida");
+			 		if(ultimaFechaRecogida!=null) 
+					 {
+			 		    // Crea un objeto SimpleDateFormat con el formato deseado
+			 		    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			 		    // Formatea el Timestamp a una cadena
+			 		    String fechaFormateada = (ultimaFechaRecogida != null) ? sdf.format(new Date(ultimaFechaRecogida.getTime())) : "";
+							//c.setFechaCalculoPrevision(DateUtilities.getDatetoString("dd/MM/yyyy HH:mm", resultSet.getDate("fechaCalculoPrevision")));
+			 		    c.setUltimaFechaRecogida(fechaFormateada);
+					 }
+			 		/**FIN FECHA*/
+		            
+		            int dias = getDiasUltimaFecha(c.getUltimaFechaRecogida());
+		            c.setDiasDesdeUltimaFecha(getDiasUltimaFecha(c.getUltimaFechaRecogida()));
+		            String alerta ="rojo";
+		            if(dias<=diasAlerta && dias>-1) alerta ="verde";
+		            	
+		            c.setAlerta(alerta);
+		            	if(c!=null)
+		            		listaBeans.add(c);
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		        return listaBeans;
+    }
+
+
 
 
 

@@ -1704,10 +1704,10 @@ public class FicheroResiDetalleDAO {
 					qry+=  "  OR g.detalleRowKey ='"+detalleRow+"'  ";
 				}
 				if(detalleRowKeyLite!=null && !detalleRowKeyLite.equals("")&& !detalleRowKeyLite.equalsIgnoreCase("NULL")) 
-					qry+=  "  OR g.detalleRowKeyLite = '"+detalleRowKeyLite+"%'";
+					qry+=  "  OR g.detalleRowKeyLite = '"+detalleRowKeyLite+"'";
 
 				if(detalleRowKeyLiteFechas!=null && !detalleRowKeyLiteFechas.equals("")&& !detalleRowKeyLiteFechas.equalsIgnoreCase("NULL")) 
-					qry+=  " OR g.detalleRowKeyLiteFechas like '"+detalleRowKeyLiteFechas+"%'";
+					qry+=  " OR g.detalleRowKeyLiteFechas = '"+detalleRowKeyLiteFechas+"'";
 						
 						/*
 						 * + " OR UPPER(REPLACE(g.detalleRow, ' ', '')) COLLATE Cyrillic_General_CI_AI ='"+StringUtil.quitaEspaciosYAcentos(detalleRow, true)+"' COLLATE Cyrillic_General_CI_AI "

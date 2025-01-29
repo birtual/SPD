@@ -33,8 +33,8 @@
    	<% String currpage = formulari.getCurrpage()+""; %>
      <html:hidden property="numpages" value="<%= numPages %>"/>
 	 <html:hidden property="currpage" value="<%= currpage %>"/>
-     <html:hidden property="resiCn" />
-     <html:hidden property="resiMedicamento" />
+     <!-- html:hidden property="resiCn" /> -->
+     <!-- html:hidden property="resiMedicamento" /> -->
 	
    	<!-- mostramos mensajes y errores, si existen -->
 
@@ -88,13 +88,7 @@
 			</div>	
 	    </logic:notEmpty>	
 				
-		<div>	<label for="resiCn" accesskey="e">CN a sustituir:</label>
-		  <font color="red"><bean:write name="formulari" property="resiCn" /></font>  (<bean:write name="formulari" property="idDivisionResidencia" />)
-		</div> 
-		 <div>	<label for="resiMedicamento" accesskey="e">Descripción:</label>
-		   			 <font color="red"><bean:write name="formulari"  property="resiMedicamento" />
-     			</font>
-     	</div>
+
     <p class="botonBuscar">
 		<input type="button" onclick="javascript:buscar()"	 	 value="Buscar" />  
 		<input type="button" onclick="javascript:nuevo()" 		 value="Nuevo"  />  

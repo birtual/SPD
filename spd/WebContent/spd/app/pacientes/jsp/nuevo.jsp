@@ -61,11 +61,10 @@
 		</tr>	
 		<tr>
 			<td>Nº identidad</br>
-			Nº Seg Social</br>
+			
 			id en la residencia
 			</td>
 			<td><html:text name="formulari" property="nIdentidad"/></br>
-			<html:text name="formulari" property="segSocial"/></br>
 			<html:text name="formulari" property="idPacienteResidencia"/></td>
 		</tr>
 		<tr>

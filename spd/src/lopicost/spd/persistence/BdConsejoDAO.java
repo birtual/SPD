@@ -142,9 +142,9 @@ public class BdConsejoDAO {
    		
    		
    		
-		String qry = "select * from ( select  distinct ROW_NUMBER() OVER(ORDER BY c.nomLABO, coalesce(c.nombre, '') + ' ' + coalesce(c.presentacion, '')) AS ROWNUM,  c.codigo, coalesce(c.nombre, '') + ' ' + coalesce(c.presentacion, '') as nombreConsejo,  c.codiLABO, c.nomLABO, c.CodGtVmp, c.NomGtVmp, c.CodGtVm, c.NomGtVm, c.FormaFarmaceutica, c.nomFormaFarmaceutica, c.CodGtVmpp, c.NomGtVmpp, c.emblistable, c.sustituible  ";
+		String qry = "select * from ( select  distinct ROW_NUMBER() OVER(ORDER BY c.nomLABO, coalesce(c.nombre, '') + ' ' + coalesce(c.presentacion, '')) AS ROWNUM,  c.codigo, coalesce(c.nombre, '') + ' ' + coalesce(c.presentacion, '') as nombreConsejo,  c.codiLABO, c.nomLABO, c.PVL , c.CodGtVmp, c.NomGtVmp, c.CodGtVm, c.NomGtVm, c.FormaFarmaceutica, c.nomFormaFarmaceutica, c.CodGtVmpp, c.NomGtVmpp, c.emblistable, c.sustituible  ";
 		if(LookUpLabs)  
-			 qry = "select distinct codiLABO, nomLABO  from   ( select distinct ROW_NUMBER() OVER(order by c.nomLABO) AS ROWNUM,  c.codiLABO, c.nomLABO  ";
+			 qry = "select distinct codiLABO, nomLABO  from   ( select distinct ROW_NUMBER() OVER(order by c.nomLABO) AS ROWNUM,  c.codiLABO, c.nomLABO, c.PVL  ";
 		
 			//si es contador inicializo la query
 		if(count)  
@@ -704,12 +704,16 @@ public class BdConsejoDAO {
    return result;
 }
 
-	public static List<BdConsejo> getAutoLabs(String term) throws SQLException {
+	public static List<BdConsejo> getAutoLabs(String term, String CodGtVm) throws SQLException {
 		List<BdConsejo> result = new ArrayList<BdConsejo>();
-		String qry = "select distinct codiLABO, nomLABO from bd_consejo where nomLABO like '%" +term+ "%'";
-		qry+=  " order by nomLABO";
+		String qry = "SELECT DISTINCT codiLABO, nomLABO ";
+		qry+=  " FROM bd_consejo ";
+		qry+=  " WHERE nomLABO LIKE '%" +term+ "%' "; 
+		if(CodGtVm!=null && !CodGtVm.equalsIgnoreCase(""))
+			qry+=  " AND  CodGtVm = '" +CodGtVm+ "' "; 
+		qry+=  " ORDER BY nomLABO";
 	   			 
-		System.out.println("BdConsejoDAO.getAutoGtVm -->" +qry );		
+		System.out.println("BdConsejoDAO.getAutoLabs -->" +qry );		
    		Connection con = Conexion.conectar();
   
 

@@ -208,7 +208,7 @@ public class EnlaceDAO
 
         int result=0;
 		  Connection con = Conexion.conectar();
-	  	   String qry = "UPDATE dbo.SPD_ENLACE ";
+	  	   String qry = "UPDATE dbo.SPD_ENLACE set ";
 	  	   		//qry+= " set  aliasEnlace= '"+enlace.getAliasEnlace()+"', ";
 	  	   		//qry+= " idApartado= '"+enlace.getIdApartado()+"', ";
 	  	   		qry+= " nombreEnlace= '"+enlace.getNombreEnlace()+"', ";

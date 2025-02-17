@@ -196,11 +196,13 @@ public class XMLRobotDao
            				//idBolsa = bean.getCIP() + fechaTomaParaIdBolsa + tramoToma + bean.getDispensar()+ String.format("%02d", numeroBolsa );
            				idBolsa = bean.getCIP() + fechaTomaParaIdBolsa + tramoToma + bean.getDispensar()+ numeroBolsa;
            				idLineaRX = getIdLineaRX(IDbolsaFechaDispTramo, numeroBolsa);
-           				idFreeInformation = StringUtil.convertTextToAscii(StringUtil.left(StringUtil.makeFlat(bean.getCIP(), true) + "00000000000000", 14));
+           				idFreeInformation = StringUtil.left(StringUtil.convertTextToAscii(StringUtil.makeFlat(bean.getCIP(), true) + "00000000000000"), 14);
            				idFreeInformation+=fechaTomaParaIdBolsa.substring(2, 8);
            				idFreeInformation+=StringUtil.substring(tramoToma, tramoToma.indexOf('[') + 1, 2);
            				idFreeInformation+=bean.getDispensar()!=null&&bean.getDispensar().equalsIgnoreCase("S")?"1":"0";
            				idFreeInformation+=numeroBolsa+"";
+           				//parece que el robot tiene limitación de caracteres, con 34 daba error en la carga. Limitamos a 25
+       					//idFreeInformation = idFreeInformation.length() > 25 ? idFreeInformation.substring(idFreeInformation.length() - 25) : idFreeInformation;
 
            				
                        	sql+= " ('"+idDivisionResidencia+"' ,'"+idProceso+"','"+bean.getCIP()+"','"+bean.getOrderNumber()+"','"+bean.getCN()+"','"+bean.getNombreMedicamento()+"'";

@@ -100,7 +100,7 @@ public class PacientesHelper  {
 			//en caso que sea baja o similar, spd y pañales pasan a N
 			if(StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("CENTRODEDIA")
 					|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("HOSPITALIZADO")
-					|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("BAJAVOLUNTARIA")
+					|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("BAJA")
 					|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("EXITUS")
 				)
 				{
@@ -132,7 +132,6 @@ public class PacientesHelper  {
 						querySet+=" EXITUS=1 ";
 						cambios=true;
 					}
-
 				}
 			
 			
@@ -548,8 +547,8 @@ public class PacientesHelper  {
 				antes+=  " | Residencia: "+ p.getIdDivisionResidencia();
 				despues+=" | Residencia: "+ f.getIdDivisionResidencia();
 
-				cambios =true;
-				cambiosNombre =true;
+				cambios = true;
+				cambiosNombre = true;
 				if (!querySet.equals("")) 
 					querySet+= ", "; //añadimos la coma en caso que exista uno previo 		
 				 
@@ -562,8 +561,8 @@ public class PacientesHelper  {
 				antes+=  " | Nombre: "+ p.getNombre();
 				despues+=" | Nombre: "+ f.getNombre();
 
-				cambios =true;
-				cambiosNombre =true;
+				cambios = true;
+				cambiosNombre = true;
 				if (!querySet.equals("")) 
 					querySet+= ", "; //añadimos la coma en caso que exista uno previo 		
 				 
@@ -578,8 +577,8 @@ public class PacientesHelper  {
 				if (!querySet.equals(""))  	
 					querySet+= ", ";
 				 
-				cambios =true;
-				cambiosNombre =true;
+				cambios = true;
+				cambiosNombre = true;
 				querySet+= " apellido1 = '"+ StringUtil.quitaEspacios(f.getApellido1()) + "'" ;
 			}
 			/*  INICIO apellido2*/
@@ -594,24 +593,24 @@ public class PacientesHelper  {
 				if (!querySet.equals(""))  	
 					querySet+= ", ";
 				 
-				cambios =true;
-				cambiosNombre =true;
+				cambios = true;
+				cambiosNombre = true;
 				querySet+= " apellido2 = '"+ StringUtil.quitaEspacios(f.getApellido2()) + "'" ;
 			}
 			
 			/*  INICIO nIdentidad*/
-			if(f.getnIdentidad()==null || (f.getnIdentidad()!=null && f.getnIdentidad().equalsIgnoreCase("null"))) f.setnIdentidad("");
-			if(p.getnIdentidad()==null || (p.getnIdentidad()!=null && p.getnIdentidad().equalsIgnoreCase("null"))) p.setnIdentidad("");
-			if (!Objects.equals(p.getNIdentidad(), f.getnIdentidad())) 
+			if(f.getNumIdentidad()==null || (f.getNumIdentidad()!=null && f.getNumIdentidad().equalsIgnoreCase("null"))) f.setNumIdentidad("");
+			if(p.getNumIdentidad()==null || (p.getNumIdentidad()!=null && p.getNumIdentidad().equalsIgnoreCase("null"))) p.setNumIdentidad("");
+			if (!Objects.equals(p.getNumIdentidad(), f.getNumIdentidad())) 
 			{
-				antes+=  " | nIdentidad: "+ p.getNIdentidad();
-				despues+=" | nIdentidad: "+ f.getnIdentidad();
+				antes+=  " | nIdentidad: "+ p.getNumIdentidad();
+				despues+=" | nIdentidad: "+ f.getNumIdentidad();
 
 				if (!querySet.equals(""))  	
 					querySet+= ", ";
 				 
-				cambios =true;
-				querySet+= " nIdentidad = '"+ f.getnIdentidad() + "'" ;
+				cambios = true;
+				querySet+= " nIdentidad = '"+ f.getNumIdentidad() + "'" ;
 			}
 			/*  INICIO segSocial*/
 			if(f.getSegSocial()==null || (f.getSegSocial()!=null && f.getSegSocial().equalsIgnoreCase("null"))) f.setSegSocial("");
@@ -624,7 +623,7 @@ public class PacientesHelper  {
 				if (!querySet.equals(""))  	
 					querySet+= ", ";
 				 
-				cambios =true;
+				cambios = true;
 				querySet+= " segSocial = '"+ f.getSegSocial() + "'" ;
 			}			
 			/*  INICIO segSocial*/
@@ -638,7 +637,7 @@ public class PacientesHelper  {
 				if (!querySet.equals(""))  	
 					querySet+= ", ";
 				 
-				cambios =true;
+				cambios = true;
 				querySet+= " idPacienteResidencia = '"+ f.getIdPacienteResidencia() + "'" ;
 			}					
 			/*  INICIO planta*/
@@ -653,7 +652,7 @@ public class PacientesHelper  {
 				if (!querySet.equals(""))  	
 					querySet+= ", ";
 				 
-				cambios =true;
+				cambios = true;
 				querySet+= " planta = '"+ f.getPlanta() + "'" ;
 			}							
 			/*  INICIO habitacion*/
@@ -667,7 +666,7 @@ public class PacientesHelper  {
 				if (!querySet.equals(""))  	
 					querySet+= ", ";
 				 
-				cambios =true;
+				cambios = true;
 				querySet+= " habitacion = '"+ f.getHabitacion() + "'" ;
 			}			
 			/*  INICIO spd*/
@@ -679,7 +678,7 @@ public class PacientesHelper  {
 				if (!querySet.equals(""))  	
 					querySet+= ", ";
 				 
-				cambios =true;
+				cambios = true;
 				querySet+= " mutua = '"+ f.getMutua() + "'" ;
 				
 			}	
@@ -692,7 +691,7 @@ public class PacientesHelper  {
 				if (!querySet.equals(""))  	
 					querySet+= ", ";
 				 
-				cambios =true;
+				cambios = true;
 				querySet+= " spd = '"+ f.getSpd() + "'" ;
 				
 			}	
@@ -705,7 +704,7 @@ public class PacientesHelper  {
 				if (!querySet.equals(""))  	
 					querySet+= ", ";
 				 
-				cambios =true;
+				cambios = true;
 				querySet+= " bolquers = '"+ f.getBolquers() + "'" ;
 			}	
 			/*  INICIO comentarios*/
@@ -722,7 +721,7 @@ public class PacientesHelper  {
 				if (!querySet.equals(""))  	
 					querySet+= ", ";
 				 
-				cambios =true;
+				cambios = true;
 				querySet+= " comentarios = '"+ f.getComentarios() + "'" ;
 			}	
 			/*  INICIO estatus*/
@@ -734,8 +733,8 @@ public class PacientesHelper  {
 				if (!querySet.equals(""))  	
 					querySet+= ", ";
 				 
-				cambios =true;
-				cambiosEstado=true;
+				cambios = true;
+				cambiosEstado = true;
 				querySet+= " estatus = '"+ f.getEstatus() + "'" ;
 			}				
 			/*  INICIO exitus
@@ -754,27 +753,26 @@ public class PacientesHelper  {
 		}	
 
 		if(cambiosNombre) {
-			querySet+= ", cognoms = apellido1 +' ' + apellido2, cognomsNom = cognoms + ', ' + nom ";  //actualizamos campos dependientes
+			querySet+= ", cognoms = apellido1 +' ' + apellido2, cognomsNom = apellido1 +' ' + apellido2 + ', ' + nom ";  //actualizamos campos dependientes
 		}
 		//if(cambiosEstado) {
 		//	querySet+= ", exitus = '"+f.getExitus()+"', estatus = '"+f.getEstatus()+"', spd = '"+f.getEstatus()+"', estatus = '"+f.getEstatus()+"' ";  //actualizamos campos dependientes
 		//}
 
 		
-		
-			if(cambios)
-			{
-				String query = " UPDATE SPDAC.dbo.bd_pacientes SET " + querySet + " WHERE  OIDPACIENTE='"+p.getOidPaciente()+"'";
-				cambios = PacienteDAO.edita(query);
+		if(cambios)
+		{
+			String query = " UPDATE SPDAC.dbo.bd_pacientes SET " + querySet + " WHERE  OIDPACIENTE='"+p.getOidPaciente()+"'";
+			cambios = PacienteDAO.edita(query);
+			//INICIO creación de log en BBDD
+			try{
+				SpdLogAPI.addLog(idUsuario, p.getCIP(),  p.getIdDivisionResidencia(), null, SpdLogAPI.A_RESIDENTE, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.residente.edicion.general", 
+						 new String[]{idUsuario, p.getCIP(), antes, despues} );
+			}catch(Exception e){}	// Cambios--> @@.
+			//FIN creación de log en BBDD
+		}
 
-				//INICIO creación de log en BBDD
-				try{
-					SpdLogAPI.addLog(idUsuario, p.getCIP(),  p.getIdDivisionResidencia(), null, SpdLogAPI.A_RESIDENTE, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.residente.edicion.general", 
-							 new String[]{idUsuario, p.getCIP(), antes, despues} );
-				}catch(Exception e){}	// Cambios--> @@.
-				//FIN creación de log en BBDD
-			}
-			return cambios;
+		return cambios;
 	}
 
 
@@ -806,6 +804,8 @@ public class PacientesHelper  {
 	}
 
 
+	
+
 	public static List<FicheroResiBean> getListTratamientosSPDPorCIP(String idUsuario, PacienteBean pac, boolean historico) throws Exception {
 		List<FicheroResiBean> tratamientosSpd = new ArrayList<>();
 		if(pac!=null) tratamientosSpd = FicheroResiDetalleDAO.getProduccionesPorCIP( idUsuario,  pac.getCIP(), historico);
@@ -833,7 +833,8 @@ public class PacientesHelper  {
 		return listaEstatusResidente;
 
 	}
-	
+
+
 
 
 

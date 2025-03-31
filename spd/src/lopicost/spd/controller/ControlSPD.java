@@ -2,9 +2,14 @@ package lopicost.spd.controller;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+
 import lopicost.spd.model.BdConsejo;
 import lopicost.spd.persistence.*;
 import lopicost.spd.struts.bean.*;
@@ -285,8 +290,159 @@ public class ControlSPD{
 			medResi.setControlRegistroAnterior(SPDConstants.CTRL_REGISTRO_ANTERIOR_RD_SI);
 
 		}
+		
+		/*
+		 * //CASO 5 -  Resi envía igual y SPD envía diferente pero solo en cuanto a la fecha en tratamientos quincenales/mensuales
+		//se tratará como CTRL_REGISTRO_ANTERIOR_RD_SD 
+		//solo si ambos detalleRow son iguales y cambian solo fechas 
+		if(medResi.getControlRegistroAnterior().equals(SPDConstants.CTRL_REGISTRO_ANTERIOR_RI_SD) //solo comprobamos en caso de 
+				&& (medResi.getResiPeriodo().equals(SPDConstants.SPD_PERIODO_QUINCENAL) || medResi.getResiPeriodo().equals(SPDConstants.SPD_PERIODO_MENSUAL)))
+		{
+			boolean resiIguales=comparacionRegistrosDeLaResi(medResiAnterior, medResi);
+			boolean enviadosIguales=comparacionEnviadosDeLaResiSinFecha(medResiAnterior, medResi);
+			//si sumamos la frecuencia a la fecha anterior y es como la actual, se dará por buena
+			//StrmedResiAnterior.getResiInicioTratamientoParaSPD();
+			if(resiIguales && enviadosIguales)
+			{
+				//si son iguales solo queda mirar si las fechas se han desplazado correctamente relativo a la frecuencia
+				Date fechaInicioAnterior = DateUtilities.getDate(medResiAnterior.getResiInicioTratamientoParaSPD(), "dd/MM/yyyy");
+				Date fechaFinAnterior = DateUtilities.getDate(medResiAnterior.getResiFinTratamientoParaSPD(), "dd/MM/yyyy");
+				Date fechaInicioActual = DateUtilities.getDate(medResi.getResiInicioTratamientoParaSPD(), "dd/MM/yyyy");
+				Date fechaFinActual = DateUtilities.getDate(medResi.getResiFinTratamientoParaSPD(), "dd/MM/yyyy");
+				int frecuencia=medResi.getResiFrecuencia(); 
+				
+				//fechas desplazadas OK
+				Date auxInicio=DateUtilities.addDate(fechaInicioAnterior, frecuencia-1);//quitamos uno porque saldría siempre un día más
+				long difInicio=DateUtilities.getLengthInDays(auxInicio, fechaInicioActual);
+				Date auxFin=DateUtilities.addDate(fechaFinAnterior, frecuencia-1);//quitamos uno porque saldría siempre un día más
+				long difFin=DateUtilities.getLengthInDays(auxFin, fechaFinActual);
+				if(difInicio==0
+						&& difFin==0)
+				{
+					medResi.setControlRegistroAnterior(SPDConstants.CTRL_REGISTRO_ANTERIOR_RI_SI);
+					medResi.setValidar(medResiAnterior.getValidar());
+				}
+			}
+		}
+		*/
+		//CASO 5 -  Resi envía igual y SPD envía diferente pero solo en cuanto a la fecha en tratamientos quincenales/mensuales
+		//se tratará como CTRL_REGISTRO_ANTERIOR_RD_SD 
+		//solo si ambos detalleRow son iguales y cambian solo fechas, y coincide con el día marcado del mes 
+			if(medResi.getControlRegistroAnterior().equals(SPDConstants.CTRL_REGISTRO_ANTERIOR_RI_SD) //solo comprobamos en caso de 
+					&& (medResi.getResiPeriodo().equals(SPDConstants.SPD_PERIODO_QUINCENAL) || medResi.getResiPeriodo().equals(SPDConstants.SPD_PERIODO_MENSUAL)))
+				{
+					boolean resiIguales=comparacionRegistrosDeLaResi(medResiAnterior, medResi);
+					boolean enviadosIguales=comparacionEnviadosDeLaResiSinFecha(medResiAnterior, medResi);
+					//si sumamos la frecuencia a la fecha anterior y es como la actual, se dará por buena
+					//StrmedResiAnterior.getResiInicioTratamientoParaSPD();
+					if(resiIguales && enviadosIguales)
+					{
+						//si son iguales solo queda mirar si las fechas se han desplazado correctamente relativo a la frecuencia o que el día coincide con el marcado en diasMesConcretos
+						Date fechaInicioAnterior = DateUtilities.getDate(medResiAnterior.getResiInicioTratamientoParaSPD(), "dd/MM/yyyy");
+						Date fechaFinAnterior = DateUtilities.getDate(medResiAnterior.getResiFinTratamientoParaSPD(), "dd/MM/yyyy");
+						Date fechaInicioActual = DateUtilities.getDate(medResi.getResiInicioTratamientoParaSPD(), "dd/MM/yyyy");
+						Date fechaFinActual = DateUtilities.getDate(medResi.getResiFinTratamientoParaSPD(), "dd/MM/yyyy");
+						
+						
+						int frecuencia=medResi.getResiFrecuencia(); 
+						
+						//fechas desplazadas OK
+						Date auxInicio=DateUtilities.addDate(fechaInicioAnterior, frecuencia-1);//quitamos uno porque saldría siempre un día más
+						long difInicio=DateUtilities.getLengthInDays(auxInicio, fechaInicioActual);
+						Date auxFin=DateUtilities.addDate(fechaFinAnterior, frecuencia-1);//quitamos uno porque saldría siempre un día más
+						long difFin=DateUtilities.getLengthInDays(auxFin, fechaFinActual);
+						if(difInicio==0 && difFin==0 || coincideDiaMesConcreto(medResi))
+						{
+							medResi.setControlRegistroAnterior(SPDConstants.CTRL_REGISTRO_ANTERIOR_RI_SI);
+							medResi.setValidar(medResiAnterior.getValidar());
+						}
+					}
+				}
+		
 		System.out.println( "ControlSPD controlPrincActivos:  medResi.setControlRegistroAnterior --> "  + medResi.getControlRegistroAnterior() );
 	
+	}
+
+	private static boolean coincideDiaMesConcreto(FicheroResiBean medResi) {
+		String dias = medResi.getDiasMesConcretos();
+		Date fechaInicioActual = DateUtilities.getDate(medResi.getResiInicioTratamientoParaSPD(), "dd/MM/yyyy");
+		// Convertir Date a LocalDate
+		LocalDate localDate = fechaInicioActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+		// Obtener el día del mes
+		int diaFechaInicioActual = localDate.getDayOfMonth();
+		// Convertir la cadena a una lista de enteros
+		List<Integer> diasLista = Arrays.stream(dias.split(","))
+		                                .map(String::trim) // Elimina espacios en blanco
+		                                .map(Integer::parseInt) // Convierte a Integer
+		                                .collect(Collectors.toList());
+
+		// Verificar si el día del mes está en la lista
+		boolean coincide = diasLista.contains(diaFechaInicioActual);
+
+		
+		return coincide;
+	}
+
+
+	/**
+	 * Devuelve treu si lo enviado a robot es igual, exceptuando las fechas de SPD. Se usa para descartar controles en los quincenales/mensuales
+	 * @param medResiAnterior
+	 * @param medResi
+	 * @return
+	 */
+	
+	private static boolean comparacionEnviadosDeLaResiSinFecha(FicheroResiBean medResiAnterior,
+			FicheroResiBean medResi) {
+		boolean result=true;
+		String idMedResiActual = getDatosBasicosEnviados(medResi);
+		String idMedResiAnterior = getDatosBasicosEnviados(medResiAnterior);
+		try
+		{
+			if(!idMedResiActual.equalsIgnoreCase(idMedResiAnterior)) result=false;  
+		}catch(Exception e){}
+			
+		return result;
+	}
+
+	/**
+	 * Devuelve un ID de sobre los campos básicos enviados a robot, Cip, CN, dias de la semana y tomas
+	 * @param medResi
+	 * @return
+	 */
+	private static String getDatosBasicosEnviados(FicheroResiBean medResi) {
+		String result="";
+		if(medResi!=null)
+		{
+			result+=medResi.getResiCIP()+"|"+medResi.getResiCn()+"|"+medResi.getResiMedicamento()
+			+"|"+medResi.getResiApellidosNombre()
+			+"|"+medResi.getResiD1()+"|"+medResi.getResiD2()+"|"+medResi.getResiD3()+"|"+medResi.getResiD4()+"|"+medResi.getResiD5()+"|"+medResi.getResiD6()+"|"+medResi.getResiD7()
+			+"|"+medResi.getResiToma1()+"|"+medResi.getResiToma2()+"|"+medResi.getResiToma3()+"|"+medResi.getResiToma4()+"|"+medResi.getResiToma5()
+			+"|"+medResi.getResiToma6()+"|"+medResi.getResiToma7()+"|"+medResi.getResiToma8()+"|"+medResi.getResiToma9()+"|"+medResi.getResiToma10()
+			+"|"+medResi.getResiToma11()+"|"+medResi.getResiToma12()+"|"+medResi.getResiToma13()+"|"+medResi.getResiToma14()+"|"+medResi.getResiToma15()
+			+"|"+medResi.getResiToma16()+"|"+medResi.getResiToma17()+"|"+medResi.getResiToma18()+"|"+medResi.getResiToma19()+"|"+medResi.getResiToma20()
+			+"|"+medResi.getResiToma21()+"|"+medResi.getResiToma22()+"|"+medResi.getResiToma23()+"|"+medResi.getResiToma24();
+		}
+		return StringUtil.limpiarTextoDetalleRow(result);
+	}
+
+
+	/**
+	 * Devuelve true si los detalleRow de ambos son iguales
+	 * @param medResiAnterior
+	 * @param medResi
+	 * @return
+	 */
+	private static boolean comparacionRegistrosDeLaResi(FicheroResiBean medResiAnterior, FicheroResiBean medResi) {
+		boolean result=true;
+		String detalleRowFechasAnterior=medResiAnterior.getDetalleRowKeyLiteFechas();
+		String detalleRowFechas=medResi.getDetalleRowKeyLiteFechas();
+		try
+		{
+			if(!detalleRowFechasAnterior.equalsIgnoreCase(detalleRowFechas)) result=false;  
+		}catch(Exception e){}
+			
+		return result;
 	}
 
 
@@ -688,7 +844,8 @@ public class ControlSPD{
 	public static boolean registroValidable(FicheroResiBean frbean) {
 		
 		//if(frbean.getValidar().equalsIgnoreCase(SPDConstants.REGISTRO_VALIDAR) && (frbean.getIncidencia()==null || (frbean.getIncidencia()!=null && !frbean.getIncidencia().equalsIgnoreCase("SI"))))
-		if(frbean!=null && frbean.getValidar()!=null && frbean.getValidar().equalsIgnoreCase(SPDConstants.REGISTRO_VALIDAR))
+			if(frbean!=null && frbean.getValidar()!=null && frbean.getValidar().equalsIgnoreCase(SPDConstants.REGISTRO_VALIDAR)
+					 && (frbean.getIncidencia()==null || (frbean.getIncidencia()!=null && !frbean.getIncidencia().equalsIgnoreCase("SI"))))
 		{
 			return true;
 		}

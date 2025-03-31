@@ -33,7 +33,7 @@ var altoMax = 600;
 	function editar(oidDivisionResidenciaFiltro, oidGestSustitucionesLite)
 	{
 		var f = document.GestSustitucionesLiteForm;
-		f.oidDivisionResidenciaFiltro.value=oidDivisionResidenciaFiltro;
+		//f.oidDivisionResidenciaFiltro.value=oidDivisionResidenciaFiltro;
 		f.parameter.value='editar';
 		f.ACTIONTODO.value='EDITA';
 		f.oidGestSustitucionesLite.value= oidGestSustitucionesLite;
@@ -62,6 +62,9 @@ var altoMax = 600;
 
 	function volver()
 	{
+		var f = document.GestSustitucionesLiteForm;
+		f.resiCn.value='';
+		f.resiMedicamento.value='';
 		procesar('', 'list', '');
 		window.resizeTo(anchoMax, altoMax);
 	}	

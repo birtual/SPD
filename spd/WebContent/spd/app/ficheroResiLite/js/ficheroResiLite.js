@@ -1,4 +1,32 @@
-/////////////////////// funciones para validar fechas //////////////////
+//ocultación de datos personales
+/*function toggleDatos() {
+    let mostrar = document.getElementById("toggleDatos").innerText === "Mostrar Datos";
+
+    if (mostrar) {
+        fetch('obtenerDatosReales.do')
+            .then(response => response.json())
+            .then(data => {
+                document.querySelectorAll("#tablaDatos tr").forEach(tr => {
+                    let id = tr.getAttribute("data-id");
+                    if (data[id]) {
+                        tr.querySelector(".cip").innerText = data[id].resiCIP;
+                        tr.querySelector(".nombre").innerText = data[id].resiApellidosNombre;
+                    }
+                });
+            });
+        document.getElementById("toggleDatos").innerText = "Ocultar Datos";
+    } else {
+        document.querySelectorAll("#tablaDatos tr").forEach(tr => {
+            let cip = tr.querySelector(".cip").getAttribute("data-masked");
+            let nombre = tr.querySelector(".nombre").getAttribute("data-masked");
+
+            tr.querySelector(".cip").innerText = cip;
+            tr.querySelector(".nombre").innerText = nombre;
+        });
+        document.getElementById("toggleDatos").innerText = "Mostrar Datos";
+    }
+}
+*/
 
 // variables globales
 

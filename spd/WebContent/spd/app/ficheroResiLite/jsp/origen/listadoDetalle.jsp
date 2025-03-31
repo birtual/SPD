@@ -21,13 +21,13 @@
 	<tr>
 		<th> <span>nº fila</span>	<a href="javascript:void(0);" onclick="ordenarPor('row asc')" class="arrow">&uarr;</a><a href="javascript:void(0);" onclick="ordenarPor('row desc')" class="arrow">&darr;</a></th>
    		<th>alertas
-   			<table>
+    			<table>
 		    	<tr>
 			    	<th>C</th>
 					<th>I</th>
-					<th>R</th>
-					<th>D</th>
-					<th>P</th>
+			<!-- 	<th>R</th> 		-->
+			<!--	<th>D</th>		-->
+			<!--	<th>P</th>		-->
 					<th>S</th>
 					<th>G</th>
 					<th>V</th>
@@ -35,9 +35,9 @@
 				<tr>
 				  <th><input type="checkbox" name="filtroNumComprimidos" value="true" ${formulari.filtroNumComprimidos ? 'checked' : ''} onchange="reloadCheckbox('filtroNumComprimidos')" /></th>
 				  <th><input type="checkbox" name="filtroRegistroAnterior" value="true" ${formulari.filtroRegistroAnterior ? 'checked' : ''} onchange="reloadCheckbox('filtroRegistroAnterior')" /></th>
-				  <th><input type="checkbox" name="filtroRegistroRobot" value="true" ${formulari.filtroRegistroRobot ? 'checked' : ''} onchange="reloadCheckbox('filtroRegistroRobot')" /></th>
-				  <th><input type="checkbox" name="filtroValidacionDatos" value="true" ${formulari.filtroValidacionDatos ? 'checked' : ''} onchange="reloadCheckbox('filtroValidacionDatos')" /></th>
-				  <th><input type="checkbox" name="filtroPrincipioActivo" value="true" ${formulari.filtroPrincipioActivo ? 'checked' : ''} onchange="reloadCheckbox('filtroPrincipioActivo')" /></th>
+			<!--  <th><input type="checkbox" name="filtroRegistroRobot" value="true" ${formulari.filtroRegistroRobot ? 'checked' : ''} onchange="reloadCheckbox('filtroRegistroRobot')" /></th> -->
+			<!--  <th><input type="checkbox" name="filtroValidacionDatos" value="true" ${formulari.filtroValidacionDatos ? 'checked' : ''} onchange="reloadCheckbox('filtroValidacionDatos')" /></th> -->
+			<!--  <th><input type="checkbox" name="filtroPrincipioActivo" value="true" ${formulari.filtroPrincipioActivo ? 'checked' : ''} onchange="reloadCheckbox('filtroPrincipioActivo')" /></th> -->
 				  <th><input type="checkbox" name="filtroNoSustituible" value="true" ${formulari.filtroNoSustituible ? 'checked' : ''} onchange="reloadCheckbox('filtroNoSustituible')" /></th>
 				  <th><input type="checkbox" name="filtroDiferentesGtvmp" value="true" ${formulari.filtroDiferentesGtvmp ? 'checked' : ''} onchange="reloadCheckbox('filtroDiferentesGtvmp')" /></th>
 				  <th><input type="checkbox" name="filtroUnicoGtvm" value="true" ${formulari.filtroUnicoGtvm ? 'checked' : ''} onchange="reloadCheckbox('filtroUnicoGtvm')" /></th>
@@ -54,7 +54,7 @@
 			       		<option value="${bean}" ${selected}><c:out value="${bean}" /></option>   
 	   				</c:forEach>                     
 			</html:select>
-		<a href="javascript:void(0);" onclick="ordenarPor('validar asc')" class="arrow">&uarr;</a><a href="javascript:void(0);" onclick="ordenarPor('validar desc')" class="arrow">&darr;</a>			
+			<a href="javascript:void(0);" onclick="ordenarPor('validar asc')" class="arrow">&uarr;</a><a href="javascript:void(0);" onclick="ordenarPor('validar desc')" class="arrow">&darr;</a>			
 		</th> 
 		<!-- Mensajes -->
 		<th>Mensajes (Info /<span class="textoRojo">alerta</span> /<span class="textoAzul">resi</span> )
@@ -158,18 +158,18 @@
 			</html:select><br><br><br>
 	    </th>	
 
-	    
-	    
 		<!-- Nombre paciente -->
-		<th > Nombre paciente
-			<html:select property="seleccionResiApellidosNombre"  value="${formulari.seleccionResiApellidosNombre}" onchange="javascript:goSubmit();" styleClass="ancho_23"> 
-				<html:option value="">Todos</html:option>
-					<c:forEach items="${FicheroResiForm.listaResiApellidosNombre}" var="bean"> 
-		       		 <option value='${bean}' ${FicheroResiForm.seleccionResiApellidosNombre == bean ? 'selected' : ' '}><c:out value="${bean}" ></c:out></option>   
-	  				</c:forEach>                     
-			</html:select>
-			<a href="javascript:void(0);" onclick="ordenarPor('resiApellidosNombre asc')" class="arrow">&uarr;</a><a href="javascript:void(0);" onclick="ordenarPor('resiApellidosNombre desc')" class="arrow">&darr;</a>
-		</th>	
+		<th> Nombre paciente
+		    <html:select property="seleccionResiApellidosNombre" onchange="goSubmit();" styleClass="ancho_23">
+		        <html:option value="">Todos</html:option>
+		        <html:options name="FicheroResiForm" property="listaResiApellidosNombre"/>
+		    </html:select>
+		    
+		    <a href="javascript:void(0);" onclick="ordenarPor('resiApellidosNombre asc')" class="arrow">&uarr;</a>
+		    <a href="javascript:void(0);" onclick="ordenarPor('resiApellidosNombre desc')" class="arrow">&darr;</a>
+		</th>	    
+	    
+
 	
 		<!-- CIP -->
 		<th >CIP
@@ -399,8 +399,9 @@
     	claseCSS_2 = "azul";
     	altText_2 = "Registro nuevo2";
     }
-    
- // R - Control de registro robot
+
+/**
+// R - Control de registro robot
     String claseCSS_3 = "";
 	String altText_3 ="";
     if (data != null) {
@@ -434,6 +435,9 @@
  
     }
     
+*/
+    
+/*    
 // P - Control de principio activo  
     String claseCSS_5 = "";
 	String altText_5 ="";
@@ -449,6 +453,7 @@
         	altText_5 = "No detectado";
         	}
     }
+*/    
 // S - Control de medicamento sustituible  
     String claseCSS_6 = "";
 	String altText_6 ="";
@@ -502,25 +507,20 @@
 	
 %>
 
-<td class="<%= claseCSS_1 %>"  title="<%= altText_1 %>">C</td>
-<td class="<%= claseCSS_2 %>"  title="<%= altText_2 %>">I</td>
-<td class="<%= claseCSS_3 %>"  title="<%= altText_3 %>">R</td>
-<td class="<%= claseCSS_4 %>"  title="<%= altText_4 %>">D</td>
-<td class="<%= claseCSS_5 %>"  title="<%= altText_5 %>">P</td>
-<td class="<%= claseCSS_6 %>"  title="<%= altText_6 %>">S</td>
-<td class="<%= claseCSS_7 %>"  title="<%= altText_7 %>">G</td>
-<td class="<%= claseCSS_8 %>"  title="<%= altText_8 %>">V</td>
-<td><a href="javascript:infoAlertas('<bean:write name="data" property="oidFicheroResiDetalle" />');"  > INFO</a></td>
+
+<td class="<%= claseCSS_1 %>"  title="<%= altText_1 %>"><a href="javascript:infoAlertas('<bean:write name="data" property="oidFicheroResiDetalle" />');"  >C</a></td>
+<td class="<%= claseCSS_2 %>"  title="<%= altText_2 %>"><a href="javascript:infoAlertas('<bean:write name="data" property="oidFicheroResiDetalle" />');"  >I</a></td>
+<!-- <td class="%= claseCSS_3 %>"  title="%= altText_3 %>">R</td> -->
+<!-- <td class="%= claseCSS_4 %>"  title="%= altText_4 %>">D</td> -->
+<!-- <td class="%= claseCSS_5 %>"  title="%= altText_5 %>">P</td> -->
+<td class="<%= claseCSS_6 %>"  title="<%= altText_6 %>"><a href="javascript:infoAlertas('<bean:write name="data" property="oidFicheroResiDetalle" />');"  >S</a></td>
+<td class="<%= claseCSS_7 %>"  title="<%= altText_7 %>"><a href="javascript:infoAlertas('<bean:write name="data" property="oidFicheroResiDetalle" />');"  >G</a></td>
+<td class="<%= claseCSS_8 %>"  title="<%= altText_8 %>"><a href="javascript:infoAlertas('<bean:write name="data" property="oidFicheroResiDetalle" />');"  >V</a></td>
+<!-- td><a href="javascript:infoAlertas('<bean:write name="data" property="oidFicheroResiDetalle" />');"  > INFO</a></td> -->
             		</tr>
             	</table>
             </td>
-	<!-- td class="cell">     
-		<div class="part">A</div>
-     	<div class="part">C</div>
-      	<div class="part">R</div>
-      	<div class="part">D</div>
-      	<div class="part">I</div>
-    </td-->
+
     </logic:equal>
 
 		      
@@ -587,8 +587,29 @@
 	
 	<td class="oidPaciente" align="center"><bean:write name="data" property="oidPaciente" /></td>
 	
-	<td><bean:write name="data" property="resiApellidosNombre" /></td>
-    <td><bean:write name="data" property="resiCIP" /></td>
+	<td>
+
+	<c:choose>
+		    <c:when test="${formulari.filtroVerDatosPersonales}">
+		        <bean:write name="data" property="resiApellidosNombre" />
+		    </c:when>
+		    <c:otherwise>
+		        <bean:write name="data" property="resiApellidosNombreMask" />
+		    </c:otherwise>
+	</c:choose>
+	
+	</td>
+	<td>	
+	<c:choose>
+		    <c:when test="${formulari.filtroVerDatosPersonales}">
+		        <bean:write name="data" property="resiCIP" />
+		    </c:when>
+		    <c:otherwise>
+		        <bean:write name="data" property="resiCIPMask" />
+		    </c:otherwise>
+	</c:choose>
+	</td>
+	
 
 	<td>
 	<% String variable = ""; %>

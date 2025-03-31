@@ -3,14 +3,18 @@ package lopicost.spd.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class SustXGtvmpp implements Serializable {
+public class Nivel3 implements Serializable {
 
+	private int oidSustXComposicion;
 	private Date fechaCreacion;
-	private SustXGtvmp padre; 
+	private Nivel1 nivel1; 
+	private Nivel2 nivel2; 
 	private String idRobot;
 	private String nombreRobot;
-	private String codGtvmpp;
-	private String nomGtvmpp;
+	private String codGtVmpp;
+	private String nomGtVmpp;
+	private String codGtVmp;
+	private String nomGtVmp;
 	private String presentacion;
 	private float rentabilidad;
 	private float nota;
@@ -25,16 +29,27 @@ public class SustXGtvmpp implements Serializable {
 	private String nombreMedicamento;
 	private boolean excepcion;
 
-	public SustXGtvmpp() {
+	public Nivel3() {
 		super();
 	}
 	
 	public String toString() {
-		return "SustXComposicion [codGtvmpp=" + codGtvmpp + ", nomGtvmpp= " + presentacion+ ", rentabilidad=" + rentabilidad
+		return "SustXComposicion [oidSustXComposicion = " + oidSustXComposicion + ", codGtVmpp=" + codGtVmpp 
+				+ ", nomGtVmpp= " + presentacion+ ", rentabilidad=" + rentabilidad
 				+ ", nota=" + nota + ", ponderacion=" + ponderacion + ", codLaboratorio=" + codLaboratorio
 				+ ", tolva=" + tolva + ", sustituible=" + sustituible + ", cn6=" + cn6 + ", cn7=" + cn7
 				+ super.toString() + "]";
 	}
+	
+
+	public int getOidSustXComposicion() {
+		return oidSustXComposicion;
+	}
+
+	public void setOidSustXComposicion(int oid) {
+		this.oidSustXComposicion = oid;
+	}
+
 
 	public Date getFechaCreacion() {
 		return fechaCreacion;
@@ -44,12 +59,20 @@ public class SustXGtvmpp implements Serializable {
 		this.fechaCreacion = fechaCreacion;
 	}
 
-	public SustXGtvmp getPadre() {
-		return padre;
+	public Nivel1 getNivel1() {
+		return nivel1;
 	}
 
-	public void setPadre(SustXGtvmp padre) {
-		this.padre = padre;
+	public void setNivel1(Nivel1 abuelo) {
+		this.nivel1 = abuelo;
+	}
+
+	public Nivel2 getNivel2() {
+		return nivel2;
+	}
+
+	public void setNivel2(Nivel2 padre) {
+		this.nivel2 = padre;
 	}
 
 	public String getIdRobot() {
@@ -60,20 +83,36 @@ public class SustXGtvmpp implements Serializable {
 		this.idRobot = idRobot;
 	}
 
-	public String getCodGtvmpp() {
-		return codGtvmpp;
+	public String getCodGtVmp() {
+		return codGtVmp;
 	}
 
-	public void setCodGtvmpp(String codGtvmpp) {
-		this.codGtvmpp = codGtvmpp;
+	public void setCodGtVmp(String codGtVmp) {
+		this.codGtVmp = codGtVmp;
 	}
 
-	public String getNomGtvmpp() {
-		return nomGtvmpp;
+	public String getNomGtVmp() {
+		return nomGtVmp;
 	}
 
-	public void setNomGtvmpp(String nomGtvmpp) {
-		this.nomGtvmpp = nomGtvmpp;
+	public void setNomGtVmp(String nomGtVmp) {
+		this.nomGtVmp = nomGtVmp;
+	}
+
+	public String getCodGtVmpp() {
+		return codGtVmpp;
+	}
+
+	public void setCodGtVmpp(String codGtvmpp) {
+		this.codGtVmpp = codGtvmpp;
+	}
+
+	public String getNomGtVmpp() {
+		return nomGtVmpp;
+	}
+
+	public void setNomGtVmpp(String nomGtvmpp) {
+		this.nomGtVmpp = nomGtvmpp;
 	}
 
 	public float getRentabilidad() {

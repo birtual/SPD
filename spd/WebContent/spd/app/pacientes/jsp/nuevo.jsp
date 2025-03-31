@@ -64,7 +64,7 @@
 			
 			id en la residencia
 			</td>
-			<td><html:text name="formulari" property="nIdentidad"/></br>
+			<td><html:text name="formulari" property="numIdentidad"/></br>
 			<html:text name="formulari" property="idPacienteResidencia"/></td>
 		</tr>
 		<tr>

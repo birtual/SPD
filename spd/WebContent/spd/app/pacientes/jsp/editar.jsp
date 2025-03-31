@@ -42,7 +42,12 @@
 	
  
  
- 	
+ 			
+		<div>
+			<input type="checkbox" name="filtroVerDatosPersonales" ${formulari.filtroVerDatosPersonales ? 'checked' : ''}  onchange="reloadCheckbox('filtroVerDatosPersonales', 'editar')" />
+				Mostrar datos
+		</div>	
+		
   		<table class="detallePaciente">
   		<tr >
 			<td>Residencia</td><td>
@@ -58,15 +63,28 @@
 		<tr>
 			<td>Identificador</td><td class="oidPaciente"><bean:write name="data" property="oidPaciente"/></td>
 		</tr>
+		<tr>
+			<c:choose>
+			    <c:when test="${formulari.filtroVerDatosPersonales}">
+					<td>CIP</td><td><bean:write name="data" property="CIP"/></td></td>
+			    </c:when>
+			    <c:otherwise>
+					<td>CIP</td><td><bean:write name="data" property="CIPMask"/></td>
+			    </c:otherwise>
+			</c:choose>
+		</tr>
+		<tr>
+			<c:choose>
+			    <c:when test="${formulari.filtroVerDatosPersonales}">
+					<td>Residente</td><td><html:text name="data" property="nombre"/>  <html:text name="data" property="apellido1"/>  <html:text name="data" property="apellido2"/></td>
+			    </c:when>
+			    <c:otherwise>
+					<td>Residente</td><td><bean:write name="data" property="nombreMask"/>  <bean:write name="data" property="apellido1Mask"/>  <bean:write name="data" property="apellido2Mask"/></td>
+			    </c:otherwise>
+			</c:choose>
+		</tr>
+		
 
-		<tr>
-			<td>CIP</td><td><bean:write name="data" property="CIP"/></td>
-		</tr>
-		<tr>
-			<td>Residente</td><td><html:text name="data" property="nombre"/></br>
-			<html:text name="data" property="apellido1"/></br>
-			<html:text name="data" property="apellido2"/></td>
-		</tr>
 		<tr>
 			<td>Mutua</td>
 			<td><select name="mutua" >
@@ -76,13 +94,30 @@
 			</td>
 		</tr>		
 		<tr>
-			<td>Nº identidad</br>
-			Nº Seg Social</br>
-			id en la residencia
-			</td>
-			<td><html:text name="data" property="nIdentidad"/></br>
-			<bean:write name="data" property="segSocial"/></br>
-			<html:text name="data" property="idPacienteResidencia"/></td>
+			<td>Nº identidad</td>
+			<c:choose>
+			    <c:when test="${formulari.filtroVerDatosPersonales}">
+					<td><html:text name="data" property="numIdentidad"/></td>
+			    </c:when>
+			    <c:otherwise>
+					<td><bean:write name="data" property="numIdentidadMask"/></td>
+			    </c:otherwise>
+			</c:choose>
+		</tr>
+		<tr>
+			<td>Nº Seg Social</td>
+			<c:choose>
+			    <c:when test="${formulari.filtroVerDatosPersonales}">
+					<td><html:text name="data" property="segSocial"/></td>
+			    </c:when>
+			    <c:otherwise>
+					<td><bean:write name="data" property="segSocialMask"/></td>
+			    </c:otherwise>
+			</c:choose>
+		</tr>
+		<tr>
+			<td>id en la residencia</td>
+			<td><html:text name="data" property="idPacienteResidencia"/></td>
 		</tr>
 		<tr>
 			<td>Planta</br>Habitación</td>

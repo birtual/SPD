@@ -30,13 +30,15 @@
 
     <html:hidden property="parameter" value="detalle"/>
 	<html:hidden property="oidPaciente"/>
-	<html:hidden property="oidDivisionResidencia"/>
-	<html:hidden property="oidPaciente"/>
-	<html:hidden property="filtroEstatusResidente"/>
-	<html:hidden property="filtroEstadosResidente"/>
-	<html:hidden property="filtroEstadosSPD"/>
-	<html:hidden property="campoGoogle"/>
+
 		
+		<div>
+			<input type="checkbox" name="filtroVerDatosPersonales" ${formulari.filtroVerDatosPersonales ? 'checked' : ''}  onchange="reloadCheckbox('filtroVerDatosPersonales', 'detalle')" />
+				Mostrar datos 
+		</div>	
+	
+
+	
   		<table class="detallePaciente">
 		<tr >
 			<td id="campo1" >Residencia</td><td><bean:write name="data" property="idDivisionResidencia" /></td>
@@ -45,22 +47,53 @@
 			<td>Identificador</td><td class="oidPaciente"><bean:write name="data" property="oidPaciente"/></td>
 		</tr>
 		<tr>
-			<td>CIP</td><td><bean:write name="data" property="CIP"/></td>
+			<c:choose>
+			    <c:when test="${formulari.filtroVerDatosPersonales}">
+					<td>CIP</td><td><bean:write name="data" property="CIP"/></td>
+			    </c:when>
+			    <c:otherwise>
+					<td>CIP</td><td><bean:write name="data" property="CIPMask"/></td>
+			    </c:otherwise>
+			</c:choose>
 		</tr>
 		<tr>
-			<td>Residente</td><td><bean:write name="data" property="nombre"/>  <bean:write name="data" property="apellido1"/>  <bean:write name="data" property="apellido2"/></td>
+			<c:choose>
+			    <c:when test="${formulari.filtroVerDatosPersonales}">
+					<td>Residente</td><td><bean:write name="data" property="nombre"/>  <bean:write name="data" property="apellido1"/>  <bean:write name="data" property="apellido2"/></td>
+			    </c:when>
+			    <c:otherwise>
+					<td>Residente</td><td><bean:write name="data" property="nombreMask"/>  <bean:write name="data" property="apellido1Mask"/>  <bean:write name="data" property="apellido2Mask"/></td>
+			    </c:otherwise>
+			</c:choose>
 		</tr>
 		<tr>
 			<td>Mutua</td><td><bean:write name="data" property="mutua"/></td>
 		</tr>
 		<tr>
-			<td>Nº identidad</br>
-			Nº Seg Social</br>
-			id en la residencia
-			</td>
-			<td><bean:write name="data" property="nIdentidad"/></br>
-			<bean:write name="data" property="segSocial"/></br>
-			<bean:write name="data" property="idPacienteResidencia"/></td>
+			<td>Nº identidad</td>
+			<c:choose>
+			    <c:when test="${formulari.filtroVerDatosPersonales}">
+					<td><bean:write name="data" property="numIdentidad"/></td>
+			    </c:when>
+			    <c:otherwise>
+					<td><bean:write name="data" property="numIdentidadMask"/></td>
+			    </c:otherwise>
+			</c:choose>
+		</tr>
+		<tr>
+			<td>Nº Seg Social</td>
+			<c:choose>
+			    <c:when test="${formulari.filtroVerDatosPersonales}">
+					<td><bean:write name="data" property="segSocial"/></td>
+			    </c:when>
+			    <c:otherwise>
+					<td><bean:write name="data" property="segSocialMask"/></td>
+			    </c:otherwise>
+			</c:choose>
+		</tr>
+		<tr>
+			<td>id en la residencia</td>
+			<td><bean:write name="data" property="idPacienteResidencia"/></td>
 		</tr>
 		<tr>
 			<td>Planta</br>Habitación</td><td><bean:write name="data" property="planta" /></br><bean:write name="data" property="habitacion" /></td>

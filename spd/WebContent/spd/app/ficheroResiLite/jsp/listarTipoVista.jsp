@@ -54,8 +54,7 @@
      <html:hidden property="oidDivisionResidencia" />
      <html:hidden property="oidDivisionResidenciaFiltro" />
      <html:hidden property="filtroCheckedMostrarGeneradosSeq" />
-     
-
+ 
 		 <fieldset> 
 		 	   	<!-- mostramos mensajes y errores, si existen -->
 				<logic:notEmpty name="formulari" property="errors">
@@ -84,6 +83,7 @@
 						<!--  <input type="button" class="btn primary" value="Actualizar previsión" onclick="javascript:enviarAPrevision()" /> -->
 						<!--  <input type="button" class="btn primary" value="Generar ficheros robot" onclick="javascript:generarFicherosRobot()" /> -->
 						<input type="button" class="btn primary" value="Limpiar filtros listado" onclick="javascript:limpiarFiltrosResi();" />
+						<input type="button" class="btn primary" value="Excluir NoPintar" onclick="javascript:visualizarActivos();" />
 						<input type="button" class="btn primary" value="Exportar Excel"  onclick="javascript:exportExcel();"/>
 						<!-- input type="button" class="btn primary" value="Exportar Filas sin sustitución "  onclick="javascript:exportFilasSinSust();"/>-->
 						<input type="button" class="btn primary" value="Exportar Filas con mensajes "  onclick="javascript:exportFilasConInfo();"/>
@@ -106,21 +106,31 @@
 				<div>
 						<!-- input type="button" value="Ordenar por CIP" onclick="javascript:ordenarPor('CIP');" /> -->
 						<!-- <input type="button" value="Ordenar por mensajes" onclick="javascript:ordenarPor('mensajes');" /> -->
-						<input type="button" class="btn primary" value="Excluir NoPintar" onclick="javascript:visualizarActivos();" />
-							 
-						<logic:equal name="FicheroResiForm" property="filtroCheckedMostrarGeneradosSeq" value="false">
-							<input type="checkbox" name="filtroMostrarGeneradosSeq"   onclick="checkValue()" />Mostrar registros Secuencias Guide
-						</logic:equal>
-						<logic:equal name="FicheroResiForm" property="filtroCheckedMostrarGeneradosSeq" value="true">
-							<input type="checkbox" name="filtroMostrarGeneradosSeq" checked onclick="checkValue()" />Mostrar registros Secuencias Guide
-						</logic:equal>
+						
+						<input type="checkbox" name="filtroValidacionDatos" value="true" ${formulari.filtroValidacionDatos ? 'checked' : ''} onchange="reloadCheckbox('filtroValidacionDatos')" />
+						Medicamentos a validar
+				</div>
+				<div>
+						 	 
+						<input type="checkbox" name="filtroMostrarGeneradosSeq"   ${formulari.filtroCheckedMostrarGeneradosSeq ? 'checked' : ''}  onclick="checkValue()" />
+						Mostrar registros Secuencias Guide
+				</div>
+				<div>
+						<input type="checkbox" name="filtroPrincipioActivo" value="true" ${formulari.filtroPrincipioActivo ? 'checked' : ''} onchange="reloadCheckbox('filtroPrincipioActivo')" />
+						Medicamentos control extra (margen estrecho)
 				</div>
 				<div>
 					<input type="button" class="btn primary" value="Volver" onclick="javascript:goIndexCargas()" />
 					<!-- input type="button" class="btn primary" value="Inicio" onclick="javascript:goInicio();" /> -->
 					<input type="button" class="btn primary" value="Salir" onclick="javascript:salir();" />
 				</div>
-				<jsp:include page="<%= tipoVista %>" flush="true"/>
+				<div>
+						 	 
+						<input type="checkbox" name="filtroVerDatosPersonales"   ${formulari.filtroVerDatosPersonales ? 'checked' : ''}  onchange="reloadCheckbox('filtroVerDatosPersonales')" />
+						Mostrar datos
+				</div>	
+				 
+				 			<jsp:include page="<%= tipoVista %>" flush="true"/>
 				
 			</fieldset>
 		</div>

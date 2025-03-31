@@ -33,9 +33,12 @@
 
 		
   		<table class="detalle">
-		<tr >
-			<td id="campo1" >Residencia</td><td><bean:write name="data" property="idDivisionResidencia" /></td>
-		</tr>
+		<tr ><td id="campo1" >Id</td><td><bean:write name="data" property="idDivisionResidencia" /></td></tr>
+		<tr ><td id="campo2" >Residencia</td><td><bean:write name="data" property="nombreDivisionResidencia" /></td></tr>
+		<tr ><td id="campo3" >Farmacia</td><td><bean:write name="data" property="idFarmacia" /></td></tr>
+		<tr ><td id="campo4" >Etiqueta robot (layout)</td><td><bean:write name="data" property="idLayout" /></td></tr>
+		<tr ><td id="campo5" >Nombre que aparece en bolsa</td><td><bean:write name="data" property="nombreBolsa" /></td></tr>
+		<tr ><td id="campo6" >Nombre del proceso de importación</td><td><bean:write name="data" property="idProcessIospd" /></td></tr>
 
 					
 					

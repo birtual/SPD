@@ -342,12 +342,36 @@ public class FicheroResiDetalleDAO {
 			if(form.getSeleccionIdentificador()!=null && !form.getSeleccionIdentificador().equals(""))
 				qry+=  " and p.oidPaciente = '"+form.getSeleccionIdentificador() +"' ";
 
-			if(form.getSeleccionResiCIP()!=null && !form.getSeleccionResiCIP().equals(""))
-				qry+=  " and g.resiCIP = '"+form.getSeleccionResiCIP() +"' ";
+			//control de CIP con y sin MASK
+			String CIP = form.getSeleccionResiCIP();
+			if(CIP!=null && !CIP.equals(""))
+			{
+				if(CIP.contains("*")) 
+				{
+					CIP=CIP.replace("*", "%");
+					qry+=  " and g.resiCIP like  '"+CIP+"' ";
+				}
+				else
+					qry+=  " and g.resiCIP= '"+CIP +"' ";
+				
+			}
+				
 			if(form.getSeleccionResiNombrePaciente()!=null && !form.getSeleccionResiNombrePaciente().equals(""))
 				qry+=  " and g.resiNombrePaciente= '"+form.getSeleccionResiNombrePaciente() +"' ";
-			if(form.getSeleccionResiApellidosNombre()!=null && !form.getSeleccionResiApellidosNombre().equals(""))
-				qry+=  " and g.resiApellidosNombre= '"+form.getSeleccionResiApellidosNombre() +"' ";
+
+			//control de apellidosNombre con y sin MASK
+			String apellidosNombre = form.getSeleccionResiApellidosNombre();
+			if(apellidosNombre!=null && !apellidosNombre.equals(""))
+			{
+				if(apellidosNombre.contains("*")) 
+				{
+					apellidosNombre=apellidosNombre.replace("*", "%");
+					qry+=  " and g.resiApellidosNombre like  '"+apellidosNombre+"' ";
+				}
+				else
+					qry+=  " and g.resiApellidosNombre= '"+form.getSeleccionResiApellidosNombre() +"' ";
+				
+			}
 			if(form.getSeleccionResiMedicamento()!=null && !form.getSeleccionResiMedicamento().equals(""))
 				qry+=  " and g.resiMedicamento= '"+form.getSeleccionResiMedicamento() +"' ";
 			if(form.getSeleccionResiFormaMedicacion()!=null && !form.getSeleccionResiFormaMedicacion().equals(""))
@@ -2680,7 +2704,7 @@ public class FicheroResiDetalleDAO {
 
 	public static int contarDistintosPActivosPorCIPyGTVM(FicheroResiBean medResi) throws Exception {
 		Connection con = Conexion.conectar();
-		String qry = "	SELECT  distinct coalesce(d.cuantos, 0) AS  cuantos ";
+/*		String qry = "	SELECT  distinct coalesce(d.cuantos, 0) AS  cuantos ";
 		qry+=  " 	FROM  bd_consejo bd LEFT JOIN ";
 		qry+=  " 	( ";
 	   	qry+=  " 		SELECT  c.NomGtVm, count('1') AS cuantos  ";
@@ -2694,12 +2718,47 @@ public class FicheroResiDetalleDAO {
 		qry+=  " 		group by c.NomGtVm ";
 		qry+=  " 	)d ON  bd.NomGtVm=d.NomGtVm ";
 		qry+=  " 	WHERE 1= 1 ";
-		
 		qry+=  " 	AND bd.codigo ='" + medResi.getSpdCnFinal()+"'";
+*/
 		
+		String qry = "	";
+		qry+=  " 	WITH CTE AS ( ";
+		qry+=  " 		    SELECT bd.codigo, LTRIM(RTRIM(s.value)) AS codigo_individual  ";
+		qry+=  " 		    FROM bd_consejo bd ";
+		qry+=  " 		    CROSS APPLY SplitString(bd.codigosPActivos, '|') s WHERE bd.codigo = '" + medResi.getSpdCnFinal()+"'   ";
+		qry+=  " 			) ";
+		qry+=  " 			, CTE_Codigos AS ( ";
+		qry+=  " 			    SELECT distinct c.codigo, LTRIM(RTRIM(s.value)) AS codigo_individual   ";
+		qry+=  " 			    FROM dbo.SPD_ficheroResiDetalle d ";
+		qry+=  " 			    INNER JOIN bd_consejo c ";
+		qry+=  " 			        ON d.spdCnFinal = c.codigo OR d.resiCn = c.codigo ";
+		qry+=  " 			    CROSS APPLY SplitString(c.codigosPActivos, '|') s     WHERE d.tipoRegistro = 'LINEA' ";
+		//qry+=  " 			      AND d.spdNomGtVmpp <> '' AND d.spdNomGtVmpp IS NOT NULL ";
+		qry+=  " 			      AND c.codigosPActivos <> '0' AND c.codigosPActivos <> ''  AND c.codigosPActivos IS NOT NULL ";
+		qry+=  " 			      AND d.idProceso = '" + medResi.getIdProceso()+"' ";
+		qry+=  " 			      AND d.resiCIP = '" + medResi.getResiCIP()+"' ";
+		qry+=  " 			      AND d.spdCnFinal <> '111111' ";  //exceptuamos los medios deprax
+		qry+=  " 			      AND d.oidFicheroResiDetalle <> '" + medResi.getOidFicheroResiDetalle()+"' ";
+		qry+=  " 			) ";
+		qry+=  " 			SELECT count(*) as cuantos FROM CTE bd ";
+		qry+=  " 			INNER JOIN CTE_Codigos c ON bd.codigo_individual = c.codigo_individual  ";
+            
 		System.out.println(className + "--> contarDistintosPActivosPorCIPyGTVM " +qry );		
 		ResultSet resultSet = null;
-		 	 	
+		
+		/*
+		qry+=  " 			SELECT  ";
+		qry+=  " 			    CASE  ";
+		qry+=  " 			        WHEN EXISTS ( ";
+		qry+=  " 			            SELECT 1 ";
+		qry+=  " 			            FROM CTE bd ";
+		qry+=  " 			            INNER JOIN CTE_Codigos c ON bd.codigo_individual = c.codigo_individual ";
+		qry+=  " 			        ) THEN 'SI' ";
+		qry+=  " 			        ELSE 'NO' ";
+		qry+=  " 			    END AS Coincidencia ";
+		*/
+		
+
 		int result =0;
 		try {
 			PreparedStatement pstat = con.prepareStatement(qry);

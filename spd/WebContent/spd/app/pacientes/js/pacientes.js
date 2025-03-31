@@ -1,15 +1,15 @@
 var anchoVentana;
 try {
-		        // Intenta obtener el ancho de la ventana del cliente
-		        anchoVentana = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-		        // Si no se puede obtener el ancho, establece un valor predeterminado
-		        if (!anchoVentana || anchoVentana <= 0) {
-		            anchoVentana = 800; // Valor predeterminado de ancho
-		        }
-		    } catch (error) {
-		        // Si ocurre un error, establece un valor predeterminado
-		        console.error('Error al obtener el ancho de la ventana:', error);
-		        anchoVentana = 800; // Valor predeterminado de ancho
+		// Intenta obtener el ancho de la ventana del cliente
+		anchoVentana = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+		// Si no se puede obtener el ancho, establece un valor predeterminado
+		if (!anchoVentana || anchoVentana <= 0) {
+			anchoVentana = 800; // Valor predeterminado de ancho
+		    }
+		} catch (error) {
+		// Si ocurre un error, establece un valor predeterminado
+		console.error('Error al obtener el ancho de la ventana:', error);
+		anchoVentana = 800; // Valor predeterminado de ancho
  }
 	   	
 
@@ -26,41 +26,56 @@ try {
 			buscar();	
 		}
 
+		function goNew(parameter, oidPaciente, target, width, height ) {
+		    var form = document.createElement("form");
+		    form.method = "post";
+		    form.action = "/spd/Pacientes.do";
+		    form.target = target;
 
-		
-		function goDetalle(oidPaciente)
-		{
-			//f.parameter.action='FicheroResiDetalle.do';
-			 var url = '/spd/Pacientes.do?parameter=detalle&oidPaciente=' + oidPaciente;
-			 window.open(url, 'actualizaSustitucionLite', 'dependent=yes,height=650,width=700,top=50,left=0,resizable=yes,scrollbars=yes' );
+		    var filtroCheckbox = document.querySelector("input[name='filtroVerDatosPersonales']");
+		    var filtroValor = (filtroCheckbox && filtroCheckbox.checked) ? "true" : "false";
+
+		    [["parameter", parameter], 
+		     ["oidPaciente", oidPaciente], 
+		     ["filtroVerDatosPersonales", filtroValor]]
+		    .forEach(function(item) {
+		        var input = document.createElement("input");
+		        input.type = "hidden";
+		        input.name = item[0];
+		        input.value = item[1];
+		        form.appendChild(input);
+		    });
+		    if(width=='') width='650';if(height=='') height='700';
+		    document.body.appendChild(form);
+		    window.open("", target, "dependent=yes,width="+width+",height="+height+",top=50,left=0,resizable=yes,scrollbars=yes");
+		    form.submit();
+		    document.body.removeChild(form);
 		}
+		
+		
+		function goDetalle(oidPaciente) {
+			goNew("detalle", oidPaciente, "goDetalle", 650, 700 );
+		}
+		
+		
 		
 		function goBolquers(oidPaciente)
 		{
-			//f.parameter.action='FicheroResiDetalle.do';
-			 var url = '/spd/Pacientes.do?parameter=detallBolquers&oidPaciente=' + oidPaciente;
-			 window.open(url, 'goBolquers', 'dependent=yes,width=900,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
+			goNew("detallBolquers", oidPaciente, "goBolquers", 900, 400 );
 		}		
 		
+ 		function goDiscrepancias(oidPaciente) {
+			goNew("detalleDiscrepancias", oidPaciente, "goDiscrepancias", 950, 400 );
+		}
 		
-		function goDiscrepancias(oidPaciente)
-		{
-			//f.parameter.action='FicheroResiDetalle.do';
-			 var url = '/spd/Pacientes.do?parameter=detalleDiscrepancias&oidPaciente=' + oidPaciente;
-			 window.open(url, 'goDiscrepancias', 'dependent=yes,width=950,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
-		}		
+		function goTratamientoRct(oidPaciente) {
+			goNew("detalleTratamientoRct", oidPaciente, "goTratamientoRct", 950, 400 );
+		}
+
+		function goTratamientosSPD(oidPaciente) {
+			goNew("detalleTratamientoSPD", oidPaciente, "goTratamientosSPD", 950, 400 );
+		}
 		
-		function goTratamientoRct(oidPaciente)
-		{
-			 var url = '/spd/Pacientes.do?parameter=detalleTratamientoRct&oidPaciente=' + oidPaciente;
-			 window.open(url, 'goTratamientoRct', 'dependent=yes,width=950,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
-		}			
-		
-		function goTratamientosSPD(oidPaciente)
-		{
-			 var url = '/spd/Pacientes.do?parameter=detalleTratamientoSPD&oidPaciente=' + oidPaciente;
-			 window.open(url, 'goTratamientosSPD', 'dependent=yes,width=950,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
-		}			
 		
 		function goEditar(oidPaciente)
 		{
@@ -77,6 +92,11 @@ try {
 		{
 			var f = document.PacientesForm;
 			//f.parameter.action='FicheroResiDetalle.do';
+			if(!f.filtroVerDatosPersonales.checked) 
+			{
+				alert('Es necesario visibilizar todos los datos');
+				return;
+			}
 			f.ACTIONTODO.value='EDITAR_OK';
 			f.submit();
 		}
@@ -143,5 +163,12 @@ try {
 				//window.open(url, 'generarFicherosDMyRX', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
 			return true;
 		}	
-				
+		
+		function reloadCheckbox(name, parameter) {
+		    var f = document.PacientesForm;
+		    f[name].value = f[name].checked;
+		    f[name].value = f[name].value;
+		    f.parameter.value = parameter;
+		    f.submit();
+		}	
     

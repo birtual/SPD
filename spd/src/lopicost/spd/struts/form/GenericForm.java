@@ -51,7 +51,8 @@ public class GenericForm extends ActionForm
 
 	private String campoOrder = "";
 
-	
+	private boolean filtroVerDatosPersonales=false; 	//por defecto NO salen asteriscos (TRUE).  SI se quiere que salgan debería ser FALSE 
+
 	
 	private String idTipoAccion= "";
 	private String nombreLab = "";
@@ -628,6 +629,7 @@ public class GenericForm extends ActionForm
 	}
 
 
-	
+	public boolean isFiltroVerDatosPersonales() 		{return filtroVerDatosPersonales;			}	public void setFiltroVerDatosPersonales(boolean dato)		{	this.filtroVerDatosPersonales = dato;		}
+
 	
 }

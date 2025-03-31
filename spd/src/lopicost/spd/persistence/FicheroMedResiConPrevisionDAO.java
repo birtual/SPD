@@ -4,25 +4,11 @@ package lopicost.spd.persistence;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import lopicost.config.pool.dbaccess.Conexion;
-import lopicost.spd.model.BdConsejo;
-import lopicost.spd.model.DivisionResidencia;
-import lopicost.spd.model.FicheroResiDetalle;
-import lopicost.spd.model.GestSustituciones;
-import lopicost.spd.model.farmacia.StockFL;
 import lopicost.spd.struts.bean.FicheroResiBean;
-import lopicost.spd.struts.bean.FormasFarmaceuticas;
-import lopicost.spd.struts.bean.TiposAccionBean;
-import lopicost.spd.struts.form.BdConsejoForm;
-import lopicost.spd.struts.form.GestSustitucionesForm;
-import lopicost.spd.struts.form.SustXComposicionForm;
-import lopicost.spd.utils.SPDConstants;
+
  
  
 public class FicheroMedResiConPrevisionDAO {

@@ -375,7 +375,7 @@ select.ancho_23
     color: black;
 }
  .verde {
-    background-color: green;
+    background-color: #2ed32e;
     color: white;
 }
  .verdeClaro {
@@ -412,7 +412,7 @@ select.ancho_23
 .PASTILLERO td.verde,
 .SOLO_INFO td.verde,
 .SI_PRECISA td.verde {
-    background-color: green;
+    background-color: #2ed32e;
     color: white;
 }
 
@@ -471,7 +471,7 @@ select.ancho_23
 .PASTILLERO td.azul,
 .SOLO_INFO td.azul,
 .SI_PRECISA td.azul {
-    background-color: blue;
+    background-color: #0080ff;
     color: white;
 }
 
@@ -510,3 +510,9 @@ select.ancho_23
     color: black;
     
 }
+
+tr.mutua_o_sin_tsi
+{
+	color: grey;
+}
+

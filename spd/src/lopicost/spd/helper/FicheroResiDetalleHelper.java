@@ -18,8 +18,10 @@ import lopicost.spd.persistence.FicheroResiCabeceraDAO;
 import lopicost.spd.persistence.FicheroResiDetalleDAO;
 import lopicost.spd.persistence.PacienteDAO;
 import lopicost.spd.struts.bean.FicheroResiBean;
+import lopicost.spd.struts.bean.InfoAlertasBean;
 import lopicost.spd.struts.bean.PacienteBean;
 import lopicost.spd.struts.form.FicheroResiForm;
+import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
 import lopicost.spd.utils.StringUtil;
 
@@ -34,6 +36,7 @@ public class FicheroResiDetalleHelper {
 
 	public static void rellenaListados(FicheroResiForm formulari) {
 			
+			boolean verDatosPersonales = formulari.isFiltroVerDatosPersonales();
 			List<FicheroResiBean> rows2 = formulari.getListaFicheroResiDetalleBean();
 			//List<FicheroResiDetalleBean> rows = formulari.getTodaLaListaGestFicheroResiBolsaBean();
 			//Para(FicheroResiDetalleBean name :  rows.)
@@ -117,18 +120,35 @@ public class FicheroResiDetalleHelper {
 					listaIdentificador.add((String) grb.getOidPaciente());
 				//Collections.sort(listaIdentificador);
 				Collections.sort(listaIdentificador, (a, b) -> Integer.compare(Integer.parseInt(a), Integer.parseInt(b)));
-				if(!listaResiCIP.contains( grb.getResiCIP()) && grb.getResiCIP()!=null && !grb.getResiCIP().equals(""))									
-					listaResiCIP.add((String) grb.getResiCIP());
+				
+				//tenemos en cuenta si tiene máscara
+				String CIP = (verDatosPersonales?(String) grb.getResiCIP():(String) grb.getResiCIPMask());
+				if(CIP!=null && !CIP.equals("")  &&  !listaResiCIP.contains(CIP) )											
+					listaResiCIP.add(CIP);
 				Collections.sort(listaResiCIP);
-				if(!listaResiNombrePaciente.contains((String)  grb.getResiNombrePaciente()) && grb.getResiNombrePaciente()!=null && !grb.getResiNombrePaciente().equals(""))				
-					listaResiNombrePaciente.add((String) grb.getResiNombrePaciente());
+				//actualizamos el resiCIP por si es un campo seleccionado por el usuario, y cambiamos de Mask a noMask o viceversa
+				if(formulari.getSeleccionResiCIP()!=null && !formulari.getSeleccionResiCIP().equals("")) formulari.setSeleccionResiCIP(CIP);
+				
+				String nombrePaciente = verDatosPersonales? (String) grb.getResiNombrePaciente():(String) grb.getResiNombrePacienteMask();
+				if(nombrePaciente!=null && !nombrePaciente.equals("") && !listaResiNombrePaciente.contains(nombrePaciente)  )				
+					listaResiNombrePaciente.add(nombrePaciente);
 				Collections.sort(listaResiNombrePaciente);
-				if(!listaResiApellidosNombre.contains((String)  grb.getResiApellidosNombre()) && grb.getResiApellidosNombre()!=null && !grb.getResiApellidosNombre().equals(""))				
-					listaResiApellidosNombre.add((String) grb.getResiApellidosNombre());
+				//actualizamos el resiCIP por si es un campo seleccionado por el usuario, y cambiamos de Mask a noMask o viceversa
+				if(formulari.getSeleccionResiNombrePaciente()!=null && !formulari.getSeleccionResiNombrePaciente().equals("")) formulari.setSeleccionResiNombrePaciente(nombrePaciente);
+				
+				String apellidosNombre = verDatosPersonales? (String) grb.getResiApellidosNombre():(String) grb.getResiApellidosNombreMask();
+				if(apellidosNombre!=null && !apellidosNombre.equals("") &&  !listaResiApellidosNombre.contains(apellidosNombre) )								
+					listaResiApellidosNombre.add(apellidosNombre);
 				Collections.sort(listaResiApellidosNombre);
+				//actualizamos el resiCIP por si es un campo seleccionado por el usuario, y cambiamos de Mask a noMask o viceversa
+				if(formulari.getSeleccionResiApellidosNombre()!=null  && !formulari.getSeleccionResiApellidosNombre().equals("")) formulari.setSeleccionResiApellidosNombre(apellidosNombre);
+				
+				
 				if(!listaResiCn.contains((String)  grb.getResiCn()) && grb.getResiCn()!=null && !grb.getResiCn().equals(""))										
 					listaResiCn.add((String) grb.getResiCn());
 				Collections.sort(listaResiCn);
+				
+				
 				if(!listaResiMedicamento.contains((String)  grb.getResiMedicamento()) && grb.getResiMedicamento()!=null && !grb.getResiMedicamento().equals(""))					
 					listaResiMedicamento.add((String) grb.getResiMedicamento());
 				Collections.sort(listaResiMedicamento);
@@ -490,6 +510,204 @@ public class FicheroResiDetalleHelper {
 		
 		if(!check) check=FicheroResiCabeceraDAO.editaFechas(cab);
 		return check;
+	}
+
+
+	public static List<InfoAlertasBean> detectarAlertas(String idUsuario, FicheroResiBean frbean) throws Exception {
+		List<InfoAlertasBean> listInfoAlertas = new ArrayList<InfoAlertasBean>();
+		if(frbean!=null)
+		{
+			// C - (Número comprimidos)
+			InfoAlertasBean infoAlertas = new InfoAlertasBean();
+			infoAlertas.setTituloAlerta("C - (Número comprimidos) ");
+			if(frbean.getControlNumComprimidos()!=null && frbean.getControlNumComprimidos().equalsIgnoreCase(SPDConstants.CTRL_NCOMPRIMIDOS_IGUAL))
+			{
+				infoAlertas.setCssAlerta("verde");
+				infoAlertas.setTextoAlerta("Coincide  la previsión de comprimidos según fichero de la residencia (Previsión --> "+frbean.getPrevisionResi()+ ") y lo que se envía a robot (Previsión --> "+frbean.getPrevisionSPD()+ ") ");
+			}
+			else if(frbean.getControlNumComprimidos()!=null && frbean.getControlNumComprimidos().equalsIgnoreCase(SPDConstants.CTRL_NCOMPRIMIDOS_DIFERENTE))
+			{
+				infoAlertas.setCssAlerta("rojo");
+				infoAlertas.setTextoAlerta("ALERTA - Comprobar comprimidos fichero de la residencia (Previsión --> "+frbean.getPrevisionResi()+ ") y lo que se envía a robot (Previsión --> "+frbean.getPrevisionSPD()+ ") ");
+			}
+			else
+			{
+				infoAlertas.setCssAlerta("naranja");
+				infoAlertas.setAlertaNumComprimidos("No se detecta el número de comprimidos según fichero o es un tratamiento que no afecta a SPD ");
+			}
+			listInfoAlertas.add(infoAlertas);
+			
+			// I - (Registro anterior) 
+			infoAlertas = new InfoAlertasBean();
+			infoAlertas.setTituloAlerta("I - (Registro anterior) ");
+			if(frbean.getControlRegistroAnterior()!=null && frbean.getControlRegistroAnterior().equalsIgnoreCase(SPDConstants.CTRL_REGISTRO_ANTERIOR_RI_SI))
+			{
+				infoAlertas.setCssAlerta("verde");
+				infoAlertas.setTextoAlerta(" Registro reutilizado que coincide 100% con el anterior");
+			}
+			else if(frbean.getControlRegistroAnterior()!=null && frbean.getControlRegistroAnterior().equalsIgnoreCase(SPDConstants.CTRL_REGISTRO_ANTERIOR_RD_SI))
+			{
+				FicheroResiBean medResiAnterior = HelperSPD.recuperaDatosAnteriores(idUsuario, frbean, true);
+				
+				
+				infoAlertas.setCssAlerta("naranja");
+				infoAlertas.setTextoAlerta("ALERTA.- Revisar registro, la salida es igual que la anterior, pero los datos de la resi son diferentes. <br>" 
+				+ "<br>  ANTERIOR --> " + medResiAnterior.getDetalleRow() 
+				+ "<br>  ACTUAL------> " + frbean.getDetalleRow());
+			}
+			else if(frbean.getControlRegistroAnterior()!=null && frbean.getControlRegistroAnterior().equalsIgnoreCase(SPDConstants.CTRL_REGISTRO_ANTERIOR_RI_SD))
+			{
+				FicheroResiBean medResiAnterior = HelperSPD.recuperaDatosAnteriores(idUsuario, frbean, true);
+				
+				infoAlertas.setCssAlerta("rojo");
+				if(medResiAnterior!=null)
+				{
+					infoAlertas.setTextoAlerta("ALERTA.-  REVISAR bien el tratamiento. Se envía diferente a la anterior producción. <br>"
+							+ "<br>  ANTERIOR --> " + medResiAnterior.getIdTratamientoSPD() 
+							+ "<br>  ACTUAL------> " + frbean.getIdTratamientoSPD());
+				}
+					
+			}
+			else if(frbean.getControlRegistroAnterior()!=null && frbean.getControlRegistroAnterior().equalsIgnoreCase(SPDConstants.CTRL_REGISTRO_ANTERIOR_RD_SD))
+			{
+				infoAlertas.setCssAlerta("azul");
+				infoAlertas.setTextoAlerta("Registro nuevo");
+			}
+			listInfoAlertas.add(infoAlertas);
+			
+			/*
+			// R - (envío a robot) 
+			infoAlertas = new InfoAlertasBean();
+			infoAlertas.setTituloAlerta("R - (envío a robot) ");
+			if(frbean.getControlRegistroRobot()!=null && frbean.getControlRegistroRobot().equalsIgnoreCase(SPDConstants.CTRL_ROBOT_SE_ENVIA_A_ROBOT))
+			{
+				infoAlertas.setCssAlerta("verde");
+				infoAlertas.setTextoAlerta("Se envía a robot como '" + frbean.getSpdAccionBolsa()+"'");
+			}
+			else if(frbean.getControlRegistroRobot()!=null && frbean.getControlRegistroRobot().equalsIgnoreCase(SPDConstants.CTRL_ROBOT_NO_SE_ENVIA))
+			{
+				infoAlertas.setCssAlerta("gris");
+				infoAlertas.setTextoAlerta("NO se envía a robot porque es '" + frbean.getSpdAccionBolsa()+"'");
+			}
+			else 
+			{
+				infoAlertas.setCssAlerta("blanco");
+				infoAlertas.setTextoAlerta("Revisar acción en bolsa del tratamiento");
+			}		
+			listInfoAlertas.add(infoAlertas);
+			*/
+			/*
+			// D - (Validar datos)
+			infoAlertas = new InfoAlertasBean();
+			infoAlertas.setTituloAlerta("D - (Validar datos) ");
+			if(frbean.getControlValidacionDatos()!=null && frbean.getControlValidacionDatos().equalsIgnoreCase(SPDConstants.CTRL_VALIDAR_NO))
+			{
+				infoAlertas.setCssAlerta("verde");
+				infoAlertas.setTextoAlerta("Registro ok");
+			}
+			else if(frbean.getControlValidacionDatos()!=null && frbean.getControlValidacionDatos().equalsIgnoreCase(SPDConstants.CTRL_VALIDAR_ALERTA))
+			{
+				infoAlertas.setCssAlerta("naranja");
+				infoAlertas.setTextoAlerta("Necesaria revisión de datos'");
+			}
+			else 
+			{
+				infoAlertas.setCssAlerta("blanco");
+				infoAlertas.setTextoAlerta("No detectado");
+			}		
+
+			listInfoAlertas.add(infoAlertas);
+			
+			*/
+			/*
+			// P - Control de principio activo  
+			infoAlertas = new InfoAlertasBean();
+			infoAlertas.setTituloAlerta("P (Principio activo) ");
+			if(frbean.getControlPrincipioActivo()!=null && frbean.getControlPrincipioActivo().equalsIgnoreCase(SPDConstants.CTRL_PRINCIPIO_ACTIVO_NO_ALERTA))
+			{
+				infoAlertas.setCssAlerta("verde");
+				infoAlertas.setTextoAlerta("Registro ok");
+				
+			}
+			else if(frbean.getControlPrincipioActivo()!=null && frbean.getControlPrincipioActivo().equalsIgnoreCase(SPDConstants.CTRL_PRINCIPIO_ACTIVO_ALERTA))
+			{
+				infoAlertas.setCssAlerta("amarillo");
+				infoAlertas.setTextoAlerta("El principio activo de este tratamiento está marcado para CONTROL EXTRA  '" + frbean.getSpdNomGtVm()+"'");
+			}
+			else 
+			{
+				infoAlertas.setCssAlerta("blanco");
+				infoAlertas.setTextoAlerta("No detectado");
+			}
+			listInfoAlertas.add(infoAlertas);
+
+			*/
+		    
+			// S - Control de medicamento sustituible  
+			infoAlertas = new InfoAlertasBean();
+			infoAlertas.setTituloAlerta("S - Control de medicamento sustituible   ");
+			if(frbean.getControlNoSustituible()!=null && frbean.getControlNoSustituible().equalsIgnoreCase(SPDConstants.CTRL_SUSTITUIBLE_NOALERTA))
+			{
+				infoAlertas.setCssAlerta("verde");
+				infoAlertas.setTextoAlerta("Registro ok  ");
+			}
+			else if(frbean.getControlNoSustituible()!=null && frbean.getControlNoSustituible().equalsIgnoreCase(SPDConstants.CTRL_SUSTITUIBLE_ALERTA))
+			{
+				infoAlertas.setCssAlerta("rojo");
+				infoAlertas.setTextoAlerta("Control medicamento NO sustituible  ");
+			}
+			else 
+			{
+				infoAlertas.setCssAlerta("blanco");
+				infoAlertas.setTextoAlerta("No detectado");
+			}
+			listInfoAlertas.add(infoAlertas);
+
+				
+			// G - Control de GTVMP iguales  
+			infoAlertas = new InfoAlertasBean();
+			infoAlertas.setTituloAlerta("G - Control de GTVMP iguales  ");
+			 if(frbean.getControlDiferentesGtvmp()!=null && frbean.getControlDiferentesGtvmp().equalsIgnoreCase(SPDConstants.CTRL_DIFERENTE_GTVMP_OK))
+			{
+				infoAlertas.setCssAlerta("verde");
+				infoAlertas.setTextoAlerta("GTVMP ok ");
+			}
+			else if(frbean.getControlDiferentesGtvmp()!=null && frbean.getControlDiferentesGtvmp().equalsIgnoreCase(SPDConstants.CTRL_DIFERENTE_GTVMP_ALERTA))
+			{
+				infoAlertas.setCssAlerta("rojo");
+				infoAlertas.setTextoAlerta(" El medicamento SPD tiene diferente GTVMP  que el de la residencia ");
+			}
+			else 
+			{
+				infoAlertas.setCssAlerta("blanco");
+				infoAlertas.setTextoAlerta("No detectado");
+			}
+
+			listInfoAlertas.add(infoAlertas);
+
+			// V - Control de GTVM ÚNICOS (para detectar tratamientos con el mismo GTVM) 
+			infoAlertas = new InfoAlertasBean();
+			infoAlertas.setTituloAlerta("V - Control de principio activo repetido");
+			 if(frbean.getControlUnicoGtvm()!=null && frbean.getControlUnicoGtvm().equalsIgnoreCase(SPDConstants.CTRL_UNICO_GTVM_OK))
+			{
+				infoAlertas.setCssAlerta("verde");
+				infoAlertas.setTextoAlerta("GTVM ok ");
+			}
+			else if(frbean.getControlUnicoGtvm()!=null && frbean.getControlUnicoGtvm().equalsIgnoreCase(SPDConstants.CTRL_UNICO_GTVM_ALERTA))
+			{
+				infoAlertas.setCssAlerta("rojo");
+				infoAlertas.setTextoAlerta(" El residente tiene asignado más de un medicamento con este mismo principio activo ");
+			}
+			else 
+			{
+				infoAlertas.setCssAlerta("blanco");
+				infoAlertas.setTextoAlerta("No detectado");
+			}
+
+			listInfoAlertas.add(infoAlertas);
+			
+		}
+		return listInfoAlertas;
 	}
 		
 }

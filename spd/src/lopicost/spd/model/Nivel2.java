@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class SustXGtvmp implements Serializable {
+public class Nivel2 implements Serializable {
 	private int oidSustXComposicion;
-	private String codGtvmp;
-	private String nomGtvmp;
 	private String codGtVm;
 	private String nomGtVm;
-	private List<SustXGtvmpp> hijos = null;  
+	private String codGtVmp;
+	private String nomGtVmp;
+	private Nivel1 nivel1; 
+	private List<Nivel3> listaNivel3 = null;  
 	private String comentarios;
 	private String rentabilidad;
 	private String nota;
@@ -20,14 +21,12 @@ public class SustXGtvmp implements Serializable {
 	private String nomLaboratorio;
 
 
-
-
-	public SustXGtvmp() {
+	public Nivel2() {
 		super();
 	}
 	
 	public String toString() {
-		return "SustXComposicion [codGtvmp=" + codGtvmp + ", nomGtvmp=" + nomGtvmp+ "" 
+		return "SustXComposicion [codGtVmp=" + codGtVmp + ", nomGtVmp=" + nomGtVmp+ "" 
 				+ ", toString()="
 				+ super.toString() + "]";
 	}
@@ -35,30 +34,30 @@ public class SustXGtvmp implements Serializable {
 	/**Para que no devuelva un nulo se inicializa en caso que no tenga ningún elemento asignado
 	 * @return
 	 */
-	public List<SustXGtvmpp> getHijos() {
-		if(hijos == null)
-			hijos = new ArrayList<SustXGtvmpp>();
-		return hijos;
+	public List<Nivel3> getListaNivel3() {
+		if(listaNivel3 == null)
+			listaNivel3 = new ArrayList<Nivel3>();
+		return listaNivel3;
 	}
 
-	public void setHijos(List<SustXGtvmpp> hijos) {
-		this.hijos = hijos;
+	public void setListaNivel3(List<Nivel3> hijos) {
+		this.listaNivel3 = hijos;
 	}
 
-	public String getCodGtvmp() {
-		return codGtvmp;
+	public String getCodGtVmp() {
+		return codGtVmp;
 	}
 
-	public void setCodGtvmp(String codGtvmp) {
-		this.codGtvmp = codGtvmp;
+	public void setCodGtVmp(String codGtvmp) {
+		this.codGtVmp = codGtvmp;
 	}
 
-	public String getNomGtvmp() {
-		return nomGtvmp;
+	public String getNomGtVmp() {
+		return nomGtVmp;
 	}
 
-	public void setNomGtvmp(String nomGtvmp) {
-		this.nomGtvmp = nomGtvmp;
+	public void setNomGtVmp(String nomGtvmp) {
+		this.nomGtVmp = nomGtvmp;
 	}
 
 	public String getComentarios() {
@@ -132,6 +131,14 @@ public class SustXGtvmp implements Serializable {
 
 	public void setNomLaboratorio(String nomLaboratorio) {
 		this.nomLaboratorio = nomLaboratorio;
+	}
+
+	public Nivel1 getNivel1() {
+		return nivel1;
+	}
+
+	public void setNivel1(Nivel1 padre) {
+		this.nivel1 = padre;
 	}
 
 

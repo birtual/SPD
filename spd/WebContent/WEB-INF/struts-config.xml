@@ -12,6 +12,8 @@
     	<form-bean name="GestSustitucionesForm" type="lopicost.spd.struts.form.GestSustitucionesForm"/>
     	<form-bean name="GestSustitucionesLiteForm" type="lopicost.spd.struts.form.GestSustitucionesLiteForm"/>
     	<form-bean name="SustXComposicionForm" type="lopicost.spd.struts.form.SustXComposicionForm"/>
+    	<form-bean name="SustXGtForm" type="lopicost.spd.struts.form.SustXGtForm"/>
+    	
    		<form-bean name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm"/>
    		<form-bean name="FicheroResiNewForm" type="lopicost.spd.struts.form.FicheroResiNewForm"/>
      	<form-bean name="BdConsejoForm" type="lopicost.spd.struts.form.BdConsejoForm"/>
@@ -71,6 +73,7 @@
         	<forward name="detalle" path="/spd/app/pacientes/jsp/detalle.jsp" />
         	<forward name="editar" path="/spd/app/pacientes/jsp/editar.jsp" />
         	<forward name="nuevoCIP" path="/spd/app/pacientes/jsp/nuevoCIP.jsp" />
+        	<forward name="cambioCIP" path="/spd/app/pacientes/jsp/cambioCIP.jsp" />
         	<forward name="nuevo" path="/spd/app/pacientes/jsp/nuevo.jsp" />
         	<forward name="nuevoOk" path="/spd/app/pacientes/jsp/nuevoOk.jsp" />
         	<forward name="listadoProceso" path="/spd/app/pacientes/jsp/listPacientesProceso.jsp" />
@@ -125,6 +128,18 @@
         	<forward name="nuevoSustXResi" path="/spd/app/gestSustituciones/jsp/nuevoSustXResi.jsp" />
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
 </action>
+
+		 <action path="/SustXGt" type="lopicost.spd.struts.action.SustXGtAction"  
+		 	parameter="parameter"  name="SustXGtForm" 
+		 	scope="request" validate="false">
+        	<forward name="nuevo" path="/spd/app/sustXGt/jsp/nuevo.jsp" />
+        	<forward name="nuevo1" path="/spd/app/sustXGt/jsp/nuevo1.jsp" />
+        	<forward name="nuevo2" path="/spd/app/sustXGt/jsp/nuevo2.jsp" />
+        	<forward name="nuevo3" path="/spd/app/sustXGt/jsp/nuevo3.jsp" />
+        	<forward name="list" path="/spd/app/sustXGt/jsp/list.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+  
        
 <action path="/Autocompletar" type="lopicost.spd.struts.action.AutocompletarAction" name="BdConsejoForm" validate="false">
     <forward name="json" path="" />
@@ -213,17 +228,16 @@
     		<forward name="generarFicheros" path="/spd/app/robot/jsp/generarFicheros.jsp" />
 			<forward name="generarFicherosResidente" path="/spd/app/robot/jsp/generarFicherosResidente.jsp" />   		
    
-</action>
-
-
-<action path="/DescargarArchivos" 
-        type="lopicost.spd.struts.action.DescargarArchivosAction"  parameter="parameter"  
-        name="FicheroResiForm" 
-        scope="request" 
-        validate="false">
-    
-    <forward name="error" path="/spd/common/jsp/error.jsp"/>
-</action>
+		</action>
+		
+		
+		<action path="/DescargarArchivos" 
+		        type="lopicost.spd.struts.action.DescargarArchivosAction"  parameter="parameter"  
+		        name="FicheroResiForm" 
+		        scope="request" 
+		        validate="false">
+		    <forward name="error" path="/spd/common/jsp/error.jsp"/>
+		</action>
 
 
 
@@ -518,6 +532,7 @@
         	<forward name="nuevo" path="/spd/app/avisos/jsp/nuevo.jsp" />
         	<forward name="detalle" path="/spd/app/avisos/jsp/detalle.jsp" />
         	<forward name="editar" path="/spd/app/avisos/jsp/editar.jsp" />
+        	<forward name="borrar" path="/spd/app/avisos/jsp/list.jsp" />
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
         </action>     
         

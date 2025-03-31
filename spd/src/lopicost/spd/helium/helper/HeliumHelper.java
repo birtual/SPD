@@ -144,9 +144,15 @@ public class HeliumHelper {
 	  	        		
 	  		        	patient.getTreatments().getList().get(0).getPouches().getList().get(i).getLines().add(line);
 	  		        	//idPouch
-	  		        	patient.getTreatments().getList().get(0).getPouches().getList().get(i).setIdPouch(patient.getTreatments().getList().get(0).getCodeTreatment() + "-"+patient.getTreatments().getList().get(0).getPouches().getList().get(i).getDose().getCodeDose());
+	  		        	//patient.getTreatments().getList().get(0).getPouches().getList().get(i).setIdPouch(patient.getTreatments().getList().get(0).getCodeTreatment() + "-"+patient.getTreatments().getList().get(0).getPouches().getList().get(i).getDose().getCodeDose());
+	  		        	String idPouch= StringUtil.left(patient.getTreatments().getList().get(0).getCodeTreatment(), 25) + "-"+ StringUtil.left(patient.getTreatments().getList().get(0).getPouches().getList().get(i).getDose().getCodeDose(), 25);
+	  		        	patient.getTreatments().getList().get(0).getPouches().getList().get(i).setIdPouch(StringUtil.right(idPouch, 50));
 	  		        	//IdLine
-	  		        	line.setIdLine(patient.getTreatments().getList().get(0).getCodeTreatment() + "-"+patient.getTreatments().getList().get(0).getPouches().getList().get(i).getDose().getCodeDose()+"-"+registro.getRow()+"_"+registro.getContador());
+	  		        	//line.setIdLine(patient.getTreatments().getList().get(0).getCodeTreatment() + "-"+patient.getTreatments().getList().get(0).getPouches().getList().get(i).getDose().getCodeDose()+"-"+registro.getRow()+"_"+registro.getContador());
+	  		        	String idLine = StringUtil.left(patient.getTreatments().getList().get(0).getCodeTreatment(), 25) + "-"+patient.getTreatments().getList().get(0).getPouches().getList().get(i).getDose().getCodeDose()+"-"+registro.getRow()+"_"+registro.getContador();
+	  		        	line.setIdLine(StringUtil.right(idLine, 50));	//aseguramos que no pase de 50 (máximo Helium)
+
+	  		        	
 	  		        	patient.getTreatments().getList().get(0).getPouches().getList().get(i).setActiva(true);
 	  		        	hayDose=true;
 	    	        	}
@@ -323,8 +329,9 @@ public class HeliumHelper {
 	private static void creaDoseOtros(Patient patient, FicheroResiBean registro, Line line) 
 	{
 		int i = patient.getTreatments().getList().get(0).getPouches().getList().size();
-		line.setIdLine(registro.getResiCIP()+"-T1-OTROS-" + registro.getRow()+"_"+registro.getContador());
-		
+		//line.setIdLine();
+		String idLine = StringUtil.left(registro.getResiCIP(), 14) +"-T1-OTROS-" + registro.getRow()+"_"+registro.getContador();
+		line.setIdLine(StringUtil.right(idLine, 50));	//aseguramos que no pase de 50 (máximo Helium)
 		if(registro.getResiSiPrecisa()!=null && registro.getResiSiPrecisa().equalsIgnoreCase("X"))
 			line.setNeeded(true);
 		
@@ -336,9 +343,11 @@ public class HeliumHelper {
 		controlaFechaBaseTratamiento(patient, registro);
 		line.setOutOfBlister(true);
 		line.setPill(StringUtil.limpiarTextoTomas(registro.getSpdCnFinal()));
-		line.setPill_desc(StringUtil.replaceInvalidCharsForRobot(registro.getSpdNombreBolsa()));
+		line.setPill_desc(StringUtil.left(StringUtil.replaceInvalidCharsForRobot(registro.getSpdNombreBolsa()), 120)) ;
   		patient.getTreatments().getList().get(0).getPouches().getList().get(i-1).getLines().add(line);
-		patient.getTreatments().getList().get(0).getPouches().getList().get(i-1).setIdPouch(patient.getTreatments().getList().get(0).getCodeTreatment() + "-"+patient.getTreatments().getList().get(0).getPouches().getList().get(i-1).getDose().getCodeDose());
+  		String idPouch= StringUtil.left(patient.getTreatments().getList().get(0).getCodeTreatment(), 25) + "-"+patient.getTreatments().getList().get(0).getPouches().getList().get(i-1).getDose().getCodeDose();
+  		patient.getTreatments().getList().get(0).getPouches().getList().get(i-1).setIdPouch(StringUtil.right(idPouch, 50));
+  		//patient.getTreatments().getList().get(0).getPouches().getList().get(i-1).setIdPouch(patient.getTreatments().getList().get(0).getCodeTreatment() + "-"+patient.getTreatments().getList().get(0).getPouches().getList().get(i-1).getDose().getCodeDose());
 		//line.setIdLine(patient.getTreatments().getList().get(0).getCodeTreatment() + "-"+patient.getTreatments().getList().get(0).getPouches().getList().get(24).getDose().getCodeDose()+"-"+registro.getRow());
 		patient.getTreatments().getList().get(0).getPouches().getList().get(i-1).setActiva(true);
 	}	
@@ -360,7 +369,8 @@ public class HeliumHelper {
 
 		private static Line creaLinePorTipo(Patient patient, String resiToma, FicheroResiBean registro ) {
 			Line line = new Line();
-			line.setIdLine(registro.getResiCIP()+"-T1-" + "_" + registro.getSpdCnFinal() + "_" + registro.getRow()+"_"+registro.getContador()+"_"+registro.getContador());
+			String idLine = StringUtil.left(registro.getResiCIP(), 14)+"-T1-" + "_" + StringUtil.left(registro.getSpdCnFinal(), 6) + "_" + registro.getRow()+"_"+registro.getContador()+"_"+registro.getContador(); 
+			line.setIdLine(StringUtil.right(idLine, 50));	//aseguramos que no pase de 50 (máximo Helium)
 			line.setActivePeriod(false); //por defecto NO diaria 
 
 			if(registro.getTipoEnvioHelium().equals("0")) //0 --> Otros (no_pintar, Si_precisa, pauta 0,1)
@@ -444,7 +454,7 @@ public class HeliumHelper {
 	    		//line.setPill(registro.getSpdCnFinal());
 	    		line.setPill(StringUtil.limpiarTextoTomas(registro.getSpdCnFinal()));
 
-	    		line.setPill_desc(StringUtil.replaceInvalidCharsForRobot(registro.getSpdNombreBolsa()));
+	    		line.setPill_desc(StringUtil.left(StringUtil.replaceInvalidCharsForRobot(registro.getSpdNombreBolsa()), 120));
 			}
 
 			return line;
@@ -542,7 +552,7 @@ public class HeliumHelper {
 	    		//line.setPill(registro.getSpdCnFinal());
 	    		line.setPill(StringUtil.limpiarTextoTomas(registro.getSpdCnFinal()));
 	    		
-	    		line.setPill_desc(registro.getSpdNombreBolsa());
+	    		line.setPill_desc(StringUtil.left(registro.getSpdNombreBolsa(), 120));
 
 			}
 			

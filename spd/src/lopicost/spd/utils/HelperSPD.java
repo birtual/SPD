@@ -3508,8 +3508,6 @@ public class HelperSPD{
 			
 			//FIN importación en ctl_medicacioResi
 
-
-		    
 		return resultPrevision&&result;
 		}
 	
@@ -4113,5 +4111,72 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 	        }
 	        return sb.toString();
 	    }
+	    
+	    // Métodos para enmascarar los campos
+	    public static String enmascararCIP(String cip) {
+	        if (cip != null && cip.length() > 10) {
+	            return cip.substring(0, 5) + "*****" + cip.substring(cip.length() - 1);
+	        }
+	        return cip;
+	    }
+
+	    public static String enmascararNombre1(String nombre) {
+	        if (nombre != null && nombre.length() > 1) {
+	            return nombre.substring(0, 1) + "****"; 
+	        }
+	        return nombre;
+	    }
+	    public static String enmascararNombre(String nombre) {
+	        if (nombre == null || nombre.trim().isEmpty()) {
+	            return nombre;
+	        }
+
+	        StringBuilder resultado = new StringBuilder();
+	        String[] palabras = nombre.split("\\s+"); // Divide por espacios
+
+	        for (String palabra : palabras) {
+	            if (palabra.length() > 3) {
+	                resultado.append(palabra.substring(0, 3)).append("****");
+	            } else {
+	                resultado.append(palabra); // Si la palabra tiene 3 o menos caracteres, no se enmascara
+	            }
+	            resultado.append(" "); // Añade un espacio entre palabras
+	        }
+
+	        return resultado.toString().trim(); // Elimina el espacio extra al final
+	    }
+
+	    public static String enmascararNombre(String nombre, int inicio, int fin) {
+	        if (nombre == null || nombre.trim().isEmpty()) {
+	            return nombre;
+	        }
+
+	        StringBuilder resultado = new StringBuilder();
+	        String[] palabras = nombre.split("\\s+"); // Divide por espacios
+
+	        for (String palabra : palabras) {
+	            if (palabra.length() > inicio+fin+1) {
+	            	//System.out.println("1 " + palabra.length() +  "_" + inicio+fin+1);
+	                //resultado.append(palabra.substring(0, inicio)).append("****");
+	            	resultado.append(palabra.substring(0, inicio) + "*****" + palabra.substring(palabra.length() - fin));
+	                
+	            } else if (palabra.length() <= inicio+fin+1 && palabra.length() > inicio) {
+	            	//System.out.println("2");
+            	resultado.append(palabra.substring(0, inicio) + "*****" );
+	               // resultado.append(palabra); // Si la palabra tiene 3 o menos caracteres, no se enmascara
+	            } else if (palabra.length() <=  inicio && palabra.length() > 0 ) {
+	            	//System.out.println("3");
+            	resultado.append(palabra.substring(0, inicio-1) + "*****" );
+	               // resultado.append(palabra); // Si la palabra tiene 3 o menos caracteres, no se enmascara
+	            } else {
+	            	//System.out.println("4");
+                resultado.append(palabra); // Si la palabra tiene  "inicio" caracteres, no se enmascara
+	            }	  
+	            resultado.append(" "); // Añade un espacio entre palabras
+	        }
+
+	        return resultado.toString().trim(); // Elimina el espacio extra al final
+	    }
+
 	    
 }

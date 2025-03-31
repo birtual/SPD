@@ -13,7 +13,7 @@ public class Paciente implements Serializable {
 	private String apellido2;						//apellido2             varchar(100),
 	private String nombreApellidos;				//nomCognoms	 	 	nombre + '' + apellido1 + ' ' +apellido2,
 	private String apellidosNombre;				//cognomsNom            apellido1 + ' ' +apellido2 + ', ' + nombre,
-	private String nIdentidad;					//nIdentidad            varchar(25) DEFAULT '',
+	private String numIdentidad;					//nIdentidad            varchar(25) DEFAULT '',
 	private String segSocial	;					//segSocial             varchar(25) DEFAULT '',
 	private String planta;						//planta                varchar(25) DEFAULT '',
 	private String habitacion;					//habitacion            varchar(25) DEFAULT '',
@@ -107,13 +107,13 @@ public class Paciente implements Serializable {
 
 
 
-	public String getnIdentidad() {
-		return nIdentidad;
+	public String getNIdentidad() {
+		return numIdentidad;
 	}
 
 
-	public void setnIdentidad(String nIdentidad) {
-		this.nIdentidad = nIdentidad;
+	public void setNIdentidad(String nIdentidad) {
+		this.numIdentidad = nIdentidad;
 	}
 
 

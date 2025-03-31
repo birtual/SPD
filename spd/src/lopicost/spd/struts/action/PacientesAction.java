@@ -5,15 +5,13 @@ import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-//import org.apache.log4j.Logger;
+ 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import lopicost.config.logger.Logger;
 import lopicost.spd.helper.FicheroResiDetalleHelper;
-import lopicost.spd.model.DivisionResidencia;
 import lopicost.spd.persistence.DivisionResidenciaDAO;
 import lopicost.spd.persistence.FicheroResiCabeceraDAO;
 import lopicost.spd.persistence.PacienteDAO;
@@ -96,6 +94,44 @@ public class PacientesAction extends GenericAction  {
 		return mapping.findForward("nuevo");
 	}
 	
+	public ActionForward cambioCIP(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		PacientesForm f =  (PacientesForm) form;
+		List errors = new ArrayList();
+		f.setErrors(errors);
+		
+		if(f.getACTIONTODO()!=null && f.getACTIONTODO().equals("CAMBIOCIP"))
+		{
+			return mapping.findForward("cambioCIP");
+
+		}
+		else if(f.getACTIONTODO()!=null && f.getACTIONTODO().equals("CAMBIOCIP_OK"))
+		{
+			String nuevoCIP = f.getCIP();
+			if(PacientesHelper.existeCIP(nuevoCIP))
+			{
+				errors.add( "El CIP " + nuevoCIP + " ya existe");
+				f.setACTIONTODO("NUEVO_CIP");
+				return mapping.findForward("nuevoCIP");
+			}
+
+			
+			boolean result=PacientesHelper.nuevo(getIdUsuario(), f);
+			if(result)
+			{
+				errors.add( "Alta creada correctamente ");
+				PacienteBean p  = PacientesHelper.getPacientePorCIP(f.getCIP());
+				PacientesHelper.aplicaControles(getIdUsuario(), p);
+			}
+			else errors.add( "No se ha podido crear el registro");
+
+			list( mapping,  form,  request,  response);
+			f.setErrors(errors);
+			return mapping.findForward("list");
+		}
+				
+		return mapping.findForward("cambioCIP");
+	}
+	
 	
 	public ActionForward editar(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		PacientesForm f =  (PacientesForm) form;
@@ -137,37 +173,22 @@ public class PacientesAction extends GenericAction  {
 		PacientesForm formulari =  (PacientesForm) form;
 		formulari.setPacienteBean(PacienteDAO.getPacientePorOID(getIdUsuario(), formulari.getOidPaciente()));
 		
-		//String url = "/Pacientes.do?parameter=detalle&oidPaciente=" + formulari.getOidPaciente();
-        // Puedes guardar la URL como un atributo de sesión
-		//request.getSession().setAttribute("url", url);
-        // O puedes guardarla como un atributo en el request
-		//request.setAttribute("url", url);
-		// Crear un ActionForward dinámico
-		// return new ActionForward(url, true);
-		
 		return mapping.findForward("detalle");
 	}
 	
 	public ActionForward detallBolquers(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		PacientesForm formulari =  (PacientesForm) form;
+		PacienteBean pac = PacientesHelper.getPacientePorOID(getIdUsuario(),  formulari.getOidPaciente());
+		formulari.setPacienteBean(pac);
 		formulari.setListaBeans(PacientesHelper.getBolquersPaciente(getIdUsuario(), formulari.getOidPaciente()));
-		
-		//String url = "/Pacientes.do?parameter=detalle&oidPaciente=" + formulari.getOidPaciente();
-        // Puedes guardar la URL como un atributo de sesión
-		//request.getSession().setAttribute("url", url);
-        // O puedes guardarla como un atributo en el request
-		//request.setAttribute("url", url);
-		// Crear un ActionForward dinámico
-		// return new ActionForward(url, true);
-		
+
  		return mapping.findForward("detallBolquers");
 	}
 	
 	public ActionForward detalleDiscrepancias(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		PacientesForm formulari =  (PacientesForm) form;
 		PacienteBean pac = PacientesHelper.getPacientePorOID(getIdUsuario(),  formulari.getOidPaciente());
-		formulari.setNombreApellidos(pac.getNombreApellidos()!=null?pac.getNombreApellidos():null);
-		formulari.setCIP(pac.getCIP()!=null?pac.getCIP():null);
+		formulari.setPacienteBean(pac);
 		formulari.setListaBeans(PacientesHelper.getDiscrepanciasPorCIP(getIdUsuario(), pac, formulari.getDiasCalculo()));
 		try
 		{
@@ -175,22 +196,15 @@ public class PacientesAction extends GenericAction  {
 		}catch(Exception e){
 			
 		}
-		//String url = "/Pacientes.do?parameter=detalle&oidPaciente=" + formulari.getOidPaciente();
-        // Puedes guardar la URL como un atributo de sesión
-		//request.getSession().setAttribute("url", url);
-        // O puedes guardarla como un atributo en el request
-		//request.setAttribute("url", url);
-		// Crear un ActionForward dinámico
-		// return new ActionForward(url, true);
-		
  		return mapping.findForward("detalleDiscrepancias");
 	}
 	
 	public ActionForward detalleTratamientoRct(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		PacientesForm formulari =  (PacientesForm) form;
 		PacienteBean pac = PacientesHelper.getPacientePorOID(getIdUsuario(),  formulari.getOidPaciente());
-		formulari.setNombreApellidos(pac.getNombreApellidos()!=null?pac.getNombreApellidos():null);
-		formulari.setCIP(pac.getCIP()!=null?pac.getCIP():null);
+		formulari.setPacienteBean(pac);
+		//formulari.setNombreApellidos(pac.getNombreApellidos()!=null?pac.getNombreApellidos():null);
+		//formulari.setCIP(pac.getCIP()!=null?pac.getCIP():null);
 		formulari.setListaBeans(PacientesHelper.getTratamientoRctPorCIP(getIdUsuario(), pac));
 		try
 		{
@@ -204,9 +218,7 @@ public class PacientesAction extends GenericAction  {
 	public ActionForward detalleTratamientoSPD(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		PacientesForm formulari =  (PacientesForm) form;
 		PacienteBean pac = PacientesHelper.getPacientePorOID(getIdUsuario(),  formulari.getOidPaciente());
-		DivisionResidencia div = DivisionResidenciaDAO.getDivisionResidenciaById(getIdUsuario(), pac.getIdDivisionResidencia());
-		formulari.setNombreApellidos(pac.getNombreApellidos()!=null?pac.getNombreApellidos():null);
-		formulari.setCIP(pac.getCIP()!=null?pac.getCIP():null);
+		formulari.setPacienteBean(pac);
 		formulari.setListaProcesosCargados(PacientesHelper.getListTratamientosSPDPorCIP(getIdUsuario(), pac, false));
 		try
 		{
@@ -254,7 +266,6 @@ public class PacientesAction extends GenericAction  {
 	public ActionForward producirSPDResidente(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		PacientesForm formulari =  (PacientesForm) form;
-		//paginación
 
         String path = mapping.findForward("producirSPDResidente").getPath();
         path += "?oid=" + formulari.getOidFicheroResiCabecera();

@@ -73,6 +73,7 @@
     <html:hidden property="filtroPrincipioActivo" />  
     <html:hidden property="filtroNoSustituible" />  
     <html:hidden property="filtroDiferentesGtvmp" />  
+   	<html:hidden property="filtroVerDatosPersonales" />  
 
 
     
@@ -96,7 +97,18 @@
 	</logic:notEmpty>
 
 <fieldset>
-		<div><bean:write name="data" property="resiNombrePaciente" /> <bean:write name="data" property="resiApellido1" /> <bean:write name="data" property="resiApellido2" /> - <html:text name="data" property="resiCIP" /></div>
+	<c:choose>
+		    <c:when test="${formulari.filtroVerDatosPersonales}">
+		        <div>Nombre: <bean:write name="data" property="resiNombrePaciente" /> <bean:write name="data" property="resiApellido1" /> <bean:write name="data" property="resiApellido2" /> - CIP: <bean:write name="data" property="resiCIP" /></div>
+		    </c:when>
+		    <c:otherwise>
+		        <div>Nombre: <bean:write name="data" property="resiNombrePacienteMask" /> <bean:write name="data" property="resiApellido1Mask" /> <bean:write name="data" property="resiApellido2Mask" /> - CIP: <bean:write name="data" property="resiCIPMask" /></div>
+		    </c:otherwise>
+	</c:choose>
+	
+	
+	
+		
 		
 		<logic:greaterThan name="formulari" property="oidPaciente" value="0">
 			 <div >identificador: <b><bean:write name="formulari" property="oidPaciente" /></b></div>
@@ -243,7 +255,20 @@
 	  		<ul>
 			<li>tipoEnvioHelium:<bean:write name="data" property="tipoEnvioHelium" /></li><br>
 			<li>Incidencia:<bean:write name="data" property="incidencia" /></li>
-			<li>Texto original cargado:<span  class="textoAzul"><bean:write name="data" property="detalleRow" /></li>
+			
+			
+				<c:choose>
+		    <c:when test="${formulari.filtroVerDatosPersonales}">
+		        <li>Texto original cargado:<span  class="textoAzul"><bean:write name="data" property="detalleRow" /></li>
+		    </c:when>
+		    <c:otherwise>
+		        <li>Texto original cargado:<span  class="textoAzul">*** información con datos personales ***</li>
+		    </c:otherwise>
+	</c:choose>
+	
+	
+	
+	
 	  		</ul>
 			
 	<center></center>

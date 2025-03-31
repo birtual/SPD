@@ -21,6 +21,13 @@
 
 
 <style>
+.ui-autocomplete {
+    max-height: 200px; /* Limitar la altura del menú desplegable */
+    overflow-y: auto;  /* Habilitar scroll vertical */
+    overflow-x: hidden; /* Evitar scroll horizontal */
+    z-index: 1000; /* Asegurarte de que sea visible */
+}
+    
         table {
             width: 60%; /* Ajusta el ancho */
             margin: 20px auto;
@@ -117,13 +124,16 @@
 		<html:form action="/SustXGt.do" method="post">	
 
 
-<bean:define id="padre" name="formulari" property="sustXGtPadre"/>
+<bean:define id="nivel2" name="formulari" property="nivel2"/>
 
 <div id="contingut">
 
      <html:hidden property="parameter" value="nuevo"/>
      <html:hidden property="ACTIONTODO" value="NUEVO"/>
      <html:hidden property="oidSustXComposicion" />
+     <html:hidden property="filtroCodGtVmp" />
+     <html:hidden property="filtroCodGtVmp" />
+     <html:hidden property="codGtVm" styleId="codGtVm" value="<%=formulari.getNivel2().getCodGtVm()%>"/>
  <table>
         <tr>
             <th>Descripción</th>
@@ -131,11 +141,11 @@
         </tr>
         <tr>
             <td>Grupo VM (Principio activo)</td>
-            <td><bean:write name="padre" property="nomGtVm" /></td>
+            <td><bean:write name="nivel2" property="nomGtVm" /></td>
         </tr>
         <tr>
             <td>GTVMP</td>
-            <td><bean:write name="padre" property="nomGtvmp" /></td>
+            <td><bean:write name="nivel2" property="nomGtVmp" /></td>
         </tr>
         <tr>
             <td>Grupo VMPP (Princ. Activo, dosis, forma y número de unidades) equivale al conjunto homogéneo</td>
@@ -151,15 +161,15 @@
                         name="filtroNombreLaboratorio" 
                         onkeypress="handleEnter(event)" 
                         value="<%= request.getParameter("filtroNombreLaboratorio") != null ? request.getParameter("filtroNombreLaboratorio") : "" %>" 
-                        placeholder="Escribe 3 caracteres para buscar" 
+                        placeholder="Escribe 3 caracteres para buscar o asterisco para mostrar todos" 
                         class="select_corto"
                     />
                 </div>
                 <input 
                     type="hidden" 
-                    id="filtroCodigoLaboratorio" 
-                    name="filtroCodigoLaboratorio" 
-                    value="<%= request.getParameter("filtroCodigoLaboratorio") != null ? request.getParameter("filtroCodigoLaboratorio") : "" %>"
+                    id="filtroCodiLaboratorio" 
+                    name="filtroCodiLaboratorio" 
+                    value="<%= request.getParameter("filtroCodiLaboratorio") != null ? request.getParameter("filtroCodiLaboratorio") : "" %>"
                 />
             </td>
         </tr>
@@ -175,7 +185,7 @@
 
     <div class="botons">
         <input type="button" onclick="javascript:volver()" value="Volver"/>
-        <input type="button" onclick="javascript:nuevoGtVmp()" value="Confirmar"/>
+        <input type="button" onclick="javascript:nuevoDesdeNivel2('<bean:write name="nivel2" property="codGtVmp" />', 'NUEVO_OK')" value="Confirmar"/>
     </div>
 
 	</html:form>

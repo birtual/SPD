@@ -6,8 +6,6 @@ import java.util.List;
 
 import lopicost.spd.model.BdConsejo;
 import lopicost.spd.model.FicheroResiCabecera;
-import lopicost.spd.model.GestSustitucionesLite;
-import lopicost.spd.struts.form.FicheroResiForm;
 import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
 import lopicost.spd.utils.StringUtil;
@@ -60,13 +58,21 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 
 	  private String oidPaciente="";
 	  private String resiCIP="";
+	  private String resiCIPMask="";
 	  private String resiNombrePaciente="";
+	  private String resiNombrePacienteMask="";
 	  private String resiNombrePacienteEnFichero;					//nombre del residente que llega en el fichero de la residencia
+	  private String resiNombrePacienteEnFicheroMask;
 	  private String resiApellidosNombre="";
+	  private String resiApellidosNombreMask="";
 	  private String resiApellido1="";
+	  private String resiApellido1Mask="";
 	  private String resiApellido2="";
+	  private String resiApellido2Mask="";
 	  private String resiApellidos="";
+	  private String resiApellidosMask="";
 	  private String[] partesNombre;
+	  private String[] partesNombreMask;
 	  private String resiCodigoPaciente="";
 	  private String resiNumIdentidadPaciente="";
 	  private String resiNumSegSocialPaciente="";
@@ -226,14 +232,14 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 		private String free2=""; 
 		private String free3=""; 
 		private String usuarioCreacion=""; 
-		private String controlNumComprimidos="";
-		private String controlPrincipioActivo="";
-		private String controlRegistroAnterior="";
-		private String controlRegistroRobot="";
-		private String controlDiferentesGtvmp="";
+		private String controlNumComprimidos="No detectado";
+		private String controlPrincipioActivo="No detectado";
+		private String controlRegistroAnterior="No detectado";
+		private String controlRegistroRobot="No detectado";
+		private String controlDiferentesGtvmp="No detectado";
 		private String controlValidacionDatos="";
-		private String controlNoSustituible="";
-		private String controlUnicoGtvm="";
+		private String controlNoSustituible="No detectado";
+		private String controlUnicoGtvm="No detectado";
 		
 		private int contador;
 		private int porcentajeCIPS;
@@ -413,10 +419,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	public void setIdDivisionResidencia(String idDivisionResidencia) {		this.idDivisionResidencia = idDivisionResidencia;}
 	public Date getFechaHoraProceso() {		return fechaHoraProceso;	}
 	public void setFechaHoraProceso(Date fechaHoraProceso) {		this.fechaHoraProceso = fechaHoraProceso;	}
-	public String getResiCIP() {		return resiCIP;	}
-	public void setResiCIP(String resiCIP) {		this.resiCIP = resiCIP;	}
-	public String getResiNombrePaciente() {		return resiNombrePaciente;	}
-	public void setResiNombrePaciente(String resiNombrePaciente) {		this.resiNombrePaciente = resiNombrePaciente;	}
+	
 	public String getResiCn() {		return resiCn;	}
 	public void setResiCn(String resiCn) {		this.resiCn = resiCn;	}
 	public String getResiMedicamento() {		return resiMedicamento;	}
@@ -552,10 +555,6 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	public int getFechaFinInt() 				{		return fechaFinInt;			}	public void setFechaFinInt(int fechaFinInt) 					{		this.fechaFinInt = fechaFinInt;						}
 	public int getNumeroDeTomas() 				{		return numeroDeTomas;		}	public void setNumeroDeTomas(int numeroDeTomas) 				{		this.numeroDeTomas = numeroDeTomas;					}
 	public int getNumeroDeTomasBase() 			{		return numeroDeTomasBase;	}	public void setNumeroDeTomasBase(int numeroDeTomasBase) 		{		this.numeroDeTomasBase = numeroDeTomasBase;			}
-	public String getResiApellidosNombre() 		{		return resiApellidosNombre;	}	public void setResiApellidosNombre(String resiApellidosNombre) 	{		this.resiApellidosNombre = resiApellidosNombre;		}
-	public String getResiApellidos() 			{		return resiApellidos;		}	public void setResiApellidos(String resiApellidos) 				{		this.resiApellidos = resiApellidos;					}
-	public String getResiApellido1() 			{		return resiApellido1;		}	public void setResiApellido1(String resiApellido1) 				{		this.resiApellido1 = resiApellido1;					}
-	public String getResiApellido2() 			{		return resiApellido2;		}	public void setResiApellido2(String resiApellido2) 				{		this.resiApellido2 = resiApellido2;					}
 	public String getDiasMesConcretos() 		{		return diasMesConcretos;	}	public void setDiasMesConcretos(String diasMesConcretos) 		{		this.diasMesConcretos = diasMesConcretos;			}
 	public String getDiasSemanaConcretos() 		{		return diasSemanaConcretos;	}	public void setDiasSemanaConcretos(String diasSemanaConcretos) 	{		this.diasSemanaConcretos = diasSemanaConcretos;		}
 	public String getValidar() 					{		return validar;				}	public void setValidar(String validar) 							{		this.validar = validar;								}
@@ -565,7 +564,6 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	public String getTipoRegistro() 			{		return tipoRegistro;		}	public void setTipoRegistro(String tipoRegistro) 				{		this.tipoRegistro = tipoRegistro;					}
 	public String getResiInicioTratamientoParaSPD() {	return resiInicioTratamientoParaSPD;}	public void setResiInicioTratamientoParaSPD(String r) 	{		this.resiInicioTratamientoParaSPD = r;				}	
 	public String getResiFinTratamientoParaSPD(){		return resiFinTratamientoParaSPD;}	public void setResiFinTratamientoParaSPD(String resiFin)	{		this.resiFinTratamientoParaSPD = resiFin;			}
-	public String[] getPartesNombre() 			{		return partesNombre;		}	public void setPartesNombre(String[] partes)					{		this.partesNombre = partes;							}
 	public int getNumErrores() 					{		return numErrores;			}	public void setNumErrores(int numError) 						{		this.numErrores = numError;							}
 	public String getErrores() 					{		return errores;				}	public void setErrores(String errores) 							{		this.errores = errores;								}
 	public String getResiTipoMedicacion() 		{		return resiTipoMedicacion;	}	public void setResiTipoMedicacion(String t) 					{		this.resiTipoMedicacion = t;						}
@@ -581,7 +579,6 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	public String getNombrePacienteEnFichero() 	{		return resiNombrePacienteEnFichero;}	public void setNombrePacienteEnFichero(String resiN)	{		this.resiNombrePacienteEnFichero = resiN;			}
 	public int getContador() 					{		return contador;			}	public void setContador(int contador) 							{		this.contador = contador;							}
 	public String getMargenTerapeuticoEstrecho(){		return margenTerapeuticoEstrecho;}public void setMargenTerapeuticoEstrecho(String margen) 		{		this.margenTerapeuticoEstrecho = margen;			}
-	public String getResiNombrePacienteEnFichero() {	return resiNombrePacienteEnFichero;	}	public void setResiNombrePacienteEnFichero(String resiN){		this.resiNombrePacienteEnFichero = resiN;			}
 	public float getPrevisionResi() 			{		return previsionResi;		}	public void setPrevisionResi(float previsionResi) 				{		this.previsionResi = previsionResi;					}
 	public float getPrevisionSPD() 				{		return previsionSPD;		}	public void setPrevisionSPD(float previsionSPD) 				{		this.previsionSPD = previsionSPD;					}
 	public boolean isCuadraPrevision() 			{		return cuadraPrevision;		}	public void setCuadraPrevision(boolean cuadraPrevision) 		{		this.cuadraPrevision = cuadraPrevision;				}
@@ -608,6 +605,81 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	public String getNuevaFechaHasta() {		return nuevaFechaHasta;	}	public void setNuevaFechaHasta(String nuevaFechaHasta) {		this.nuevaFechaHasta = nuevaFechaHasta;	}
 	public String getNuevaTomaDesde() {		return nuevaTomaDesde;	}	public void setNuevaTomaDesde(String nuevaTomaDesde) {		this.nuevaTomaDesde = nuevaTomaDesde;	}
 	public String getNuevaTomaHasta() {		return nuevaTomaHasta;	}	public void setNuevaTomaHasta(String nuevaTomaHasta) {		this.nuevaTomaHasta = nuevaTomaHasta;	}
+
+	//CIP 
+	public String getResiCIP() 										{		return resiCIP;					}
+	public void setResiCIP(String resiCIP) 							{		
+		this.setResiCIPMask(HelperSPD.enmascararCIP(resiCIP));	
+		this.resiCIP = resiCIP;			
+	}
+	public String getResiCIPMask()									{		return resiCIPMask;				}
+	public void setResiCIPMask(String resiCIPMask) 					{		this.resiCIPMask = resiCIPMask;	}
+	
+	//Resi Nombre residente 
+	public String getResiNombrePaciente() 							{		return resiNombrePaciente;		}
+	public void setResiNombrePaciente(String dato)					{	
+		this.setResiNombrePacienteMask(HelperSPD.enmascararNombre(dato));	
+		this.resiNombrePaciente = dato;	
+	}
+	public String getResiNombrePacienteMask() 						{		return this.resiNombrePacienteMask;			}
+	public void setResiNombrePacienteMask(String dato) 				{		this.resiNombrePacienteMask = dato;			}
+
+	//Resi Nombre residente 
+	public String[] getPartesNombre() 								{		return this.partesNombre;					}	
+	public void setPartesNombre(String[] partes)					{		this.partesNombre = partes;					}
+	public String[] getPartesNombreMask() 							{		return partesNombreMask;					}
+	public void setPartesNombreMask(String[] partesNombreMask) 		{		this.partesNombreMask = partesNombreMask;	}
+	
+	//Resi Nombre residente 
+	public String getResiNombrePacienteEnFichero() 					{		return this.resiNombrePacienteEnFichero;	}	
+	public void setResiNombrePacienteEnFichero(String resiN)		{		
+		this.setResiNombrePacienteEnFicheroMask(HelperSPD.enmascararNombre(resiN));	
+		this.resiNombrePacienteEnFichero = resiN;	
+		}
+	public String getResiNombrePacienteEnFicheroMask() 				{		return this.resiNombrePacienteEnFicheroMask;}
+	public void setResiNombrePacienteEnFicheroMask(String dato) 	{		this.resiNombrePacienteEnFicheroMask = dato;}
+	
+	//Resi Nombre residente 
+	public String getResiApellidosNombre() 							{		return this.resiApellidosNombre;			}	
+	public void setResiApellidosNombre(String dato)				 	{		
+		this.setResiApellidosNombreMask(HelperSPD.enmascararNombre(dato));	
+		this.resiApellidosNombre = dato;			
+		}
+	public String getResiApellidosNombreMask() 						{		return this.resiApellidosNombreMask;		}
+	public void setResiApellidosNombreMask(String dato)				{		this.resiApellidosNombreMask = dato;		}
+	
+	//Resi Nombre residente 
+	public String getResiApellidos() 								{		return this.resiApellidos;					}	
+	public void setResiApellidos(String dato) 						{		
+		this.setResiApellidosMask(HelperSPD.enmascararNombre(dato));	
+		this.resiApellidos = dato;			
+		}
+	public String getResiApellidosMask() 							{		return this.resiApellidosMask;				}
+	public void setResiApellidosMask(String resiApellidosMask) 		{		this.resiApellidosMask = resiApellidosMask;	}
+	
+	//Resi Nombre residente 
+	public String getResiApellido1() 								{		return this.resiApellido1;					}	
+	public void setResiApellido1(String dato) 						{		
+		this.setResiApellido1Mask(HelperSPD.enmascararNombre(dato));	
+		this.resiApellido1 = dato;			
+		}
+	public String getResiApellido1Mask() 							{		return this.resiApellido1Mask;				}
+	public void setResiApellido1Mask(String resiApellido1Mask) 		{		this.resiApellido1Mask = resiApellido1Mask;	}
+	
+	//Resi Nombre residente 
+	public String getResiApellido2() 								{		return this.resiApellido2;					}	
+	public void setResiApellido2(String dato) 						{		
+		this.setResiApellido2Mask(HelperSPD.enmascararNombre(dato));	
+		this.resiApellido2 = dato;			
+		}
+	public String getResiApellido2Mask() 							{		return this.resiApellido2Mask;				}
+	public void setResiApellido2Mask(String resiApellido2Mask) 		{		this.resiApellido2Mask = resiApellido2Mask;	}
+
+	
+
+
+
+
 
 
 

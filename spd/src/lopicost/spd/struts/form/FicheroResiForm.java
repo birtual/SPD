@@ -53,6 +53,7 @@ public class FicheroResiForm   extends GenericForm {
 	private String filtroEstados = "PENDIENTE_CONFIRMAR";
 	private boolean filtroMostrarGeneradosSeq=false;
 	private boolean filtroCheckedMostrarGeneradosSeq=false;
+	private boolean filtroCheckedVerDatosPersonales=false;
 	
 	private boolean procesoValido=true;
 	private boolean soloCabecera=false;
@@ -1587,7 +1588,8 @@ public class FicheroResiForm   extends GenericForm {
 	public String getExcluirSecuenciasGuide() 			{return excluirSecuenciasGuide;				}	public void setExcluirSecuenciasGuide(String f) 			{	this.excluirSecuenciasGuide = f;			}
 	public boolean isFiltroMostrarGeneradosSeq()		{return filtroMostrarGeneradosSeq;			}	public void setFiltroMostrarGeneradosSeq(boolean f)			{	this.filtroMostrarGeneradosSeq = f;			}
 	public boolean isFiltroCheckedMostrarGeneradosSeq() {return filtroCheckedMostrarGeneradosSeq;	}	public void setFiltroCheckedMostrarGeneradosSeq(boolean f) 	{ 	this.filtroCheckedMostrarGeneradosSeq = f;	}
-	public boolean isFiltroUnicoGtvm() 				{return filtroUnicoGtvm;					}	public void setFiltroUnicoGtvm(boolean filtroVariosGtvm) 	{	this.filtroUnicoGtvm = filtroVariosGtvm;	}
+	public boolean isFiltroUnicoGtvm() 					{return filtroUnicoGtvm;					}	public void setFiltroUnicoGtvm(boolean filtroVariosGtvm) 	{	this.filtroUnicoGtvm = filtroVariosGtvm;	}
+	public boolean isFiltroCheckedVerDatosPersonales() 	{return filtroCheckedVerDatosPersonales;	}	public void setFiltroCheckedVerDatosPersonales(boolean dato){	this.filtroCheckedVerDatosPersonales=dato;	}
 
 	public String getSeleccionIdentificador() {
 		return seleccionIdentificador;

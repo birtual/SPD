@@ -613,7 +613,7 @@ public class PacienteDAO extends GenericDAO{
 		 c.setIdPacienteResidencia(resultSet.getString("idPacienteResidencia"));
 		 c.setApellidos(resultSet.getString("cognoms"));
 		 c.setApellidosNombre(resultSet.getString("cognomsNom"));
-		 c.setNIdentidad(resultSet.getString("nIdentidad"));
+		 c.setNumIdentidad(resultSet.getString("nIdentidad"));
 		 c.setSegSocial(resultSet.getString("segSocial"));
 		 c.setPlanta(resultSet.getString("planta"));
 		 c.setHabitacion(resultSet.getString("habitacion"));
@@ -780,7 +780,7 @@ public class PacienteDAO extends GenericDAO{
 			  		qry+= " 	";			  		
 			  		qry+= " ) VALUES ( ";
 		  	   		qry+= " '"+f.getCIP()+"', '"+f.getIdPacienteResidencia()+"', '"+f.getNombre()+"', '"+f.getApellido1() + " " + f.getApellido2() +"', '"+f.getApellidosNombre()+"',  '"+f.getApellido1()+"', '"+f.getApellido2()+"', ";
-		  	   		qry+= " '"+f.getnIdentidad()+"', '"+f.getSegSocial()+"', '"+f.getPlanta()+"', '"+f.getHabitacion()+"', ";
+		  	   		qry+= " '"+f.getNumIdentidad()+"', '"+f.getSegSocial()+"', '"+f.getPlanta()+"', '"+f.getHabitacion()+"', ";
 		  	   		qry+= " (select idDivisionResidencia from bd_divisionResidencia where oidDivisionResidencia= '"+f.getOidDivisionResidencia()+"'), '"+f.getSpd()+"', CONVERT(datetime, getdate(), 120),  '"+f.getExitus()+"', ";
 		  	   		qry+= " '"+f.getEstatus()+"', '"+f.getBolquers()+"', '"+f.getComentarios()+"', '"+f.getFechaAltaPaciente()+"',  '"+f.getMutua()+"' ";
 		  	   		qry+= "";

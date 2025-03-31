@@ -1,3 +1,4 @@
+<%@page import="java.util.UUID"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
@@ -15,7 +16,17 @@
 
     <h2>Generación de Archivos DM y RX</h2>
     
-    <% String estado = (String) request.getAttribute("estado");
+    <% 
+    // Verificar si ya existe un token en la sesión
+    String token = (String) session.getAttribute("processToken");
+    if (token == null) {
+        // Si no existe, generarlo y guardarlo en la sesión
+        token = UUID.randomUUID().toString();
+        session.setAttribute("processToken", token);
+    }
+
+    
+    String estado = (String) request.getAttribute("estado");
     String oidFicheroResiCabecera = request.getParameter("oidFicheroResiCabecera");
      String buttonId = "generateButton_" + oidFicheroResiCabecera; // ID del botón
     %>
@@ -45,11 +56,8 @@
     </logic:iterate>
 	<input type="button" onclick="javascript:cerrar()" value="Cancelar"/>
    	<input type="button" id="generateButton_<%=oidFicheroResiCabecera%>" class="negro" value="Confirmar y generar Ficheros DM y RX" onclick="javascript:generarFicherosRobot('<%= oidFicheroResiCabecera %>')" />
-
 		
 </fieldset>
-
-
 
          <script>
             // Desactivar el botón en la ventana principal
@@ -75,7 +83,7 @@
 
         // Redirigir después de 3 segundos
         setTimeout(function() {
-            window.location.href = '<%= request.getContextPath() %>/FicheroResiCabeceraLite.do?parameter=generarFicherosDMyRX&oidFicheroResiCabecera=<%= oidFicheroResiCabecera %>';
+            window.location.href = '<%= request.getContextPath() %>/FicheroResiCabeceraLite.do?parameter=generarFicherosDMyRX&oidFicheroResiCabecera=<%= oidFicheroResiCabecera %>&processToken=<%= token %>';
         }, 3000); // Redirección en 3000 ms (3 segundos)
     </script>
 <% }  else if ("completado".equals(estado)) { %>

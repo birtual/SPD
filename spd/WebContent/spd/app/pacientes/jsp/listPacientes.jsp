@@ -105,7 +105,11 @@
 					<!-- input type="button" onclick="javascript:nuevo()"  value="Nuevo"  /-->  
 				</p> 
 			</div> 
-			
+			<div>
+						 	 
+				<input type="checkbox" name="filtroVerDatosPersonales" ${formulari.filtroVerDatosPersonales ? 'checked' : ''}  onchange="reloadCheckbox('filtroVerDatosPersonales', 'list')" />
+				Mostrar datos 
+			</div>	
 		<logic:notEmpty  name="formulari" property="listaPacientesBean">
 			<table  id="listaPacientesBean" align="center" border="1">
 				<tr>
@@ -132,17 +136,38 @@
 					<td><bean:write name="data" property="idDivisionResidencia" /></td>
 					<td align="center"  class="oidPaciente" ><bean:write name="data" property="oidPaciente" /></td>
 			
-					<td align="center" title="Acceso al detalle de las discrepancias" ><a  href="javascript:goDiscrepancias('<bean:write name="data" property="oidPaciente" />')"><bean:write name="data" property="CIP" /></a></td> 
-					<td><bean:write name="data" property="nombre" /></td>
-					<td><bean:write name="data" property="apellido1" /></td>
-					<td><bean:write name="data" property="apellido2" /></td>
-					<td align="left" title="Acceso al detalle de los tratamientos" >
+					 
+				<c:choose>
+		    		<c:when test="${formulari.filtroVerDatosPersonales}">
+		        		<td align="center" title="Acceso al detalle de las discrepancias" ><a  href="javascript:goDiscrepancias('<bean:write name="data" property="oidPaciente" />')"><bean:write name="data" property="CIP" /></a></td>
+						<td><bean:write name="data" property="nombre" /></td>
+						<td><bean:write name="data" property="apellido1" /></td>
+						<td><bean:write name="data" property="apellido2" /></td>
+						<td align="left" title="Acceso al detalle de los tratamientos" >
 							<logic:notEqual name="data" property="segSocial" value="···">
 							<a href="javascript:goTratamientoRct('<bean:write name="data" property="oidPaciente" />')"><bean:write name="data" property="segSocial" /></a>
 							</logic:notEqual>
-					
-					
-					</td> 
+						</td> 
+		    		</c:when>
+		    		<c:otherwise>
+		        		<td align="center" title="Acceso al detalle de las discrepancias" ><a  href="javascript:goDiscrepancias('<bean:write name="data" property="oidPaciente" />')"><bean:write name="data" property="CIPMask" /></a></td>
+						<td><bean:write name="data" property="nombreMask" /></td>
+						<td><bean:write name="data" property="apellido1Mask" /></td>
+						<td><bean:write name="data" property="apellido2Mask" /></td>
+						<td align="left" title="Acceso al detalle de los tratamientos" >
+							<logic:notEqual name="data" property="segSocial" value="···">
+							<a href="javascript:goTratamientoRct('<bean:write name="data" property="oidPaciente" />')"><bean:write name="data" property="segSocialMask" /></a>
+							</logic:notEqual>
+						</td> 
+			    	</c:otherwise>
+				</c:choose>
+	
+	
+					<!-- td align="left" title="Acceso al detalle de los tratamientos" >
+							<logic:notEqual name="data" property="segSocial" value="···">
+							<a href="javascript:goTratamientoRct('<bean:write name="data" property="oidPaciente" />')"><bean:write name="data" property="segSocial" /></a>
+							</logic:notEqual>
+					</td --> 
 					
 					<td><bean:write name="data" property="planta" /></td>
 					<td><bean:write name="data" property="habitacion" /></td>

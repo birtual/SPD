@@ -15,6 +15,7 @@
 </head>
 
 <bean:define id="formulari" name="PacientesForm" type="lopicost.spd.struts.form.PacientesForm" />
+<bean:define id="pac" name="formulari" property="pacienteBean"  type="lopicost.spd.struts.bean.PacienteBean" />
 <script language="javaScript" src="/spd/spd/app/pacientes/js/pacientes.js"></script>
 
 <body id="general">
@@ -22,6 +23,25 @@
 <html:form action="/Pacientes.do" method="post">	
 <html:errors/>
 <div id="contingut">
+
+	<html:hidden property="parameter" />
+	<html:hidden property="oidPaciente" />
+   	<!--html:hidden property="filtroVerDatosPersonales" /-->  
+	<div>
+		<input type="checkbox" name="filtroVerDatosPersonales" ${formulari.filtroVerDatosPersonales ? 'checked' : ''}  onchange="reloadCheckbox('filtroVerDatosPersonales', 'detallBolquers')" />
+			Mostrar datos 
+	</div>	
+	<c:choose>
+		    <c:when test="${formulari.filtroVerDatosPersonales}">
+				<div><p><bean:write name="pac" property="CIP" />-<bean:write name="pac" property="nombreApellidos" /></p></div>
+		    </c:when>
+		    <c:otherwise>
+				<div><p><bean:write name="pac" property="CIPMask" />-<bean:write name="pac" property="nombreApellidosMask" /></p></div>
+		    </c:otherwise>
+	</c:choose>
+
+
+
 	<div>
 		<p>		
 		<logic:greaterThan name="formulari" property="oidPaciente" value="0">

@@ -35,12 +35,44 @@ function abre(loc)
 
 }
 
-function abreVentana(idDivisionResidencia, tipo)
+function sinProcesar(idDivisionResidencia, tipo)
 {
-	var loc = '/spd/ExtRe.do?parameter=sinProcesar&ACTIONTODO='+tipo+'&idDivisionResidencia='+ idDivisionResidencia ;				//url de llamanda				
-	window.open(loc, 'Consulta', 'dependent=yes,height=600,width=800,top=50,left=50,resizable=yes,scrollbars=yes' );
+	goNew("sinProcesar", idDivisionResidencia, tipo, 600, 800 );
+	
+	// var loc = '/spd/ExtRe.do?parameter=sinProcesar&ACTIONTODO='+tipo+'&idDivisionResidencia='+ idDivisionResidencia ;				
+	//window.open(loc, 'Consulta', 'dependent=yes,height=600,width=800,top=50,left=50,resizable=yes,scrollbars=yes' );
 
 }	
+
+function goNew(parameter, idDivisionResidencia, tipo,  target, width, height ) {
+    var form = document.createElement("form");
+    form.method = "post";
+    form.action = "/spd/ExtRe.do";
+    form.target = target;
+
+    var filtroCheckbox = document.querySelector("input[name='filtroVerDatosPersonales']");
+    var filtroValor = (filtroCheckbox && filtroCheckbox.checked) ? "true" : "false";
+
+    [
+     ["parameter", parameter], 
+     ["idDivisionResidencia", idDivisionResidencia],
+     ["ACTIONTODO", tipo]
+    ]
+    .forEach(function(item) {
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = item[0];
+        input.value = item[1];
+        form.appendChild(input);
+    });
+    if(width=='') width='650';if(height=='') height='700';
+    document.body.appendChild(form);
+    window.open("", target, "dependent=yes,width="+width+",height="+height+",top=50,left=0,resizable=yes,scrollbars=yes");
+    form.submit();
+    document.body.removeChild(form);
+}
+
+
 
 function goInicio()
 {
@@ -125,10 +157,10 @@ function goInicio()
 				}catch(Exception e){} 
 				%>
 				<!-- td style="width: 15%; text-align: center;"><bean:write name="data" property="cipsProcesadosTrat" />  %= porcenTrat %></td -->	
-				<td style="width: 15%; text-align: center;"> <%= tratSinError %> / <a href="javascript:abreVentana('<bean:write name="data" property="idDivisionResidencia" />', 'TRATAMIENTOS')"><%= tratConError %></a></td>	
+				<td style="width: 15%; text-align: center;"> <%= tratSinError %> / <a href="javascript:sinProcesar('<bean:write name="data" property="idDivisionResidencia" />', 'TRATAMIENTOS')"><%= tratConError %></a></td>	
 				<td style="width: 10%; text-align: center;"><bean:write name="data" property="fechaUltimoProcesoTrat" /></td>
 				<!-- td style="width: 15%; text-align: center;"><bean:write name="data" property="cipsProcesadosRecPend"/>  %= porcenPend %></td -->
-				<td nowrap style="width: 15%; text-align: center;"> <%= pendSinError %> / <a href="javascript:abreVentana('<bean:write name="data" property="idDivisionResidencia" />', 'PENDIENTES')"><%= pendConError %></a></td>	
+				<td nowrap style="width: 15%; text-align: center;"> <%= pendSinError %> / <a href="javascript:sinProcesar('<bean:write name="data" property="idDivisionResidencia" />', 'PENDIENTES')"><%= pendConError %></a></td>	
 				<td style="width: 10%; text-align: center;"><bean:write name="data" property="fechaUltimoProcesoRecPend" /></td>					
 			
 			</tr>

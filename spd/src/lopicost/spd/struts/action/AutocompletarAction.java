@@ -22,10 +22,11 @@ public class AutocompletarAction extends DispatchAction
         String term = request.getParameter("query");
         String campo = request.getParameter("campo");
         String id = request.getParameter("id"); // El id de cada campo
-
+        String paramAdicional = request.getParameter("paramAdicional");
+        
         try {
             // Lógica para obtener sugerencias basadas en el término de búsqueda y el campo
-            List<BdConsejo> sugerencias = obtenerSugerenciasDesdeBaseDeDatos(term, campo, id);
+            List<BdConsejo> sugerencias = obtenerSugerenciasDesdeBaseDeDatos(term, campo, id, paramAdicional);
 
             // Convertir la lista de sugerencias a formato JSON y escribir en la respuesta
             response.setContentType("application/json");
@@ -40,14 +41,14 @@ public class AutocompletarAction extends DispatchAction
     }
 
 	
-    private List<BdConsejo> obtenerSugerenciasDesdeBaseDeDatos(String term, String campo, String id) throws SQLException {
+    private List<BdConsejo> obtenerSugerenciasDesdeBaseDeDatos(String term, String campo, String id, String codGtVm) throws SQLException {
         List<BdConsejo> sugerencias = new ArrayList<>();
 
         // Lógica para buscar en el campo correspondiente y usar el ID para determinar la búsqueda
         if ("filtroNomGtVm".equalsIgnoreCase(campo)) {
             sugerencias = BdConsejoDAO.getAutoGtVm(term);
         } else if ("filtroNombreLaboratorio".equalsIgnoreCase(campo)) {
-            sugerencias = BdConsejoDAO.getAutoLabs(term);
+            sugerencias = BdConsejoDAO.getAutoLabs(term, codGtVm);
         }
 
         return sugerencias;

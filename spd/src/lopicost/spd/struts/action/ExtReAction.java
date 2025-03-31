@@ -1,27 +1,16 @@
 package lopicost.spd.struts.action;
 
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.actions.DispatchAction;
 
 import lopicost.config.logger.Logger;
-import lopicost.spd.model.DivisionResidencia;
 import lopicost.spd.model.Usuario;
 import lopicost.spd.persistence.DivisionResidenciaDAO;
 import lopicost.spd.persistence.UsuarioDAO;
@@ -32,7 +21,6 @@ import lopicost.spd.struts.helper.ExtReHelper;
 public class ExtReAction extends GenericAction  {
 
 	static String className = "ExtReAction";
-
 	   
 	public ActionForward list(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List errors = new ArrayList();

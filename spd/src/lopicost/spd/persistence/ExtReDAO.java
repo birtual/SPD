@@ -241,6 +241,17 @@ public class ExtReDAO
 			            		mensaje="CIP no procesado.";
 			            	}
 			            }
+		            	if(p.getCIP()!=null && !p.getCIP().equals("") && p.getCIP().toUpperCase().contains("MMTT"))
+		            	{
+		            		claseId = "mutua_o_sin_tsi";
+		            		mensaje="MUTUA" ;
+		            	}
+		            	if(p.getSegSocial()!=null && !p.getSegSocial().equals("") && p.getSegSocial().toUpperCase().contains("XXXX"))
+		            	{
+		            		claseId = "mutua_o_sin_tsi";
+		            		mensaje="TSI no informada." ;
+		            	}
+		            	
 	  		            p.setMensajeTratamiento(mensaje);
 	  		            p.setClaseId(claseId);
 		            	listaPacientes.add(p);

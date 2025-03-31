@@ -841,7 +841,18 @@ public class StringUtil{
         return asciiText.toString();
     }
     public static String left(String input, int length) {
+        if (input == null) {
+            return "";
+        }
         return input.substring(0, Math.min(input.length(), length));
+    }
+    
+    public static String right(String input, int length) {
+        if (input == null) {
+            return ""; // 
+        }
+        int start = Math.max(0, input.length() - length); // Asegura que no haya índices negativos
+        return input.substring(start);
     }
 
     public static String substring(String input, int start, int length) {

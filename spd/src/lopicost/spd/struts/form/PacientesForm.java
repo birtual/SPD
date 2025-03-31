@@ -35,7 +35,7 @@ public class PacientesForm   extends GenericForm {
 	private String nombreApellidos="";				//nomCognoms	 	 	nombre + '' + apellido1 + ' ' +apellido2,
 	private String apellidosNombre="";				//cognomsNom            apellido1 + ' ' +apellido2 + ', ' + nombre,
 	
-	private String nIdentidad="";					//nIdentidad            varchar(25) DEFAULT '',
+	private String numIdentidad="";					//nIdentidad            varchar(25) DEFAULT '',
 	private String segSocial="";					//segSocial             varchar(25) DEFAULT '',
 	private String planta="";						//planta                varchar(25) DEFAULT '',
 	private String habitacion="";					//habitacion            varchar(25) DEFAULT '',
@@ -53,6 +53,7 @@ public class PacientesForm   extends GenericForm {
 	private String codigoUP;						//codigoUP				varchar(15),
 	private List ficheroResiCabecera;				//Listado de los tratamiento cargado del paciente para una producción 				
 	private int oidFicheroResiCabecera;				//tratamiento cargado del paciente para una producción 				
+
 
 	private String filtroEstadosResidente = "";
 	private String filtroEstadosSPD = "";
@@ -182,11 +183,11 @@ public class PacientesForm   extends GenericForm {
 	public void setApellidosNombre(String apellidosNombre) {
 		this.apellidosNombre = apellidosNombre;
 	}
-	public String getnIdentidad() {
-		return nIdentidad;
+	public String getNumIdentidad() {
+		return numIdentidad;
 	}
-	public void setnIdentidad(String nIdentidad) {
-		this.nIdentidad = nIdentidad;
+	public void setNumIdentidad(String numIdentidad) {
+		this.numIdentidad = numIdentidad;
 	}
 	public String getSegSocial() {
 		return segSocial;
@@ -422,8 +423,6 @@ public class PacientesForm   extends GenericForm {
 	public void setListaTomasCabecera(List listaTomasCabecera) {
 		this.listaTomasCabecera = listaTomasCabecera;
 	}
-	
-	
 
 
 	

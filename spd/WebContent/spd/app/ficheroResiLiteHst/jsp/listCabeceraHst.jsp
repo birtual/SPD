@@ -33,6 +33,7 @@
 <html:form action="/FicheroResiCabeceraLiteHst.do" method="post">	
 
 <div id="container">
+    <html:hidden property="oidDivisionResidencia" />
     <html:hidden property="idDivisionResidencia" />
     <html:hidden property="idUsuario" />
     <html:hidden property="parameter" value="list"/>
@@ -62,10 +63,11 @@
 		</logic:notEmpty>
 		<div>	
 			<label for="Name">Residencia</label>	
-			<html:select property="oidDivisionResidencia"  value="<%= String.valueOf(formulari.getOidDivisionResidencia()) %>" onchange="submitResi()"> 
+
+			<html:select property="oidDivisionResidenciaFiltro"  value="<%= String.valueOf(formulari.getOidDivisionResidenciaFiltro()) %>" onchange="submitResi()"> 
 				<html:option value="">Residencia</html:option>
 	   			<html:optionsCollection name="formulari" property="listaDivisionResidenciasCargadas" label="nombreDivisionResidencia" value="oidDivisionResidencia" />
-			</html:select>
+			</html:select>			
 		</div>	
 
 	   	<div>	

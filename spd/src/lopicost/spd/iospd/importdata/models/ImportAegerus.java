@@ -192,7 +192,8 @@ public class ImportAegerus extends ImportProcessImpl
         if(tFechasProduccionSPD.size()>1 && !tFechasProduccionSPD.containsKey("NO"))
         {
     		diario=true;
-    		diasProduccionSPD=tFechasProduccionSPD.size();
+      		diasMesConcretos=getStringDiasTreeMap();
+      		diasProduccionSPD=tFechasProduccionSPD.size();
         }
         if(tFechasProduccionSPD.size()==1 && tFechasProduccionSPD.containsKey("NO"))
         {

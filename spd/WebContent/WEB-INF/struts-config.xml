@@ -72,10 +72,10 @@
         	<forward name="list" path="/spd/app/pacientes/jsp/listPacientes.jsp" />
         	<forward name="detalle" path="/spd/app/pacientes/jsp/detalle.jsp" />
         	<forward name="editar" path="/spd/app/pacientes/jsp/editar.jsp" />
+        	<forward name="nuevo" path="/spd/app/pacientes/jsp/nuevo.jsp" />
         	<forward name="nuevoCIP" path="/spd/app/pacientes/jsp/nuevoCIP.jsp" />
         	<forward name="cambioCIP" path="/spd/app/pacientes/jsp/cambioCIP.jsp" />
-        	<forward name="nuevo" path="/spd/app/pacientes/jsp/nuevo.jsp" />
-        	<forward name="nuevoOk" path="/spd/app/pacientes/jsp/nuevoOk.jsp" />
+        	<!-- forward name="nuevoOk" path="/spd/app/pacientes/jsp/nuevoOk.jsp" / -->
         	<forward name="listadoProceso" path="/spd/app/pacientes/jsp/listPacientesProceso.jsp" />
         	<forward name="tratamientos" path="/spd/app/pacientes/jsp/tratamientosPaciente.jsp" />
         	<forward name="detallBolquers" path="/spd/app/pacientes/jsp/detallBolquersPorCIP.jsp" />

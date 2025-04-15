@@ -37,6 +37,12 @@ public class FicheroResiCabeceraLiteHstAction extends GenericAction  {
 	
 		formulari.setListaFicheroResiCabeceraBean(dao.getGestFicheroResi(getIdUsuario(), formulari, currpage*SPDConstants.PAGE_ROWS,(currpage+1)*SPDConstants.PAGE_ROWS, null, false, true));
 	
+		//INICIO creación de log en BBDD
+		try{
+			SpdLogAPI.addLog(getIdUsuario(), "",  "", "",  SpdLogAPI.A_TRATAMIENTO, SpdLogAPI.B_ACCESO, SpdLogAPI.C_LISTADO_HIST, "SpdLog.tratamiento.consulta.acceso_listado_hist", getIdUsuario());
+		}catch(Exception e){}	 //Consulta del listado de tratamientos 
+		//FIN creación de log en BBDD
+		
 		return mapping.findForward("list");
 	}
 	

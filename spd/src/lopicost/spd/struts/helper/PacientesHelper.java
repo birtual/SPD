@@ -62,6 +62,20 @@ public class PacientesHelper  {
 	}
 
 
+	public static boolean cambioCIP(String idUsuario, PacienteBean pac, PacientesForm form) throws SQLException {
+		boolean result = PacienteDAO.cambioCIP(form, pac);
+		if(result)
+		{
+		//INICIO creación de log en BBDD
+			try{
+				SpdLogAPI.addLog(idUsuario, form.getCIP(), form.getIdDivisionResidencia(), null, SpdLogAPI.A_RESIDENTE, SpdLogAPI.B_CAMBIOCIP, ".", "SpdLog.residentes.cambio.cip", 
+						 new String[]{idUsuario, pac.getCIP(), form.getCIP()} );
+			}catch(Exception e){}	// Cambios--> @@.
+			//FIN creación de log en BBDD
+		}
+		return result;
+	}
+
 	
 	/**
 	 * Método encargado de actualizar datos del paciente modificado.
@@ -166,7 +180,7 @@ public class PacientesHelper  {
 			//INICIO creación de log automática en base al estado en BBDD
 			try{
 				SpdLogAPI.addLog(idUsuario, p.getCIP(),  p.getIdDivisionResidencia(), null, SpdLogAPI.A_RESIDENTE, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.residente.edicion.automatica.segunEstado", 
-						 new String[]{idUsuario, p.getCIP(), antesAuto, despuesAuto} );
+						 new String[]{p.getCIP(), antesAuto, despuesAuto} );
 			}catch(Exception e){}	// Cambios--> @@.
 			//FIN creación de log en BBDD
 		}
@@ -833,6 +847,7 @@ public class PacientesHelper  {
 		return listaEstatusResidente;
 
 	}
+
 
 
 

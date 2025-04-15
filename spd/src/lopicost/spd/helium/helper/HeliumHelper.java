@@ -241,7 +241,15 @@ public class HeliumHelper {
 	private static void creaCenter(String spdUsuario, Center careHome, FicheroResiForm formulari) throws Exception {
 		try {
 			DivisionResidencia dr = DivisionResidenciaDAO.getDivisionResidenciaById(spdUsuario, formulari.getIdDivisionResidencia());
-			careHome.setName(dr.getNombreBolsa()); 
+			String name = "DEFAULT";
+			if(dr!=null)
+			{
+				name = dr.getNombreBolsa();
+				if(name==null || name.equals(""))
+					name= dr.getLocationId();
+			} 
+			careHome.setName(name); 
+
 			
 		} catch (ClassNotFoundException e) {
 			//e.printStackTrace();

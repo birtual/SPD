@@ -41,7 +41,15 @@
 	<html:hidden property="campoGoogle"/>
 	
  
- 
+ 	   	<!-- mostramos mensajes y errores, si existen -->
+		<logic:notEmpty name="formulari" property="errors">
+			<font color="red"><ul>
+				<u>Mensaje:</u>
+					<logic:iterate id="error" name="formulari" property="errors" type="java.lang.String">
+							<li><bean:write name="error"/></li>
+					</logic:iterate>
+				</ul></font>
+		</logic:notEmpty>
  			
 		<div>
 			<input type="checkbox" name="filtroVerDatosPersonales" ${formulari.filtroVerDatosPersonales ? 'checked' : ''}  onchange="reloadCheckbox('filtroVerDatosPersonales', 'editar')" />
@@ -66,7 +74,10 @@
 		<tr>
 			<c:choose>
 			    <c:when test="${formulari.filtroVerDatosPersonales}">
-					<td>CIP</td><td><bean:write name="data" property="CIP"/></td></td>
+					<td>CIP<br>
+					<input type="button" onclick="javascript:goCambiarCip()" value="cambiar CIP"/>
+					</td><td><bean:write name="data" property="CIP"/> 
+					</td>
 			    </c:when>
 			    <c:otherwise>
 					<td>CIP</td><td><bean:write name="data" property="CIPMask"/></td>

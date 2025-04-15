@@ -27,17 +27,19 @@ public class SpdLogAPI
 	
 	
 	//accion - Constantes de segundo nivel 
-	public static final String B_CONSULTA= "CONSULTA";
-	public static final String B_CARGAFICHERO= "CARGAFICHERO";
-	public static final String B_DESCARGAFICHERO= "DESCARGAFICHERO";
-	public static final String B_EDICION= "EDICION";
-	public static final String B_BORRADO= "BORRADO";
-	public static final String B_CREACION= "CREACION";
-	public static final String B_VALIDACION= "VALIDACION";
-	public static final String B_CONFIRMACION= "CONFIRMACION";
-	public static final String B_CONFIRMACION_MASIVA= "CONFIRMACION_MASIVA";
-	public static final String B_COMPARACION= "COMPARACION";
-	public static final String B_EXPORTACION= "EXPORTACION";
+	public static final String B_ACCESO = "ACCESO";
+	public static final String B_CONSULTA = "CONSULTA";
+	public static final String B_CARGAFICHERO = "CARGAFICHERO";
+	public static final String B_DESCARGAFICHERO = "DESCARGAFICHERO";
+	public static final String B_CAMBIOCIP = "CAMBIOCIP";
+	public static final String B_EDICION = "EDICION";
+	public static final String B_BORRADO = "BORRADO";
+	public static final String B_CREACION = "CREACION";
+	public static final String B_VALIDACION = "VALIDACION";
+	public static final String B_CONFIRMACION = "CONFIRMACION";
+	public static final String B_CONFIRMACION_MASIVA = "CONFIRMACION_MASIVA";
+	public static final String B_COMPARACION = "COMPARACION";
+	public static final String B_EXPORTACION = "EXPORTACION";
 	
 
 	//subAccion - Constantes de tercer nivel 

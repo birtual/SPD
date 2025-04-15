@@ -152,8 +152,28 @@ try {
 			f.submit();
 		}
 		
+		function goCambiarCip()
+		{
+			var f = document.PacientesForm;
+			f.parameter.value='cambioCIP';
+			f.ACTIONTODO.value='CAMBIOCIP';
+			f.submit();
+		}
 
-		
+		function goCambiarCipOK()
+		{
+			var f = document.PacientesForm;
+			if(f.CIP.value=='') 
+			{
+				alert('Es necesario indicar un CIP');
+				return;
+			}
+
+			f.parameter.value='cambioCIP';
+			f.ACTIONTODO.value='CAMBIOCIP_OK';
+			f.submit();
+		}
+			
 		
 		function confirmacionFicherosRobotResidente(oidPaciente, oidFicheroResiCabecera)
 		{

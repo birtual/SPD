@@ -5,7 +5,8 @@ import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
- 
+
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -97,32 +98,46 @@ public class PacientesAction extends GenericAction  {
 	public ActionForward cambioCIP(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		PacientesForm f =  (PacientesForm) form;
 		List errors = new ArrayList();
+		PacienteBean pac = null;
+		pac=PacienteDAO.getPacientePorOID(getIdUsuario(), f.getOidPaciente());
+		f.setPacienteBean(pac);
+
 		f.setErrors(errors);
 		
-		if(f.getACTIONTODO()!=null && f.getACTIONTODO().equals("CAMBIOCIP"))
+		//if(f.getACTIONTODO()!=null && f.getACTIONTODO().equals("CAMBIOCIP"))
+		if ("CAMBIOCIP".equals(f.getACTIONTODO()))	
 		{
 			return mapping.findForward("cambioCIP");
 
 		}
-		else if(f.getACTIONTODO()!=null && f.getACTIONTODO().equals("CAMBIOCIP_OK"))
+		//else if(f.getACTIONTODO()!=null && f.getACTIONTODO().equals("CAMBIOCIP_OK"))
+		else if ("CAMBIOCIP_OK".equals(f.getACTIONTODO()))	
 		{
+			String anteriorCIP = pac.getCIP();
 			String nuevoCIP = f.getCIP();
-			if(PacientesHelper.existeCIP(nuevoCIP))
+
+			//si son iguales lanzamos mensaje y volvemos
+			if (nuevoCIP!=null && nuevoCIP.equals(anteriorCIP))
+			{
+				errors.add( "No se realiza cambio, el CIP es el mismo");
+				f.setACTIONTODO("CAMBIOCIP");
+				return mapping.findForward("cambioCIP");
+			}
+			//miramos si ya existe el CIP nuevo
+			PacienteBean pc = PacientesHelper.getPacientePorCIP(nuevoCIP);
+			//si existe lanzamos mensaje y volvemos
+			if(pc!=null)
 			{
 				errors.add( "El CIP " + nuevoCIP + " ya existe");
-				f.setACTIONTODO("NUEVO_CIP");
-				return mapping.findForward("nuevoCIP");
+				f.setACTIONTODO("CAMBIOCIP");
+				return mapping.findForward("cambioCIP");
 			}
-
-			
-			boolean result=PacientesHelper.nuevo(getIdUsuario(), f);
+			boolean result=PacientesHelper.cambioCIP(getIdUsuario(), pac, f);
 			if(result)
 			{
-				errors.add( "Alta creada correctamente ");
-				PacienteBean p  = PacientesHelper.getPacientePorCIP(f.getCIP());
-				PacientesHelper.aplicaControles(getIdUsuario(), p);
+				errors.add( "CIP cambiado correctamente ");
 			}
-			else errors.add( "No se ha podido crear el registro");
+			else errors.add( "No se ha podido cambiar el CIP");
 
 			list( mapping,  form,  request,  response);
 			f.setErrors(errors);

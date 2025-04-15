@@ -779,7 +779,7 @@ public class PacienteDAO extends GenericDAO{
 			  		qry+= " 	estatus,  bolquers,  comentarios, fechaAltaPaciente, mutua ";
 			  		qry+= " 	";			  		
 			  		qry+= " ) VALUES ( ";
-		  	   		qry+= " '"+f.getCIP()+"', '"+f.getIdPacienteResidencia()+"', '"+f.getNombre()+"', '"+f.getApellido1() + " " + f.getApellido2() +"', '"+f.getApellidosNombre()+"',  '"+f.getApellido1()+"', '"+f.getApellido2()+"', ";
+		  	   		qry+= " '"+f.getCIP()+"', '"+f.getIdPacienteResidencia()+"', '"+f.getNombre()+"', '"+f.getApellido1() + " " + f.getApellido2() +"', '"+f.getApellido1() + " " + f.getApellido2() +", "+f.getNombre()+"',  '"+f.getApellido1()+"', '"+f.getApellido2()+"', ";
 		  	   		qry+= " '"+f.getNumIdentidad()+"', '"+f.getSegSocial()+"', '"+f.getPlanta()+"', '"+f.getHabitacion()+"', ";
 		  	   		qry+= " (select idDivisionResidencia from bd_divisionResidencia where oidDivisionResidencia= '"+f.getOidDivisionResidencia()+"'), '"+f.getSpd()+"', CONVERT(datetime, getdate(), 120),  '"+f.getExitus()+"', ";
 		  	   		qry+= " '"+f.getEstatus()+"', '"+f.getBolquers()+"', '"+f.getComentarios()+"', '"+f.getFechaAltaPaciente()+"',  '"+f.getMutua()+"' ";
@@ -812,6 +812,16 @@ public class PacienteDAO extends GenericDAO{
 			
 		} finally {con.close();}
 			return result>0;
+	}
+
+
+
+	public static boolean cambioCIP(PacientesForm form, PacienteBean pac) throws SQLException {
+		boolean result=false;
+		String query = " UPDATE SPDAC.dbo.bd_pacientes SET CIP='" + form.getCIP() + "', codigoSeguridad_3 ='"+ pac.getCIP() +"' WHERE  oidPaciente='"+pac.getOidPaciente()+"'";
+		result=edita(query);
+		
+		return result;
 	}
 
 
@@ -1052,10 +1062,7 @@ public class PacienteDAO extends GenericDAO{
 	}
 
 
-	public static List<FicheroResiBean> getTratamientoSPDPorCIP(String idUsuario, String cip) {
-		// TODO Esbozo de método generado automáticamente
-		return null;
-	}
+
 
 
 	

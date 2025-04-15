@@ -12,7 +12,9 @@ import java.util.List;
 
 import lopicost.config.logger.Logger;
 import lopicost.config.pool.dbaccess.Conexion;
+import lopicost.spd.helper.FicheroResiCabeceraHelper;
 import lopicost.spd.security.helper.VisibilidadHelper;
+import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.CamposPantallaBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.form.FicheroResiForm;
@@ -30,20 +32,32 @@ public class FicheroResiCabeceraDAO {
 	static String TABLA_HISTORICO 	=	"dbo.SPDHst_ficheroResiCabecera";   //tabla de histórico
 
 	
-	public static boolean nuevo(String  spdUsuario, String idDivisionResidencia, String idProceso, String fileIn) throws ClassNotFoundException, SQLException {
+	public static boolean nuevo(String  spdUsuario, String idDivisionResidencia, String idProceso, String fileIn) throws Exception {
 		String table = TABLA_ACTIVA;
 		String fechaDesde = DateUtilities.getDate(HelperSPD.obtenerFechaDesde(idProceso), "yyyy/MM/dd", "dd/MM/yyyy");  
 		String fechaHasta = DateUtilities.getDate(HelperSPD.obtenerFechaHasta(idProceso), "yyyy/MM/dd", "dd/MM/yyyy"); 
 		
+		CabecerasXLSBean desdeToma = FicheroResiCabeceraHelper.getDesdeTomaPrimerDia(idDivisionResidencia);
+		CabecerasXLSBean hastaToma = FicheroResiCabeceraHelper.getHastaTomaUltimoDia(idDivisionResidencia);
+		
+		String tomaInicial = desdeToma!=null?desdeToma.getIdToma():"";
+		String tomaFinal = hastaToma!=null?hastaToma.getIdToma():"";
         int result=0;
 		  Connection con = Conexion.conectar();
-	  	   String qry = " INSERT INTO "+table+" (fechaCreacion,  idDivisionResidencia,   ";
-	  	   	qry+= " idProceso, nombreFicheroResi, idEstado, free1, free2, free3, usuarioCreacion, fechaDesde, fechaHasta, nuevaFechaDesde, nuevaFechaHasta, nuevaTomaDesde, nuevaTomaHasta)	";
-	  	   	qry+= "   VALUES 	";
-	       	qry+= " (";
-	       	qry+= " 	CONVERT(datetime, getdate(), 120),  '"+idDivisionResidencia+"'";
-	       	qry+= ", '"+	idProceso+"', '"+fileIn+"','"+SPDConstants.SPD_PROCESO_1_EN_CREACION+"'";
-			qry+= ", 'original', '' , '','"+spdUsuario+"', '"+fechaDesde+"', '"+fechaHasta+"', null, null, null, null ) ";
+	  	   String qry = " INSERT INTO "+table+" ( ";
+	  	   	qry+= " fechaCreacion,  idDivisionResidencia,   ";
+	  	   	qry+= " idProceso, nombreFicheroResi, idEstado, ";
+	  	   	qry+= " free1, free2, free3, usuarioCreacion, ";
+	  	   	qry+= " fechaDesde, fechaHasta, 	";
+	  	   	qry+= " nuevaFechaDesde, nuevaFechaHasta, ";
+	  	   	qry+= " nuevaTomaDesde, nuevaTomaHasta)	";
+	  	   	qry+= " VALUES 	(";
+	       	qry+= " CONVERT(datetime, getdate(), 120),  '"+idDivisionResidencia+"'";
+	       	qry+= " , '"+	idProceso+"', '"+fileIn+"','"+SPDConstants.SPD_PROCESO_1_EN_CREACION+"'";
+			qry+= " , 'original', '' , '','"+spdUsuario+"', ";
+			qry+= " '"+fechaDesde+"', '"+fechaHasta+"', ";
+			qry+= " null, null, ";
+			qry+= " '"+ tomaInicial +"', '"+ tomaFinal+"' ) ";
 
 			System.out.println(className + "--> FicheroResiCabeceraDAO.nuevo -->" +qry );		
 			

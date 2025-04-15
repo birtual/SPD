@@ -237,7 +237,7 @@ public static FicheroResiBean checkTratamientoValido(String spdUsuario, FicheroR
     
     }
 
-	public boolean addGestFicheroResi(String  spdUsuario, String idDivisionResidencia, String idProceso, String filein) throws ClassNotFoundException, SQLException {
+	public boolean addGestFicheroResi(String  spdUsuario, String idDivisionResidencia, String idProceso, String filein) throws Exception {
 		return FicheroResiCabeceraDAO.nuevo(spdUsuario, idDivisionResidencia, idProceso,  filein);
 		
 	}

@@ -30,7 +30,7 @@ import lopicost.spd.utils.StringUtil;
  */
 public class FicheroResiDetalleHelper {
 
-	private final String cLOGGERHEADER = "ExtReHelper: ";
+	private final String cLOGGERHEADER = "FicheroResiDetalleHelper: ";
 	private final String cLOGGERHEADER_ERROR = cLOGGERHEADER + "ERROR: ";
 
 

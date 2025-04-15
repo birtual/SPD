@@ -446,6 +446,61 @@ public class CabecerasXLSDAO {
 
 
 
+	public static CabecerasXLSBean getDesdeTomaPrimerDia(String idDivisionResidencia) throws Exception {
+     	
+    	Connection con = Conexion.conectar();
+    	CabecerasXLSBean  c =null;
+      
+    	String qry = "SELECT * FROM dbo.SPD_cabecerasXLS g  ";
+ 		qry+= " WHERE 1=1 ";
+ 		qry+= " AND idDivisionResidencia = '"+idDivisionResidencia+"'  " ;
+		qry+=" AND desdeTomaPrimerDia = 1 ";
+
+		System.out.println(className + "  - getDesdeTomaPrimerDia -->  " +qry );
+	    ResultSet resultSet = null;
+	    try {
+	            PreparedStatement pstat = con.prepareStatement(qry);
+	            resultSet = pstat.executeQuery();
+	            if (resultSet.next()) {
+	            	c=creaCabecerasXLSBean(resultSet);
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }finally {con.close();}
+	 
+		
+	        return c;
+    }
+
+	public static CabecerasXLSBean getHastaTomaUltimoDia(String idDivisionResidencia) throws Exception {
+     	
+    	Connection con = Conexion.conectar();
+    	CabecerasXLSBean  c =null;
+      
+    	String qry = "SELECT * FROM dbo.SPD_cabecerasXLS g  ";
+ 		qry+= " WHERE 1=1 ";
+ 		qry+= " AND idDivisionResidencia = '"+idDivisionResidencia+"'  " ;
+ 		qry+=" AND hastaTomaUltimoDia = 1 ";
+ 		
+		System.out.println(className + "  - getHastaTomaUltimoDia -->  " +qry );		
+	         ResultSet resultSet = null;
+	       try {
+	            PreparedStatement pstat = con.prepareStatement(qry);
+	            resultSet = pstat.executeQuery();
+	            if (resultSet.next()) {
+	            	c=creaCabecerasXLSBean(resultSet);
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }finally {con.close();}
+	 
+		
+	        return c;
+    }
+
+
+
+
 
 	
 	

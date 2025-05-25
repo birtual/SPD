@@ -2,35 +2,23 @@ package lopicost.spd.struts.action;
 
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import lopicost.config.logger.Logger;
 import lopicost.spd.model.Aviso;
-import lopicost.spd.model.Enlace;
 import lopicost.spd.model.Usuario;
 import lopicost.spd.persistence.AvisosDAO;
-import lopicost.spd.persistence.DivisionResidenciaDAO;
-import lopicost.spd.persistence.EnlaceDAO;
 import lopicost.spd.persistence.FarmaciaDAO;
-import lopicost.spd.persistence.PacienteDAO;
 import lopicost.spd.persistence.UsuarioDAO;
-import lopicost.spd.struts.bean.PacienteBean;
 import lopicost.spd.struts.form.AvisosForm;
-import lopicost.spd.struts.form.EnlacesForm;
-import lopicost.spd.struts.form.PacientesForm;
 import lopicost.spd.struts.helper.AvisoHelper;
-import lopicost.spd.struts.helper.EnlacesHelper;
-import lopicost.spd.struts.helper.PacientesHelper;
 
 
 public class AvisosAction extends GenericAction  {
@@ -169,18 +157,7 @@ public class AvisosAction extends GenericAction  {
 		}
 		return mapping.findForward("nuevo");
 	}
-	/*
-	
-	public ActionForward detalle(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		DivResidenciasForm f =  (DivResidenciasForm) form; 
-		f.setDivisionResidencia(DivisionResidenciaDAO.getDivisionResidenciaByOid(getIdUsuario(), f.getOidDivisionResidencia()));
-		
-		return mapping.findForward("detalle");
-	}
-	
 
-
-	*/
 
 	
 	public void log (String message, int level)

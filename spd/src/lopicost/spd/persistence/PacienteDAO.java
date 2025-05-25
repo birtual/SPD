@@ -1,20 +1,14 @@
 package lopicost.spd.persistence;
 
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import org.apache.commons.logging.impl.Log4JCategoryLog;
 
 import lopicost.config.logger.Logger;
 import lopicost.config.pool.dbaccess.Conexion;
-import lopicost.spd.model.GestSustitucionesLite;
 import lopicost.spd.security.helper.VisibilidadHelper;
 import lopicost.spd.struts.bean.BolquersDetalleBean;
 import lopicost.spd.struts.bean.DiscrepanciaBean;
@@ -24,7 +18,6 @@ import lopicost.spd.struts.bean.TratamientoRctBean;
 import lopicost.spd.struts.form.PacientesForm;
 import lopicost.spd.struts.form.SustXComposicionForm;
 import lopicost.spd.utils.SPDConstants;
-import lopicost.spd.utils.StringUtil;
  
  
 public class PacienteDAO extends GenericDAO{
@@ -56,7 +49,7 @@ public class PacienteDAO extends GenericDAO{
       return result;
    }
     
-    
+    /*
     public static int  getCountBdPacientesProceso(String spdUsuario, PacientesForm form) throws Exception {
     	
    	 //String qry = getQueryPacientesProceso( form.getOidDivisionResidencia(), form.getOidPaciente(), form.getCampoGoogle(),  true,  0, 0, null, form.getIdProceso());
@@ -80,21 +73,21 @@ public class PacienteDAO extends GenericDAO{
 
    return result;
 }
-    
+    */
 	public static String getQueryPacientes(String spdUsuario, PacientesForm form, boolean count, int inicio, int fin, String seleccionCampo) throws Exception {
 		return getQueryPacientes( spdUsuario, form.getOidDivisionResidencia(), form.getOidPaciente(), form.getCampoGoogle(), form.getCampoOrder(), count, inicio, fin
 				, seleccionCampo, form.getFiltroEstadosSPD()
 				, form.getFiltroEstadosResidente(), form.getFiltroEstatusResidente(), form.getFiltroBolquers(), form.getFiltroMutua()  );
 	}
 
-	
+/*	
 	public static String getQueryPacientesProceso(String spdUsuario, PacientesForm form, boolean count, int inicio, int fin, String seleccionCampo) throws Exception {
 		//return getQueryPacientesProceso( form.getOidDivisionResidencia(), form.getOidPaciente(), form.getCampoGoogle(), count, inicio, fin, seleccionCampo, form.getIdProceso());
 		return getQueryPacientesProceso( spdUsuario, form.getOidDivisionResidencia(), count, inicio, fin
 				, form.getIdProceso(), form.getCampoGoogle(), form.getFiltroEstadosSPD()
 				, form.getFiltroEstadosResidente(), form.getFiltroEstatusResidente(), form.getFiltroBolquers(), form.getFiltroMutua()  );
 	}
-
+*/
 	/**
 	 * Función que construye la query de pacientes, ya sea para mostrar los de la residencia que se pase por parámetro
 	 * @param oidDivisionResidencia - Obligatorio 
@@ -270,7 +263,7 @@ public class PacienteDAO extends GenericDAO{
 	 * @param string 
 	 * @return
 	 * @throws Exception 
-	 */
+	
 	private static String getQueryPacientesProceso(String spdUsuario, int oidDivisionResidencia, boolean count, int inicio, int fin
 			, String idProceso, String campoGoogle, String estadoSPD, String estadoResidente, String estatusResidente, String bolquers, String mutua) throws Exception {
 
@@ -299,23 +292,23 @@ public class PacienteDAO extends GenericDAO{
     			}
     			if(mutua!=null && !mutua.equals(""))
     			{
-    				qryWhere+=" and mutua = '"+mutua+"' ";
+    				qryWhere+=" and mutua like '"+mutua+"' ";
     			}
     			if(bolquers!=null && !bolquers.equals(""))
     			{
-    				qryWhere+=" and bolquers = '"+bolquers+"' ";
+    				qryWhere+=" and bolquers like '"+bolquers+"' ";
     			}
-    			if(estadoSPD!=null)	//puede ser vacío
+    			if(estadoSPD!=null && !estadoSPD.equals(""))	//puede ser vacío
     			{
-    				qryWhere+=" and spd = '"+estadoSPD+"' ";
+    				qryWhere+=" and spd like '"+estadoSPD+"' ";
     			}
-    			if(estadoResidente!=null) //puede ser vacío
+    			if(estadoResidente!=null && !estadoResidente.equals("")) //puede ser vacío
     			{
-    				qryWhere+=" and estado = '"+estadoResidente+"' ";
+    				qryWhere+=" and ACTIVO like '"+estadoResidente+"' ";
     			}
-    			if(estatusResidente!=null) //puede ser vacío
+    			if(estatusResidente!=null  && !estatusResidente.equals("")) //puede ser vacío
     			{
-    				qryWhere+=" and ( UPPER(estatus) = '"+estatusResidente.toUpperCase()+"' OR estado + ' - ' + estatus = '"+estatusResidente+"'  )";
+    				qryWhere+=" and ( UPPER(estatus) = '"+estatusResidente.toUpperCase()+"' OR ACTIVO + ' - ' + estatus = '"+estatusResidente+"'  )";
     			}
     			
     	String 	qryOrder=  	" order by CIP"; 
@@ -337,7 +330,7 @@ public class PacienteDAO extends GenericDAO{
    		
     	return qrySelect + qryFrom + qryWhere + qryOrder + qryAux;
 	}
-	
+	 */
 	
 	/*
 	
@@ -446,7 +439,7 @@ public class PacienteDAO extends GenericDAO{
 	   * @param distinctCampo
 	   * @return
 	 * @throws Exception 
-	   */
+	   
 	public List<PacienteBean> getPacientesProceso(String spdUsuario, PacientesForm form, int inicio, int fin, String distinctCampo) throws Exception {
 		  String qry = getQueryPacientesProceso( spdUsuario, form, false, inicio, fin, distinctCampo);
 	    	 Connection con = Conexion.conectar();
@@ -506,7 +499,7 @@ public class PacienteDAO extends GenericDAO{
 	  return listaPacientes;
 	}
 
-	
+	*/
 	
 	private FicheroResiBean creaTratamiento(ResultSet resultSet) throws SQLException {
 		FicheroResiBean f = new FicheroResiBean();

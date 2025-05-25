@@ -123,7 +123,7 @@ function getContextPath() {
 	
 <table style="width:50%">
 	<tr>
-		<th class="segunda">Fecha creación</th>
+		<th class="segunda">Fecha modificación</th>
 		<th class="segunda">Texto</th>
 		<th class="segunda">Fecha inicio</th>
 		<th class="segunda">Fecha fin</th>
@@ -132,10 +132,11 @@ function getContextPath() {
 		<th class="segunda">Creador</th>
 		<th class="segunda">Orden</th>
 		<th class="segunda">Tipo</th>
+		<th class="segunda">Usuario modificación</th>
 	</tr>
 	<logic:iterate id="data" name="formulari" property="avisos" type="lopicost.spd.model.Aviso" indexId="position">
 	<tr>
-		<td><bean:write name="data" property="fechaInsert" /></td>
+		<td><bean:write name="data" property="fechaUpdateFormateada" /></td>		
 		<td><bean:write name="data" property="texto" /></td>
 		<td><bean:write name="data" property="fechaInicio" /></td>
 		<td><bean:write name="data" property="fechaFin" /></td>
@@ -144,7 +145,7 @@ function getContextPath() {
 		<td><bean:write name="data" property="usuarioCreador" /></td>
 		<td><bean:write name="data" property="orden" /></td>
 		<td><bean:write name="data" property="tipo" /></td>
-		
+		<td><bean:write name="data" property="usuarioUpdate" /></td>
 		
 			<td>
 				<p class="botons">

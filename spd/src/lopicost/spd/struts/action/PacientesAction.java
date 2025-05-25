@@ -246,11 +246,25 @@ public class PacientesAction extends GenericAction  {
 		{
 			if(formulari.getListaProcesosCargados()!=null && formulari.getListaProcesosCargados().size()>0)
 			{
+				//por defecto cargamos la última
 				FicheroResiBean fic = formulari.getListaProcesosCargados().get(0);
 				idProceso=fic.getIdProceso();
-				formulari.setIdProceso(idProceso);
+
+				Iterator<FicheroResiBean> _it = formulari.getListaProcesosCargados().iterator();
+				boolean trobat=false;
+				while(_it.hasNext() && !trobat)
+				{
+					fic = (FicheroResiBean) _it.next();
+					if(fic!=null && fic.getOidFicheroResiCabecera()==formulari.getOidFicheroResiCabecera())
+					{
+						trobat=true;
+						idProceso=fic.getIdProceso();
+					}
+				}
+
 			}
 		}
+		formulari.setIdProceso(idProceso);
 		formulari.setListaBeans(PacientesHelper.getDetalleTratamientosSPDPorCIP(getIdUsuario(), pac, formulari.getIdProceso(), false));
 
 		
@@ -263,7 +277,7 @@ public class PacientesAction extends GenericAction  {
  		return mapping.findForward("detalleTratamientosSPD");
 	}
 	
-	
+	/*
 	public ActionForward listadoProceso(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 	
 		PacientesForm formulari =  (PacientesForm) form;
@@ -277,7 +291,7 @@ public class PacientesAction extends GenericAction  {
 		
 		return mapping.findForward("listadoProceso");
 	}
-	
+	*/
 	public ActionForward producirSPDResidente(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		PacientesForm formulari =  (PacientesForm) form;

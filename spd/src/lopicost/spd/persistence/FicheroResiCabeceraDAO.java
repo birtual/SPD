@@ -34,8 +34,8 @@ public class FicheroResiCabeceraDAO {
 	
 	public static boolean nuevo(String  spdUsuario, String idDivisionResidencia, String idProceso, String fileIn) throws Exception {
 		String table = TABLA_ACTIVA;
-		String fechaDesde = DateUtilities.getDate(HelperSPD.obtenerFechaDesde(idProceso), "yyyy/MM/dd", "dd/MM/yyyy");  
-		String fechaHasta = DateUtilities.getDate(HelperSPD.obtenerFechaHasta(idProceso), "yyyy/MM/dd", "dd/MM/yyyy"); 
+		String fechaDesde = DateUtilities.getDate(HelperSPD.obtenerFechaDesde(idProceso), "yyyyMMdd", "dd/MM/yyyy");  
+		String fechaHasta = DateUtilities.getDate(HelperSPD.obtenerFechaHasta(idProceso), "yyyyMMdd", "dd/MM/yyyy"); 
 		
 		CabecerasXLSBean desdeToma = FicheroResiCabeceraHelper.getDesdeTomaPrimerDia(idDivisionResidencia);
 		CabecerasXLSBean hastaToma = FicheroResiCabeceraHelper.getHastaTomaUltimoDia(idDivisionResidencia);
@@ -56,7 +56,7 @@ public class FicheroResiCabeceraDAO {
 	       	qry+= " , '"+	idProceso+"', '"+fileIn+"','"+SPDConstants.SPD_PROCESO_1_EN_CREACION+"'";
 			qry+= " , 'original', '' , '','"+spdUsuario+"', ";
 			qry+= " '"+fechaDesde+"', '"+fechaHasta+"', ";
-			qry+= " null, null, ";
+			qry+= " '"+fechaDesde+"', '"+fechaHasta+"', ";
 			qry+= " '"+ tomaInicial +"', '"+ tomaFinal+"' ) ";
 
 			System.out.println(className + "--> FicheroResiCabeceraDAO.nuevo -->" +qry );		
@@ -159,7 +159,7 @@ public class FicheroResiCabeceraDAO {
 			qryFrom+=  " 	from dbo.SPD_ficheroResiDetalle d  ";
 //			qryFrom+=  " 	where isdate(d.resiInicioTratamiento) =1 ";
 			qryFrom+=  " 	where d.tipoRegistro='LINEA'";
-			qryFrom+=  " 	and (UPPER(d.validar) in ('"+SPDConstants.REGISTRO_VALIDAR+"') OR UPPER(d.confirmar) in ('"+SPDConstants.REGISTRO_CONFIRMAR+"' )) ";
+			qryFrom+=  " 	and (UPPER(d.validar) in ('"+SPDConstants.REGISTRO_VALIDAR+"') OR UPPER(d.controlValidacionDatos) in ('"+SPDConstants.CTRL_VALIDAR_ALERTA+"' ) OR UPPER(d.confirmar) in ('"+SPDConstants.REGISTRO_CONFIRMAR+"' )) ";
 			qryFrom+=  " 	group by d.idDivisionResidencia, d.idProceso ";
 			qryFrom+=  " ) c6 on (g.idDivisionResidencia=c6.idDivisionResidencia  and g.idProceso=c6.idProceso) ";
 			

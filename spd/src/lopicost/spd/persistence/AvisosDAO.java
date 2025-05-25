@@ -26,58 +26,10 @@ public class AvisosDAO extends GenericDAO{
 	static String className="AvisosDAO";
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
-/*
-	public static List<Aviso> findByFilters(String usuario, String idFarmacia, Date fecha) throws ClassNotFoundException, SQLException {
-	    List<Aviso> result = new ArrayList<>();
-		Aviso aviso =null;
-	    
-	    String qry = "SELECT DISTINCT a.* FROM SPD_AVISOS a WHERE 1=1 ";
-	
-		    if (idFarmacia != null && !idFarmacia.isEmpty()) {
-		        qry += "AND idFarmacia = ? ";
-		    }
-		    if (fecha != null) {
-		    	qry += "AND ? BETWEEN fechaInicio AND fechaFin";
-		    }
-		    try (Connection con = Conexion.conectar();
-		            PreparedStatement stmt = con.prepareStatement(qry)) {
-		           int paramIndex = 1;
 
-		           if (idFarmacia != null && !idFarmacia.isEmpty()) {
-		               stmt.setString(paramIndex++, idFarmacia);
-		           }
+	public static  List<Aviso> findByFilters(String usuario, int oidAviso, String idFarmacia, boolean actuales, Date fecha) throws Exception {
 
-		           if (fecha != null) {
-		               java.sql.Date sqlDate = new java.sql.Date(fecha.getTime());
-		               stmt.setDate(paramIndex++, sqlDate); // fecha
-		           }
-
-		           ResultSet resultSet = stmt.executeQuery();
-
-			    	while (resultSet.next()) {
-			    		aviso = new Aviso();
-			    		aviso.setActivo(resultSet.getString("activo"));
-			    		aviso.setFechaFin(resultSet.getDate("fechaFin"));
-			    		aviso.setFechaInicio(resultSet.getDate("fechaInicio"));
-			    		aviso.setFechaInsert(resultSet.getDate("fechaInsert"));
-			    		aviso.setIdFarmacia(resultSet.getString("idFarmacia"));
-			    		aviso.setOidAviso(resultSet.getInt("oidAviso"));
-			    		aviso.setOrden(resultSet.getInt("orden"));
-			    		result.add(aviso);
-			    		
-			    		 }
-		       } catch (SQLException e) {
-		           e.printStackTrace();
-		           throw e; // Propaga la excepción o maneja según corresponda
-		       }
-
-		       return result;
-		   }
-	*/    
-
-	public static  List findByFilters(String usuario, int oidAviso, String idFarmacia, boolean actuales, Date fecha) throws Exception {
-
-		List result=new ArrayList<Aviso>();
+		List<Aviso> result=new ArrayList<Aviso>();
 		Aviso aviso =null;
 		String qry = " SELECT distinct a.* ";
 				qry+= " FROM SPD_AVISOS a ";
@@ -107,10 +59,6 @@ public class AvisosDAO extends GenericDAO{
 				qry+= " ORDER BY a.activo desc, a.orden, a.fechaInicio ";
 				
 			    
-				    	
-		
-
-        
   		Connection con = Conexion.conectar();
 	
 		System.out.println(className + "--> findByFilters -->" +qry );		
@@ -139,13 +87,16 @@ public class AvisosDAO extends GenericDAO{
                     aviso.setFechaFin(fechaFinStr);
                 }
                
-	    		aviso.setFechaInsert(resultSet.getDate("fechaInsert"));
+	    		aviso.setFechaInsert(resultSet.getTimestamp("fechaInsert"));
 	    		aviso.setIdFarmacia(resultSet.getString("idFarmacia"));
 	    		aviso.setOidAviso(resultSet.getInt("oidAviso"));
 	    		aviso.setTexto(resultSet.getString("texto"));
 	    		aviso.setUsuarioCreador(resultSet.getString("usuarioCreador"));
 	    		aviso.setOrden(resultSet.getInt("orden"));
 	    		aviso.setTipo(resultSet.getString("tipo"));
+	    		aviso.setUsuarioUpdate(resultSet.getString("usuarioUpdate"));
+	    		aviso.setFechaUpdate(resultSet.getTimestamp("fechaUpdate"));
+	    		
 	    		result.add(aviso);
 	    		
 	    		 }
@@ -165,13 +116,13 @@ public class AvisosDAO extends GenericDAO{
 		  String qry = "INSERT INTO dbo.SPD_avisos  ";
 		  		qry+= " ( ";
 		  		qry+= " 	fechaInicio, fechaFin, ";
-		  		qry+= " 	texto, activo, idFarmacia, usuarioCreador, orden, tipo ";
+		  		qry+= " 	texto, activo, idFarmacia, usuarioCreador, orden, tipo, usuarioUpdate, fechaUpdate ";
 		  		qry+= " ) VALUES ( ";
 	  	   		//qry+= " '"+new Date(aviso.getFechaInicioDate().getTime())+"', '"+new Date(aviso.getFechaFinDate().getTime())+"', '"+aviso.getTexto()+"', ";
 	  	   		qry+= " CONVERT(DATETIME, '"+aviso.getFechaInicio()+"', 103),  CONVERT(DATETIME, '"+aviso.getFechaFin()+"', 103), '"+aviso.getTexto()+"', ";
 	  	   		qry+= " '"+aviso.getActivo()+"', '"+aviso.getIdFarmacia()+"', '"+idUser+"', '"+aviso.getOrden()+"', '"+aviso.getTipo()+"'";
+	  	   		qry+= " '"+idUser+"', GETDATE() ";
 		  		qry+= " )  ";
-
                 
 	      		System.out.println(className + "  - nuevo-->  " +qry );		
 	    try {
@@ -185,13 +136,13 @@ public class AvisosDAO extends GenericDAO{
 		return result>0;
 	}
 
-	public static List getAvisosDeHoy(String idUsuario, int oidAviso, String idFarmacia, boolean actuales, Date fecha) throws Exception {
+	public static List<Aviso> getAvisosDeHoy(String idUsuario, int oidAviso, String idFarmacia, boolean actuales, Date fecha) throws Exception {
 		
 		return findByFilters(idUsuario, oidAviso, idFarmacia, actuales, fecha);
 	}
 
 	public static Aviso findByOid(String idUsuario, int oidAviso) throws Exception {
-		List aux = findByFilters(idUsuario, oidAviso,null, false, null);
+		List<Aviso> aux = findByFilters(idUsuario, oidAviso,null, false, null);
 		if (aux != null && !aux.isEmpty()) {
 			return (Aviso)aux.get(0);
 		}

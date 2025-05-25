@@ -32,7 +32,7 @@ import lopicost.spd.utils.StringUtil;
  
  *Logica de negocio 
  */
-public class DivResidenciaHelper  {
+public class DivResidenciasHelper  {
 
 
 	private final static String cLOGGERHEADER = "DivResidenciaHelper: ";

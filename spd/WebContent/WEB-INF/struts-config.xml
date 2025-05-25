@@ -14,6 +14,7 @@
     	<form-bean name="SustXComposicionForm" type="lopicost.spd.struts.form.SustXComposicionForm"/>
     	<form-bean name="SustXGtForm" type="lopicost.spd.struts.form.SustXGtForm"/>
     	
+   		<form-bean name="FarmaciasForm" type="lopicost.spd.struts.form.FarmaciasForm"/>
    		<form-bean name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm"/>
    		<form-bean name="FicheroResiNewForm" type="lopicost.spd.struts.form.FicheroResiNewForm"/>
      	<form-bean name="BdConsejoForm" type="lopicost.spd.struts.form.BdConsejoForm"/>
@@ -26,6 +27,8 @@
    		<form-bean name="SpdLogForm" type="lopicost.spd.struts.form.SpdLogForm"/>     
   		<form-bean name="DivResidenciasForm" type="lopicost.spd.struts.form.DivResidenciasForm"/>     
   		<form-bean name="AvisosForm" type="lopicost.spd.struts.form.AvisosForm"/>     
+  		<form-bean name="ProcesosForm" type="lopicost.spd.struts.form.ProcesosForm"/>     
+  		<form-bean name="ProcesosRestriccionesForm" type="lopicost.spd.struts.form.ProcesosRestriccionesForm"/>     
     		
 
 	<!-- IOSPD Import -->
@@ -76,7 +79,7 @@
         	<forward name="nuevoCIP" path="/spd/app/pacientes/jsp/nuevoCIP.jsp" />
         	<forward name="cambioCIP" path="/spd/app/pacientes/jsp/cambioCIP.jsp" />
         	<!-- forward name="nuevoOk" path="/spd/app/pacientes/jsp/nuevoOk.jsp" / -->
-        	<forward name="listadoProceso" path="/spd/app/pacientes/jsp/listPacientesProceso.jsp" />
+        	<!-- forward name="listadoProceso" path="/spd/app/pacientes/jsp/listPacientesProceso.jsp" /-->
         	<forward name="tratamientos" path="/spd/app/pacientes/jsp/tratamientosPaciente.jsp" />
         	<forward name="detallBolquers" path="/spd/app/pacientes/jsp/detallBolquersPorCIP.jsp" />
         	<forward name="detalleDiscrepancias" path="/spd/app/pacientes/jsp/discrepanciasPorCIP.jsp" />
@@ -535,7 +538,73 @@
         	<forward name="borrar" path="/spd/app/avisos/jsp/list.jsp" />
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
         </action>     
+  
+  
+  		<action path="/Procesos" type="lopicost.spd.struts.action.GestProcesosAction"  
+		 	parameter="parameter"  name="ProcesosForm" 
+			scope="request" validate="false">
+        	<forward name="admin" path="/spd/app/procesos/jsp/admin.jsp" />
+        	<forward name="list" path="/spd/app/procesos/jsp/list.jsp" />
+        	<forward name="nuevo" path="/spd/app/procesos/jsp/nuevo.jsp" />
+        	<forward name="detalle" path="/spd/app/procesos/jsp/detalle.jsp" />
+        	<forward name="editar" path="/spd/app/procesos/jsp/editar.jsp" />
+        	<forward name="borrar" path="/spd/app/procesos/jsp/list.jsp" />
+		    <forward name="lookUp" path="/spd/app/procesos/jsp/lookUpProcesos.jsp" />
+        	<forward name="listadoEjecuciones" path="/spd/app/procesos/jsp/listEjecuciones.jsp" />
+        	<forward name="logEjecucion" path="/spd/app/procesos/jsp/logEjecucion.jsp" />
+        	
+           <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
         
+        
+        <action path="/ProcesosEjecuciones" type="lopicost.spd.struts.action.GestProcesosAction"  
+		 	parameter="parameter"  name="ProcesosForm" 
+			scope="request" validate="false">
+        	<!-- forward name="list" path="/spd/app/procesos/jsp/listEjecuciones.jsp" /> -->
+        	<forward name="detalle" path="/spd/app/procesos/jsp/detalleEjecuciones.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+        
+        <action path="/ProcesosHistorico" type="lopicost.spd.struts.action.GestProcesosAction"  
+		 	parameter="parameter"  name="ProcesosForm" 
+			scope="request" validate="false">
+        	<forward name="list" path="/spd/app/procesos/jsp/listHistorico.jsp" />
+        	<forward name="detalle" path="/spd/app/procesos/jsp/detalleHistorico.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+ 
+   		<action path="/ProcesosRestricciones2" type="lopicost.spd.struts.action.GestProcesosRestriccionesAction"  
+		 	parameter="parameter"  name="ProcesosRestriccionesForm" 
+			scope="request" validate="false">
+        	<forward name="admin" path="/spd/app/procesos/jsp/adminRestricciones.jsp" />
+        	<forward name="list" path="/spd/app/procesos/jsp/listRestricciones.jsp" />
+        	<forward name="nuevo" path="/spd/app/procesos/jsp/nuevoRestricciones.jsp" />
+        	<forward name="detalle" path="/spd/app/procesos/jsp/detalleRestricciones.jsp" />
+        	<forward name="editar" path="/spd/app/procesos/jsp/editarRestricciones.jsp" />
+        	<forward name="borrar" path="/spd/app/procesos/jsp/listRestricciones.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action> 
+        
+        <action path="/ProcesosRestricciones"
+        type="lopicost.spd.struts.action.GestProcesosRestriccionesAction"  
+        parameter="parameter"  
+        name="ProcesosRestriccionesForm"
+        scope="request"
+        input="/spd/app/procesos/jsp/listRestricciones.jsp">
+    <forward name="list" path="/spd/app/procesos/jsp/listRestricciones.jsp"/>
+    <forward name="editar" path="/spd/app/procesos/jsp/editarRestricciones.jsp"/>
+    
+    <forward name="success" path="/ProcesosRestricciones.do?parameter=list" redirect="true"/>
+</action>
+
+         <action path="/Farmacias" type="lopicost.spd.struts.action.FarmaciasAction"  
+		 	parameter="parameter"  name="FarmaciasForm" 
+			scope="request" validate="false">
+        	<forward name="lookUp" path="/spd/app/farmacias/jsp/lookUpFarmacias.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+        </action>  
+
+              
 	</action-mappings>
 <message-resources parameter="example.ApplicationResources" null="false"/>
 </struts-config>

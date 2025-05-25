@@ -33,7 +33,7 @@ public class GenericDAO {
 		public static boolean update(String query) throws SQLException {
 			int result=0;
 			Connection con = Conexion.conectar();
-			System.out.println( "  - edita-->  " +query );		
+			System.out.println( "  - update-->  " +query );		
 			try {
 				PreparedStatement pstat = con.prepareStatement(query);
 			    result=pstat.executeUpdate();

@@ -534,7 +534,7 @@ table.tablaResi {
 	border: 0.1em solid #400040; 
 	border-width: 1 1.2em 1.3em 1; 
 }
-table.detallePaciente, table.detalleEnlace{
+table.detallePaciente, table.detalleEnlace, table.detalle{
 	width: 50%;
 	width:auto;
 	border: 0.1em solid #400040; 

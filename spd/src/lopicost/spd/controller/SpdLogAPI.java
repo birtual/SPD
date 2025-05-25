@@ -24,6 +24,8 @@ public class SpdLogAPI
 	public static final String A_RESIDENCIA = "RESIDENCIA";
 	public static final String A_AVISO = "AVISOS";
 	public static final String A_RENTABILIDAD = "RENTABILIDAD";
+	public static final String A_PROCESO = "PROCESO_RECOGIDA_DATOS";
+	public static final String A_PROCESO_RESTRICCION = "RESTRICCION_HORARIA_PROCESOS";
 	
 	
 	//accion - Constantes de segundo nivel 
@@ -37,6 +39,7 @@ public class SpdLogAPI
 	public static final String B_CREACION = "CREACION";
 	public static final String B_VALIDACION = "VALIDACION";
 	public static final String B_CONFIRMACION = "CONFIRMACION";
+	public static final String B_LANZAMIENTO = "LANZAMIENTO";
 	public static final String B_CONFIRMACION_MASIVA = "CONFIRMACION_MASIVA";
 	public static final String B_COMPARACION = "COMPARACION";
 	public static final String B_EXPORTACION = "EXPORTACION";

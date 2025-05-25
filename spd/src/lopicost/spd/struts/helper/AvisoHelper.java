@@ -6,11 +6,8 @@ import java.util.Objects;
 import lopicost.spd.controller.SpdLogAPI;
 import lopicost.spd.model.Aviso;
 import lopicost.spd.persistence.AvisosDAO;
-import lopicost.spd.persistence.PacienteDAO;
-import lopicost.spd.struts.bean.PacienteBean;
 import lopicost.spd.struts.form.AvisosForm;
-import lopicost.spd.struts.form.PacientesForm;
-import lopicost.spd.utils.StringUtil;
+
 
 public class AvisoHelper {
 
@@ -19,7 +16,7 @@ public class AvisoHelper {
 			String antes = ""; 
 			String despues = "";
 			
-			String querySet="";
+			String querySet=" usuarioUpdate = '"+ idUsuario+ "', fechaUpdate= GETDATE(), ";
 			if(aviso!=null)
 			{
 				/*  INICIO Texto*/
@@ -29,9 +26,6 @@ public class AvisoHelper {
 					despues+=" | Texto: "+ f.getTexto();
 
 					cambios =true;
-					if (!querySet.equals("")) 
-						querySet+= ", "; //añadimos la coma en caso que exista uno previo 		
-					 
 					querySet+= " texto = '"+ f.getTexto() + "'" ;
 				}
 			
@@ -41,8 +35,6 @@ public class AvisoHelper {
 					antes+=  " | FechaInicio: "+ aviso.getFechaInicio();
 					despues+=" | FechaInicio: "+ f.getFechaInicio();
 
-					if (!querySet.equals(""))  	querySet+= ", ";
-					 
 					cambios =true;
 					querySet+= " fechaInicio = '"+ f.getFechaInicio() + "'" ;
 				}
@@ -51,8 +43,6 @@ public class AvisoHelper {
 				{
 					antes+=  " | FechaFin: "+ aviso.getFechaFin();
 					despues+=" | FechaFin: "+ f.getFechaFin();
-
-					if (!querySet.equals(""))  	querySet+= ", ";
 					 
 					cambios =true;
 					querySet+= " fechaFin = '"+ f.getFechaFin() + "'" ;
@@ -63,8 +53,6 @@ public class AvisoHelper {
 					antes+=  " | Farmacia: "+ aviso.getIdFarmacia();
 					despues+=" | Farmacia: "+ f.getIdFarmacia();
 
-					if (!querySet.equals(""))  	querySet+= ", ";
-					 
 					cambios =true;
 					querySet+= " idFarmacia = '"+ f.getIdFarmacia() + "'" ;
 				}
@@ -73,8 +61,6 @@ public class AvisoHelper {
 				{
 					antes+=  " | Activo: "+ aviso.getActivo();
 					despues+=" | Activo: "+ f.getActivo();
-
-					if (!querySet.equals(""))  	querySet+= ", ";
 					 
 					cambios =true;
 					querySet+= " activo = '"+ f.getActivo() + "'" ;
@@ -84,8 +70,6 @@ public class AvisoHelper {
 				{
 					antes+=  " | Tipo: "+ aviso.getTipo();
 					despues+=" | Tipo: "+ f.getTipo();
-
-					if (!querySet.equals(""))  	querySet+= ", ";
 					 
 					cambios =true;
 					querySet+= " tipo = '"+ f.getTipo() + "'" ;
@@ -96,8 +80,6 @@ public class AvisoHelper {
 					antes+=  " | Orden: "+ aviso.getOrden();
 					despues+=" | Orden: "+ f.getOrden();
 
-					if (!querySet.equals(""))  	querySet+= ", ";
-					 
 					cambios =true;
 					querySet+= " orden = '"+ f.getOrden() + "'" ;
 				}
@@ -154,6 +136,7 @@ public class AvisoHelper {
 		aviso.setTexto(f.getTexto());
 		aviso.setTipo(f.getTipo());
 		aviso.setUsuarioCreador(idUsuario);
+		
 		String mensaje = "Aviso : ";
 		mensaje+= " Fecha creación: " + aviso.getFechaInsert() + " / Creador:  "+aviso.getUsuarioCreador()+ " / Farmacia:  "+aviso.getIdFarmacia()+ " /";
 		mensaje+= " FechaInicio:  "+aviso.getFechaInicio()+ " / FechaFin:  "+aviso.getFechaFin() + " /  Texto:  "+aviso.getTexto() + " /";
@@ -170,8 +153,6 @@ public class AvisoHelper {
 			//FIN creación de log en BBDD
 			
 		}
-
-		
 		return result;
 	}
 }

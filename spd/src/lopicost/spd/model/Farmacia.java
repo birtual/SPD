@@ -1,8 +1,9 @@
 package lopicost.spd.model;
 
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Farmacia implements Serializable
 {
@@ -21,6 +22,10 @@ public class Farmacia implements Serializable
     private String email;
     private int orden;
     private int nivel;
+    private List<DivisionResidencia> listaDivisionResidencias= new ArrayList();
+  	private List<Robot> listaRobots = new ArrayList();
+
+    
 	public String getIdFarmacia() {
 		return idFarmacia;
 	}
@@ -111,6 +116,18 @@ public class Farmacia implements Serializable
 	}
 	public void setNivel(int nivel) {
 		this.nivel = nivel;
+	}
+	public List<DivisionResidencia> getListaDivisionResidencias() {
+		return listaDivisionResidencias;
+	}
+	public void setListaDivisionResidencias(List<DivisionResidencia> listDivisionResidencias) {
+		this.listaDivisionResidencias = listDivisionResidencias;
+	}
+	public List<Robot> getListaRobots() {
+		return listaRobots;
+	}
+	public void setListaRobots(List<Robot> listRobots) {
+		this.listaRobots = listRobots;
 	}
 
     

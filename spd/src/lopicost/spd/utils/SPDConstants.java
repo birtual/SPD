@@ -129,7 +129,7 @@ public class SPDConstants
 	 */
 	private static  String PROPERTY_BOUNDLE_NAME = "SPDConstants"; 	
 	private static ResourceBundle rb = null;	// NO CONFIGURABLE
-	private static boolean 					theFirstAccess 			= true;
+	private static boolean theFirstAccess 			= true;
 
 	//Posibles estados de un dominio
 	public static String STATUS_PACIENTE_ALTA= "Alta";
@@ -171,6 +171,8 @@ public class SPDConstants
 	
 	public static String IOSPD_LOG_ENABLED = "0";
 	
+	public static String PER_MINUTOS="MINUTOS";
+	public static String PER_HORAS="HORAS";
 	public static String PER_DIARIO="DIARIO";
 	public static String PER_SEMANAL="SEMANAL";
 	public static String PER_QUINCENAL="QUINCENAL";
@@ -298,7 +300,44 @@ public class SPDConstants
 	public static final String IDPROCESO_MONTSENY= "importSFAssis";
 	public static final String IDPROCESO_STAUROS= "importExcelStauros";
 
+	//PROCESOS
+	public static final String PROCESO_ACTIVO= "ACTIVO";		//Proceso activo
+	public static final String PROCESO_INACTIVO= "INACTIVO";		//Proceso inactivo
+	public static final String PROCESO_BLOQUEADO= "BLOQUEADO";		//Proceso inactivo
 
+	//Estados de Ejecuciones de procesos
+	public static final String PROCESO_EJEC_ESTADO_PENDIENTE = "PENDIENTE";		//aún no ejecutado. Por defecto
+	public static final String PROCESO_EJEC_ESTADO_EJECUTANDO = "EJECUTANDO";	//en curso.
+	public static final String PROCESO_EJEC_ESTADO_FINALIZADO = "FINALIZADO"; //Finalizado
+	public static final String PROCESO_EJEC_ESTADO_CANCELADO = "CANCELADO";	//acabado manualmente o cancelado por alguna lógica.
+	
+	public static final String PROCESO_EJEC_RESULT_OK= "OK"; //ejecutado correctamente.
+	public static final String PROCESO_EJEC_RESULT_ERROR= "ERROR";	//fallo durante la ejecución.
+	public static final String PROCESO_EJEC_RESULT_CANCEL= "CANCEL";		//ejecución cancelada.
+	
+	public static final String PROCESO_CODE_FINALIZADO_OK		 	= "0";
+	public static final String PROCESO_CODE_ERROR_TIEMPO_EXCEDIDO	= "1";
+	public static final String PROCESO_CODE_ERROR_MAX_INTENTOS 		= "2";
+	public static final String PROCESO_CODE_ERROR_INDETERMINADO 	= "3";
+	public static final String PROCESO_CODE_CANCELADO 				= "4";
+	
+	public static final String PROCESO_FREC_PERIODO_MINUTOS			=	"MINUTOS";
+	public static final String PROCESO_FREC_PERIODO_HORAS			=	"HORAS";
+	public static final String PROCESO_FREC_PERIODO_DIAS			=	"DIAS";
+	public static final String PROCESO_FREC_PERIODO_SEMANAS			=	"SEMANAS";
+	public static final String PROCESO_FREC_PERIODO_MESES			=	"MESES";
+	
+	public static final int PROCESO_FRECUENCIA_LISTENER= 60; //cada X segundos se mirará si ha de ejecutarse el proceso  
+
+	public static final int MAX_DURACIONSEGUNDOS_PROCESO = 300;	//5 minutos por defecto
+	public static final String PROCESO_TIPOEJEC_AUTO = "AUTOMATICO";
+	public static final String PROCESO_TIPOEJEC_MANUAL = "MANUAL";
+
+	public static final String PROCESO_RESTRIC_HORA = "HORA";
+	public static final String PROCESO_RESTRIC_DIA = "DIA";
+	public static final String PROCESO_RESTRIC_FECHA = "FECHA";
+
+	
 	/**
 	 * Path absoluto para localizar el css
 	 */

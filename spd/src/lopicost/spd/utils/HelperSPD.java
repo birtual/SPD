@@ -1185,6 +1185,9 @@ public class HelperSPD{
 							medResi.setSpdCnFinal("111111");
 							//medResi.setSpdNombreBolsa("/2 " + medResi.getSpdNombreBolsa());
 							medResi.setSpdNombreBolsa("/2 DEPRAX 100MG" );
+							medResi.setSpdAccionBolsa(SPDConstants.SPD_ACCIONBOLSA_PASTILLERO);
+							medResi.setSpdFormaMedicacion("COMPRIMIDOS");
+							
 							//medResi.setMensajesInfo("media Trazodona editada");
 							medResi.setIdEstado(SPDConstants.REGISTRO_EDITADO_AUTOMATICAMENTE);
 							medResi.setEditable(true); 

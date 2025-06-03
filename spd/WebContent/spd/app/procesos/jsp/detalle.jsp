@@ -46,10 +46,32 @@
 
 		
 		<table class="detalle">
+			<tr><th class="primera">Prioridad *</th>
+			<c:set var="clasePrioridad" value="" />
+			  <c:choose>
+			    <c:when test="${data.prioridad == '1'}">
+			      <c:set var="clasePrioridad" value="prio-alta" />
+			    </c:when>
+			    <c:when test="${data.prioridad == '2'}">
+			      <c:set var="clasePrioridad" value="prio-media" />
+			    </c:when>
+			    <c:when test="${data.prioridad == '3'}">
+			      <c:set var="clasePrioridad" value="prio-baja" />
+			    </c:when>
+			  </c:choose>
+        <td class="${clasePrioridad}">
+		  <c:choose>
+		    <c:when test="${data.prioridad == 1}">Alta</c:when>
+		    <c:when test="${data.prioridad == 2}">Media</c:when>
+		    <c:when test="${data.prioridad == 3}">Baja</c:when>
+		    <c:otherwise>Desconocida</c:otherwise>
+		  </c:choose>
+		</td>
+			</tr>			
 			<tr><th class="primera">Nombre del Proceso</th><td><bean:write name="data"  property="nombreProceso"/></td></tr>
-			<tr><th class="primera">Lanzadera</th><td><bean:write name="data"  property="lanzadera"/></td></tr>
-			<tr><th class="primera">Versión</th><td><bean:write name="data"  property="version"/></td></tr>
+			<tr><th class="primera">Lanzadera (versión <bean:write name="data"  property="version"/>)</th><td><bean:write name="data"  property="lanzadera"/></td></tr>
 			<tr><th class="segunda">Descripción</th><td><bean:write name="data"  property="descripcion"/></td></tr>
+			<tr><th class="primera">Apartado</th><td><bean:write name="data"  property="apartado"/></td></tr>
 			<tr><th class="segunda">Activo</th><td><bean:write name="data"  property="activo"/></td></tr>
 			<tr><th class="segunda">Parámetros</th><td><bean:write name="data" property="parametros"/></td></tr>
 			<tr><th class="segunda">Periodo</th><td>
@@ -66,6 +88,14 @@
 			<tr><th class="segunda">Fecha desde</th><td><bean:write  name="data" property="fechaDesde" /></td></tr>
 			<tr><th class="segunda">Fecha hasta</th><td><bean:write  name="data" property="fechaHasta" /></td></tr>
 			<tr><th class="segunda">Tipo de Ejecución</th><td><bean:write  name="data" property="tipoEjecucion" /></td></tr>
+			<tr><th class="segunda">Orden</th><td><bean:write  name="data" property="orden" /></td></tr>
+			<c:if test="${not empty data.nombreOriginal}">
+				<tr><td colspan=2 align="center">(Nombre original: <bean:write name="data"  property="nombreOriginal"/>)</td></tr>
+			</c:if>
+
+
+	
+			
 		</table>
 
 	

@@ -63,7 +63,7 @@ public class ControlDataImportHelper {
 		tabla2.setIdDivisionResidencia("NO");
 		tabla2.setNumeroCIPs(-1);
 		tabla2.setUltimaFechaEnOrigen("NO");
-		tabla2.setCuantos(-1);
+		//tabla2.setCuantos(-1);
 		tabla2.setCuantasTolvasRobot(-1);
 		
 		tabla2.setRelaciones("diferentes reports ");

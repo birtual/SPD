@@ -17,7 +17,6 @@ import lopicost.spd.model.Proceso;
 import lopicost.spd.model.ProcesoEjecucion;
 import lopicost.spd.model.ProcesoEjecucionLog;
 import lopicost.spd.model.Usuario;
-import lopicost.spd.persistence.ProcesoEjecucionDAO;
 import lopicost.spd.persistence.UsuarioDAO;
 import lopicost.spd.struts.form.ProcesosForm;
 import lopicost.spd.struts.helper.ProcesoHelper;
@@ -68,7 +67,7 @@ public class GestProcesosAction extends GenericAction  {
 	 */
     public ActionForward nuevo(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ProcesosForm f =  (ProcesosForm) form; 
-		List errors = new ArrayList();
+		List<String> errors = new ArrayList<String>();
 		f.setErrors(errors);
 		Usuario user = UsuarioDAO.findByIdUser(getIdUsuario());
 		if(user==null) 

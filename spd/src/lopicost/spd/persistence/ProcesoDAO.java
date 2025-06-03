@@ -76,6 +76,7 @@ public class ProcesoDAO extends GenericDAO{
         {
         	sql+= " AND tipoEjecucion =  '"+SPDConstants.PROCESO_TIPOEJEC_AUTO + "'";
         }
+       	sql+= " order by apartado desc, prioridad asc, orden asc  ";
 
 	        
 	  		Connection con = Conexion.conectar();
@@ -121,12 +122,12 @@ public class ProcesoDAO extends GenericDAO{
 			  String sql = "INSERT INTO SPD_Procesos (" +
 				        "nombreProceso, lanzadera, descripcion, parametros, tipoEjecucion, tipoPeriodo, " +
 				        "frecuenciaPeriodo, diasSemana, diasMes, horaEjecucion, maxReintentos, maxDuracionSegundos, " +
-				        "fechaDesde, fechaHasta, usuarioCreacion, activo " +
+				        "fechaDesde, fechaHasta, usuarioCreacion, activo, nombreOriginal, apartado, orden, prioridad " +
 				        ") ";
 			  String parametros = sql;
 
 			  // Añadimos para sustituir
-			  sql +=  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			  sql +=  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			  
 				PreparedStatement ps = con.prepareStatement(sql);
 			 //  concatenamos los valores y en paralelo construimos query para consulta
@@ -182,7 +183,6 @@ public class ProcesoDAO extends GenericDAO{
 
 			  	//inicio frecuenciaPeriodo
 			  	int frecuenciaPeriodo = proceso.getFrecuenciaPeriodo();
-		  		frecuenciaPeriodo = frecuenciaPeriodo;
 			  	ps.setInt(7, frecuenciaPeriodo);	
 			  	parametros += ", '" + frecuenciaPeriodo + "'"; // tipoEjecucion
 			  	//fin frecuencia
@@ -260,6 +260,19 @@ public class ProcesoDAO extends GenericDAO{
 			  	ps.setString(16, proceso.getActivo());
 			  	parametros += ", '" + proceso.getActivo() + "'"; // Activo
 
+			  	ps.setString(17, proceso.getNombreOriginal());
+			  	parametros += ", '" + proceso.getNombreOriginal(); // NombreOriginal
+
+			  	ps.setString(18, proceso.getApartado());
+			  	parametros += ", '" + proceso.getApartado(); // Apartado
+
+			  	ps.setInt(19, proceso.getOrden());	
+			  	parametros += ", " + proceso.getOrden(); // Orden
+
+			  	ps.setInt(20, proceso.getPrioridad());	
+			  	parametros += ", " + proceso.getPrioridad(); // Prioridad
+
+			  	
 			  	// Cerramos la consulta
 			  	parametros += ")";
 
@@ -328,7 +341,10 @@ public class ProcesoDAO extends GenericDAO{
 		 proceso.setDiasMes(rs.getString("diasMes"));
 		 proceso.setHoraEjecucion(rs.getString("horaEjecucion"));
 		 proceso.setMaxReintentos(rs.getInt("maxReintentos"));
-
+		 proceso.setNombreOriginal(rs.getString("nombreOriginal"));
+		 proceso.setApartado(rs.getString("apartado"));
+		 proceso.setOrden(rs.getInt("orden"));
+		 proceso.setPrioridad(rs.getInt("prioridad"));
 		 int maxDuracion = rs.getInt("maxDuracionSegundos");
 		 if (rs.wasNull()) proceso.setMaxDuracionSegundos(null);
 		    else proceso.setMaxDuracionSegundos(maxDuracion);

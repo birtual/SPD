@@ -516,3 +516,29 @@ tr.mutua_o_sin_tsi
 	color: grey;
 }
 
+td.prio-alta  {
+	background-color: #FFD700;
+	color: black;
+}
+
+td.prio-media  {
+	background-color: #93e085;
+	color: black;
+}
+
+td.prio-baja  {
+	background-color: #E6E6FA;
+	color: black;
+}
+.opcion-alta {
+  background-color: #FFD700; /* dorado */
+  color: black;
+}
+.opcion-media {
+  background-color: #93e085; /* verde claro */
+  color: black;
+}
+.opcion-baja {
+  background-color: #E6E6FA; /* lavanda */
+  color: black;
+}

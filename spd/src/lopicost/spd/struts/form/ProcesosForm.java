@@ -14,6 +14,7 @@ import lopicost.spd.model.Proceso;
 
 public class ProcesosForm extends GenericForm {
     private String nombreProceso;
+    private String nombreOriginal;
     private String lanzadera;
     private String descripcion;
     private String estado;
@@ -47,7 +48,10 @@ public class ProcesosForm extends GenericForm {
     private String tipoError;                   // Tipo de error si existió un fallo
     private String codigoResultado;          	// Código de resultado (0 para éxito, 1 para error, etc.)
     private String error;                       // Error ocurrido durante la ejecución
-    
+    private String apartado;                 	// Nombre del apartado o entidad para la que se ha creado, a efectos de agruparlo en la vista
+    private int orden;	 		                 // Orden que ocupa en el apartado
+    private int prioridad;						// 1 'Alta', 2 'Media', 3 'Baja',
+
     
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();
@@ -68,9 +72,10 @@ public class ProcesosForm extends GenericForm {
     @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
     	
-    	String action = request.getParameter("action");
+    //	String action = request.getParameter("action");
+    	String action = request.getParameter("ACTIONTODO");
 
-        if ("nuevo".equals(action)) {
+        if ("nuevo".equalsIgnoreCase(action)) {
             // Solo restablecer si estamos en la acción "nuevo"
             // Si no hay datos existentes, se marcan todos
             if (this.diasSemana == null || this.diasSemana.isEmpty()) {
@@ -80,11 +85,49 @@ public class ProcesosForm extends GenericForm {
                 this.diasSemana = String.join(",", this.diasSemanaArray);
             }
         }
-        
-        
-
 
     }
+
+    
+	public int getPrioridad() {
+		return prioridad;
+	}
+
+
+	public void setPrioridad(int prioridad) {
+		this.prioridad = prioridad;
+	}
+
+
+	public String getApartado() {
+		return apartado;
+	}
+
+
+	public void setApartado(String apartado) {
+		this.apartado = apartado;
+	}
+
+
+	public int getOrden() {
+		return orden;
+	}
+
+
+	public void setOrden(int orden) {
+		this.orden = orden;
+	}
+
+
+	public String getNombreOriginal() {
+		return nombreOriginal;
+	}
+
+
+	public void setNombreOriginal(String nombreOriginal) {
+		this.nombreOriginal = nombreOriginal;
+	}
+
 
 	public int getOidProcesoEjecucion() {
 		return oidProcesoEjecucion;

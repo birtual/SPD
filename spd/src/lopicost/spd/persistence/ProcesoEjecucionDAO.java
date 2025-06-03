@@ -47,10 +47,12 @@ public class ProcesoEjecucionDAO extends GenericDAO{
             	String parametrosExtraSeparados = proceso.getParametros();
  
             	// 1. Parsear los parámetros adicionales (pueden estar vacíos)
-                String[] extras = (parametrosExtraSeparados != null && !parametrosExtraSeparados.isEmpty())
+                /*String[] extras = (parametrosExtraSeparados != null && !parametrosExtraSeparados.isEmpty())
                                   ? parametrosExtraSeparados.split("\\|", -1)
-                                  : new String[0];
-                                  
+                                  : new String[0];*/
+                String[] extras = (parametrosExtraSeparados != null && !parametrosExtraSeparados.isEmpty())
+                				? parametrosExtraSeparados.split("[|#]", -1)  // clase de caracteres para admitir varios separadores
+                				: new String[0];                  
                 int totalParams = 2 + extras.length; // oid + codigoResultado + extras                                 
              // 2. Construir la llamada "{call dbo.procedimiento(?, ?, ..., ?)}"
                 StringBuilder sb = new StringBuilder();
@@ -188,7 +190,7 @@ public class ProcesoEjecucionDAO extends GenericDAO{
         	sql+= " order by oidProcesoEjecucion desc ";
         
 	  		Connection con = Conexion.conectar();
-			System.out.println(className + "--> list -->" +sql );		
+		//	System.out.println(className + "--> list -->" +sql );		
 		    ResultSet resultSet = null;
 		    try {
 		    	PreparedStatement pstat = con.prepareStatement(sql);
@@ -233,8 +235,8 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 	    String sql = "SELECT TOP 1 *  FROM SPD_procesosEjecucion ";
 	    sql+= " WHERE 1 = 1 ";
 	
-	    if(proceso.getLanzadera() != null && !proceso.getLanzadera().equals(""))
-	       	sql+= " AND lanzadera =  '" + proceso.getLanzadera()  + "'";
+	    //if(proceso.getLanzadera() != null && !proceso.getLanzadera().equals(""))
+	    //  	sql+= " AND lanzadera =  '" + proceso.getLanzadera()  + "'";
 	    if( proceso.getOidProceso() > 0 )
 	    	sql+= " AND oidProceso =  '" + proceso.getOidProceso() + "'";
 	    if(estado != null && !estado.equals(""))

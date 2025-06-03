@@ -16,9 +16,29 @@
 	<title>Edición del proceso</title>
 </head>
 
-
-
 <script>
+function actualizarColorPrioridad(select) {
+  select.classList.remove('opcion-alta', 'opcion-media', 'opcion-baja');
+
+  switch (select.value) {
+    case '1':
+      select.classList.add('opcion-alta');
+      break;
+    case '2':
+      select.classList.add('opcion-media');
+      break;
+    case '3':
+      select.classList.add('opcion-baja');
+      break;
+  }
+}
+
+// Aplicar color inicial al cargar
+window.addEventListener('DOMContentLoaded', function() {
+  const sel = document.getElementById('prioridad');
+  if (sel) actualizarColorPrioridad(sel);
+});
+
 <!-- Configuración de Flatpickr -->
 window.onload = function() {
 	document.getElementById("fechaDesde").placeholder = "Selecciona fecha de activación";
@@ -105,8 +125,9 @@ window.onload = function() {
  	<!-- mostramos mensajes y errores, si existen -->
 	<logic:notEmpty name="formulari" property="errors">
 		<ul>
-		<font color="red">
-			<u>Mensaje:</u>
+			<u>Mensaje:</u>		
+			<font color="red">
+			
 				<logic:iterate id="error" name="formulari" property="errors" type="java.lang.String">
 						<li><bean:write name="error"/></li>
 				</logic:iterate>
@@ -115,13 +136,21 @@ window.onload = function() {
 	</logic:notEmpty>
 
 		
-		<table class="detalle">
-			* campos obligatorios
+		<table class="detalle">* campos obligatorios
 			
-		<tr><th class="primera">Nombre del Proceso  *</th><td><html:text name="data"  property="nombreProceso"/></td></tr>
-		<tr><th class="primera">Lanzadera  *</th><td><bean:write name="data"  property="lanzadera"/></td></tr>
-		<tr><th class="primera">Versión</th><td><bean:write name="data"  property="version"/></td></tr>
+		<tr><th class="primera">Prioridad *</th>
+		<td>
+			<select id="prioridad" name="prioridad" style="width: 30em;"  onchange="actualizarColorPrioridad(this)">
+			  <option value="1" <c:if test="${data.prioridad == 1}">selected</c:if>>Alta</option>
+			  <option value="2" <c:if test="${data.prioridad == 2}">selected</c:if>>Media</option>
+			  <option value="3" <c:if test="${data.prioridad == 3}">selected</c:if>>Baja</option>
+			</select>
+		</td>
+		</tr>
+		<tr><th class="primera">Nombre del Proceso  *</th><td><html:text name="data" style="width: 30em;"  property="nombreProceso"/></td></tr>
+		<tr><th class="primera">Lanzadera  * (versión <bean:write name="data"  property="version"/>)</th><td><html:text name="data"  style="width: 30em;"  property="lanzadera"/></td></tr>
 		<tr><th class="segunda">Descripción  *</th><td><html:textarea name="data"  property="descripcion" cols="40" rows="3"/></td></tr>
+		<tr><th class="primera">Apartado</th><td><html:text name="data" style="width: 20em;"  property="apartado"/></td></tr>
 
 		<tr>
 			<th class="segunda">Activo</th>
@@ -132,13 +161,13 @@ window.onload = function() {
         		</html:select>
 			</td>
 		</tr>
-		<tr><th class="segunda">Parámetros</th><td><html:textarea name="data" property="parametros" cols="40" rows="3"/></td></tr>
+		<tr><th class="segunda">Parámetros <br>(separados por # o  |)</th><td><html:textarea name="data" property="parametros" cols="40" rows="3"/></td></tr>
 		<!-- %= java.util.Arrays.toString(formulari.getDiasSemanaArray()) %> -->
 
 		<tr><th class="segunda">Periodo  *</th>
 		<td>
 			Cada
-			<input type="number" style="width: 7em;"  name="frecuenciaPeriodo" id="frecuenciaPeriodo" value="<bean:write name='data' property='frecuenciaPeriodo'/>" />
+			<input type="number" style="width: 3em;"  name="frecuenciaPeriodo" id="frecuenciaPeriodo" value="<bean:write name='data' property='frecuenciaPeriodo'/>" />
 			<html:select  name="data" property="tipoPeriodo" style="text-align: left;">>
 				<html:option value="MINUTOS">Minutos</html:option>
 				<html:option value="HORAS">Horas</html:option>
@@ -174,29 +203,25 @@ window.onload = function() {
 		</tr>
 		<tr><th class="segunda">Máx. Reintentos  *</th>
 			<td>
-				<input type="number" name="maxReintentos" id="maxReintentos" value="<bean:write name='data' property='maxReintentos'/>" />
+				<input type="number" name="maxReintentos" style="width: 2em;"  id="maxReintentos" value="<bean:write name='data' property='maxReintentos'/>" />
 			</td>
 		</tr>
 		<tr><th class="segunda">Máx. Duración (segundos)  *</th>
 			<td>
-				<input type="number" name="maxDuracionSegundos" id="maxDuracionSegundos" value="<bean:write name='data' property='maxDuracionSegundos'/>" />
+				<input type="number" name="maxDuracionSegundos" style="width: 4em;"   id="maxDuracionSegundos" value="<bean:write name='data' property='maxDuracionSegundos'/>" />
 			</td>
-
-    
-    
-    
 		</tr>
 
 		<tr>
 			<th class="segunda">Fecha desde  *</th>
 			<td>
-				<input type="text" id="fechaDesde" name="fechaDesde" value="<bean:write name='data' property='fechaDesde'/>" placeholder="Selecciona fecha de activación" class="flatpickr">
+				<input type="text" id="fechaDesde" name="fechaDesde" style="width: 8em;" value="<bean:write name='data' property='fechaDesde'/>" placeholder="Selecciona fecha de activación" class="flatpickr">
 						</td>
 		</tr>
 		<tr>
 			<th class="segunda">Fecha hasta</th>
 			<td>
-				<input type="text" id="fechaHasta" name="fechaHasta" value="<bean:write name='data' property='fechaHasta'/>" placeholder="Selecciona fecha de desactivación" class="flatpickr">
+				<input type="text" id="fechaHasta" name="fechaHasta" style="width: 8em;" value="<bean:write name='data' property='fechaHasta'/>" placeholder="Selecciona fecha de desactivación" class="flatpickr">
 			</td>
 		</tr>
 
@@ -209,11 +234,12 @@ window.onload = function() {
 	        	</html:select>
 			</td>
 		</tr>
-
-		
-			
-		</table>
-
+		<tr><th class="segunda">Orden</th>
+			<td>
+				<input type="number" name="orden" style="width: 4em;" id="orden" value="<bean:write name='data' property='orden'/>" />
+			</td>
+		</tr>
+		<tr><th class="primera">Nombre original</th><td><html:text style="width: 30em;"  name="data"  property="nombreOriginal"/></td></tr>
 		<tr>
 			<td>	
 				<p class="botons">
@@ -224,9 +250,11 @@ window.onload = function() {
 		</tr>	
 	</table>
 
+	</html:form>
+	</center>
 	</div>	
 
-	</html:form>
+
 
 </body>
 </html>

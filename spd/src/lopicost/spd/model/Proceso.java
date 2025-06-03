@@ -11,6 +11,7 @@ public class Proceso {
     private String usuarioCreacion;				// Usuario que crea el proceso
     private String lanzadera;                 	// Nombre de la lanzadera que lo ejecuta
     private String nombreProceso;               // Nombre del procedimiento o proceso
+    private String nombreOriginal;          	// Nombre del proceso en su origen
     private String descripcion;                 // Descripción del proceso
     private String activo;                      // SI/NO
     private String parametros;                  // Parámetros del procedimiento
@@ -28,6 +29,9 @@ public class Proceso {
     private ProcesoEjecucion ejecucionActiva;	// ejecución activa del proceso
     private ProcesoEjecucion ejecucion;			// ejecución 
     private List<ProcesoEjecucion> listadoEjecuciones;	// Listado de las últimas ejecuciones
+    private String apartado;                 	// Nombre del apartado o entidad para la que se ha creado, a efectos de agruparlo en la vista
+    private int orden;	 		                // Orden que ocupa en el apartado
+    private int prioridad;						// 1 'Alta', 2 'Media', 3 'Baja',
     
    private String[] diasSemanaArray;
 
@@ -37,13 +41,57 @@ public class Proceso {
 				+ ", lanzadera=" + lanzadera + ", nombreProceso=" + nombreProceso + ", descripcion=" + descripcion + ", usuarioCreacion=" + usuarioCreacion 
 				+ ", activo=" + activo + ", parametros=" + parametros + ", tipoEjecucion=" + tipoEjecucion 
 				+ ", tipoPeriodo =" + tipoPeriodo + ", frecuenciaPeriodo =" + frecuenciaPeriodo + ", diasSemana=" + diasSemana + ", diasMes=" + diasMes 
-				+ ", horaEjecucion=" + horaEjecucion 
+				+ ", horaEjecucion=" + horaEjecucion + ", nombreOriginal=" + nombreOriginal  
+				+ ", apartado=" + apartado + ", orden=" + orden   + ", prioridad=" + prioridad
 				+ ", maxReintentos=" + maxReintentos + ", maxDuracionSegundos=" + maxDuracionSegundos 
 				+ ", fechaDesde=" + fechaDesde + ", fechaHasta=" + fechaHasta + "]";
 	}
 	
 	
-    public ProcesoEjecucion getEjecucion() {
+	
+    public int getPrioridad() {
+		return prioridad;
+	}
+
+
+
+	public void setPrioridad(int prioridad) {
+		this.prioridad = prioridad;
+	}
+
+
+
+	public String getApartado() {
+		return apartado;
+	}
+
+
+	public void setApartado(String apartado) {
+		this.apartado = apartado;
+	}
+
+
+	public int getOrden() {
+		return orden;
+	}
+
+
+	public void setOrden(int orden) {
+		this.orden = orden;
+	}
+
+
+	public String getNombreOriginal() {
+		return nombreOriginal;
+	}
+
+
+	public void setNombreOriginal(String nombreOriginal) {
+		this.nombreOriginal = nombreOriginal;
+	}
+
+
+	public ProcesoEjecucion getEjecucion() {
 		return ejecucion;
 	}
 

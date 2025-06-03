@@ -19,9 +19,7 @@ import lopicost.spd.persistence.ProcesoEjecucionDAO;
 import lopicost.spd.persistence.ProcesoEjecucionLogDAO;
 import lopicost.spd.persistence.ProcesoHistoricoDAO;
 import lopicost.spd.struts.form.ProcesosForm;
-import lopicost.spd.utils.DataUtil;
 import lopicost.spd.utils.DateUtilities;
-import lopicost.spd.utils.StringUtil;
 
 public class ProcesoHelper {
 	private final ProcesoDAO procDAO = new ProcesoDAO();
@@ -72,13 +70,17 @@ public class ProcesoHelper {
 		Proceso proceso = new Proceso();
 
 		// Asignaciones simples
-		proceso.setNombreProceso(form.getNombreProceso()); 
+		proceso.setNombreProceso(form.getNombreProceso());
+		proceso.setFrecuenciaPeriodo(form.getFrecuenciaPeriodo());
 		proceso.setLanzadera(form.getLanzadera());
 		proceso.setActivo(form.getActivo());
 		proceso.setDescripcion(form.getDescripcion());
 		proceso.setParametros(form.getParametros());
 		proceso.setTipoEjecucion(form.getTipoEjecucion());
 		proceso.setTipoPeriodo(form.getTipoPeriodo());
+		proceso.setNombreOriginal(form.getNombreOriginal());
+		proceso.setApartado(form.getApartado());
+		proceso.setOrden(form.getOrden());
 		proceso.setDiasSemana(form.getDiasSemana());
 		proceso.setDiasMes(form.getDiasMes());
 		// Campos opcionales con conversión y validación
@@ -128,6 +130,7 @@ public class ProcesoHelper {
 		int maxDuracionSegundos = form.getMaxDuracionSegundos();
     	String periodo = form.getTipoPeriodo();				 // dependiendo del periodo ha de haber diasSemana, diasMes
 		String diasSemana = form.getDiasSemana();			 //	
+		String[] diasSemanaArray = form.getDiasSemanaArray(); //	
 		String diasMes = form.getDiasMes();
 		String horaEjecucion = form.getHoraEjecucion();		 //ha de estar indicada, menos en los horarios restringidos
 		String descripcion = form.getDescripcion();
@@ -137,17 +140,18 @@ public class ProcesoHelper {
 		case "MESES":
 			if(!contieneAlgunDiaValido(diasMes))
 			{
-				errors.add("Si es mensual es necesario indicar día de mes");
+				errors.add("Si es mensual es necesario indicar algún día de mes");
 				result = false;
-				break;
 			}
+			break;
 		case "SEMANAS":
-			if(diasSemana==null || diasSemana.equals("") || diasSemana.equalsIgnoreCase("null"))
+			if(diasSemana==null || diasSemana.equals("") || diasSemana.equalsIgnoreCase("null") 
+			|| (diasSemanaArray!=null && diasSemanaArray.length>1) )
 			{
-				errors.add("Es necesario indicar un día de semana");
+				errors.add("si es semanal es necesario indicar solo un día de la semana");
 				result = false;
-				break;
 			}
+			break;
 		default:
 			break;
 		}
@@ -236,6 +240,76 @@ public class ProcesoHelper {
 		String querySet="";
 		if(proceso!=null)
 		{
+			/*  INICIO Descripcion*/
+			if (!Objects.equals(proceso.getDescripcion(), f.getDescripcion())) 
+			{
+				antes+=  " | Descripcion: "+ proceso.getDescripcion();
+				despues+=" | Descripcion: "+ f.getDescripcion();
+
+				cambios =true;
+				if (!querySet.equals("")) 
+					querySet+= ", "; //añadimos la coma en caso que exista uno previo 		
+				 
+				querySet+= " Descripcion = '"+ f.getDescripcion() + "'" ;
+			}
+			/*  INICIO NombreOriginal*/
+			if (!Objects.equals(proceso.getNombreOriginal(), f.getNombreOriginal())) 
+			{
+				antes+=  " | NombreOriginal: "+ proceso.getNombreOriginal();
+				despues+=" | NombreOriginal: "+ f.getNombreOriginal();
+
+				cambios =true;
+				if (!querySet.equals("")) 
+					querySet+= ", "; //añadimos la coma en caso que exista uno previo 		
+				 
+				querySet+= " NombreOriginal = '"+ f.getNombreOriginal() + "'" ;
+			}
+			/*  INICIO nombre*/
+			if (!Objects.equals(proceso.getNombreProceso(), f.getNombreProceso())) 
+			{
+				antes+=  " | NombreProceso: "+ proceso.getNombreProceso();
+				despues+=" | NombreProceso: "+ f.getNombreProceso();
+
+				cambios =true;
+				if (!querySet.equals("")) 
+					querySet+= ", "; //añadimos la coma en caso que exista uno previo 		
+				 
+				querySet+= " NombreProceso = '"+ f.getNombreProceso() + "'" ;
+			}
+			/*  INICIO apartado*/
+			if (!Objects.equals(proceso.getApartado(), f.getApartado())) 
+			{
+				antes+=  " | Apartado: "+ proceso.getApartado();
+				despues+=" | Apartado: "+ f.getApartado();
+
+				cambios =true;
+				if (!querySet.equals("")) 
+					querySet+= ", "; //añadimos la coma en caso que exista uno previo 		
+				 
+				querySet+= " Apartado = '"+ f.getApartado() + "'" ;
+			}
+			/*  INICIO orden*/
+			if (!Objects.equals(proceso.getOrden(), f.getOrden())) 
+			{
+				antes+=  " | Orden: "+ proceso.getOrden();
+				despues+=" | Orden: "+ f.getOrden();
+
+				if (!querySet.equals(""))  	querySet+= ", ";
+				 
+				cambios =true;
+				querySet+= " Orden = '"+ f.getOrden() + "'" ;
+			}
+			/*  INICIO prioridad*/
+			if (!Objects.equals(proceso.getPrioridad(), f.getPrioridad())) 
+			{
+				antes+=  " | Prioridad: "+ proceso.getPrioridad();
+				despues+=" | Prioridad: "+ f.getPrioridad();
+
+				if (!querySet.equals(""))  	querySet+= ", ";
+				 
+				cambios =true;
+				querySet+= " Prioridad = '"+ f.getPrioridad() + "'" ;
+			}
 			/*  INICIO Activo*/
 			if (!Objects.equals(proceso.getActivo(), f.getActivo())) 
 			{

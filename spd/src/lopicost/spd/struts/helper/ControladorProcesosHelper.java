@@ -24,6 +24,8 @@ public class ControladorProcesosHelper {
 	private final ProcesoEjecucionDAO procEjecDAO = new ProcesoEjecucionDAO();
     private  final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
     private  final SimpleDateFormat DATE_FORMAT_TIME = new SimpleDateFormat("dd/MM/yyyy HH:MM:SS");
+    DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    DateTimeFormatter FORMATTER_DATETIME =DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
 	/** ok
      * Devuelve una lista de procesos activos
@@ -216,21 +218,53 @@ public class ControladorProcesosHelper {
      */
     public boolean estaEnHoraDiaDeLanzarse(Proceso proceso) {
         
+    	if(proceso == null || proceso.getTipoPeriodo()==null ) return false;
+        System.out.println("** LANZADERA --> " + proceso.getLanzadera());
     	boolean porHora= false;
     	boolean porDiaSemana= false;
     	boolean porDiaMes= false;
     	
-        //1 - CONTROL POR HORA
-        //para saber si se ha de ejecutar, buscaremos la fecha programada justo anterior a la fecha actual, para comparar ambas. En caso que los minutos sean menor 
-        //que el intervalo de minutos de consulta (y mayor que 0) se lanzará el proceso.
+    	String[] diasConcretos = ProcesoHelper.obtenerDiasValidosComoArray(proceso.getDiasMes());
+    	boolean hayDiasConcretos = diasConcretos!=null && !diasConcretos.equals("");
+    	boolean hayDiasSemana = proceso.getDiasSemana()!=null && !proceso.getDiasSemana().equals("");
+    	boolean cadaXMinutos = proceso.getTipoPeriodo().equalsIgnoreCase(SPDConstants.PROCESO_FREC_PERIODO_MINUTOS);
+    	boolean cadaXHora = proceso.getTipoPeriodo().equalsIgnoreCase(SPDConstants.PROCESO_FREC_PERIODO_HORAS);
+    	boolean cadaXDia = proceso.getTipoPeriodo().equalsIgnoreCase(SPDConstants.PROCESO_FREC_PERIODO_DIAS);
+    	boolean cadaXSemana = proceso.getTipoPeriodo().equalsIgnoreCase(SPDConstants.PROCESO_FREC_PERIODO_SEMANAS);
+    	boolean cadaXMes = proceso.getTipoPeriodo().equalsIgnoreCase(SPDConstants.PROCESO_FREC_PERIODO_MESES);
         LocalDateTime ahora = LocalDateTime.now();
+        LocalTime horaProgramada = LocalTime.parse(proceso.getHoraEjecucion()); // asume "HH:mm"
+        System.out.println("** ahora --> " + ahora.toString());
+        System.out.println("** horaProgramada --> " + horaProgramada.toString());
+        ProcesoEjecucion ultimaEjecucion = proceso.getUltimaEjecucion()!=null?proceso.getUltimaEjecucion():null;
+        boolean ultimaFinalizadaOk = ultimaEjecucion!=null && ultimaEjecucion.getEstado().equalsIgnoreCase(SPDConstants.PROCESO_EJEC_ESTADO_FINALIZADO);
+        
+        
+        
+        			
+        //1 - CONTROL POR HORA
+        //para saber si se ha de ejecutar, buscaremos la fecha programada justo anterior a la fecha actual,
+    	//para comparar ambas. En caso que los minutos sean menor que el intervalo de minutos 
+        //de consulta (y mayor que 0) se lanzará el proceso.
+        /*if(proceso.getUltimaEjecucion()!=null && proceso.getUltimaEjecucion().getEstado().equalsIgnoreCase(SPDConstants.PROCESO_EJEC_ESTADO_FINALIZADO) )
+        {
+        	if(proceso.getUltimaEjecucion().getFechaFinEjecucion()==null 
+        			|| proceso.getUltimaEjecucion().getFechaFinEjecucion().
+        }
+        */
         //int cadaCuantosMinutos = cadaCuantosMinutosSeEjecuta(proceso); 
-        //LocalDateTime primeraFechaPosterior = fechaProgramadaContigua(proceso, true);  
         LocalDateTime ultimaFechaAnterior = fechaProgramadaContigua(proceso, false);
-        if(Duration.between(ultimaFechaAnterior, ahora).toMinutes()>=0 
-        		&& Duration.between(ultimaFechaAnterior, ahora).toMinutes()< SPDConstants.PROCESO_FRECUENCIA_LISTENER/60
-        		)
+        LocalDateTime primeraFechaPosterior = fechaProgramadaContigua(proceso, true);  
+        System.out.println("** ultimaFechaAnterior --> " + ultimaFechaAnterior.toString());
+        System.out.println("** Duration.between(ultimaFechaAnterior, ahora).toMinutes() --> " + Duration.between(ultimaFechaAnterior, ahora).toMinutes());
+        System.out.println("** SPDConstants.PROCESO_FRECUENCIA_LISTENER/60 --> " + SPDConstants.PROCESO_FRECUENCIA_LISTENER/60);
+        // if(Duration.between(ultimaFechaAnterior, ahora).toMinutes()>=0 
+        //		&& Duration.between(ultimaFechaAnterior, ahora).toMinutes()< SPDConstants.PROCESO_FRECUENCIA_LISTENER/60
+        //		)
+        if(Duration.between(ultimaFechaAnterior, ahora).toMinutes()>=SPDConstants.PROCESO_FRECUENCIA_LISTENER/60)
         	porHora=true;
+
+        System.out.println("** porHora --> " + porHora);
 
         //2 - CONTROL POR DIA SEMANA
     	// Devuelve el día de la semana como "1" (lunes) a "7" (domingo)
@@ -265,10 +299,86 @@ public class ControladorProcesosHelper {
             */
             if (diasPermitidos.contains(diaActual)) porDiaMes = true;
         }
-        
-        return porHora & porDiaSemana & porDiaMes;
+        System.out.println("** porHora & porDiaSemana & porDiaMes --> " + porHora +" " + porDiaSemana +" " + porDiaMes);
+
+        return porHora || porDiaSemana  || porDiaMes;
     }
 
+    /** ok
+     * Se encarga de controlar si ha de lanzarse o no, según la programación.
+     * Por defecto es sí, a no ser que la hora y día no 
+     * @param proceso
+     * @return
+     */
+    public boolean estaEnHoraDiaDeLanzarseORI(Proceso proceso) {
+        
+    	boolean porHora= false;
+    	boolean porDiaSemana= false;
+    	boolean porDiaMes= false;
+    	
+        //1 - CONTROL POR HORA
+        //para saber si se ha de ejecutar, buscaremos la fecha programada justo anterior a la fecha actual,
+    	//para comparar ambas. En caso que los minutos sean menor que el intervalo de minutos 
+        //de consulta (y mayor que 0) se lanzará el proceso.
+        System.out.println("** LANZADERA --> " + proceso.getLanzadera());
+        /*if(proceso.getUltimaEjecucion()!=null && proceso.getUltimaEjecucion().getEstado().equalsIgnoreCase(SPDConstants.PROCESO_EJEC_ESTADO_FINALIZADO) )
+        {
+        	if(proceso.getUltimaEjecucion().getFechaFinEjecucion()==null 
+        			|| proceso.getUltimaEjecucion().getFechaFinEjecucion().
+        }
+        */
+        LocalDateTime ahora = LocalDateTime.now();
+        System.out.println("** ahora --> " + ahora.toString());
+        //int cadaCuantosMinutos = cadaCuantosMinutosSeEjecuta(proceso); 
+        //LocalDateTime primeraFechaPosterior = fechaProgramadaContigua(proceso, true);  
+        LocalDateTime ultimaFechaAnterior = fechaProgramadaContigua(proceso, false);
+        System.out.println("** ultimaFechaAnterior --> " + ultimaFechaAnterior.toString());
+        System.out.println("** Duration.between(ultimaFechaAnterior, ahora).toMinutes() --> " + Duration.between(ultimaFechaAnterior, ahora).toMinutes());
+        System.out.println("** SPDConstants.PROCESO_FRECUENCIA_LISTENER/60 --> " + SPDConstants.PROCESO_FRECUENCIA_LISTENER/60);
+        if(Duration.between(ultimaFechaAnterior, ahora).toMinutes()>=0 
+        		&& Duration.between(ultimaFechaAnterior, ahora).toMinutes()< SPDConstants.PROCESO_FRECUENCIA_LISTENER/60
+        		)
+        	porHora=true;
+
+        System.out.println("** porHora --> " + porHora);
+
+        //2 - CONTROL POR DIA SEMANA
+    	// Devuelve el día de la semana como "1" (lunes) a "7" (domingo)
+        // 2. Verificar día de la semana si es semanal
+       if (proceso.getTipoPeriodo().equalsIgnoreCase(SPDConstants.PROCESO_FREC_PERIODO_SEMANAS)) 
+       {
+	       	String diaHoy = String.valueOf(LocalDate.now().getDayOfWeek().getValue());
+	        if (proceso.getDiasSemana() != null && proceso.getDiasSemana().toLowerCase().contains(diaHoy)) {
+	            porDiaSemana=true;
+	        }
+       }
+      
+        //3 - CONTROL POR DIA MES
+        //Verificar día del mes si es mensual
+        if (proceso.getTipoPeriodo().equalsIgnoreCase(SPDConstants.PROCESO_FREC_PERIODO_MESES)) {
+            int diaActual = LocalDate.now().getDayOfMonth(); // 1 a 31
+
+            String[] diasMes = ProcesoHelper.obtenerDiasValidosComoArray(proceso.getDiasMes());
+            List<Integer> diasPermitidos = Arrays.stream(diasMes)
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+            
+            System.out.println("diasMes String[]      " + Arrays.toString(diasMes));
+            System.out.println("diasMes List<Integer> " + diasPermitidos);
+                       		
+            /*		
+            String diasDefinidos = proceso.getDiasMes(); // Ej: "1,15,30"
+            List<Integer> diasPermitidos = Arrays.stream(diasDefinidos.split(","))
+                                                 .map(String::trim)
+                                                 .map(Integer::parseInt)
+                                                 .collect(Collectors.toList());
+            */
+            if (diasPermitidos.contains(diaActual)) porDiaMes = true;
+        }
+        System.out.println("** porHora & porDiaSemana & porDiaMes --> " + porHora +" " + porDiaSemana +" " + porDiaMes);
+
+        return porHora || porDiaSemana  || porDiaMes;
+    }
 
 
 	/**
@@ -278,23 +388,34 @@ public class ControladorProcesosHelper {
      */
     private LocalDateTime fechaProgramadaContigua(Proceso proceso, boolean posterior) {
         LocalDateTime ahora = LocalDateTime.now();
+        System.out.println("**** ahora2 --> " + ahora.toString());
+
         LocalTime horaProgramada = LocalTime.parse(proceso.getHoraEjecucion()); // asume "HH:mm"
+        System.out.println("**** horaProgramada --> " + horaProgramada.toString());
 
         // Punto de partida: hoy a la hora programada
         LocalDateTime inicioHoy = LocalDateTime.of(ahora.toLocalDate(), horaProgramada);
-        int cadaCuantosMinutos = cadaCuantosMinutosSeEjecuta(proceso); 
+        System.out.println("**** inicioHoy --> " + inicioHoy.toString());
+
+        int cadaCuantosMinutos = cadaCuantosMinutosSeEjecuta(proceso);
+        System.out.println("**** cadaCuantosMinutos --> " + cadaCuantosMinutos);
+
         // Si ya pasó, empezamos desde ahí e incrementamos
         LocalDateTime candidato = inicioHoy;
+        System.out.println("**** candidato --> " + candidato);
         while(candidato.isBefore(ahora) && cadaCuantosMinutos>0)
         {
           	candidato=candidato.plusMinutes(cadaCuantosMinutos);
+            System.out.println("**** candidato.plusMinutes --> " + candidato);
+
         }
         if(posterior) // si miramos la primera posterior, añadimos un salto más
         {
            	candidato=candidato.plusMinutes(cadaCuantosMinutos);
         }
         	
-        	
+        System.out.println("**** candidato fin --> " + candidato);
+	
 		return candidato;
 	}
 
@@ -381,23 +502,158 @@ public class ControladorProcesosHelper {
 	 * @return true en caso que deba ejecutarse, false en caso contrario o que tenga una ejecucion asignada (no nula)
 	 * @throws SQLException
 	 */
-    public boolean debeEjecutarse(Proceso proceso) throws SQLException {
+    public boolean debeEjecutarse(String idUsuario, Proceso proceso) throws SQLException {
     	
     	//si tiene alguna ejecución no nula, no debe ejecutarse
     	//if(proceso.getUltimaEjecucion()!=null) return false;
     	if(proceso.getEjecucionActiva()!=null) return false;
 
     	//miramos si no hay restricción de horarios
-        if(!hayRestriccionHorario(proceso)) return true;
+        if(hayRestriccionHorario(proceso)) return false;
 
+     	//miramos si por configuración hay que lanzarse
+    	//if(!estaEnHoraDiaDeLanzarse(proceso)) return false;
     	
-    	//miramos si por configuración hay que lanzarse
-    	if(estaEnHoraDiaDeLanzarse(proceso)) return true;
+        if (!cumpleRestriccionesFechasActivacion(proceso)) return false;
 
-        return false;
+        if (!esMomentoDeEjecutar(proceso)) return false;
+
+        //ejecutarProceso(idUsuario, proceso);
+
+     //	if(comprobar(proceso)) return true;
+
+        return true;
     }
     
-    /**
+    /** ok
+     * Ejecución de un proceso
+     * @param proceso
+     * @throws SQLException 
+     */
+    public void ejecutarProceso(String idUsuario, Proceso proceso) throws SQLException {
+        System.out.println("Ejecutando: " + proceso.getLanzadera());
+        
+        if(idUsuario == null || idUsuario.equals(""))
+        	idUsuario="AUTO";
+        boolean ok = iniciarEjecucionProceso(idUsuario, proceso);
+
+
+        guardarHistorico(proceso);
+    }
+
+
+
+
+    
+
+
+    private void guardarHistorico(Proceso proceso) {
+         // Insertar en tabla de histórico
+     }
+    
+	private boolean esMomentoDeEjecutar(Proceso proceso) {
+    	if(proceso==null) return false;
+        LocalDateTime ahora = LocalDateTime.now();
+        
+        LocalDateTime inicioUltimaEjecucion = LocalDateTime.parse(proceso.getUltimaEjecucion().getFechaInicioEjecucion(), FORMATTER_DATETIME);
+
+     // Si nunca se ha ejecutado
+        if (proceso.getUltimaEjecucion() == null) {
+            return cumpleRestriccionesFechasActivacion(proceso) &&
+                   cumpleRestriccionesHora(proceso) &&
+                   cumpleRestriccionesDias(proceso);
+        }
+
+        // Si ya se ejecutó al menos una vez
+        if (!cumpleRestriccionesFechasActivacion(proceso)) return false;
+        if (!cumpleRestriccionesHora(proceso)) return false;
+        if (!cumpleRestriccionesDias(proceso)) return false;
+        
+        long minutosDesdeUltima = Duration.between(inicioUltimaEjecucion, ahora).toMinutes();
+        
+
+
+        switch (proceso.getTipoPeriodo()) {
+        case "MINUTOS":
+            return minutosDesdeUltima >= proceso.getFrecuenciaPeriodo();
+        case "HORAS":
+            return minutosDesdeUltima >= proceso.getFrecuenciaPeriodo() * 60;
+        case "DIAS":
+            return minutosDesdeUltima >= proceso.getFrecuenciaPeriodo() * 60 * 24;
+        case "SEMANAS":
+            return minutosDesdeUltima >= proceso.getFrecuenciaPeriodo() * 60 * 24 * 7;
+        case "MESES":
+            LocalDate fechaUltima = inicioUltimaEjecucion.toLocalDate();
+            LocalDate fechaLimite = fechaUltima.plusMonths(proceso.getFrecuenciaPeriodo());
+            return ahora.toLocalDate().isAfter(fechaLimite) || ahora.toLocalDate().isEqual(fechaLimite);
+        default:
+            return false;
+        }
+    }
+    
+    private boolean cumpleRestriccionesHora(Proceso proceso) {
+        String horaEjecucionStr = proceso.getHoraEjecucion(); // formato "HH:mm"
+        if (horaEjecucionStr == null || horaEjecucionStr.trim().isEmpty()) return true;
+
+        try {
+            LocalTime horaEjecucion = LocalTime.parse(horaEjecucionStr, DateTimeFormatter.ofPattern("HH:mm"));
+            LocalTime ahora = LocalTime.now();
+            return !ahora.isBefore(horaEjecucion); // true si ya ha pasado o es la hora
+        } catch (DateTimeParseException e) {
+            // En caso de error de formato, por seguridad no ejecutamos
+            return false;
+        }
+    }
+    private boolean cumpleRestriccionesDias(Proceso proceso) {
+        LocalDate hoy = LocalDate.now();
+
+        if ("SEMANAS".equalsIgnoreCase(proceso.getTipoPeriodo())) {
+            String diasSemana = proceso.getDiasSemana(); // valores tipo "1,2,3"
+            if (diasSemana == null || diasSemana.isEmpty()) return true;
+
+            int diaSemanaHoy = hoy.getDayOfWeek().getValue(); // 1 (lunes) a 7 (domingo)
+            return Arrays.stream(diasSemana.split(","))
+                         .map(String::trim)
+                         .mapToInt(Integer::parseInt)
+                         .anyMatch(dia -> dia == diaSemanaHoy);
+        }
+
+        if ("MESES".equalsIgnoreCase(proceso.getTipoPeriodo())) {
+            String diasMes = proceso.getDiasMes(); // valores tipo "1,15,30"
+            if (diasMes == null || diasMes.isEmpty()) return true;
+
+            int diaMesHoy = hoy.getDayOfMonth();
+            return Arrays.stream(diasMes.split(","))
+                         .map(String::trim)
+                         .mapToInt(Integer::parseInt)
+                         .anyMatch(dia -> dia == diaMesHoy);
+        }
+
+        // Para otros tipos de periodo, no se validan días concretos
+        return true;
+    }
+    private boolean cumpleRestriccionesFechasActivacion(Proceso proceso) {
+        LocalDate hoy = LocalDate.now();
+
+        try {
+            if (proceso.getFechaDesde() != null && !proceso.getFechaDesde().isEmpty()) {
+                LocalDate desde = LocalDate.parse(proceso.getFechaDesde(), FORMATTER_DATE);
+                if (hoy.isBefore(desde)) return false;
+            }
+
+            if (proceso.getFechaHasta() != null && !proceso.getFechaHasta().isEmpty()) {
+                LocalDate hasta = LocalDate.parse(proceso.getFechaHasta(), FORMATTER_DATE);
+                if (hoy.isAfter(hasta)) return false;
+            }
+        } catch (DateTimeParseException e) {
+            System.err.println("Formato de fecha inválido en proceso: " + proceso.getLanzadera());
+            return false;
+        }
+
+        return true;
+    }
+
+	/**
      * Método que mira si hay alguna restricción por hora, dia o fecha, para poder ejecutar los procesos. Para que se puedan ejecutar siempre han de devolver "false"
      * En caso que exista alguna restricción devolverá un "true"
      * @param proceso

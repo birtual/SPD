@@ -97,7 +97,7 @@ public class ControlDataImportDAO
 
 	public static List<ControlDataImportBean> getDatosBdConsejo(String idUsuario, int diasAlerta)throws Exception {
    
-    	String query = " SELECT 'bd_consejo' as nombreTabla,  max(dataHoraProces) as ultimaFechaRecogida  ";
+    	String query = " SELECT 'bd_consejo' as nombreTabla,  max(dataHoraProces) as ultimaFechaRecogida, count(*) as quants  ";
     	query+=			" FROM bd_consejo   ";
     	
      	
@@ -113,6 +113,7 @@ public class ControlDataImportDAO
 		        while (resultSet.next()) {
 		        	ControlDataImportBean  c =new ControlDataImportBean();
 		            c.setNombreTabla(resultSet.getString("nombreTabla"));
+		            c.setCuantos(resultSet.getInt("quants"));
 			            
 		            /**FECHA*/
 		            java.sql.Timestamp ultimaFechaRecogida = resultSet.getTimestamp("ultimaFechaRecogida");

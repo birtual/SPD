@@ -74,7 +74,7 @@
 				<th>última fecha recogida</th>
 			</logic:notEqual>					
 			<logic:notEqual property="cuantos" name="data" value="-1">
-				<th>Total dispensadas</th>
+				<th>Total </th>
 			</logic:notEqual>			
 			<logic:notEqual property="cuantasTolvasRobot" name="data" value="-1">
 				<th>Total tolvas recogidas</th>

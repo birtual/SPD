@@ -142,22 +142,24 @@ function getContextPath() {
 		
 	</p>
 	
-	
+
 <table style="width:80%">
 	<tr>
 		<!-- th class="segunda">Fecha creación</th> -->
+        <th>Orden</th>
         <th>Lanzadera</th>
         <th>Nombre</th>
         <!-- <th>Usuario creación</th> -->
         <!-- <th>Versión</th> -->
         <!-- <th>Descripción</th> -->
-        <!-- <th>Parámetros</th> -->
+        <th>Parámetros</th>
         <!--<th>Tipo ejecución</th> -->
-        <th>Cada</th>
-        <th>Periodo</th>
+        <!--<th>Cada</th> -->
+        <!--<th>Periodo</th> -->
+        <th>Frecuencia</th>
+        <th>Hora ejecución</th>
         <th>Días semana</th>
         <th>Días concretos (opcional)</th>
-        <th>Hora ejecución</th>
        <!--  <th>Max reintentos</th> -->
        <!--  <th>Max duración (s)</th> -->
        <!--  <th>Fecha desde</th> -->
@@ -171,22 +173,56 @@ function getContextPath() {
        
 
 	</tr>
+	<c:set var="ultimoApartado" value="" />
+	
 	<logic:iterate id="data" name="formulari" property="procesos" type="lopicost.spd.model.Proceso" indexId="position">
+	<c:if test="${ultimoApartado != (data.apartado != null ? data.apartado : '')}">
+		<!-- Fila de separación por cambio de apartado -->
+		<tr>
+			<td colspan="100" style="background-color:#e0e0e0; font-weight:bold; padding:8px;">
+				<c:out value="${data.apartado}" />
+			</td>
+		</tr>
+		<!-- Actualizar valor del último apartado mostrado -->
+		<c:set var="ultimoApartado" value="${data.apartado}" />
+	</c:if>
+	
+	<c:set var="clasePrioridad" value="" />
+  <c:choose>
+    <c:when test="${data.prioridad == '1'}">
+      <c:set var="clasePrioridad" value="prio-alta" />
+    </c:when>
+    <c:when test="${data.prioridad == '2'}">
+      <c:set var="clasePrioridad" value="prio-media" />
+    </c:when>
+    <c:when test="${data.prioridad == '3'}">
+      <c:set var="clasePrioridad" value="prio-baja" />
+    </c:when>
+  </c:choose>
 
-	<tr>
+  <tr>
+
+
+        <td><bean:write name="data" property="orden" /></td>
         <!-- td><bean:write name="data" property="fechaCreacion" /></td> -->
-        <td><bean:write name="data" property="lanzadera" /></td>
+        <td class="${clasePrioridad}"><bean:write name="data" property="lanzadera" /></td>
         <td><bean:write name="data" property="nombreProceso" /></td>
 		<!-- <td><bean:write name="data" property="usuarioCreacion" /></td> -->
 		<!-- <td><bean:write name="data" property="version" /></td> -->
         <!-- <td><bean:write name="data" property="descripcion" /></td> -->
-        <!-- <td><bean:write name="data" property="parametros" /></td> -->
+        <td><bean:write name="data" property="parametros" /></td>
         <!--<td><bean:write name="data" property="tipoEjecucion" /></td> -->
-        <td><bean:write name="data" property="frecuenciaPeriodo" /></td>
-        <td><bean:write name="data" property="tipoPeriodo" /></td>
-        <td><bean:write name="data" property="diasSemana" /></td>
-        <td><bean:write name="data" property="diasMes" /></td>
+        <td>Cada <bean:write name="data" property="frecuenciaPeriodo" /> - <bean:write name="data" property="tipoPeriodo" /></td>
         <td><bean:write name="data" property="horaEjecucion" /></td>
+        <!--<td><bean:write name="data" property="diasSemana" /></td> -->
+        <td>
+	        <c:choose>
+			  <c:when test="${data.diasSemana == '1,2,3,4,5,6,7'}">Todos</c:when>				  
+			  <c:otherwise><bean:write name="data" property="diasSemana"/></c:otherwise>
+			</c:choose>
+        </td>
+        
+        <td><bean:write name="data" property="diasMes" /></td>
         <!-- <td><bean:write name="data" property="maxReintentos" /></td> -->
         <!-- <td><bean:write name="data" property="maxDuracionSegundos" /></td> -->
        <!--  <td><bean:write name="data" property="fechaDesde" /></td> -->
@@ -229,17 +265,14 @@ function getContextPath() {
 	<td>-</td>
 	<td>-</td>
 	</logic:empty>
-	
-			<td>
-				<p class="botons">
-					<input type="button" onclick="javascript:goDetalle('<bean:write name="data" property="oidProceso" />');"  value="Detalle"  />
-					<input type="button" onclick="javascript:editar('<bean:write name="data" property="oidProceso" />');"  value="Editar"  />
-					<input type="button" onclick="javascript:lanzar('<bean:write name="data" property="oidProceso" />');"  value="Lanzar proceso"  />
-					<input type="button" onclick="javascript:ejecuciones('<bean:write name="data" property="oidProceso" />');"  value="Ver histórico"  />
-				</p>
-				
-			</td>
-        </tr>
+	<td>
+		<p class="botons">
+			<input type="button" onclick="javascript:goDetalle('<bean:write name="data" property="oidProceso" />');"  value="Detalle"  />
+			<input type="button" onclick="javascript:editar('<bean:write name="data" property="oidProceso" />');"  value="Editar"  />
+			<input type="button" onclick="javascript:lanzar('<bean:write name="data" property="oidProceso" />');"  value="Lanzar proceso"  />
+			<input type="button" onclick="javascript:ejecuciones('<bean:write name="data" property="oidProceso" />');"  value="Ver histórico"  />
+		</p>
+	</td>
 	</tr>	
 	</logic:iterate>
 

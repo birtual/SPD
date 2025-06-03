@@ -327,7 +327,7 @@ public class SPDConstants
 	public static final String PROCESO_FREC_PERIODO_SEMANAS			=	"SEMANAS";
 	public static final String PROCESO_FREC_PERIODO_MESES			=	"MESES";
 	
-	public static final int PROCESO_FRECUENCIA_LISTENER= 60; //cada X segundos se mirará si ha de ejecutarse el proceso  
+	public static final int PROCESO_FRECUENCIA_LISTENER= 300; //cada X segundos se mirará si ha de ejecutarse el proceso  
 
 	public static final int MAX_DURACIONSEGUNDOS_PROCESO = 300;	//5 minutos por defecto
 	public static final String PROCESO_TIPOEJEC_AUTO = "AUTOMATICO";

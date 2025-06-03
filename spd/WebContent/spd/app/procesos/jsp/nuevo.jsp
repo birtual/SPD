@@ -110,9 +110,20 @@
 		<table class="detalle">
 			* campos obligatorios
 
-		<tr><th class="primera">Nombre del Proceso  *</th><td><html:text property="nombreProceso"/></td></tr>
+		<tr><th class="segunda">Prioridad *</th>
+			<td>
+				<select id="prioridad" name="prioridad" style="width: 30em;"  onchange="actualizarColorPrioridad(this)">
+				  <option value="1" <c:if test="${formulari.prioridad == 1}">selected</c:if>>Alta</option>
+				  <option value="2" <c:if test="${formulari.prioridad == 2}">selected</c:if>>Media</option>
+				  <option value="3" <c:if test="${formulari.prioridad == 3}">selected</c:if>>Baja</option>
+				</select>
+			</td>
+		</tr>
+		<tr><th class="primera">Nombre del Proceso *</th><td><html:text property="nombreProceso"/></td></tr>
+		<tr><th class="primera">Nombre original</th><td><html:text property="nombreOriginal"/></td></tr>
 		<tr><th class="primera">Lanzadera *</th><td><html:text property="lanzadera"/></td></tr>
 		<tr><th class="segunda">Descripción *</th><td><html:textarea property="descripcion" cols="40" rows="3"/></td></tr>
+		<tr><th class="segunda">Apartado</th><td><html:textarea property="apartado" cols="40" rows="3"/></td></tr>
 
 		<tr>
 			<th class="segunda">Activo</th>
@@ -130,13 +141,14 @@
 		<td>
 			Cada
 			<input type="number" style="width: 7em;"  name="frecuenciaPeriodo" id="frecuenciaPeriodo" value="<bean:write name='formulari' property='frecuenciaPeriodo'/>" />
-			<select name="tipoPeriodo" style="text-align: left;">>
-			    <option value="MINUTOS" ${dat.tipoPeriodo}='MINUTOS' ? 'selected="selected"' : ''}>Minutos</option>
-			    <option value="HORAS" ${dat.tipoPeriodo}='HORAS' ? 'selected="selected"' : ''}>Horas</option>
-			    <option value="DIAS" ${dat.tipoPeriodo}='DIAS' ? 'selected="selected"' : ''}>Días</option>
-			    <option value="SEMANAS" ${dat.tipoPeriodo}='SEMANAS' ? 'selected="selected"' : ''}>Semanas</option>
-			    <option value="MESES" ${dat.tipoPeriodo}='MESES' ? 'selected="selected"' : ''}>Meses</option>
-			</select>
+			<html:select property="tipoPeriodo" name="formulari" style="text-align: left;">
+			    <html:option value="MINUTOS">Minutos</html:option>
+			    <html:option value="HORAS">Horas</html:option>
+			    <html:option value="DIAS">Días</html:option>
+			    <html:option value="SEMANAS">Semanas</html:option>
+			    <html:option value="MESES">Meses</html:option>
+			</html:select>
+			
 		</td>
 		
 	</tr>
@@ -159,7 +171,7 @@
 
 
 		<tr><th class="segunda">Hora de Ejecución *</th>
-			<td><input type="text" id="horaEjecucion" name="horaEjecucion" placeholder="HH:mm" style="width: 5em;"></td>
+			<td><input type="text" id="horaEjecucion" name="horaEjecucion" value="${formulari.horaEjecucion} placeholder="HH:mm" style="width: 5em;"></td>
 			
 		</tr>
 		<tr><th class="segunda">Máx. Reintentos *</th>
@@ -174,22 +186,25 @@
 		</tr>
 
 		<tr>
-			<th class="segunda">Fecha desde *</th><td><input type="text" id="fechaDesde" name="fechaDesde" value="${fechaDesde}" placeholder="Selecciona fecha de activación"></td>
+			<th class="segunda">Fecha desde *</th><td><input type="text" id="fechaDesde" name="fechaDesde" value="${formulari.fechaDesde}" placeholder="Selecciona fecha de activación"></td>
 		</tr>
 		<tr>
-			<th class="segunda">Fecha hasta</th><td><input type="text" id="fechaHasta" name="fechaHasta" value="${fechaHasta}" placeholder="Selecciona fecha de desactivación"></td>
+			<th class="segunda">Fecha hasta</th><td><input type="text" id="fechaHasta" name="fechaHasta" value="${formulari.fechaHasta}" placeholder="Selecciona fecha de desactivación"></td>
 		</tr>
 		<tr><th class="segunda">Tipo de Ejecución</th>
 		<td>
 			<select name="tipoEjecucion" style="text-align: left;">
-			    <option value="AUTOMATICO" ${dat.tipoEjecucion}='AUTOMATICO' ? 'selected="selected"' : ''}>Automático</option>
-			    <option value="MANUAL" ${dat.tipoEjecucion}='MANUAL' ? 'selected="selected"' : ''}>Manual</option>
+			    <option value="AUTOMATICO" ${formulari.tipoEjecucion}='AUTOMATICO' ? 'selected="selected"' : ''}>Automático</option>
+			    <option value="MANUAL" ${formulari.tipoEjecucion}='MANUAL' ? 'selected="selected"' : ''}>Manual</option>
 			</select>
 		</td>
 		</tr>
+		<tr><th class="segunda">Orden</th>
+			<td>
+				<input type="number" name="orden" id="orden" style="width: 3em;" value="<bean:write name='formulari' property='orden'/>" />
+			</td>
+		</tr>
 
-		
-		</table>
 
 		<tr>
 			<td>	

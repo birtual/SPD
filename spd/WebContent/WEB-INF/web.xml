@@ -45,4 +45,8 @@
       <taglib-location>/WEB-INF/c.tld</taglib-location>
     </taglib>
   </jsp-config>
+  <listener>
+  <listener-class>lopicost.spd.controller.listener.ControladorProcesos</listener-class>
+</listener>
+
 </web-app>

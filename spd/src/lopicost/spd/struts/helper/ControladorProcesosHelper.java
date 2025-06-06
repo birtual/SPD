@@ -11,21 +11,22 @@ import java.time.LocalDateTime;
 import java.time.LocalTime; 
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.stream.Collectors;
 
 import lopicost.spd.model.Proceso;
 import lopicost.spd.model.ProcesoEjecucion;
 import lopicost.spd.persistence.ProcesoDAO;
 import lopicost.spd.persistence.ProcesoEjecucionDAO;
+import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
 
 public class ControladorProcesosHelper {
 	private final ProcesoDAO procDAO = new ProcesoDAO();
 	private final ProcesoEjecucionDAO procEjecDAO = new ProcesoEjecucionDAO();
-    private  final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-    private  final SimpleDateFormat DATE_FORMAT_TIME = new SimpleDateFormat("dd/MM/yyyy HH:MM:SS");
-    DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    DateTimeFormatter FORMATTER_DATETIME =DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+//    private  final SimpleDateFormat DATE_FORMAT_TIME = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    //DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+   // DateTimeFormatter FORMATTER_DATETIME =DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
 	/** ok
      * Devuelve una lista de procesos activos
@@ -52,6 +53,7 @@ public class ControladorProcesosHelper {
         ejec.setMensaje("Superó tiempo máximo");
         ejec.setCodigoResultado(SPDConstants.PROCESO_CODE_ERROR_TIEMPO_EXCEDIDO);
         ejec.setTipoError("Timeout");
+        ejec.setNumIntentos(ejec.getNumIntentos()+1);
         return procEjecDAO.actualizarEjecucion(ejec);
     }
     
@@ -122,21 +124,59 @@ public class ControladorProcesosHelper {
         		&& SPDConstants.PROCESO_EJEC_ESTADO_EJECUTANDO.equalsIgnoreCase(ejec.getEstado())
         		&& duracionExcedida(ejec, proceso.getMaxDuracionSegundos().intValue())
         	){
+            System.out.println(HelperSPD.dameFechaHora() +  " - evaluarYEjecutarProcesos / SI marcarComoExcedido  ");
+
                 marcarComoExcedido(ejec);
                 //proceso.setUltimaEjecucion(null);  //vaciamos la ejecución del proceso para que se pueda volver a lanzar (si toca)
                 proceso.setEjecucionActiva(null);  //vaciamos la ejecución del proceso para que se pueda volver a lanzar (si toca)
          }
+        System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / NO TiempoExcedido  ");
+        
 	}
 	
+	/** ok
+	 * Método encargado de mirar si se ha llegado a los máximos intentos de un mismo proceso, a partir del número de intentos del proceso anterior  
+	 * @param proceso
+	 * @throws SQLException
+	 */
+	public  void controlMaxIntentos(Proceso proceso) throws SQLException {
+		//ProcesoEjecucion ejecucion = proceso.getUltimaEjecucion();
+    	ProcesoEjecucion ejecucion = proceso.getEjecucionActiva();
+    	if (ejecucion!=null)
+        {
+            int erroresPrevios = ejecucion.getNumIntentos();
+            if (erroresPrevios > proceso.getMaxReintentos()) {
+                actualizarEstadoProceso(proceso, SPDConstants.PROCESO_BLOQUEADO);
+                ejecucion.setCodigoResultado(SPDConstants.PROCESO_CODE_BLOQUEADO);
+                ejecucion.setResultado(SPDConstants.PROCESO_BLOQUEADO);
+                ejecucion.setEstado(SPDConstants.PROCESO_EJEC_ESTADO_FINALIZADO);
+                ejecucion.setNumIntentos(0); //reiniciamos contador
+                ejecucion.setFechaFinEjecucion(HelperSPD.dameFechaHora());
+                actualizarEstadoProcesoEjecucion(ejecucion);
+                //proceso.setUltimaEjecucion(null);
+                proceso.setEjecucionActiva(null); 
+                System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / SI MaxIntentos  " + erroresPrevios);
+                
+            }
+        }
+       System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / NO MaxIntentos  ");
+       	}
+	
+	
+	private boolean actualizarEstadoProcesoEjecucion(ProcesoEjecucion ejecucion) throws SQLException {
+		return procEjecDAO.actualizarEjecucion(ejecucion);
+		
+	}
+
 	/** ok
 	 * Método encargado de mirar si se ha llegado a los máximos intentos de un mismo proceso, a partir de la fecha del último proceso OK  
 	 * @param proceso
 	 * @throws SQLException
 	 */
-	public  void controlMaxIntentos(Proceso proceso) throws SQLException {
+	public  void controlMaxIntentosPrevios(Proceso proceso) throws SQLException {
     	//ProcesoEjecucion ejec = proceso.getUltimaEjecucion();
 		ProcesoEjecucion ejec = proceso.getEjecucionActiva();
-       if (ejec!=null)
+      // if (ejec!=null)
         {
             int erroresSeguidos = contarErroresDesdeUltimoExito(proceso);
             if (erroresSeguidos >= proceso.getMaxReintentos()) {
@@ -144,9 +184,12 @@ public class ControladorProcesosHelper {
                 actualizarEstadoProceso(proceso, SPDConstants.PROCESO_BLOQUEADO);
                 //proceso.setUltimaEjecucion(null);
                 proceso.setEjecucionActiva(null); 
+                System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / SI controlMaxIntentosPrevios  " + erroresSeguidos);
+                
             }
         }
-	}
+       System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / NO controlMaxIntentosPrevios  " );
+       	}
 
 	/**
 	 * Método que se encarga de limpiar procesos anteriores al último y que no han quedado bien cerrados
@@ -159,6 +202,7 @@ public class ControladorProcesosHelper {
 	public void controlProcesosAnteriores(Proceso proceso) throws SQLException {
 		//List<ProcesoEjecucion> list = procEjecDAO.obtenerEjecucionesAnteriores(proceso);
 		procEjecDAO.limpiarOtrasEjecucionesNoCerradas(proceso);
+        
 	}
 
 
@@ -507,18 +551,22 @@ public class ControladorProcesosHelper {
     	//si tiene alguna ejecución no nula, no debe ejecutarse
     	//if(proceso.getUltimaEjecucion()!=null) return false;
     	if(proceso.getEjecucionActiva()!=null) return false;
+        System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / debeEjecutarse / SI Activa  ");
 
     	//miramos si no hay restricción de horarios
         if(hayRestriccionHorario(proceso)) return false;
+        System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / debeEjecutarse / NO  hayRestriccionHorario  ");
 
      	//miramos si por configuración hay que lanzarse
     	//if(!estaEnHoraDiaDeLanzarse(proceso)) return false;
     	
         if (!cumpleRestriccionesFechasActivacion(proceso)) return false;
+        System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / debeEjecutarse / NO  RestriccionesFechasActivacion  ");
 
         if (!esMomentoDeEjecutar(proceso)) return false;
+        System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / debeEjecutarse / SI  esMomentoDeEjecutar  ");
 
-        //ejecutarProceso(idUsuario, proceso);
+        
 
      //	if(comprobar(proceso)) return true;
 
@@ -531,8 +579,8 @@ public class ControladorProcesosHelper {
      * @throws SQLException 
      */
     public void ejecutarProceso(String idUsuario, Proceso proceso) throws SQLException {
-        System.out.println("Ejecutando: " + proceso.getLanzadera());
-        
+        System.out.println(HelperSPD.dameFechaHora() + " - Ejecutando: " + idUsuario + " Proceso: " + proceso.getLanzadera());
+
         if(idUsuario == null || idUsuario.equals(""))
         	idUsuario="AUTO";
         boolean ok = iniciarEjecucionProceso(idUsuario, proceso);
@@ -555,51 +603,183 @@ public class ControladorProcesosHelper {
     	if(proceso==null) return false;
         LocalDateTime ahora = LocalDateTime.now();
         
-        LocalDateTime inicioUltimaEjecucion = LocalDateTime.parse(proceso.getUltimaEjecucion().getFechaInicioEjecucion(), FORMATTER_DATETIME);
+        boolean tipoEsMinutos = SPDConstants.PROCESO_FREC_PERIODO_MINUTOS.equalsIgnoreCase(proceso.getTipoPeriodo());
 
-     // Si nunca se ha ejecutado
+        // Si nunca se ha ejecutado
         if (proceso.getUltimaEjecucion() == null) {
+            System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / debeEjecutarse / esMomentoDeEjecutar  proceso.getUltimaEjecucion() == null " );
+
             return cumpleRestriccionesFechasActivacion(proceso) &&
-                   cumpleRestriccionesHora(proceso) &&
+                   (tipoEsMinutos || cumpleRestriccionesHora(proceso)) &&
                    cumpleRestriccionesDias(proceso);
+ 
         }
+        
+      //  LocalDateTime inicioUltimaEjecucion = LocalDateTime.parse(proceso.getUltimaEjecucion().getFechaInicioEjecucion(), SPDConstants.FORMAT_DATETIME_24h);
+
 
         // Si ya se ejecutó al menos una vez
-        if (!cumpleRestriccionesFechasActivacion(proceso)) return false;
-        if (!cumpleRestriccionesHora(proceso)) return false;
-        if (!cumpleRestriccionesDias(proceso)) return false;
+        if (!cumpleRestriccionesFechasActivacion(proceso)) 
+        {
+            System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / debeEjecutarse / SI RestriccionesFechasActivacion" );
+        	return false;
+        }
+        if (!tipoEsMinutos &&  !cumpleRestriccionesHora(proceso)) 
+        {
+            System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / debeEjecutarse / SI RestriccionesHora" );
+        	return false;
+        }
+        if (!cumpleRestriccionesDias(proceso))
+        {
+            System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / debeEjecutarse / SI RestriccionesDias" );
+            return false;
+        }
         
-        long minutosDesdeUltima = Duration.between(inicioUltimaEjecucion, ahora).toMinutes();
+        boolean porFrecuencia = false;
+        LocalDateTime ultimaEjecucion = null;
+        
+        if (proceso.getUltimaEjecucion() != null) {
+        	ultimaEjecucion  = LocalDateTime.parse(
+                proceso.getUltimaEjecucion().getFechaInicioEjecucion(), SPDConstants.FORMAT_DATETIME_24h);
+        }
+        
+        // Calcular fecha base de ejecución a partir de fechaDesde + horaEjecucion
+        LocalDate fechaInicio = HelperSPD.parseFecha(proceso.getFechaDesde()); // formato dd/MM/yyyy
+        LocalTime horaEjecucion = HelperSPD.parseHora(proceso.getHoraEjecucion()); // formato HH:mm
+        if (fechaInicio == null || horaEjecucion == null) return false;
+
+        LocalDateTime baseEjecucion = LocalDateTime.of(fechaInicio, horaEjecucion);
+
+        // Calcular próxima ejecución teórica desde baseEjecucion hasta ahora
+        //anteriorEjecucion = la ejecución previa a la siguiente teórica
+        //proximaEjecucion = la ejecución siguiente teórica
+        LocalDateTime anteriorEjecucion = baseEjecucion;
+        LocalDateTime proximaEjecucion = baseEjecucion;
+        while (proximaEjecucion.isBefore(ahora)) {
+            anteriorEjecucion = proximaEjecucion;
+            switch (proceso.getTipoPeriodo()) {
+            case "MINUTOS":
+                proximaEjecucion = proximaEjecucion.plusMinutes(proceso.getFrecuenciaPeriodo());
+                break;
+            case "HORAS":
+                proximaEjecucion = proximaEjecucion.plusHours(proceso.getFrecuenciaPeriodo());
+                break;
+            case "DIAS":
+                proximaEjecucion = proximaEjecucion.plusDays(proceso.getFrecuenciaPeriodo());
+                break;
+            case "SEMANAS":
+                proximaEjecucion = proximaEjecucion.plusWeeks(proceso.getFrecuenciaPeriodo());
+                break;
+            case "MESES":
+                proximaEjecucion = proximaEjecucion.plusMonths(proceso.getFrecuenciaPeriodo());
+                break;
+            default:
+                return false;
+        }
+    }
+     // Última ejecución es nula o anterior a la próxima ejecución teórica
+        //if (ultimaEjecucion == null || (ultimaEjecucion.isBefore(proximaEjecucion) && proximaEjecucion.isBefore(ahora))) {
+        if (ultimaEjecucion == null || (ultimaEjecucion.isBefore(anteriorEjecucion) && anteriorEjecucion.isBefore(ahora))) {
+            return true;
+        }
+        System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / ultimaEjecucion " +ultimaEjecucion );
+        System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / anteriorEjecucion " +anteriorEjecucion );
+        System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / ahora " +ahora );
+        System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / proximaEjecucion " +proximaEjecucion );
+
         
 
+        return false;
+            
 
+
+/*
+    	boolean result = false; 
         switch (proceso.getTipoPeriodo()) {
         case "MINUTOS":
-            return minutosDesdeUltima >= proceso.getFrecuenciaPeriodo();
+        	result = minutosDesdeUltima >= proceso.getFrecuenciaPeriodo();
+            System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / minutosDesdeUltima >= proceso.getFrecuenciaPeriodo() " + result );
+           return result;
         case "HORAS":
-            return minutosDesdeUltima >= proceso.getFrecuenciaPeriodo() * 60;
+        	result = minutosDesdeUltima >= proceso.getFrecuenciaPeriodo() * 60;
+            System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / minutosDesdeUltima >= proceso.getFrecuenciaPeriodo() * 60 " + result );
+           return result;
         case "DIAS":
-            return minutosDesdeUltima >= proceso.getFrecuenciaPeriodo() * 60 * 24;
+        	result = minutosDesdeUltima >= proceso.getFrecuenciaPeriodo() * 60 * 24;
+            System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / minutosDesdeUltima >= proceso.getFrecuenciaPeriodo() * 60  * 24 " + result );
+           return result;
         case "SEMANAS":
-            return minutosDesdeUltima >= proceso.getFrecuenciaPeriodo() * 60 * 24 * 7;
+        	result = minutosDesdeUltima >= proceso.getFrecuenciaPeriodo() * 60 * 24 * 7;
+            System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / minutosDesdeUltima >= proceso.getFrecuenciaPeriodo() * 60 * 24 * 7 " + result );
+           return result;
         case "MESES":
             LocalDate fechaUltima = inicioUltimaEjecucion.toLocalDate();
             LocalDate fechaLimite = fechaUltima.plusMonths(proceso.getFrecuenciaPeriodo());
-            return ahora.toLocalDate().isAfter(fechaLimite) || ahora.toLocalDate().isEqual(fechaLimite);
+            System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / ahora.toLocalDate().isAfter(fechaLimite) || ahora.toLocalDate().isEqual(fechaLimite) " + result );
+           result = ahora.toLocalDate().isAfter(fechaLimite) || ahora.toLocalDate().isEqual(fechaLimite);
+            return result;
         default:
             return false;
         }
+        */
     }
-    
-    private boolean cumpleRestriccionesHora(Proceso proceso) {
+
+	
+	
+	/*
+	private boolean estamosEnMomentoTeorico(Proceso proceso, LocalDateTime ahora) {
+	    try {
+	        LocalDate fechaBase = LocalDate.parse(proceso.getFechaDesde(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+	        LocalTime horaBase = LocalTime.parse(proceso.getHoraEjecucion(), DateTimeFormatter.ofPattern("HH:mm"));
+	        LocalDateTime inicio = LocalDateTime.of(fechaBase, horaBase);
+
+	        LocalDateTime proxima = inicio;
+	        while (!proxima.isAfter(ahora)) {
+	            switch (proceso.getTipoPeriodo()) {
+	                case "MINUTOS": proxima = proxima.plusMinutes(proceso.getFrecuenciaPeriodo()); break;
+	                case "HORAS": proxima = proxima.plusHours(proceso.getFrecuenciaPeriodo()); break;
+	                case "DIAS": proxima = proxima.plusDays(proceso.getFrecuenciaPeriodo()); break;
+	                case "SEMANAS": proxima = proxima.plusWeeks(proceso.getFrecuenciaPeriodo()); break;
+	                case "MESES": proxima = proxima.plusMonths(proceso.getFrecuenciaPeriodo()); break;
+	            }
+	        }
+
+	        LocalDateTime ultimaTeorica = proxima.minus(getChronoUnit(proceso.getTipoPeriodo()).getDuration().multipliedBy(proceso.getFrecuenciaPeriodo()));
+	        System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / ultimaTeorica " + ultimaTeorica );
+	        System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / ahora.isBefore(ultimaTeorica) " + ahora.isBefore(ultimaTeorica) );
+	        System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / Duration.between(ultimaTeorica, ahora).toMinutes() " + Duration.between(ultimaTeorica, ahora).toMinutes() );
+
+	        return !ahora.isBefore(ultimaTeorica) && Duration.between(ultimaTeorica, ahora).toMinutes() <= 5; // margen tolerancia
+	    } catch (Exception e) {
+	        return false;
+	    }
+	}
+	*/
+	private ChronoUnit getChronoUnit(String tipo) {
+	    switch (tipo.toUpperCase()) {
+	        case "MINUTOS": return ChronoUnit.MINUTES;
+	        case "HORAS": return ChronoUnit.HOURS;
+	        case "DIAS": return ChronoUnit.DAYS;
+	        case "SEMANAS": return ChronoUnit.WEEKS;
+	        case "MESES": return ChronoUnit.MONTHS;
+	        default: return ChronoUnit.DAYS;
+	    }
+	}
+
+	private boolean cumpleRestriccionesHora(Proceso proceso) {
         String horaEjecucionStr = proceso.getHoraEjecucion(); // formato "HH:mm"
+        System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / cumpleRestriccionesHora / horaEjecucionStr " + horaEjecucionStr );
+
         if (horaEjecucionStr == null || horaEjecucionStr.trim().isEmpty()) return true;
 
         try {
             LocalTime horaEjecucion = LocalTime.parse(horaEjecucionStr, DateTimeFormatter.ofPattern("HH:mm"));
+            System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / cumpleRestriccionesHora / horaEjecucion " + horaEjecucion );
             LocalTime ahora = LocalTime.now();
-            return !ahora.isBefore(horaEjecucion); // true si ya ha pasado o es la hora
-        } catch (DateTimeParseException e) {
+            System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / cumpleRestriccionesHora / ahora " + ahora );
+            System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / cumpleRestriccionesHora / !ahora.isBefore(horaEjecucion) " + !ahora.isBefore(horaEjecucion) );
+            return !ahora.isBefore(horaEjecucion); // true si "ahora" ya ha pasado o es la hora
+         } catch (DateTimeParseException e) {
             // En caso de error de formato, por seguridad no ejecutamos
             return false;
         }
@@ -637,12 +817,12 @@ public class ControladorProcesosHelper {
 
         try {
             if (proceso.getFechaDesde() != null && !proceso.getFechaDesde().isEmpty()) {
-                LocalDate desde = LocalDate.parse(proceso.getFechaDesde(), FORMATTER_DATE);
+                LocalDate desde = LocalDate.parse(proceso.getFechaDesde(), SPDConstants.FORMAT_DATE);
                 if (hoy.isBefore(desde)) return false;
             }
 
             if (proceso.getFechaHasta() != null && !proceso.getFechaHasta().isEmpty()) {
-                LocalDate hasta = LocalDate.parse(proceso.getFechaHasta(), FORMATTER_DATE);
+                LocalDate hasta = LocalDate.parse(proceso.getFechaHasta(), SPDConstants.FORMAT_DATE);
                 if (hoy.isAfter(hasta)) return false;
             }
         } catch (DateTimeParseException e) {
@@ -673,21 +853,32 @@ public class ControladorProcesosHelper {
 
 	private boolean creaObjetoEjecucion(String idUsuario, Proceso proceso) throws SQLException {
     	ProcesoEjecucion ejec = new ProcesoEjecucion();
+    	ProcesoEjecucion ejecAnterior = proceso.getUltimaEjecucion();
+    	
     	//ejec.setEstado(SPDConstants.PROCESO_EJEC_ESTADO_EJECUTANDO);
     	//inicializamos en pendiente y al lanzar el procedure se actualizará a ejecutando
     	ejec.setEstado(SPDConstants.PROCESO_EJEC_ESTADO_PENDIENTE);
   		
     	Date dFechaCreacionEjecucion = new Date();
-	  	String fechaCreacionEjecucion =  DATE_FORMAT_TIME.format(dFechaCreacionEjecucion);
+	  	String fechaCreacionEjecucion =  HelperSPD.dameFechaHora();
     	ejec.setFechaCreacionEjecucion(fechaCreacionEjecucion);
     	ejec.setLanzadera(proceso.getLanzadera());
-    	ejec.setNumIntentos(1);
+    	int numIntentos=0;
+    	//en caso que el proceso ya se haya ejecutado previamente se le suma 1. en caso de bloqueo se reinicializa el contador
+    	if(ejecAnterior!=null && !proceso.getActivo().equalsIgnoreCase(SPDConstants.PROCESO_BLOQUEADO)
+    			//&& !ejecAnterior.getEstado().equalsIgnoreCase(SPDConstants.PROCESO_CODE_FINALIZADO_OK) )
+    			&& !ejecAnterior.getResultado().equalsIgnoreCase(SPDConstants.PROCESO_EJEC_RESULT_OK)) 
+    	{
+    		numIntentos=ejecAnterior.getNumIntentos()+1;
+    	}
+    		
+    	ejec.setNumIntentos(numIntentos);
     	ejec.setOidProceso(proceso.getOidProceso());
     	ejec.setUsuarioEjecucion(idUsuario);
     	ejec.setVersion(proceso.getVersion());
 	  	
-    	int erroresSeguidos = contarErroresDesdeUltimoExito(proceso);
-    	ejec.setNumIntentos(erroresSeguidos+1);
+    	//int erroresSeguidos = contarErroresDesdeUltimoExito(proceso);
+    	//ejec.setNumIntentos(erroresSeguidos+1);
 	  	
     	//proceso.setUltimaEjecucion(ejec);
     	proceso.setEjecucionActiva(ejec);

@@ -1,6 +1,7 @@
 package lopicost.spd.controller.listener;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -12,12 +13,14 @@ import javax.servlet.ServletContextListener;
 import lopicost.spd.model.Proceso;
 import lopicost.spd.struts.action.GenericAction;
 import lopicost.spd.struts.helper.ControladorProcesosHelper;
+import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
 
 public class ControladorProcesos extends GenericAction implements ServletContextListener {
 
     private ScheduledExecutorService planificador;
-    private SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+    //private SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+   // private static final SimpleDateFormat DATE_FORMAT_TIME = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     private final ControladorProcesosHelper helper = new ControladorProcesosHelper();
 
     @Override
@@ -76,19 +79,26 @@ public class ControladorProcesos extends GenericAction implements ServletContext
         if(idUsuario!=null && !idUsuario.equalsIgnoreCase("AUTO")) automatico=false;
         	
     	if(proceso==null) return result;
+        System.out.println(HelperSPD.dameFechaHora() + " -  Lanzamiento de  = " + proceso.getLanzadera() + "");
 
         // 1. Comprobar si hay ejecución activa y excede duración
         helper.controlTiempoExcedido(proceso);
     	// 2. Comprobamos errores  seguidos o intentos de ejecuciones desde el último ok
-        helper.controlMaxIntentos(proceso);
+        //helper.controlMaxIntentosPrevios(proceso);
+        //helper.controlMaxIntentos(proceso);
         // 3. (limpieza) Control de otros procesos que no se han cerrado ok
         helper.controlProcesosAnteriores(proceso);
          // 3. Comprobación de si debe ejecutarse según frecuencia, hora y día 
         result = helper.debeEjecutarse(idUsuario, proceso);
         if (result || !automatico) 
         {
+            System.out.println(HelperSPD.dameFechaHora()  + " - evaluarYEjecutarProcesos / SI debeEjecutarse o Manual = " + automatico + "");
+
         	//4. Si llegamos aquí es que no hay otra ejecución lanzada del proceso (última ejecución es null) 
             helper.ejecutarProceso(idUsuario, proceso);
+           	// 2. Comprobamos errores  seguidos o intentos de ejecuciones desde el último ok
+           helper.controlMaxIntentos(proceso);
+
         }
        return result;
     }

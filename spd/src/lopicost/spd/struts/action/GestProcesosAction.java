@@ -1,6 +1,8 @@
 package lopicost.spd.struts.action;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import lopicost.spd.model.Usuario;
 import lopicost.spd.persistence.UsuarioDAO;
 import lopicost.spd.struts.form.ProcesosForm;
 import lopicost.spd.struts.helper.ProcesoHelper;
+import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
 
 
@@ -28,6 +31,7 @@ public class GestProcesosAction extends GenericAction  {
 	static String className = "GestProcesosAction";
 	ProcesoHelper helper = new ProcesoHelper();
 	ControladorProcesos restHelper = new ControladorProcesos();
+  //  private  final SimpleDateFormat DATE_FORMAT_TIME = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 	/**
 	 * Listado de los procesos del sistema, normalmente son PROCEDURE
@@ -172,7 +176,10 @@ public class GestProcesosAction extends GenericAction  {
 		// Lanza el procedimiento en segundo plano
 	    new Thread(() -> {
 	        try {
+                System.out.println(HelperSPD.dameFechaHora() + " - Proceso lanzado manualmente.");
+
 	    		boolean result= restHelper.evaluarYEjecutarProcesos(getIdUsuario(), proceso); // ejecuta el procedure
+                System.out.println(HelperSPD.dameFechaHora() + " - Resultado " + result + " Proceso lanzado manualmente.");
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }

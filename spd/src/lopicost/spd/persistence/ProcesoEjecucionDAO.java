@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.Date;
 import lopicost.config.pool.dbaccess.Conexion;
 import lopicost.spd.model.Proceso;
 import lopicost.spd.model.ProcesoEjecucion;
+import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
 
 
@@ -24,8 +26,8 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 	
 	
 	static String className="ProcesoEjecucionDAO";
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-    private static final SimpleDateFormat DATE_FORMAT_TIME = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    //private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+    //private static final SimpleDateFormat DATE_FORMAT_TIME = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
    
     /**
      * Por defecto se hace la llamada con dos parámetros, oidProcesoEjecucion y codigoResultado (OUT) pero es posible añadir más en la definición del proceso, separado por "|"
@@ -107,13 +109,13 @@ public class ProcesoEjecucionDAO extends GenericDAO{
             	//stmt = con.prepareCall("{call test1(?)}");
                 //stmt.setInt(1, proceso.getOidProceso());
                
-                System.out.println("Lanzando proceso con oid: " + proceso.getOidProceso() + " - lanzadera: " + proceso.getLanzadera());
+                System.out.println(HelperSPD.dameFechaHora() + " - Lanzando proceso con oid: " + proceso.getOidProceso() + " - lanzadera: " + proceso.getLanzadera());
              // stmt.execute();
              // Leer el parámetro de salida
              // int  codigoResultado = stmt.getInt(2);
 
-                System.out.println("Código de resultado: " + codigoResultado);
-                System.out.println("Proceso lanzado correctamente.");
+                System.out.println(HelperSPD.dameFechaHora() + " - Código de resultado: " + codigoResultado);
+                System.out.println(HelperSPD.dameFechaHora() + " - Proceso lanzado correctamente.");
 /*
                 // Consultar el estado del proceso después de ejecutar el procedure
                 String estado = ProcesoHelper.obtenerEstadoProceso(idUsuario, proceso.getOidProceso());
@@ -217,7 +219,7 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 	 * @throws SQLException
 	 */
 	public ProcesoEjecucion obtenerUltimaEjecucion(String idUsuario, Proceso proceso) throws SQLException {
-		return obtenerUltimaEjecucion( idUsuario,  proceso, null) ;
+		return obtenerUltimaEjecucion( idUsuario,  proceso, null, null) ;
 	}
 
 	/** ok
@@ -228,7 +230,7 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 	 * @return
 	 * @throws SQLException
 	 */
-	public ProcesoEjecucion obtenerUltimaEjecucion(String idUsuario, Proceso proceso, String estado) throws SQLException {
+	public ProcesoEjecucion obtenerUltimaEjecucion(String idUsuario, Proceso proceso, String estado, String resultado) throws SQLException {
 		
 		if(proceso ==null) return null;
 		ProcesoEjecucion procesoEjecucion =null;
@@ -241,12 +243,14 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 	    	sql+= " AND oidProceso =  '" + proceso.getOidProceso() + "'";
 	    if(estado != null && !estado.equals(""))
 	       	sql+= " AND estado =  '" + estado  + "'";
+	    if(resultado != null && !resultado.equals(""))
+	       	sql+= " AND resultado =  '" + resultado  + "'";
    
 		sql+= " ORDER BY fechaCreacionEjecucion desc ";
        //	sql+= " ORDER BY fechaFinEjecucion desc, fechaInicioEjecucion desc ";
 	        
 	  		Connection con = Conexion.conectar();
-			System.out.println(className + "--> list -->" +sql );		
+		//	System.out.println(className + "--> list -->" +sql );		
 		    ResultSet resultSet = null;
 		    try {
 		    	PreparedStatement pstat = con.prepareStatement(sql);
@@ -278,17 +282,24 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 		 procesoEjecucion.setOidProceso(rs.getInt("oidProceso"));
 		 procesoEjecucion.setLanzadera(rs.getString("lanzadera"));
 		 procesoEjecucion.setVersion(rs.getInt("version"));
-			Date dFechaCreacion  = rs.getTimestamp("fechaCreacionEjecucion");
-			String fechaCreacion =  DATE_FORMAT_TIME.format(dFechaCreacion);
+			//Date dFechaCreacion  = rs.getTimestamp("fechaCreacionEjecucion");
+		 	LocalDateTime dFechaCreacion  = rs.getTimestamp("fechaCreacionEjecucion").toLocalDateTime();
+			//String fechaCreacion =  DATE_FORMAT_TIME.format(dFechaCreacion);
+		 	String fechaCreacion =  dFechaCreacion.format(SPDConstants.FORMAT_DATETIME_24h); // a String
+		 	
 		 procesoEjecucion.setFechaCreacionEjecucion(fechaCreacion);
 
-			Date dFechaInicioEjecucion  = rs.getTimestamp("fechaInicioEjecucion");
-			String fechaInicioEjecucion =  DATE_FORMAT_TIME.format(dFechaInicioEjecucion);
+			//Date dFechaInicioEjecucion  = rs.getTimestamp("fechaInicioEjecucion");
+		 	LocalDateTime dFechaInicioEjecucion  = rs.getTimestamp("fechaInicioEjecucion").toLocalDateTime();
+			//String fechaInicioEjecucion =  DATE_FORMAT_TIME.format(dFechaInicioEjecucion);
+			String fechaInicioEjecucion =  dFechaInicioEjecucion.format(SPDConstants.FORMAT_DATETIME_24h); // a String
 		 procesoEjecucion.setFechaInicioEjecucion(fechaInicioEjecucion);
 		 String fechaFinEjecucion = null;
 		 try{
-			 Date dFechaFinEjecucion  = rs.getTimestamp("fechaFinEjecucion");
-			 fechaFinEjecucion =  DATE_FORMAT_TIME.format(dFechaFinEjecucion);
+			// Date dFechaFinEjecucion  = rs.getTimestamp("fechaFinEjecucion");
+			 LocalDateTime dFechaFinEjecucion  = rs.getTimestamp("fechaFinEjecucion").toLocalDateTime();
+			 //fechaFinEjecucion =  DATE_FORMAT_TIME.format(dFechaFinEjecucion);
+			 fechaFinEjecucion =  dFechaFinEjecucion.format(SPDConstants.FORMAT_DATETIME_24h); // a String
 		 }catch(Exception e){
 		 }
 		 procesoEjecucion.setFechaFinEjecucion(fechaFinEjecucion);
@@ -303,6 +314,7 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 		 procesoEjecucion.setTipoError(rs.getString("tipoError"));
 		 procesoEjecucion.setCodigoResultado(rs.getString("codigoResultado"));
 		 procesoEjecucion.setError(rs.getString("error"));
+		 procesoEjecucion.setNumIntentos(rs.getInt("numIntentos"));
 
 	
 		 return procesoEjecucion;
@@ -534,15 +546,19 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 		int result=0;
 		Connection con = null;
 		con = Conexion.conectar();
-		    String sql = "UPDATE SPD_procesosEjecucion SET ";
-		    		sql+= " estado = '"+ejec.getEstado()+"' ";
-		    		sql+= ", fechaFinEjecucion = '"+ejec.getFechaFinEjecucion()+"' ";  
-		    		sql+= ", duracionSegundos  = '"+ejec.getDuracionSegundos()+"' ";
-		    		sql+= ", mensaje  = '"+ejec.getMensaje()+"' ";
-		    		sql+= ", codigoResultado  = '"+ejec.getCodigoResultado()+"' ";
-		    		sql+= ", resultado  = '"+ejec.getResultado()+"' ";
-		    		sql+= ", tipoError  = '"+ejec.getTipoError()+"' ";
-		    		sql+= "  WHERE oidProcesoEjecucion='"+ejec.getOidProcesoEjecucion()+"'";
+		String mensaje =  "";
+		if(ejec.getMensaje()!=null) ejec.getMensaje().replace("'", "''");
+		
+		String sql = "UPDATE SPD_procesosEjecucion SET ";
+		 		sql+= " estado = '"+ejec.getEstado()+"' ";
+		   		sql+= ", fechaFinEjecucion = '"+ejec.getFechaFinEjecucion()+"' ";  
+		   		sql+= ", duracionSegundos  = '"+ejec.getDuracionSegundos()+"' ";
+		   		sql+= ", mensaje  = '"+mensaje+"' ";
+		   		sql+= ", codigoResultado  = '"+ejec.getCodigoResultado()+"' ";
+		   		sql+= ", resultado  = '"+ejec.getResultado()+"' ";
+		   		sql+= ", numIntentos  = '"+ejec.getNumIntentos()+"' ";
+		   		sql+= ", tipoError  = '"+(ejec.getTipoError()!=null?ejec.getTipoError():"")+"' ";
+		   		sql+= "  WHERE oidProcesoEjecucion='"+ejec.getOidProcesoEjecucion()+"'";
 		    try (PreparedStatement ps = con.prepareStatement(sql)) {
 		        result = ps.executeUpdate();
 		    }
@@ -556,7 +572,7 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 	 * @throws SQLException
 	 */
 	public int contarErroresDesdeUltimoExito(Proceso proceso) throws SQLException {
-	    ProcesoEjecucion ultimaOk = obtenerUltimaEjecucion(null, proceso, SPDConstants.PROCESO_EJEC_ESTADO_FINALIZADO);
+	    ProcesoEjecucion ultimaOk = obtenerUltimaEjecucion(null, proceso, SPDConstants.PROCESO_EJEC_ESTADO_FINALIZADO, SPDConstants.PROCESO_EJEC_RESULT_OK);
 	    String fechaDesde = ultimaOk != null ? ultimaOk.getFechaInicioEjecucion() : "01/01/1900";
 	    int posteriores = contarPosterioresAFecha(proceso, fechaDesde);
 		return posteriores;
@@ -568,9 +584,11 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 		if(proceso ==null) return 0;
 	    String sql = "SELECT COUNT(*) as cuantas  FROM SPD_procesosEjecucion ";
 	    	sql+= " WHERE 1 = 1 ";
-	    	sql+= " AND estado = '"+SPDConstants.PROCESO_EJEC_ESTADO_EJECUTANDO+"'";
+	    	//TO-DO Se elimina este AND, pero revisar. 
+	    	//sql+= " AND estado = '"+SPDConstants.PROCESO_EJEC_ESTADO_EJECUTANDO+"'";
 	    	sql+= " AND lanzadera = '"+proceso.getLanzadera()+"'";
-	    	sql+= " AND fechaInicioEjecucion  >= '"+fechaDesde+"'";
+	    	sql+= " AND oidProceso = '"+proceso.getOidProceso()+"'";
+	    	sql+= " AND fechaInicioEjecucion  > '"+fechaDesde+"'";
 
 	    	Connection con = Conexion.conectar();
 			System.out.println(className + "--> contarPosterioresAFecha" +sql );		
@@ -592,7 +610,7 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 	public void limpiarOtrasEjecucionesNoCerradas(Proceso proceso) throws SQLException {
 	    //if(proceso == null || proceso.getUltimaEjecucion() == null) return;
 		if(proceso == null) return;
-		
+		 int quants = 0;
 	     String sql = "UPDATE SPD_procesosEjecucion ";
 	     sql+= " SET estado = '"+SPDConstants.PROCESO_EJEC_ESTADO_CANCELADO+"', ";
 	     sql+= " mensaje = 'Cancelado Por limpieza de registros antiguos', ";
@@ -600,7 +618,8 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 	     sql+= " codigoResultado = '"+SPDConstants.PROCESO_CODE_CANCELADO+"', ";
 	     sql+= " resultado = '"+SPDConstants.PROCESO_EJEC_RESULT_CANCEL +"'  ";
     	 sql+= " WHERE lanzadera = '" + proceso.getLanzadera() + "'";
-	     sql+= " AND estado <> '"+SPDConstants.PROCESO_EJEC_ESTADO_FINALIZADO+"' ";
+    	 sql+= " AND oidProceso = " + proceso.getOidProceso() ;
+    	 sql+= " AND estado <> '"+SPDConstants.PROCESO_EJEC_ESTADO_FINALIZADO+"' ";
 
     	 //if(proceso.getUltimaEjecucion()!=null)
 		 //sql+= " AND oidProcesoEjecucion <>  '" + proceso.getUltimaEjecucion().getOidProcesoEjecucion() + "'";
@@ -608,14 +627,40 @@ public class ProcesoEjecucionDAO extends GenericDAO{
     		 sql+= " AND oidProcesoEjecucion <>  '" + proceso.getEjecucionActiva().getOidProcesoEjecucion() + "'";
  
     	 Connection con = Conexion.conectar();
-		 System.out.println(className + "--> limpiarOtrasEjecucionesNoCerradas -->" +sql );		
+    	 //System.out.println(className + "--> limpiarOtrasEjecucionesNoCerradas -->" +sql );		
 		 try {
 			 PreparedStatement pstat = con.prepareStatement(sql);
-			 pstat.executeUpdate();
+			 quants = pstat.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 				
 			} finally {con.close();
+	        System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / (" + quants + ") SI limpiarOtrasEjecucionesNoCerradas  ");
+
+			}
+		}
+
+
+	public static void inicializaContadorEjecucion(ProcesoEjecucion ejecucion) throws SQLException {
+	    //if(proceso == null || proceso.getUltimaEjecucion() == null) return;
+		if(ejecucion == null) return;
+		 int quants = 0;
+	     String sql = "UPDATE SPD_procesosEjecucion ";
+	     sql+= " SET numIntentos = 0 ";
+    	 sql+= " WHERE oidProcesoEjecucion = " + ejecucion.getOidProcesoEjecucion() ;
+
+
+    	 Connection con = Conexion.conectar();
+    	 //System.out.println(className + "--> limpiarOtrasEjecucionesNoCerradas -->" +sql );		
+		 try {
+			 PreparedStatement pstat = con.prepareStatement(sql);
+			 quants = pstat.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				
+			} finally {con.close();
+	        System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / (" + quants + ") SI limpiarOtrasEjecucionesNoCerradas  ");
+
 			}
 		}
 

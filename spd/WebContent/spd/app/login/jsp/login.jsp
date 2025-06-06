@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 	<!-- link rel="stylesheet"  href="spd/css/login.css"> -->
 	<link rel="stylesheet"  href="spd/css/login.css"> 
 	<meta http-equiv="Content-Type" pageEncoding="text/html; charset=ISO-8859-1" %>

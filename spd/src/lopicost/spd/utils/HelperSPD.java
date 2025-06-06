@@ -7,6 +7,8 @@ import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -4180,6 +4182,31 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 
 	        return resultado.toString().trim(); // Elimina el espacio extra al final
 	    }
+
+
+
+		public static String dameFechaHora() {
+			return LocalDateTime.now().format(SPDConstants.FORMAT_DATETIME_24h);
+		}
+
+	    
+		public static LocalDate parseFecha(String fechaStr) {
+		    try {
+		        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		        return LocalDate.parse(fechaStr, formatter);
+		    } catch (Exception e) {
+		        return null;
+		    }
+		}
+
+		public static LocalTime parseHora(String horaStr) {
+		    try {
+		        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+		        return LocalTime.parse(horaStr, formatter);
+		    } catch (Exception e) {
+		        return null;
+		    }
+		}
 
 	    
 }

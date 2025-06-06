@@ -2,6 +2,8 @@
 package lopicost.spd.utils;
  
 import lopicost.config.logger.Logger;
+
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class SPDConstants 
@@ -47,6 +49,8 @@ public class SPDConstants
 	//public static final String SPD_PROCESO_XML_GENERADO = "XML_GENERADO";
 	//public static final String SPD_PROCESO_DESCARTADO = "DESCARTADO";
 	public static final String FORMATO_FECHA_DEFAULT = "dd/MM/yyyy";
+	public static final DateTimeFormatter FORMAT_DATE =DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	public static final DateTimeFormatter FORMAT_DATETIME_24h =DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
 	public static final String DIAS_PRODUCCION_PASA_A_HST= "60";
 	
@@ -320,6 +324,7 @@ public class SPDConstants
 	public static final String PROCESO_CODE_ERROR_MAX_INTENTOS 		= "2";
 	public static final String PROCESO_CODE_ERROR_INDETERMINADO 	= "3";
 	public static final String PROCESO_CODE_CANCELADO 				= "4";
+	public static final String PROCESO_CODE_BLOQUEADO 				= "5";
 	
 	public static final String PROCESO_FREC_PERIODO_MINUTOS			=	"MINUTOS";
 	public static final String PROCESO_FREC_PERIODO_HORAS			=	"HORAS";

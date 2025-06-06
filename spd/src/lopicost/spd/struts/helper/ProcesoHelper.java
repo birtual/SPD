@@ -20,6 +20,7 @@ import lopicost.spd.persistence.ProcesoEjecucionLogDAO;
 import lopicost.spd.persistence.ProcesoHistoricoDAO;
 import lopicost.spd.struts.form.ProcesosForm;
 import lopicost.spd.utils.DateUtilities;
+import lopicost.spd.utils.SPDConstants;
 
 public class ProcesoHelper {
 	private final ProcesoDAO procDAO = new ProcesoDAO();
@@ -313,6 +314,10 @@ public class ProcesoHelper {
 			/*  INICIO Activo*/
 			if (!Objects.equals(proceso.getActivo(), f.getActivo())) 
 			{
+				//tratamos el caso de procesos reactivados, para inicializar a 0 el número de intentos de la última ejecución
+				if(proceso.getActivo().equalsIgnoreCase(SPDConstants.PROCESO_BLOQUEADO))
+					ProcesoEjecucionDAO.inicializaContadorEjecucion(proceso.getUltimaEjecucion());
+				
 				antes+=  " | Activo: "+ proceso.getActivo();
 				despues+=" | Activo: "+ f.getActivo();
 

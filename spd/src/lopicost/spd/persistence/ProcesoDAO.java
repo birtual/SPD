@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -13,14 +14,15 @@ import java.util.Date;
 import lopicost.config.pool.dbaccess.Conexion;
 import lopicost.spd.model.Proceso;
 import lopicost.spd.utils.DateUtilities;
+import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
 
 
 public class ProcesoDAO extends GenericDAO{
 	
 	private String className="ProcesoDAO";
-    private  final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-    private  final SimpleDateFormat DATE_FORMAT_TIME = new SimpleDateFormat("dd/MM/yyyy HH:MM:SS");
+    //private  final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+    //private  final SimpleDateFormat DATE_FORMAT_TIME = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	private final ProcesoEjecucionDAO procEjecDAO = new ProcesoEjecucionDAO();
 
 	
@@ -80,7 +82,7 @@ public class ProcesoDAO extends GenericDAO{
 
 	        
 	  		Connection con = Conexion.conectar();
-			System.out.println(className + "--> list -->" +sql );		
+			//System.out.println(HelperSPD.dameFechaHora() + " - " + className + "--> list -->" +sql );		
 		    ResultSet resultSet = null;
 		    try {
 		    	PreparedStatement pstat = con.prepareStatement(sql);
@@ -221,12 +223,15 @@ public class ProcesoDAO extends GenericDAO{
 			  	
 			  	//Inicio fechaFin (Activación)
 			  	String fechaDesde = proceso.getFechaDesde();
-		  		Date dFechaDesde = new Date();
+		  		//Date dFechaDesde = new Date();
+		  		LocalDateTime dFechaDesde = LocalDateTime.now();
 			  	if(fechaDesde!=null &&  !fechaDesde.equals(""))
 			  	{
-			  		dFechaDesde = DateUtilities.getDate( fechaDesde, "dd/MM/yyyy");
+			  		//dFechaDesde = DateUtilities.getDate( fechaDesde, "dd/MM/yyyy");
+			  		dFechaDesde =  LocalDateTime.parse(fechaDesde, SPDConstants.FORMAT_DATE); // a LocalDateTime
 			  	}
-			  	fechaDesde =  DATE_FORMAT.format(dFechaDesde);
+			  	fechaDesde = dFechaDesde.format(SPDConstants.FORMAT_DATE); // a String
+			  	//fechaDesde =  DATE_FORMAT.format(dFechaDesde);
 			  	
 			  	ps.setString(13, fechaDesde);
 			  	parametros += ", '" + fechaDesde + "'"; // fechaInicio
@@ -238,12 +243,14 @@ public class ProcesoDAO extends GenericDAO{
 
 			  	//Inicio fechaFin (Desctivación)
 			  	String fechaHasta = proceso.getFechaHasta();
-			  	Date dFechaHasta = null;
+			  	LocalDateTime dFechaHasta = null;
 			  	
 			  	if(fechaHasta!=null &&  !fechaHasta.equals(""))
 			  	{
-			  		dFechaHasta = DateUtilities.getDate( fechaHasta, "dd/MM/yyyy");
-			  		fechaHasta =  DATE_FORMAT.format(dFechaHasta);
+			  		dFechaHasta =  LocalDateTime.parse(fechaHasta, SPDConstants.FORMAT_DATE); // a LocalDateTime
+			  		//dFechaHasta = DateUtilities.getDate( fechaHasta, "dd/MM/yyyy");
+			  		//fechaHasta =  DATE_FORMAT.format(dFechaHasta);
+			  		fechaHasta = dFechaHasta.format(SPDConstants.FORMAT_DATE); // a String
 				  	parametros += ", '" + fechaHasta + "'"; // fechaFin
 
 			  	}
@@ -306,7 +313,9 @@ public class ProcesoDAO extends GenericDAO{
 		int result=0;
 		Connection con = null;
 		con = Conexion.conectar();
-		    String sql = "UPDATE SPD_procesos SET activo = '"+actividad+"' WHERE lanzadera='"+proceso.getLanzadera()+"'";
+		    String sql = "UPDATE SPD_procesos SET activo = '"+actividad+"' WHERE lanzadera='"+proceso.getLanzadera()+"' AND oidProceso = " + proceso.getOidProceso();
+            System.out.println(HelperSPD.dameFechaHora() + " - actualizarEstadoProceso  " + sql);
+
 		    try (PreparedStatement ps = con.prepareStatement(sql)) {
 		        result = ps.executeUpdate();
 		    }
@@ -322,8 +331,10 @@ public class ProcesoDAO extends GenericDAO{
 	 private  Proceso creaProceso(ResultSet rs) throws SQLException {
 		 Proceso proceso = new Proceso();
 		 
-		Date dFechaDesde = rs.getTimestamp("fechaCreacion");
-		String fechaDesde =  DATE_FORMAT_TIME.format(dFechaDesde);
+		//Date dFechaDesde = rs.getTimestamp("fechaCreacion");
+		LocalDateTime dFechaDesde = rs.getTimestamp("fechaCreacion").toLocalDateTime();
+		//String fechaDesde =  DATE_FORMAT_TIME.format(dFechaDesde);
+		String fechaDesde =  dFechaDesde.format(SPDConstants.FORMAT_DATETIME_24h); // a String
 		  	
 		 proceso.setFechaCreacion(fechaDesde);
 		 proceso.setOidProceso(rs.getInt("oidProceso"));

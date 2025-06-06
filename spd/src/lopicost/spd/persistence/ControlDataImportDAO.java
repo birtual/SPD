@@ -435,6 +435,8 @@ public class ControlDataImportDAO
 	   	String query = " SELECT 'drugBarcodeMASTERS' as nombreTabla, count(cv.drugNumber) as  emes, count(distinct cv.cassette) as  tolvas  ";
     	query+=			" , cv.nombreRobot, max(cv.FechaHoraRecogida  ) as ultimaFechaRecogida ";
     	query+=			" FROM drugBarcodeMASTERS cv  ";
+    	query+=			" INNER JOIN bd_robot r on cv.nombreRobot=r.nombreRobot  "; 
+    	query+=			" and r.ACTIVO='SI'  ";
     	query+=			" group by cv.nombreRobot ";
         
         	

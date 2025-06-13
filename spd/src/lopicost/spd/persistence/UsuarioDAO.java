@@ -51,7 +51,7 @@ public class UsuarioDAO
         Usuario user = null;
         final String qry = "select * from SPD_usuarios where idUsuario='" + usuario + "'  and estado='ACTIVO' ";
         final Connection con = Conexion.conectar();
-        System.out.println(String.valueOf(UsuarioDAO.className) + "--> findByIdUser -->" + qry);
+       // System.out.println(String.valueOf(UsuarioDAO.className) + "--> findByIdUser -->" + qry);
         ResultSet resultSet = null;
         try {
             final PreparedStatement pstat = con.prepareStatement(qry);

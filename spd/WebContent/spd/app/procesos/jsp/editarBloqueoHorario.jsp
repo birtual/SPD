@@ -6,7 +6,7 @@
 <html>
 <head>
 	<jsp:include page="/spd/jsp/global/head.jsp"/>
-	<title>Editar Restricción</title>
+	<title>Editar Bloqueo Horario</title>
 </head>
 <body>
 <script>
@@ -14,7 +14,7 @@
 //función de carga del lookUp
 function doLookUpProcesos(){				
 	var loc = '/spd/Procesos.do?parameter=lookUp'+ 						//url de llamanda
-		'&oidProceso='+document.ProcesosRestriccionesForm.oidProceso.value+
+		'&oidProceso='+document.ProcesosBloqueosHorariosForm.oidProceso.value+
 		'&CallBackID=oidProceso'+			  			//Nombre del campo para el valor Id
 		'&CallBackNAME=lanzadera';			   			//Nombre del campo para el valor descriptivo
 
@@ -24,7 +24,7 @@ function doLookUpProcesos(){
 //función de carga del lookUp
 function doLookUpFarmacias(){				
 	var loc = '/spd/Farmacias.do?parameter=lookUp'+ 						//url de llamanda
-		'&idFarmacia='+document.ProcesosRestriccionesForm.idFarmacia.value+
+		'&idFarmacia='+document.ProcesosBloqueosHorariosForm.idFarmacia.value+
 		'&CallBackID=idFarmacia'+			  			//Nombre del campo para el valor Id
 		'&CallBackNAME=nombreFarmacia';			   			//Nombre del campo para el valor descriptivo
 
@@ -33,16 +33,16 @@ function doLookUpFarmacias(){
 }	
 
 
-function guardar(oidRestriccion)
+function guardar(oidBloqueoHorario)
 {
-	var f = document.ProcesosRestriccionesForm;
+	var f = document.ProcesosBloqueosHorariosForm;
 
-	/*if(f.tipoRestriccion.value=='HORA' && (f.horasDesde.value=='' || f.horasHasta.value=='' ))
-		alert('Falta indicar el rango de horas de restricción');
-	else if(f.tipoRestriccion.value=='DIA' && f.valorDia.value < 1)
-		alert('Falta indicar el día de restricción ');
-	else if(f.tipoRestriccion.value=='FECHA' && f.valorFecha.value=='')
-		alert('Falta indicar la fecha de restricción ');
+	/*if(f.tipoBloqueoHorario.value=='HORA' && (f.horasDesde.value=='' || f.horasHasta.value=='' ))
+		alert('Falta indicar el rango de horas del bloqueo');
+	else if(f.tipoBloqueoHorario.value=='DIA' && f.valorDia.value < 1)
+		alert('Falta indicar el día de bloqueo ');
+	else if(f.tipoBloqueoHorario.value=='FECHA' && f.valorFecha.value=='')
+		alert('Falta indicar la fecha de bloqueo ');
 	else*/
 	{
 		f.parameter.value='guardar';
@@ -57,7 +57,7 @@ function guardar(oidRestriccion)
 </script>
 <script type="text/javascript">
 function updateVisibility() {
-    var t = document.getElementById('tipoRestriccion').value;
+    var t = document.getElementById('tipoBloqueoHorario').value;
 
     // HORA
     document.getElementById('rowHoras').style.display       =
@@ -107,25 +107,25 @@ window.onload = updateVisibility;
 
 
 
-<bean:define id="procesosRestriccionesForm" name="ProcesosRestriccionesForm" type="lopicost.spd.struts.form.ProcesosRestriccionesForm" />
+<bean:define id="ProcesosBloqueosHorariosForm" name="ProcesosBloqueosHorariosForm" type="lopicost.spd.struts.form.ProcesosBloqueosHorariosForm" />
 
 
-<h2><bean:write name="procesosRestriccionesForm" property="oidRestriccion" /> 
+<h2><bean:write name="ProcesosBloqueosHorariosForm" property="oidBloqueoHorario" /> 
     <c:choose>
-        <c:when test="${procesosRestriccionesForm.oidRestriccion == 0}">Nueva Restricción</c:when>
-        <c:otherwise>Editar Restricción</c:otherwise>
+        <c:when test="${ProcesosBloqueosHorariosForm.oidBloqueoHorario == 0}">Nueva Bloqueo Horario</c:when>
+        <c:otherwise>Editar Bloqueo Horario</c:otherwise>
     </c:choose>
 </h2>
 
-<html:form action="ProcesosRestricciones.do" method="post">
+<html:form action="ProcesosBloqueosHorarios.do" method="post">
     <html:hidden property="parameter"/>
-    <html:hidden property="oidRestriccion" />
+    <html:hidden property="oidBloqueoHorario" />
     
     	<!-- mostramos mensajes y errores, si existen -->
-		<logic:notEmpty name="procesosRestriccionesForm" property="errors">
+		<logic:notEmpty name="ProcesosBloqueosHorariosForm" property="errors">
 			<font color="red"><ul>
 				<u>Mensaje:</u>
-					<logic:iterate id="error" name="procesosRestriccionesForm" property="errors" type="java.lang.String">
+					<logic:iterate id="error" name="ProcesosBloqueosHorariosForm" property="errors" type="java.lang.String">
 							<li><bean:write name="error"/></li>
 					</logic:iterate>
 				</ul></font>
@@ -146,9 +146,9 @@ window.onload = updateVisibility;
 		
 		
     <tr>
-        <td>Tipo Restricción:</td>
+        <td>Tipo bloqueo:</td>
         <td>
-			<html:select property="tipoRestriccion" styleId="tipoRestriccion"  onchange="updateVisibility();">
+			<html:select property="tipoBloqueoHorario" styleId="tipoBloqueoHorario"  onchange="updateVisibility();">
 			    <html:option value="HORA">Hora</html:option>
 			    <html:option value="DIA">Día</html:option>
 			    <html:option value="FECHA">Fecha</html:option>
@@ -158,13 +158,13 @@ window.onload = updateVisibility;
     <tr id="rowHoras">
         <td>Hora Desde:</td>
         <td>
-	        <input type="text" id="horasDesde" name="horasDesde" placeholder="HH:mm" value="${procesosRestriccionesForm.horasDesde}" style="width: 5em;">
+	        <input type="text" id="horasDesde" name="horasDesde" placeholder="HH:mm" value="${ProcesosBloqueosHorariosForm.horasDesde}" style="width: 5em;">
         </td>
     </tr>
     <tr id="rowHorasHasta">
         <td>Hora Hasta:</td>
         <td>
-       		<input type="text" id="horasHasta" name="horasHasta" placeholder="HH:mm"  value="${procesosRestriccionesForm.horasHasta}" style="width: 5em;">
+       		<input type="text" id="horasHasta" name="horasHasta" placeholder="HH:mm"  value="${ProcesosBloqueosHorariosForm.horasHasta}" style="width: 5em;">
         </td>
     </tr>
     <tr id="rowDia">
@@ -174,8 +174,8 @@ window.onload = updateVisibility;
     <tr id="rowFecha">
         <td>Fecha (dd/MM/yyyy):</td>
         <td>
-			<input type="text" id="valorFecha" name="valorFecha" value="<bean:write name='procesosRestriccionesForm' property='valorFecha'/>"
-               placeholder="Selecciona fecha de restricción"></td>
+			<input type="text" id="valorFecha" name="valorFecha" value="<bean:write name='ProcesosBloqueosHorariosForm' property='valorFecha'/>"
+               placeholder="Selecciona fecha de bloqueo horario"></td>
        </td>
     </tr>
     <tr>
@@ -183,14 +183,14 @@ window.onload = updateVisibility;
         <td><html:text property="descripcion" size="40" maxlength="255" /></td>
     </tr>
     <tr>
-        <td>¿Usar restricción?</td>
-        <td><html:checkbox property="usarRestriccion" /></td>
+        <td>¿Usar bloqueo ?</td>
+        <td><html:checkbox property="usarBloqueoHorario" /></td>
     </tr>
     <tr>
         <td colspan="2">
-           <input type="button" value="Guardar" onclick="javascript:guardar('<bean:write  name="procesosRestriccionesForm" property="oidRestriccion" />');"  />
+           <input type="button" value="Guardar" onclick="javascript:guardar('<bean:write  name="ProcesosBloqueosHorariosForm" property="oidBloqueoHorario" />');"  />
             
-            <input type="button" value="Cancelar" onclick="window.location='ProcesosRestricciones.do?parameter=list';" />
+            <input type="button" value="Cancelar" onclick="window.location='ProcesosBloqueosHorarios.do?parameter=list';" />
         </td>
     </tr>
 </table>

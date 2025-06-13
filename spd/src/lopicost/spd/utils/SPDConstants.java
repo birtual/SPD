@@ -338,9 +338,9 @@ public class SPDConstants
 	public static final String PROCESO_TIPOEJEC_AUTO = "AUTOMATICO";
 	public static final String PROCESO_TIPOEJEC_MANUAL = "MANUAL";
 
-	public static final String PROCESO_RESTRIC_HORA = "HORA";
-	public static final String PROCESO_RESTRIC_DIA = "DIA";
-	public static final String PROCESO_RESTRIC_FECHA = "FECHA";
+	public static final String PROCESO_BLOQUEO_HORA = "HORA";
+	public static final String PROCESO_BLOQUEO_DIA = "DIA";
+	public static final String PROCESO_BLOQUEO_FECHA = "FECHA";
 
 	
 	/**

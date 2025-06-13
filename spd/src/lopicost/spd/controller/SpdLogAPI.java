@@ -25,7 +25,7 @@ public class SpdLogAPI
 	public static final String A_AVISO = "AVISOS";
 	public static final String A_RENTABILIDAD = "RENTABILIDAD";
 	public static final String A_PROCESO = "PROCESO_RECOGIDA_DATOS";
-	public static final String A_PROCESO_RESTRICCION = "RESTRICCION_HORARIA_PROCESOS";
+	public static final String A_PROCESO_BLOQUEO_HORARIO = "BLOQUEO_HORARIA_PROCESOS";
 	
 	
 	//accion - Constantes de segundo nivel 

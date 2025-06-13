@@ -18,6 +18,7 @@
 	</HEAD>
 
 <bean:define id="formulari" name="EnlacesForm" type="lopicost.spd.struts.form.EnlacesForm" />
+
 <script type="text/javascript">	
 	function abre(loc)
 	{

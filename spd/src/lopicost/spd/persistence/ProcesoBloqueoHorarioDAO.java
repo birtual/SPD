@@ -6,38 +6,32 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 
 import lopicost.config.pool.dbaccess.Conexion;
-import lopicost.spd.model.Farmacia;
 import lopicost.spd.model.Proceso;
-import lopicost.spd.model.ProcesoRestricciones;
-import lopicost.spd.struts.helper.ControladorProcesosHelper;
-import lopicost.spd.struts.helper.ProcesoRestriccionesHelper;
+import lopicost.spd.model.ProcesoBloqueoHorario;
+
 
 import java.sql.*;
 
-import javax.sql.DataSource;
-public class ProcesoRestriccionesDAO extends GenericDAO  {
+public class ProcesoBloqueoHorarioDAO extends GenericDAO  {
 	
 	  private Connection connection;
 	  private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-	    public ProcesoRestriccionesDAO() {
+	    public ProcesoBloqueoHorarioDAO() {
 	    	
 	    }
 
 	  
-	        public List<ProcesoRestricciones> listar() throws SQLException {
+	        public List<ProcesoBloqueoHorario> listar() throws SQLException {
 	        	connection = Conexion.conectar();
-	        	List<ProcesoRestricciones> lista = new ArrayList<>();
+	        	List<ProcesoBloqueoHorario> lista = new ArrayList<>();
 			            Statement stmt = connection.createStatement();
 			    	    String sql = "	SELECT ";
 			            sql+=" CASE WHEN     ";
@@ -45,23 +39,23 @@ public class ProcesoRestriccionesDAO extends GenericDAO  {
 			            sql+="  OR ";
 			            sql+=" r.valorDia = DAY(GETDATE()) "; 
 			            sql+=" OR r.valorFecha = CONVERT(VARCHAR(10), GETDATE(), 103)) ";
-			            sql+=" AND r.usarRestriccion='1' ";
+			            sql+=" AND r.usarBloqueoHorario='1' ";
 			            sql+=" THEN ";
 			            sql+=" 'SI' ";
 			            sql+=" ELSE ";
-			            sql+=" 'NO'  ";
+			            sql+=" 'NO' ";
 			            sql+=" END as bloqueaAhora ";
-	    	            sql+=" ,  r.*, p.lanzadera, f.nombreFarmacia ";
-	    	            sql+=" FROM SPD_procesosRestricciones r ";   
+	    	            sql+=" ,  r.*, p.lanzadera, p.parametros, f.nombreFarmacia ";
+	    	            sql+=" FROM SPD_procesosBloqueosHorarios r ";   
 	            		sql+=" LEFT JOIN SPD_procesos p on p.oidProceso = r.oidProceso ";
 	            		sql+=" LEFT JOIN bd_farmacia f on f.idFarmacia= r.idFarmacia ";
 	    	            sql+=" WHERE 1=1   ";
-	    	            sql+=" order by  usarRestriccion desc  ";
+	    	            sql+=" order by  usarBloqueoHorario desc  ";
 	    	         
 	            
 	            ResultSet rs = stmt.executeQuery(sql);
 	            while (rs.next()) {
-	                ProcesoRestricciones p = crearDesdeResultSet(rs);
+	                ProcesoBloqueoHorario p = crearDesdeResultSet(rs);
 	                lista.add(p);
 	            }
 	            rs.close();
@@ -69,7 +63,7 @@ public class ProcesoRestriccionesDAO extends GenericDAO  {
 	            return lista;
 	        }
 
-	        public ProcesoRestricciones obtenerPorOid(int oidRestriccion) throws SQLException {
+	        public ProcesoBloqueoHorario obtenerPorOid(int oidBloqueoHorario) throws SQLException {
 	        	connection = Conexion.conectar();
 	    	    String sql = "	SELECT ";
 	            sql+=" CASE WHEN     ";
@@ -77,23 +71,23 @@ public class ProcesoRestriccionesDAO extends GenericDAO  {
 	            sql+="  OR ";
 	            sql+=" r.valorDia = DAY(GETDATE()) "; 
 	            sql+=" OR r.valorFecha = CONVERT(VARCHAR(10), GETDATE(), 103)) ";
-	            sql+=" AND r.usarRestriccion='1' ";
+	            sql+=" AND r.usarBloqueoHorario='1' ";
 	            sql+=" THEN ";
 	            sql+=" 'SI' ";
 	            sql+=" ELSE ";
 	            sql+=" 'NO'  ";
 	            sql+=" END as bloqueaAhora ";
-	            sql+=" ,  r.*, p.lanzadera, f.nombreFarmacia ";
-	            sql+=" FROM SPD_procesosRestricciones r  ";
+	            sql+=" ,  r.*, p.lanzadera, p.parametros, f.nombreFarmacia ";
+	            sql+=" FROM SPD_procesosBloqueosHorarios r  ";
         		sql+=" LEFT JOIN SPD_procesos p on p.oidProceso = r.oidProceso  ";
         		sql+=" LEFT JOIN bd_farmacia f on f.idFarmacia= r.idFarmacia ";
-        		sql+=" WHERE oidRestriccion = ? ";
+        		sql+=" WHERE oidBloqueoHorario = ? ";
         		
         		
 	            PreparedStatement ps = connection.prepareStatement(sql);
-	            ps.setInt(1, oidRestriccion);
+	            ps.setInt(1, oidBloqueoHorario);
 	            ResultSet rs = ps.executeQuery();
-	            ProcesoRestricciones p = null;
+	            ProcesoBloqueoHorario p = null;
 	            if (rs.next()) {
 	                p = crearDesdeResultSet(rs);
 	            }
@@ -103,16 +97,16 @@ public class ProcesoRestriccionesDAO extends GenericDAO  {
 	        }
 
 	        /**
-	         * Devuelve el número de restricciones con la fecha actual según fechaDesde y fechaHasta   
+	         * Devuelve el número de bloqueos con la fecha actual según fechaDesde y fechaHasta   
 	         * @param proceso
 	         * @param count 
 	         * @return
 	         * @throws SQLException
 	         */
-			public int countRestriccionesPorTipo(Proceso proceso, String restriccion, boolean count) throws SQLException {
+			public int countBloqueosPorTipo(Proceso proceso, String bloqueo, boolean count) throws SQLException {
 				int result = 0;
 	        	connection = Conexion.conectar();
-	            String sql = getQueryRestriccionesPorTipo(proceso, restriccion, count);
+	            String sql = getQueryBloqueosPorTipo(proceso, bloqueo, count);
 	            		
 	            PreparedStatement ps = connection.prepareStatement(sql);
 	            ps.setInt(1, proceso.getOidProceso());
@@ -127,21 +121,21 @@ public class ProcesoRestriccionesDAO extends GenericDAO  {
 			}
 			
 			/**
-	         * Devuelve el listadode restricciones con la fecha actual según fechaDesde y fechaHasta   
+	         * Devuelve el listadode bloqueos con la fecha actual según fechaDesde y fechaHasta   
 	         * @param proceso
 	         * @param count 
 	         * @return
 	         * @throws SQLException
 	         */
-			public List<ProcesoRestricciones> restriccionesPorTipo(Proceso proceso, String restriccion, boolean count) throws SQLException {
-				List<ProcesoRestricciones> result = new ArrayList<ProcesoRestricciones>();
+			public List<ProcesoBloqueoHorario> bloqueosPorTipo(Proceso proceso, String bloqueo, boolean count) throws SQLException {
+				List<ProcesoBloqueoHorario> result = new ArrayList<ProcesoBloqueoHorario>();
 	        	connection = Conexion.conectar();
-	            String sql = getQueryRestriccionesPorTipo(proceso, restriccion, count);
+	            String sql = getQueryBloqueosPorTipo(proceso, bloqueo, count);
 	            		
 	            PreparedStatement ps = connection.prepareStatement(sql);
 	            ps.setInt(1, proceso.getOidProceso());
 	            ResultSet rs = ps.executeQuery();
-	            ProcesoRestricciones p = null;
+	            ProcesoBloqueoHorario p = null;
 	            if (rs.next()) {
 	                if(!count)
 	                {
@@ -155,31 +149,31 @@ public class ProcesoRestriccionesDAO extends GenericDAO  {
 			}
 			
 	        /**
-	         * Devuelve la query para trabajar con el número de restricciones o el contenido de ellas, según el count true o false   
+	         * Devuelve la query para trabajar con el número de bloqueos o el contenido de ellas, según el count true o false   
 	         * @param proceso
 	         * @param count 
 	         * @return
 	         * @throws SQLException
 	         */
-			public String getQueryRestriccionesPorTipo(Proceso proceso, String restriccion, boolean count) throws SQLException {
+			public String getQueryBloqueosPorTipo(Proceso proceso, String bloqueo, boolean count) throws SQLException {
 	    	    String sql = "	SELECT ";
 	            sql+=" CASE WHEN     ";
 	            sql+=" ( ( r.horasDesde <= CONVERT(VARCHAR(5), GETDATE(), 108) AND r.horasHasta >= CONVERT(VARCHAR(5), GETDATE(), 108)) ";
 	            sql+="  OR ";
 	            sql+=" r.valorDia = DAY(GETDATE()) "; 
 	            sql+=" OR r.valorFecha = CONVERT(VARCHAR(10), GETDATE(), 103)) ";
-	            sql+=" AND r.usarRestriccion='1' ";
+	            sql+=" AND r.usarBloqueoHorario='1' ";
 	            sql+=" THEN ";
 	            sql+=" 'SI' ";
 	            sql+=" ELSE ";
 	            sql+=" 'NO'  ";
 	            sql+=" END as bloqueaAhora ";
-	            sql+=" ,  r.*, p.lanzadera, f.nombreFarmacia ";
+	            sql+=" ,  r.*, p.lanzadera, p.parametros, f.nombreFarmacia ";
 	            
 	            if(count)
 	            	sql = "	SELECT count(*) as quants ";
 	            
-	            sql+=" FROM SPD_procesosRestricciones r  ";
+	            sql+=" FROM SPD_procesosBloqueosHorarios r  ";
 	            
 	            if(!count)
 	            {
@@ -188,12 +182,15 @@ public class ProcesoRestriccionesDAO extends GenericDAO  {
 	            }
 
 	            sql+=" WHERE 1=1 ";
-	            
+
+	            if(count)	//estamos mirando cuantos bloqueos hay
+	            	sql+=" AND r.usarBloqueoHorario='1' ";
+
 	            if(proceso!=null && proceso.getOidProceso()>0)
 	            	sql+=" AND r.oidProceso = ?  ";
         		
 	            
-	            switch (restriccion) {
+	            switch (bloqueo) {
 				case "HORA":
 	        		sql+=" AND r.horasDesde <= CONVERT(VARCHAR(5), GETDATE(), 108) ";
 	   				sql+=" AND r.horasHasta >= CONVERT(VARCHAR(5), GETDATE(), 108) ";
@@ -217,11 +214,11 @@ public class ProcesoRestriccionesDAO extends GenericDAO  {
 		
 			
 			
-	        public boolean insertar(String idUsuario, ProcesoRestricciones p) throws Exception {
+	        public boolean insertar(String idUsuario, ProcesoBloqueoHorario p) throws Exception {
 	        	connection = Conexion.conectar();
 	      	  	sdf.setLenient(false); // Para evitar que acepte fechas como 32/01/2024
 	        	
-	            PreparedStatement ps = connection.prepareStatement("INSERT INTO SPD_procesosRestricciones (oidProceso, idFarmacia, tipoRestriccion, horasDesde, horasHasta, valorDia, valorFecha, descripcion, usarRestriccion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	            PreparedStatement ps = connection.prepareStatement("INSERT INTO SPD_procesosBloqueosHorarios (oidProceso, idFarmacia, tipoBloqueoHorario, horasDesde, horasHasta, valorDia, valorFecha, descripcion, usarBloqueoHorario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	            if (p.getOidProceso() != null) ps.setInt(1, p.getOidProceso()); else ps.setNull(1, Types.INTEGER);
 	            ps.setString(2, p.getIdFarmacia());
 	            /*	            if (p.getIdFarmacia() != null) 
@@ -240,13 +237,13 @@ public class ProcesoRestriccionesDAO extends GenericDAO  {
 	            	//ps.setNull(4, Types.VARCHAR);
 	            }
 	*/          
-	            ps.setString(3, p.getTipoRestriccion());
+	            ps.setString(3, p.getTipoBloqueoHorario());
 	            String horasDesde="";
 	            String horasHasta="";
 	            int valorDia=0;
 	            String valorFecha="";
 	            
-	            switch (p.getTipoRestriccion()) {
+	            switch (p.getTipoBloqueoHorario()) {
 	            	case "HORA":
 	            		horasDesde = p.getHorasDesde();
 	    	            horasHasta = p.getHorasHasta();
@@ -279,15 +276,15 @@ public class ProcesoRestriccionesDAO extends GenericDAO  {
 	            }
 	            */
 	            ps.setString(8, p.getDescripcion());
-	            ps.setBoolean(9, p.isUsarRestriccion());
+	            ps.setBoolean(9, p.isUsarBloqueoHorario());
 	            int count = ps.executeUpdate();
 	            ps.close();
 	            return count>0;
 	        }
 
-	        public boolean actualizar(String idUsuario, ProcesoRestricciones p) throws Exception {
+	        public boolean actualizar(String idUsuario, ProcesoBloqueoHorario p) throws Exception {
 	        	
-	        	if(p.getOidRestriccion()<=0) 
+	        	if(p.getOidBloqueoHorario()<=0) 
 	      	  	{
 	      	  		return insertar(idUsuario, p);
 	      	  		
@@ -295,14 +292,14 @@ public class ProcesoRestriccionesDAO extends GenericDAO  {
 	      	  	connection = Conexion.conectar();
 	      	  	sdf.setLenient(false); // Para evitar que acepte fechas como 32/01/2024
 
-		      	  	PreparedStatement ps = connection.prepareStatement("UPDATE SPD_procesosRestricciones SET oidProceso=?, idFarmacia=?, tipoRestriccion=?, horasDesde=?, horasHasta=?, valorDia=?, valorFecha=?, descripcion=?, usarRestriccion=? WHERE oidRestriccion=?");
+		      	  	PreparedStatement ps = connection.prepareStatement("UPDATE SPD_procesosBloqueosHorarios SET oidProceso=?, idFarmacia=?, tipoBloqueoHorario=?, horasDesde=?, horasHasta=?, valorDia=?, valorFecha=?, descripcion=?, usarBloqueoHorario=? WHERE oidBloqueoHorario=?");
 	            if (p.getOidProceso() != null) ps.setInt(1, p.getOidProceso()); else ps.setNull(1, Types.INTEGER);
 	            ps.setString(2, p.getIdFarmacia());
 	            //if (p.getIdFarmacia() != null) ps.setInt(2, p.getOidFarmacia()); else ps.setNull(2, Types.INTEGER);
 	          //  if (p.getIdFarmacia() != null) ps.setString(3, p.getIdFarmacia()); else ps.setNull(3, Types.VARCHAR);
 	          //  if (p.getNombreFarmacia() != null) ps.setString(3, p.getNombreFarmacia()); else ps.setNull(4, Types.VARCHAR);
 	            
-	            ps.setString(3, p.getTipoRestriccion());
+	            ps.setString(3, p.getTipoBloqueoHorario());
 	            ps.setString(4, p.getHorasDesde());
 	            ps.setString(5, p.getHorasHasta());
 	            if (p.getValorDia() != null) ps.setInt(6, p.getValorDia()); else ps.setNull(6, Types.INTEGER);
@@ -316,36 +313,37 @@ public class ProcesoRestriccionesDAO extends GenericDAO  {
 	                e.printStackTrace();
 	            }
 	            ps.setString(8, p.getDescripcion());
-	            ps.setBoolean(9, p.isUsarRestriccion());
-	            ps.setInt(10, p.getOidRestriccion());
+	            ps.setBoolean(9, p.isUsarBloqueoHorario());
+	            ps.setInt(10, p.getOidBloqueoHorario());
 	            int count  = ps.executeUpdate();
 	            ps.close();
 	            return count>0;
 	        }
 
-	        public boolean borrar(int oidRestriccion) throws SQLException {
+	        public boolean borrar(int oidBloqueoHorario) throws SQLException {
 	        	connection = Conexion.conectar();
-	            PreparedStatement ps = connection.prepareStatement("DELETE FROM SPD_procesosRestricciones WHERE oidRestriccion=?");
-	            ps.setInt(1, oidRestriccion);
+	            PreparedStatement ps = connection.prepareStatement("DELETE FROM SPD_procesosBloqueosHorarios WHERE oidBloqueoHorario=?");
+	            ps.setInt(1, oidBloqueoHorario);
 	            int result = ps.executeUpdate();
 	            ps.close();
 	            return result>0;
 	        }
 
-	        private ProcesoRestricciones crearDesdeResultSet(ResultSet rs) throws SQLException {
-	            ProcesoRestricciones p = new ProcesoRestricciones();
-	            p.setOidRestriccion(rs.getInt("oidRestriccion"));
+	        private ProcesoBloqueoHorario crearDesdeResultSet(ResultSet rs) throws SQLException {
+	            ProcesoBloqueoHorario p = new ProcesoBloqueoHorario();
+	            p.setOidBloqueoHorario(rs.getInt("oidBloqueoHorario"));
 	            p.setOidProceso((Integer) rs.getObject("oidProceso"));
 	            p.setIdFarmacia(rs.getString("idFarmacia"));
 	            p.setNombreFarmacia(rs.getString("nombreFarmacia"));
 	            p.setLanzadera(rs.getString("lanzadera"));
-	            p.setTipoRestriccion(rs.getString("tipoRestriccion"));
+	            p.setParametros(rs.getString("parametros"));
+	            p.setTipoBloqueoHorario(rs.getString("tipoBloqueoHorario"));
 	            p.setHorasDesde(rs.getString("horasDesde"));
 	            p.setHorasHasta(rs.getString("horasHasta"));
 	            p.setValorDia((Integer) rs.getObject("valorDia"));
 	            p.setValorFecha(rs.getString("valorFecha"));
 	            p.setDescripcion(rs.getString("descripcion"));
-	            p.setUsarRestriccion(rs.getBoolean("usarRestriccion"));
+	            p.setUsarBloqueoHorario(rs.getBoolean("usarBloqueoHorario"));
 	            try
 	            {
 	            	p.setBloqueaAhora(rs.getString("bloqueaAhora"));
@@ -353,8 +351,8 @@ public class ProcesoRestriccionesDAO extends GenericDAO  {
 /*	            
             	ProcesoDAO dao = new ProcesoDAO();
             	Proceso proceso = dao.findByOidProceso(null, p.getOidProceso());
-            	ProcesoRestriccionesHelper helper = new ProcesoRestriccionesHelper(); 
-            	p.setRestriccionEnCurso(helper.hayRestriccionHorario(proceso));
+            	ProcesoBloqueosHorariosHelper helper = new ProcesoBloqueosHorariosHelper(); 
+            	p.setBloqueoEnCurso(helper.hayBloqueoHorario(proceso));
 */
             	return p;
 	        }

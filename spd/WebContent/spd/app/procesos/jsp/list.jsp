@@ -137,7 +137,7 @@ function getContextPath() {
 	
 		<input type="button" onclick="javascript:nuevo();"  value="Nuevo"  />  
 		<input type="button" class="azulCielo" value="Salir" onclick="javascript:salir();" />
-		<input type="button" value="Restricciones" onclick="window.open('ProcesosRestricciones.do?parameter=list');" />
+		<input type="button" value="Bloqueos Horarios" onclick="window.open('ProcesosBloqueosHorarios.do?parameter=list');" />
 		
 		
 	</p>

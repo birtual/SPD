@@ -133,7 +133,7 @@ public class ProcesoHelper {
 		String diasSemana = form.getDiasSemana();			 //	
 		String[] diasSemanaArray = form.getDiasSemanaArray(); //	
 		String diasMes = form.getDiasMes();
-		String horaEjecucion = form.getHoraEjecucion();		 //ha de estar indicada, menos en los horarios restringidos
+		String horaEjecucion = form.getHoraEjecucion();		 //ha de estar indicada, menos en los horarios bloqueados
 		String descripcion = form.getDescripcion();
 		String fechaDesde = form.getFechaDesde();
 		
@@ -235,12 +235,13 @@ public class ProcesoHelper {
 	 */
 	public boolean actualizaDatos(String idUsuario, Proceso proceso, ProcesosForm f)  throws SQLException {
 		boolean cambios =false;
-		String antes = ""; 
-		String despues = "";
-		
-		String querySet="";
 		if(proceso!=null)
 		{
+			String antes = ""; 
+			String despues = "";
+			
+			String querySet="";
+
 			/*  INICIO Descripcion*/
 			if (!Objects.equals(proceso.getDescripcion(), f.getDescripcion())) 
 			{
@@ -454,11 +455,11 @@ public class ProcesoHelper {
 				String query = " UPDATE SPDAC.dbo.SPD_Procesos SET " + querySet + ", version=version+1 WHERE  OIDPROCESO='"+proceso.getOidProceso()+"'";
 				cambios = ProcesoDAO.update(query);
 				boolean historico = creaProcesoHistoricoPorLanzadera(proceso.getLanzadera());
-
+				String id = "oid: "+ proceso.getOidProceso() + "/  Lanzadera: "+ proceso.getLanzadera(); 
 				//INICIO creación de log en BBDD
 				try{
 					SpdLogAPI.addLog(idUsuario, null,  null, null, SpdLogAPI.A_PROCESO, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.proceso.edicion.general", 
-							 new String[]{antes, despues} );
+							 new String[]{id, antes, despues} );
 				}catch(Exception e){}	// Cambios--> @@.
 				//FIN creación de log en BBDD
 			}

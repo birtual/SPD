@@ -7,7 +7,7 @@
 
 <head>
 	<jsp:include page="/spd/jsp/global/head.jsp"/>
-	<title>Listado de Restricciones</title>
+	<title>Listado de bloqueos horarios</title>
 </head>
 
 <body>
@@ -15,25 +15,25 @@
 
 	function nueva()
 	{
-		var f = document.ProcesosRestriccionesForm;
+		var f = document.ProcesosBloqueosHorariosForm;
 		f.parameter.value='nueva';
 		//f.ACTIONTODO.value='CONFIRMADO_OK';
 		f.submit();
 	}
-	function editar(oidRestriccion)
+	function editar(oidBloqueoHorario)
 	{
-		var f = document.ProcesosRestriccionesForm;
+		var f = document.ProcesosBloqueosHorariosForm;
 		f.parameter.value='editar';
-		f.oidRestriccion.value=oidRestriccion;
+		f.oidBloqueoHorario.value=oidBloqueoHorario;
 		//f.ACTIONTODO.value='CONFIRMADO_OK';
 		f.submit();
 	}
 	
-	function borrar(oidRestriccion) {
-	    var f = document.ProcesosRestriccionesForm;
-	    if (confirm('¿Seguro que quieres borrar esta restricción?')) {
+	function borrar(oidBloqueoHorario) {
+	    var f = document.ProcesosBloqueosHorariosForm;
+	    if (confirm('¿Seguro que quieres borrar este bloqueo?')) {
 	        f.parameter.value = 'borrar';
-	        f.oidRestriccion.value = oidRestriccion;
+	        f.oidBloqueoHorario.value = oidBloqueoHorario;
 	        f.submit();
 	    }
 	}
@@ -41,12 +41,12 @@
 </script>
 
 
-<h2>Listado de Restricciones</h2>
+<h2>Listado de Bloqueos horarios</h2>
 
-<html:form action="/ProcesosRestricciones" method="post">
+<html:form action="/ProcesosBloqueosHorarios" method="post">
     <html:hidden property="parameter"/>
-    <html:hidden property="oidRestriccion"/>
- 	<input type="button" class="azulCielo" value="Nueva Restricción" onclick="javascript:nueva();"  />
+    <html:hidden property="oidBloqueoHorario"/>
+ 	<input type="button" class="azulCielo" value="Nuevo bloqueo" onclick="javascript:nueva();"  />
     <input type="button" class="azulCielo" value="Salir" onclick="javascript:salir();"  />
     
 
@@ -58,10 +58,11 @@
         <tr>
             <th>oid</th>
             <th>lanzadera</th>
+            <th>parametros</th>
             <th>Tipo</th>
-            <th>Valor restricción</th>
+            <th>Valor bloqueo</th>
             <th>Descripción</th>
-            <th>¿Usar restricción?</th>
+            <th>¿Usar bloqueo?</th>
             <th>¿Está bloqueando ahora?</th>
             <th>Acciones</th>
             
@@ -70,19 +71,20 @@
     <tbody>
     		
     
-        <c:forEach var="r" items="${listaRestricciones}">
+        <c:forEach var="r" items="${listaBloqueos}">
             <tr>
-                <td><bean:write name="r" property="oidRestriccion"/></td>
+                <td><bean:write name="r" property="oidBloqueoHorario"/></td>
                 <td><bean:write name="r" property="lanzadera"/></td>
-                <td><bean:write name="r" property="tipoRestriccion"/></td>
+                <td><bean:write name="r" property="parametros"/></td>
+                <td><bean:write name="r" property="tipoBloqueoHorario"/></td>
                 <td>
-	                <logic:equal property="tipoRestriccion" name="r" value="HORA">
+	                <logic:equal property="tipoBloqueoHorario" name="r" value="HORA">
 		                <bean:write name="r" property="horasDesde"/> - <bean:write name="r" property="horasHasta"/> 
 	                </logic:equal>
-	                <logic:equal property="tipoRestriccion" name="r" value="DIA">
+	                <logic:equal property="tipoBloqueoHorario" name="r" value="DIA">
 		                <bean:write name="r" property="valorDia"/> 
 	                </logic:equal>
-	                <logic:equal property="tipoRestriccion" name="r" value="FECHA">
+	                <logic:equal property="tipoBloqueoHorario" name="r" value="FECHA">
 		                <bean:write name="r" property="valorFecha"/> 
 	                </logic:equal>
 	                
@@ -90,7 +92,7 @@
                 <td><bean:write name="r" property="descripcion"/></td>
                 
                 <c:choose>
-                	<c:when test="${r.usarRestriccion}">
+                	<c:when test="${r.usarBloqueoHorario}">
                 		<td align="center">SI</td>
                 	    <c:choose>
 						  <c:when test="${r.bloqueaAhora == 'SI'}">
@@ -113,8 +115,8 @@
 				</c:choose>
                 
                 <td>
-                 	<input type="button" class="azulCielo" value="Editar" onclick="javascript:editar('${r.oidRestriccion}');"  />
-                	<input type="button" class="azulCielo" value="Borrar" onclick="javascript:borrar('${r.oidRestriccion}');"  />
+                 	<input type="button" class="azulCielo" value="Editar" onclick="javascript:editar('${r.oidBloqueoHorario}');"  />
+                	<input type="button" class="azulCielo" value="Borrar" onclick="javascript:borrar('${r.oidBloqueoHorario}');"  />
                </td>
             </tr>
         </c:forEach>

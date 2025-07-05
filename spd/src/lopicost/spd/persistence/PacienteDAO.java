@@ -506,7 +506,7 @@ public class PacienteDAO extends GenericDAO{
 		f.setIdDivisionResidencia(resultSet.getString("idDivisionResidencia"));
 		f.setNombreDivisionResidencia(resultSet.getString("nombreDivisionResidencia"));
 		f.setOidFicheroResiCabecera(resultSet.getInt("oidFicheroResiCabecera"));
-		f.setFechaHoraProceso(resultSet.getDate("fechaProceso"));
+		f.setFechaHoraProceso(resultSet.getTimestamp("fechaProceso"));
 		f.setIdProceso(resultSet.getString("idProceso"));
 		f.setResultLog(resultSet.getString("resultLog"));
 		f.setFilasTotales(resultSet.getInt("filasTotales"));
@@ -581,6 +581,7 @@ public class PacienteDAO extends GenericDAO{
 	}
 
 
+	
 	private static PacienteBean creaPaciente(ResultSet resultSet) throws SQLException {
 		 PacienteBean  c =new PacienteBean();
 		 c.setOidPaciente(resultSet.getInt("oidPaciente"));
@@ -642,6 +643,8 @@ public class PacienteDAO extends GenericDAO{
 	    			 paciente =creaPaciente(resultSet);
 	    			
 	    		 }
+
+	    		 
    } catch (SQLException e) {
        e.printStackTrace();
    }finally {con.close();}

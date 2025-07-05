@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.stream.Collectors;
 
 import lopicost.spd.model.Proceso;
@@ -594,15 +596,13 @@ public class ControladorProcesosHelper {
         LocalDateTime ahora = LocalDateTime.now();
         
         boolean tipoEsMinutos = SPDConstants.PROCESO_FREC_PERIODO_MINUTOS.equalsIgnoreCase(proceso.getTipoPeriodo());
-
-        // Si nunca se ha ejecutado
+       // Si nunca se ha ejecutado
         if (proceso.getUltimaEjecucion() == null) {
             System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / debeEjecutarse / esMomentoDeEjecutar  proceso.getUltimaEjecucion() == null " );
 
             return estaEntreFechasActivacion(proceso) &&
                    (tipoEsMinutos || esEjecutableEnHora(proceso)) &&
                    esEjecutableEnDias(proceso);
- 
         }
  
         LocalDateTime ultimaEjecucion = null;
@@ -616,37 +616,13 @@ public class ControladorProcesosHelper {
         LocalTime horaEjecucion = HelperSPD.parseHora(proceso.getHoraEjecucion()); // formato HH:mm
         if (fechaInicio == null || horaEjecucion == null) return false;
 
-        LocalDateTime baseEjecucion = LocalDateTime.of(fechaInicio, horaEjecucion);
-
+ 
         // Calcular próxima ejecución teórica desde baseEjecucion hasta ahora
         //anteriorEjecucion = la ejecución previa a la siguiente teórica
         //proximaEjecucion = la ejecución siguiente teórica
-        LocalDateTime anteriorEjecucion = baseEjecucion;
-        LocalDateTime proximaEjecucion = baseEjecucion;
-        while (proximaEjecucion.isBefore(ahora)) {
-            anteriorEjecucion = proximaEjecucion;
-            switch (proceso.getTipoPeriodo()) {
-            case "MINUTOS":
-                proximaEjecucion = proximaEjecucion.plusMinutes(proceso.getFrecuenciaPeriodo());
-                break;
-            case "HORAS":
-                proximaEjecucion = proximaEjecucion.plusHours(proceso.getFrecuenciaPeriodo());
-                break;
-            case "DIAS":
-                proximaEjecucion = proximaEjecucion.plusDays(proceso.getFrecuenciaPeriodo());
-                break;
-            case "SEMANAS":
-                proximaEjecucion = proximaEjecucion.plusWeeks(proceso.getFrecuenciaPeriodo());
-                break;
-            case "MESES":
-                proximaEjecucion = proximaEjecucion.plusMonths(proceso.getFrecuenciaPeriodo());
-                break;
-            default:
-                return false;
-        }
-    }
-        // Última ejecución es nula o anterior a la próxima ejecución teórica
-        //if (ultimaEjecucion == null || (ultimaEjecucion.isBefore(proximaEjecucion) && proximaEjecucion.isBefore(ahora))) {
+        LocalDateTime anteriorEjecucion = dameFechaTeorica( proceso, true); 
+        LocalDateTime proximaEjecucion =  dameFechaTeorica( proceso, false); 
+      
         
         if (ultimaEjecucion == null || (ultimaEjecucion.isBefore(anteriorEjecucion) && anteriorEjecucion.isBefore(ahora))) {
             return false;
@@ -667,6 +643,55 @@ public class ControladorProcesosHelper {
 
     }
 
+    private LocalDateTime dameFechaTeorica(Proceso proceso, boolean anterior) {
+       	if(proceso==null) return null;
+        LocalDateTime ahora = LocalDateTime.now();
+        
+         // Calcular fecha base de ejecución a partir de fechaDesde + horaEjecucion
+        LocalDate fechaInicio = HelperSPD.parseFecha(proceso.getFechaDesde()); // formato dd/MM/yyyy
+        LocalTime horaEjecucion = HelperSPD.parseHora(proceso.getHoraEjecucion()); // formato HH:mm
+        LocalDateTime baseEjecucion = LocalDateTime.of(fechaInicio, horaEjecucion);
+
+        // Calcular próxima ejecución teórica desde baseEjecucion hasta ahora
+        LocalDateTime anteriorEjecucion = baseEjecucion;
+        LocalDateTime proximaEjecucion = baseEjecucion;
+        while (proximaEjecucion.isBefore(ahora)) {
+            anteriorEjecucion = proximaEjecucion;
+            switch (proceso.getTipoPeriodo()) {
+            case "MINUTOS":
+                proximaEjecucion = proximaEjecucion.plusMinutes(proceso.getFrecuenciaPeriodo());
+                break;
+            case "HORAS":
+                proximaEjecucion = proximaEjecucion.plusHours(proceso.getFrecuenciaPeriodo());
+                break;
+            case "DIAS":
+                proximaEjecucion = proximaEjecucion.plusDays(proceso.getFrecuenciaPeriodo());
+                break;
+            case "SEMANAS":
+             	DayOfWeek diaObjetivo = DayOfWeek.of(new Integer(proceso.getDiasSemana()).intValue());
+                proximaEjecucion = proximaEjecucion.plusWeeks(proceso.getFrecuenciaPeriodo());
+             // Ajusta al día de semana correcto
+                proximaEjecucion = proximaEjecucion.with(TemporalAdjusters.nextOrSame(diaObjetivo));
+                break;
+            case "MESES":
+                proximaEjecucion = proximaEjecucion.plusMonths(proceso.getFrecuenciaPeriodo());
+                break;
+            default:
+            	
+        }
+    }
+
+        
+        if(anterior) 
+        	return anteriorEjecucion;
+    	else 
+    		return proximaEjecucion;
+            
+
+
+    }
+
+    
 
 	/** ok
      * Ejecución de un proceso
@@ -702,7 +727,7 @@ public class ControladorProcesosHelper {
         // Si ya se ejecutó al menos una vez
         if (!estaEntreFechasActivacion(proceso)) 
         {
-            System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / debeEjecutarse / SI estaEntreFechasActivacion" );
+            System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / debeEjecutarse / NO estaEntreFechasActivacion" );
         	return false;
         }
         if (!tipoEsMinutos &&  !esEjecutableEnHora(proceso)) 
@@ -715,8 +740,9 @@ public class ControladorProcesosHelper {
             System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / debeEjecutarse / SI esEjecutableEnDias" );
             return false;
         }
+         
         
-        return false;
+        return true;
 
     }
 
@@ -782,31 +808,50 @@ public class ControladorProcesosHelper {
     }
     private boolean esEjecutableEnDias(Proceso proceso) {
         LocalDate hoy = LocalDate.now();
-
+        boolean result = false;
         if ("SEMANAS".equalsIgnoreCase(proceso.getTipoPeriodo())) {
             String diasSemana = proceso.getDiasSemana(); // valores tipo "1,2,3"
             if (diasSemana == null || diasSemana.isEmpty()) return true;
 
             int diaSemanaHoy = hoy.getDayOfWeek().getValue(); // 1 (lunes) a 7 (domingo)
-            return Arrays.stream(diasSemana.split(","))
+            result =  Arrays.stream(diasSemana.split(","))
                          .map(String::trim)
                          .mapToInt(Integer::parseInt)
                          .anyMatch(dia -> dia == diaSemanaHoy);
+           
         }
-
+      //  
         if ("MESES".equalsIgnoreCase(proceso.getTipoPeriodo())) {
             String diasMes = proceso.getDiasMes(); // valores tipo "1,15,30"
             if (diasMes == null || diasMes.isEmpty()) return true;
 
             int diaMesHoy = hoy.getDayOfMonth();
-            return Arrays.stream(diasMes.split(","))
+            result =  Arrays.stream(diasMes.split(","))
                          .map(String::trim)
                          .mapToInt(Integer::parseInt)
                          .anyMatch(dia -> dia == diaMesHoy);
         }
+        LocalDateTime ultimaEjecucionTeorica=dameFechaTeorica(proceso, true);
+        LocalDateTime ultimaEjecucionReal = null;
+        if (proceso.getUltimaEjecucion() != null) {
+        	ultimaEjecucionReal  = LocalDateTime.parse(
+                proceso.getUltimaEjecucion().getFechaInicioEjecucion(), SPDConstants.FORMAT_DATETIME_24h);
+        }
+        boolean yaProcesado =false;
+        if (ultimaEjecucionTeorica == null 
+        		|| ultimaEjecucionReal  == null 
+        				|| ultimaEjecucionTeorica.isBefore(ultimaEjecucionReal) ) {
+        	yaProcesado= true;
+        }
+        System.out.println(HelperSPD.dameFechaHora() + " - ultimaEjecucionTeorica " +ultimaEjecucionTeorica );
+        System.out.println(HelperSPD.dameFechaHora() + " - ultimaEjecucionReal  " +ultimaEjecucionReal );
 
+
+        result=result && esEjecutableEnHora(proceso) && !yaProcesado;
+        
+        // solo se ejecuta si es ejecutable pero el anterior teórico es 
         // Para otros tipos de periodo, no se validan días concretos
-        return true;
+        return result ;	//
     }
     private boolean estaEntreFechasActivacion(Proceso proceso) {
         LocalDate hoy = LocalDate.now();

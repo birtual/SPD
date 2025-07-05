@@ -20,9 +20,9 @@
 <title>Gestión carga ficheros Robot (lite)</title>
 </head>
 <script>
-    // Este script manejará la respuesta del servidor y actualizará o redireccionará según sea necesario
+    // Este script maneja la respuesta del servidor y actualiza o redirecciona según se necesite
     function handleServerResponse(responseText) {
-        // Puedes mostrar una alerta, actualizar la página o redirigir según tus necesidades
+        //  mostrar una alerta, actualizar la página o redirigir según se necesite
         alert(responseText);
         // window.location.reload();  // Para recargar la página
         // window.location.href = '/tuApp/list';  // Para redirigir a un mapeo específico
@@ -195,7 +195,10 @@
 						<logic:equal property="idEstado" name="data" value="<%= SPDConstants.SPD_PROCESO_4_CARGA_ERROR %>">
 							<input type="button" class="rojo" onclick="javascript:borrar('<bean:write name="data" property="oidFicheroResiCabecera" />');"  value="Borrar"  />
 						</logic:equal>
-
+						
+						<logic:equal property="idUsuario" name="formulari" value="admin">
+							<a href="javascript:informeProdRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />')" />.</a>
+						</logic:equal>
 					
 						</p>
 					</td>

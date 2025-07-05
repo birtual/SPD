@@ -140,7 +140,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 	    	nuevaFechaHasta= fechaHasta;  
 
 		//recuperamos las tomas
-		List<CabecerasXLSBean> tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), cab.getOidDivisionResidencia(), cab.getOidFicheroResiCabecera());
+		List<CabecerasXLSBean> tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), cab.getOidDivisionResidencia());
 		formulari.setListaTomasCabecera(tomasCabecera);
 		//recuperamos las tomas de inicio/fin, en caso que existan
 		String nuevaTomaDesde=cab.getNuevaTomaDesde();
@@ -170,9 +170,22 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			nuevaTomaDesde = formulari.getNuevaTomaDesde();
 			nuevaTomaHasta = formulari.getNuevaTomaHasta();
 			
-			String antesCab= " | Nueva FechaDesde  " +cab.getNuevaFechaDesde() + " | Nueva FechaHasta " +cab.getNuevaFechaHasta() + " | toma 1er día desde  " +cab.getNuevaTomaDesde() + " | toma último día hasta " +cab.getNuevaTomaHasta() + " | Nota 1 " +cab.getFree1() + " | Nota 2 " +cab.getFree2()+ " | Nota 3 " + cab.getFree3()+ " | " ;
+			
+			String antesCab= " | Nueva FechaDesde  " +cab.getNuevaFechaDesde() + " | Nueva FechaHasta " +cab.getNuevaFechaHasta() 
+				+ " | toma 1er día desde  " +cab.getNuevaTomaDesde() + " | toma último día hasta " +cab.getNuevaTomaHasta()
+				+ " | Nueva usuarioEntregaSPD / fecha: " +cab.getUsuarioEntregaSPD() + "/" +cab.getFechaEntregaSPD() 
+				+ " | Nueva usuarioRecogidaSPD / fecha: " +cab.getUsuarioRecogidaSPD() + "/" +cab.getFechaRecogidaSPD()  
+				+ " | Nueva usuarioDesemblistaSPD / fecha: " +cab.getUsuarioDesemblistaSPD() + "/" +cab.getFechaDesemblistaSPD()  
+				+ " | Nueva usuarioProduccionSPD / fecha: " +cab.getUsuarioProduccionSPD() + "/" +cab.getFechaProduccionSPD()  
+				+ " | Nota 1 " +cab.getFree1() + " | Nota 2 " +cab.getFree2()+ " | Nota 3 " + cab.getFree3()+ " | " ;
 			result=dao.editarCabecera(getIdUsuario(), cab,  formulari);
-			String despuesCab = " | Nueva FechaDesde  " +formulari.getNuevaFechaDesde() + " | Nueva FechaHasta " +formulari.getNuevaFechaHasta() + " | toma 1er día desde  " +formulari.getNuevaTomaDesde() + " | toma último día hasta " +formulari.getNuevaTomaHasta() + " | Nota 1 " +formulari.getFree1() + " | Nota 2 " +formulari.getFree2()+ " | Nota 3 " + formulari.getFree3()+ " | " ;
+			String despuesCab = " | Nueva FechaDesde  " +formulari.getNuevaFechaDesde() + " | Nueva FechaHasta " +formulari.getNuevaFechaHasta() 
+				+ " | toma 1er día desde  " +formulari.getNuevaTomaDesde() + " | toma último día hasta " +formulari.getNuevaTomaHasta() 
+				+ " | Nueva usuarioEntregaSPD / fecha: " +formulari.getUsuarioEntregaSPD() + "/" +formulari.getFechaEntregaSPD() 
+				+ " | Nueva usuarioRecogidaSPD / fecha: " +formulari.getUsuarioRecogidaSPD() + "/" +formulari.getFechaRecogidaSPD()  
+				+ " | Nueva usuarioDesemblistaSPD / fecha: " +formulari.getUsuarioDesemblistaSPD() + "/" +formulari.getFechaDesemblistaSPD()  
+				+ " | Nueva usuarioProduccionSPD / fecha: " +formulari.getUsuarioProduccionSPD() + "/" +formulari.getFechaProduccionSPD()  				
+				+ " | Nota 1 " +formulari.getFree1() + " | Nota 2 " +formulari.getFree2()+ " | Nota 3 " + formulari.getFree3()+ " | " ;
 			boolean hayCambios =   ! Objects.equals(StringUtil.limpiarTextoTomas(antesCab), StringUtil.limpiarTextoTomas(despuesCab));
 
 	  	    System.out.println("  - getCipsSinProcesarTrat -->  " );		
@@ -527,8 +540,6 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 	public ActionForward generarFicherosDMyRX(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		FicheroResiForm formulari =  (FicheroResiForm) form;
 		
-
-		
 		FicheroResiBean cab = dao.getCabeceraByFilters(getIdUsuario(), formulari, 0, 1, null, false);
 		FicheroResiBean cabDetalle  =  FicheroResiDetalleHelper.getCabeceraFicheroResi(getIdUsuario(), cab.getIdDivisionResidencia(), cab.getIdProceso(), false);
 		DivisionResidencia div = DivisionResidenciaDAO.getDivisionResidenciaById(getIdUsuario(), cab.getIdDivisionResidencia());
@@ -546,9 +557,11 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
     	List<DetallesTomasBean> listaDetallesTomas  = PlantillaUnificadaHelper.getDetalleTomasRobot(getIdUsuario(),  cabDetalle, tomasOrdenadas, pac);
     	// Paso4 - Procesar los detallesBean para insertarlos en BBDD
     	PlantillaUnificadaHelper.procesarDetalleTomasRobot(getIdUsuario(), cabDetalle, listaDetallesTomas, tomasOrdenadas);
-    	 // Paso5 - Procesar Excepciones (Falguera) 
+    	// Paso5 - Actualizar GTVM en SPD_XML_detallesTomasRobot 
+    	PlantillaUnificadaHelper.actualizaGTVM(getIdUsuario(), cab,  cabDetalle);
+    	// Paso6 - Procesar Excepciones (Falguera) 
     	PlantillaUnificadaHelper.procesarExcepciones(getIdUsuario(), cab,  cabDetalle);
-        // Paso6 - Creación del FiliaDM 
+        // Paso7 - Creación del FiliaDM 
    		FiliaDM filiaDM = PlantillaUnificada.creaFicheroDM(getIdUsuario(), cabDetalle);
    		FiliaRX filiaRX = PlantillaUnificada.creaFicheroRX(getIdUsuario(), cabDetalle, div);
 
@@ -583,7 +596,8 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		//aprovechamos y lanzamos el cálculo de previsión de comprimidos necesarios. En caso que no se haya calculado previamente
         if(fileRXGenerated)
         {
-        	if(cab!=null && (cab.getFechaCalculoPrevision()==null || cab.getFechaCalculoPrevision().equals("")) )
+       		dao.actualizaDatosFicheroXMLEnCabecera(div, cab);
+       	    if(cab!=null && (cab.getFechaCalculoPrevision()==null || cab.getFechaCalculoPrevision().equals("")) )
         	{
             	// Crear un hilo para ejecutar el método actualizarPrevision()
                 Thread actualizarPrevisionThread = new Thread(() -> {
@@ -879,6 +893,23 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		return mapping.findForward("addTratamientosEnProyecto");
 	}
 
+	
+    public ActionForward verInforme(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+    		//String idProduccion = request.getParameter("id");
+			
+			// 1. Llamas al DAO para obtener los datos de la producción
+			//InformeSPD informe = informeDao.obtenerInformePorProduccion(idProduccion);
+			
+			// 2. Añades los datos al request
+			//request.setAttribute("paciente", informe.getPaciente());
+			
+			// 3. Devuelves el forward al JSP
+			return mapping.findForward("verInforme");
+			}
+    
+    
 	
 	/**
 	 * método de ayuda a la paginación

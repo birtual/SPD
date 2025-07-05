@@ -1,19 +1,16 @@
 <%@ page language="java" %>
-<meta Http-Equiv="Cache-Control" Content="no-cache" />
-<meta Http-Equiv="Pragma" Content="no-cache" />
-<meta Http-Equiv="Expires" Content="0" /> 
-<meta http-equiv="Content-Type" pageEncoding="text/html; charset=ISO-8859-1" %>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta Http-Equiv="Cache-Control" Content="no-cache"/>
+<meta Http-Equiv="Pragma" Content="no-cache"/>
+<meta Http-Equiv="Expires" Content="0"/> 
+<meta http-equiv="Content-Type" pageEncoding="text/html; charset=ISO-8859-1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-
-<script>	
-	document.write('<link rel="stylesheet" href=<%= "\"" +request.getContextPath() +"/spd/css/spd.css\""%> media="screen" />');
-</script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/spd/js/spd.js"></script>	
-<script language="javascript" src=<%= "\"" +request.getContextPath() + "/spd/common/calendar/jscal/calendar.js\""%> ></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/spd/css/spd.css" media="screen"/>
+<script type="text/javascript" src="<%=request.getContextPath()%>/spd/js/spd.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/spd/common/calendar/jscal/calendar.js"></script>
 
 <!-- Flatpickr CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"/>
 
 <!-- Flatpickr JavaScript -->
 

@@ -23,7 +23,7 @@ public class CabecerasXLSDAO {
 	private final String cLOGGERHEADER = className + ":";
 	private final String cLOGGERHEADER_ERROR = cLOGGERHEADER + "ERROR: : ";
 
-	public static List<CabecerasXLSBean>  list(String spdUsuario,  int OidDivisionResidencia, int oidFicheroResiCabecera) throws Exception {
+	public static List<CabecerasXLSBean>  list(String spdUsuario,  int OidDivisionResidencia) throws Exception {
 		  
 		List<CabecerasXLSBean>  result = new ArrayList();
 		

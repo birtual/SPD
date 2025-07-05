@@ -14,7 +14,6 @@ import org.apache.struts.action.ActionMapping;
 import lopicost.config.logger.Logger;
 import lopicost.spd.helper.FicheroResiDetalleHelper;
 import lopicost.spd.persistence.DivisionResidenciaDAO;
-import lopicost.spd.persistence.FicheroResiCabeceraDAO;
 import lopicost.spd.persistence.PacienteDAO;
 import lopicost.spd.struts.bean.CamposPantallaBean;
 import lopicost.spd.struts.bean.FicheroResiBean;

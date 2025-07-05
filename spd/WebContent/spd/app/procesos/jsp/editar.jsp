@@ -97,11 +97,18 @@ window.onload = function() {
 			else if(f.maxDuracionSegundos.value=='')
 				alert('Falta indicar el tope de duración posible ');
 			else */
-			{		
-				f.parameter.value='editar';
-				f.ACTIONTODO.value='EDITA_OK';
-
-				f.submit();
+			if (f.activo.value == 'DESCARTADO') {
+			    if (confirm('En caso de descartar el proceso no aparecerá en el listado. ¿Está seguro?')) {
+			        f.parameter.value = 'editar';
+			        f.ACTIONTODO.value = 'EDITA_OK';
+			        f.submit();
+			    } else {
+			        // Cancelado por el usuario, no hacer nada
+			    }
+			} else {
+			    f.parameter.value = 'editar';
+			    f.ACTIONTODO.value = 'EDITA_OK';
+			    f.submit();
 			}
 		}
 				
@@ -158,6 +165,7 @@ window.onload = function() {
       			 <html:select  name="data" property="activo" style="text-align: left;">>
 		            <html:option value="ACTIVO">ACTIVO</html:option>
 		            <html:option value="INACTIVO">INACTIVO</html:option>
+		            <html:option value="DESCARTADO">DESCARTADO</html:option>
         		</html:select>
 			</td>
 		</tr>

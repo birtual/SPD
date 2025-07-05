@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,10 @@ public class ProcesoDAO extends GenericDAO{
         	sql+= " 	OR ";
         	sql+= " 	fechaHasta +1 >= CONVERT(datetime, getDate(), 120)";
         	sql+= " ) ";
+        }
+        else	//no se mosrtarán nunca los descartados. 
+        {
+        	sql+= " AND activo <>  '"+SPDConstants.PROCESO_DESCARTADO+"'";
         }
         if(automaticos)
         {
@@ -224,11 +229,11 @@ public class ProcesoDAO extends GenericDAO{
 			  	//Inicio fechaFin (Activación)
 			  	String fechaDesde = proceso.getFechaDesde();
 		  		//Date dFechaDesde = new Date();
-		  		LocalDateTime dFechaDesde = LocalDateTime.now();
+		  		LocalDate dFechaDesde = LocalDate.now();
 			  	if(fechaDesde!=null &&  !fechaDesde.equals(""))
 			  	{
 			  		//dFechaDesde = DateUtilities.getDate( fechaDesde, "dd/MM/yyyy");
-			  		dFechaDesde =  LocalDateTime.parse(fechaDesde, SPDConstants.FORMAT_DATE); // a LocalDateTime
+			  		dFechaDesde =  LocalDate.parse(fechaDesde, SPDConstants.FORMAT_DATE); // a LocalDateTime
 			  	}
 			  	fechaDesde = dFechaDesde.format(SPDConstants.FORMAT_DATE); // a String
 			  	//fechaDesde =  DATE_FORMAT.format(dFechaDesde);

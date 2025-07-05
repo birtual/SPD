@@ -12,6 +12,7 @@ public class TratamientoRctBean implements Serializable, Cloneable  {
   private String nombrePaciente="";
   
 
+  private String fechaHoraProceso="";
   private String recetaCn="";
   private String recetaMedicamento="";
   private String codGtVmp="";	  
@@ -38,6 +39,16 @@ public class TratamientoRctBean implements Serializable, Cloneable  {
 		            return null;
 		        }
 		    }
+
+
+		public String getFechaHoraProceso() {
+			return fechaHoraProceso;
+		}
+
+
+		public void setFechaHoraProceso(String fechaHoraProceso) {
+			this.fechaHoraProceso = fechaHoraProceso;
+		}
 
 
 		public int getOidDivisionResidencia() {

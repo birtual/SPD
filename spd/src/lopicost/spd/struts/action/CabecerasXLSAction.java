@@ -23,7 +23,7 @@ public class CabecerasXLSAction extends GenericAction  {
 
     public ActionForward list(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
     	FicheroResiForm formulari =  (FicheroResiForm) form;
-    	List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia(), formulari.getOidFicheroResiCabecera());
+    	List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
     	boolean existenPosteriores = CabecerasXLSHelper.controlEdicion(formulari.getOidDivisionResidencia(), formulari.getOidFicheroResiCabecera());
     	if(existenPosteriores )
     	{
@@ -37,7 +37,7 @@ public class CabecerasXLSAction extends GenericAction  {
     	FicheroResiForm formulari =  (FicheroResiForm) form;
 		List errors = new ArrayList();
 		boolean result = false;
-		List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia(), formulari.getOidFicheroResiCabecera());
+		List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
     	FicheroResiBean  cab = FicheroResiDetalleDAO.getGestFicheroResiBolsaByForm(getIdUsuario(), 0, formulari, true, false, false);
     	cab.setNumeroDeTomas(tomasCabecera.size());
     	
@@ -52,7 +52,7 @@ public class CabecerasXLSAction extends GenericAction  {
         	result = CabecerasXLSHelper.nuevaToma(getIdUsuario(), cab, nuevaToma);
     	}
     	//actualización con la nueva toma
-		tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia(), formulari.getOidFicheroResiCabecera());
+		tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
 		formulari.setListaTomasCabecera(tomasCabecera);
 		formulari.setErrors(errors);
     	//list(mapping,  form,  request,  response);
@@ -97,7 +97,7 @@ public class CabecerasXLSAction extends GenericAction  {
 				formulari.setFicheroResiDetalleBean(cabPlantilla);
 
 		}
-    	List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia(), formulari.getOidFicheroResiCabecera());
+    	List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
     	
     	formulari.setListaTomasCabecera(tomasCabecera);
 		//formulari.setACTIONTODO("VIEW");
@@ -134,7 +134,7 @@ public class CabecerasXLSAction extends GenericAction  {
 		    	CabecerasXLSDAO.actualizaPosicion(cabResiTomaAIntercambiar);
 	    	}
 	    	    	
-	    	List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia(), formulari.getOidFicheroResiCabecera());
+	    	List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
 	    	
 	    	formulari.setListaTomasCabecera(tomasCabecera);
 	    	

@@ -2,6 +2,9 @@ package lopicost.spd.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import lopicost.spd.robot.bean.rd.BolsaSPD;
 
 public class Paciente implements Serializable {
 	  
@@ -27,6 +30,7 @@ public class Paciente implements Serializable {
 	private String fechaAltaPaciente;				//fechaAltaPaciente     varchar(30) DEFAULT getdate(),
 	private String CipFicheroResi;        		//CipFicheroResi        varchar(50) 
 	private String activo;        				
+	private List<BolsaSPD> produccionSPD;        				
 	
 
 	public Paciente() {
@@ -251,6 +255,22 @@ public class Paciente implements Serializable {
 
 	public void setActivo(String activo) {
 		this.activo = activo;
+	}
+
+	public String getNumIdentidad() {
+		return numIdentidad;
+	}
+
+	public void setNumIdentidad(String numIdentidad) {
+		this.numIdentidad = numIdentidad;
+	}
+
+	public List<BolsaSPD> getProduccionSPD() {
+		return produccionSPD;
+	}
+
+	public void setProduccionSPD(List<BolsaSPD> produccionSPD) {
+		this.produccionSPD = produccionSPD;
 	}
 	
 

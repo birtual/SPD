@@ -48,6 +48,7 @@ public class SPDConstants
 	//public static final String SPD_PROCESO_GENERANDO_XML = "GENERANDO_XML...";
 	//public static final String SPD_PROCESO_XML_GENERADO = "XML_GENERADO";
 	//public static final String SPD_PROCESO_DESCARTADO = "DESCARTADO";
+	public static final String FORMATO_FECHA_yyyyMMdd = "yyyyMMdd";
 	public static final String FORMATO_FECHA_DEFAULT = "dd/MM/yyyy";
 	public static final DateTimeFormatter FORMAT_DATE =DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	public static final DateTimeFormatter FORMAT_DATETIME_24h =DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
@@ -307,7 +308,8 @@ public class SPDConstants
 	//PROCESOS
 	public static final String PROCESO_ACTIVO= "ACTIVO";		//Proceso activo
 	public static final String PROCESO_INACTIVO= "INACTIVO";		//Proceso inactivo
-	public static final String PROCESO_BLOQUEADO= "BLOQUEADO";		//Proceso inactivo
+	public static final String PROCESO_BLOQUEADO= "BLOQUEADO";		//Proceso bloqueado
+	public static final String PROCESO_DESCARTADO= "DESCARTADO";		//Proceso borrado, ya no se utilizará
 
 	//Estados de Ejecuciones de procesos
 	public static final String PROCESO_EJEC_ESTADO_PENDIENTE = "PENDIENTE";		//aún no ejecutado. Por defecto

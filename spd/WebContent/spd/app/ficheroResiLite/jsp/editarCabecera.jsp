@@ -2,13 +2,11 @@
 <%@ page import="java.util.*" %>
 
 
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
-
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
@@ -38,15 +36,31 @@
         const nuevaFechaDesde = document.getElementById('nuevaFechaDesde') ? document.getElementById('nuevaFechaDesde').value || fechaDesde : fechaDesde;
         const nuevaFechaHasta = document.getElementById('nuevaFechaHasta') ? document.getElementById('nuevaFechaHasta').value || fechaHasta : fechaHasta;
 
-        // Configurar Flatpickr para "Desde"
-        flatpickr("#nuevaFechaDesde", {
-            dateFormat: "d/m/Y", // Formato DD/MM/YYYY
-            locale: "es",
-            minDate: fechaDesde || "today", // El rango mínimo es fechaDesde
-            maxDate: fechaHasta || fechaDesde, // El rango máximo es fechaHasta
-            defaultDate: nuevaFechaDesde || undefined, // Fecha predeterminada en nuevaFechaDesde
-        });
+        const opcionesComunes = {
+                dateFormat: "d/m/Y",
+                locale: "es"
+            };
+        
+	        // Configurar Flatpickr para "Desde"
+	        flatpickr("#nuevaFechaDesde", {
+	            dateFormat: "d/m/Y", // Formato DD/MM/YYYY
+	            locale: "es",
+	            minDate: fechaDesde || "today", // El rango mínimo es fechaDesde
+	            maxDate: fechaHasta || fechaDesde, // El rango máximo es fechaHasta
+	            defaultDate: nuevaFechaDesde || undefined, // Fecha predeterminada en nuevaFechaDesde
+	        });
 
+        // Aplicar Flatpickr a otros campos de fecha
+        ["fechaEntregaSPD", "fechaRecogidaSPD", "fechaDesemblistaSPD", "fechaProduccionSPD"].forEach(id => {
+            const input = document.getElementById(id);
+            if (input) {
+                flatpickr(input, {
+                    dateFormat: "d/m/Y",
+                    locale: "es"
+                });
+            }
+        });        
+        
         // Configurar Flatpickr para "Hasta"
         flatpickr("#nuevaFechaHasta", {
             dateFormat: "d/m/Y", // Formato DD/MM/YYYY
@@ -114,9 +128,23 @@
 			<bean:write name="data" property="idProceso" />
 		</div>
 		<div>
-			<label for="fechaHoraProceso">Fecha carga fichero</label>
+			<label for="fechaHoraProceso">Fecha carga fichero resi</label>
 			<bean:write name="data" property="fechaHoraProceso" />
 		</div>
+		
+		<div>
+		<label for="nombreProduccionRobot">Nombre en robot<br> (residencia + inicio + nºcreaciones de fichero)</label>
+		<c:choose>
+		    <c:when test="${empty data.nombreProduccionRobot}">
+		        Pendiente de creación 
+		    </c:when>
+		    <c:otherwise>
+		        <bean:write name="data" property="nombreProduccionRobot" />  
+		    </c:otherwise>
+		</c:choose>
+		</div>
+
+		
 	</fieldset>
 	<fieldset align="left">
 		<div style="color: blue;">
@@ -176,6 +204,7 @@
 		    </html:select>
 		</div>
 	</fieldset>
+	
 	<fieldset align="left">
 		<div>
 		    <label for="free1">Nota 1</label>
@@ -190,6 +219,35 @@
 		    <html:text name="data" property="free3"  />
 		</div>
 	</fieldset>	
+	<fieldset align="left">
+	<div style="color: blue;">
+			(Este cuadro está en fase de pruebas, preparando cambios para el R.D.)
+		</div>
+		<div>
+		    <label for="usuarioDesemblistaSPD">Resp. desemblistado / fecha</label>
+		    <html:text name="data" property="usuarioDesemblistaSPD"  />
+		    / <html:text name="formulari" property="fechaDesemblistaSPD" styleId="fechaDesemblistaSPD" value="${data.fechaDesemblistaSPD}" />
+		</div>
+		<div>
+		    <label for="usuarioProduccionSPD">Resp. producción  / fecha</label>
+		    <html:text name="data" property="usuarioProduccionSPD"  />
+		    / <html:text name="formulari" property="fechaProduccionSPD" styleId="fechaProduccionSPD" value="${data.fechaProduccionSPD}" />
+		</div>
+		<div>
+		    <label for="usuarioEntregaSPD">Resp. entrega  / fecha</label>
+		    <html:text name="data" property="usuarioEntregaSPD"  />
+		    / <html:text name="formulari" property="fechaEntregaSPD" styleId="fechaEntregaSPD" value="${data.fechaEntregaSPD}" />
+		</div>
+		<div>
+		    <label for="usuarioRecogidaSPD">Resp. recogida en destino / fecha </label>
+		    <html:text name="data" property="usuarioRecogidaSPD"  />
+		    / <html:text name="formulari" property="fechaRecogidaSPD" styleId="fechaRecogidaSPD" value="${data.fechaRecogidaSPD}" />
+		</div>
+			<a href="javascript:informeProdRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />')" />Acceso a la producción realizada en robot</a>
+		
+	</fieldset>	
+
+
 	<div>
 		<p class="botons" align="left">
 			<input type="button" onclick="javascript:volver()" value="Volver"/>

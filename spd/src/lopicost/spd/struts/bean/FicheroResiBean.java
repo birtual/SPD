@@ -18,7 +18,8 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	  private Date fechaValidacionDatos;
 	  private Date fechaCreacionFicheroXML;
 	  private String idProcessIospd;
-	  
+	  private String idResidenciaCarga;
+	  private String nombreProduccionRobot;
 	  private FicheroResiCabecera ficheroCabecera;
 	  
 	  private String usuarioValidacion="";
@@ -244,9 +245,17 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 		private int contador;
 		private int porcentajeCIPS;
 		  
-		  
-		  
-		  public FicheroResiBean clone() {
+		private String usuarioEntregaSPD;
+		private String fechaEntregaSPD;
+		private String usuarioRecogidaSPD;
+		private String fechaRecogidaSPD;
+		private String usuarioDesemblistaSPD;
+		private String fechaDesemblistaSPD;
+		private String usuarioProduccionSPD;
+		private String fechaProduccionSPD;
+		private int numeroCreacionFicheroXML;
+		
+		public FicheroResiBean clone() {
 		        try {
 		            return (FicheroResiBean) super.clone();
 		        } catch (CloneNotSupportedException e) {
@@ -481,6 +490,14 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 */
 
 
+	public String getNombreProduccionRobot() {
+		return nombreProduccionRobot;
+	}
+
+	public void setNombreProduccionRobot(String nombreProduccionRobot) {
+		this.nombreProduccionRobot = nombreProduccionRobot;
+	}
+
 	public String getResultLog() {		return resultLog;	}	public void setResultLog(String resultLog) {		this.resultLog = resultLog;	}
 	public void setResiFormaMedicacion(String resiFormaMedicacion) {		this.resiFormaMedicacion = resiFormaMedicacion;	}  
 	public String getNombreDivisionResidencia() {		return nombreDivisionResidencia;	}	public void setNombreDivisionResidencia(String nombreDivisionResidencia) {		this.nombreDivisionResidencia = nombreDivisionResidencia;	}
@@ -674,6 +691,86 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 		}
 	public String getResiApellido2Mask() 							{		return this.resiApellido2Mask;				}
 	public void setResiApellido2Mask(String resiApellido2Mask) 		{		this.resiApellido2Mask = resiApellido2Mask;	}
+
+	public String getUsuarioEntregaSPD() {
+		return usuarioEntregaSPD;
+	}
+
+	public void setUsuarioEntregaSPD(String usuarioEntregaSPD) {
+		this.usuarioEntregaSPD = usuarioEntregaSPD;
+	}
+
+	public String getFechaEntregaSPD() {
+		return fechaEntregaSPD;
+	}
+
+	public void setFechaEntregaSPD(String fechaEntregaSPD) {
+		this.fechaEntregaSPD = fechaEntregaSPD;
+	}
+
+	public String getUsuarioRecogidaSPD() {
+		return usuarioRecogidaSPD;
+	}
+
+	public void setUsuarioRecogidaSPD(String usuarioRecogidaSPD) {
+		this.usuarioRecogidaSPD = usuarioRecogidaSPD;
+	}
+
+	public String getFechaRecogidaSPD() {
+		return fechaRecogidaSPD;
+	}
+
+	public void setFechaRecogidaSPD(String fechaRecogidaSPD) {
+		this.fechaRecogidaSPD = fechaRecogidaSPD;
+	}
+
+	public String getUsuarioDesemblistaSPD() {
+		return usuarioDesemblistaSPD;
+	}
+
+	public void setUsuarioDesemblistaSPD(String usuarioDesemblistaSPD) {
+		this.usuarioDesemblistaSPD = usuarioDesemblistaSPD;
+	}
+
+	public String getFechaDesemblistaSPD() {
+		return fechaDesemblistaSPD;
+	}
+
+	public void setFechaDesemblistaSPD(String fechaDesemblistaSPD) {
+		this.fechaDesemblistaSPD = fechaDesemblistaSPD;
+	}
+
+	public String getUsuarioProduccionSPD() {
+		return usuarioProduccionSPD;
+	}
+
+	public void setUsuarioProduccionSPD(String usuarioProduccionSPD) {
+		this.usuarioProduccionSPD = usuarioProduccionSPD;
+	}
+
+	public String getFechaProduccionSPD() {
+		return fechaProduccionSPD;
+	}
+
+	public void setFechaProduccionSPD(String fechaProduccionSPD) {
+		this.fechaProduccionSPD = fechaProduccionSPD;
+	}
+
+	public int getNumeroCreacionFicheroXML() {
+		return numeroCreacionFicheroXML;
+	}
+
+	public void setNumeroCreacionFicheroXML(int numeroCreacionFicheroXML) {
+		this.numeroCreacionFicheroXML = numeroCreacionFicheroXML;
+	}
+
+	public String getIdResidenciaCarga() {
+		return idResidenciaCarga;
+	}
+
+	public void setIdResidenciaCarga(String idResidenciaCarga) {
+		this.idResidenciaCarga = idResidenciaCarga;
+	}
 
 	
 

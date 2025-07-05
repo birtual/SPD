@@ -239,6 +239,11 @@ function getContextPath() {
 				      <bean:write name="ejec" property="resultado"/>
 				    </td>
 				  </c:when>
+				  <c:when test="${ejec.resultado == 'BLOQUEADO'}">
+				    <td align="center" style="background-color: orange; color: whiblackte;">
+				      <bean:write name="ejec" property="resultado"/>
+				    </td>
+				  </c:when>
 				  <c:when test="${ejec.resultado == 'CANCELADO'}">
 				    <td align="center" style="background-color: orange; color: white;">
 				      <bean:write name="ejec" property="resultado"/>

@@ -1,25 +1,24 @@
 package lopicost.spd.struts.bean;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import lopicost.spd.utils.SPDConstants;
-import lopicost.spd.utils.StringUtil;
 
 public class ExtReBean {
-	
 	
 	  private String  idDivisionResidencia;
 	  private String  nombreDivisionResidencia;
 	  private int  cipsActivos;
 	  private int  cipsProcesadosTrat;
 	  private int  cipsProcesadosTratNo;
+	  private int  cipsProcesadosTratError;
 	  private int  cipsProcesadosRecPend;
 	  private int  cipsProcesadosRecPendNo;
+	  private int  cipsProcesadosRecPendError;
 	  private int  tratamientosProcesadosResi;
 	  private String fechaUltimoProcesoTrat;
 	  private String fechaUltimoProcesoRecPend;
@@ -41,20 +40,22 @@ public class ExtReBean {
 		super();
 	}
 
-	public ExtReBean(String idDivisionResidencia, String  nombreDivisionResidencia, int tratamientosProcesadosResi, int  cipsActivos
+	public ExtReBean(String idDivisionResidencia, String  nombreDivisionResidencia, int tratamientosProcesadosResi, int cipsActivos
 			, String fechaUltimoProcesoTrat, int  cipsProcesadosTrat, int  cipsProcesadosTratNo
 			, String fechaUltimoProcesoRedPend, int  cipsProcesadosRecPend, int  cipsProcesadosRecPendNo
 			, String  ultimoCIPProcesado) {
 		this.idDivisionResidencia = idDivisionResidencia;
 		this.nombreDivisionResidencia = nombreDivisionResidencia;
 		this.cipsActivos = cipsActivos;
-		this.cipsProcesadosRecPend = cipsProcesadosRecPend;		
-		this.cipsProcesadosRecPendNo = cipsProcesadosRecPendNo;		
 		this.cipsProcesadosTrat = cipsProcesadosTrat;
 		this.cipsProcesadosTratNo = cipsProcesadosTratNo;
+		this.cipsProcesadosTratError = cipsActivos - cipsProcesadosTrat - cipsProcesadosTratNo;
 		this.tratamientosProcesadosResi = tratamientosProcesadosResi;
-		this.fechaUltimoProcesoRecPend = fechaUltimoProcesoRedPend;
 		this.fechaUltimoProcesoTrat = fechaUltimoProcesoTrat;
+		this.cipsProcesadosRecPend = cipsProcesadosRecPend;		
+		this.cipsProcesadosRecPendNo = cipsProcesadosRecPendNo;		
+		this.cipsProcesadosRecPendError = cipsActivos - cipsProcesadosRecPend - cipsProcesadosRecPendNo;		
+		this.fechaUltimoProcesoRecPend = fechaUltimoProcesoRedPend;
 		this.ultimoCIPProcesado = ultimoCIPProcesado;
 		this.percentTrat = getPercentTrat();
 		this.errorFechaRecogidaTrat = isErrorFechaRecogidaTrat();
@@ -64,6 +65,10 @@ public class ExtReBean {
 		this.errorDatosProcesadosRecPend = isErrorDatosProcesadosRecPend();
 	}
 
+	public int getCipsProcesadosTratError() 									{ 		return cipsProcesadosTratError;								}
+	public void setCipsProcesadosTratError(int cipsProcesadosTratError) 		{		this.cipsProcesadosTratError = cipsProcesadosTratError;		}
+	public int getCipsProcesadosRecPendError() 									{		return cipsProcesadosRecPendError;							}
+	public void setCipsProcesadosRecPendError(int cipsProcesadosRecPendError) 	{		this.cipsProcesadosRecPendError = cipsProcesadosRecPendError;}
 	public String getIdDivisionResidencia() 									{		return idDivisionResidencia;								}
 	public void setIdDivisionResidencia(String idDivisionResidencia) 			{		this.idDivisionResidencia = idDivisionResidencia;			}
 	public String getNombreDivisionResidencia()									{		return nombreDivisionResidencia;							}
@@ -95,13 +100,15 @@ public class ExtReBean {
         if (this.cipsActivos == 0) {
             return 0; // Evitar división por cero
         }
-        return (int) Math.round((double) (this.cipsProcesadosTrat-this.cipsProcesadosTratNo) / this.cipsActivos * 100); // Redondear al entero más cercano
+        //return (int) Math.round((double) (this.cipsProcesadosTrat-this.cipsProcesadosTratNo) / this.cipsActivos * 100); // Redondear al entero más cercano
+        return (int) Math.round((double) (this.cipsProcesadosTrat+this.cipsProcesadosTratNo) / this.cipsActivos * 100); // Redondear al entero más cercano
 	}
 	public int getPercentRecPend() {
         if (this.cipsActivos == 0) {
             return 0; // Evitar división por cero
         }
-        return (int) Math.round((double) (this.cipsProcesadosRecPend-this.cipsProcesadosRecPendNo) / this.cipsActivos * 100); // Redondear al entero más cercano
+      //  return (int) Math.round((double) (this.cipsProcesadosRecPend-this.cipsProcesadosRecPendNo) / this.cipsActivos * 100); // Redondear al entero más cercano
+        return (int) Math.round((double) (this.cipsProcesadosRecPend + this.cipsProcesadosRecPendNo) / this.cipsActivos * 100); // Redondear al entero más cercano
 	}
 
 	
@@ -117,13 +124,15 @@ public class ExtReBean {
 	/**
 	 * control de la recogida, para detectar la última fecha 
 	 * @return
-	 */
+	 
 	public boolean checkFecha(int diasMax, String fecha) {
 		//this.fechaUltimoProcesoTrat=
 		// Formato de la fecha
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	    //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
 	    // Convertir el string a LocalDate
-		LocalDate inputDate = LocalDate.parse(fecha, formatter);
+		//LocalDate inputDate = LocalDate.parse(fecha, formatter);
+		LocalDate inputDate = LocalDate.parse(fecha, SPDConstants.FORMAT_DATETIME_24h);
 	    // Obtener la fecha actual
 	    LocalDate today = LocalDate.now();
         // Calcular la diferencia en días
@@ -134,6 +143,40 @@ public class ExtReBean {
         else 
         	//System.out.println("La fecha está dentro del límite.");
         	return false;
+	}*/
+	
+	/**
+	 * control de la recogida, para detectar la última fecha 
+	 * @param diasMax
+	 * @param fecha
+	 * @return
+	 */
+	public boolean checkFecha(int diasMax, String fecha) {
+	    LocalDate inputDate = null;
+
+	    DateTimeFormatter formatterConHora = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm:ss");
+	    DateTimeFormatter formatterSoloFecha = DateTimeFormatter.ofPattern("d/M/yyyy");
+
+	    // Intentar parsear con hora
+	    try {
+	        LocalDateTime ldt = LocalDateTime.parse(fecha, formatterConHora);
+	        inputDate = ldt.toLocalDate();
+	    } catch (DateTimeParseException e1) {
+	        try {
+	            inputDate = LocalDate.parse(fecha, formatterSoloFecha);
+	        } catch (DateTimeParseException e2) {
+	            // Formato inválido
+	            throw new IllegalArgumentException("Formato de fecha inválido: " + fecha);
+	        }
+	    }
+
+	    // Obtener la fecha actual
+	    LocalDate today = LocalDate.now();
+
+	    // Calcular la diferencia en días
+	    long daysBetween = ChronoUnit.DAYS.between(inputDate, today);
+
+	    return daysBetween > diasMax;
 	}
 
 

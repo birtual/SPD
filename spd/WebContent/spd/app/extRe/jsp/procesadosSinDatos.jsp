@@ -35,12 +35,9 @@ function cerrar()
 
 
 <div id="contingut">
-    <html:hidden property="parameter" value="sinProcesar"/>
+    <html:hidden property="parameter" value="procesadosSinDatos"/>
     <html:hidden property="ACTIONTODO" value="list"/>
-	<% String numPages = formulari.getNumpages()+""; %>
-    <% String currpage = formulari.getCurrpage()+""; %>
-    <html:hidden property="numpages" value="<%= numPages %>"/>
-	<html:hidden property="currpage" value="<%= currpage %>"/>
+
 	
 	   	<!-- mostramos mensajes y errores, si existen -->
 		<logic:notEmpty name="formulari" property="errors">
@@ -57,8 +54,9 @@ function cerrar()
 		<th>CIP</th>
 	 	<th>Seg Social</th>
 		<th>Apellidos, nombre</th>
-		<th>Estado</th>
 		<th>Mensaje</th>
+		<th>Fecha proceso</th>
+		
 	   </tr>
 
 
@@ -68,8 +66,8 @@ function cerrar()
 		<td><bean:write name="data" property="CIP" /></td>
 		<td><bean:write name="data" property="segSocial" /></td>
 		<td><bean:write name="data" property="apellidosNombre" /></td>
-		<td><bean:write name="data" property="activo" /></td>
 		<td><bean:write name="data" property="mensajeTratamiento" /></td>
+		<td><bean:write name="data" property="fechaHoraProceso" /></td>
 		
 
 
@@ -85,22 +83,7 @@ function cerrar()
 			<input type="button" onclick="javascript:cerrar()" value="cerrar"/>
 	</p> 
 		
-		
-	<!--  paginación  -->
-	<div>
-		<logic:greaterThan name="formulari" property="numpages" value="1">
-			<p align="center">
-				<logic:greaterThan name="formulari" property="currpage" value="0">
-					<a href="javascript:pageDown();" ><<</a>
-				</logic:greaterThan>
-				&nbsp;<input type="text" name="newPage" value="<%= formulari.getCurrpage()+1 %>" size="1" maxlength="4" onkeypress="gotoPage(this.value,<%=formulari.getNumpages()%>);">/<%= formulari.getNumpages() %>&nbsp;
-				<logic:lessThan name="formulari" property="currpage" value="<%= String.valueOf(formulari.getNumpages() -1)%>">
-					<a href="javascript:pageUp();" >>></a>
-				</logic:lessThan>
-			</p>
-		</logic:greaterThan>
-	</div>
-	<!--  paginación   -->
+
 		
 	</div>	
 	</html:form>

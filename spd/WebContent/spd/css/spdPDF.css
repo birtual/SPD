@@ -1,0 +1,36 @@
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td {
+    border: 1px solid #000;
+    padding: 4px;
+    font-size: 12px;
+    font-family: Verdana, sans-serif;
+    background-color: #fff;
+    color: #000;
+}
+
+th {
+	background-color: #8defed; 
+	font:  0.8em Arial, sans-serif;
+	padding: 0.2em 0.4em;
+	color: #000;
+	text-align: center;
+    border-top: 0.05em solid #FFF; /* Borde superior en blanco */
+    border-bottom: 0.05em solid #FFF; /* Borde inferior en blanco */
+    border-left: 0.1em solid #000; /* Borde izquierdo en negro */
+    border-right: 0.1em solid #000; /* Borde derecho en negro */
+}
+label {
+	width: 15%;
+	padding: 0 0.2em 0.2em 0.2em;
+	margin: 0 0.5em 0.5em 0;
+	border-bottom:  0.1em dotted #A2A2A2;
+	font-size: 0.8em;
+}
+
+
+</style>

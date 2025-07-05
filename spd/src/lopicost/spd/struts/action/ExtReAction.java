@@ -36,6 +36,15 @@ public class ExtReAction extends GenericAction  {
 		return actionForward;
 	}
 	
+	
+	/**
+	 * Proceso antiguo, que marcaba las residencias a recoger receta, ahora no se utiliza
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
 	public ActionForward preparaProceso(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List errors = new ArrayList();
 		GenericForm formulario =  (GenericForm) form; 
@@ -64,9 +73,27 @@ public class ExtReAction extends GenericAction  {
 		return actionForward;
 	}
 
+	 */
     
+	public ActionForward procesadosConDatos(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		List errors = new ArrayList();
+		GenericForm formulario =  (GenericForm) form; 
+		formulario.setErrors(errors);
+		String idUsuario = (String) request.getSession().getAttribute("login");
+		List listaPacientesBean=new ArrayList();
+		if(formulario.getACTIONTODO()!=null && formulario.getACTIONTODO().equalsIgnoreCase("TRATAMIENTOS"))
+			listaPacientesBean=ExtReHelper.getCipsProcesadosConDatosTrat(getIdUsuario(), formulario.getIdDivisionResidencia());
+		else if(formulario.getACTIONTODO()!=null && formulario.getACTIONTODO().equalsIgnoreCase("PENDIENTES"))
+			listaPacientesBean=ExtReHelper.getCipsProcesadosConVentanaActiva(getIdUsuario(), formulario.getIdDivisionResidencia());
+		formulario.setListaBdPacientes(listaPacientesBean);
+		ActionForward  actionForward =mapping.findForward("procesadosConDatos");
+		
+		return actionForward;
+	}
+	
 	   
-	public ActionForward sinProcesar(ActionMapping mapping, ActionForm form,
+	public ActionForward procesadosSinDatos(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		List errors = new ArrayList();
@@ -77,15 +104,32 @@ public class ExtReAction extends GenericAction  {
 		
 		List listaPacientesBean=new ArrayList();
 		if(formulario.getACTIONTODO()!=null && formulario.getACTIONTODO().equalsIgnoreCase("TRATAMIENTOS"))
-			listaPacientesBean=ExtReHelper.getCipsSinProcesarTrat(getIdUsuario(), formulario.getIdDivisionResidencia());
+			listaPacientesBean=ExtReHelper.getCipsProcesadosSinDatosTrat(getIdUsuario(), formulario.getIdDivisionResidencia());
 		else if(formulario.getACTIONTODO()!=null && formulario.getACTIONTODO().equalsIgnoreCase("PENDIENTES"))
-			listaPacientesBean=ExtReHelper.getCipsSinProcesarPendientes(getIdUsuario(), formulario.getIdDivisionResidencia());
+			listaPacientesBean=ExtReHelper.getCipsProcesadosSinVentanaActiva(getIdUsuario(), formulario.getIdDivisionResidencia());
 		formulario.setListaBdPacientes(listaPacientesBean);
-		ActionForward  actionForward =mapping.findForward("sinProcesar");
+		ActionForward  actionForward =mapping.findForward("procesadosSinDatos");
 		return actionForward;
 	}
 	
-	
+	public ActionForward noProcesados(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		List errors = new ArrayList();
+		GenericForm formulario =  (GenericForm) form; 
+		formulario.setErrors(errors);
+		String idUsuario = (String) request.getSession().getAttribute("login");
+		//String idUsuario = formulario.getIdUsuario(); 
+		
+		List listaPacientesBean=new ArrayList();
+		if(formulario.getACTIONTODO()!=null && formulario.getACTIONTODO().equalsIgnoreCase("TRATAMIENTOS"))
+			listaPacientesBean=ExtReHelper.getCipsNoProcesadosTrat(getIdUsuario(), formulario.getIdDivisionResidencia());
+		else if(formulario.getACTIONTODO()!=null && formulario.getACTIONTODO().equalsIgnoreCase("PENDIENTES"))
+			listaPacientesBean=ExtReHelper.getCipsNoProcesadosVentanaActiva(getIdUsuario(), formulario.getIdDivisionResidencia());
+		formulario.setListaBdPacientes(listaPacientesBean);
+		ActionForward  actionForward =mapping.findForward("noProcesados");
+		return actionForward;
+	}
 	
 	
 	public void log (String message, int level)

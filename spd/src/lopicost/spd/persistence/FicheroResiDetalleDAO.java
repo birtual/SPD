@@ -1989,7 +1989,7 @@ public class FicheroResiDetalleDAO {
 		     	
 	   			f.setOidFicheroResiDetalle(resultSet.getInt("oidFicheroResiDetalle"));
 	   			f.setOidFicheroResiCabecera(resultSet.getInt("oidFicheroResiCabecera"));
-				f.setFechaHoraProceso(resultSet.getDate("fechaInsert"));
+				f.setFechaHoraProceso(resultSet.getTimestamp("fechaInsert"));
 				f.setIdProceso(resultSet.getString("idProceso"));
 				f.setResiCIP(resultSet.getString("resiCIP"));
 				String nombre=resultSet.getString("resiNombre");
@@ -2133,7 +2133,7 @@ public class FicheroResiDetalleDAO {
 		     	f.setIdDivisionResidencia(resultSet.getString("idDivisionResidencia"));
 	   			f.setOidFicheroResiDetalle(resultSet.getInt("oidFicheroResiDetalle"));
 	   			f.setOidFicheroResiCabecera(resultSet.getInt("oidFicheroResiCabecera"));
-				f.setFechaHoraProceso(resultSet.getDate("fechaInsert"));
+				f.setFechaHoraProceso(resultSet.getTimestamp("fechaInsert"));
 				f.setIdProceso(resultSet.getString("idProceso"));
 				f.setResiCIP(resultSet.getString("resiCIP"));
 				String nombre=resultSet.getString("resiNombre");

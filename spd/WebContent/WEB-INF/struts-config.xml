@@ -28,7 +28,8 @@
   		<form-bean name="DivResidenciasForm" type="lopicost.spd.struts.form.DivResidenciasForm"/>     
   		<form-bean name="AvisosForm" type="lopicost.spd.struts.form.AvisosForm"/>     
   		<form-bean name="ProcesosForm" type="lopicost.spd.struts.form.ProcesosForm"/>     
-  		<form-bean name="ProcesosRestriccionesForm" type="lopicost.spd.struts.form.ProcesosRestriccionesForm"/>     
+  		<form-bean name="ProcesosBloqueosHorariosForm" type="lopicost.spd.struts.form.ProcesosBloqueosHorariosForm"/>     
+  		<form-bean name="InformeProdSpdForm" type="lopicost.spd.struts.form.InformeProdSpdForm"/>     
     		
 
 	<!-- IOSPD Import -->
@@ -220,11 +221,29 @@
     	    <forward name="sinDatosRX" path="/spd/app/robot/jsp/sinDatosRX.jsp" />
     	    
 		    <forward name="checkProgress" path="/spd/app/ficheroResiLite/jsp/ficherosDMyRX.jsp" />
-
+    	    <forward name="generarInformeSPD" path="/spd/app/ficheroResiLite/jsp/informeSPD.jsp" />
 
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
         </action>  
         
+        <action path="/InformeProdSpd" type="lopicost.spd.struts.action.InformeProdSpdAction" 
+        	parameter="parameter"  name="InformeProdSpdForm"         
+        	scope="request"  validate="false">
+        	<forward name="globalProd" path="/spd/app/robot/informeSpd/jsp/informeProdGlobal.jsp" />
+        	<forward name="detalleProd" path="/spd/app/robot/informeSpd/jsp/informeProdDetalle.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+		</action>
+
+		<action path="/ExportarInformeProdSpd"
+		        type="lopicost.spd.struts.action.ExportarInformeProdSpdAction"
+		        name="InformeProdSpdForm"
+		        scope="request"
+		        validate="false">
+		        <forward name="export" path="/spd/app/robot/informeSpd/jsp/PDFInformeProdGlobal.jsp"/>
+		</action>
+
+
+
         <action path="/PrepararGeneracion"  type="lopicost.spd.struts.action.FicheroResiCabeceraLiteAction"  
 		 	parameter="parameter"  name="FicheroResiForm" 
 		 	scope="request" validate="false">
@@ -459,7 +478,9 @@
 			scope="session" 
 			validate="false">
         	<forward name="list" path="/spd/app/extRe/jsp/list.jsp" />
-        	<forward name="sinProcesar" path="/spd/app/extRe/jsp/listResidentesSinProcesar.jsp" />
+        	<forward name="procesadosConDatos" 	path="/spd/app/extRe/jsp/procesadosConDatos.jsp" />
+        	<forward name="procesadosSinDatos" 	path="/spd/app/extRe/jsp/procesadosSinDatos.jsp" />
+        	<forward name="noProcesados" 		path="/spd/app/extRe/jsp/noProcesados.jsp" />
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
         </action>      
 
@@ -476,16 +497,7 @@
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
         </action> 
         
- 		<action path="/ExtRe" 
-			type="lopicost.spd.struts.action.ExtReAction"  
-		 	parameter="parameter"  
-			name="GenericForm" 
-			scope="session" 
-			validate="false">
-        	<forward name="list" path="/spd/app/extRe/jsp/list.jsp" />
-        	<forward name="sinProcesar" path="/spd/app/extRe/jsp/listResidentesSinProcesar.jsp" />
-            <forward name="error" path="/spd/common/jsp/error.jsp"/>
-        </action>            
+     
           
           <!-- ControlDatosBBDD -->
 		<action path="/ControlDataImport" 
@@ -574,7 +586,7 @@
         </action>  
  
    		<action path="/ProcesosRestricciones2" type="lopicost.spd.struts.action.GestProcesosRestriccionesAction"  
-		 	parameter="parameter"  name="ProcesosRestriccionesForm" 
+		 	parameter="parameter"  name="ProcesosBloqueosHorariosForm" 
 			scope="request" validate="false">
         	<forward name="admin" path="/spd/app/procesos/jsp/adminRestricciones.jsp" />
         	<forward name="list" path="/spd/app/procesos/jsp/listRestricciones.jsp" />
@@ -585,17 +597,16 @@
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
         </action> 
         
-        <action path="/ProcesosRestricciones"
-        type="lopicost.spd.struts.action.GestProcesosRestriccionesAction"  
-        parameter="parameter"  
-        name="ProcesosRestriccionesForm"
-        scope="request"
-        input="/spd/app/procesos/jsp/listRestricciones.jsp">
-    <forward name="list" path="/spd/app/procesos/jsp/listRestricciones.jsp"/>
-    <forward name="editar" path="/spd/app/procesos/jsp/editarRestricciones.jsp"/>
-    
-    <forward name="success" path="/ProcesosRestricciones.do?parameter=list" redirect="true"/>
-</action>
+        <action path="/ProcesosBloqueosHorarios"
+	        type="lopicost.spd.struts.action.ProcesosBloqueosHorariosAction"  
+	        parameter="parameter"  
+	        name="ProcesosBloqueosHorariosForm"
+	        scope="request"
+	        input="/spd/app/procesos/jsp/listBloqueosHorarios.jsp">
+		    <forward name="list" path="/spd/app/procesos/jsp/listBloqueosHorarios.jsp"/>
+		    <forward name="editar" path="/spd/app/procesos/jsp/editarBloqueoHorario.jsp"/>
+		    <forward name="success" path="/ProcesosBloqueosHorarios.do?parameter=list" redirect="true"/>
+		</action>
 
          <action path="/Farmacias" type="lopicost.spd.struts.action.FarmaciasAction"  
 		 	parameter="parameter"  name="FarmaciasForm" 

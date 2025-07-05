@@ -213,6 +213,12 @@ public class DivisionResidenciaDAO {
 	        return listaDivisionResidencias;
 }
 
+	/**
+	 * @deprecated
+	 * @param spdUsuario
+	 * @return
+	 * @throws Exception
+	 */
 	public static boolean updateACeroResisUser(String spdUsuario) throws Exception {
 
         int result=0;
@@ -232,7 +238,13 @@ public class DivisionResidenciaDAO {
 		return result>0;
 	}
 
-
+/**
+ * @deprecated
+ * @param spdUsuario
+ * @param enlacesForm
+ * @return
+ * @throws Exception
+ */
 	public static boolean updateAUnoSeleccionadas(String spdUsuario, GenericForm enlacesForm) throws Exception {
 	      int result=0;
 			  Connection con = Conexion.conectar();

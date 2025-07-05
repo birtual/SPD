@@ -1,9 +1,6 @@
 package lopicost.spd.robot.helper;
 
 
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeMap;
 
 import lopicost.spd.model.DivisionResidencia;

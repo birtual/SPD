@@ -13,6 +13,7 @@ import java.util.List;
 import lopicost.config.logger.Logger;
 import lopicost.config.pool.dbaccess.Conexion;
 import lopicost.spd.helper.FicheroResiCabeceraHelper;
+import lopicost.spd.model.DivisionResidencia;
 import lopicost.spd.security.helper.VisibilidadHelper;
 import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.CamposPantallaBean;
@@ -289,7 +290,7 @@ public class FicheroResiCabeceraDAO {
 				 if(c.getNumeroValidacionesPendientes()>0 ||  c.getNumeroMensajesAlerta()>0)
 					 c.setProcesoValido(false);
 				 c.setFechaCreacionFicheroXML(resultSet.getDate("fechaCreacionFicheroXML"));
-				 c.setFechaHoraProceso(resultSet.getDate("fechaCreacion"));
+				 c.setFechaHoraProceso(resultSet.getTimestamp("fechaCreacion"));
 				 c.setFechaValidacionDatos(resultSet.getDate("fechaValidacionDatos"));
 				 c.setFilasTotales(resultSet.getInt("filasTotales"));
 				 c.setIdDivisionResidencia(resultSet.getString("idDivisionResidencia"));
@@ -312,6 +313,20 @@ public class FicheroResiCabeceraDAO {
 				 c.setResumenCIPS(resultSet.getString("resumenCIPS"));
 				 c.setFechaDesde(resultSet.getString("fechaDesde"));
 				 c.setFechaHasta(resultSet.getString("fechaHasta"));
+				 
+				 c.setUsuarioEntregaSPD(resultSet.getString("usuarioEntregaSPD"));
+				 c.setFechaEntregaSPD(resultSet.getString("fechaEntregaSPD"));
+				 c.setUsuarioRecogidaSPD(resultSet.getString("usuarioRecogidaSPD"));
+				 c.setFechaRecogidaSPD(resultSet.getString("fechaRecogidaSPD"));
+				 c.setUsuarioDesemblistaSPD(resultSet.getString("usuarioDesemblistaSPD"));
+				 c.setFechaDesemblistaSPD(resultSet.getString("fechaDesemblistaSPD"));
+				 c.setUsuarioProduccionSPD(resultSet.getString("usuarioProduccionSPD"));
+				 c.setFechaProduccionSPD(resultSet.getString("fechaProduccionSPD"));
+				 c.setNombreProduccionRobot(resultSet.getString("nombreProduccionRobot"));
+				 c.setNumeroCreacionFicheroXML(resultSet.getInt("numeroCreacionFicheroXML"));
+				
+				 
+				 
 			     java.sql.Timestamp fechaCalculoPrevision = resultSet.getTimestamp("fechaCalculoPrevision");
 	 		 if(fechaCalculoPrevision!=null) 
 				 {
@@ -546,6 +561,24 @@ public class FicheroResiCabeceraDAO {
 	  	    if(f.getNuevaTomaHasta()!=null && !f.getNuevaTomaHasta().equals(""))
 		  	    qry+= "  nuevaTomaHasta = '"+ f.getNuevaTomaHasta() + "', ";
 
+	  	    if(f.getUsuarioEntregaSPD()!=null && !f.getUsuarioEntregaSPD().equals(""))
+		  	    qry+= "  usuarioEntregaSPD = '"+ f.getUsuarioEntregaSPD() + "', ";
+	  	    if(f.getFechaEntregaSPD()!=null && !f.getFechaEntregaSPD().equals(""))
+		  	    qry+= "  fechaEntregaSPD = '"+ f.getFechaEntregaSPD() + "', ";
+	  	    if(f.getUsuarioRecogidaSPD()!=null && !f.getUsuarioRecogidaSPD().equals(""))
+		  	    qry+= "  usuarioRecogidaSPD = '"+ f.getUsuarioRecogidaSPD() + "', ";
+	  	    if(f.getFechaRecogidaSPD()!=null && !f.getFechaRecogidaSPD().equals(""))
+		  	    qry+= "  fechaRecogidaSPD = '"+ f.getFechaRecogidaSPD() + "', ";
+	  	    if(f.getUsuarioDesemblistaSPD()!=null && !f.getUsuarioDesemblistaSPD().equals(""))
+		  	    qry+= "  usuarioDesemblistaSPD = '"+ f.getUsuarioDesemblistaSPD() + "', ";
+	  	    if(f.getFechaDesemblistaSPD()!=null && !f.getFechaDesemblistaSPD().equals(""))
+		  	    qry+= "  fechaDesemblistaSPD = '"+ f.getFechaDesemblistaSPD() + "', ";
+	  	    if(f.getUsuarioProduccionSPD()!=null && !f.getUsuarioProduccionSPD().equals(""))
+		  	    qry+= "  usuarioProduccionSPD = '"+ f.getUsuarioProduccionSPD() + "', ";
+	  	    if(f.getFechaProduccionSPD()!=null && !f.getFechaProduccionSPD().equals(""))
+		  	    qry+= "  fechaProduccionSPD = '"+ f.getFechaProduccionSPD() + "', ";
+
+
 	  	    qry+= "  free2 = '"+ f.getFree2() + "', ";
 	  	    qry+= "  free3 = '"+ f.getFree3() + "' ";
 	  	    qry+= "  where idProceso='"+ cab.getIdProceso()+"' "; 
@@ -773,9 +806,13 @@ public class FicheroResiCabeceraDAO {
 		  	qry+= " usuarioCreacion, fechaCalculoPrevision, cipsActivosSPD, porcentajeCIPS, fechaDesde, fechaHasta, nuevaFechaDesde, nuevaFechaHasta, nuevaTomaDesde, nuevaTomaHasta )  ";
 		  	qry+= " SELECT getDate(), oidFicheroResiCabecera, fechaCreacion, idDivisionResidencia, idProceso, resultLog, filasTotales, ";
 		  	qry+= " nombreFicheroResi, nombreFicheroXML, fechaCreacionFicheroXML, fechaValidacionDatos, usuarioValidacion, idEstado, cipsFicheroXML, numErrores, errores, free1, free2, free3, ";
-		  	qry+= " usuarioCreacion, fechaCalculoPrevision, cipsActivosSPD, porcentajeCIPS, fechaDesde, fechaHasta, nuevaFechaDesde, nuevaFechaHasta, nuevaTomaDesde, nuevaTomaHasta ";
+		  	qry+= " usuarioCreacion, fechaCalculoPrevision, cipsActivosSPD, porcentajeCIPS, fechaDesde, fechaHasta, nuevaFechaDesde, nuevaFechaHasta, nuevaTomaDesde, nuevaTomaHasta, ";
+		  	qry+= " usuarioEntregaSPD, fechaEntregaSPD, usuarioRecogidaSPD, fechaRecogidaSPD, usuarioDesemblistaSPD, fechaDesemblistaSPD, usuarioProduccionSPD, fechaProduccionSPD, ";
+		  	qry+= " nombreProduccionRobot, numeroCreacionFicheroXML ";
+
 		  	qry+= " FROM "+TABLA_ACTIVA+" ";
 		  	qry+= " WHERE oidFicheroResiCabecera IN (" + HelperSPD.convertirListSecuencia(aHistorico).toString() + ")";
+		  	
 		  	
 	       	System.out.println("cabecerasProcesosAnterioresAHistorico -->" +qry );		
 	    try {
@@ -917,6 +954,32 @@ public class FicheroResiCabeceraDAO {
 	     }finally {con.close();}
 
 		return result>0;
+	}
+
+	public void actualizaDatosFicheroXMLEnCabecera(DivisionResidencia div, FicheroResiBean cab) throws SQLException {
+		int result = 0;
+		int numeroVeces = cab.getNumeroCreacionFicheroXML()+1;
+		Connection con = Conexion.conectar();
+		String nomFitxer = SPDConstants.PATH_DOCUMENTOS + "/robot/FILIA_RX_" + cab.getIdProceso() +  ".xml";
+		String qry = " UPDATE dbo.SPD_ficheroResiCabecera ";
+  	    qry+= "  SET fechaCreacionFicheroXML = GETDATE() ";
+  	    qry+= "  , nombreFicheroXML = '" +  nomFitxer +"'";
+  	    qry+= "  , nombreProduccionRobot ='"+div.getLocationId()+"_"+cab.getFechaDesde()+"_"+numeroVeces +"'" ;
+  	    qry+= "  , numeroCreacionFicheroXML = COALESCE(numeroCreacionFicheroXML, 0) + 1  ";
+		qry+= "  WHERE idDivisionResidencia ='"+ cab.getIdDivisionResidencia() +"' "; 
+	  	qry+= "  AND idProceso='"+ cab.getIdProceso() +"' "; 
+	  	qry+= "  AND oidFicheroResiCabecera ='"+cab.getOidFicheroResiCabecera() +"' ";   	    		
+	  	
+	  	System.out.println(className + "--> actualizaDatosFicheroXMLEnCabecera -->" +qry );		
+
+	  	try {
+	         PreparedStatement pstat = con.prepareStatement(qry);
+	         result=pstat.executeUpdate();
+	     } catch (SQLException e) {
+	         e.printStackTrace();
+	     }finally {con.close();}
+
+		;
 	}
 
 		

@@ -362,3 +362,12 @@
 			var url = "/spd/PrepararGeneracion.do?parameter=generarFicherosResidente&oidFicheroResiCabecera=" + oidFicheroResiCabecera +  "&oidPaciente="+oidPaciente+"&operation=GENERAR_FICHEROS";
 	 		window.open(url, 'generarFicherosDMyRX', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
 		}
+		
+		
+		function informeProdRobotSpd(oidFicheroResiCabecera)
+		{
+			var f = document.FicheroResiForm;
+			var url = "/spd/InformeProdSpd.do?parameter=globalProd&oidFicheroResiCabecera=" + oidFicheroResiCabecera +"&operation=INFORMES_PROD_ROBOT";
+	 		window.open(url, 'globalProd', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
+		}
+		

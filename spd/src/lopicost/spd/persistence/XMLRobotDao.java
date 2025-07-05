@@ -41,7 +41,11 @@ public class XMLRobotDao
 		detalleContenidoBolsasTratadas.clear();
 		Logger.log("SPDLogger", "if cab !=null  " + cab==null?"nulo":"no Nulo",Logger.INFO);	
 		Logger.log("SPDLogger", "inicio DELETE FROM dbo.SPD_XML_detallesTomasRobot WHERE idDivisionResidencia='"+cab.getIdDivisionResidencia()+"'" ,Logger.INFO);	
-	  	String queryBorrado1= "DELETE FROM dbo.SPD_XML_detallesTomasRobot WHERE idDivisionResidencia='"+cab.getIdDivisionResidencia()+"' ";
+	  	String 	queryBorrado1= "DELETE FROM dbo.SPD_XML_detallesTomasRobot ";
+	  			queryBorrado1+= " WHERE 1=1 ";
+	  			queryBorrado1+= " AND idDivisionResidencia='"+cab.getIdDivisionResidencia()+"' ";
+	  			queryBorrado1+= " AND idProceso='"+cab.getIdProceso()+"' ";
+	  	queryBorrado1+= " "; 
     	return ejecutarSentencia(queryBorrado1);
 	}
     //Paso2
@@ -452,7 +456,10 @@ public class XMLRobotDao
 		if(spdAccionBolsa!=null && spdAccionBolsa.equalsIgnoreCase("PASTILLERO"))
 			bean.setDispensar("S");
 			
-		bean.setOrderNumber(PlantillaUnificadaHelper.getOrderNumber());
+		//bean.setOrderNumber(PlantillaUnificadaHelper.getOrderNumber());
+		//String orderBak = PlantillaUnificadaHelper.getOrderNumber();
+		//String orderNew = PlantillaUnificadaHelper.getOrderNumber(bean, cabeceraTop);
+		bean.setOrderNumber(PlantillaUnificadaHelper.getOrderNumber(bean, cabeceraTop));
 		
 	   	SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyyMMdd");
         SimpleDateFormat formatoObjetivo = new SimpleDateFormat("dd/MM/yyyy");
@@ -678,7 +685,8 @@ public class XMLRobotDao
 			   // String fechaSpdDesde=DateUtilities.convertFormatDateString(cab.getFechaDesde(), "YYYYMMDD", "DDMM");
 			   //String fechaSpdHasta=DateUtilities.convertFormatDateString(cab.getFechaHasta(), "YYYYMMDD", "DDMM");
 			   // basic.setLocationId(div.getLocationId()+"_"+fechaSpdDesde+"_"+fechaSpdHasta);
-			   basic.setLocationId(div.getLocationId()+"_"+cab.getFechaDesde());
+			   int numeroCreacionesXML = cab.getNumeroCreacionFicheroXML()+1;
+			   basic.setLocationId(div.getLocationId()+"_"+cab.getFechaDesde()+"_"+ numeroCreacionesXML);
 		   }catch(Exception e)
 		   {
 			   basic.setLocationId(div.getNombreBolsa());
@@ -843,6 +851,30 @@ public class XMLRobotDao
 
 		 	     return rx;
 	}
+	public static void actualizaGTVM(String idUsuario, FicheroResiBean cab, FicheroResiBean cabDetalle) throws ClassNotFoundException, SQLException {
+		Logger.log("SPDLogger", "inicio actualizaGTVM",Logger.INFO);	
+	  	String 	query= " UPDATE p SET p.CodGtVm = c.CodGtVm,     p.NomGtVm = c.NomGtVm, ";
+	  		query+= " p.CodGtVmp = c.CodGtVmp,   p.NomGtVmp = c.NomGtVmp,  ";
+	  		query+= " p.CodGtVmpp = c.CodGtVmpp, p.NomGtVmpp = c.NomGtVmpp  ";
+	  		query+= " FROM SPD_XML_detallesTomasRobot p JOIN bd_consejo c ON p.CN = c.CODIGO ";         
+	  		query+= " WHERE (p.CodGtVm IS NULL or p.CodGtVmp IS NULL or p.CodGtVmpp IS NULL) ";
+	  		query+= " AND idProceso='"+cab.getIdProceso()+"' ";
+		ejecutarSentencia(query);
+
+		Logger.log("SPDLogger", "inicio actualizaGTVM CN 111111 ",Logger.INFO);	
+		String 	query2= " UPDATE p SET p.CodGtVm = c.CodGtVm, p.NomGtVm = c.NomGtVm, p.CodGtVmp = c.CodGtVmp, ";
+		 	query2+= " p.NomGtVmp   = c.NomGtVmp,    p.CodGtVmpp  = c.CodGtVmpp,    p.NomGtVmpp  = c.NomGtVmpp ";
+    		query2+= " FROM SPD_XML_detallesTomasRobot p ";
+    		query2+= " CROSS APPLY ( ";
+    		query2+= " SELECT CodGtVm, NomGtVm, CodGtVmp, NomGtVmp, CodGtVmpp, NomGtVmpp ";
+    		query2+= " FROM bd_consejo ";
+    		query2+= " WHERE Codigo = '702350' ";
+    		query2+= " ) c ";
+    		query2+= " WHERE p.CN = '111111' "; 
+	  		query2+= " AND idProceso='"+cab.getIdProceso()+"' ";
+			ejecutarSentencia(query2);
+	}
+
 
 
 

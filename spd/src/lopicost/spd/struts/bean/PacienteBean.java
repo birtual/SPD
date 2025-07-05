@@ -1,8 +1,10 @@
 package lopicost.spd.struts.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import lopicost.spd.robot.bean.rd.BolsaSPD;
 import lopicost.spd.utils.HelperSPD;
 
 
@@ -35,14 +37,15 @@ public class PacienteBean {
 	  private String idDivisionResidencia;			//idDivisionResidencia  varchar(50) DEFAULT '',
 	  private String spd;							//spd                   varchar(20) DEFAULT '',
 	  private Date fechaProceso;					//fechaProceso          datetime DEFAULT getdate(),
+	  private String fechaHoraProceso;					
 	  private int exitus;							//exitus                bit DEFAULT 0,
 	  private String estatus;						//estatus               varchar(255) DEFAULT '',
 	  private String bolquers;						//bolquers              varchar(20) DEFAULT 'S',
 	  private String comentarios;					//comentarios           varchar(255) DEFAULT '',
 	  private String fechaAltaPaciente;				//fechaAltaPaciente     varchar(30) DEFAULT getdate(),
 //	  private String cipFicheroResi;        		//CipFicheroResi        varchar(50) 
-	  private List listaTratamientos;
-	  private List listaTratamientosFichero;
+	  private List listaTratamientos = new ArrayList();
+	  private List listaTratamientosFichero= new ArrayList();;
 	  private String activo; 
 	  private String idPharmacy;					//Id Farmatic
 	  private String UPFarmacia;					//Codigo UP Farmacia
@@ -50,6 +53,7 @@ public class PacienteBean {
 	  private String mensajeTratamiento;	
 	  private String mensajePendientes;	
 	  private String claseId;	
+	  private List<BolsaSPD> produccionSPD;        				
 
 	  public PacienteBean() 									{			super();										}
 		
@@ -71,8 +75,8 @@ public class PacienteBean {
 	  public String getApellidosMask() 							{			return apellidosMask;							}
 	  public String getSegSocial()								{			return segSocial;								}
 	  public String getSegSocialMask() 							{			return segSocialMask;							}
-	  public String getNumIdentidad() 							{			return numIdentidad;								}
-	  public String getNumIdentidadMask() 						{			return numIdentidadMask;							}
+	  public String getNumIdentidad() 							{			return numIdentidad;							}
+	  public String getNumIdentidadMask() 						{			return numIdentidadMask;						}
 	  public String getIdPacienteResidencia() 					{			return idPacienteResidencia;					}
 	  public String getPlanta()									{			return planta;									}
 	  public String getHabitacion() 							{			return habitacion;								}
@@ -153,4 +157,22 @@ public class PacienteBean {
 	  																		this.setNumIdentidadMask(HelperSPD.enmascararNombre(data));
 		  														}
 	  public void setNumIdentidadMask(String nIdentidadMask) 		{			this.numIdentidadMask = nIdentidadMask;			}
+
+	  
+	public String getFechaHoraProceso() {
+		return fechaHoraProceso;
+	}
+
+	public void setFechaHoraProceso(String fechaHoraProceso) {
+		this.fechaHoraProceso = fechaHoraProceso;
+	}
+
+	public List<BolsaSPD> getProduccionSPD() {
+		return produccionSPD;
+	}
+
+	public void setProduccionSPD(List<BolsaSPD> produccionSPD) {
+		this.produccionSPD = produccionSPD;
+	}
+	  
 }	

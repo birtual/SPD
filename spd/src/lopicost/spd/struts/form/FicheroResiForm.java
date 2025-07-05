@@ -1,19 +1,10 @@
 package lopicost.spd.struts.form;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
+
 import java.util.List;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts.action.ActionError;
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
 
 import lopicost.spd.struts.bean.CamposPantallaBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
@@ -205,7 +196,7 @@ public class FicheroResiForm   extends GenericForm {
 	private String resiToma;	  
 	private String resiTomaLiteral;	  
 	private int numeroResiTomas=0;	  
-
+	private String nombreProduccionRobot;
 	
 	private String resiD1 = "";
 	private String resiD2 = "";
@@ -278,6 +269,15 @@ public class FicheroResiForm   extends GenericForm {
 	private String free1 = "";
 	private String free2 = "";
 	private String free3 = "";
+	private String usuarioEntregaSPD;
+	private String fechaEntregaSPD;
+	private String usuarioRecogidaSPD;
+	private String fechaRecogidaSPD;
+	private String usuarioDesemblistaSPD;
+	private String fechaDesemblistaSPD;
+	private String usuarioProduccionSPD;
+	private String fechaProduccionSPD;
+	  
 	private InfoAlertasBean infoAlertas=null;
 	
 	private boolean filtroNumComprimidos=false;
@@ -289,6 +289,8 @@ public class FicheroResiForm   extends GenericForm {
 	private boolean filtroNoSustituible=false;
 	private boolean filtroUnicoGtvm=false;
 	
+	private int numeroCreacionFicheroXML;
+
 	
 	public String getIdProceso() { 		return idProceso;	}	public void setIdProceso(String idProceso) {		this.idProceso = idProceso;	}
 	public String getIdDivisionResidencia() {	return idDivisionResidencia;	}	public void setIdDivisionResidencia(String idDivisionResidencia) {		this.idDivisionResidencia = idDivisionResidencia;	}
@@ -1637,6 +1639,86 @@ public class FicheroResiForm   extends GenericForm {
 
 	public void setNuevaTomaHasta(String nuevaTomaHasta) {
 		this.nuevaTomaHasta = nuevaTomaHasta;
+	}
+
+	public String getUsuarioEntregaSPD() {
+		return usuarioEntregaSPD;
+	}
+
+	public void setUsuarioEntregaSPD(String usuarioEntregaSPD) {
+		this.usuarioEntregaSPD = usuarioEntregaSPD;
+	}
+
+	public String getFechaEntregaSPD() {
+		return fechaEntregaSPD;
+	}
+
+	public void setFechaEntregaSPD(String fechaEntregaSPD) {
+		this.fechaEntregaSPD = fechaEntregaSPD;
+	}
+
+	public String getUsuarioRecogidaSPD() {
+		return usuarioRecogidaSPD;
+	}
+
+	public void setUsuarioRecogidaSPD(String usuarioRecogidaSPD) {
+		this.usuarioRecogidaSPD = usuarioRecogidaSPD;
+	}
+
+	public String getFechaRecogidaSPD() {
+		return fechaRecogidaSPD;
+	}
+
+	public void setFechaRecogidaSPD(String fechaRecogidaSPD) {
+		this.fechaRecogidaSPD = fechaRecogidaSPD;
+	}
+
+	public String getUsuarioDesemblistaSPD() {
+		return usuarioDesemblistaSPD;
+	}
+
+	public void setUsuarioDesemblistaSPD(String usuarioDesemblistaSPD) {
+		this.usuarioDesemblistaSPD = usuarioDesemblistaSPD;
+	}
+
+	public String getFechaDesemblistaSPD() {
+		return fechaDesemblistaSPD;
+	}
+
+	public void setFechaDesemblistaSPD(String fechaDesemblistaSPD) {
+		this.fechaDesemblistaSPD = fechaDesemblistaSPD;
+	}
+
+	public String getUsuarioProduccionSPD() {
+		return usuarioProduccionSPD;
+	}
+
+	public void setUsuarioProduccionSPD(String usuarioProduccionSPD) {
+		this.usuarioProduccionSPD = usuarioProduccionSPD;
+	}
+
+	public String getFechaProduccionSPD() {
+		return fechaProduccionSPD;
+	}
+
+	public void setFechaProduccionSPD(String fechaProduccionSPD) {
+		this.fechaProduccionSPD = fechaProduccionSPD;
+	}
+
+	public String getNombreProduccionRobot() {
+		return nombreProduccionRobot;
+	}
+
+	public void setNombreProduccionRobot(String nombreProduccionRobot) {
+		this.nombreProduccionRobot = nombreProduccionRobot;
+	}
+
+	public int getNumeroCreacionFicheroXML() {
+		return numeroCreacionFicheroXML;
+	}
+
+	public void setNumeroCreacionFicheroXML(int numeroCreacionFicheroXML) {
+		this.numeroCreacionFicheroXML = numeroCreacionFicheroXML;
 	}
 
 

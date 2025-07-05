@@ -3,6 +3,9 @@ package lopicost.spd.utils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -642,4 +645,38 @@ public class DateUtilities
 	        calendar.set(Calendar.DAY_OF_MONTH, nuevoDia);
 	        return calendar.getTime();
 	    }
+	  
+	  
+	  public static String desplazarFecha(String fecha, int dias, String formatoEntrada, String formatoSalida) {
+	      try
+	      {
+		        DateTimeFormatter formatterEntrada = DateTimeFormatter.ofPattern(formatoEntrada);
+		        DateTimeFormatter formatterSalida = DateTimeFormatter.ofPattern(formatoSalida);
+
+		        // Parsear la fecha, desplazar y devolver en el nuevo formato
+		        LocalDate fechaOriginal = LocalDate.parse(fecha, formatterEntrada);
+		        LocalDate fechaDesplazada = fechaOriginal.plusDays(dias);
+		        return fechaDesplazada.format(formatterSalida);
+	    	  
+	      }
+	      catch(Exception e)
+	      {
+	    	  return fecha;
+	      }
+	    }
+
+	    public static int diasEntreFechas(String fechaInicio, String fechaFin, String formatoFecha) {
+	    	try{
+		        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatoFecha);
+		        LocalDate inicio = LocalDate.parse(fechaInicio, formatter);
+		        LocalDate fin = LocalDate.parse(fechaFin, formatter);
+		        return (int) ChronoUnit.DAYS.between(inicio, fin);
+	    	}
+	    	catch(Exception e)
+	    	{
+	    		return 0;
+	    	}
+	    }
+	    
+	    
 }

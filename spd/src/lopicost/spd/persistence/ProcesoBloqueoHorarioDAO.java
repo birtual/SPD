@@ -33,7 +33,7 @@ public class ProcesoBloqueoHorarioDAO extends GenericDAO  {
 	        	connection = Conexion.conectar();
 	        	List<ProcesoBloqueoHorario> lista = new ArrayList<>();
 			            Statement stmt = connection.createStatement();
-			    	    String sql = "	SELECT ";
+			    	 /*  String sql = "	SELECT ";
 			            sql+=" CASE WHEN     ";
 			            sql+=" ( ( r.horasDesde <= CONVERT(VARCHAR(5), GETDATE(), 108) AND r.horasHasta >= CONVERT(VARCHAR(5), GETDATE(), 108)) ";
 			            sql+="  OR ";
@@ -51,8 +51,28 @@ public class ProcesoBloqueoHorarioDAO extends GenericDAO  {
 	            		sql+=" LEFT JOIN bd_farmacia f on f.idFarmacia= r.idFarmacia ";
 	    	            sql+=" WHERE 1=1   ";
 	    	            sql+=" order by  usarBloqueoHorario desc  ";
-	    	         
-	            
+	    	         */
+			            String sql = "	SELECT ";
+			            sql += " CASE WHEN ";
+			            sql += " ( ";
+			            sql += "   ( ";
+			            sql += "     (CONVERT(TIME, r.horasDesde) <= CONVERT(TIME, r.horasHasta) AND CONVERT(TIME, GETDATE()) BETWEEN CONVERT(TIME, r.horasDesde) AND CONVERT(TIME, r.horasHasta)) ";
+			            sql += "     OR ";
+			            sql += "     (CONVERT(TIME, r.horasDesde) > CONVERT(TIME, r.horasHasta) AND (CONVERT(TIME, GETDATE()) >= CONVERT(TIME, r.horasDesde) OR CONVERT(TIME, GETDATE()) <= CONVERT(TIME, r.horasHasta))) ";
+			            sql += "   ) ";
+			            sql += "   OR r.valorDia = DAY(GETDATE()) ";
+			            sql += "   OR r.valorFecha = CONVERT(VARCHAR(10), GETDATE(), 103) ";
+			            sql += " ) ";
+			            sql += " AND r.usarBloqueoHorario = '1' ";
+			            sql += " THEN 'SI' ";
+			            sql += " ELSE 'NO' ";
+			            sql += " END as bloqueaAhora ";
+			            sql += " , r.*, p.lanzadera, p.parametros, f.nombreFarmacia ";
+			            sql += " FROM SPD_procesosBloqueosHorarios r ";
+			            sql += " LEFT JOIN SPD_procesos p on p.oidProceso = r.oidProceso ";
+			            sql += " LEFT JOIN bd_farmacia f on f.idFarmacia = r.idFarmacia ";
+			            sql += " WHERE 1=1 ";
+			            sql += " ORDER BY usarBloqueoHorario DESC ";
 	            ResultSet rs = stmt.executeQuery(sql);
 	            while (rs.next()) {
 	                ProcesoBloqueoHorario p = crearDesdeResultSet(rs);
@@ -156,7 +176,76 @@ public class ProcesoBloqueoHorarioDAO extends GenericDAO  {
 	         * @throws SQLException
 	         */
 			public String getQueryBloqueosPorTipo(Proceso proceso, String bloqueo, boolean count) throws SQLException {
-	    	    String sql = "	SELECT ";
+				
+				StringBuilder sql = new StringBuilder();
+
+				boolean tieneProceso = (proceso != null && proceso.getOidProceso() > 0);
+				boolean mostrarDetalle = !count;
+
+				// Cabecera SELECT
+				if (count) {
+				    sql.append("SELECT COUNT(*) AS quants ");
+				} else {
+				    sql.append("SELECT ")
+				       .append("CASE WHEN ( ")
+				       .append("  ( ")
+				       .append("    (CONVERT(TIME, r.horasDesde) <= CONVERT(TIME, r.horasHasta) AND CONVERT(TIME, GETDATE()) BETWEEN CONVERT(TIME, r.horasDesde) AND CONVERT(TIME, r.horasHasta)) ")
+				       .append("    OR ")
+				       .append("    (CONVERT(TIME, r.horasDesde) > CONVERT(TIME, r.horasHasta) AND (CONVERT(TIME, GETDATE()) >= CONVERT(TIME, r.horasDesde) OR CONVERT(TIME, GETDATE()) <= CONVERT(TIME, r.horasHasta))) ")
+				       .append("  ) ")
+				       .append("  OR r.valorDia = DAY(GETDATE()) ")
+				       .append("  OR r.valorFecha = CONVERT(VARCHAR(10), GETDATE(), 103) ")
+				       .append(") AND r.usarBloqueoHorario = '1' ")
+				       .append("THEN 'SI' ELSE 'NO' END AS bloqueaAhora, ")
+				       .append("r.*, p.lanzadera, p.parametros, f.nombreFarmacia ");
+				}
+
+				// FROM y JOINs
+				sql.append("FROM SPD_procesosBloqueosHorarios r ");
+				if (mostrarDetalle) {
+				    sql.append("LEFT JOIN SPD_procesos p ON p.oidProceso = r.oidProceso ")
+				       .append("LEFT JOIN bd_farmacia f ON f.idFarmacia = r.idFarmacia ");
+				}
+
+				// WHERE
+				sql.append("WHERE 1=1 ");
+				if (count) {
+				    sql.append("AND r.usarBloqueoHorario = '1' ");
+				}
+				if (tieneProceso) {
+				    sql.append("AND r.oidProceso = ? ");
+				}
+
+				// Filtros por tipo de bloqueo
+				switch (bloqueo) {
+				    case "HORA":
+				        sql.append("AND ( ")
+				           .append("  (CONVERT(TIME, r.horasDesde) <= CONVERT(TIME, r.horasHasta) AND CONVERT(TIME, GETDATE()) BETWEEN CONVERT(TIME, r.horasDesde) AND CONVERT(TIME, r.horasHasta)) ")
+				           .append("  OR ")
+				           .append("  (CONVERT(TIME, r.horasDesde) > CONVERT(TIME, r.horasHasta) AND (CONVERT(TIME, GETDATE()) >= CONVERT(TIME, r.horasDesde) OR CONVERT(TIME, GETDATE()) <= CONVERT(TIME, r.horasHasta))) ")
+				           .append(") ");
+				        break;
+
+				    case "DIA":
+				        sql.append("AND r.valorDia = DAY(GETDATE()) ");
+				        break;
+
+				    case "FECHA":
+				        sql.append("AND r.valorFecha = CONVERT(VARCHAR(10), GETDATE(), 103) ");
+				        break;
+				}
+
+				// ORDER BY si no es conteo
+				if (mostrarDetalle) {
+				    sql.append("ORDER BY r.usarBloqueoHorario DESC ");
+				}
+
+				// Resultado
+				String query = sql.toString();
+				return query;
+				
+				
+				/*	    	    String sql = "	SELECT ";
 	            sql+=" CASE WHEN     ";
 	            sql+=" ( ( r.horasDesde <= CONVERT(VARCHAR(5), GETDATE(), 108) AND r.horasHasta >= CONVERT(VARCHAR(5), GETDATE(), 108)) ";
 	            sql+="  OR ";
@@ -200,7 +289,7 @@ public class ProcesoBloqueoHorarioDAO extends GenericDAO  {
 	        		sql+=" AND r.valorDia = DAY(GETDATE()) ";
 					break;
 				case "FECHA":
-	        		sql+=" AND r.valorFecha = CONVERT(VARCHAR(10), GETDATE(), 103) ";
+
 
 					break;
 
@@ -208,6 +297,9 @@ public class ProcesoBloqueoHorarioDAO extends GenericDAO  {
 					break;
 				}
 				return sql;
+					        		sql+=" AND r.valorFecha = CONVERT(VARCHAR(10), GETDATE(), 103) ";
+*/
+				
 			}
 			
 			

@@ -10,6 +10,7 @@ import java.io.OutputStreamWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 import java.util.Date;
@@ -39,6 +40,7 @@ import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.bean.PacienteBean;
 import lopicost.spd.utils.DateUtilities;
 import lopicost.spd.utils.SPDConstants;
+import lopicost.spd.utils.StringUtil;
 
 
 /**
@@ -553,6 +555,43 @@ public class PlantillaUnificadaHelper {
         String result = formattedDateTime + randomDigits;
         
 		return result;
+	}
+	
+	/**
+	 * étodo encargado de generar un id para la producción del paciente. No ha de ser aleatorio como antes del RD porque es posible que el proceso de generar los datos que 
+	 * se envían a robot se realice posteriormente, para precisamente generar los datos. 
+	 * @param bean
+	 * @param cabeceraTop
+	 * @return
+	 */
+	public static String getOrderNumber(DetallesTomasBean bean, FicheroResiBean cabeceraTop) {
+		ZoneId zoneId = ZoneId.systemDefault(); // o ZoneId.of("Europe/Madrid")
+		LocalDateTime lFechaHoraProceso = cabeceraTop.getFechaHoraProceso().toInstant().atZone(zoneId).toLocalDateTime();
+		
+        // Formatea la fecha y los milisegundos a yyyyMMddHHmmssSSS
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+        String ascii= StringUtil.convertTextToAscii(StringUtil.makeFlat(bean.getCIP(), true));
+
+
+        String parte1 = lFechaHoraProceso.format(formatter);
+        String parte2 = StringUtil.left(ascii + ascii + "0000000000000000000000", 18);
+        String result = parte1+parte2;
+
+        
+		return result;
+	}
+	
+	/**
+	 * Para no sobrecargar los inserts de generación del fichero, se realiza a posteriori un update cruzado con bd_consejo
+	 * @param idUsuario
+	 * @param cab
+	 * @param cabDetalle
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public static void actualizaGTVM(String idUsuario, FicheroResiBean cab, FicheroResiBean cabDetalle) throws ClassNotFoundException, SQLException {
+		XMLRobotDao.actualizaGTVM(idUsuario,  cab, cabDetalle);
+		
 	}
 
 

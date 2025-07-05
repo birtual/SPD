@@ -45,21 +45,34 @@ public class ExtReHelper {
 		
 		}
 
-	
-	
-	public static List getCipsSinProcesarTrat(String spdUsuario, String idDivisionResidencia)throws Exception {
-		return ExtReDAO.getCipsSinProcesarTrat(spdUsuario, idDivisionResidencia);
+	public static List getCipsProcesadosConDatosTrat(String spdUsuario, String idDivisionResidencia)throws Exception {
+		return ExtReDAO.getCipsProcesadosConDatosTrat(spdUsuario, idDivisionResidencia);
 		}
 	
-	public static List getCipsSinProcesarPendientes(String spdUsuario, String idDivisionResidencia)throws Exception {
-		return ExtReDAO.getCipsSinProcesarPendientes(spdUsuario, idDivisionResidencia);
+	public static List getCipsProcesadosConVentanaActiva(String spdUsuario, String idDivisionResidencia) throws Exception {
+		return ExtReDAO.getCipsProcesadosConVentanaActiva(spdUsuario, idDivisionResidencia);
+	}
+	
+	public static List getCipsProcesadosSinDatosTrat(String spdUsuario, String idDivisionResidencia)throws Exception {
+		return ExtReDAO.getCipsProcesadosSinDatosTrat(spdUsuario, idDivisionResidencia);
 		}
+
+	public static List getCipsProcesadosSinVentanaActiva(String spdUsuario, String idDivisionResidencia)throws Exception {
+		return ExtReDAO.getCipsProcesadosSinVentanaActiva(spdUsuario, idDivisionResidencia);
+		}
+
+	public static List getCipsNoProcesadosTrat(String spdUsuario, String idDivisionResidencia)throws Exception {
+		return ExtReDAO.getCipsNoProcesados(spdUsuario, idDivisionResidencia, "TRATAMIENTO");
+		}
+	
+	public static List getCipsNoProcesadosVentanaActiva(String spdUsuario, String idDivisionResidencia)throws Exception {
+		return ExtReDAO.getCipsNoProcesados(spdUsuario, idDivisionResidencia, "RECETA");
+		}
+
 
 	public static List getAvisosDeHoy(String idUsuario, int oidAviso, String idFarmacia, boolean actuales, Date fecha) throws Exception {
 		return AvisosDAO.getAvisosDeHoy(idUsuario, oidAviso, idFarmacia, actuales, fecha );
 	}
-
-
 	
 		
 }

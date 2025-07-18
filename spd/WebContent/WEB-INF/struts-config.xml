@@ -230,6 +230,7 @@
         	parameter="parameter"  name="InformeProdSpdForm"         
         	scope="request"  validate="false">
         	<forward name="globalProd" path="/spd/app/robot/informeSpd/jsp/informeProdGlobal.jsp" />
+        	<forward name="globalProdLite" path="/spd/app/robot/informeSpd/jsp/informeProdGlobalLite.jsp" />
         	<forward name="detalleProd" path="/spd/app/robot/informeSpd/jsp/informeProdDetalle.jsp" />
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
 		</action>

@@ -11,9 +11,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import lopicost.config.logger.Logger;
-import lopicost.spd.model.Usuario;
-import lopicost.spd.persistence.DivisionResidenciaDAO;
-import lopicost.spd.persistence.UsuarioDAO;
 import lopicost.spd.struts.form.GenericForm;
 import lopicost.spd.struts.helper.ExtReHelper;
 

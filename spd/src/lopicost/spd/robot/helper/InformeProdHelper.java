@@ -50,6 +50,8 @@ public class InformeProdHelper {
 		TratamientoPaciente tto = new TratamientoPaciente();
 		tto.setMedicamentoPaciente(creaMedicamentoPaciente(rs));
 		tto.setCantidadUtilizadaSPD(rs.getInt("cantidad"));
+		tto.setPautaResidencia(rs.getString("pautaResidencia"));
+		tto.setEmblistar(rs.getString("dispensar")!=null&&rs.getString("dispensar").equalsIgnoreCase("S"));
 		//tto.setDiaSPD(diaSPD);
 		return tto;
 	}
@@ -58,7 +60,7 @@ public class InformeProdHelper {
 	public MedicamentoPaciente creaMedicamentoPaciente(ResultSet rs) throws SQLException, ClassNotFoundException {
 		MedicamentoPaciente medic = new MedicamentoPaciente();
 		medic.setCn(rs.getString("cn"));
-		medic.setNombreMedicamentoBolsa(rs.getString("nombreMedicamentoBolsa"));
+		medic.setNombreMedicamentoBolsa(rs.getString("nombreMedicamento"));
 		medic.setLote(rs.getString("lote"));
 		medic.setCaducidad(rs.getString("caducidad"));
 		medic.setCodigoMedicamentoRobot(rs.getString("codigoMedicamentoRobot"));
@@ -66,7 +68,7 @@ public class InformeProdHelper {
 		medic.setNombreMedicamentoConsejo(bdConsejo!=null?bdConsejo.getNombreConsejo()+ " " + bdConsejo.getPresentacion():"");
 		medic.setLabMedicamento(bdConsejo!=null?bdConsejo.getNombreLaboratorio():"");
 		medic.setFechaDesemblistado(rs.getString("diaDesemblistado"));
-		medic.setPautaResidencia("?????");
+		medic.setPautaResidencia(rs.getString("pautaResidencia"));
 		return medic;
 	}
 
@@ -78,8 +80,9 @@ public class InformeProdHelper {
 		//diaTomas.setOrden(ordenDiaEnProduccion);
         String fecha = String.valueOf(rs.getInt("diaInicioSPD"));
         int diaRelativo = rs.getInt("offsetDays");
-		String fechaToma = DateUtilities.desplazarFecha(fecha, diaRelativo, SPDConstants.FORMATO_FECHA_yyyyMMdd, SPDConstants.FORMATO_FECHA_DEFAULT);
-		diaTomas.setFechaToma(fechaToma);
+		//String fechaToma = DateUtilities.desplazarFecha(fecha, diaRelativo, SPDConstants.FORMATO_FECHA_yyyyMMdd, SPDConstants.FORMATO_FECHA_DEFAULT);
+		//diaTomas.setFechaToma(fechaToma);
+        diaTomas.setFechaToma(rs.getString("fechaToma2"));
 		return diaTomas;
 	}
 
@@ -87,8 +90,10 @@ public class InformeProdHelper {
 	public Toma creaToma(ResultSet rs, int numTomas) throws SQLException {
 		Toma toma = new Toma();
 		toma.setCantidadToma(rs.getInt("cantidad"));
-		toma.setIdToma(rs.getString("doseTime"));
-		toma.setNombreToma(rs.getString("doseTime"));
+		String idToma = rs.getString("idToma");
+		if(idToma==null || idToma.equals("") || idToma.equalsIgnoreCase("null")) idToma=rs.getString("nombreToma");
+		toma.setIdToma(idToma);
+		toma.setNombreToma(rs.getString("nombreToma"));
 		toma.setOrdenToma(numTomas);
 		return toma;
 	}
@@ -128,7 +133,7 @@ public class InformeProdHelper {
 		bolsaSPD.setIdBolsa(rs.getString("idBolsa"));
 		bolsaSPD.setNumeroOrdenBolsa(rs.getInt("numeroOrdenBolsa"));
 		bolsaSPD.setOffsetDays(rs.getInt("offsetDays"));
-		bolsaSPD.setTomaDelDia(rs.getString("doseTime"));
+		bolsaSPD.setTomaDelDia(rs.getString("nombreToma"));
 		//bolsaSPD.setLineasBolsa(drugs);
 		return bolsaSPD;
 	}
@@ -153,7 +158,9 @@ public class InformeProdHelper {
 
 
 	public List<ProduccionPaciente> findByIdResidenciaCarga(String spdUsuario, FicheroResiBean cab) throws Exception {
-		return InformeProdSpdDAO.findByIdResidenciaCarga(spdUsuario, cab);
+		//return InformeProdSpdDAO.findByIdResidenciaCarga(spdUsuario, cab);
+		return InformeProdSpdDAO.findLiteByResidenciaCarga(spdUsuario, cab);
+		
 		
 	}
 
@@ -191,7 +198,18 @@ public class InformeProdHelper {
 		}
 		return tm_DiasSPD;
 	}
-    
+
+
+	public boolean descartable(ResultSet rs) throws SQLException {
+		String dispensar=rs.getString("dispensar");
+		String idBolsa=rs.getString("idBolsa");
+		if(dispensar!=null && dispensar.equalsIgnoreCase("S") && (idBolsa==null || idBolsa.equals("")  || idBolsa.equals("null") ))
+			return true;
+		return false;
+	}
+
+
+
 }
 
 

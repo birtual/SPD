@@ -57,7 +57,7 @@ public class DataUtil {
     
     //Funció que retorna true si es un numero y false si no ho és
     public static boolean isNumero(String nom) {
-    	
+    	if(nom==null || nom.isEmpty()) return false;
      	boolean esNumeric = true;
     	try {
     		Double.parseDouble(nom.replace(',', '.'));

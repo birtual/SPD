@@ -548,34 +548,34 @@ public class FicheroResiCabeceraDAO {
 			String qry = " update "+TABLA_ACTIVA+" ";
 				qry+= "  set free1 = '"+ f.getFree1() + "', ";
 
-	  	    if(f.getFechaDesde()!=null && !f.getFechaDesde().equals(""))
+		   //if(f.getFechaDesde()!=null && !f.getFechaDesde().equals(""))
 	  	    	qry+= "  fechaDesde = '"+ f.getFechaDesde() + "', ";
-	  	    if(f.getFechaHasta()!=null && !f.getFechaHasta().equals(""))
+	  	  //if(f.getFechaHasta()!=null && !f.getFechaHasta().equals(""))
 		  	    qry+= "  fechaHasta = '"+ f.getFechaHasta() + "', ";
-	  	    if(f.getNuevaFechaDesde()!=null && !f.getNuevaFechaDesde().equals(""))
+	  	  //if(f.getNuevaFechaDesde()!=null && !f.getNuevaFechaDesde().equals(""))
 	  	    	qry+= "  nuevaFechaDesde = '"+ f.getNuevaFechaDesde() + "', ";
-	  	    if(f.getNuevaFechaHasta()!=null && !f.getNuevaFechaHasta().equals(""))
+	  	  //if(f.getNuevaFechaHasta()!=null && !f.getNuevaFechaHasta().equals(""))
 		  	    qry+= "  nuevaFechaHasta = '"+ f.getNuevaFechaHasta() + "', ";
-	  	    if(f.getNuevaTomaDesde()!=null && !f.getNuevaTomaDesde().equals(""))
+	  	  //if(f.getNuevaTomaDesde()!=null && !f.getNuevaTomaDesde().equals(""))
 		  	    qry+= "  nuevaTomaDesde = '"+ f.getNuevaTomaDesde() + "', ";
-	  	    if(f.getNuevaTomaHasta()!=null && !f.getNuevaTomaHasta().equals(""))
+	  	  //if(f.getNuevaTomaHasta()!=null && !f.getNuevaTomaHasta().equals(""))
 		  	    qry+= "  nuevaTomaHasta = '"+ f.getNuevaTomaHasta() + "', ";
 
-	  	    if(f.getUsuarioEntregaSPD()!=null && !f.getUsuarioEntregaSPD().equals(""))
+	  	  //if(f.getUsuarioEntregaSPD()!=null && !f.getUsuarioEntregaSPD().equals(""))
 		  	    qry+= "  usuarioEntregaSPD = '"+ f.getUsuarioEntregaSPD() + "', ";
-	  	    if(f.getFechaEntregaSPD()!=null && !f.getFechaEntregaSPD().equals(""))
+	  	  //if(f.getFechaEntregaSPD()!=null && !f.getFechaEntregaSPD().equals(""))
 		  	    qry+= "  fechaEntregaSPD = '"+ f.getFechaEntregaSPD() + "', ";
-	  	    if(f.getUsuarioRecogidaSPD()!=null && !f.getUsuarioRecogidaSPD().equals(""))
+	  	  //if(f.getUsuarioRecogidaSPD()!=null && !f.getUsuarioRecogidaSPD().equals(""))
 		  	    qry+= "  usuarioRecogidaSPD = '"+ f.getUsuarioRecogidaSPD() + "', ";
-	  	    if(f.getFechaRecogidaSPD()!=null && !f.getFechaRecogidaSPD().equals(""))
+	  	  //if(f.getFechaRecogidaSPD()!=null && !f.getFechaRecogidaSPD().equals(""))
 		  	    qry+= "  fechaRecogidaSPD = '"+ f.getFechaRecogidaSPD() + "', ";
-	  	    if(f.getUsuarioDesemblistaSPD()!=null && !f.getUsuarioDesemblistaSPD().equals(""))
+	  	  //if(f.getUsuarioDesemblistaSPD()!=null && !f.getUsuarioDesemblistaSPD().equals(""))
 		  	    qry+= "  usuarioDesemblistaSPD = '"+ f.getUsuarioDesemblistaSPD() + "', ";
-	  	    if(f.getFechaDesemblistaSPD()!=null && !f.getFechaDesemblistaSPD().equals(""))
+	  	  //if(f.getFechaDesemblistaSPD()!=null && !f.getFechaDesemblistaSPD().equals(""))
 		  	    qry+= "  fechaDesemblistaSPD = '"+ f.getFechaDesemblistaSPD() + "', ";
-	  	    if(f.getUsuarioProduccionSPD()!=null && !f.getUsuarioProduccionSPD().equals(""))
+	  	  //if(f.getUsuarioProduccionSPD()!=null && !f.getUsuarioProduccionSPD().equals(""))
 		  	    qry+= "  usuarioProduccionSPD = '"+ f.getUsuarioProduccionSPD() + "', ";
-	  	    if(f.getFechaProduccionSPD()!=null && !f.getFechaProduccionSPD().equals(""))
+	  	  //if(f.getFechaProduccionSPD()!=null && !f.getFechaProduccionSPD().equals(""))
 		  	    qry+= "  fechaProduccionSPD = '"+ f.getFechaProduccionSPD() + "', ";
 
 
@@ -958,13 +958,31 @@ public class FicheroResiCabeceraDAO {
 
 	public void actualizaDatosFicheroXMLEnCabecera(DivisionResidencia div, FicheroResiBean cab) throws SQLException {
 		int result = 0;
-		int numeroVeces = cab.getNumeroCreacionFicheroXML()+1;
+		//lo siguiente ha de coincidir con XMLRobotDao.getTratamientosDeProceso
+		//int numeroVeces = cab.getNumeroCreacionFicheroXML()+1;
+		//String fechaArreglada = cab.getFechaDesde()!=null ? cab.getFechaDesde().replace("/", ""):numeroVeces+""; //quitamos "/" en caso que no exista le ponemos  numeroCreacionesXML
+		//String nombreProduccionRobot= div.getLocationId()+"_"+fechaArreglada+"_"+ numeroVeces;
+		String nombreProduccionRobot = cab.getNombreProduccionRobot();
+		if(nombreProduccionRobot==null || nombreProduccionRobot.isEmpty())
+		{
+			try{
+				String fechaArreglada = DateUtilities.convertFormatDateString(cab.getFechaDesde(), SPDConstants.FORMATO_FECHA_yyyyMMdd, SPDConstants.FORMATO_FECHA_DEFAULT);
+				fechaArreglada = cab.getFechaDesde()!=null ? cab.getFechaDesde().replace("/", ""):""; //quitamos "/" en caso que no exista le ponemos  numeroCreacionesXML
+				nombreProduccionRobot= div.getLocationId()+"_"+fechaArreglada;
+			}catch(Exception e)
+			{
+				nombreProduccionRobot=  div.getNombreBolsa();
+			}
+		}
+		 
+		   
 		Connection con = Conexion.conectar();
 		String nomFitxer = SPDConstants.PATH_DOCUMENTOS + "/robot/FILIA_RX_" + cab.getIdProceso() +  ".xml";
 		String qry = " UPDATE dbo.SPD_ficheroResiCabecera ";
   	    qry+= "  SET fechaCreacionFicheroXML = GETDATE() ";
   	    qry+= "  , nombreFicheroXML = '" +  nomFitxer +"'";
-  	    qry+= "  , nombreProduccionRobot ='"+div.getLocationId()+"_"+cab.getFechaDesde()+"_"+numeroVeces +"'" ;
+  	    //qry+= "  , nombreProduccionRobot ='"+div.getLocationId()+"_"+cab.getFechaDesde()+"_"+numeroVeces +"'" ;
+  	    qry+= "  , nombreProduccionRobot ='"+nombreProduccionRobot +"'" ;
   	    qry+= "  , numeroCreacionFicheroXML = COALESCE(numeroCreacionFicheroXML, 0) + 1  ";
 		qry+= "  WHERE idDivisionResidencia ='"+ cab.getIdDivisionResidencia() +"' "; 
 	  	qry+= "  AND idProceso='"+ cab.getIdProceso() +"' "; 

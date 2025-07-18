@@ -75,10 +75,7 @@
                     <th>Lab</th>
                     <th>Lote</th>
                     <th>Caducidad</th>
-
-                    <c:forEach var="dia" items="${data.diasSPD}">
-                        <th><c:out value="${dia.fechaToma}" /></th>
-                    </c:forEach>
+                    <th>Pauta residencia</th>
                    <th>Unidades utilizadas</th>
                 </tr>
             </thead>
@@ -92,47 +89,9 @@
                         <td><bean:write name="medic" property="labMedicamento" /></td>
                         <td><bean:write name="medic" property="lote" /></td>
                         <td><bean:write name="medic" property="caducidad" /></td>
+                        <td><bean:write name="medic" property="pautaResidencia" /></td>
 
-			<c:forEach var="i" begin="0" end="${dias}">
-			    <td>
-			        <%
-			        int index = ((Integer) pageContext.getAttribute("i")).intValue();
-			            lopicost.spd.robot.bean.rd.MedicamentoPaciente med =
-			                (lopicost.spd.robot.bean.rd.MedicamentoPaciente) pageContext.findAttribute("medic");
 			
-			            lopicost.spd.robot.bean.rd.DiaTomas dia = null;
-			            if (index >= 0 && index < med.getDiaTomas().size()) {
-			                dia = med.getDiaTomas().get(index);
-			            }
-			
-			            if (dia != null && dia.getTomas() != null) {
-			                java.util.List<lopicost.spd.robot.bean.rd.Toma> tomas = dia.getTomas();
-			                if (tomas.isEmpty()) {
-			        %>
-			                    0
-			        <%
-			                } else {
-			                    for (int j = 0; j < tomas.size(); j++) {
-			                        lopicost.spd.robot.bean.rd.Toma toma = tomas.get(j);
-			                        if (toma != null) {
-			        %>
-			                            <span><%= toma.getNombreToma() %> (<%= toma.getCantidadToma() %>)</span><br/>
-			        <%
-			                        } else {
-			        %>
-			                            <span>-</span><br/>
-			        <%
-			                        }
-			                    }
-			                }
-			            } else {
-			        %>
-			                0
-			        <%
-			            }
-			        %>
-			    </td>
-			</c:forEach>
 
                        	<td><bean:write name="trat" property="cantidadUtilizadaSPD" /></td>
                     </tr>

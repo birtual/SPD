@@ -737,6 +737,39 @@ public class BdConsejoDAO {
    return result;
 }
 
+	public static BdConsejo getBdCNPorNombre(String nombrePresentacion) throws ClassNotFoundException , SQLException {
+    	
+  		String qry = "select distinct c.codigo, coalesce(c.nombre, '') + ' ' + coalesce(c.presentacion, '') as nombreConsejo,  ";
+  			qry+=  " c.codiLABO, c.nomLABO, c.CodGtVmp, c.NomGtVmp, c.CodGtVm, c.NomGtVm, c.FormaFarmaceutica, c.NomFormaFarmaceutica, c.CodGtVmpp,   ";
+			qry+=  " c.NomGtVmpp, emblistable, sustituible, pvl ";
+  			qry+=  " from dbo.bd_consejo c ";
+  			qry+=  " where 1=1 ";
+  			//qry+=  " and coalesce(c.nombre, '') + ' - ' + coalesce(c.presentacion, '') = '"+nombrePresentacion+"' "; //importante conservar el guión y espacios ' - '
+  			qry+=  " and ( ";
+  			qry+=  " 	REPLACE(UPPER('"+nombrePresentacion+"'), ' ','') like REPLACE(UPPER(coalesce(c.nombre, '') + ' - ' + coalesce(c.presentacion, '') + '%'), ' ','')  "; 
+  			qry+=  " 	or  REPLACE(UPPER(coalesce(c.nombre, '') + ' - ' + coalesce(c.presentacion, '')), ' ','') like  REPLACE(UPPER('"+nombrePresentacion+"' + '%'), ' ','')   ";
+  			qry+=  " ) ";
+
+  			
+  		System.out.println("BdConsejoDAO.getBdCNPorNombre -->" +qry );		
+  		Connection con = Conexion.conectar();
+   		
+  		ResultSet resultSet = null;
+  		BdConsejo  bdc= null;
+  		try {
+  			PreparedStatement pstat = con.prepareStatement(qry);
+  			resultSet = pstat.executeQuery();
+  			if(resultSet.next())
+  				bdc =creaObjeto(resultSet);
+  		
+  		} catch (SQLException e) {
+       e.printStackTrace();
+  		}
+  		finally {con.close();}
+
+   return bdc;
+}
+    
 		
 
 }

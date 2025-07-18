@@ -31,10 +31,25 @@ public class InformeProdSpdAction extends GenericAction
         return mapping.findForward("globalProd");
     }
   
+    public ActionForward globalProdLite(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+        final InformeProdSpdForm f= (InformeProdSpdForm)form;
+    	FicheroResiBean cab = FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(getIdUsuario(), f.getOidFicheroResiCabecera());
+    	f.setCabecera(cab);
+        InformeProdHelper helper = new InformeProdHelper();
+        List<ProduccionPaciente> producciones =  helper.findByIdResidenciaCarga(getIdUsuario(), cab);
+       
+        f.setProducciones(producciones);
+        return mapping.findForward("globalProdLite");
+    }
+  
     public ActionForward detalleProd(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         final InformeProdSpdForm f= (InformeProdSpdForm)form;
-        
-        
+    	FicheroResiBean cab = FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(getIdUsuario(), f.getOidFicheroResiCabecera());
+    	f.setCabecera(cab);
+        InformeProdHelper helper = new InformeProdHelper();
+        List<ProduccionPaciente> producciones =  helper.findByIdResidenciaCarga(getIdUsuario(), cab);
+       
+        f.setProducciones(producciones);
         return mapping.findForward("detalleProd");
     }
     

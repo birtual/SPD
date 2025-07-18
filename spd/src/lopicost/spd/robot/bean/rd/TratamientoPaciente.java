@@ -12,9 +12,17 @@ public class TratamientoPaciente {
     // private int cantidadDispensadaReceta;
     //private int cantidadCustodia;
     private String leyendaInfo;
+    private boolean emblistar = false;
 
     
     
+
+	public boolean isEmblistar() {
+		return emblistar;
+	}
+	public void setEmblistar(boolean emblistar) {
+		this.emblistar = emblistar;
+	}
 	public MedicamentoPaciente getMedicamentoPaciente() {
 		return medicamentoPaciente;
 	}

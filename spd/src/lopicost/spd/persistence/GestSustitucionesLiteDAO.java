@@ -14,6 +14,7 @@ import lopicost.spd.security.helper.VisibilidadHelper;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.bean.TiposAccionBean;
 import lopicost.spd.struts.form.GestSustitucionesLiteForm;
+import lopicost.spd.utils.DataUtil;
 import lopicost.spd.utils.SPDConstants;
 import lopicost.spd.utils.StringUtil;
  
@@ -274,19 +275,37 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 		Connection con = Conexion.conectar();
 		
 		String cnResi=StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiCn(), false);
+		String nombreMedicamento=StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiMedicamento(), true);
 		
 		String select =" select fecha, idDivisionResidencia, resiCn, resiMedicamento, spdCn, spdNombreBolsa, spdFormaMedicacion, spdAccionBolsa, excepciones, aux1, aux2  ";
 		String 	from = " from SPD_sustitucionesLite ";
-		String 	where= " WHERE idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
+		//String 	where= " WHERE idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
+		String 	where= " WHERE 1 = 1 "; // para no sobrecargar eliminamos la condición de la visibilidad. En este punto el usuario tendría permisos 
 		where+=" AND idDivisionResidencia='"+medResi.getIdDivisionResidencia()+"' ";
-		//where+=" and replace(replace(replace(replace(replace(replace(resiCNok, 'ÿ', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', '')='"+medResi.getResiCn()+"'  ";
-		where+=" AND ( replace(replace(replace(replace(replace(replace(resiCN, 'ÿ', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', '')='"+ cnResi +"' ";
-		where+=" 		OR spdCn = '"+StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiCn(), false)+"' "; 	//si ya llega con el CN de sust final también se debería recoger
-		//where+=" OR replace(replace(replace(replace(replace(replace(resiCN, 'ÿ', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', '')=right('"+StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiCn(), false)+"', 6)) ";
-		if(cnResi.startsWith("0"))
-			where+=" OR RIGHT(replace(replace(replace(replace(replace(replace(resiCN, 'ÿ', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', ''), 6)=RIGHT('"+ cnResi +"', 6)) ";
-		else
-			where+=" OR LEFT(replace(replace(replace(replace(replace(replace(resiCN, 'ÿ', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', ''), 6)=LEFT('"+ cnResi +"', 6)) ";
+		if((cnResi!=null && !cnResi.isEmpty()) || !DataUtil.isNumero(cnResi))
+		{
+			where+=" AND ( ";
+			where+="  replace(replace(replace(replace(replace(replace(resiCN, 'ÿ', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', '')='"+ cnResi +"' ";
+			where+=" 	 OR spdCn = '"+StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiCn(), false)+"' "; 	//si ya llega con el CN de sust final también se debería recoger
+			if(cnResi.startsWith("0"))
+				where+=" OR RIGHT(replace(replace(replace(replace(replace(replace(resiCN, 'ÿ', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', ''), 6)=RIGHT('"+ cnResi +"', 6) ";
+			else
+				where+=" OR LEFT(replace(replace(replace(replace(replace(replace(resiCN, 'ÿ', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', ''), 6)=LEFT('"+ cnResi +"', 6) ";
+			where+=" ) ";
+		}
+		else if(	
+					(cnResi==null || cnResi.isEmpty()) //llega sin CN y con nombre, miramos de buscar por descripción (GDR)
+					&& (nombreMedicamento!=null && !nombreMedicamento.isEmpty())
+				)
+		{
+			where+=" AND ( ";
+			where+=" 	UPPER(replace(replace(replace(replace(replace(replace(resiMedicamento, 'ÿ', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', '')) = '"+ nombreMedicamento +"' ";
+			where+=" ) ";
+		}
+		else //llega cn y nombre vacío, no devolverá nada 
+		{
+			where = " WHERE 1 = 0 "; 
+		}
 		
 		/*PARA QUITAR ACENTOS
 		 * 

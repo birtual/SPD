@@ -16,6 +16,7 @@ import lopicost.config.pool.dbaccess.Conexion;
 
 import java.util.*;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 
 public class XMLRobotDao
@@ -208,14 +209,10 @@ public class XMLRobotDao
            				//parece que el robot tiene limitación de caracteres, con 34 daba error en la carga. Limitamos a 25
        					//idFreeInformation = idFreeInformation.length() > 25 ? idFreeInformation.substring(idFreeInformation.length() - 25) : idFreeInformation;
 
-           				
                        	sql+= " ('"+idDivisionResidencia+"' ,'"+idProceso+"','"+bean.getCIP()+"','"+bean.getOrderNumber()+"','"+bean.getCN()+"','"+bean.getNombreMedicamento()+"'";
                        	sql+= ", '"+valorToma+"','"+bean.getDispensar()+"', '"+fechaTomaInsert+"' ";
                        	sql+= ", '"+tramoToma+"', '"+idLineaRX+"', '"+idToma+"', '"+nombreToma+"', '"+bean.getPlanta()+"','"+bean.getHabitacion()+"'";
-                       	sql+= ", "+numeroBolsa+", '"+idBolsa+"', '"+idFreeInformation+"' , '"+UUID.randomUUID()+"' ) ," ;
-
-
-                        
+                       	sql+= ", "+numeroBolsa+", '"+idBolsa+"', '"+idFreeInformation+"' , '"+UUID.randomUUID()+"', '"+bean.getPautaResidencia()+"' ) ," ;
            			}
           		}
  	            //actualizamos calendario con la nueva fecha
@@ -518,8 +515,9 @@ public class XMLRobotDao
     	bean.setSpdD7(D7!=null&&D7.equalsIgnoreCase("X"));
 
     	
-    	 // Llenar las tomas dinámicas
+    	 // Llenar las tomas dinámicas y de paso la pauta de residencia
         List<String> resiTomaList = new ArrayList<>();
+        String pautaResidencia="";
         for (int i = 0; i < nombresTomas.size(); i++) {
            // String tomaColumnName = "resiToma" + posiciones.get(i);
         	//  String tomaColumnName = "["+nombresTomas.get(i)+"]";
@@ -529,9 +527,15 @@ public class XMLRobotDao
              if(valorToma.contains(",")) 
             	 valorToma=valorToma.replace(",", ".") ;
               resiTomaList.add(valorToma);
-                 
+              //pautaResidencia+=valorToma!=null || valorToma.isEmpty()?"0":valorToma;
+              //if(i<nombresTomas.size()-1)    pautaResidencia+="-";
         }
         bean.setResiTomas(resiTomaList);
+        pautaResidencia = resiTomaList.stream()
+        	    .map(v -> (v == null || v.isEmpty()) ? "0" : v)
+        	    .collect(Collectors.joining("-"));
+        
+        bean.setPautaResidencia(pautaResidencia);
     	
 
   		return bean;
@@ -682,11 +686,27 @@ public class XMLRobotDao
 		   Basic basic = new Basic();
 		   //basic.setLocationId(div.getNombreBolsa());
 		   try{
+			   FicheroResiBean cabMadre = FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(spdUsuario, cab.getOidFicheroResiCabecera());
+				String nombreProduccionRobot = cabMadre.getNombreProduccionRobot();
+				if(nombreProduccionRobot==null || nombreProduccionRobot.isEmpty())
+				{
+					//String fechaArreglada = cab.getFechaDesde()!=null ? cab.getFechaDesde().replace("/", ""):""; //quitamos "/" en caso que no exista le ponemos  numeroCreacionesXML
+					String fechaArreglada = DateUtilities.convertFormatDateString(cab.getFechaDesde(), SPDConstants.FORMATO_FECHA_yyyyMMdd, SPDConstants.FORMATO_FECHA_DEFAULT);
+					fechaArreglada = fechaArreglada!=null ? fechaArreglada.replace("/", ""):""; //quitamos "/" 
+					nombreProduccionRobot= div.getLocationId()+"_"+fechaArreglada;
+				}
+				 basic.setLocationId(nombreProduccionRobot); 
+			   
 			   // String fechaSpdDesde=DateUtilities.convertFormatDateString(cab.getFechaDesde(), "YYYYMMDD", "DDMM");
 			   //String fechaSpdHasta=DateUtilities.convertFormatDateString(cab.getFechaHasta(), "YYYYMMDD", "DDMM");
 			   // basic.setLocationId(div.getLocationId()+"_"+fechaSpdDesde+"_"+fechaSpdHasta);
-			   int numeroCreacionesXML = cab.getNumeroCreacionFicheroXML()+1;
-			   basic.setLocationId(div.getLocationId()+"_"+cab.getFechaDesde()+"_"+ numeroCreacionesXML);
+			 //	lo siguiente ha de coincidir con XMLRobotDao.getTratamientosDeProceso
+			 //  int numeroCreacionesXML = cabMadre.getNumeroCreacionFicheroXML()+1;
+				 //  String fechaArreglada = DateUtilities.convertFormatDateString(cab.getFechaDesde(), SPDConstants.FORMATO_FECHA_yyyyMMdd, SPDConstants.FORMATO_FECHA_DEFAULT);
+			  // fechaArreglada = fechaArreglada!=null ? fechaArreglada.replace("/", ""):numeroCreacionesXML+""; //quitamos "/" en caso que no exista le ponemos  numeroCreacionesXML
+			  // fechaArreglada = fechaArreglada!=null ? fechaArreglada.replace("/", ""):""; //quitamos "/" 
+			  // basic.setLocationId(div.getLocationId()+"_"+fechaArreglada+"_"+ numeroCreacionesXML);
+			  // basic.setLocationId(div.getLocationId()+"_"+fechaArreglada);
 		   }catch(Exception e)
 		   {
 			   basic.setLocationId(div.getNombreBolsa());

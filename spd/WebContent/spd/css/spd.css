@@ -542,11 +542,12 @@ td.prio-baja  {
   background-color: #E6E6FA; /* lavanda */
   color: black;
 }
-/* Zebra striping */
+/* Zebra striping 
 tr:nth-child(even) td {
-    background-color: #f2f2f2; /* Gris claro */
+    background-color: #f2f2f2; / Gris claro /
 }
-
+*//*
 tr:nth-child(odd) td {
     background-color: #ffffff; /* Blanco */
 }
+*/

@@ -243,8 +243,15 @@
 		    <html:text name="data" property="usuarioRecogidaSPD"  />
 		    / <html:text name="formulari" property="fechaRecogidaSPD" styleId="fechaRecogidaSPD" value="${data.fechaRecogidaSPD}" />
 		</div>
-			<a href="javascript:informeProdRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />')" />Acceso a la producción realizada en robot</a>
+		<logic:equal property="idUsuario" name="formulari" value="admin">
 		
+			<a href="javascript:informeProdRobotSpdGlobalLite('<bean:write name="data" property="oidFicheroResiCabecera" />')" />Producción realizada en robot (globalLite)</a>
+			</br>
+			<a href="javascript:informeProdRobotSpdGlobal('<bean:write name="data" property="oidFicheroResiCabecera" />')" />Producción realizada en robot (global)</a>
+			</br>
+			<a href="javascript:informeProdRobotSpdDetalle('<bean:write name="data" property="oidFicheroResiCabecera" />')" />ProducciónAcceso por bolsa SPD</a>
+		
+		</logic:equal>
 	</fieldset>	
 
 

@@ -16,7 +16,7 @@ public class AvisoHelper {
 			String antes = ""; 
 			String despues = "";
 			
-			String querySet=" usuarioUpdate = '"+ idUsuario+ "', fechaUpdate= GETDATE(), ";
+			String querySet=" usuarioUpdate = '"+ idUsuario+ "', fechaUpdate= GETDATE() ";
 			if(aviso!=null)
 			{
 				/*  INICIO Texto*/
@@ -24,9 +24,9 @@ public class AvisoHelper {
 				{
 					antes+=  " | Texto: "+ aviso.getTexto();
 					despues+=" | Texto: "+ f.getTexto();
-
+					
 					cambios =true;
-					querySet+= " texto = '"+ f.getTexto() + "'" ;
+					querySet+= ", texto = '"+ f.getTexto() + "'" ;
 				}
 			
 				/*  INICIO getFechaInicio*/
@@ -36,7 +36,7 @@ public class AvisoHelper {
 					despues+=" | FechaInicio: "+ f.getFechaInicio();
 
 					cambios =true;
-					querySet+= " fechaInicio = '"+ f.getFechaInicio() + "'" ;
+					querySet+= ", fechaInicio = '"+ f.getFechaInicio() + "'" ;
 				}
 				/*  INICIO getFechaFin*/
 				if (!Objects.equals(aviso.getFechaFin(), f.getFechaFin())) 
@@ -45,7 +45,7 @@ public class AvisoHelper {
 					despues+=" | FechaFin: "+ f.getFechaFin();
 					 
 					cambios =true;
-					querySet+= " fechaFin = '"+ f.getFechaFin() + "'" ;
+					querySet+= ", fechaFin = '"+ f.getFechaFin() + "'" ;
 				}
 				/*  INICIO Farmacia*/
 				if (!Objects.equals(aviso.getIdFarmacia(), f.getIdFarmacia())) 
@@ -54,7 +54,7 @@ public class AvisoHelper {
 					despues+=" | Farmacia: "+ f.getIdFarmacia();
 
 					cambios =true;
-					querySet+= " idFarmacia = '"+ f.getIdFarmacia() + "'" ;
+					querySet+= ", idFarmacia = '"+ f.getIdFarmacia() + "'" ;
 				}
 				/*  INICIO activo*/
 				if (!Objects.equals(aviso.getActivo(), f.getActivo())) 
@@ -63,7 +63,7 @@ public class AvisoHelper {
 					despues+=" | Activo: "+ f.getActivo();
 					 
 					cambios =true;
-					querySet+= " activo = '"+ f.getActivo() + "'" ;
+					querySet+= ", activo = '"+ f.getActivo() + "'" ;
 				}
 				/*  INICIO Tipo*/
 				if (!Objects.equals(aviso.getTipo(), f.getTipo())) 
@@ -72,7 +72,7 @@ public class AvisoHelper {
 					despues+=" | Tipo: "+ f.getTipo();
 					 
 					cambios =true;
-					querySet+= " tipo = '"+ f.getTipo() + "'" ;
+					querySet+= ", tipo = '"+ f.getTipo() + "'" ;
 				}
 				/*  INICIO Orden*/
 				if (!Objects.equals(aviso.getOrden(), f.getOrden())) 
@@ -81,7 +81,7 @@ public class AvisoHelper {
 					despues+=" | Orden: "+ f.getOrden();
 
 					cambios =true;
-					querySet+= " orden = '"+ f.getOrden() + "'" ;
+					querySet+= ", orden = '"+ f.getOrden() + "'" ;
 				}
 				
 			
@@ -89,11 +89,10 @@ public class AvisoHelper {
 				{
 					String query = " UPDATE SPDAC.dbo.SPD_Avisos SET " + querySet + " WHERE  OIDAVISO='"+aviso.getOidAviso()+"'";
 					cambios = AvisosDAO.update(query);
-
 					//INICIO creación de log en BBDD
 					try{
 						SpdLogAPI.addLog(idUsuario, null,  null, null, SpdLogAPI.A_AVISO, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.aviso.edicion.general", 
-								 new String[]{antes, despues} );
+								 new String[]{aviso.getTexto(), antes, despues} );
 					}catch(Exception e){}	// Cambios--> @@.
 					//FIN creación de log en BBDD
 				}

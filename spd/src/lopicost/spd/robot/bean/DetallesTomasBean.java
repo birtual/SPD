@@ -2,8 +2,6 @@ package lopicost.spd.robot.bean;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +14,8 @@ public class DetallesTomasBean implements Serializable  {
 	String nombreMedicamento=null;
 	String orderNumber =null;
 	
+	String pautaResidencia="";
+
 	Date dateInicioTratamiento=null;
 	Date dateFinTratamiento=null;
 	
@@ -37,14 +37,16 @@ public class DetallesTomasBean implements Serializable  {
 
 
 	
-	public String getCIP() 					{		return CIP;						}	public void setCIP(String cIP) 									{		CIP = cIP;											}	
-	public String getOrderNumber()  		{		return orderNumber;				}	public void setOrderNumber(String orderNumber) 					{		this.orderNumber = orderNumber;						}
-	public String getPlanta() 				{		return planta;					}	public void setPlanta(String planta) 							{		this.planta = planta;								}
-	public String getHabitacion() 			{		return habitacion;				}	public void setHabitacion(String habitacion)					{		this.habitacion = habitacion;						}
-	public String getCN() 					{		return CN;						}	public void setCN(String cN) 									{		CN = cN;											}
-	public String getNombreMedicamento()	{		return nombreMedicamento;		}	public void setNombreMedicamento(String nombreMedicamento) 		{		this.nombreMedicamento = nombreMedicamento;			}
-	public Date getDateInicioTratamiento() 	{		return dateInicioTratamiento;	}	public void setDateInicioTratamiento(Date dateInicioTratamiento){		this.dateInicioTratamiento = dateInicioTratamiento;	}
-	public Date getDateFinTratamiento() 	{		return dateFinTratamiento;		} 	
+	public String getCIP() 					{		return CIP;						}	public void setCIP(String cIP) 						{		CIP = cIP;								}	
+	public String getOrderNumber()  		{		return orderNumber;				}	public void setOrderNumber(String orderNumber) 		{		this.orderNumber = orderNumber;			}
+	public String getPlanta() 				{		return planta;					}	public void setPlanta(String planta) 				{		this.planta = planta;					}
+	public String getHabitacion() 			{		return habitacion;				}	public void setHabitacion(String habitacion)		{		this.habitacion = habitacion;			}
+	public String getCN() 					{		return CN;						}	public void setCN(String cN) 						{		CN = cN;								}
+	public String getNombreMedicamento()	{		return nombreMedicamento;		}	public void setNombreMedicamento(String nombre) 	{		this.nombreMedicamento = nombre;		}
+	public Date getDateInicioTratamiento() 	{		return dateInicioTratamiento;	}	public void setDateInicioTratamiento(Date dateInici){		this.dateInicioTratamiento = dateInici;	}
+	public Date getDateFinTratamiento() 	{		return dateFinTratamiento;		}	
+	
+	public String getPautaResidencia() 		{		return pautaResidencia;			}	public void setPautaResidencia(String pauta) 		{		this.pautaResidencia = pauta;			}
 	/*
 	public Date getDateFinTratamiento() throws ParseException 	
 	{		

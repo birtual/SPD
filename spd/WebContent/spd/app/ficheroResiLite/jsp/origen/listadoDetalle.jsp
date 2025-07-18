@@ -16,7 +16,8 @@
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
 
 
-<table class="blueTable" border="1">
+
+<table  class="blueTable" border="1">
 <thead>
 	<tr>
 		<th> <span>nº fila</span>	<a href="javascript:void(0);" onclick="ordenarPor('row asc')" class="arrow">&uarr;</a><a href="javascript:void(0);" onclick="ordenarPor('row desc')" class="arrow">&darr;</a></th>
@@ -183,7 +184,7 @@
 	    </th>	
 	
 	 	<!-- CN -->
-		<th >CN resi
+		<th style="width: 20px;">CN resi
 			<html:select property="seleccionResiCn"  value="${formulari.seleccionResiCn}" onchange="javascript:goSubmit();"   styleClass="ancho_5">  
 	    		<html:option value="">Todos</html:option>
 					<c:forEach items="${FicheroResiForm.listaResiCn}" var="bean"> 
@@ -611,7 +612,7 @@
 	</td>
 	
 
-	<td>
+	<td style="width: 20px;">
 	<% String variable = ""; %>
 		<c:choose>
 		    <c:when test="${empty data.spdCnFinal}">
@@ -745,11 +746,8 @@
 				<td class="toma"><bean:write name="data" property="resiToma24" /></td>
 			</logic:equal>
 
-	<td><bean:write name="data" property="idEstado" /></td>
-	<td><bean:write name="data" property="editado" /></td>
-
-
-            
+			<td><bean:write name="data" property="idEstado" /></td>
+			<td><bean:write name="data" property="editado" /></td>
 
         </tr>
         
@@ -759,5 +757,5 @@
 	
 	
     </logic:iterate>
-
+</table>
  </tbody>   

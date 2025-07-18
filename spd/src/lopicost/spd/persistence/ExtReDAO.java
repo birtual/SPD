@@ -32,11 +32,16 @@ public class ExtReDAO
     	qry+= " , COUNT(*) AS tratamientosProcesadosResi ";
     	qry+= " , cipsActivos  ";
     	//qry+= " , max(CONVERT(varchar, c.fechaHoraProceso, 103)) AS fechaUltimoProcesoTrat  ";
-    	qry+= " , max(FORMAT(c.fechaHoraProceso, 'dd/M/yyyy HH:mm:ss')) AS fechaUltimoProcesoTrat  ";
+    	//qry+= " , max(FORMAT(c.fechaHoraProceso, 'dd/M/yyyy HH:mm:ss')) AS fechaUltimoProcesoTrat  ";
+    	
+    	qry+= " , max(CONVERT(varchar(20), c.fechaHoraProceso, 103) + ' ' + CONVERT(varchar(8), c.fechaHoraProceso, 108)) AS fechaUltimoProcesoTrat  ";
+    	
+    	
     	qry+= " , COUNT(distinct c.CIP) AS cipsProcesadosTrat ";
     	qry+= " , COALESCE(recTratNo.cipsRecTratProcesados, 0) AS cipsProcesadosTratNo ";
     	//qry+= " , max(CONVERT(varchar, recPend.fechaHoraProceso, 103))  AS fechaUltimoProcesoRedPend   ";
-    	qry+= " , max(FORMAT(recPend.fechaHoraProceso, 'dd/M/yyyy HH:mm:ss'))  AS fechaUltimoProcesoRedPend   ";
+    	//qry+= " , max(FORMAT(recPend.fechaHoraProceso, 'dd/M/yyyy HH:mm:ss'))  AS fechaUltimoProcesoRedPend   ";
+    	qry+= " , max(CONVERT(varchar(20), recPend.fechaHoraProceso, 103) + ' ' + CONVERT(varchar(8), recPend.fechaHoraProceso, 108)) AS fechaUltimoProcesoRedPend  ";
     	qry+= " , COALESCE(recPend.cipsRecPendProcesados, 0) AS cipsProcesadosRecPend   ";
     	qry+= " , COALESCE(recPendNo.cipsRecPendProcesados, 0) AS cipsProcesadosRecPendNo ";
     	qry+= " FROM ctl_consultaTractamentSIRE c   ";
@@ -532,7 +537,8 @@ public class ExtReDAO
         		descripcion="CIP no procesado.";
         	}
         }
-    	if(p.getCIP()!=null && !p.getCIP().equals("") && p.getCIP().toUpperCase().contains("MMTT"))
+    	//if(p.getCIP()!=null && !p.getCIP().equals("") && p.getCIP().toUpperCase().contains("MMTT"))
+    	if(p.getCIP()!=null && !p.getCIP().equals("") && p.getMutua()!=null && p.getMutua().equalsIgnoreCase("S"))
     	{
     		claseId = "mutua_o_sin_tsi";
     		descripcion="MUTUA" ;

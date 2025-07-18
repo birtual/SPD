@@ -151,7 +151,7 @@ public class PlantillaUnificadaHelper {
         
     	StringBuilder  queryInsert = new StringBuilder("INSERT INTO SPD_XML_detallesTomasRobot ( idDivisionResidencia, idProceso, CIP, orderNumber, CN, nombreMedicamento "); 
     		queryInsert.append(" , cantidadToma, dispensar, fechaToma,  tramoToma, idLineaRX,  idToma, nombreToma, planta, habitacion " );
-    	queryInsert.append(" , numBolsa, idBolsa, idFreeInformation, idDetalle)  VALUES  ");
+    	queryInsert.append(" , numBolsa, idBolsa, idFreeInformation, idDetalle, pautaResidencia)  VALUES  ");
       
     	String aux="";
     	int rowsInInsert = 0;
@@ -173,7 +173,7 @@ public class PlantillaUnificadaHelper {
     			XMLRobotDao.ejecutarSentencia(queryInsert.toString());
     			queryInsert = new StringBuilder("INSERT INTO SPD_XML_detallesTomasRobot ( idDivisionResidencia, idProceso, CIP, orderNumber, CN, nombreMedicamento "); 
     	    		queryInsert.append(" , cantidadToma, dispensar, fechaToma,  tramoToma, idLineaRX,  idToma, nombreToma, planta, habitacion " );
-    	    		queryInsert.append(" , numBolsa, idBolsa, idFreeInformation, idDetalle)  VALUES  ");
+    	    		queryInsert.append(" , numBolsa, idBolsa, idFreeInformation, idDetalle, pautaResidencia)  VALUES  ");
           			queryInsert.append(aux);
           		rowsInInsert = 0;
 			}

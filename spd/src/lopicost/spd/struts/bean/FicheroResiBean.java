@@ -149,6 +149,11 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	  private String secuenciaGuide="";
 	  private String tipoRegistro="";
 
+
+	  private String resiPauta;
+	  private String resiEmblistable;
+	  
+	  
 	  private List resiTomas;
 	  private List<String> resiTomasOrdenadas;
 	  private List<String> nombreTomasOrdenadas;
@@ -770,6 +775,22 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 
 	public void setIdResidenciaCarga(String idResidenciaCarga) {
 		this.idResidenciaCarga = idResidenciaCarga;
+	}
+
+	public String getResiPauta() {
+		return resiPauta;
+	}
+
+	public void setResiPauta(String resiPauta) {
+		this.resiPauta = resiPauta;
+	}
+
+	public String getResiEmblistable() {
+		return resiEmblistable;
+	}
+
+	public void setResiEmblistable(String resiEmblistable) {
+		this.resiEmblistable = resiEmblistable;
 	}
 
 	

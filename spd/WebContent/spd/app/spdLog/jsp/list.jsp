@@ -125,6 +125,7 @@
 		
  <table class="CSS_Table_Example" >
  <tr>
+		<td class="segunda">Fecha</td>
 		<td class="primera">Usuario</td>
 		<td class="primera">CIP</td>
 		<td class="primera">Residencia</td>
@@ -132,7 +133,6 @@
 		<td class="segunda">Accion</td>
 		<td class="segunda">SubAccion</td>
 		<td class="segunda">Descripcion</td>
-		<td class="segunda">Fecha</td>
    </tr>
 
         
@@ -142,6 +142,7 @@
 
     
     
+			<td><c:out value="${spdLog.fecha}" ></c:out></td>
 			<td><c:out value="${spdLog.idUsuario}" ></c:out></td>
 			<td><c:out value="${spdLog.CIP}" ></c:out></td>
 			<td><c:out value="${spdLog.idDivisionResidencia}" ></c:out></td>
@@ -149,7 +150,6 @@
 			<td><c:out value="${spdLog.idAccion}" ></c:out></td>
 			<td><c:out value="${spdLog.idSubAccion}" ></c:out></td>
 			<td><c:out value="${spdLog.descripcion}" escapeXml="false"></c:out></td>
-			<td><c:out value="${spdLog.fecha}" ></c:out></td>
 			</tr>	
 
 		</c:forEach> 

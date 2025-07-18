@@ -634,7 +634,8 @@ public class DateUtilities
 
 	            System.out.println("Fecha formateada: " + fechaFormateada);
 	        } catch (ParseException e) {
-	            e.printStackTrace();
+	            //e.printStackTrace();
+	        	return fechaEntrada;
 	        }
 	        return fechaFormateada;
 	    }  

@@ -25,8 +25,7 @@ public class MedicamentoPaciente {
 	    return null;
 	}
 	
-	
-	
+
 	public String getCn() {
 		return cn;
 	}

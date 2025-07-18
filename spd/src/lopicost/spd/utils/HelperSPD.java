@@ -825,10 +825,8 @@ public class HelperSPD{
     		if(paciente.getIdDivisionResidencia()!=null && !paciente.getIdDivisionResidencia().equals(medResi.getIdDivisionResidencia()))
     			medResi.setMensajesInfo(SPDConstants.INFO_INTERNA_CIP_OTRA_RESI);
 
-
     	   	if(paciente.getSpd()!=null && paciente.getSpd().equalsIgnoreCase("N") )
         		medResi.setMensajesInfo(SPDConstants.INFO_INTERNA_CIP_SPD_NO);
-
 
     	   	if(paciente.getNombre()!=null && !paciente.getNombre().equals("")) //comprobamos si llega con nombre!null
     	   	{
@@ -1666,240 +1664,22 @@ public class HelperSPD{
 			
 	}
 	
-	/**
-	 * Función que intenta detectar el periodo
-	 * @param medResi
-	 * @throws Exception 
-	 */
-	   public static void detectarPeriodoAlta(String spdUsuario, FicheroResiBean medResi) throws Exception {
-	     	
-	        String observaciones = StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiObservaciones(), false).toLowerCase();
-	        String comentarios = StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiComentarios(), false).toLowerCase();
-	        String resiPeriodo = StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiPeriodo(), false).toLowerCase();
-	        String resiVariante = StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiVariante(), false).toLowerCase();
-	        
-	        
-			if(medResi.getDiasSemanaMarcados()==7 || medResi.getDiasSemanaMarcados()==0 || medResi.getResiDiasAutomaticos().equalsIgnoreCase("SI"))
-			{
-				
-				//si llegan sin marcar, los ponemos automáticos
-				if(medResi.getDiasSemanaMarcados()==0 && medResi.getResiDiasAutomaticos().equalsIgnoreCase("NO")) medResi.setResiDiasAutomaticos("SI");
-				
-				medResi.setDiasConToma(7);
-    			medResi.setDiasSemanaMarcados(7);
-    			medResi.setResiFrecuencia(1);
-    			medResi.setResiD1("X");
-    			medResi.setResiD2("X");
-    			medResi.setResiD3("X");
-    			medResi.setResiD4("X");
-    			medResi.setResiD5("X");
-    			medResi.setResiD6("X");
-    			medResi.setResiD7("X");
-    			medResi.setDiasSemanaConcretos("");
-    			medResi.setDiasMesConcretos("");
-    			medResi.setSecuenciaGuide("");//validar la funcionalidad
-    			medResi.setResiPeriodo(SPDConstants.SPD_PERIODO_DIARIO);
-    			medResi.setTipoEnvioHelium(SPDConstants.TIPO_1_DIARIO_HELIUM);
-			}
-			if(medResi.getDiasSemanaMarcados()<7 && medResi.getDiasSemanaMarcados()>0)	
-			{
-    			HelperSPD.detectarDiasMarcados(medResi);
-				medResi.setTipoEnvioHelium(SPDConstants.TIPO_2_DIAS_CONCRETOS_HELIUM);
-				medResi.setResiPeriodo(SPDConstants.SPD_PERIODO_DIAS_SEMANA_CONCRETOS);
-    			medResi.setSecuenciaGuide("");
- 			}
-			
-			//aqui ya miramos lo que hay en variante, pero después de mirar los dias anteriores
-	        String resultVariante=tratarVariante(medResi);
-
-	        
-	        
-			if ((medResi.getDiasSemanaMarcados()==1) 
-					|| isEqualIgnoreCase(observaciones, SPDConstants.SPD_PERIODO_SEMANAL) 
-					|| isEqualIgnoreCase(comentarios, SPDConstants.SPD_PERIODO_SEMANAL) 
-					|| isEqualIgnoreCase(resiPeriodo, SPDConstants.SPD_PERIODO_SEMANAL)
-					|| isEqualIgnoreCase(resultVariante, SPDConstants.SPD_PERIODO_SEMANAL)
-				) 
-			{
-				HelperSPD.detectarDiasMarcados(medResi);
-		        medResi.setResiPeriodo(SPDConstants.SPD_PERIODO_SEMANAL);
-    			medResi.setSecuenciaGuide("");
-		        medResi.setTipoEnvioHelium("2");
-		        medResi.setResiFrecuencia(7);
-    			medResi.setValidar(SPDConstants.REGISTRO_VALIDAR);
-    			medResi.setConfirmar(SPDConstants.REGISTRO_CONFIRMAR);
-				
-				if(medResi.getDiasConToma()!=1)
-				{
-					medResi.setDiasConToma(1);
-			        medResi.setDiasSemanaMarcados(1);
-					
-				}
-				
-
-				if(medResi.getDiasConToma()>0)
-				{
-
-					if(medResi.getResiD1().equalsIgnoreCase("X"))
-					{
-						medResi.setResiD1("X");
-						medResi.setDiasSemanaConcretos(SPDConstants.DIA1);
-						medResi.setResiD2("");medResi.setResiD3("");medResi.setResiD4("");medResi.setResiD5("");medResi.setResiD6("");medResi.setResiD7("");
-					} else if(medResi.getResiD2().equalsIgnoreCase("X")){
-						medResi.setResiD2("X");
-						medResi.setDiasSemanaConcretos(SPDConstants.DIA2);
-						medResi.setResiD1("");medResi.setResiD3("");medResi.setResiD4("");medResi.setResiD5("");medResi.setResiD6("");medResi.setResiD7("");
-					} else if(medResi.getResiD3().equalsIgnoreCase("X")){
-						medResi.setResiD3("X");
-						medResi.setDiasSemanaConcretos(SPDConstants.DIA3);
-						medResi.setResiD1("");medResi.setResiD2("");medResi.setResiD4("");medResi.setResiD5("");medResi.setResiD6("");medResi.setResiD7("");
-					} else if(medResi.getResiD4().equalsIgnoreCase("X")){
-						medResi.setResiD4("X");
-						medResi.setDiasSemanaConcretos(SPDConstants.DIA4);
-						medResi.setResiD1("");medResi.setResiD2("");medResi.setResiD3("");medResi.setResiD5("");medResi.setResiD6("");medResi.setResiD7("");
-					} else if(medResi.getResiD5().equalsIgnoreCase("X")){
-						medResi.setResiD5("X");
-						medResi.setDiasSemanaConcretos(SPDConstants.DIA5);
-						medResi.setResiD1("");medResi.setResiD2("");medResi.setResiD3("");medResi.setResiD4("");medResi.setResiD6("");medResi.setResiD7("");
-					} else if(medResi.getResiD6().equalsIgnoreCase("X")){
-						medResi.setResiD6("X");
-						medResi.setDiasSemanaConcretos(SPDConstants.DIA6);
-						medResi.setResiD1("");medResi.setResiD2("");medResi.setResiD3("");medResi.setResiD4("");medResi.setResiD5("");medResi.setResiD7("");
-					} else 	if(medResi.getResiD7().equalsIgnoreCase("X")){
-						medResi.setResiD7("X");
-						medResi.setDiasSemanaConcretos(SPDConstants.DIA7);
-						medResi.setResiD1("");medResi.setResiD2("");medResi.setResiD3("");medResi.setResiD4("");medResi.setResiD5("");medResi.setResiD6("");
-					} 
-				}
-				else if(medResi.getDiasConToma()==0)
-				{
-					medResi.setResiD1("X");
-					medResi.setResiD2("");
-					medResi.setResiD3("");
-					medResi.setResiD4("");
-					medResi.setResiD5("");
-					medResi.setResiD6("");
-					medResi.setResiD7("");
-					medResi.setDiasSemanaConcretos(SPDConstants.DIA1);
-				}
-
-			}
-		       
-			if (isEqualIgnoreCase(observaciones, SPDConstants.SPD_PERIODO_QUINCENAL) || isEqualIgnoreCase(comentarios, SPDConstants.SPD_PERIODO_QUINCENAL) || isEqualIgnoreCase(resiPeriodo, SPDConstants.SPD_PERIODO_QUINCENAL) || isEqualIgnoreCase(resultVariante, SPDConstants.SPD_PERIODO_QUINCENAL) ) 
-			{
-				chequeoTratamientoQuincenal(spdUsuario, medResi);
-				if(medResi.getDiasMesConcretos()==null || medResi.getDiasMesConcretos().equals(""))
-					medResi.setDiasMesConcretos(SPDConstants.DIAS_DEFECTO_QUINCENA);
-		        medResi.setTipoEnvioHelium("3");
-				medResi.setResiFrecuencia(15);
-				medResi.setResiPeriodo(SPDConstants.SPD_PERIODO_QUINCENAL);
-    			medResi.setSecuenciaGuide("");
-				medResi.setDiasSemanaConcretos("");//validar la funcionalidad
-				//medResi.setRevisar("SI");
 
 
-			}
-			if (isEqualIgnoreCase(observaciones, SPDConstants.SPD_PERIODO_MENSUAL) || isEqualIgnoreCase(comentarios, SPDConstants.SPD_PERIODO_MENSUAL) || isEqualIgnoreCase(resiPeriodo, SPDConstants.SPD_PERIODO_MENSUAL) || isEqualIgnoreCase(resultVariante, SPDConstants.SPD_PERIODO_MENSUAL)) 
-			 {
-				medResi.setTipoEnvioHelium("3");
-				if(medResi.getDiasMesConcretos()==null || medResi.getDiasMesConcretos().equals(""))
-					medResi.setDiasMesConcretos(SPDConstants.DIAS_DEFECTO_MES);
-				medResi.setResiFrecuencia(31);
-				medResi.setResiPeriodo(SPDConstants.SPD_PERIODO_MENSUAL);
-    			medResi.setDiasSemanaConcretos("");
-    			medResi.setSecuenciaGuide("");
-				medResi.setDiasSemanaConcretos("");//validar la funcionalidad
-				chequeoTratamientoMensual(spdUsuario, medResi);
-				//medResi.setRevisar("SI");
-			}
 
-			if (medResi.getResiPeriodo().equalsIgnoreCase("bimensual") ||  isEqualIgnoreCase(observaciones, "bimensual") || isEqualIgnoreCase(comentarios, "bimensual") || isEqualIgnoreCase(resiPeriodo, "bimensual"))  {
-				if(medResi.getDiasMesConcretos()==null || medResi.getDiasMesConcretos().equals(""))
-					medResi.setDiasMesConcretos(SPDConstants.DIAS_DEFECTO_MES);
-				medResi.setResiPeriodo("bimensual");
-    			medResi.setSecuenciaGuide("1-1-MONTH");
-				medResi.setResiFrecuencia(61);
-				//medResi.setRevisar("SI");
-
-			}
-			if (medResi.getResiPeriodo().equalsIgnoreCase("trimestral") ||  isEqualIgnoreCase(observaciones, "trimestral") || isEqualIgnoreCase(comentarios, "trimestral") || isEqualIgnoreCase(resiPeriodo, "trimestral"))  {
-				if(medResi.getDiasMesConcretos()==null || medResi.getDiasMesConcretos().equals(""))
-					medResi.setDiasMesConcretos(SPDConstants.DIAS_DEFECTO_MES);
-				medResi.setResiPeriodo("trimestral");
-    			medResi.setSecuenciaGuide("1-2-MONTH");
-				medResi.setResiFrecuencia(92);
-				//medResi.setRevisar("SI");
-
-			}
-			if (medResi.getResiPeriodo().equalsIgnoreCase("semestral") ||  isEqualIgnoreCase(observaciones, "semestral") || isEqualIgnoreCase(comentarios, "semestral") || isEqualIgnoreCase(resiPeriodo, "semestral"))  {
-				if(medResi.getDiasMesConcretos()==null || medResi.getDiasMesConcretos().equals(""))
-					medResi.setDiasMesConcretos(SPDConstants.DIAS_DEFECTO_MES);
-				medResi.setResiPeriodo("semestral");
-    			medResi.setSecuenciaGuide("1-5-MONTH");
-				medResi.setResiFrecuencia(183);
-				//medResi.setRevisar("SI");
-
-			}
-			if (medResi.getResiPeriodo().equalsIgnoreCase(SPDConstants.SPD_PERIODO_ANUAL) ||  isEqualIgnoreCase(observaciones, SPDConstants.SPD_PERIODO_ANUAL) || isEqualIgnoreCase(comentarios, SPDConstants.SPD_PERIODO_ANUAL) || isEqualIgnoreCase(resiPeriodo, SPDConstants.SPD_PERIODO_ANUAL))  {
-				if(medResi.getDiasMesConcretos()==null || medResi.getDiasMesConcretos().equals(""))
-					medResi.setDiasMesConcretos(SPDConstants.DIAS_DEFECTO_MES);
-				medResi.setResiPeriodo(SPDConstants.SPD_PERIODO_ANUAL);
-    			medResi.setSecuenciaGuide("1-11-MONTH");
-    			medResi.setResiFrecuencia(365);
-    			//medResi.setRevisar("SI");
-
-			}
-			if(medResi.getResiPeriodo().equals(SPDConstants.SPD_PERIODO_ESPECIAL) || medResi.getResiPeriodo()==null|| medResi.getResiPeriodo().equals(""))
-			{
-				medResi.setResiPeriodo(SPDConstants.SPD_PERIODO_ESPECIAL);
-				medResi.setSecuenciaGuide("");
-				medResi.setResiFrecuencia(0);
-				//medResi.setRevisar("SI");
-
-				//	medResi.setTipoEnvioHelium("4");
-			}
-			if(isEqualIgnoreCase(resultVariante, "secuenciaGuidePorVariante"))
-			{
-				medResi.setResiPeriodo(SPDConstants.SPD_PERIODO_ESPECIAL);
-				medResi.setResiFrecuencia(0);
-			}
-		}
-	   
-	private static String tratarVariante(FicheroResiBean medResi) {
-	   	//check en variante tipo resi+ 
-		int freq = 0; //por defecto 0,
+	public static String marcarSecuencia(FicheroResiBean medResi, String a) {
 		String result="";
-		String a = "";
-			try	{ 			
-				a = StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiVariante(), true);
-				if(a.equalsIgnoreCase("diasidiano")|| a.equalsIgnoreCase("cada48horas"))
-				{
-					result="secuenciaGuidePorVariante";
-					medResi.setSecuenciaGuide("1-1-DAYS");
-				}
-				else 
-				{
-					try	{ 			
-						a = a.replace("CADA", "").replace("DIAS", "");
-						if(DataUtil.isNumero(a))
-						{
-							freq = new Integer(a).intValue();
-							if(freq==7) result=SPDConstants.SPD_PERIODO_SEMANAL;
-							else if(freq==14 || freq==15) result=SPDConstants.SPD_PERIODO_QUINCENAL;
-							else if(freq==30 || freq==31) result=SPDConstants.SPD_PERIODO_MENSUAL;
-							else{
-								result="secuenciaGuidePorVariante";
-								medResi.setSecuenciaGuide("1-"+(freq-1)+"-DAYS");
-							}
-						}
-					}catch(Exception e){}
-				}
-			}catch(Exception e){}
-			//check en comentarios
-
-			
+		int freq = new Integer(a).intValue();
+		if(freq==7) result=SPDConstants.SPD_PERIODO_SEMANAL;
+		else if(freq==14 || freq==15) result=SPDConstants.SPD_PERIODO_QUINCENAL;
+		else if(freq==30 || freq==31) result=SPDConstants.SPD_PERIODO_MENSUAL;
+		else{
+			result="secuenciaGuidePorVariante";
+			medResi.setSecuenciaGuide("1-"+(freq-1)+"-DAYS");
+		}
 		return result;
 	}
+
 
 
 	/**
@@ -2146,7 +1926,7 @@ public class HelperSPD{
 			//medResi.setResiPeriodo(periodo);
 		}
 
-			private static boolean isEqualIgnoreCase(String str1, String str2) {
+			public static boolean isEqualIgnoreCase(String str1, String str2) {
 			    return str1 != null && str1.equalsIgnoreCase(str2);
 			}
 			

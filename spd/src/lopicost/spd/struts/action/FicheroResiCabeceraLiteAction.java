@@ -596,7 +596,14 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		//aprovechamos y lanzamos el cálculo de previsión de comprimidos necesarios. En caso que no se haya calculado previamente
         if(fileRXGenerated)
         {
-       		dao.actualizaDatosFicheroXMLEnCabecera(div, cab);
+        	//Si no se ha creado previamente, construimos el nombre que tendrá en el robot y actualizamos la cabecera
+    		String nombreProduccionRobot = cab.getNombreProduccionRobot();
+    		if(nombreProduccionRobot==null || nombreProduccionRobot.isEmpty())
+    		{
+           		dao.actualizaDatosFicheroXMLEnCabecera(div, cab);
+    		}
+
+    		
        	    if(cab!=null && (cab.getFechaCalculoPrevision()==null || cab.getFechaCalculoPrevision().equals("")) )
         	{
             	// Crear un hilo para ejecutar el método actualizarPrevision()

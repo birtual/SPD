@@ -4,18 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MedicamentoPaciente {
-    private String cn;
+public class MedicamentoPaciente extends Medicamento{
     private String nombreMedicamentoBolsa;
-    private String nombreMedicamentoConsejo;
     private String codigoMedicamentoRobot;
-    private String labMedicamento;
     private String fechaDesemblistado;
-    private String lote;
-    private String caducidad;
     private String pautaResidencia;
     private List<DiaTomas> diaTomas = new ArrayList<DiaTomas>();
     private String leyendaInfo;
+    private String formaFarmaceutica;
     
     
 	public DiaTomas getDiaTomaSegura(int index) {
@@ -26,23 +22,24 @@ public class MedicamentoPaciente {
 	}
 	
 
-	public String getCn() {
-		return cn;
+	
+	public String getFormaFarmaceutica() {
+		return formaFarmaceutica;
 	}
-	public void setCn(String cn) {
-		this.cn = cn;
+
+
+
+	public void setFormaFarmaceutica(String formaFarmaceutica) {
+		this.formaFarmaceutica = formaFarmaceutica;
 	}
+
+
+
 	public String getNombreMedicamentoBolsa() {
 		return nombreMedicamentoBolsa;
 	}
 	public void setNombreMedicamentoBolsa(String nombreMedicamentoBolsa) {
 		this.nombreMedicamentoBolsa = nombreMedicamentoBolsa;
-	}
-	public String getNombreMedicamentoConsejo() {
-		return nombreMedicamentoConsejo;
-	}
-	public void setNombreMedicamentoConsejo(String nombreMedicamentoConsejo) {
-		this.nombreMedicamentoConsejo = nombreMedicamentoConsejo;
 	}
 	public String getCodigoMedicamentoRobot() {
 		return codigoMedicamentoRobot;
@@ -50,25 +47,6 @@ public class MedicamentoPaciente {
 	public void setCodigoMedicamentoRobot(String codigoMedicamentoRobot) {
 		this.codigoMedicamentoRobot = codigoMedicamentoRobot;
 	}
-	public String getLabMedicamento() {
-		return labMedicamento;
-	}
-	public void setLabMedicamento(String labMedicamento) {
-		this.labMedicamento = labMedicamento;
-	}
-	public String getLote() {
-		return lote;
-	}
-	public void setLote(String lote) {
-		this.lote = lote;
-	}
-	public String getCaducidad() {
-		return caducidad;
-	}
-	public void setCaducidad(String caducidad) {
-		this.caducidad = caducidad;
-	}
-
 	public List<DiaTomas> getDiaTomas() {
 		return diaTomas;
 	}

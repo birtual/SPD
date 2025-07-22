@@ -38,7 +38,7 @@ public class ImportSustitucionesLite extends ImportProcessImpl
      
     public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count) throws Exception 
     {
-        if (row!=null && row.size()>=7)
+        if (row!=null && row.size()>=6)
         {
         	GestSustitucionesLite lite= new GestSustitucionesLite();
         	lite.setIdDivisionResidencia(idDivisionResidencia);
@@ -60,9 +60,6 @@ public class ImportSustitucionesLite extends ImportProcessImpl
      	
      	lite.setResiCn(StringUtil.limpiarTextoEspaciosYAcentos((String) row.elementAt(i), false));		//resiCnOk  lo ponemos porque está con máscara "000000"
      	
-     	i=i+1;			//	Saltamos la otra columna con CN (para facilitar el copypaste de la plantilla
-    	
-     	//lite.setResiMedicamento(StringUtil.limpiarTextoEspaciosYAcentos((String) row.elementAt(i+1), false));			//resiMedicamento
      	lite.setResiMedicamento(StringUtil.limpiarTextoComentarios((String) row.elementAt(i+1)));		//resiMedicamento
     	lite.setSpdCn(StringUtil.limpiarTextoEspaciosYAcentos((String) row.elementAt(i+2), false));			//spdCn
     	lite.setSpdNombreBolsa(StringUtil.limpiarTextoComentarios((String) row.elementAt(i+3)));									//spdNombreBolsa
@@ -119,9 +116,8 @@ public class ImportSustitucionesLite extends ImportProcessImpl
     }
 
 	@Override
-	protected void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count,
-			boolean cargaAnexa) throws Exception {
-		// TODO Esbozo de método generado automáticamente
+	protected void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception {
+		procesarEntrada( idRobot,  idDivisionResidencia,  idProceso,  row,  count);
 		
 	}
 

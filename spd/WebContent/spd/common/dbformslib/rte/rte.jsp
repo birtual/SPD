@@ -33,7 +33,7 @@
 <body class="clsPageBody">
 <table  border="0" cellspacing="0" width = "100%" align="center">
   <tr>
-	<td width="100%"  bgcolor="#EFF7EE">
+	<td style="width:100%"  bgcolor="#EFF7EE">
  <table bgcolor="#EFF7EE" border="0" width = "100%" align="center">		
 	<tr>
 		<td class="clsMainMenu" bgcolor="#7BBA69">
@@ -44,7 +44,7 @@
 	</td>
   </tr>
   <tr>
-	<td width="100%"  bgcolor="#EFF7EE" class="clsSearchDataTableRow" >
+	<td style="width:100%"  bgcolor="#EFF7EE" class="clsSearchDataTableRow" >
 <script>
 var text = new richText('edit','<%=getString("pathImagenes")%>');
 text.setValue(opener.<%=request.getParameter("getFunction")%>());

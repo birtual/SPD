@@ -45,7 +45,6 @@ public class ImportGDRExcel extends ImportGenericLite
 
 	protected void recogerDatosRow(FicheroResiBean medResi, Vector row) throws Exception {
 
-    	int i = 0;   
  		try{
 			//saltamos cabecera
 			if(getProcessedRows()==0)
@@ -55,8 +54,24 @@ public class ImportGDRExcel extends ImportGenericLite
 		}catch(Exception e)
 		{throw new Exception ("No es un tratamiento válido.");}
     	
+    	String detalleRow = HelperSPD.getDetalleRow(row, COLUMNAS);
+        medResi.setDetalleRow(detalleRow);
+        medResi.setDetalleRowKey(crearDetalleRowKey(detalleRow, getPosicionesAEliminar()));
+        medResi.setDetalleRowKeyLite(crearDetalleRowKeyLite(row, detalleRow, getPosicionesAEliminar()));
     	
- 	   	medResi.setNombrePacienteEnFichero((String) row.elementAt(i));i++;								//Resident
+        HelperSPD.getDatosProduccionAnterior(getSpdUsuario(), medResi, true, true);
+		boolean reutilizado = medResi.getIdEstado().equalsIgnoreCase(SPDConstants.REGISTRO_REUTILIZADO_DE_ANTERIOR_PRODUCCION); //estado);
+
+        if(!reutilizado) rellenaDatosDeExcel(medResi, row);
+    	
+
+		
+	}
+	
+
+	private void rellenaDatosDeExcel(FicheroResiBean medResi, Vector row) throws Exception {
+    	int i = 0;   
+	   	medResi.setNombrePacienteEnFichero((String) row.elementAt(i));i++;								//Resident
        	medResi.setResiCIP(StringUtil.limpiarTextoyEspacios((String) row.elementAt(i)));i++;			//Nº Targ.San.
  		HelperSPD.getDatosPaciente(medResi);	
   		medResi.setResiTipoMedicacion((String) row.elementAt(i));i++;									//Tipus
@@ -101,13 +116,7 @@ public class ImportGDRExcel extends ImportGenericLite
     	medResi.setDiasSemanaMarcados(diasSemanaMarcados);
     	
  		
-    	String detalleRow = HelperSPD.getDetalleRow(row, COLUMNAS);
-        medResi.setDetalleRow(detalleRow);
-    	System.out.println(" detalleRow " + detalleRow);
-        medResi.setDetalleRowKey(crearDetalleRowKey(detalleRow, getPosicionesAEliminar()));
-    	System.out.println(" detalleRowKey " + medResi.getDetalleRowKey());
-        medResi.setDetalleRowKeyLite(crearDetalleRowKeyLite(row, detalleRow, getPosicionesAEliminar()));
-    	System.out.println(" detalleRowKeyLite " + medResi.getDetalleRowKeyLite());
+
 
     	medResi.setResiSiPrecisa(tratarSiPrecisa(medResi));
     	
@@ -122,7 +131,9 @@ public class ImportGDRExcel extends ImportGenericLite
 		if(!DataUtil.isNumero(medResi.getResiCn()) )
 		{
 			BdConsejo bdConsejo = BdConsejoDAO.getBdCNPorNombre(medResi.getResiMedicamento());
-			if(bdConsejo!=null) medResi.setResiCn(bdConsejo.getCnConsejo());
+			//if(bdConsejo!=null) medResi.setResiCn(bdConsejo.getCnConsejo());
+			//añadimos un sufijo "-(SD)" para indicar que se ha obtenido a partir del nombre
+			if(bdConsejo!=null) medResi.setResiCn(bdConsejo.getCnConsejo() + SPDConstants.CN_SEGUN_DESCRIPCION);
 		}
 
 		
@@ -130,12 +141,19 @@ public class ImportGDRExcel extends ImportGenericLite
     	//si no hay CNResi ponemos el nombre de medicamento
 		if(medResi.getResiCn()==null || medResi.getResiCn().equals(""))
 		{
+			medResi.setResiCn(StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiMedicamento(), true));
+
+			/*
+			 *
 			//si hemos encontrado sustitución no hacemos validar/confirmar
 			if(medResi.getSpdCnFinal()!=null && !medResi.getSpdCnFinal().isEmpty())
 			{
 				medResi.setResiCn(StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiMedicamento(), true));
 			}
-			else
+			//else
+			*/
+			//si hemos encontrado sustitución no hacemos validar/confirmar
+			if(medResi.getSpdCnFinal()==null || medResi.getSpdCnFinal().isEmpty())	
 			{
 				medResi.setValidar(SPDConstants.REGISTRO_VALIDAR);
 				medResi.setConfirmar(SPDConstants.REGISTRO_CONFIRMAR);
@@ -145,8 +163,7 @@ public class ImportGDRExcel extends ImportGenericLite
 			
 		}
 
-		
-		
+
 		if(medResi.getResiSiPrecisa()!=null && medResi.getResiSiPrecisa().equalsIgnoreCase("X")) {
 			medResi.setSpdAccionBolsa(SPDConstants.SPD_ACCIONBOLSA_SI_PRECISA);
 			//medResi.setRevisar("SI");
@@ -163,7 +180,6 @@ public class ImportGDRExcel extends ImportGenericLite
 		System.out.println(" -----  borrarPosibleDuplicado Fin-->  " );
 		
 	}
-	
 
 	private String tratarSiPrecisa(FicheroResiBean medResi) {
 		String siPrecisa = ""; 

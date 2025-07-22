@@ -19,8 +19,6 @@
 	padding: 0.3em 0.5em;
 }
 
-
-
 /* Estilos responsivos para select.nombreDivisionResidencia */
 select.nombreDivisionResidencia {
 	width: 100%;
@@ -488,44 +486,36 @@ select.ancho_23
      float: center;
      padding-right: 0.5em; /* Espacio entre el texto y la flecha */
  }
-
 /*Tipos de aviso*/
  .ALERTA {
     background-color: yellow;
     text-align: left; 
     font-size: 20px; 
     color: red;
-    
 }
  .INCIDENCIA {
  	background-color: #EEE;
     text-align: left; 
     font-size: 20px; 
     color: red;
-    
 }
  .INFO {
     text-align: left; 
     font-size: 15px; 
     color: black;
-    
 }
-
 tr.mutua_o_sin_tsi
 {
 	color: grey;
 }
-
 td.prio-alta  {
 	background-color: #FFD700;
 	color: black;
 }
-
 td.prio-media  {
 	background-color: #93e085;
 	color: black;
 }
-
 td.prio-baja  {
 	background-color: #E6E6FA;
 	color: black;
@@ -542,12 +532,10 @@ td.prio-baja  {
   background-color: #E6E6FA; /* lavanda */
   color: black;
 }
-/* Zebra striping 
-tr:nth-child(even) td {
-    background-color: #f2f2f2; / Gris claro /
+tr.rd_cabecera th {
+  background-color: #C9DAF8;
+  color: black;
+  border: 1px solid #000;
 }
-*//*
-tr:nth-child(odd) td {
-    background-color: #ffffff; /* Blanco */
-}
-*/
+
+

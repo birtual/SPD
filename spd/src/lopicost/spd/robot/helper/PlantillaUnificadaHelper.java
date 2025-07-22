@@ -589,8 +589,8 @@ public class PlantillaUnificadaHelper {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public static void actualizaGTVM(String idUsuario, FicheroResiBean cab, FicheroResiBean cabDetalle) throws ClassNotFoundException, SQLException {
-		XMLRobotDao.actualizaGTVM(idUsuario,  cab, cabDetalle);
+	public static void actualizaOtrosDatos(String idUsuario, FicheroResiBean cab, FicheroResiBean cabDetalle) throws ClassNotFoundException, SQLException {
+		XMLRobotDao.actualizaOtrosDatos(idUsuario,  cab, cabDetalle);
 		
 	}
 

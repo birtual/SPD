@@ -12,7 +12,7 @@ public class SPDConstants
 		public static String LANG_DEFAULT = "es";
 		public static int MAX_INSERTS_PER_STATEMENT = 900;
 		/**
-		 * Constant de conexio IADA
+		 * Constant de conexio 
 		 */
 		public static  String CONNECTION_ID = "spd"; 
 
@@ -343,6 +343,8 @@ public class SPDConstants
 	public static final String PROCESO_BLOQUEO_HORA = "HORA";
 	public static final String PROCESO_BLOQUEO_DIA = "DIA";
 	public static final String PROCESO_BLOQUEO_FECHA = "FECHA";
+	public static final String CN_SEGUN_DESCRIPCION = "(SD)";
+	public static final int CUANTAS_DISPENSACIONES = 10; // indica el número de dispensaciones a recuperar, para el RD
 
 	
 	/**

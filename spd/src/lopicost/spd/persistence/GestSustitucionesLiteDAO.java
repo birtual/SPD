@@ -282,7 +282,8 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 		//String 	where= " WHERE idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
 		String 	where= " WHERE 1 = 1 "; // para no sobrecargar eliminamos la condición de la visibilidad. En este punto el usuario tendría permisos 
 		where+=" AND idDivisionResidencia='"+medResi.getIdDivisionResidencia()+"' ";
-		if((cnResi!=null && !cnResi.isEmpty()) || !DataUtil.isNumero(cnResi))
+		//if((cnResi!=null && !cnResi.isEmpty()) || !DataUtil.isNumero(cnResi))
+		if((cnResi!=null && !cnResi.isEmpty()) || DataUtil.isNumero(cnResi))
 		{
 			where+=" AND ( ";
 			where+="  replace(replace(replace(replace(replace(replace(resiCN, 'ÿ', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', '')='"+ cnResi +"' ";

@@ -558,7 +558,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
     	// Paso4 - Procesar los detallesBean para insertarlos en BBDD
     	PlantillaUnificadaHelper.procesarDetalleTomasRobot(getIdUsuario(), cabDetalle, listaDetallesTomas, tomasOrdenadas);
     	// Paso5 - Actualizar GTVM en SPD_XML_detallesTomasRobot 
-    	PlantillaUnificadaHelper.actualizaGTVM(getIdUsuario(), cab,  cabDetalle);
+    	PlantillaUnificadaHelper.actualizaOtrosDatos(getIdUsuario(), cab,  cabDetalle);
     	// Paso6 - Procesar Excepciones (Falguera) 
     	PlantillaUnificadaHelper.procesarExcepciones(getIdUsuario(), cab,  cabDetalle);
         // Paso7 - Creación del FiliaDM 

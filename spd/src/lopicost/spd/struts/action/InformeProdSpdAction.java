@@ -37,7 +37,6 @@ public class InformeProdSpdAction extends GenericAction
     	f.setCabecera(cab);
         InformeProdHelper helper = new InformeProdHelper();
         List<ProduccionPaciente> producciones =  helper.findByIdResidenciaCarga(getIdUsuario(), cab);
-       
         f.setProducciones(producciones);
         return mapping.findForward("globalProdLite");
     }

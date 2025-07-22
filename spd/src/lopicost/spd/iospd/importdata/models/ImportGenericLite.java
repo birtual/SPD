@@ -286,9 +286,13 @@ public class ImportGenericLite extends ImportProcessImpl
 	      		HelperSPD.changeTrazodona(getSpdUsuario(), medResi);
       	}
 
-		//se recupera información de la producción anterior.
-		boolean reutilizado = HelperSPD.getDatosProduccionAnterior(getSpdUsuario(), medResi, true, true);
-      	HelperSPD.chequeoRevisionAlta(medResi);
+		//se recupera información de la producción anterior en caso que no se haya reutilizado previamente.
+		boolean reutilizado = medResi.getIdEstado().equalsIgnoreCase(SPDConstants.REGISTRO_REUTILIZADO_DE_ANTERIOR_PRODUCCION); //estado);
+		
+		if(!reutilizado)
+			HelperSPD.getDatosProduccionAnterior(getSpdUsuario(), medResi, true, true);
+      	
+		HelperSPD.chequeoRevisionAlta(medResi);
       	 		
 	   	boolean validoParaSpd = true;
 	   	

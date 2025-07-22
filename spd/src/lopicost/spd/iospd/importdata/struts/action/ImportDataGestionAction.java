@@ -13,8 +13,6 @@ import lopicost.spd.model.DivisionResidencia;
 import lopicost.spd.model.Robot;
 import lopicost.spd.persistence.DivisionResidenciaDAO;
 import lopicost.spd.persistence.RobotDAO;
-import lopicost.spd.utils.DateUtilities;
-import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
 import lopicost.spd.utils.TextManager;
 import lopicost.spd.utils.beanUpload;
@@ -160,7 +158,7 @@ public class ImportDataGestionAction extends DispatchAction
     	    if (operation.equals("GENERATE")) 
             {
     	    	//comprobamos que se han introducido fechas para generar el idProceso
-        		idProceso=construyeProceso(formulario);
+    	    	//idProceso=construyeProceso(formulario);
         		
         		System.out.println(" idProceso=construyeProceso(formulario) =" + idProceso);
     	    	
@@ -311,7 +309,8 @@ public class ImportDataGestionAction extends DispatchAction
 
     } 
 
-
+/* Este método creo que está de más en las cargas de tablas. Se usa en ImportDataAction, las cargas de producciones*/
+ /*   
 	private String construyeProceso(ImportDataForm form) {
 		//List errors= new ArrayList();
     	String idProceso  = null;
@@ -322,17 +321,6 @@ public class ImportDataGestionAction extends DispatchAction
     	{
     		Date fechaInicio = DateUtilities.getDate( form.getFechaInicioSpd(), "dd/MM/yyyy");
        		Date fechaFin = DateUtilities.getDate( form.getFechaFinSpd(), "dd/MM/yyyy");
-    	/*	if(DateUtilities.getLengthInDays(DateUtilities.actualDate(), fechaInicio)<0)   //Si es anterior a hoy
-    		{
-    			form.getErrors().add(TextManager.getMensaje("ImportData.error.fechaInicioAnteriorAHoy"));
-    			
-    		}
-    		if(DateUtilities.getLengthInDays(DateUtilities.actualDate(), fechaFin)<0)   //Si es anterior a hoy
-    		{
-    			form.getErrors().add(TextManager.getMensaje("ImportData.error.fechaFinAnteriorAHoy"));
-    			
-    		}
-    	*/	
     	}
 		//List errors=checkData(form);
   	
@@ -353,7 +341,7 @@ public class ImportDataGestionAction extends DispatchAction
 		//System.out.println(new Date().getTime()/10000);
     	return idProceso;
 	}
-    
+*/   
 /*    
 
     private String construyeProceso(ImportDataForm  form) {

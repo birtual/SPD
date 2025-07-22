@@ -622,14 +622,26 @@
 		        <% variable = "editar"; %>
 		    </c:otherwise>
 		</c:choose>
-		
+<%
+    String texto = data.getResiCn();
+    String visible = (texto != null && texto.length() > 15) ? texto.substring(0, 15) + "..." : texto;
+%>		
+	<span title="<%= texto %>">
+
 		<logic:equal property="spdCnFinal" name="data" value="111111">  
-    			<bean:write name="data" property="resiCn" />
+    			<!-- bean:write name="data" property="resiCn" /> -->
+    			<%= visible %>
 		</logic:equal>		
-		<logic:notEqual property="spdCnFinal" name="data" value="111111">  
-   			  <a href="javascript:actualizaSustitucionLite('<%= variable %>', '<bean:write name="FicheroResiForm" property="oidDivisionResidencia" />', '<bean:write name="data" property="idDivisionResidencia" />','<bean:write name="data" property="resiCn" />', '<bean:write name="data" property="resiMedicamento" />', '<bean:write name="data" property="oidFicheroResiDetalle" />')"><bean:write name="data" property="resiCn" /></a>
+		<logic:notEqual property="spdCnFinal" name="data" value="111111"> 
+
+
+
+
+		<!-- a href="javascript:actualizaSustitucionLite('<%= variable %>', '<bean:write name="FicheroResiForm" property="oidDivisionResidencia" />', '<bean:write name="data" property="idDivisionResidencia" />','<bean:write name="data" property="resiCn" />', '<bean:write name="data" property="resiMedicamento" />', '<bean:write name="data" property="oidFicheroResiDetalle" />')"><bean:write name="data" property="resiCn" /></a  -->
+			<a href="javascript:actualizaSustitucionLite('<%= variable %>', '<bean:write name="FicheroResiForm" property="oidDivisionResidencia" />', '<bean:write name="data" property="idDivisionResidencia" />','<bean:write name="data" property="resiCn" />', '<bean:write name="data" property="resiMedicamento" />', '<bean:write name="data" property="oidFicheroResiDetalle" />')"><%= visible %></a>
+
 		</logic:notEqual>
-					
+</span>					
 	</td>
 	
 	<td><bean:write name="data" property="resiMedicamento" /></td>

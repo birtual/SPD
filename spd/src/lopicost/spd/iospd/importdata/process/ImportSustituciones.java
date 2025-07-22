@@ -170,9 +170,8 @@ public class ImportSustituciones extends ImportProcessImpl
     }
 
 	@Override
-	protected void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count,
-			boolean cargaAnexa) throws Exception {
-		// TODO Esbozo de método generado automáticamente
+	protected void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception {
+		procesarEntrada( idRobot,  idDivisionResidencia,  idProceso,  row,  count);
 		
 	}
 

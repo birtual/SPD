@@ -13,6 +13,7 @@ import lopicost.spd.robot.bean.rd.BolsaSPD;
 import lopicost.spd.robot.bean.rd.DiaSPD;
 import lopicost.spd.robot.bean.rd.DiaTomas;
 import lopicost.spd.robot.bean.rd.LineaBolsaSPD;
+import lopicost.spd.robot.bean.rd.MedicamentoDispensado;
 import lopicost.spd.robot.bean.rd.MedicamentoPaciente;
 import lopicost.spd.robot.bean.rd.ProduccionPaciente;
 import lopicost.spd.robot.bean.rd.Toma;
@@ -64,15 +65,32 @@ public class InformeProdHelper {
 		medic.setLote(rs.getString("lote"));
 		medic.setCaducidad(rs.getString("caducidad"));
 		medic.setCodigoMedicamentoRobot(rs.getString("codigoMedicamentoRobot"));
-		BdConsejo bdConsejo = BdConsejoDAO.getByCN(rs.getString("cn"));
-		medic.setNombreMedicamentoConsejo(bdConsejo!=null?bdConsejo.getNombreConsejo()+ " " + bdConsejo.getPresentacion():"");
-		medic.setLabMedicamento(bdConsejo!=null?bdConsejo.getNombreLaboratorio():"");
+		//BdConsejo bdConsejo = BdConsejoDAO.getByCN(rs.getString("cn"));
+		//medic.setNombreMedicamentoConsejo(bdConsejo!=null?bdConsejo.getNombreConsejo():"");
+		//medic.setLabMedicamento(bdConsejo!=null?bdConsejo.getNombreLaboratorio():"");
+		medic.setNombreMedicamentoConsejo(rs.getString("nombreMedicamentoConsejo"));
+		medic.setLabMedicamento(rs.getString("nombreLaboratorio"));
 		medic.setFechaDesemblistado(rs.getString("diaDesemblistado"));
 		medic.setPautaResidencia(rs.getString("pautaResidencia"));
+		medic.setFormaFarmaceutica("");
 		return medic;
 	}
 
+	public MedicamentoDispensado creaMedicamentoDispensado(ResultSet rs) throws SQLException, ClassNotFoundException {
+		MedicamentoDispensado medic = new MedicamentoDispensado();
+		medic.setCn(rs.getString("codigoDispensado"));
+		BdConsejo bdConsejo = BdConsejoDAO.getByCN(rs.getString("codigoDispensado"));
+		medic.setNombreMedicamentoConsejo(bdConsejo!=null?bdConsejo.getNombreConsejo():"");
+		medic.setLabMedicamento(bdConsejo!=null?bdConsejo.getNombreLaboratorio():"");
+		//medic.setNombreMedicamentoConsejo(rs.getString("nombreMedicamentoConsejo"));
+		//medic.setLabMedicamento(rs.getString("nombreLaboratorio"));
+		medic.setLote(rs.getString("lote"));
+		medic.setCaducidad(rs.getString("caducidad"));
+		medic.setNumSerie(rs.getString("numeroSerie"));
+		return medic;
+	}
 
+	
 	public DiaTomas creaDiaTomas(ResultSet rs) throws SQLException {
 		DiaTomas diaTomas = new DiaTomas();
 		diaTomas.setCantidadDia(rs.getInt("cantidad"));
@@ -207,6 +225,7 @@ public class InformeProdHelper {
 			return true;
 		return false;
 	}
+
 
 
 

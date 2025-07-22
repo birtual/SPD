@@ -42,7 +42,7 @@ public class DetallesTomasBean implements Serializable  {
 	public String getPlanta() 				{		return planta;					}	public void setPlanta(String planta) 				{		this.planta = planta;					}
 	public String getHabitacion() 			{		return habitacion;				}	public void setHabitacion(String habitacion)		{		this.habitacion = habitacion;			}
 	public String getCN() 					{		return CN;						}	public void setCN(String cN) 						{		CN = cN;								}
-	public String getNombreMedicamento()	{		return nombreMedicamento;		}	public void setNombreMedicamento(String nombre) 	{		this.nombreMedicamento = nombre;		}
+	public String getNombreMedicamento()			{		return nombreMedicamento;				}	public void setNombreMedicamento(String nombre) 			{		this.nombreMedicamento = nombre;		}
 	public Date getDateInicioTratamiento() 	{		return dateInicioTratamiento;	}	public void setDateInicioTratamiento(Date dateInici){		this.dateInicioTratamiento = dateInici;	}
 	public Date getDateFinTratamiento() 	{		return dateFinTratamiento;		}	
 	

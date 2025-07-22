@@ -114,7 +114,16 @@
 	<logic:iterate id="data" name="formulari" property="listaSustituciones"  type="lopicost.spd.model.GestSustitucionesLite"  indexId="position">
        <tr>
             <td><bean:write name="data" property="idDivisionResidencia" /></td>
-            <td><bean:write name="data" property="resiCn" /></td>
+<%
+    String texto = data.getResiCn();
+    String resiCnVsible = (texto != null && texto.length() > 15) ? texto.substring(0, 15) + "..." : texto;
+%>	
+            
+            <td>
+            	<span title="<%= texto %>">
+            		<%= resiCnVsible %><!-- bean:write name="data" property="resiCn" /> -->
+            	</span>
+         	</td>
             <td><bean:write name="data" property="resiMedicamento" /></td>
  			<td><bean:write name="data" property="spdCn" /></td>
             <td><bean:write name="data" property="spdNombreBolsa" /></td>

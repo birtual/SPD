@@ -56,50 +56,109 @@
 	<input type="hidden" name="oidFicheroResiCabecera" value="<bean:write name='InformeProdSpdForm' property='oidFicheroResiCabecera' />" />
     <logic:iterate id="data" name="formulari" property="producciones" type="lopicost.spd.robot.bean.rd.ProduccionPaciente">
 
-        <bean:define id="dias" name="data" property="diasProduccion" />
-        <bean:define id="diasSPD" name="data" property="diasSPD" />
-        <bean:define id="pac" name="data" property="paciente" />
+    <bean:define id="dias" name="data" property="diasProduccion" />
+    <bean:define id="diasSPD" name="data" property="diasSPD" />
+    <bean:define id="pac" name="data" property="paciente" />
 
+	<fieldset style="width:90%">
 
-
-        <table border="1" style="width:80%">
-            <thead>
-   			CIP:<bean:write name="pac" property="CIP" />
-   			<br/>
-   			Código numérico interno:<bean:write name="data" property="orderNumber" />
-			<br/><br/>
-                <tr>
-                    <th>CN</th>
-                    <th>Medicamento</th>
-                    <th>Nombre completo</th>
-                    <th>Lab</th>
-                    <th>Lote</th>
-                    <th>Caducidad</th>
-                    <th>Pauta residencia</th>
-                   <th>Unidades utilizadas</th>
-                </tr>
-            </thead>
-            <tbody>
-                <logic:iterate id="trat" name="data" property="tratamientosPaciente" type="lopicost.spd.robot.bean.rd.TratamientoPaciente">
-                    <bean:define id="medic" name="trat" property="medicamentoPaciente" />
-                    <tr>
-                        <td><bean:write name="medic" property="cn" /></td>
-                        <td><bean:write name="medic" property="nombreMedicamentoBolsa" /></td>
-                        <td><bean:write name="medic" property="nombreMedicamentoConsejo" /></td>
-                        <td><bean:write name="medic" property="labMedicamento" /></td>
-                        <td><bean:write name="medic" property="lote" /></td>
-                        <td><bean:write name="medic" property="caducidad" /></td>
-                        <td><bean:write name="medic" property="pautaResidencia" /></td>
-
-			
-
-                       	<td><bean:write name="trat" property="cantidadUtilizadaSPD" /></td>
-                    </tr>
-                </logic:iterate>
-            </tbody>
-        </table><br/><br/><br/>
-    </logic:iterate>
-    
+		<fieldset style="width:70%">
+			<h4>CIP:<bean:write name="pac" property="CIP" /></h4>
+			<h4>Código numérico interno:<bean:write name="data" property="orderNumber" /></h4>
+		</fieldset>	
+		<table border="1" style="width:80%">
+	    	<thead>
+				<tr class="rd_cabecera">
+			    	<th colspan="3"  style="text-align:center; font-weight:bold;">Producción SPD</th>
+			    </tr>
+	        	<tr class="rd_cabecera">
+	            	<th>CN</th>
+	            	<th>Medicamento</th>
+	            	<th>Nombre completo</th>
+	            	<th>Lab</th>
+	            	<th>Lote</th>
+	            	<th>Caducidad</th>
+	            	<th>Pauta residencia</th>
+	            	<th>Unidades utilizadas</th>
+	            	<th>FF/Descripción</th>
+	            </tr>
+			</thead>
+	        <tbody>
+	       	<logic:iterate id="trat" name="data" property="tratamientosPaciente" type="lopicost.spd.robot.bean.rd.TratamientoPaciente">
+			<bean:define id="medic" name="trat" property="medicamentoPaciente" />
+	        	<tr class="rd_cabecera">
+	            <logic:equal property="emblistar" name="trat" value="true">
+					<td><bean:write name="medic" property="cn" /></td>
+		            <td><bean:write name="medic" property="nombreMedicamentoBolsa" /></td>
+					<td><bean:write name="medic" property="nombreMedicamentoConsejo" /></td>
+					<td><bean:write name="medic" property="labMedicamento" /></td>
+					<td><bean:write name="medic" property="lote" /></td>
+					<td><bean:write name="medic" property="caducidad" /></td>
+					<td><bean:write name="medic" property="pautaResidencia" /></td>
+					<td><bean:write name="trat" property="cantidadUtilizadaSPD" /></td>
+					<td><bean:write name="medic" property="formaFarmaceutica" /></td>
+				</logic:equal>
+	            </tr>
+			</logic:iterate>
+	        </tbody>
+		</table>
+	    <table border="1" style="width:50%">
+	    	<thead> 
+	         	<tr class="rd_cabecera">
+			      <th colspan="3" style="text-align:center; font-weight:bold;">Medicación fuera de blister</th>
+			    </tr>
+				<tr class="rd_cabecera">
+					<th>CN</th>
+					<th>Medicamento</th>
+					<th>Pauta residencia</th>
+				</tr>
+			</thead>
+	        <br/>
+			<tbody>       
+			<logic:iterate id="trat" name="data" property="tratamientosPaciente" type="lopicost.spd.robot.bean.rd.TratamientoPaciente">
+			<bean:define id="medic" name="trat" property="medicamentoPaciente" />
+				<tr class="rd_cabecera">
+				<logic:notEqual property="emblistar" name="trat" value="true">
+					<td><bean:write name="medic" property="cn" /></td>
+					<td><bean:write name="medic" property="nombreMedicamentoBolsa" /></td>
+					<td><bean:write name="medic" property="pautaResidencia" /></td>
+				</logic:notEqual>
+				</tr>
+			</logic:iterate>
+			</tbody>
+		</table>
+	<br/>
+		<table border="1" style="width:80%">
+			<thead>  
+				<tr class="rd_cabecera">
+			    	<th colspan="2" style="text-align:center; font-weight:bold;">Dispensaciones receta</th>
+			    </tr>
+				<tr class="rd_cabecera">
+					<th>CN</th>
+					<th>Medicamento</th>
+					<th>Lab</th>
+					<th>Lote</th>
+					<th>Caducidad</th>
+					<th>Núm. Serie</th>
+				</tr>
+			</thead>
+		<br/>
+			<tbody>  
+			<logic:iterate id="disp" name="pac" property="dispensacionesReceta" type="lopicost.spd.robot.bean.rd.MedicamentoDispensado">
+				<tr>
+					<td><bean:write name="disp" property="cn" /></td>
+					<td><bean:write name="disp" property="nombreMedicamentoConsejo" /></td>
+					<td><bean:write name="disp" property="labMedicamento" /></td>
+					<td><bean:write name="disp" property="lote" /></td>
+					<td><bean:write name="disp" property="caducidad" /></td>
+					<td><bean:write name="disp" property="numSerie" /></td>
+				</tr>
+			</logic:iterate>
+			</tbody>  
+		</table>
+	    <br/><br/>
+	</fieldset>	
+	    </logic:iterate>
 </html:form>
 </body>
 </html:html>

@@ -84,6 +84,8 @@ public class XMLRobotDao
             List<Integer> posiciones = tomasGlobal.getPosiciones();
             List<String> nombresTomas = tomasGlobal.getNombresTomas();
             List<String> idTomas = tomasGlobal.getIdTomas();
+    		FicheroResiBean cabeceraTop=FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(idUsuario, cab.getOidFicheroResiCabecera());
+
 
             // Construir la consulta dinámica
             StringBuilder query = new StringBuilder(" SELECT ISNULL(p.planta, '') AS planta, d.resiCip as CIP, ISNULL(p.habitacion, '') AS habitacion, LEFT(d.spdCnFinal, 6) as CN  ");
@@ -114,7 +116,7 @@ public class XMLRobotDao
             rs = pstat.executeQuery();
             while (rs.next()) 
             {
-            	DetallesTomasBean bean = creaBeanPaso1DetallesTomas(idUsuario, cab, rs, posiciones, nombresTomas);
+            	DetallesTomasBean bean = creaBeanPaso1DetallesTomas(idUsuario, cabeceraTop,  cab, rs, posiciones, nombresTomas);
             	resultado.add(bean);
               		  
             }
@@ -432,11 +434,11 @@ public class XMLRobotDao
 	}
 
 
-	private static DetallesTomasBean creaBeanPaso1DetallesTomas(String idUsuario, FicheroResiBean cab, ResultSet rs, List<Integer> posiciones, List<String> nombresTomas) throws Exception {
+	private static DetallesTomasBean creaBeanPaso1DetallesTomas(String idUsuario, FicheroResiBean cabeceraTop, FicheroResiBean cab, ResultSet rs, List<Integer> posiciones, List<String> nombresTomas) throws Exception {
 
 		DetallesTomasBean bean = new DetallesTomasBean();
 
-		FicheroResiBean cabeceraTop=FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(idUsuario, cab.getOidFicheroResiCabecera());
+		//FicheroResiBean cabeceraTop=FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(idUsuario, cab.getOidFicheroResiCabecera());
 		
 	   	bean.setCIP(rs.getString("CIP"));
 	   	
@@ -871,7 +873,7 @@ public class XMLRobotDao
 
 		 	     return rx;
 	}
-	public static void actualizaGTVM(String idUsuario, FicheroResiBean cab, FicheroResiBean cabDetalle) throws ClassNotFoundException, SQLException {
+	public static void actualizaOtrosDatos(String idUsuario, FicheroResiBean cab, FicheroResiBean cabDetalle) throws ClassNotFoundException, SQLException {
 		Logger.log("SPDLogger", "inicio actualizaGTVM",Logger.INFO);	
 	  	String 	query= " UPDATE p SET p.CodGtVm = c.CodGtVm,     p.NomGtVm = c.NomGtVm, ";
 	  		query+= " p.CodGtVmp = c.CodGtVmp,   p.NomGtVmp = c.NomGtVmp,  ";
@@ -888,11 +890,26 @@ public class XMLRobotDao
     		query2+= " CROSS APPLY ( ";
     		query2+= " SELECT CodGtVm, NomGtVm, CodGtVmp, NomGtVmp, CodGtVmpp, NomGtVmpp ";
     		query2+= " FROM bd_consejo ";
-    		query2+= " WHERE Codigo = '702350' ";
+    		query2+= " WHERE Codigo = '702350' "; //trazodona
     		query2+= " ) c ";
     		query2+= " WHERE p.CN = '111111' "; 
 	  		query2+= " AND idProceso='"+cab.getIdProceso()+"' ";
 			ejecutarSentencia(query2);
+
+		Logger.log("SPDLogger", "inicio actualizaGTVM CN 111111 ",Logger.INFO);	
+	  	String 	query3= " UPDATE p SET p.nombreMedicamentoConsejo = c.NOMBRE + ' ' + c.PRESENTACION ";
+  			query3+= " FROM SPD_XML_detallesTomasRobot p JOIN bd_consejo c ON p.CN = c.CODIGO ";         
+  			query3+= " WHERE (p.nombreMedicamentoConsejo IS NULL or p.nombreMedicamentoConsejo = '') ";
+  		//	query3+= " AND idProceso='"+cab.getIdProceso()+"' ";
+
+  		ejecutarSentencia(query3);
+			Logger.log("SPDLogger", "inicio actualizaGTVM CN 111111 ",Logger.INFO);	
+		  	String 	query4= " UPDATE p SET p.nombreLaboratorio = c.nomLABO  ";
+	  		query4+= " FROM SPD_XML_detallesTomasRobot p JOIN bd_consejo c ON p.CN = c.CODIGO ";         
+	  		query4+= " WHERE (p.nombreLaboratorio IS NULL or p.nombreLaboratorio = '' ) ";
+	  		//query4+= " AND idProceso='"+cab.getIdProceso()+"' ";
+			ejecutarSentencia(query4);
+
 	}
 
 

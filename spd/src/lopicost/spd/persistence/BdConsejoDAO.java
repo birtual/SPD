@@ -745,11 +745,14 @@ public class BdConsejoDAO {
   			qry+=  " from dbo.bd_consejo c ";
   			qry+=  " where 1=1 ";
   			//qry+=  " and coalesce(c.nombre, '') + ' - ' + coalesce(c.presentacion, '') = '"+nombrePresentacion+"' "; //importante conservar el guión y espacios ' - '
-  			qry+=  " and ( ";
-  			qry+=  " 	REPLACE(UPPER('"+nombrePresentacion+"'), ' ','') like REPLACE(UPPER(coalesce(c.nombre, '') + ' - ' + coalesce(c.presentacion, '') + '%'), ' ','')  "; 
-  			qry+=  " 	or  REPLACE(UPPER(coalesce(c.nombre, '') + ' - ' + coalesce(c.presentacion, '')), ' ','') like  REPLACE(UPPER('"+nombrePresentacion+"' + '%'), ' ','')   ";
-  			qry+=  " ) ";
 
+  			qry+=  " AND ( ";
+  			qry+=  " 	    REPLACE(UPPER(COALESCE(c.nombre, '') + '-' + COALESCE(c.presentacion, '')), ' ', '') LIKE ";
+  			qry+=  " 	        REPLACE(UPPER(REPLACE('"+nombrePresentacion+"', ' ', '')), ' ', '') + '%'";
+  			qry+=  " 	    OR";
+  			qry+=  " 	    REPLACE(UPPER(REPLACE('"+nombrePresentacion+"', ' ', '')), ' ', '') LIKE ";
+  			qry+=  " 	        REPLACE(UPPER(COALESCE(c.nombre, '') + '-' + COALESCE(c.presentacion, '')), ' ', '') + '%'";
+  			qry+=  " 	) ";
   			
   		System.out.println("BdConsejoDAO.getBdCNPorNombre -->" +qry );		
   		Connection con = Conexion.conectar();

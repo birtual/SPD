@@ -6,17 +6,25 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import lopicost.config.pool.dbaccess.Conexion;
+import lopicost.spd.model.BdConsejo;
 import lopicost.spd.robot.bean.rd.BolsaSPD;
 import lopicost.spd.robot.bean.rd.DiaSPD;
 import lopicost.spd.robot.bean.rd.DiaTomas;
 import lopicost.spd.robot.bean.rd.LineaBolsaSPD;
+import lopicost.spd.robot.bean.rd.MedicamentoDispensado;
+import lopicost.spd.robot.bean.rd.MedicamentoPaciente;
 import lopicost.spd.robot.bean.rd.ProduccionPaciente;
 import lopicost.spd.robot.bean.rd.Toma;
 import lopicost.spd.robot.bean.rd.TratamientoPaciente;
 import lopicost.spd.robot.helper.InformeProdHelper;
+import lopicost.spd.robot.model.Bottle;
+import lopicost.spd.robot.model.DrugDM;
+import lopicost.spd.robot.model.FiliaDM;
 import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.bean.PacienteBean;
+import lopicost.spd.utils.SPDConstants;
+import lopicost.spd.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +102,7 @@ public class InformeProdSpdDAO
 			  qry +=  " 	r.diaDesemblistado, r.diaEmbolsado, r.horaEmbolsado, r.totalBolsas, r.numeroOrdenBolsa, ";
 			  qry +=  " 	r.primerIdBolsaSPD, r.ultimoIdBolsaSPD, r.lote, r.caducidad, r.codigoBarras,  ";
 			  qry +=  " 	r.codigoMedicamentoRobot, r.offsetDays, r.numeroTolva, r.fechaInsert, ";
+			  qry +=  " 	d.nombreLaboratorio, d.nombreMedicamentoConsejo, "; 
 			  qry +=  " 	'MATCH CodGtVmp' AS tipoMatch ";
 			  qry +=  " FROM SPD_XML_detallesTomasRobot d ";
 			  qry +=  " LEFT JOIN SPD_robotProducciones r ";
@@ -101,6 +110,7 @@ public class InformeProdSpdDAO
 			  qry +=  " 	AND d.idDivisionResidencia = r.idDivisionResidencia ";
 			  qry +=  " 	AND d.CodGtVmp = r.CodGtVmp ";
 			  qry +=  " WHERE d.idProceso = '"+ cab.getIdProceso() +"' ";
+			  qry +=  " AND COALESCE(d.CIP, r.CIP) = 'GASE1370607002' ";
 			  qry +=  " ";
 			  qry +=  " UNION ALL ";
 			  qry +=  " ";
@@ -131,6 +141,7 @@ public class InformeProdSpdDAO
 			  qry +=  " 	r2.diaDesemblistado, r2.diaEmbolsado, r2.horaEmbolsado, r2.totalBolsas, r2.numeroOrdenBolsa, ";
 			  qry +=  " 	r2.primerIdBolsaSPD, r2.ultimoIdBolsaSPD, r2.lote, r2.caducidad, r2.codigoBarras,  ";
 			  qry +=  " 	r2.codigoMedicamentoRobot, r2.offsetDays,  r2.numeroTolva, r2.fechaInsert, ";
+			  qry +=  " 	d2.nombreLaboratorio, d2.nombreMedicamentoConsejo, "; 
 			  qry +=  " 	'MATCH CodGtVm' AS tipoMatch ";
 			  qry +=  " FROM SPD_robotProducciones r2 ";
 			  qry +=  " LEFT JOIN SPD_XML_detallesTomasRobot d2 ";
@@ -146,6 +157,8 @@ public class InformeProdSpdDAO
 			  qry +=  "     	AND d3.CodGtVmp = r2.CodGtVmp ";
 			  qry +=  " 		AND d3.idProceso = '"+ cab.getIdProceso() +"' ";
 			  qry +=  " 	) ";
+			  qry +=  " AND COALESCE(d2.CIP, r2.CIP) = 'GASE1370607002' ";
+			  
 			  qry +=  " ) AS combinado ";
 			  qry +=  " WHERE NOT (dispensar = 'S' AND idRobot IS NULL) ";
 			  qry +=  " ORDER BY CIP, fechaToma, idToma, dispensar; ";
@@ -171,6 +184,7 @@ public class InformeProdSpdDAO
  		      	}
             	else
             	{
+            		
             		produccionPaciente = helper.creaProduccion(rs, cab);
             		producciones.add(produccionPaciente);
             		paciente = helper.creaPaciente(keyCIP);
@@ -179,6 +193,8 @@ public class InformeProdSpdDAO
                 	tm_DiasSPD = helper.crearTreemapDiasSPD(keyCIP, cab);
             		produccionPaciente.getDiasSPD().clear(); // opcional: si quieres vaciarla antes
             		produccionPaciente.getDiasSPD().addAll(tm_DiasSPD.values());
+            		paciente.setDispensacionesReceta(buscarDispensacionesReceta(paciente.getCIP(), SPDConstants.CUANTAS_DISPENSACIONES));
+           		
           		
                 	tm_CIPS.put(keyCIP, paciente);
             	}
@@ -253,6 +269,34 @@ public class InformeProdSpdDAO
         return producciones;
     }
  
+    
+	private static List<MedicamentoDispensado> buscarDispensacionesReceta(String CIP, int cuantos)throws SQLException, ClassNotFoundException 
+	{
+		List<MedicamentoDispensado>  result = new ArrayList();
+		Connection con = Conexion.conectar();
+		String qry = " SELECT  TOP " + cuantos + " *  ";
+		qry+= " FROM hst_CodigosRecetasDispensados  r ";
+		qry+= " LEFT JOIN bd_consejo b ON r.codigoDispensado = b.codigo ";
+		qry+= " WHERE r.cip = '" + CIP+ "'";
+		qry+= " ORDER BY Fecha desc";
+
+		System.out.println(className + "--> buscarDispensacionesReceta" +qry );		
+		try {
+			ResultSet rs = null;
+			PreparedStatement pstat = con.prepareStatement(qry);
+			rs = pstat.executeQuery();
+			while (rs.next()) {
+				MedicamentoDispensado medic = helper.creaMedicamentoDispensado(rs);
+				result.add(medic);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	return result;
+	}
+ 
+
 	/**
 	 * Total
 	 * @param spdUsuario
@@ -319,6 +363,7 @@ public class InformeProdSpdDAO
 			  qry +=  " 	r.diaDesemblistado, r.diaEmbolsado, r.horaEmbolsado, r.totalBolsas, r.numeroOrdenBolsa, ";
 			  qry +=  " 	r.primerIdBolsaSPD, r.ultimoIdBolsaSPD, r.lote, r.caducidad, r.codigoBarras,  ";
 			  qry +=  " 	r.codigoMedicamentoRobot, r.offsetDays, r.numeroTolva, r.fechaInsert, ";
+			  qry +=  " 	d.nombreLaboratorio, d.nombreMedicamentoConsejo, "; 
 			  qry +=  " 	'MATCH CodGtVmp' AS tipoMatch ";
 			  qry +=  " FROM SPD_XML_detallesTomasRobot d ";
 			  qry +=  " LEFT JOIN SPD_robotProducciones r ";
@@ -355,7 +400,8 @@ public class InformeProdSpdDAO
 			  qry +=  " 	d2.pautaResidencia, r2.idRobot, r2.idResidenciaCarga, r2.diaInicioSPD, "; 
 			  qry +=  " 	r2.diaDesemblistado, r2.diaEmbolsado, r2.horaEmbolsado, r2.totalBolsas, r2.numeroOrdenBolsa, ";
 			  qry +=  " 	r2.primerIdBolsaSPD, r2.ultimoIdBolsaSPD, r2.lote, r2.caducidad, r2.codigoBarras,  ";
-			  qry +=  " 	r2.codigoMedicamentoRobot, r2.offsetDays,  r2.numeroTolva, r2.fechaInsert, ";
+			  qry +=  " 	r2.codigoMedicamentoRobot, r2.offsetDays,  r2.numeroTolva, r2.fechaInsert,  ";
+			  qry +=  " 	d2.nombreLaboratorio, d2.nombreMedicamentoConsejo, "; 
 			  qry +=  " 	'MATCH CodGtVm' AS tipoMatch ";
 			  qry +=  " FROM SPD_robotProducciones r2 ";
 			  qry +=  " LEFT JOIN SPD_XML_detallesTomasRobot d2 ";

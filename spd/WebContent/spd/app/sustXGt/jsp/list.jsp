@@ -229,11 +229,11 @@ td {
 	<logic:notEmpty name="SustXGtForm" property="listaBeans">	
 	<logic:iterate id="nivel1" name="SustXGtForm" property="listaBeans" type="lopicost.spd.model.Nivel1" indexId="position1">
 		<tr id="nivel1-${position1}" class="nivel1" onclick="javascript:toggleChildren(${position1})" >
-			<td width="40em"><input type="button" onclick="javascript:nuevoDesdeNivel1('<bean:write name="nivel1" property="codGtVm" />', 'NUEVO');" value="añadir" />
+			<td style="width: 40em"><input type="button" onclick="javascript:nuevoDesdeNivel1('<bean:write name="nivel1" property="codGtVm" />', 'NUEVO');" value="añadir" />
 			</td>
-			<td width="40em" align="left">1
+			<td style="width: 40em" align="left">1
 			</td>
-			<td width="500em">
+			<td style="width: 500em">
 				<bean:write name="nivel1" property="nomGtVm" />
 			</td>
 			<td class="blanco" colspan="10"></td>
@@ -242,10 +242,10 @@ td {
 	 	<logic:notEmpty name="nivel1" property="listaNivel2">	
 		<logic:iterate id="nivel2" name="nivel1" property="listaNivel2" type="lopicost.spd.model.Nivel2" indexId="position2">
 			<tr id="nivel2-${position1}-${position2}" class="fila-nivel2" onclick="javascript:toggleChildren(${position2})" >
-	    		<td width="40em"><input type="button" onclick="javascript:nuevoDesdeNivel2('<bean:write name="nivel2" property="codGtVmp" />', 'NUEVO');" value="añadir" />
+	    		<td style="width:40em"><input type="button" onclick="javascript:nuevoDesdeNivel2('<bean:write name="nivel2" property="codGtVmp" />', 'NUEVO');" value="añadir" />
 	    		</td>
-	    		<td width="40em" align="center">2&nbsp;</td>
-	    		<td width="500em">
+	    		<td style="width:40em" align="center">2&nbsp;</td>
+	    		<td style="width:500em">
 		    		&nbsp;&nbsp;&nbsp;<bean:write name="nivel2" property="nomGtVmp" />
 		    	</td>
 				<td class="blanco" colspan="10"></td>
@@ -260,10 +260,10 @@ td {
 		<logic:iterate id="nivel3" name="nivel2" property="listaNivel3" type="lopicost.spd.model.Nivel3" indexId="position3">
 			    <tr id="nivel3-${position1}-${position2}-${position3}" class="${!empty nivel3.nomLaboratorio ? (!empty nivel3.nombreRobot ? 'nivel3-laboratorio-farmacia' : 'nivel3-laboratorio') : 'nivel3'}">
 
-			        <td width="40em"><input type="button" onclick="javascript:nuevoDesdeNivel3('<bean:write name="nivel3" property="codGtVmpp" />', 'NUEVO');" value="añadir" />
+			        <td style="width:40em"><input type="button" onclick="javascript:nuevoDesdeNivel3('<bean:write name="nivel3" property="codGtVmpp" />', 'NUEVO');" value="añadir" />
 	    			</td>
-			        <td width="40em" align="right">3</td>
-	    			<td width="500em">
+			       <td style="width:40em" align="right">3</td>
+	    			<td style="width:500em">
 			            <%-- Mostrar el valor solo si es diferente al último mostrado --%>
 			            <%
 			                if (ultimoNomGtVmpp == null || !ultimoNomGtVmpp.equals(nivel3.getNomGtVmpp())) {

@@ -110,7 +110,7 @@ public class InformeProdSpdDAO
 			  qry +=  " 	AND d.idDivisionResidencia = r.idDivisionResidencia ";
 			  qry +=  " 	AND d.CodGtVmp = r.CodGtVmp ";
 			  qry +=  " WHERE d.idProceso = '"+ cab.getIdProceso() +"' ";
-			  qry +=  " AND COALESCE(d.CIP, r.CIP) = 'GASE1370607002' ";
+			  //qry +=  " AND COALESCE(d.CIP, r.CIP) = 'ARNI1320113002' ";
 			  qry +=  " ";
 			  qry +=  " UNION ALL ";
 			  qry +=  " ";
@@ -157,7 +157,7 @@ public class InformeProdSpdDAO
 			  qry +=  "     	AND d3.CodGtVmp = r2.CodGtVmp ";
 			  qry +=  " 		AND d3.idProceso = '"+ cab.getIdProceso() +"' ";
 			  qry +=  " 	) ";
-			  qry +=  " AND COALESCE(d2.CIP, r2.CIP) = 'GASE1370607002' ";
+			  //qry +=  " AND COALESCE(d2.CIP, r2.CIP) = 'ARNI1320113002' ";
 			  
 			  qry +=  " ) AS combinado ";
 			  qry +=  " WHERE NOT (dispensar = 'S' AND idRobot IS NULL) ";
@@ -205,7 +205,7 @@ public class InformeProdSpdDAO
             	if (tm_Tratamientos.containsKey(keyTratamiento)) 
  		      	{
             		tratamiento = tm_Tratamientos.get(keyTratamiento);
-            		tratamiento.setCantidadUtilizadaSPD(tratamiento.getCantidadUtilizadaSPD() + rs.getInt("cantidad") ); //actualizamos cantidad total
+            		tratamiento.setCantidadUtilizadaSPD(tratamiento.getCantidadUtilizadaSPD() + rs.getDouble("cantidad") ); //actualizamos cantidad total
  		      	}
             	else
             	{

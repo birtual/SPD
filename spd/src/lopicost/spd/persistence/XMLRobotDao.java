@@ -33,7 +33,10 @@ public class XMLRobotDao
     	return ejecutarSentencia(queryBorrado1);
 	}
 */
-	public static boolean borraProcesosResidencia(String idUsuario, FicheroResiBean cab) throws ClassNotFoundException, SQLException {
+	public static boolean borraProcesosResidencia(String idUsuario, FicheroResiBean cab, PacienteBean pac) throws ClassNotFoundException, SQLException {
+		
+		boolean todosPacientes = (pac==null || (pac!=null && (pac.getCIP()==null || pac.getCIP().isEmpty() )));
+				
 		System.out.println("inicio detalleBolsasTratadas.clear()");
 		Logger.log("SPDLogger", "inicio detalleBolsasTratadas.clear()",Logger.INFO);	
 	
@@ -41,11 +44,15 @@ public class XMLRobotDao
 		Logger.log("SPDLogger", "inicio detalleContenidoBolsasTratadas.clear()",Logger.INFO);	
 		detalleContenidoBolsasTratadas.clear();
 		Logger.log("SPDLogger", "if cab !=null  " + cab==null?"nulo":"no Nulo",Logger.INFO);	
-		Logger.log("SPDLogger", "inicio DELETE FROM dbo.SPD_XML_detallesTomasRobot WHERE idDivisionResidencia='"+cab.getIdDivisionResidencia()+"'" ,Logger.INFO);	
-	  	String 	queryBorrado1= "DELETE FROM dbo.SPD_XML_detallesTomasRobot ";
+		Logger.log("SPDLogger", "inicio DELETE FROM dbo.SPD_XML_detallesTomasRobot WHERE idDivisionResidencia='"+cab.getIdDivisionResidencia()+"'" + todosPacientes  ,Logger.INFO);	
+	  	
+		String 	queryBorrado1= "DELETE FROM dbo.SPD_XML_detallesTomasRobot ";
 	  			queryBorrado1+= " WHERE 1=1 ";
 	  			queryBorrado1+= " AND idDivisionResidencia='"+cab.getIdDivisionResidencia()+"' ";
 	  			queryBorrado1+= " AND idProceso='"+cab.getIdProceso()+"' ";
+	  		if(!todosPacientes) 
+	  			queryBorrado1+= " AND CIP='"+pac.getCIP()+"' ";
+	  				
 	  	queryBorrado1+= " "; 
     	return ejecutarSentencia(queryBorrado1);
 	}
@@ -162,6 +169,10 @@ public class XMLRobotDao
            	Calendar calendario = Calendar.getInstance();
            	boolean dateObjetivoMarcado=dateObjetivoMarcado(calendario, dateObjetivo, bean);
            	
+			FicheroResiBean cabMadre = FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(idUsuario, cab.getOidFicheroResiCabecera());
+			//secuencia  de número de creaciones del fichero, para no solapar anteriores y diferenciar las  freeInformation enviados para bolsas 
+			//int numeroCreacionesXML = cabMadre.getNumeroCreacionFicheroXML()+1;
+			String codigo = PlantillaUnificadaHelper.extraerUltimaParte(cabMadre.getIdProceso());
 
             	
             //si el día está marcado, bucle de los días de producción SPD
@@ -687,15 +698,24 @@ public class XMLRobotDao
 		   FiliaRX rx = new FiliaRX();
 		   Basic basic = new Basic();
 		   //basic.setLocationId(div.getNombreBolsa());
+		   String codigo ="";
 		   try{
-			   FicheroResiBean cabMadre = FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(spdUsuario, cab.getOidFicheroResiCabecera());
+				FicheroResiBean cabMadre = FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(spdUsuario, cab.getOidFicheroResiCabecera());
+				//secuencia  de número de creaciones del fichero, para no solapar anteriores y diferenciar las  freeInformation enviados para bolsas 
+				//int numeroCreacionesXML = cabMadre.getNumeroCreacionFicheroXML()+1;
+			   
 				String nombreProduccionRobot = cabMadre.getNombreProduccionRobot();
 				if(nombreProduccionRobot==null || nombreProduccionRobot.isEmpty())
 				{
 					//String fechaArreglada = cab.getFechaDesde()!=null ? cab.getFechaDesde().replace("/", ""):""; //quitamos "/" en caso que no exista le ponemos  numeroCreacionesXML
-					String fechaArreglada = DateUtilities.convertFormatDateString(cab.getFechaDesde(), SPDConstants.FORMATO_FECHA_yyyyMMdd, SPDConstants.FORMATO_FECHA_DEFAULT);
-					fechaArreglada = fechaArreglada!=null ? fechaArreglada.replace("/", ""):""; //quitamos "/" 
-					nombreProduccionRobot= div.getLocationId()+"_"+fechaArreglada;
+					//String fechaArreglada = DateUtilities.convertFormatDateString(cab.getFechaDesde(), SPDConstants.FORMATO_FECHA_yyyyMMdd, SPDConstants.FORMATO_FECHA_DEFAULT);
+					//fechaArreglada = fechaArreglada!=null ? fechaArreglada.replace("/", ""):""; //quitamos "/" 
+					//nombreProduccionRobot= div.getLocationId()+"_"+fechaArreglada;
+
+					//En vez de fecha, ponemos el último String del idProceso, para poder diferenciar hay producciones con la misma fecha
+					codigo = PlantillaUnificadaHelper.extraerUltimaParte(cabMadre.getIdProceso());
+					//nombreProduccionRobot= div.getLocationId()+"_"+codigo +"_"+numeroCreacionesXML ;
+					nombreProduccionRobot= div.getLocationId()+"_"+codigo ;
 				}
 				 basic.setLocationId(nombreProduccionRobot); 
 			   
@@ -711,7 +731,7 @@ public class XMLRobotDao
 			  // basic.setLocationId(div.getLocationId()+"_"+fechaArreglada);
 		   }catch(Exception e)
 		   {
-			   basic.setLocationId(div.getNombreBolsa());
+			   basic.setLocationId(div.getNombreBolsa()+codigo);
 		   }
 		   basic.setMachineNumber(1);
 		   rx.setBasic(basic);
@@ -911,7 +931,6 @@ public class XMLRobotDao
 			ejecutarSentencia(query4);
 
 	}
-
 
 
 

@@ -2,10 +2,7 @@
 package lopicost.spd.robot.helper;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -13,7 +10,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -38,7 +34,6 @@ import lopicost.spd.robot.model.TomasOrdenadas;
 import lopicost.spd.robot.model.Print;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.bean.PacienteBean;
-import lopicost.spd.utils.DateUtilities;
 import lopicost.spd.utils.SPDConstants;
 import lopicost.spd.utils.StringUtil;
 
@@ -59,8 +54,8 @@ public class PlantillaUnificadaHelper {
 		return XMLRobotDao.borraProceso(idUsuario,  cab);
 	}
 */	
-	public static boolean borraProcesosResidencia(String idUsuario, FicheroResiBean cab) throws SQLException, ParseException, ClassNotFoundException {
-		return XMLRobotDao.borraProcesosResidencia(idUsuario,  cab);
+	public static boolean borraProcesosResidencia(String idUsuario, FicheroResiBean cab, PacienteBean pac) throws SQLException, ParseException, ClassNotFoundException {
+		return XMLRobotDao.borraProcesosResidencia(idUsuario,  cab, pac);
 	}
 	//Paso2
 	public static TomasOrdenadas getTomasOrdenadas(String idUsuario, FicheroResiBean cab) throws SQLException {
@@ -212,6 +207,16 @@ public class PlantillaUnificadaHelper {
 		
 		return filiaRx;
 	}
+	
+	public static String extraerUltimaParte(String cadena) {
+	    if (cadena == null || !cadena.contains("_")) {
+	        return cadena;
+	    }
+	    int ultimoGuion = cadena.lastIndexOf('_');
+	    return cadena.substring(ultimoGuion + 1);
+	}
+
+	
 	
 	/**
 	 * @param cab

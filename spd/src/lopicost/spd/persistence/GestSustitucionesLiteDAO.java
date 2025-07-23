@@ -271,7 +271,8 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 		}
 	
 	
-	public static void buscaSustitucionLite(String spdUsuario, FicheroResiBean medResi) throws Exception {
+	public static boolean buscaSustitucionLite(String spdUsuario, FicheroResiBean medResi) throws Exception {
+		boolean trobat=false;
 		Connection con = Conexion.conectar();
 		
 		String cnResi=StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiCn(), false);
@@ -335,6 +336,7 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 	        resultSet = pstat.executeQuery();
 
 	        if (resultSet.next()) {
+	        	trobat = true;
 	        	medResi.setSpdCnFinal(StringUtil.limpiarTextoEspaciosYAcentos(resultSet.getString("spdCn"), false));
 	        	//medResi.setSpdNombreBolsa(resultSet.getString("spdNombreBolsa"));
 	        	medResi.setSpdNombreBolsa(resultSet.getString("spdNombreBolsa"));
@@ -412,7 +414,8 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 	        e.printStackTrace();
 	}finally {con.close();}
 
-		System.out.println("buscaSustitucionLite EXIT--");		
+		System.out.println("buscaSustitucionLite EXIT--");	
+		return trobat;
 	}
 	
 	/**

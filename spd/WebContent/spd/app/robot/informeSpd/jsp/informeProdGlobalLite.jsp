@@ -95,7 +95,19 @@
 					<td><bean:write name="medic" property="lote" /></td>
 					<td><bean:write name="medic" property="caducidad" /></td>
 					<td><bean:write name="medic" property="pautaResidencia" /></td>
-					<td><bean:write name="trat" property="cantidadUtilizadaSPD" /></td>
+					<td>
+						<!-- bean:write name="trat" property="cantidadUtilizadaSPD" / --eliminamos decimales 0-->
+						<c:choose>
+						  <c:when test="${trat.cantidadUtilizadaSPD % 1 == 0}">
+						    ${trat.cantidadUtilizadaSPD.intValue()}
+						  </c:when>
+						  <c:otherwise>
+						    ${trat.cantidadUtilizadaSPD}
+						  </c:otherwise>
+						</c:choose>
+
+					</td>
+						
 					<td><bean:write name="medic" property="formaFarmaceutica" /></td>
 				</logic:equal>
 	            </tr>

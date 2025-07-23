@@ -124,11 +124,12 @@ public class ImportGDRExcel extends ImportGenericLite
 		medResi.setNumeroDeTomas(numeroDoses); // IMPORTANTE PARA TABULAR EL LISTADO!! TO-DO
 		
 		//la búsqueda de sustitución se realiza en la carga
+		boolean reutilizado = false;
 		if( (medResi.getResiCn()!=null && !medResi.getResiCn().equals("") ) || (medResi.getResiMedicamento()!=null && !medResi.getResiMedicamento().equals("") )  )
-    	GestSustitucionesLiteDAO.buscaSustitucionLite(getSpdUsuario(), medResi);
+			reutilizado = GestSustitucionesLiteDAO.buscaSustitucionLite(getSpdUsuario(), medResi);
 
 		///esta residencia no envía CN (a fecha 10/07/2025), pero el nombre del medicamento es el del Consejo Nombre + ' - ' + presentacion
-		if(!DataUtil.isNumero(medResi.getResiCn()) )
+		if(!DataUtil.isNumero(medResi.getResiCn()) && !reutilizado)
 		{
 			BdConsejo bdConsejo = BdConsejoDAO.getBdCNPorNombre(medResi.getResiMedicamento());
 			//if(bdConsejo!=null) medResi.setResiCn(bdConsejo.getCnConsejo());

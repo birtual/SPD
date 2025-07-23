@@ -8,7 +8,7 @@ public class TratamientoPaciente {
     private String tratamientoFin;			//fecha fin según residencia
     //private int cantidadTotal;
     private String pautaResidencia;			
-    private int cantidadUtilizadaSPD;
+    private double cantidadUtilizadaSPD;
     // private int cantidadDispensadaReceta;
     //private int cantidadCustodia;
     private String leyendaInfo;
@@ -47,10 +47,10 @@ public class TratamientoPaciente {
 	public void setPautaResidencia(String pautaResidencia) {
 		this.pautaResidencia = pautaResidencia;
 	}
-	public int getCantidadUtilizadaSPD() {
+	public double getCantidadUtilizadaSPD() {
 		return cantidadUtilizadaSPD;
 	}
-	public void setCantidadUtilizadaSPD(int cantidadUtilizadaSPD) {
+	public void setCantidadUtilizadaSPD(double cantidadUtilizadaSPD) {
 		this.cantidadUtilizadaSPD = cantidadUtilizadaSPD;
 	}
 	

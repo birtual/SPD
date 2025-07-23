@@ -170,25 +170,42 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			nuevaTomaDesde = formulari.getNuevaTomaDesde();
 			nuevaTomaHasta = formulari.getNuevaTomaHasta();
 			
-			
-			String antesCab= " | Nueva FechaDesde  " +cab.getNuevaFechaDesde() + " | Nueva FechaHasta " +cab.getNuevaFechaHasta() 
-				+ " | toma 1er día desde  " +cab.getNuevaTomaDesde() + " | toma último día hasta " +cab.getNuevaTomaHasta()
-				+ " | Nueva usuarioEntregaSPD / fecha: " +cab.getUsuarioEntregaSPD() + "/" +cab.getFechaEntregaSPD() 
-				+ " | Nueva usuarioRecogidaSPD / fecha: " +cab.getUsuarioRecogidaSPD() + "/" +cab.getFechaRecogidaSPD()  
-				+ " | Nueva usuarioDesemblistaSPD / fecha: " +cab.getUsuarioDesemblistaSPD() + "/" +cab.getFechaDesemblistaSPD()  
-				+ " | Nueva usuarioProduccionSPD / fecha: " +cab.getUsuarioProduccionSPD() + "/" +cab.getFechaProduccionSPD()  
-				+ " | Nota 1 " +cab.getFree1() + " | Nota 2 " +cab.getFree2()+ " | Nota 3 " + cab.getFree3()+ " | " ;
-			result=dao.editarCabecera(getIdUsuario(), cab,  formulari);
-			String despuesCab = " | Nueva FechaDesde  " +formulari.getNuevaFechaDesde() + " | Nueva FechaHasta " +formulari.getNuevaFechaHasta() 
-				+ " | toma 1er día desde  " +formulari.getNuevaTomaDesde() + " | toma último día hasta " +formulari.getNuevaTomaHasta() 
-				+ " | Nueva usuarioEntregaSPD / fecha: " +formulari.getUsuarioEntregaSPD() + "/" +formulari.getFechaEntregaSPD() 
-				+ " | Nueva usuarioRecogidaSPD / fecha: " +formulari.getUsuarioRecogidaSPD() + "/" +formulari.getFechaRecogidaSPD()  
-				+ " | Nueva usuarioDesemblistaSPD / fecha: " +formulari.getUsuarioDesemblistaSPD() + "/" +formulari.getFechaDesemblistaSPD()  
-				+ " | Nueva usuarioProduccionSPD / fecha: " +formulari.getUsuarioProduccionSPD() + "/" +formulari.getFechaProduccionSPD()  				
-				+ " | Nota 1 " +formulari.getFree1() + " | Nota 2 " +formulari.getFree2()+ " | Nota 3 " + formulari.getFree3()+ " | " ;
-			boolean hayCambios =   ! Objects.equals(StringUtil.limpiarTextoTomas(antesCab), StringUtil.limpiarTextoTomas(despuesCab));
+			String antesCab= "-->  " 
+					+(cab.getNuevaFechaDesde()!=null ? " | FechaDesde: " + cab.getNuevaFechaDesde():"") 
+					+(cab.getNuevaFechaHasta()!=null ? " | FechaHasta: " + cab.getNuevaFechaHasta():"")
+					+(cab.getNuevaTomaDesde()!=null ? " | toma 1er día desde: " + cab.getNuevaTomaDesde():"")
+					+(cab.getNuevaTomaHasta()!=null ? " | toma último día hasta : " + cab.getNuevaTomaHasta():"")
+					+(cab.getUsuarioEntregaSPD()!=null ? " | usuarioEntregaSPD : " + cab.getUsuarioEntregaSPD():"")
+					+(cab.getFechaEntregaSPD()!=null ? " | fecha entrega SPD : " + cab.getFechaEntregaSPD():"")
+					+(cab.getUsuarioRecogidaSPD()!=null ? " | usuarioRecogidaSPD : " + cab.getUsuarioRecogidaSPD():"")
+					+(cab.getFechaRecogidaSPD()!=null ? " | fecha recogida SPD : " + cab.getFechaRecogidaSPD():"")
+					+(cab.getUsuarioDesemblistaSPD()!=null ? " | usuarioDesemblistaSPD : " + cab.getUsuarioDesemblistaSPD():"")
+					+(cab.getFechaDesemblistaSPD()!=null ? " | fecha desemblistado SPD : " + cab.getFechaDesemblistaSPD():"")
+					+(cab.getUsuarioProduccionSPD()!=null ? " | usuarioProduccionSPD : " + cab.getUsuarioProduccionSPD():"")
+					+(cab.getFechaProduccionSPD()!=null ? " | fecha producción SPD : " + cab.getFechaProduccionSPD():"")
+					+(cab.getFree1()!=null ? " | Nota 1 : " + cab.getFree1():"")
+					+(cab.getFree2()!=null ? " | Nota 2 : " + cab.getFree2():"")
+					+(cab.getFree3()!=null ? " | Nota 3 : " + cab.getFree3():"");
+					
+				result=dao.editarCabecera(getIdUsuario(), cab,  formulari);
+			String despuesCab = "-->  " 
+					+(formulari.getNuevaFechaDesde()!=null ? " | FechaDesde: " + formulari.getNuevaFechaDesde():"") 
+					+(formulari.getNuevaFechaHasta()!=null ? " | FechaHasta: " + formulari.getNuevaFechaHasta():"")
+					+(formulari.getNuevaTomaDesde()!=null ? " | toma 1er día desde: " + formulari.getNuevaTomaDesde():"")
+					+(formulari.getNuevaTomaHasta()!=null ? " | toma último día hasta : " + formulari.getNuevaTomaHasta():"")
+					+(formulari.getUsuarioEntregaSPD()!=null ? " | usuarioEntregaSPD : " + formulari.getUsuarioEntregaSPD():"")
+					+(formulari.getFechaEntregaSPD()!=null ? " | fecha entrega SPD : " + formulari.getFechaEntregaSPD():"")
+					+(formulari.getUsuarioRecogidaSPD()!=null ? " | usuarioRecogidaSPD : " + formulari.getUsuarioRecogidaSPD():"")
+					+(formulari.getFechaRecogidaSPD()!=null ? " | fecha recogida SPD : " + formulari.getFechaRecogidaSPD():"")
+					+(formulari.getUsuarioDesemblistaSPD()!=null ? " | usuarioDesemblistaSPD : " + formulari.getUsuarioDesemblistaSPD():"")
+					+(formulari.getFechaDesemblistaSPD()!=null ? " | fecha desemblistado SPD : " + formulari.getFechaDesemblistaSPD():"")
+					+(formulari.getUsuarioProduccionSPD()!=null ? " | usuarioProduccionSPD : " + formulari.getUsuarioProduccionSPD():"")
+					+(formulari.getFechaProduccionSPD()!=null ? " | fecha producción SPD : " + formulari.getFechaProduccionSPD():"")
+					+(formulari.getFree1()!=null ? " | Nota 1 : " + formulari.getFree1():"")
+					+(formulari.getFree2()!=null ? " | Nota 2 : " + formulari.getFree2():"")
+					+(formulari.getFree3()!=null ? " | Nota 3 : " + formulari.getFree3():"");
 
-	  	    System.out.println("  - getCipsSinProcesarTrat -->  " );		
+				boolean hayCambios =   ! Objects.equals(StringUtil.limpiarTextoTomas(antesCab), StringUtil.limpiarTextoTomas(despuesCab));
 
 			if(result && hayCambios)
 			{
@@ -196,7 +213,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 				errors.add(" Registro modificado correctamente ");
 				try{
 					SpdLogAPI.addLog(getIdUsuario(), "",  cab.getIdDivisionResidencia(), cab.getIdProceso(),  SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_EDICION, "", "SpdLog.produccion.edicion"
-							, new String[]{antesCab, despuesCab} );
+							, new String[]{cab.getIdProceso(), antesCab, despuesCab} );
 				}catch(Exception e){}	//SpdLog.produccion.edicion
 			}
 			else
@@ -549,8 +566,9 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		if(formulari.getOidPaciente()!=null && !formulari.getOidPaciente().equals(""))
 			pac=PacientesHelper.getPacientePorOID(getIdUsuario(), formulari.getOidPaciente());
 		
-		// Paso1 - Borrado previo de posibles datos del mismo proceso  
-    	PlantillaUnificadaHelper.borraProcesosResidencia(getIdUsuario(),  cabDetalle);
+		// Paso1 - Borrado previo de posibles datos del mismo proceso. en caso que sea un  solo paciente, borraría solo los datos del paciente
+    	PlantillaUnificadaHelper.borraProcesosResidencia(getIdUsuario(),  cabDetalle, pac);
+			
     	// Paso2 - Recuperamos el orden y nombre de las tomas del proceso  
     	TomasOrdenadas tomasOrdenadas = PlantillaUnificadaHelper.getTomasOrdenadas(getIdUsuario(),  cabDetalle);
     	// Paso3 - Recuperamos la lista de detalleTomas ya ordenada
@@ -600,7 +618,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
     		String nombreProduccionRobot = cab.getNombreProduccionRobot();
     		if(nombreProduccionRobot==null || nombreProduccionRobot.isEmpty())
     		{
-           		dao.actualizaDatosFicheroXMLEnCabecera(div, cab);
+           		dao.actualizaDatosFicheroXMLEnCabecera(getIdUsuario(), div, cab);
     		}
 
     		

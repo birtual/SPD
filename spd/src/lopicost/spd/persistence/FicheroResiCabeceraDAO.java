@@ -14,6 +14,7 @@ import lopicost.config.logger.Logger;
 import lopicost.config.pool.dbaccess.Conexion;
 import lopicost.spd.helper.FicheroResiCabeceraHelper;
 import lopicost.spd.model.DivisionResidencia;
+import lopicost.spd.robot.helper.PlantillaUnificadaHelper;
 import lopicost.spd.security.helper.VisibilidadHelper;
 import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.CamposPantallaBean;
@@ -956,19 +957,27 @@ public class FicheroResiCabeceraDAO {
 		return result>0;
 	}
 
-	public void actualizaDatosFicheroXMLEnCabecera(DivisionResidencia div, FicheroResiBean cab) throws SQLException {
+	public void actualizaDatosFicheroXMLEnCabecera(String idUsuario, DivisionResidencia div, FicheroResiBean cab) throws SQLException {
 		int result = 0;
 		//lo siguiente ha de coincidir con XMLRobotDao.getTratamientosDeProceso
 		//int numeroVeces = cab.getNumeroCreacionFicheroXML()+1;
 		//String fechaArreglada = cab.getFechaDesde()!=null ? cab.getFechaDesde().replace("/", ""):numeroVeces+""; //quitamos "/" en caso que no exista le ponemos  numeroCreacionesXML
 		//String nombreProduccionRobot= div.getLocationId()+"_"+fechaArreglada+"_"+ numeroVeces;
 		String nombreProduccionRobot = cab.getNombreProduccionRobot();
-		if(nombreProduccionRobot==null || nombreProduccionRobot.isEmpty())
+		//if(nombreProduccionRobot==null || nombreProduccionRobot.isEmpty())
 		{
 			try{
-				String fechaArreglada = DateUtilities.convertFormatDateString(cab.getFechaDesde(), SPDConstants.FORMATO_FECHA_yyyyMMdd, SPDConstants.FORMATO_FECHA_DEFAULT);
-				fechaArreglada = cab.getFechaDesde()!=null ? cab.getFechaDesde().replace("/", ""):""; //quitamos "/" en caso que no exista le ponemos  numeroCreacionesXML
-				nombreProduccionRobot= div.getLocationId()+"_"+fechaArreglada;
+				//FicheroResiBean cabMadre = FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(idUsuario, cab.getOidFicheroResiCabecera());
+				//int numeroCreaciones = cab.getNumeroCreacionFicheroXML()+1;
+				
+				//String fechaArreglada = DateUtilities.convertFormatDateString(cab.getFechaDesde(), SPDConstants.FORMATO_FECHA_yyyyMMdd, SPDConstants.FORMATO_FECHA_DEFAULT);
+				//fechaArreglada = cab.getFechaDesde()!=null ? cab.getFechaDesde().replace("/", ""):""; //quitamos "/" en caso que no exista le ponemos  numeroCreacionesXML
+				//nombreProduccionRobot= div.getLocationId()+"_"+fechaArreglada;
+			
+				//En vez de fecha, ponemos el último String del idProceso, para poder diferenciar hay producciones con la misma fecha
+				String codigo = PlantillaUnificadaHelper.extraerUltimaParte(cab.getIdProceso());
+				nombreProduccionRobot= div.getLocationId()+"_"+codigo;
+				
 			}catch(Exception e)
 			{
 				nombreProduccionRobot=  div.getNombreBolsa();

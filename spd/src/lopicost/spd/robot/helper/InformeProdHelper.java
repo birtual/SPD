@@ -24,7 +24,6 @@ import lopicost.spd.utils.DateUtilities;
 import lopicost.spd.utils.SPDConstants;
 
 /**
- 
  *Logica de negocio 
  */
 public class InformeProdHelper {
@@ -50,7 +49,7 @@ public class InformeProdHelper {
 	public TratamientoPaciente creaTratamientoPaciente(ResultSet rs) throws SQLException, ClassNotFoundException {
 		TratamientoPaciente tto = new TratamientoPaciente();
 		tto.setMedicamentoPaciente(creaMedicamentoPaciente(rs));
-		tto.setCantidadUtilizadaSPD(rs.getInt("cantidad"));
+		tto.setCantidadUtilizadaSPD(rs.getDouble("cantidad"));
 		tto.setPautaResidencia(rs.getString("pautaResidencia"));
 		tto.setEmblistar(rs.getString("dispensar")!=null&&rs.getString("dispensar").equalsIgnoreCase("S"));
 		//tto.setDiaSPD(diaSPD);
@@ -93,11 +92,11 @@ public class InformeProdHelper {
 	
 	public DiaTomas creaDiaTomas(ResultSet rs) throws SQLException {
 		DiaTomas diaTomas = new DiaTomas();
-		diaTomas.setCantidadDia(rs.getInt("cantidad"));
+		diaTomas.setCantidadDia(rs.getDouble("cantidad"));
 		//diaTomas.setPautaDiaria(pautaDiaria);
 		//diaTomas.setOrden(ordenDiaEnProduccion);
-        String fecha = String.valueOf(rs.getInt("diaInicioSPD"));
-        int diaRelativo = rs.getInt("offsetDays");
+        //String fecha = String.valueOf(rs.getInt("diaInicioSPD"));
+        //int diaRelativo = rs.getInt("offsetDays");
 		//String fechaToma = DateUtilities.desplazarFecha(fecha, diaRelativo, SPDConstants.FORMATO_FECHA_yyyyMMdd, SPDConstants.FORMATO_FECHA_DEFAULT);
 		//diaTomas.setFechaToma(fechaToma);
         diaTomas.setFechaToma(rs.getString("fechaToma2"));
@@ -107,7 +106,7 @@ public class InformeProdHelper {
 
 	public Toma creaToma(ResultSet rs, int numTomas) throws SQLException {
 		Toma toma = new Toma();
-		toma.setCantidadToma(rs.getInt("cantidad"));
+		toma.setCantidadToma(rs.getDouble("cantidad"));
 		String idToma = rs.getString("idToma");
 		if(idToma==null || idToma.equals("") || idToma.equalsIgnoreCase("null")) idToma=rs.getString("nombreToma");
 		toma.setIdToma(idToma);
@@ -119,19 +118,19 @@ public class InformeProdHelper {
 
 	public DiaSPD creaDiaSPD(ResultSet rs) throws SQLException {
 		DiaSPD diaSPD = new DiaSPD();
-		diaSPD.setCantidadDia(rs.getInt("cantidad"));
+		diaSPD.setCantidadDia(rs.getDouble("cantidad"));
         String fecha = String.valueOf(rs.getInt("diaInicioSPD"));
         int diaRelativo = rs.getInt("offsetDays");
 		String fechaToma = DateUtilities.desplazarFecha(fecha, diaRelativo, SPDConstants.FORMATO_FECHA_yyyyMMdd, SPDConstants.FORMATO_FECHA_DEFAULT);
 		diaSPD.setFechaToma(fechaToma);
 		diaSPD.setOrdenDiaEnProduccion(diaRelativo);
-		diaSPD.setPautaDiaria("?-?-?-?-?-?");
+		diaSPD.setPautaDiaria("");
 		return diaSPD;
 	}
 	
 	public DiaSPD complementaDiaSPD(ResultSet rs, DiaSPD diaSPD) throws SQLException {
-		diaSPD.setCantidadDia(rs.getInt("cantidad"));
-		diaSPD.setPautaDiaria("?-?-?-?-?-?");
+		diaSPD.setCantidadDia(rs.getDouble("cantidad"));
+		diaSPD.setPautaDiaria("");
 		return diaSPD;
 	}
 	public DiaSPD creaDiaSPDBasico(String fechaToma, int diaRelativo) throws SQLException {
@@ -159,7 +158,7 @@ public class InformeProdHelper {
 
 	public LineaBolsaSPD creaLineaBolsaSPD(ResultSet rs) throws SQLException {
 		LineaBolsaSPD linea = new LineaBolsaSPD();
-		linea.setCantidad(rs.getInt("cantidad"));
+		linea.setCantidad(rs.getDouble("cantidad"));
 		linea.setFreeInformation(rs.getString("freeInformation"));
 		return linea;
 	}

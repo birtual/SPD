@@ -207,14 +207,6 @@ public class PlantillaUnificadaHelper {
 		
 		return filiaRx;
 	}
-	
-	public static String extraerUltimaParte(String cadena) {
-	    if (cadena == null || !cadena.contains("_")) {
-	        return cadena;
-	    }
-	    int ultimoGuion = cadena.lastIndexOf('_');
-	    return cadena.substring(ultimoGuion + 1);
-	}
 
 	
 	
@@ -569,7 +561,7 @@ public class PlantillaUnificadaHelper {
 	 * @param cabeceraTop
 	 * @return
 	 */
-	public static String getOrderNumber(DetallesTomasBean bean, FicheroResiBean cabeceraTop) {
+	public static String getOrderNumberORI(DetallesTomasBean bean, FicheroResiBean cabeceraTop) {
 		ZoneId zoneId = ZoneId.systemDefault(); // o ZoneId.of("Europe/Madrid")
 		LocalDateTime lFechaHoraProceso = cabeceraTop.getFechaHoraProceso().toInstant().atZone(zoneId).toLocalDateTime();
 		
@@ -577,11 +569,20 @@ public class PlantillaUnificadaHelper {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
         String ascii= StringUtil.convertTextToAscii(StringUtil.makeFlat(bean.getCIP(), true));
 
-
-        String parte1 = lFechaHoraProceso.format(formatter);
+      String parte1 = lFechaHoraProceso.format(formatter);
         String parte2 = StringUtil.left(ascii + ascii + "0000000000000000000000", 18);
         String result = parte1+parte2;
 
+        
+		return result;
+	}
+
+	public static String getOrderNumber(DetallesTomasBean bean, FicheroResiBean cabeceraTop) {
+		
+        String ascii= StringUtil.convertTextToAscii(StringUtil.makeFlat(bean.getCIP(), true));
+        String parte1 = StringUtil.left(ascii + "0000000000000000000000", 11);	//limitamos a 11
+        String parte2 = extraerFechasYRandom(cabeceraTop.getIdProceso());
+        String result = parte1+parte2;
         
 		return result;
 	}
@@ -599,8 +600,55 @@ public class PlantillaUnificadaHelper {
 		
 	}
 
+	/*
+	 * Para extraer el random del idProceso 
+	 */
+	public static String extraerUltimaParte(String cadena) {
+	    if (cadena == null || !cadena.contains("_")) {
+	        return cadena;
+	    }
+	    int ultimoGuion = cadena.lastIndexOf('_');
+	    return cadena.substring(ultimoGuion + 1);
+	}
+	
+	/* Devolvemos fechaDesde_fechaHasta_random del idProceso 
+	 * 
+	 */
+	public static String extraerFechasYRandom(String cadena) {
+	    if (cadena == null || !cadena.contains("_")) { 
+	        return cadena;
+	    }
+	    String parteRandom=extraerUltimaParte(cadena);
+	    cadena=quitarFinal(cadena, parteRandom);
+	    
+	    String fechaHasta=extraerUltimaParte(cadena);
+	    cadena=quitarFinal(cadena, fechaHasta);
 
+	    String fechaDesde=extraerUltimaParte(cadena);
+	    cadena=quitarFinal(cadena, fechaDesde);
 
+	    String result = "#"+fechaDesde+"_"+fechaHasta+"_"+parteRandom;
+	    return result;  
+	}
+
+	/**
+	 * Eliminamos una cadena final de otra cadena y también un "_" en caso que esté al final
+	 * @param original
+	 * @param sufijo
+	 * @return
+	 */
+	public static String quitarFinal(String cadena, String quitar) {
+	    if (cadena == null || quitar == null) return cadena;
+	    if (cadena.endsWith(quitar)) {
+	    	cadena = cadena.substring(0, cadena.length() - quitar.length());
+	    }
+	    // Eliminar guion final si queda
+	    if (cadena.endsWith("_")) {
+	    	cadena = cadena.substring(0, cadena.length() - 1);
+	    }
+
+	    return cadena;
+	}
 	
 }
 

@@ -8,6 +8,7 @@ public abstract class Medicamento {
     private String labMedicamento;
     private String lote;
     private String caducidad;
+    private String numeroSerie;
 	public String getCn() {
 		return cn;
 	}
@@ -37,6 +38,12 @@ public abstract class Medicamento {
 	}
 	public void setCaducidad(String caducidad) {
 		this.caducidad = caducidad;
+	}
+	public String getNumeroSerie() {
+		return numeroSerie;
+	}
+	public void setNumeroSerie(String numeroSerie) {
+		this.numeroSerie = numeroSerie;
 	}
     
     

@@ -152,6 +152,7 @@ public class ExtReBean {
 	 * @return
 	 */
 	public boolean checkFecha(int diasMax, String fecha) {
+		if(fecha==null || fecha.equals("")) return false;
 	    LocalDate inputDate = null;
 
 	    DateTimeFormatter formatterConHora = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm:ss");

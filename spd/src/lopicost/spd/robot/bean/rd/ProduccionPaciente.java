@@ -10,12 +10,26 @@ public class ProduccionPaciente {
 	private String orderNumber;
 	private PacienteBean paciente;
     private List<TratamientoPaciente> tratamientosPaciente = new ArrayList<TratamientoPaciente>();
+    private List<TratamientoPaciente> ttosEmblistados = new ArrayList<TratamientoPaciente>();
+    private List<TratamientoPaciente> ttosFueraBlister= new ArrayList<TratamientoPaciente>();
     private int diasProduccion;
     private String diaSPDInicio;		//startDate
     private String diaSPDFin;			//endDate
     private List<DiaSPD> diasSPD = new ArrayList<DiaSPD>();
 
     
+	public List<TratamientoPaciente> getTtosEmblistados() {
+		return ttosEmblistados;
+	}
+	public void setTtosEmblistados(List<TratamientoPaciente> ttosEmblistados) {
+		this.ttosEmblistados = ttosEmblistados;
+	}
+	public List<TratamientoPaciente> getTtosFueraBlister() {
+		return ttosFueraBlister;
+	}
+	public void setTtosFueraBlister(List<TratamientoPaciente> ttosFueraBlister) {
+		this.ttosFueraBlister = ttosFueraBlister;
+	}
 	public int getDiasProduccion() {
 		return diasProduccion;
 	}

@@ -20,21 +20,12 @@ public class MedicamentoPaciente extends Medicamento{
 	    }
 	    return null;
 	}
-	
-
-	
 	public String getFormaFarmaceutica() {
 		return formaFarmaceutica;
 	}
-
-
-
 	public void setFormaFarmaceutica(String formaFarmaceutica) {
 		this.formaFarmaceutica = formaFarmaceutica;
 	}
-
-
-
 	public String getNombreMedicamentoBolsa() {
 		return nombreMedicamentoBolsa;
 	}

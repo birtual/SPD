@@ -17,14 +17,10 @@ import lopicost.spd.robot.bean.rd.ProduccionPaciente;
 import lopicost.spd.robot.bean.rd.Toma;
 import lopicost.spd.robot.bean.rd.TratamientoPaciente;
 import lopicost.spd.robot.helper.InformeProdHelper;
-import lopicost.spd.robot.model.Bottle;
-import lopicost.spd.robot.model.DrugDM;
-import lopicost.spd.robot.model.FiliaDM;
 import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.bean.PacienteBean;
 import lopicost.spd.utils.SPDConstants;
-import lopicost.spd.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +98,7 @@ public class InformeProdSpdDAO
 			  qry +=  " 	r.diaDesemblistado, r.diaEmbolsado, r.horaEmbolsado, r.totalBolsas, r.numeroOrdenBolsa, ";
 			  qry +=  " 	r.primerIdBolsaSPD, r.ultimoIdBolsaSPD, r.lote, r.caducidad, r.codigoBarras,  ";
 			  qry +=  " 	r.codigoMedicamentoRobot, r.offsetDays, r.numeroTolva, r.fechaInsert, ";
-			  qry +=  " 	d.nombreLaboratorio, d.nombreMedicamentoConsejo, "; 
+			  qry +=  " 	d.nombreLaboratorio, d.nombreMedicamentoConsejo, r.numeroSerie, "; 
 			  qry +=  " 	'MATCH CodGtVmp' AS tipoMatch ";
 			  qry +=  " FROM SPD_XML_detallesTomasRobot d ";
 			  qry +=  " LEFT JOIN SPD_robotProducciones r ";
@@ -141,7 +137,7 @@ public class InformeProdSpdDAO
 			  qry +=  " 	r2.diaDesemblistado, r2.diaEmbolsado, r2.horaEmbolsado, r2.totalBolsas, r2.numeroOrdenBolsa, ";
 			  qry +=  " 	r2.primerIdBolsaSPD, r2.ultimoIdBolsaSPD, r2.lote, r2.caducidad, r2.codigoBarras,  ";
 			  qry +=  " 	r2.codigoMedicamentoRobot, r2.offsetDays,  r2.numeroTolva, r2.fechaInsert, ";
-			  qry +=  " 	d2.nombreLaboratorio, d2.nombreMedicamentoConsejo, "; 
+			  qry +=  " 	d2.nombreLaboratorio, d2.nombreMedicamentoConsejo, r2.numeroSerie,  "; 
 			  qry +=  " 	'MATCH CodGtVm' AS tipoMatch ";
 			  qry +=  " FROM SPD_robotProducciones r2 ";
 			  qry +=  " LEFT JOIN SPD_XML_detallesTomasRobot d2 ";
@@ -195,7 +191,6 @@ public class InformeProdSpdDAO
             		produccionPaciente.getDiasSPD().addAll(tm_DiasSPD.values());
             		paciente.setDispensacionesReceta(buscarDispensacionesReceta(paciente.getCIP(), SPDConstants.CUANTAS_DISPENSACIONES));
            		
-          		
                 	tm_CIPS.put(keyCIP, paciente);
             	}
             	// Control del tratamiento de la medicación
@@ -210,7 +205,12 @@ public class InformeProdSpdDAO
             	else
             	{
                 	tratamiento = helper.creaTratamientoPaciente(rs);
-                	produccionPaciente.getTratamientosPaciente().add(tratamiento);
+                	//produccionPaciente.getTratamientosPaciente().add(tratamiento);
+                	//separamos emblistados de fuera de blister
+            		if(tratamiento.isEmblistar())
+            			produccionPaciente.getTtosEmblistados().add(tratamiento);
+            		else
+            			produccionPaciente.getTtosFueraBlister().add(tratamiento);
                 	tm_Tratamientos.put(keyTratamiento, tratamiento);
             	}
  

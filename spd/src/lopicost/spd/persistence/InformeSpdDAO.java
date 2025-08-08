@@ -6,40 +6,40 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import lopicost.config.pool.dbaccess.Conexion;
-import lopicost.spd.model.BdConsejo;
 import lopicost.spd.robot.bean.rd.BolsaSPD;
 import lopicost.spd.robot.bean.rd.DiaSPD;
 import lopicost.spd.robot.bean.rd.DiaTomas;
+import lopicost.spd.robot.bean.rd.Identificacion;
 import lopicost.spd.robot.bean.rd.LineaBolsaSPD;
-import lopicost.spd.robot.bean.rd.MedicamentoDispensado;
-import lopicost.spd.robot.bean.rd.MedicamentoPaciente;
+import lopicost.spd.robot.bean.rd.MedicamentoReceta;
 import lopicost.spd.robot.bean.rd.ProduccionPaciente;
 import lopicost.spd.robot.bean.rd.Toma;
 import lopicost.spd.robot.bean.rd.TratamientoPaciente;
-import lopicost.spd.robot.helper.InformeProdHelper;
+import lopicost.spd.robot.helper.InformeHelper;
 import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.bean.PacienteBean;
+import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-public class InformeProdSpdDAO
+public class InformeSpdDAO
 {
     static String className;
-	static InformeProdHelper helper = new InformeProdHelper();
+	static InformeHelper helper = new InformeHelper();
 	   	
 	   	
     static {
-        InformeProdSpdDAO.className = "InformeProdSPDDAO";
+        InformeSpdDAO.className = "InformeSPDDAO";
     }
     
 	/**
 
      */
-    public static List<ProduccionPaciente> findLiteByResidenciaCarga(String spdUsuario, FicheroResiBean cab) throws Exception {
+    public static List<ProduccionPaciente> findLiteByResidenciaCarga(String spdUsuario, FicheroResiBean cab, boolean recetas, boolean mezclar) throws Exception {
     	List<ProduccionPaciente> producciones = new ArrayList<ProduccionPaciente>();
     	
 		//recuperamos las tomas
@@ -72,6 +72,14 @@ public class InformeProdSpdDAO
 
 		String qry = " SELECT * FROM ( ";
 			  qry +=  " SELECT ";
+			  qry +=  " 		ISNULL( ";
+			  qry +=  " 			r.offsetDays, ";
+			  qry +=  "  			CASE  ";
+			  qry +=  "  			WHEN d.fechaToma IS NOT NULL THEN ";
+			  qry +=  "   				DATEDIFF(DAY, CAST(CONVERT(date, '"+ fechaInicioSPD +"', 103) AS date), d.fechaToma) ";
+			  qry +=  "   			ELSE NULL ";
+			  qry +=  " 			END ";
+			  qry +=  "  ) AS offsetDays, ";
 			  qry +=  "		d.fechaHoraProceso, d.idProceso,  ";
 			  qry +=  " 	COALESCE(d.idDivisionResidencia, r.idDivisionResidencia) as idDivisionResidencia, ";
 			  qry +=  " 	COALESCE(d.CIP, r.CIP) as CIP, ";
@@ -97,12 +105,14 @@ public class InformeProdSpdDAO
 			  qry +=  " 	d.pautaResidencia,  r.idRobot, r.idResidenciaCarga, r.diaInicioSPD,  ";
 			  qry +=  " 	r.diaDesemblistado, r.diaEmbolsado, r.horaEmbolsado, r.totalBolsas, r.numeroOrdenBolsa, ";
 			  qry +=  " 	r.primerIdBolsaSPD, r.ultimoIdBolsaSPD, r.lote, r.caducidad, r.codigoBarras,  ";
-			  qry +=  " 	r.codigoMedicamentoRobot, r.offsetDays, r.numeroTolva, r.fechaInsert, ";
+			  qry +=  " 	r.codigoMedicamentoRobot, r.offsetDays as offsetDays0, r.numeroTolva, r.fechaInsert, ";
 			  qry +=  " 	d.nombreLaboratorio, d.nombreMedicamentoConsejo, r.numeroSerie, "; 
-			  qry +=  " 	'MATCH CodGtVmp' AS tipoMatch ";
+			  qry +=  " 	'MATCH CodGtVmp' AS tipoMatch, ";
+			  qry +=  " 	r.FORMA, r.COLOR1, r.COLOR2, r.INSCRIPCIONA, r.INSCRIPCIONB, r.RANURA, r.DIBUJO, r.LARGO, r.ANCHO "; 
 			  qry +=  " FROM SPD_XML_detallesTomasRobot d ";
 			  qry +=  " LEFT JOIN SPD_robotProducciones r ";
-			  qry +=  " 	ON d.idFreeInformation = r.FreeInformation ";
+			  qry +=  " 	ON d.idProceso = r.idProceso    ";
+			  qry +=  " 	AND d.idFreeInformation = r.FreeInformation ";
 			  qry +=  " 	AND d.idDivisionResidencia = r.idDivisionResidencia ";
 			  qry +=  " 	AND d.CodGtVmp = r.CodGtVmp ";
 			  qry +=  " WHERE d.idProceso = '"+ cab.getIdProceso() +"' ";
@@ -111,6 +121,14 @@ public class InformeProdSpdDAO
 			  qry +=  " UNION ALL ";
 			  qry +=  " ";
 			  qry +=  " SELECT "; 
+			  qry +=  " 		ISNULL( ";
+			  qry +=  " 			r2.offsetDays, ";
+			  qry +=  "  			CASE  ";
+			  qry +=  "  			WHEN d2.fechaToma IS NOT NULL THEN ";
+			  qry +=  "   				DATEDIFF(DAY, CAST(CONVERT(date, '"+ fechaInicioSPD +"', 103) AS date), d2.fechaToma) ";
+			  qry +=  "   			ELSE NULL ";
+			  qry +=  " 			END ";
+			  qry +=  "  ) AS offsetDaysCalculado, ";
 			  qry +=  " 	d2.fechaHoraProceso, d2.idProceso, "; 
 			  qry +=  " 	COALESCE(d2.idDivisionResidencia, r2.idDivisionResidencia) as idDivisionResidencia, ";
 			  qry +=  " 	COALESCE(d2.CIP, r2.CIP) as CIP, ";
@@ -136,15 +154,18 @@ public class InformeProdSpdDAO
 			  qry +=  " 	d2.pautaResidencia, r2.idRobot, r2.idResidenciaCarga, r2.diaInicioSPD, "; 
 			  qry +=  " 	r2.diaDesemblistado, r2.diaEmbolsado, r2.horaEmbolsado, r2.totalBolsas, r2.numeroOrdenBolsa, ";
 			  qry +=  " 	r2.primerIdBolsaSPD, r2.ultimoIdBolsaSPD, r2.lote, r2.caducidad, r2.codigoBarras,  ";
-			  qry +=  " 	r2.codigoMedicamentoRobot, r2.offsetDays,  r2.numeroTolva, r2.fechaInsert, ";
+			  qry +=  " 	r2.codigoMedicamentoRobot, r2.offsetDays  as offsetDays0,  r2.numeroTolva, r2.fechaInsert, ";
 			  qry +=  " 	d2.nombreLaboratorio, d2.nombreMedicamentoConsejo, r2.numeroSerie,  "; 
-			  qry +=  " 	'MATCH CodGtVm' AS tipoMatch ";
+			  qry +=  " 	'MATCH CodGtVm' AS tipoMatch, ";
+			  qry +=  " 	r2.FORMA, r2.COLOR1, r2.COLOR2, r2.INSCRIPCIONA, r2.INSCRIPCIONB, r2.RANURA, r2.DIBUJO, r2.LARGO, r2.ANCHO "; 
 			  qry +=  " FROM SPD_robotProducciones r2 ";
 			  qry +=  " LEFT JOIN SPD_XML_detallesTomasRobot d2 ";
-			  qry +=  " 	ON d2.idFreeInformation = r2.FreeInformation ";
+			  qry +=  " 	ON d2.idProceso = r2.idProceso    ";
+			  qry +=  " 	AND d2.idFreeInformation = r2.FreeInformation ";
 			  qry +=  " 	AND d2.idDivisionResidencia = r2.idDivisionResidencia ";
 			  qry +=  " 	AND d2.CodGtVm = r2.CodGtVm ";
-			  qry +=  " WHERE r2.idResidenciaCarga = '"+cab.getNombreProduccionRobot()+"' ";
+			  qry +=  " WHERE r2.idProceso = '"+ cab.getIdProceso() +"' ";
+			  //qry +=  " WHERE r2.idResidenciaCarga = '"+cab.getNombreProduccionRobot()+"' ";
 			  qry +=  " 	AND NOT EXISTS ( ";
 			  qry +=  " 	SELECT 1 ";
 			  qry +=  " 	FROM SPD_XML_detallesTomasRobot d3 ";
@@ -160,7 +181,7 @@ public class InformeProdSpdDAO
 			  qry +=  " ORDER BY CIP, fechaToma, idToma, dispensar; ";
 		    
         Connection con = Conexion.conectar();
-        System.out.println(String.valueOf(InformeProdSpdDAO.className) + "--> findLiteByResidenciaCarga  -->" + qry);
+        System.out.println(HelperSPD.dameFechaHora() + " " + String.valueOf(InformeSpdDAO.className) + "--> findLiteByResidenciaCarga  -->" + qry);
         ResultSet rs = null;
         try {
             PreparedStatement pstat = con.prepareStatement(qry);
@@ -174,6 +195,7 @@ public class InformeProdSpdDAO
             	//if(keyCIP.equalsIgnoreCase("JAGI1340920005")) //para pruebas
             		//continue;
             		//System.out.println(keyCIP);
+            	//System.out.println(HelperSPD.dameFechaHora() + " findLiteByResidenciaCarga --> CIP " + keyCIP);	
             	if (tm_CIPS.containsKey(keyCIP)) 
  		      	{
             		paciente = tm_CIPS.get(keyCIP);
@@ -189,10 +211,13 @@ public class InformeProdSpdDAO
                 	tm_DiasSPD = helper.crearTreemapDiasSPD(keyCIP, cab);
             		produccionPaciente.getDiasSPD().clear(); // opcional: si quieres vaciarla antes
             		produccionPaciente.getDiasSPD().addAll(tm_DiasSPD.values());
-            		paciente.setDispensacionesReceta(buscarDispensacionesReceta(paciente.getCIP(), SPDConstants.CUANTAS_DISPENSACIONES));
-           		
+            		if(recetas)
+            			paciente.setDispensacionesReceta(buscarDispensacionesReceta(paciente.getCIP(), SPDConstants.CUANTAS_DISPENSACIONES));
+            		//System.out.println(HelperSPD.dameFechaHora() + " findLiteByResidenciaCarga --> tm_DiasSPD " + tm_DiasSPD);	
+         		
                 	tm_CIPS.put(keyCIP, paciente);
             	}
+            	//System.out.println(HelperSPD.dameFechaHora() + " findLiteByResidenciaCarga --> CIP " + keyCIP);	
             	// Control del tratamiento de la medicación
         	    TratamientoPaciente tratamiento = null;
         	    //MedicamentoPaciente medic = new MedicamentoPaciente();
@@ -204,7 +229,7 @@ public class InformeProdSpdDAO
  		      	}
             	else
             	{
-                	tratamiento = helper.creaTratamientoPaciente(rs);
+                	tratamiento = helper.creaTratamientoPaciente(rs, mezclar);
                 	//produccionPaciente.getTratamientosPaciente().add(tratamiento);
                 	//separamos emblistados de fuera de blister
             		if(tratamiento.isEmblistar())
@@ -227,32 +252,50 @@ public class InformeProdSpdDAO
             		helper.insertarEnPosicion(tratamiento.getMedicamentoPaciente().getDiaTomas(), rs.getInt("offsetDays"), diaTomas); 	//añadimos el día de tomas en el tratamiento/medicación 
             		tm_DiasTomas.put(keyDiaTomas, diaTomas);
             	}
-            	int numTomas= tratamiento.getMedicamentoPaciente().getDiaTomas().size();
-        	    Toma toma = helper.creaToma(rs, numTomas++);
+            	//	System.out.println(HelperSPD.dameFechaHora() + " findLiteByResidenciaCarga --> tm_DiasTomas " + tm_DiasTomas);	
+                int numTomas= tratamiento.getMedicamentoPaciente().getDiaTomas().size();
+                //	System.out.println(HelperSPD.dameFechaHora() + " findLiteByResidenciaCarga --> numTomas " + numTomas + " - " + tratamiento.getMedicamentoPaciente().getNombreMedicamentoConsejo());	
+               	//Toma toma = helper.creaToma(rs, numTomas++);
+               	Toma toma = helper.creaToma(rs, numTomas);
             	diaTomas.getTomas().add(toma);
             	
              	// Control del día SPD con todos los CN. se añade en producción, para el report 2 de detalle bolsas  
         	    DiaSPD diaSPD = null;
         	    keyDiaSPD =  keyCIP + "_" + rs.getInt("offsetDays") ; //contiene todas las bolsas de la producción
-
+ 
         	    diaSPD = tm_DiasSPD.get(keyDiaSPD);
-         		if(diaSPD.getCantidadDia()<=0) 
+           		//System.out.println(HelperSPD.dameFechaHora() + " findLiteByResidenciaCarga --> diaSPD " + diaSPD!=null?diaSPD.getCantidadDia():"Sin diaSPD");		
+        	    //	System.out.println(HelperSPD.dameFechaHora() + " findLiteByResidenciaCarga --> keyCIP tm_DiasSPD " + keyCIP + " " + tm_DiasSPD);	
+       	    
+         		if(diaSPD!=null && diaSPD.getCantidadDia()<=0) 
          			helper.complementaDiaSPD(rs, diaSPD);
 
         	
         	    BolsaSPD bolsaSPD = null;
              	keyBolsaSPD = keyDiaSPD + "_" +  rs.getString("freeInformation"); //contiene una bolsa de la producción. Ponemos también freeInformation 
-            	if (tm_BolsaSPD.containsKey(keyBolsaSPD)) 
+             	//	System.out.println(HelperSPD.dameFechaHora() + " findLiteByResidenciaCarga --> keyBolsaSPD " + keyBolsaSPD);	
+             	//	System.out.println(HelperSPD.dameFechaHora() + " findLiteByResidenciaCarga --> keyBolsaSPD " + tm_BolsaSPD);	
+               	if (tm_BolsaSPD.containsKey(keyBolsaSPD)) 
  		      	{
             		bolsaSPD = tm_BolsaSPD.get(keyBolsaSPD);
+            		//	System.out.println(HelperSPD.dameFechaHora() + " findLiteByResidenciaCarga if --> bolsaSPD " + bolsaSPD.getIdBolsa());	
  		      	}
             	else
             	{
             		bolsaSPD = helper.creaBolsaSPD(rs);
-               		diaSPD.getBolsaSPD().add(bolsaSPD);
-            		tm_BolsaSPD.put(keyBolsaSPD, bolsaSPD);
+            		//	System.out.println(HelperSPD.dameFechaHora() + " findLiteByResidenciaCarga else --> bolsaSPD " + bolsaSPD.getIdBolsa());	
+               		try
+               		{
+               			diaSPD.getBolsaSPD().add(bolsaSPD);
+                		tm_BolsaSPD.put(keyBolsaSPD, bolsaSPD);
+               		}catch(Exception e){
+               			
+               		}
             	}
+               	//	System.out.println(HelperSPD.dameFechaHora() + " findLiteByResidenciaCarga bolsaSPD OK");	
+
             	LineaBolsaSPD linea = helper.creaLineaBolsaSPD(rs);
+            	//	System.out.println(HelperSPD.dameFechaHora() + " findLiteByResidenciaCarga linea");	
             	linea.setMedicamentoPaciente(tratamiento.getMedicamentoPaciente());
             	bolsaSPD.getLineasBolsa().add(linea);
             
@@ -270,9 +313,9 @@ public class InformeProdSpdDAO
     }
  
     
-	private static List<MedicamentoDispensado> buscarDispensacionesReceta(String CIP, int cuantos)throws SQLException, ClassNotFoundException 
+	private static List<MedicamentoReceta> buscarDispensacionesReceta(String CIP, int cuantos)throws SQLException, ClassNotFoundException 
 	{
-		List<MedicamentoDispensado>  result = new ArrayList();
+		List<MedicamentoReceta>  result = new ArrayList();
 		Connection con = Conexion.conectar();
 		String qry = " SELECT  TOP " + cuantos + " *  ";
 		qry+= " FROM hst_CodigosRecetasDispensados  r ";
@@ -286,7 +329,7 @@ public class InformeProdSpdDAO
 			PreparedStatement pstat = con.prepareStatement(qry);
 			rs = pstat.executeQuery();
 			while (rs.next()) {
-				MedicamentoDispensado medic = helper.creaMedicamentoDispensado(rs);
+				MedicamentoReceta medic = helper.creaMedicamentoReceta(rs);
 				result.add(medic);
 			}
 		} catch (SQLException e) {
@@ -295,7 +338,37 @@ public class InformeProdSpdDAO
 
 	return result;
 	}
- 
+
+	public static MedicamentoReceta buscarUltimaDispensacionReceta(String CIP, String nomGtVmp)throws SQLException, ClassNotFoundException 
+	{
+		MedicamentoReceta  medic = null;
+		Identificacion  ident = null;
+		Connection con = Conexion.conectar();
+		String qry = " SELECT  TOP 1 r.*, a.*  ";
+		qry+= " FROM hst_CodigosRecetasDispensados  r ";
+		qry+= " LEFT JOIN bd_consejo b1 ON r.codigoDispensado = b1.CODIGO ";
+		qry+= " LEFT JOIN bd_consejo_aspecto a ON  r.codigoDispensado = a.CODIGO " ;
+		qry+= " WHERE r.CIP = '" + CIP+ "' AND NomGtVmp='"+nomGtVmp+"' ";
+		qry+= " ORDER BY r.fecha DESC ";
+
+			
+		System.out.println(className + "--> buscarUltimaDispensacionReceta" +qry );		
+		try {
+			ResultSet rs = null;
+			PreparedStatement pstat = con.prepareStatement(qry);
+			rs = pstat.executeQuery();
+			while (rs.next()) {
+				medic = helper.creaMedicamentoReceta(rs);
+				ident = helper.creaIdentificacion(rs);
+				medic.setIdentificacion(ident);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	return medic;
+	}
+
 
 	/**
 	 * Total
@@ -303,7 +376,7 @@ public class InformeProdSpdDAO
 	 * @param cab
 	 * @return
 	 * @throws Exception
-	 */
+	
     public static List<ProduccionPaciente> findByIdResidenciaCarga(String spdUsuario, FicheroResiBean cab) throws Exception {
     	List<ProduccionPaciente> producciones = new ArrayList<ProduccionPaciente>();
     	
@@ -337,6 +410,14 @@ public class InformeProdSpdDAO
 
 		String qry = " SELECT * FROM ( ";
 			  qry +=  " SELECT ";
+			  qry +=  " 		ISNULL( ";
+			  qry +=  " 			r.offsetDays, ";
+			  qry +=  "  			CASE  ";
+			  qry +=  "  			WHEN d.fechaToma IS NOT NULL THEN ";
+			  qry +=  "   				DATEDIFF(DAY, CAST(CONVERT(date, '"+ fechaInicioSPD +"', 103) AS date), d.fechaToma) ";
+			  qry +=  "   			ELSE NULL ";
+			  qry +=  " 			END ";
+			  qry +=  "  ) AS offsetDays, ";
 			  qry +=  "		d.fechaHoraProceso, d.idProceso,  ";
 			  qry +=  " 	COALESCE(d.idDivisionResidencia, r.idDivisionResidencia) as idDivisionResidencia, ";
 			  qry +=  " 	COALESCE(d.CIP, r.CIP) as CIP, ";
@@ -362,9 +443,10 @@ public class InformeProdSpdDAO
 			  qry +=  " 	d.pautaResidencia,  r.idRobot, r.idResidenciaCarga, r.diaInicioSPD,  ";
 			  qry +=  " 	r.diaDesemblistado, r.diaEmbolsado, r.horaEmbolsado, r.totalBolsas, r.numeroOrdenBolsa, ";
 			  qry +=  " 	r.primerIdBolsaSPD, r.ultimoIdBolsaSPD, r.lote, r.caducidad, r.codigoBarras,  ";
-			  qry +=  " 	r.codigoMedicamentoRobot, r.offsetDays, r.numeroTolva, r.fechaInsert, ";
+			  qry +=  " 	r.codigoMedicamentoRobot, r.offsetDays  as offsetDays0, r.numeroTolva, r.fechaInsert, ";
 			  qry +=  " 	d.nombreLaboratorio, d.nombreMedicamentoConsejo, "; 
-			  qry +=  " 	'MATCH CodGtVmp' AS tipoMatch ";
+			  qry +=  " 	'MATCH CodGtVm' AS tipoMatch, ";
+			  qry +=  " 	r.FORMA, r.COLOR1, r.COLOR2, r.INSCRIPCIONA, r.INSCRIPCIONB, r.RANURA, r.DIBUJO, r.LARGO, r.ANCHO "; 
 			  qry +=  " FROM SPD_XML_detallesTomasRobot d ";
 			  qry +=  " LEFT JOIN SPD_robotProducciones r ";
 			  qry +=  " 	ON d.idFreeInformation = r.FreeInformation ";
@@ -375,6 +457,14 @@ public class InformeProdSpdDAO
 			  qry +=  " UNION ALL ";
 			  qry +=  " ";
 			  qry +=  " SELECT "; 
+			  qry +=  " 		ISNULL( ";
+			  qry +=  " 			r2.offsetDays, ";
+			  qry +=  "  			CASE  ";
+			  qry +=  "  			WHEN d2.fechaToma IS NOT NULL THEN ";
+			  qry +=  "   				DATEDIFF(DAY, CAST(CONVERT(date, '"+ fechaInicioSPD +"', 103) AS date), d2.fechaToma) ";
+			  qry +=  "   			ELSE NULL ";
+			  qry +=  " 			END ";
+			  qry +=  "  ) AS offsetDays, ";
 			  qry +=  " 	d2.fechaHoraProceso, d2.idProceso, "; 
 			  qry +=  " 	COALESCE(d2.idDivisionResidencia, r2.idDivisionResidencia) as idDivisionResidencia, ";
 			  qry +=  " 	COALESCE(d2.CIP, r2.CIP) as CIP, ";
@@ -400,9 +490,10 @@ public class InformeProdSpdDAO
 			  qry +=  " 	d2.pautaResidencia, r2.idRobot, r2.idResidenciaCarga, r2.diaInicioSPD, "; 
 			  qry +=  " 	r2.diaDesemblistado, r2.diaEmbolsado, r2.horaEmbolsado, r2.totalBolsas, r2.numeroOrdenBolsa, ";
 			  qry +=  " 	r2.primerIdBolsaSPD, r2.ultimoIdBolsaSPD, r2.lote, r2.caducidad, r2.codigoBarras,  ";
-			  qry +=  " 	r2.codigoMedicamentoRobot, r2.offsetDays,  r2.numeroTolva, r2.fechaInsert,  ";
+			  qry +=  " 	r2.codigoMedicamentoRobot, r2.offsetDays  as offsetDays0,  r2.numeroTolva, r2.fechaInsert,  ";
 			  qry +=  " 	d2.nombreLaboratorio, d2.nombreMedicamentoConsejo, "; 
-			  qry +=  " 	'MATCH CodGtVm' AS tipoMatch ";
+			  qry +=  " 	'MATCH CodGtVm' AS tipoMatch, ";
+			  qry +=  " 	r2.FORMA, r2.COLOR1, r2.COLOR2, r2.INSCRIPCIONA, r2.INSCRIPCIONB, r2.RANURA, r2.DIBUJO, r2.LARGO, r2.ANCHO "; 
 			  qry +=  " FROM SPD_robotProducciones r2 ";
 			  qry +=  " LEFT JOIN SPD_XML_detallesTomasRobot d2 ";
 			  qry +=  " 	ON d2.idFreeInformation = r2.FreeInformation ";
@@ -422,7 +513,7 @@ public class InformeProdSpdDAO
 			  qry +=  " ORDER BY CIP, fechaToma, idToma, dispensar; ";
 		    
         Connection con = Conexion.conectar();
-        System.out.println(String.valueOf(InformeProdSpdDAO.className) + "--> findLiteByResidenciaCarga  -->" + qry);
+        System.out.println(String.valueOf(InformeSpdDAO.className) + "--> findLiteByResidenciaCarga  -->" + qry);
         ResultSet rs = null;
         try {
             PreparedStatement pstat = con.prepareStatement(qry);
@@ -465,7 +556,7 @@ public class InformeProdSpdDAO
  		      	}
             	else
             	{
-                	tratamiento = helper.creaTratamientoPaciente(rs);
+                	tratamiento = helper.creaTratamientoPaciente(rs, pre);
                 	produccionPaciente.getTratamientosPaciente().add(tratamiento);
                 	tm_Tratamientos.put(keyTratamiento, tratamiento);
             	}
@@ -495,21 +586,7 @@ public class InformeProdSpdDAO
          		if(diaSPD.getCantidadDia()<=0) 
          			helper.complementaDiaSPD(rs, diaSPD);
 
-        	    /*
-        	    if (tm_DiasSPD.containsKey(keyDiaSPD)) 
- 		      	{
-             		diaSPD = tm_DiasSPD.get(keyDiaSPD);
-             		if(diaSPD.getCantidadDia()<=0) 
-             			helper.complementaDiaSPD(rs, diaSPD);
-             			
- 		      	}
-            	else
-            	{
-            		diaSPD = helper.creaDiaSPD(rs);
-            		//produccionPaciente.getDiasSPD().add(diaSPD);
-            		tm_DiasSPD.put(keyDiaSPD, diaSPD);
-            	}
-             	*/
+        	  
         	    BolsaSPD bolsaSPD = null;
              	keyBolsaSPD = keyDiaSPD + "_" +  rs.getString("freeInformation"); //contiene una bolsa de la producción. Ponemos también freeInformation 
             	if (tm_BolsaSPD.containsKey(keyBolsaSPD)) 
@@ -538,6 +615,31 @@ public class InformeProdSpdDAO
         con.close();
         return producciones;
     }
+    */
+
+	public Identificacion buscarIdentificacion(String codigo) throws SQLException, ClassNotFoundException 
+	{
+		Identificacion  medic = null;
+		Connection con = Conexion.conectar();
+		String qry = " SELECT  *  ";
+		qry+= " FROM bd_consejo_aspecto  ";
+		qry+= " WHERE CODIGO = '" + codigo+ "'";
+		
+		System.out.println(className + "--> buscarIdentificacion" +qry );		
+		try {
+			ResultSet rs = null;
+			PreparedStatement pstat = con.prepareStatement(qry);
+			rs = pstat.executeQuery();
+			while (rs.next()) {
+				medic = helper.creaIdentificacion(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	return medic;
+	}
+
 
   
 

@@ -89,8 +89,10 @@ public class ImportGDRExcel extends ImportGenericLite
     	
        	
        	String valor = medResi.getResiPauta(); // Ejemplo: "1|0|2|0 (3)"
+       	
+       	
         // Eliminamos lo que está entre paréntesis (incluido el espacio antes)
-       	String sinSuma = valor.replaceAll("\\s*\\(.*\\)", ""); //  "12|3|45|6"
+       	String sinSuma = limpiarFormatoPautaGDR(valor.replaceAll("\\s*\\(.*\\)", "")); //  "12|3|45|6" o "4- 12|3|45|6" (se descarta lo anterior al guión)
        	String[] partes = sinSuma.split("\\|");
        	
        	try{medResi.setResiToma1(HelperSPD.getPautaStandard(medResi, partes[0].trim())); }catch(Exception e){medResi.setResiToma1("");}//esmorzar
@@ -182,6 +184,25 @@ public class ImportGDRExcel extends ImportGenericLite
 		
 	}
 
+	private String limpiarFormatoPautaGDR(String entrada) {
+	    if (entrada == null) return "";
+
+	    // Paso 1: si hay " - ", quitar lo anterior
+	    if (entrada.contains(" - ")) {
+	        String[] partes = entrada.split("\\s-\\s", 2);
+	        if (partes.length == 2) {
+	            entrada = partes[1];
+	        }
+	    }
+
+	    // Paso 2: eliminar lo que esté entre paréntesis (si lo hay)
+	    entrada = entrada.replaceAll("\\s*\\(.*\\)", "");
+
+	    // Paso 3: reemplazar los guiones por ceros
+	    entrada = entrada.replaceAll("-", "0");
+
+	    return entrada.trim();
+	}
 	private String tratarSiPrecisa(FicheroResiBean medResi) {
 		String siPrecisa = ""; 
 		String observaciones = StringUtil.limpiarTextoyEspacios(medResi.getResiObservaciones()).toUpperCase();

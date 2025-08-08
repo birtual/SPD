@@ -35,6 +35,7 @@ public class SpdLogAPI
 	public static final String B_DESCARGAFICHERO = "DESCARGAFICHERO";
 	public static final String B_CAMBIOCIP = "CAMBIOCIP";
 	public static final String B_EDICION = "EDICION";
+	public static final String B_EDICIONEXPRESS = "B_EDICIONEXPRESS";
 	public static final String B_BORRADO = "BORRADO";
 	public static final String B_CREACION = "CREACION";
 	public static final String B_VALIDACION = "VALIDACION";

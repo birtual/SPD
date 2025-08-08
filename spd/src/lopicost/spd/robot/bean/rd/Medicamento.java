@@ -9,6 +9,15 @@ public abstract class Medicamento {
     private String lote;
     private String caducidad;
     private String numeroSerie;
+    private Identificacion identificacion;
+    
+    
+	public Identificacion getIdentificacion() {
+		return identificacion;
+	}
+	public void setIdentificacion(Identificacion identificacion) {
+		this.identificacion = identificacion;
+	}
 	public String getCn() {
 		return cn;
 	}

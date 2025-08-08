@@ -4,6 +4,7 @@ package lopicost.spd.robot.bean.rd;
 
 public class TratamientoPaciente {
     private MedicamentoPaciente medicamentoPaciente;
+    private MedicamentoReceta medicamentoReceta;
     private String tratamientoInicio;		//fecha inicio según residencia
     private String tratamientoFin;			//fecha fin según residencia
     //private int cantidadTotal;
@@ -12,11 +13,24 @@ public class TratamientoPaciente {
     // private int cantidadDispensadaReceta;
     //private int cantidadCustodia;
     private String leyendaInfo;
+    private String observaciones;
     private boolean emblistar = false;
 
     
     
 
+	public MedicamentoReceta getMedicamentoReceta() {
+		return medicamentoReceta;
+	}
+	public void setMedicamentoReceta(MedicamentoReceta medicamentoReceta) {
+		this.medicamentoReceta = medicamentoReceta;
+	}
+	public String getObservaciones() {
+		return observaciones;
+	}
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
 	public boolean isEmblistar() {
 		return emblistar;
 	}

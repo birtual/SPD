@@ -363,23 +363,10 @@
 	 		window.open(url, 'generarFicherosDMyRX', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
 		}
 		
-		function informeProdRobotSpdGlobalLite(oidFicheroResiCabecera)
+		function informeRobotSpd(oidFicheroResiCabecera, parameter)
 		{
-			var f = document.FicheroResiForm;
-			var url = "/spd/InformeProdSpd.do?parameter=globalProdLite&oidFicheroResiCabecera=" + oidFicheroResiCabecera +"&operation=INFORMES_PROD_ROBOT";
-	 		window.open(url, 'globalProdLite', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
+			var url = "/spd/InformeSpd.do?parameter="+parameter+"&oidFicheroResiCabecera=" + oidFicheroResiCabecera;
+	 		window.open(url, parameter, 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
 		}
 		
-		function informeProdRobotSpdGlobal(oidFicheroResiCabecera)
-		{
-			var f = document.FicheroResiForm;
-			var url = "/spd/InformeProdSpd.do?parameter=globalProd&oidFicheroResiCabecera=" + oidFicheroResiCabecera +"&operation=INFORMES_PROD_ROBOT";
-	 		window.open(url, 'globalProd', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
-		}
 		
-		function informeProdRobotSpdDetalle(oidFicheroResiCabecera)
-		{
-			var f = document.FicheroResiForm;
-			var url = "/spd/InformeProdSpd.do?parameter=detalleProd&oidFicheroResiCabecera=" + oidFicheroResiCabecera +"&operation=INFORMES_PROD_ROBOT";
-	 		window.open(url, 'globalProd', 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
-		}

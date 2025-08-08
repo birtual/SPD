@@ -2,7 +2,7 @@ package lopicost.spd.robot.bean.rd;
 
 
 
-public class MedicamentoDispensado extends Medicamento{
+public class MedicamentoReceta extends Medicamento{
     private String numSerie;
 
 	public String getNumSerie() {

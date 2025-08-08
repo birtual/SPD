@@ -53,7 +53,8 @@ public class FicheroResiForm   extends GenericForm {
 	private String excluirSecuenciasGuide="SI";
 	
 	private int oidDivisionResidenciaFiltro =  0;
-	
+    private int oidProceso;
+
 	private String idProcesoComparacion;
 	
 	private String gtVm = "";  //gtVm
@@ -277,6 +278,7 @@ public class FicheroResiForm   extends GenericForm {
 	private String fechaDesemblistaSPD;
 	private String usuarioProduccionSPD;
 	private String fechaProduccionSPD;
+	private String medicoResponsable;
 	  
 	private InfoAlertasBean infoAlertas=null;
 	
@@ -302,6 +304,15 @@ public class FicheroResiForm   extends GenericForm {
 	public String getSeleccionResiApellidosNombre() {		return seleccionResiApellidosNombre;	}
 	public void setSeleccionResiApellidosNombre(String seleccionResiApellidosNombre) {		this.seleccionResiApellidosNombre = seleccionResiApellidosNombre;	}
 	public List<String> getListaResiApellidosNombre() {		return listaResiApellidosNombre;	}
+
+	
+	public int getOidProceso() {
+		return oidProceso;
+	}
+
+	public void setOidProceso(int oidProceso) {
+		this.oidProceso = oidProceso;
+	}
 
 	public void setListaResiApellidosNombre(List<String> listaResiApellidosNombre) {
 		this.listaResiApellidosNombre = listaResiApellidosNombre;
@@ -1719,6 +1730,14 @@ public class FicheroResiForm   extends GenericForm {
 
 	public void setNumeroCreacionFicheroXML(int numeroCreacionFicheroXML) {
 		this.numeroCreacionFicheroXML = numeroCreacionFicheroXML;
+	}
+
+	public String getMedicoResponsable() {
+		return medicoResponsable;
+	}
+
+	public void setMedicoResponsable(String medicoResponsable) {
+		this.medicoResponsable = medicoResponsable;
 	}
 
 

@@ -258,6 +258,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 		private String fechaDesemblistaSPD;
 		private String usuarioProduccionSPD;
 		private String fechaProduccionSPD;
+		private String medicoResponsable;
 		private int numeroCreacionFicheroXML;
 		
 		public FicheroResiBean clone() {
@@ -791,6 +792,14 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 
 	public void setResiEmblistable(String resiEmblistable) {
 		this.resiEmblistable = resiEmblistable;
+	}
+
+	public String getMedicoResponsable() {
+		return medicoResponsable;
+	}
+
+	public void setMedicoResponsable(String medicoResponsable) {
+		this.medicoResponsable = medicoResponsable;
 	}
 
 	

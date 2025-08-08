@@ -315,6 +315,7 @@ public class FicheroResiCabeceraDAO {
 				 c.setFechaDesde(resultSet.getString("fechaDesde"));
 				 c.setFechaHasta(resultSet.getString("fechaHasta"));
 				 
+				 c.setMedicoResponsable(resultSet.getString("medicoResponsable"));
 				 c.setUsuarioEntregaSPD(resultSet.getString("usuarioEntregaSPD"));
 				 c.setFechaEntregaSPD(resultSet.getString("fechaEntregaSPD"));
 				 c.setUsuarioRecogidaSPD(resultSet.getString("usuarioRecogidaSPD"));
@@ -578,6 +579,8 @@ public class FicheroResiCabeceraDAO {
 		  	    qry+= "  usuarioProduccionSPD = '"+ f.getUsuarioProduccionSPD() + "', ";
 	  	  //if(f.getFechaProduccionSPD()!=null && !f.getFechaProduccionSPD().equals(""))
 		  	    qry+= "  fechaProduccionSPD = '"+ f.getFechaProduccionSPD() + "', ";
+		 //if(f.getMedicoResponsable()!=null && !f.getMedicoResponsable().equals(""))
+		  	    qry+= "  medicoResponsable = '"+ f.getMedicoResponsable() + "', ";
 
 
 	  	    qry+= "  free2 = '"+ f.getFree2() + "', ";
@@ -808,7 +811,7 @@ public class FicheroResiCabeceraDAO {
 		  	qry+= " SELECT getDate(), oidFicheroResiCabecera, fechaCreacion, idDivisionResidencia, idProceso, resultLog, filasTotales, ";
 		  	qry+= " nombreFicheroResi, nombreFicheroXML, fechaCreacionFicheroXML, fechaValidacionDatos, usuarioValidacion, idEstado, cipsFicheroXML, numErrores, errores, free1, free2, free3, ";
 		  	qry+= " usuarioCreacion, fechaCalculoPrevision, cipsActivosSPD, porcentajeCIPS, fechaDesde, fechaHasta, nuevaFechaDesde, nuevaFechaHasta, nuevaTomaDesde, nuevaTomaHasta, ";
-		  	qry+= " usuarioEntregaSPD, fechaEntregaSPD, usuarioRecogidaSPD, fechaRecogidaSPD, usuarioDesemblistaSPD, fechaDesemblistaSPD, usuarioProduccionSPD, fechaProduccionSPD, ";
+		  	qry+= " usuarioEntregaSPD, fechaEntregaSPD, usuarioRecogidaSPD, fechaRecogidaSPD, usuarioDesemblistaSPD, fechaDesemblistaSPD, usuarioProduccionSPD, fechaProduccionSPD, medicoResponsable, ";
 		  	qry+= " nombreProduccionRobot, numeroCreacionFicheroXML ";
 
 		  	qry+= " FROM "+TABLA_ACTIVA+" ";

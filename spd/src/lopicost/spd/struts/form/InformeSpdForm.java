@@ -6,7 +6,7 @@ import java.util.List;
 import lopicost.spd.robot.bean.rd.ProduccionPaciente;
 import lopicost.spd.struts.bean.FicheroResiBean;
 
-public class InformeProdSpdForm extends GenericForm
+public class InformeSpdForm extends GenericForm
 {
 	List<ProduccionPaciente> producciones = new ArrayList<ProduccionPaciente>();
 	FicheroResiBean cabecera =null;

@@ -21,6 +21,7 @@ import lopicost.spd.persistence.DivisionResidenciaDAO;
 import lopicost.spd.persistence.GestSustitucionesLiteDAO;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.form.GestSustitucionesLiteForm;
+import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
 public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 
@@ -86,6 +87,8 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 			f.setListaTiposAccion(GestSustitucionesLiteDAO.getListaTiposAccion());
 			f.setListaDivisionResidencia(DivisionResidenciaDAO.getListaDivisionResidencias(getIdUsuario()));
 			f.setIdDivisionResidencia(dr!=null?dr.getIdDivisionResidencia():"0");
+			System.out.println(HelperSPD.dameFechaHora() + " nuevo --> ACTIONTODO " + f.getACTIONTODO());		
+
 			List errors = new ArrayList();
 			boolean result=false;
 			System.out.println("formulari.getACTIONTODO() main "  +f.getACTIONTODO());
@@ -105,6 +108,8 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 				sustitucionLite.setExcepciones("");
 				sustitucionLite.setAux1("");
 				sustitucionLite.setAux2("");
+				System.out.println(HelperSPD.dameFechaHora() + " nuevo --> NUEVO_EXPRESS f.getFiltroCn() - f.getResiCn()  " + f.getFiltroCn() +" - " + f.getResiCn());		
+				System.out.println(HelperSPD.dameFechaHora() + " nuevo --> NUEVO_EXPRESS f.getFiltroMedicamentoResi()  " + f.getFiltroMedicamentoResi());		
 
 				//sustituciones sugeridas de otras resis
 				//f.setListaSustituciones(dao.getSustitucionesListadoLite( getIdUsuario(), -1, -1, f.getResiCn(), f.getFiltroGtVm(), f.getFiltroGtVmp(), f.getCampoGoogle(), 1, 20, false));
@@ -125,6 +130,8 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 				sustitucionLite.setExcepciones("");
 				sustitucionLite.setAux1("");
 				sustitucionLite.setAux2("");
+				System.out.println(HelperSPD.dameFechaHora() + " nuevo --> NUEVO f.getFiltroCn() - f.getResiCn()  " + f.getFiltroCn() +" - " + f.getResiCn());		
+				System.out.println(HelperSPD.dameFechaHora() + " nuevo --> NUEVO f.getFiltroMedicamentoResi()  " + f.getFiltroMedicamentoResi());		
 
 				//sustituciones sugeridas de otras resis
 				//f.setListaSustituciones(dao.getSustitucionesListadoLite( getIdUsuario(), -1, -1, f.getResiCn(), f.getFiltroGtVm(), f.getFiltroGtVmp(), f.getCampoGoogle(), 1, 20, false));
@@ -136,6 +143,8 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 			else if(f.getACTIONTODO()!=null && f.getACTIONTODO().equals("NUEVO_OK"))
 			{
 				boolean sustCreada =GestSustitucionesLiteDAO.nuevoSustLite(f);
+				System.out.println(HelperSPD.dameFechaHora() + " nuevo --> NUEVO_OK - sustCreada" + sustCreada);		
+
 				if(sustCreada)
 				{
 					errors.add( "Registro creado correctamente ");
@@ -160,18 +169,22 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 			return mapping.findForward("nuevo");
 	}
 	
-	public ActionForward editar(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ActionForward editar(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		GestSustitucionesLiteForm f =  (GestSustitucionesLiteForm) form;
 		GestSustitucionesLite sustitucionLite = GestSustitucionesLiteDAO.getSustitucionLiteByOid(getIdUsuario(), f);
 		// INICIO Creación automática de la sustitución
+		System.out.println(HelperSPD.dameFechaHora() + " editar --> ACTIONTODO " + f.getACTIONTODO());		
+		System.out.println(HelperSPD.dameFechaHora() + " editar --> INICIO Creación automática de la sustitución ??" + sustitucionLite!=null?" SI":"NO");		
 		if(sustitucionLite==null)
 		{
+			System.out.println(HelperSPD.dameFechaHora() + " editar --> INICIO Creación automática de la sustitución ");		
+			System.out.println(HelperSPD.dameFechaHora() + " editar --> crearNuevaaPartirFichero " + request.getParameter("oidFicheroResiDetalle"));		
+
 			sustitucionLite = crearNuevaaPartirFichero(request.getParameter("oidFicheroResiDetalle"));
 
 		}
 		String logAntes = sustitucionLite.getSpdCn() + " " + sustitucionLite.getResiMedicamento() + "  " + sustitucionLite.getSpdCn() + "  " + sustitucionLite.getSpdNombreBolsa() + "  " + sustitucionLite.getSpdFormaMedicacion()+ "  " + sustitucionLite.getSpdAccionBolsa() +" ";
+		System.out.println(HelperSPD.dameFechaHora() + " editar --> logAntes " + logAntes);		
 
 		//FIN Creación automática de la sustitución
 		f.setListaTiposAccion(GestSustitucionesLiteDAO.getListaTiposAccion());
@@ -185,7 +198,9 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 			if(f.getSpdCn()!=null && !f.getSpdCn().equals("")) 
 			{
 				BdConsejo bdc = BdConsejoDAO.getBdConsejobyCN(f.getSpdCn());
-				
+				System.out.println(HelperSPD.dameFechaHora() + " editar --> f.getSpdCn(): " +f.getSpdCn() );		
+				System.out.println(HelperSPD.dameFechaHora() + " editar --> BdConsejo.getBdConsejobyCN: " +bdc!=null?bdc.getCnConsejo():"_" );
+			
 				sustitucionLite.setSpdCn(f.getSpdCn());
 				if(bdc!=null){
 					sustitucionLite.setSpdFormaMedicacion(bdc.getNombreFormaFarmaceutica());
@@ -197,6 +212,8 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 		    sustitucionLite.setExcepciones(f.getExcepciones());
 			sustitucionLite.setAux1(f.getAux1());
 			sustitucionLite.setAux2(f.getAux2());
+			System.out.println(HelperSPD.dameFechaHora() + " editar --> sustitucionLite: "  + sustitucionLite.getSpdCn() + " - "+sustitucionLite.getSpdNombreBolsa() + " " );
+
 			result=GestSustitucionesLiteDAO.editaSustLite(getIdUsuario(), sustitucionLite);
 			
 			if(result)
@@ -286,7 +303,8 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 			throws Exception {
 		GestSustitucionesLiteForm f =  (GestSustitucionesLiteForm) form;
 		GestSustitucionesLite sustitucionLite = GestSustitucionesLiteDAO.getSustitucionLiteByCN(getIdUsuario(), f);
-		
+		System.out.println(HelperSPD.dameFechaHora() + " editarExpres --> ACTIONTODO: " +f.getACTIONTODO()!=null?f.getACTIONTODO():"_" );		
+
 		if(sustitucionLite ==null) 
 		{
 			f.setACTIONTODO("NUEVO_EXPRESS");
@@ -303,7 +321,9 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 			if(f.getSpdCn()!=null && !f.getSpdCn().equals("")) 
 			{
 				BdConsejo bdc = BdConsejoDAO.getBdConsejobyCN(f.getSpdCn());
-				
+				System.out.println(HelperSPD.dameFechaHora() + " editarExpres --> f.getSpdCn(): " +f.getSpdCn() );		
+				System.out.println(HelperSPD.dameFechaHora() + " editarExpres --> BdConsejo.getBdConsejobyCN: " +bdc!=null?bdc.getCnConsejo():"_" );
+
 				sustitucionLite.setSpdCn(f.getSpdCn());
 				if(bdc!=null){
 					sustitucionLite.setSpdFormaMedicacion(bdc.getNombreFormaFarmaceutica());
@@ -315,6 +335,8 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 		    sustitucionLite.setExcepciones(f.getExcepciones());
 			sustitucionLite.setAux1(f.getAux1());
 			sustitucionLite.setAux2(f.getAux2());
+			System.out.println(HelperSPD.dameFechaHora() + " editarExpres --> sustitucionLite: "  + sustitucionLite.getSpdCn() + " - "+sustitucionLite.getSpdNombreBolsa() + " " );
+
 			result=GestSustitucionesLiteDAO.editaSustLite(getIdUsuario(), sustitucionLite);
 			
 			if(result)
@@ -324,7 +346,7 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 				f.setSustitucionLite(null);
 				//INICIO creación de log en BBDD
 				try{
-					SpdLogAPI.addLog(getIdUsuario(), "",  sustitucionLite.getIdDivisionResidencia(), f.getIdProceso(), SpdLogAPI.A_SUSTITUCION, SpdLogAPI.B_CREACION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.sustitucion.creacion.express", 
+					SpdLogAPI.addLog(getIdUsuario(), "",  sustitucionLite.getIdDivisionResidencia(), f.getIdProceso(), SpdLogAPI.A_SUSTITUCION, SpdLogAPI.B_EDICIONEXPRESS, SpdLogAPI.C_DATOSGENERALES, "SpdLog.sustitucion.creacion.express", 
 							new String[]{new String().valueOf(sustitucionLite.getOidGestSustitucionesLite()), 
 								" | "+sustitucionLite.getResiCn()+" "+ sustitucionLite.getResiMedicamento() + " | ", 
 								" | "+ sustitucionLite.getSpdCn() +" "+ sustitucionLite.getSpdNombreBolsa() +" "+ sustitucionLite.getSpdNombreBolsa() +" "+ sustitucionLite.getSpdAccionBolsa() + " | "

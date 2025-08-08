@@ -3966,7 +3966,8 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 
 
 		public static String dameFechaHora() {
-			return LocalDateTime.now().format(SPDConstants.FORMAT_DATETIME_24h);
+			 String result = LocalDateTime.now().format(SPDConstants.FORMAT_DATETIME_24h);
+			 return result;
 		}
 
 	    

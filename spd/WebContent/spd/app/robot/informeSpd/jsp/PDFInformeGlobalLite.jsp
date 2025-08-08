@@ -74,16 +74,17 @@
 	}
 </style>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Informe global producción</title>
+  <title>Informe global producción - PDFInformeGlobalLite</title>
   <jsp:include page="/spd/jsp/global/headPDF.jsp"/>
 </head>
 <body>
 
-<html:form action="/InformeProdSpd.do" method="post">
-<bean:define id="formulari" name="InformeProdSpdForm" type="lopicost.spd.struts.form.InformeProdSpdForm" />
+<html:form action="/InformeSpd.do" method="post">
+<bean:define id="formulari" name="InformeSpdForm" type="lopicost.spd.struts.form.InformeSpdForm" />
 <bean:define id="cab" name="formulari"  property="cabecera" type="lopicost.spd.struts.bean.FicheroResiBean" />
 
 <fieldset style="width: 50%;">     
+<div>PDFInformeGlobalLite</div>
 	<div>
 		<label for="fechaRecogidaSPD" accesskey="e">Nombre de la residencia:</label><bean:write name="cab" property="nombreDivisionResidencia" />
 	</div>
@@ -109,10 +110,12 @@
         <bean:define id="dias" name="data" property="diasProduccion" />
         <bean:define id="diasSPD" name="data" property="diasSPD" />
         <bean:define id="pac" name="data" property="paciente" />
-     		CIP:<bean:write name="pac" property="CIP" />
-   			<br/>
-   			Código numérico interno:<bean:write name="data" property="orderNumber" />
-			<br/><br/>
+			<h4>Residente:<bean:write name="pac" property="nombre" /> <bean:write name="pac" property="apellidos" />  <bean:write name="pac" property="CIP" /></h4>
+			<h4>Código numérico interno:<bean:write name="data" property="orderNumber" /></h4>
+			<h4>Fechas SPD: <bean:write name="cab" property="fechaDesde" /> - <bean:write name="cab" property="fechaHasta" /></h4>
+			<h4>Médico responsable:<bean:write name="cab" property="medicoResponsable" /></h4>
+			<h4>Farmacia Bertran39 - Barcelona. Ldo Marco A. González</h4>
+
 
         <table border="1" >
         

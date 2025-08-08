@@ -120,7 +120,7 @@ public class AvisosDAO extends GenericDAO{
 		  		qry+= " ) VALUES ( ";
 	  	   		//qry+= " '"+new Date(aviso.getFechaInicioDate().getTime())+"', '"+new Date(aviso.getFechaFinDate().getTime())+"', '"+aviso.getTexto()+"', ";
 	  	   		qry+= " CONVERT(DATETIME, '"+aviso.getFechaInicio()+"', 103),  CONVERT(DATETIME, '"+aviso.getFechaFin()+"', 103), '"+aviso.getTexto()+"', ";
-	  	   		qry+= " '"+aviso.getActivo()+"', '"+aviso.getIdFarmacia()+"', '"+idUser+"', '"+aviso.getOrden()+"', '"+aviso.getTipo()+"'";
+	  	   		qry+= " '"+aviso.getActivo()+"', '"+aviso.getIdFarmacia()+"', '"+idUser+"', '"+aviso.getOrden()+"', '"+aviso.getTipo()+"', ";
 	  	   		qry+= " '"+idUser+"', GETDATE() ";
 		  		qry+= " )  ";
                 

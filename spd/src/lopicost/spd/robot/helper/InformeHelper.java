@@ -7,13 +7,14 @@ import java.util.TreeMap;
 
 import lopicost.spd.model.BdConsejo;
 import lopicost.spd.persistence.BdConsejoDAO;
-import lopicost.spd.persistence.InformeProdSpdDAO;
+import lopicost.spd.persistence.InformeSpdDAO;
 import lopicost.spd.persistence.PacienteDAO;
 import lopicost.spd.robot.bean.rd.BolsaSPD;
 import lopicost.spd.robot.bean.rd.DiaSPD;
 import lopicost.spd.robot.bean.rd.DiaTomas;
+import lopicost.spd.robot.bean.rd.Identificacion;
 import lopicost.spd.robot.bean.rd.LineaBolsaSPD;
-import lopicost.spd.robot.bean.rd.MedicamentoDispensado;
+import lopicost.spd.robot.bean.rd.MedicamentoReceta;
 import lopicost.spd.robot.bean.rd.MedicamentoPaciente;
 import lopicost.spd.robot.bean.rd.ProduccionPaciente;
 import lopicost.spd.robot.bean.rd.Toma;
@@ -21,17 +22,18 @@ import lopicost.spd.robot.bean.rd.TratamientoPaciente;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.bean.PacienteBean;
 import lopicost.spd.utils.DateUtilities;
+import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
 
 /**
  *Logica de negocio 
  */
-public class InformeProdHelper {
+public class InformeHelper {
 
 
-	private final String cLOGGERHEADER = "InformeProdHelper: ";
-	private final String cLOGGERHEADER_ERROR = cLOGGERHEADER + "ERROR: InformeProdHelper: ";
-	InformeProdSpdDAO dao =  new InformeProdSpdDAO();
+	private final String cLOGGERHEADER = "InformeHelper: ";
+	private final String cLOGGERHEADER_ERROR = cLOGGERHEADER + "ERROR: InformeHelper: ";
+	InformeSpdDAO dao =  new InformeSpdDAO();
 	
 	public PacienteBean creaPaciente(String CIP) throws Exception {
 		PacienteBean paciente =PacienteDAO.getPacientePorCIP(CIP);
@@ -39,16 +41,18 @@ public class InformeProdHelper {
 		{
 			paciente=new PacienteBean();
 			paciente.setCIP(CIP);
+			paciente.setNombre(paciente.getNombre());
+			paciente.setApellidos(paciente.getApellidos());
 		}
 
 		return paciente;
-		
 	}
 
-
-	public TratamientoPaciente creaTratamientoPaciente(ResultSet rs) throws SQLException, ClassNotFoundException {
+	public TratamientoPaciente creaTratamientoPaciente(ResultSet rs, boolean mezclar) throws SQLException, ClassNotFoundException {
 		TratamientoPaciente tto = new TratamientoPaciente();
 		tto.setMedicamentoPaciente(creaMedicamentoPaciente(rs));
+		if(mezclar) //Marco - 20250806 - Necesita que aparezca la info de receta en la dispensación (TEMPORALMENTE)
+			tto.setMedicamentoReceta(InformeSpdDAO.buscarUltimaDispensacionReceta(rs.getString("CIP"), rs.getString("NomGtVmp")));
 		tto.setCantidadUtilizadaSPD(rs.getDouble("cantidad"));
 		tto.setPautaResidencia(rs.getString("pautaResidencia"));
 		tto.setEmblistar(rs.getString("dispensar")!=null&&rs.getString("dispensar").equalsIgnoreCase("S"));
@@ -57,12 +61,14 @@ public class InformeProdHelper {
 	}
 
 
+
 	public MedicamentoPaciente creaMedicamentoPaciente(ResultSet rs) throws SQLException, ClassNotFoundException {
 		MedicamentoPaciente medic = new MedicamentoPaciente();
 		medic.setCn(rs.getString("cn"));
 		medic.setNombreMedicamentoBolsa(rs.getString("nombreMedicamento"));
 		medic.setLote(rs.getString("lote"));
 		medic.setCaducidad(rs.getString("caducidad"));
+		medic.setNumeroSerie(rs.getString("numeroSerie"));
 		medic.setCodigoMedicamentoRobot(rs.getString("codigoMedicamentoRobot"));
 		//BdConsejo bdConsejo = BdConsejoDAO.getByCN(rs.getString("cn"));
 		//medic.setNombreMedicamentoConsejo(bdConsejo!=null?bdConsejo.getNombreConsejo():"");
@@ -72,11 +78,27 @@ public class InformeProdHelper {
 		medic.setFechaDesemblistado(rs.getString("diaDesemblistado"));
 		medic.setPautaResidencia(rs.getString("pautaResidencia"));
 		medic.setFormaFarmaceutica("");
+		medic.setIdentificacion(creaIdentificacion(rs));
+		
 		return medic;
 	}
 
-	public MedicamentoDispensado creaMedicamentoDispensado(ResultSet rs) throws SQLException, ClassNotFoundException {
-		MedicamentoDispensado medic = new MedicamentoDispensado();
+	public Identificacion creaIdentificacion(ResultSet rs) throws SQLException {
+		Identificacion ident = new Identificacion();
+		ident.setForma(rs.getString("forma"));
+		ident.setColor1(rs.getString("color1"));
+		ident.setColor2(rs.getString("color2"));
+		ident.setInscripcionA(rs.getString("inscripcionA"));
+		ident.setInscripcionB(rs.getString("inscripcionB"));
+		ident.setRanura(rs.getString("ranura"));
+		ident.setDibujo(rs.getString("dibujo"));
+		ident.setAncho(rs.getString("ancho"));
+		ident.setLargo(rs.getString("largo"));
+		return ident;
+	}
+
+	public MedicamentoReceta creaMedicamentoReceta(ResultSet rs) throws SQLException, ClassNotFoundException {
+		MedicamentoReceta medic = new MedicamentoReceta();
 		medic.setCn(rs.getString("codigoDispensado"));
 		BdConsejo bdConsejo = BdConsejoDAO.getByCN(rs.getString("codigoDispensado"));
 		medic.setNombreMedicamentoConsejo(bdConsejo!=null?bdConsejo.getNombreConsejo():"");
@@ -86,6 +108,8 @@ public class InformeProdHelper {
 		medic.setLote(rs.getString("lote"));
 		medic.setCaducidad(rs.getString("caducidad"));
 		medic.setNumSerie(rs.getString("numeroSerie"));
+	//	if(mezclar) Se realiza en el DAO 
+	//		medic.setIdentificacion(dao.buscarIdentificacion(rs.getString("codigoDispensado")));
 		return medic;
 	}
 
@@ -174,9 +198,9 @@ public class InformeProdHelper {
 	}
 
 
-	public List<ProduccionPaciente> findByIdResidenciaCarga(String spdUsuario, FicheroResiBean cab) throws Exception {
-		//return InformeProdSpdDAO.findByIdResidenciaCarga(spdUsuario, cab);
-		return InformeProdSpdDAO.findLiteByResidenciaCarga(spdUsuario, cab);
+	public List<ProduccionPaciente> findByIdResidenciaCarga(String spdUsuario, FicheroResiBean cab, boolean recetas, boolean prevaleceReceta) throws Exception {
+		//return InformeSpdDAO.findByIdResidenciaCarga(spdUsuario, cab);
+		return InformeSpdDAO.findLiteByResidenciaCarga(spdUsuario, cab, recetas, prevaleceReceta);
 		
 		
 	}
@@ -207,12 +231,25 @@ public class InformeProdHelper {
 		TreeMap<String, DiaSPD> tm_DiasSPD =new TreeMap<String, DiaSPD>();
 		String inicio = cab.getNuevaFechaDesde()!=null?cab.getNuevaFechaDesde():cab.getFechaDesde();
 		String fin = cab.getNuevaFechaHasta()!=null?cab.getNuevaFechaHasta():cab.getFechaHasta();
+		
 		int diasProduccion = DateUtilities.diasEntreFechas(cab.getFechaDesde(), cab.getFechaHasta(), SPDConstants.FORMATO_FECHA_DEFAULT);
+		//System.out.println(HelperSPD.dameFechaHora() + " crearTreemapDiasSPD --> diasProduccion " + diasProduccion);	
+		/*System.out.println(HelperSPD.dameFechaHora() + " crearTreemapDiasSPD --> getFechaDesde " + cab.getFechaDesde());		
+		System.out.println(HelperSPD.dameFechaHora() + " crearTreemapDiasSPD --> getFechaHasta " + cab.getFechaHasta());		
+		System.out.println(HelperSPD.dameFechaHora() + " crearTreemapDiasSPD --> getNuevaFechaDesde " + cab.getNuevaFechaDesde());		
+		System.out.println(HelperSPD.dameFechaHora() + " crearTreemapDiasSPD --> getNuevaFechaHasta " + cab.getNuevaFechaHasta());		
+
+		System.out.println(HelperSPD.dameFechaHora() + " crearTreemapDiasSPD --> inicio " + inicio);		
+		System.out.println(HelperSPD.dameFechaHora() + " crearTreemapDiasSPD --> fin " + fin);		
+		System.out.println(HelperSPD.dameFechaHora() + " crearTreemapDiasSPD --> diasProduccion " + diasProduccion);	
+		*/
 		for(int z=0; z<diasProduccion+1; z++)
 		{
 			String fecha= DateUtilities.desplazarFecha(inicio, z, SPDConstants.FORMATO_FECHA_DEFAULT, SPDConstants.FORMATO_FECHA_DEFAULT);
 			tm_DiasSPD.put(keyCIP + "_" + z , creaDiaSPDBasico(fecha, z));
 		}
+		//System.out.println(HelperSPD.dameFechaHora() + " crearTreemapDiasSPD --> tm_DiasSPD.size " + tm_DiasSPD.size());		
+	
 		return tm_DiasSPD;
 	}
 

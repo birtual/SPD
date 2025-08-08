@@ -15,6 +15,7 @@ import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.bean.TiposAccionBean;
 import lopicost.spd.struts.form.GestSustitucionesLiteForm;
 import lopicost.spd.utils.DataUtil;
+import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
 import lopicost.spd.utils.StringUtil;
  
@@ -226,7 +227,7 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 		       		qry+= "'"+ f.getAux1()+"', ";
 		       		qry+= "'"+ f.getAux2()+"' ";
 		       		qry+= " )";
-		       		System.out.println("nuevo -->" +qry );		
+		       		System.out.println("nuevoSustLite f -->" +qry );		
 		    try {
 		         PreparedStatement pstat = con.prepareStatement(qry);
 		         result=pstat.executeUpdate();
@@ -258,7 +259,7 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 		       		qry+= "'"+ lite.getAux1()+"', ";
 		       		qry+= "'"+ lite.getAux2()+"' ";
 		       		qry+= " )";
-		       		System.out.println("nuevo -->" +qry );		
+		       		System.out.println("nuevoSustLite lite -->" +qry );		
 		    try {
 		         PreparedStatement pstat = con.prepareStatement(qry);
 		         result=pstat.executeUpdate();
@@ -553,9 +554,6 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
   			where+=  " ) ";
   		}
 		
-		
-		
-		
 		if(filtroGtvm!=null && !filtroGtvm.equals(""))
 			where+=" and bc.Codgtvm='"+filtroGtvm+"'  ";
 		if(filtroGtvmp!=null && !filtroGtvmp.equals(""))
@@ -569,8 +567,7 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 			where+=" 		 s.excepciones like '%"+campoGoogle+"%'  OR ";
 			where+=" 		 s.aux1 like '%"+campoGoogle+"%'  OR ";
 			where+=" 		 s.aux2 like '%"+campoGoogle+"%'  ";
-			where+=" 		 ) ";
-			
+			where+=" ) ";
 		}
 			
 			
@@ -587,8 +584,7 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
     	
     	
 		String qry = select + from + where + order + getOtrosSql2008(inicio, inicio+SPDConstants.PAGE_ROWS, count);
-	
-		 System.out.println("getQuerySustitucionesLite -->" +qry );		
+		System.out.println(HelperSPD.dameFechaHora() + " getQuerySustitucionesLite -->" +qry );		
 
 			return qry;
 				

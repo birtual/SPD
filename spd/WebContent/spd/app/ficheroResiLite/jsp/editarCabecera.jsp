@@ -287,6 +287,7 @@
 		<div style="color: blue;">
 			Campos opcionales, en caso de rellenarse y grabar, aparecerán en el informe
 		</div>
+
 		<div>
 		    <label for="medicoResponsable">Médico responsable</label>
 		    <html:text name="data" property="medicoResponsable"  />

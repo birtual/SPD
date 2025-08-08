@@ -54,6 +54,25 @@ public class PlantillaUnificadaHelper {
 		return XMLRobotDao.borraProceso(idUsuario,  cab);
 	}
 */	
+	public static boolean bloqueaProcesoResidencia(String idUsuario, FicheroResiBean cab) throws ClassNotFoundException, SQLException {
+		//limpiamos procesos colgados de más de 30 minutos
+		XMLRobotDao.limpiarBloqueosAntiguos(idUsuario);
+		//comprobamos que existe registro
+		if(!XMLRobotDao.existeRegitroBloqueo(idUsuario,  cab, false))
+			XMLRobotDao.crearRegistroBloqueo(idUsuario,  cab);  //creamos
+		return XMLRobotDao.bloqueaProcesoResidencia(idUsuario,  cab); //bloqueo
+	}
+	
+	public static String consultaFechaProcesoBloqueado(String idUsuario, FicheroResiBean cab) throws SQLException {
+		return XMLRobotDao.consultaFechaProcesoBloqueado(idUsuario,  cab);
+	}
+	
+	public static boolean desBloqueaProcesoResidencia(String idUsuario, FicheroResiBean cab) throws ClassNotFoundException, SQLException {
+		return XMLRobotDao.desBloqueaProcesoResidencia(idUsuario,  cab);
+	}
+
+	
+
 	public static boolean borraProcesosResidencia(String idUsuario, FicheroResiBean cab, PacienteBean pac) throws SQLException, ParseException, ClassNotFoundException {
 		return XMLRobotDao.borraProcesosResidencia(idUsuario,  cab, pac);
 	}
@@ -66,6 +85,21 @@ public class PlantillaUnificadaHelper {
 	public static List<DetallesTomasBean> getDetalleTomasRobot(String idUsuario, FicheroResiBean cabDetalle, TomasOrdenadas tomasGlobal, PacienteBean pac) throws Exception {
 		return XMLRobotDao.getDetalleTomasRobot(idUsuario,  cabDetalle, tomasGlobal, pac);
 	}
+	
+	//Paso5
+	public static boolean procesarExcepciones(String idUsuario, FicheroResiBean cabGlobal, FicheroResiBean cabDetalle) throws Exception {
+		 return  XMLRobotDao.procesarExcepciones(idUsuario,  cabGlobal, cabDetalle);
+    }
+	
+	//Paso7  NO FIABLE porque al eliminar se juntan datos de los procesos concurrentes, con lineasRX iguales
+	/*
+	 * public static boolean eliminarDuplicadosRX(String idUsuario, FicheroResiBean cab) throws Exception {
+	 
+		return XMLRobotDao.eliminarDuplicadorRX(idUsuario, cab);
+		
+	}
+	*/
+	
 	
 	//Paso4
 	//public static boolean procesarDetalleTomasRobotInsertUnoAUno(String idUsuario, FicheroResiBean cab, DetallesTomasBean  detalleTomas, TomasOrdenadas tomasGlobal) throws SQLException, ClassNotFoundException, ParseException {
@@ -185,11 +219,7 @@ public class PlantillaUnificadaHelper {
  		
 	}
 	
-	//Paso5
-	public static boolean procesarExcepciones(String idUsuario, FicheroResiBean cabGlobal, FicheroResiBean cabDetalle) throws Exception {
-		 return  XMLRobotDao.procesarExcepciones(idUsuario,  cabGlobal, cabDetalle);
-    }
-	
+
 	
 	
 
@@ -649,7 +679,11 @@ public class PlantillaUnificadaHelper {
 
 	    return cadena;
 	}
-	
+
+
+
+
+
 }
 
 

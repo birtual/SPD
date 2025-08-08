@@ -121,7 +121,8 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 
 	    FicheroResiBean cab = FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(getIdUsuario(), formulari.getOidFicheroResiCabecera());
 		formulari.setFicheroResiDetalleBean(cab);
-		
+
+
 		String fechaDesde=cab.getFechaDesde();
 		if(fechaDesde==null || fechaDesde.equals("") || fechaDesde.equalsIgnoreCase("null"))
 			fechaDesde = DateUtilities.getDate(HelperSPD.obtenerFechaDesde(cab.getIdProceso()), "yyyyMMdd", "dd/MM/yyyy");  
@@ -555,6 +556,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 
 
 	public ActionForward generarFicherosDMyRX(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
 		FicheroResiForm formulari =  (FicheroResiForm) form;
 		
 		FicheroResiBean cab = dao.getCabeceraByFilters(getIdUsuario(), formulari, 0, 1, null, false);
@@ -565,7 +567,17 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		PacienteBean pac = null;
 		if(formulari.getOidPaciente()!=null && !formulari.getOidPaciente().equals(""))
 			pac=PacientesHelper.getPacientePorOID(getIdUsuario(), formulari.getOidPaciente());
-		
+		//Paso0 - Bloqueo del proceso para evitar concurrencia del mismo idProceso.
+		//mirar si existe el registro de bloqueo
+		if(XMLRobotDao.existeRegitroBloqueo(getIdUsuario(),  cab, true))
+		//	if(!bloquearProceso)
+		{
+				String fechaInicioBloqueo = PlantillaUnificadaHelper.consultaFechaProcesoBloqueado(getIdUsuario(), cab);
+				request.setAttribute("fechaInicioBloqueo", fechaInicioBloqueo);
+				return mapping.findForward("bloqueadoRX");
+				
+		}	
+		boolean bloquearProceso = PlantillaUnificadaHelper.bloqueaProcesoResidencia(getIdUsuario(),  cab);
 		// Paso1 - Borrado previo de posibles datos del mismo proceso. en caso que sea un  solo paciente, borraría solo los datos del paciente
     	PlantillaUnificadaHelper.borraProcesosResidencia(getIdUsuario(),  cabDetalle, pac);
 			
@@ -579,7 +591,11 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
     	PlantillaUnificadaHelper.actualizaOtrosDatos(getIdUsuario(), cab,  cabDetalle);
     	// Paso6 - Procesar Excepciones (Falguera) 
     	PlantillaUnificadaHelper.procesarExcepciones(getIdUsuario(), cab,  cabDetalle);
-        // Paso7 - Creación del FiliaDM 
+    	// Paso7 - Eliminar posible duplicados en caso de procesos concurrentes
+    	//Paso7  NO FIABLE porque al eliminar se juntan datos de los procesos concurrentes, con lineasRX iguales
+    	//PlantillaUnificadaHelper.eliminarDuplicadosRX(getIdUsuario(), cab);
+    	
+    	// Paso7 - Creación del FiliaDM 
    		FiliaDM filiaDM = PlantillaUnificada.creaFicheroDM(getIdUsuario(), cabDetalle);
    		FiliaRX filiaRX = PlantillaUnificada.creaFicheroRX(getIdUsuario(), cabDetalle, div);
 
@@ -599,6 +615,8 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
    			fileRXGenerated = !filiaRX.getPatients().isEmpty();
    		}catch(Exception e){
    			fileRXGenerated=false;
+   	       boolean desBloquearProceso = PlantillaUnificadaHelper.desBloqueaProcesoResidencia(getIdUsuario(),  cab);
+   	    
    		}
    	    
    	    String path = SPDConstants.PATH_DOCUMENTOS+"/robot/";
@@ -659,8 +677,14 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			}catch(Exception e){}	//Creación del fichero Helium con nombre @@.
         }
         else 
+        {
+            boolean desBloquearProceso = PlantillaUnificadaHelper.desBloqueaProcesoResidencia(getIdUsuario(),  cab);
         	return mapping.findForward("sinDatosRX");
+            
+        }
           
+        boolean desBloquearProceso = PlantillaUnificadaHelper.desBloqueaProcesoResidencia(getIdUsuario(),  cab);
+        
    		return mapping.findForward("generarFicherosDMyRX");
 	}
 	

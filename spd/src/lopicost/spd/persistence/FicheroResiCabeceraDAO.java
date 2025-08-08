@@ -14,6 +14,7 @@ import lopicost.config.logger.Logger;
 import lopicost.config.pool.dbaccess.Conexion;
 import lopicost.spd.helper.FicheroResiCabeceraHelper;
 import lopicost.spd.model.DivisionResidencia;
+import lopicost.spd.model.Farmacia;
 import lopicost.spd.robot.helper.PlantillaUnificadaHelper;
 import lopicost.spd.security.helper.VisibilidadHelper;
 import lopicost.spd.struts.bean.CabecerasXLSBean;
@@ -44,22 +45,39 @@ public class FicheroResiCabeceraDAO {
 		
 		String tomaInicial = desdeToma!=null?desdeToma.getIdToma():"";
 		String tomaFinal = hastaToma!=null?hastaToma.getIdToma():"";
+		
+		FicheroResiBean cabAnt =  FicheroResiCabeceraDAO.getProcesoAnterior(spdUsuario, idDivisionResidencia, idProceso, false);
+		String usuarioEntregaSPD ="";
+		String usuarioRecogidaSPD ="";
+		String usuarioDesemblistaSPD ="";
+		String usuarioProduccionSPD ="";
+		String medicoResponsable ="";
+		if(cabAnt!=null)
+		{
+			usuarioEntregaSPD=cabAnt.getUsuarioEntregaSPD()!=null?cabAnt.getUsuarioEntregaSPD():"";
+			usuarioRecogidaSPD=cabAnt.getUsuarioRecogidaSPD()!=null?cabAnt.getUsuarioRecogidaSPD():"";
+			usuarioDesemblistaSPD=cabAnt.getUsuarioDesemblistaSPD()!=null?cabAnt.getUsuarioDesemblistaSPD():"";
+			usuarioProduccionSPD=cabAnt.getUsuarioProduccionSPD()!=null?cabAnt.getUsuarioProduccionSPD():"";
+			medicoResponsable=cabAnt.getMedicoResponsable()!=null?cabAnt.getMedicoResponsable():"";
+		}
+
+			
         int result=0;
 		  Connection con = Conexion.conectar();
-	  	   String qry = " INSERT INTO "+table+" ( ";
-	  	   	qry+= " fechaCreacion,  idDivisionResidencia,   ";
-	  	   	qry+= " idProceso, nombreFicheroResi, idEstado, ";
-	  	   	qry+= " free1, free2, free3, usuarioCreacion, ";
-	  	   	qry+= " fechaDesde, fechaHasta, 	";
-	  	   	qry+= " nuevaFechaDesde, nuevaFechaHasta, ";
-	  	   	qry+= " nuevaTomaDesde, nuevaTomaHasta)	";
-	  	   	qry+= " VALUES 	(";
-	       	qry+= " CONVERT(datetime, getdate(), 120),  '"+idDivisionResidencia+"'";
-	       	qry+= " , '"+	idProceso+"', '"+fileIn+"','"+SPDConstants.SPD_PROCESO_1_EN_CREACION+"'";
-			qry+= " , 'original', '' , '','"+spdUsuario+"', ";
-			qry+= " '"+fechaDesde+"', '"+fechaHasta+"', ";
-			qry+= " '"+fechaDesde+"', '"+fechaHasta+"', ";
-			qry+= " '"+ tomaInicial +"', '"+ tomaFinal+"' ) ";
+	  	   String qry = " INSERT INTO "+table+" ";
+	  	   	qry+= " ( ";	
+	  	   	qry+= " 	fechaCreacion,  idDivisionResidencia, idProceso, nombreFicheroResi, idEstado, ";
+	  	   	qry+= " 	free1, free2, free3, usuarioCreacion, fechaDesde, fechaHasta, 	";
+	  	   	qry+= " 	nuevaFechaDesde, nuevaFechaHasta, nuevaTomaDesde, nuevaTomaHasta, ";
+	  	   	qry+= " 	usuarioEntregaSPD, usuarioRecogidaSPD, usuarioDesemblistaSPD, ";
+	  	   	qry+= " 	usuarioProduccionSPD, medicoResponsable ";
+	  	   	qry+= " ) VALUES 	(";
+	       	qry+= " 	CONVERT(datetime, getdate(), 120),  '"+idDivisionResidencia+"', ";
+	       	qry+= " 	'"+	idProceso+"', '"+fileIn+"','"+SPDConstants.SPD_PROCESO_1_EN_CREACION+"', ";
+			qry+= " 	'original', '' , '','"+spdUsuario+"', '"+fechaDesde+"', '"+fechaHasta+"', ";
+			qry+= " 	'"+fechaDesde+"', '"+fechaHasta+"', '"+ tomaInicial +"', '"+ tomaFinal+"',  ";
+			qry+= " 	'"+usuarioEntregaSPD+"', '"+usuarioRecogidaSPD+"', '"+ usuarioDesemblistaSPD +"', '"+ usuarioProduccionSPD+"', '"+ medicoResponsable+"'  ";
+			qry+= "  ) ";
 
 			System.out.println(className + "--> FicheroResiCabeceraDAO.nuevo -->" +qry );		
 			
@@ -267,8 +285,10 @@ public class FicheroResiCabeceraDAO {
      return lista;
  }
 
-	  private static FicheroResiBean creaCabecera(ResultSet resultSet) throws SQLException {
-				 FicheroResiBean  c =new FicheroResiBean();
+	  private static FicheroResiBean creaCabecera(ResultSet resultSet) throws Exception {
+				 
+		  
+		  	FicheroResiBean  c =new FicheroResiBean();
 			 if (resultSet!=null) {
 				 c.setProcesoValido(true);
 				 try{
@@ -346,6 +366,17 @@ public class FicheroResiCabeceraDAO {
 				 c.setNuevaTomaDesde(resultSet.getString("nuevaTomaDesde"));
 				 c.setNuevaTomaHasta(resultSet.getString("nuevaTomaHasta"));
 			 }
+				Farmacia farmacia = FarmaciaDAO.getFarmaciaPorIdDivisionResidencia(c.getUsuarioCreacion(), c.getIdDivisionResidencia());
+				
+				try{
+					c.setResponsableFarmacia(farmacia.getContacto());
+					c.setNombreFarmacia(farmacia.getNombreFarmacia());
+				}catch(Exception e){
+					
+				}
+				
+
+				
 
 		return c;
 	}
@@ -389,6 +420,51 @@ public class FicheroResiCabeceraDAO {
 
 			 	     return result;
 			 	 }
+	
+		/**OK - 
+	   * Método que devuelve la cabecera anterior que haya tenido una carga de residentes 
+	   * @return List<FicheroResiCabeceraBean>
+	 * @throws Exception 
+	   */
+
+		public static FicheroResiBean getProcesoAnterior(String spdUsuario, String idDivisionResidencia, String procesoDiferenteA, boolean global) throws Exception {
+			   Connection con = Conexion.conectar();
+			   String table = TABLA_ACTIVA;
+			   FicheroResiBean  result = null;
+			   String qry = "SELECT top 1 * ";
+			    		qry+= " FROM "+table+" g ";
+			    		qry+= " INNER JOIN bd_divisionResidencia d ON (g.idDivisionResidencia=d.idDivisionResidencia )";
+			    		qry+= " INNER JOIN dbo.bd_residencia r ON (d.idResidencia=r.idResidencia) ";
+			    		qry+= " WHERE 1=1 ";
+			    		qry+= " AND g.idProceso<>'"+procesoDiferenteA+"' ";
+			    		qry+= " AND g.idDivisionResidencia='"+idDivisionResidencia+"' ";
+			    		qry+= " AND g.idEstado='"+SPDConstants.REGISTRO_VALIDADO+"' ";
+	
+			    if(global)	
+			    {
+		    		qry+= " AND g.cipsFicheroXML*100/g.cipsActivosSPD>75 ";
+		    		qry+= " AND g.cipsActivosSPD>0  AND g.cipsFicheroXML>0   ";
+			    }
+			 			qry+= " ORDER BY g.oidFicheroResiCabecera DESC ";
+				 			
+			 			
+			 			System.out.println(className + "--> getProcesoAnterior global -->" +global + " -  " + qry );		
+				     	ResultSet resultSet = null;
+			 	 	
+			 	    try {
+			 	         PreparedStatement pstat = con.prepareStatement(qry);
+			 	         resultSet = pstat.executeQuery();
+			 	         if (resultSet.next()) {
+			 	        	result =creaCabecera(resultSet);
+			 	            }
+			 	     } catch (SQLException e) {
+			 	         e.printStackTrace();
+			 	     }finally {con.close();}
+
+			 	     return result;
+			 	 }
+
+		
 		
 		/**OK - 
 		   * Método que devuelve la cabecera anterior que haya tenido una carga de residentes > de un % de carga según los usuarios activos de SPD 
@@ -397,36 +473,8 @@ public class FicheroResiCabeceraDAO {
 		   */
 
 			public static FicheroResiBean getProcesoGlobalAnterior(String spdUsuario, String idDivisionResidencia, String procesoDiferenteA) throws Exception {
-				   Connection con = Conexion.conectar();
-				   String table = TABLA_ACTIVA;
-				   FicheroResiBean  result = null;
-				   String qry = "SELECT *";
-				    		qry+= " FROM "+table+" ";
-				    		qry+= " WHERE 1=1 ";
-				    		qry+= " AND d.oidDivisionResidencia IN ( " + VisibilidadHelper.oidDivisionResidenciasVisibles(spdUsuario)  + ") ";
-				    		qry+= " AND idProceso<>'"+procesoDiferenteA+"' ";
-				    		qry+= " AND idDivisionResidencia='"+idDivisionResidencia+"' ";
-				    		qry+= " AND cipsActivosSPD>0 ";
-				    		qry+= " AND cipsFicheroXML>0 ";
-				    		qry+= " AND cipsFicheroXML*100/cipsActivosSPD>75 ";
-				 			qry+= " ORDER BY idProceso DESC ";
-					 			
-				 			
-				 			System.out.println(className + "--> getProcesoGlobalAnterior -->" +qry );		
-					     	ResultSet resultSet = null;
-				 	 	
-				 	    try {
-				 	         PreparedStatement pstat = con.prepareStatement(qry);
-				 	         resultSet = pstat.executeQuery();
-				 	         if (resultSet.next()) {
-				 	        	result =creaCabecera(resultSet);
-				 	            }
-				 	     } catch (SQLException e) {
-				 	         e.printStackTrace();
-				 	     }finally {con.close();}
-
-				 	     return result;
-				 	 }
+		 	     return getProcesoAnterior( spdUsuario,  idDivisionResidencia,  procesoDiferenteA, true);
+			}
 			
 			
 		/**OK - 

@@ -83,10 +83,10 @@
 			<h4>Fechas SPD: <bean:write name="cab" property="fechaDesde" /> - <bean:write name="cab" property="fechaHasta" /></h4>
 			
 		<logic:notEmpty name="cab" property="medicoResponsable">
-			<h4>Médico responsable:<bean:write name="cab" property="medicoResponsable" /></h4>
+			<h4>Médico responsable: <bean:write name="cab" property="medicoResponsable" /></h4>
 		</logic:notEmpty>	
 			
-			<h4>Farmacia Bertran39 - Barcelona. Ldo Marco A. González</h4>
+			<h4><bean:write name="cab" property="nombreFarmacia" /> - Ldo. <bean:write name="cab" property="responsableFarmacia" />
 		</fieldset>	
 		
 	<h4>Medicamentos SPD</h4>

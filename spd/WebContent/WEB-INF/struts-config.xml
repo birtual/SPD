@@ -29,7 +29,7 @@
   		<form-bean name="AvisosForm" type="lopicost.spd.struts.form.AvisosForm"/>     
   		<form-bean name="ProcesosForm" type="lopicost.spd.struts.form.ProcesosForm"/>     
   		<form-bean name="ProcesosBloqueosHorariosForm" type="lopicost.spd.struts.form.ProcesosBloqueosHorariosForm"/>     
-  		<form-bean name="InformeProdSpdForm" type="lopicost.spd.struts.form.InformeProdSpdForm"/>     
+  		<form-bean name="InformeSpdForm" type="lopicost.spd.struts.form.InformeSpdForm"/>     
     		
 
 	<!-- IOSPD Import -->
@@ -219,6 +219,7 @@
     	
     	    <forward name="generarFicherosDMyRX" path="/spd/app/robot/jsp/ficherosDMyRX.jsp" />
     	    <forward name="sinDatosRX" path="/spd/app/robot/jsp/sinDatosRX.jsp" />
+    	    <forward name="bloqueadoRX" path="/spd/app/robot/jsp/bloqueadoRX.jsp" />
     	    
 		    <forward name="checkProgress" path="/spd/app/ficheroResiLite/jsp/ficherosDMyRX.jsp" />
     	    <forward name="generarInformeSPD" path="/spd/app/ficheroResiLite/jsp/informeSPD.jsp" />
@@ -226,21 +227,28 @@
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
         </action>  
         
-        <action path="/InformeProdSpd" type="lopicost.spd.struts.action.InformeProdSpdAction" 
-        	parameter="parameter"  name="InformeProdSpdForm"         
+        <action path="/InformeSpd" type="lopicost.spd.struts.action.InformeSpdAction" 
+        	parameter="parameter"  name="InformeSpdForm"         
         	scope="request"  validate="false">
-        	<forward name="globalProd" path="/spd/app/robot/informeSpd/jsp/informeProdGlobal.jsp" />
-        	<forward name="globalProdLite" path="/spd/app/robot/informeSpd/jsp/informeProdGlobalLite.jsp" />
-        	<forward name="detalleProd" path="/spd/app/robot/informeSpd/jsp/informeProdDetalle.jsp" />
+        	<forward name="etiquetas" path="/spd/app/robot/informeSpd/jsp/generadorEtiquetas.jsp" />
+        	<forward name="etiquetasR" path="/spd/app/robot/informeSpd/jsp/generadorEtiquetasR.jsp" />
+        	<forward name="global" path="/spd/app/robot/informeSpd/jsp/informeGlobal.jsp" />
+        	<forward name="globalLite" path="/spd/app/robot/informeSpd/jsp/informeGlobalLite.jsp" />
+        	<forward name="globalLiteAll" path="/spd/app/robot/informeSpd/jsp/informeGlobalLiteAll.jsp" />
+        	<forward name="detalle" path="/spd/app/robot/informeSpd/jsp/informeDetalle.jsp" />
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
 		</action>
 
-		<action path="/ExportarInformeProdSpd"
-		        type="lopicost.spd.struts.action.ExportarInformeProdSpdAction"
-		        name="InformeProdSpdForm"
+		<action path="/ExportarInformeSpd" type="lopicost.spd.struts.action.ExportarInformeSpdAction"
+		        name="InformeSpdForm" parameter="parameter"  
 		        scope="request"
 		        validate="false">
-		        <forward name="export" path="/spd/app/robot/informeSpd/jsp/PDFInformeProdGlobal.jsp"/>
+       			<forward name="etiquetas" path="/spd/app/robot/informeSpd/jsp/PDFGeneradorEtiquetas.jsp" />
+       			<forward name="etiquetasR" path="/spd/app/robot/informeSpd/jsp/PDFGeneradorEtiquetasR.jsp" />
+ 		        <forward name="global" path="/spd/app/robot/informeSpd/jsp/PDFInformeGlobal.jsp"/>
+		        <forward name="globalLite" path="/spd/app/robot/informeSpd/jsp/PDFInformeGlobal.jsp"/>
+		        <forward name="globalLiteAll" path="/spd/app/robot/informeSpd/jsp/PDFInformeGlobal.jsp"/>
+		        <forward name="detalle" path="/spd/app/robot/informeSpd/jsp/PDFInformeGlobal.jsp"/>
 		</action>
 
 

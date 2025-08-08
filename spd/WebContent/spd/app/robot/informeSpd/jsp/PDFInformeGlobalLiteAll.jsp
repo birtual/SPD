@@ -84,23 +84,13 @@
 <bean:define id="cab" name="formulari"  property="cabecera" type="lopicost.spd.struts.bean.FicheroResiBean" />
 
 <fieldset style="width: 50%;">     
-<div>PDFInformeGlobalLiteAll</div>
 	<div>
 		<label for="fechaConsumo" accesskey="e">Fechas de consumo:</label><bean:write name="cab" property="fechaDesde" /> - <bean:write name="cab" property="fechaHasta" />
 	</div>
 	<div>
 		<label for="idProceso" accesskey="e">Id carga fichero :</label><bean:write name="cab" property="idProceso" /> 
 	</div>	
-	<logic:notEmpty name="cab" property="usuarioEntregaSPD">
-		<div>
-			<label for="fechaEntregaSPD" accesskey="e">Entrega en residencia:</label><bean:write name="cab" property="fechaEntregaSPD" /> - <bean:write name="cab" property="usuarioEntregaSPD" />
-		</div>	
-	</logic:notEmpty>
-	<logic:notEmpty name="cab" property="usuarioRecogidaSPD">
-		<div>
-			<label for="usuarioRecogidaSPD" accesskey="e">Recogida del SPD:</label><bean:write name="cab" property="fechaRecogidaSPD" /> - <bean:write name="cab" property="usuarioRecogidaSPD" />
-		</div>	
-	</logic:notEmpty>
+
 </fieldset>
 
    	<logic:empty  name="formulari" property="producciones">
@@ -112,14 +102,14 @@
         <bean:define id="diasSPD" name="data" property="diasSPD" />
         <bean:define id="pac" name="data" property="paciente" />
 	<fieldset style="width:90%">
-			<h4>Residente:<bean:write name="pac" property="nombre" /> <bean:write name="pac" property="apellidos" /> - (<bean:write name="pac" property="CIP" />)</h4>
+			<h4>Residente: <bean:write name="pac" property="nombre" /> <bean:write name="pac" property="apellidos" /> - (<bean:write name="pac" property="CIP" />)</h4>
 			<h4>Código numérico interno: <bean:write name="data" property="orderNumber" /></h4>
 			<h4>Fechas SPD: <bean:write name="cab" property="fechaDesde" /> - <bean:write name="cab" property="fechaHasta" /></h4>
 			
 			<logic:notEmpty name="cab" property="medicoResponsable">
-				<h4>Médico responsable:<bean:write name="cab" property="medicoResponsable" /></h4>
+				<h4>Médico responsable: <bean:write name="cab" property="medicoResponsable" /></h4>
 			</logic:notEmpty>	
-			<h4>Farmacia Bertran39 - Barcelona. Ldo Marco A. González</h4>
+			<h4><bean:write name="cab" property="nombreFarmacia" /> - Ldo. <bean:write name="cab" property="responsableFarmacia" /></h4>
 	
 	<h4>Producción SPD</h4>
 	<logic:notEmpty  name="data" property="ttosEmblistados">

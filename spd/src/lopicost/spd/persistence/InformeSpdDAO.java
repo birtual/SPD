@@ -291,7 +291,7 @@ public class InformeSpdDAO
                		}catch(Exception e){
                			
                		}
-            	}
+            	} 
                	//	System.out.println(HelperSPD.dameFechaHora() + " findLiteByResidenciaCarga bolsaSPD OK");	
 
             	LineaBolsaSPD linea = helper.creaLineaBolsaSPD(rs);

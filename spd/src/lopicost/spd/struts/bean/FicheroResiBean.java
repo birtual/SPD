@@ -14,7 +14,8 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	
 	
 	  //Datos de cabecera
-
+	  private String nombreFarmacia;
+	  private String responsableFarmacia;
 	  private Date fechaValidacionDatos;
 	  private Date fechaCreacionFicheroXML;
 	  private String idProcessIospd;
@@ -800,6 +801,22 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 
 	public void setMedicoResponsable(String medicoResponsable) {
 		this.medicoResponsable = medicoResponsable;
+	}
+
+	public String getNombreFarmacia() {
+		return nombreFarmacia;
+	}
+
+	public void setNombreFarmacia(String nombreFarmacia) {
+		this.nombreFarmacia = nombreFarmacia;
+	}
+
+	public String getResponsableFarmacia() {
+		return responsableFarmacia;
+	}
+
+	public void setResponsableFarmacia(String responsableFarmacia) {
+		this.responsableFarmacia = responsableFarmacia;
 	}
 
 	

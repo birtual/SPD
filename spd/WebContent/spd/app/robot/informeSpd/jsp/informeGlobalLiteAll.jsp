@@ -78,13 +78,13 @@
 
 	<fieldset style="width:90%">
 		<fieldset style="width:95%">
-			<h4>Residente:<bean:write name="pac" property="nombre" /> <bean:write name="pac" property="apellidos" /> - (<bean:write name="pac" property="CIP" />)</h4>
+			<h4>Residente: <bean:write name="pac" property="nombre" /> <bean:write name="pac" property="apellidos" /> - (<bean:write name="pac" property="CIP" />)</h4>
 			<h4>Código numérico interno: <bean:write name="data" property="orderNumber" /></h4>
 			<h4>Fechas SPD: <bean:write name="cab" property="fechaDesde" /> - <bean:write name="cab" property="fechaHasta" /></h4>
 			<logic:notEmpty name="cab" property="medicoResponsable">
 				<h4>Médico responsable: <bean:write name="cab" property="medicoResponsable" /></h4>
 			</logic:notEmpty>	
-			<h4>Farmacia Bertran39 - Barcelona. Ldo Marco A. González</h4>
+			<h4><bean:write name="cab" property="nombreFarmacia" /> - Ldo. <bean:write name="cab" property="responsableFarmacia" />
 		</fieldset>	
 	<h4>Producción SPD</h4>
 	<logic:notEmpty  name="data" property="ttosEmblistados">

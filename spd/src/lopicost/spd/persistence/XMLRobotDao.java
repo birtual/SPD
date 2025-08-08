@@ -2,9 +2,11 @@ package lopicost.spd.persistence;
 
 import java.sql.*;
 import java.text.*;
+import java.time.format.DateTimeFormatter;
 
 import lopicost.spd.model.DivisionResidencia;
 import lopicost.spd.robot.bean.DetallesTomasBean;
+import lopicost.spd.robot.bean.rd.MedicamentoReceta;
 import lopicost.spd.robot.helper.PlantillaUnificadaHelper;
 import lopicost.spd.robot.model.*;
 import lopicost.spd.struts.bean.CabecerasXLSBean;
@@ -33,12 +35,123 @@ public class XMLRobotDao
     	return ejecutarSentencia(queryBorrado1);
 	}
 */
+    /**
+     * Método para bloquear un proceso para evitar concurrencia en caso de lanzar el mismo idProceso
+     * true en caso de exito en el bloqueo, false en caso de que el proceso está bloqueado y por lo tanto no se podrá lanzar
+     * @param idUsuario
+     * @param cab
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+	public static boolean bloqueaProcesoResidencia(String idUsuario, FicheroResiBean cab) throws ClassNotFoundException, SQLException {
+		System.out.println(HelperSPD.dameFechaHora() + " Inicio bloqueo proceso " + cab.getIdProceso() );
+		
+		String 	query= " UPDATE SPD_XML_controlProcesos " ; 
+		query+= " SET enEjecucion = 1, fechaInicioEjecucion = GETDATE(), mensajeError = NULL ";
+		query+= " WHERE idProceso = '"+cab.getIdProceso()+"'  ;   "; // Solo si está distinto
+
+		return ejecutarSentencia(query);
+	}
+	
+
+	public static boolean crearRegistroBloqueo(String idUsuario, FicheroResiBean cab) throws ClassNotFoundException, SQLException {
+		System.out.println(HelperSPD.dameFechaHora() + " Inicio creación registro bloqueo " + cab.getIdProceso() );
+		
+		String 	query= " INSERT INTO SPD_XML_controlProcesos (idProceso) " ; 
+		query+= " VALUES ('"+cab.getIdProceso()+"') ";
+		return ejecutarSentencia(query);
+	}
+
+	/** en caso que queden procesos colgado de más de 30 minutos/*
+	 * @param idUsuario
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static boolean limpiarBloqueosAntiguos(String idUsuario) throws ClassNotFoundException, SQLException {
+		System.out.println(HelperSPD.dameFechaHora() + " Inicio limpiarBloqueosAntiguos proceso " );
+		
+		String 	query= " UPDATE SPD_XML_controlProcesos " ; 
+		query+= " SET enEjecucion = 0, fechaInicioEjecucion = NULL,  fechaFinEjecucion = NULL ";
+		query+= " WHERE enEjecucion = 1 AND fechaInicioEjecucion < DATEADD(HOUR, -0.5, GETDATE()) and fechaFinEjecucion = NULL ; ";
+
+		return ejecutarSentencia(query);
+	}
+	public static boolean desBloqueaProcesoResidencia(String idUsuario, FicheroResiBean cab) throws ClassNotFoundException, SQLException {
+		System.out.println(HelperSPD.dameFechaHora() + " Inicio desBloquea proceso " + cab.getIdProceso() );
+		
+		String 	query= " UPDATE SPD_XML_controlProcesos " ; 
+		query+= " SET enEjecucion = 0, fechaFinEjecucion = GETDATE(), ";
+		//query+= " ultimaEjecucionOK = CASE WHEN "+exito+" = 1 THEN GETDATE() ELSE ultimaEjecucionOK END, ";
+		query+= " fechaInicioEjecucion = GETDATE() ";
+		query+= " WHERE idProceso = '"+cab.getIdProceso()+"' AND enEjecucion = 1   ";
+
+		return ejecutarSentencia(query);
+	}
+	
+	public static boolean existeRegitroBloqueo(String idUsuario, FicheroResiBean cab, boolean bloqueado) throws SQLException {
+		System.out.println(HelperSPD.dameFechaHora() + " existeRegitroBloqueo " + cab.getIdProceso() );
+		Connection con = Conexion.conectar();
+		String 	query= " SELECT count(*) as quants FROM SPD_XML_controlProcesos " ; 
+		query+= " WHERE idProceso = '"+cab.getIdProceso()+"' ";
+		if(bloqueado)
+			query+= " AND enEjecucion = 1  ";
+		int result = 0;
+		try {
+			ResultSet resultSet = null;
+			PreparedStatement pstat = con.prepareStatement(query);
+		    resultSet = pstat.executeQuery();
+		    resultSet.next();
+		    result = resultSet.getInt("quants");
+
+		   } catch (SQLException e) {
+		       e.printStackTrace();
+		   }finally {con.close();}
+
+	        return result>0; 
+	   }
+	
+	
+	/**
+	 * Para encontrar la fecha de inicio de cara a informar en el proceso concurrente
+	 * @param idUsuario
+	 * @param cab
+	 * @return
+	 * @throws SQLException 
+	 */
+	public static String consultaFechaProcesoBloqueado(String idUsuario, FicheroResiBean cab) throws SQLException {
+		System.out.println(HelperSPD.dameFechaHora() + " consultaFechaProcesoBloqueado " + cab.getIdProceso() );
+		Connection con = Conexion.conectar();
+		String 	query= " SELECT fechaInicioEjecucion FROM SPD_XML_controlProcesos " ; 
+		query+= " WHERE idProceso = '"+cab.getIdProceso()+"' AND enEjecucion = 1 ";
+		Timestamp result = null;
+		try {
+			ResultSet resultSet = null;
+			PreparedStatement pstat = con.prepareStatement(query);
+		    resultSet = pstat.executeQuery();
+		    resultSet.next();
+		    result = resultSet.getTimestamp("fechaInicioEjecucion");
+
+		   } catch (SQLException e) {
+		       e.printStackTrace();
+		   }finally {con.close();}
+
+		   if (result != null) {
+		        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		        return sdf.format(result);
+		    } else {
+		        return null; 
+		    }
+	   }
+	
+	
 	public static boolean borraProcesosResidencia(String idUsuario, FicheroResiBean cab, PacienteBean pac) throws ClassNotFoundException, SQLException {
 		
 		boolean todosPacientes = (pac==null || (pac!=null && (pac.getCIP()==null || pac.getCIP().isEmpty() )));
 				
-		System.out.println("inicio detalleBolsasTratadas.clear()");
-		Logger.log("SPDLogger", "inicio detalleBolsasTratadas.clear()",Logger.INFO);	
+		System.out.println("inicio borraProcesosResidencia");
+		Logger.log("SPDLogger", "inicio borraProcesosResidencia",Logger.INFO);	
 	
 		detalleBolsasTratadas.clear();
 		Logger.log("SPDLogger", "inicio detalleContenidoBolsasTratadas.clear()",Logger.INFO);	
@@ -931,6 +1044,43 @@ public class XMLRobotDao
 			ejecutarSentencia(query4);
 
 	}
+
+	
+	
+	/** NO FIABLE porque al eliminar se juntan datos de los procesos concurrentes, con lineasRX iguales
+	 * Para casos en los que se lanza el mismo proceso de forma concurrente, se eliminan los duplicados antes de generar el fichero.
+	 * @param idUsuario
+	 * @param cab
+	 * @return
+	 * @throws Exception
+	
+	public static boolean eliminarDuplicadorRX(String idUsuario, FicheroResiBean cab)  throws Exception {
+			boolean result=true;
+		String sql ="  WITH CTE_Duplicados AS ( ";
+				sql+= " SELECT *, ";
+				sql+= " ROW_NUMBER() OVER ( ";
+				sql+= " PARTITION BY  ";
+				sql+= " idDivisionResidencia, idProceso, CIP, CN, nombreMedicamento, ";
+				sql+= " cantidadToma, dispensar, fechaToma, tramoToma, ";
+				sql+= " idToma, nombreToma, planta, habitacion, ";
+				sql+= " idFreeInformation, orderNumber ";
+				sql+= " ORDER BY fechaHoraProceso   ";   // conserva la fila más antigua
+				sql+= " ) AS rn ";
+				sql+= " FROM dbo.SPD_XML_detallesTomasRobot where  idProceso='"+cab.getIdProceso()+"' ";
+				sql+= " ) ";
+				sql+= " DELETE FROM CTE_Duplicados ";
+				sql+= " WHERE rn > 1; ";
+
+				result=ejecutarSentencia(sql) ;
+
+				return result;
+	}
+
+*/
+
+	
+
+
 
 
 

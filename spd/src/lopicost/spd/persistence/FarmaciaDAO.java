@@ -113,6 +113,41 @@ public class FarmaciaDAO {
 			}
 
 
+
+	public static Farmacia getFarmaciaPorIdDivisionResidencia(String spdUsuario, String idDivisionResidencia) throws Exception {
+
+			  Farmacia  c = null;
+				String qry= "  	select distinct  f.* from dbo.bd_farmacia f ";
+				qry+= "  	inner join dbo.bd_divisionResidencia d on d.idFarmacia=f.idFarmacia ";
+				qry+= "  	inner join dbo.bd_residencia r on (d.idResidencia=r.idResidencia)   ";
+				qry+= "  	inner  join SPD_usuarios_permisos up on (  ";
+				qry+= "         (d.idFarmacia = up.idFarmacia and up.idFarmacia is not null)  ";
+				qry+= "         or (d.idDivisionResidencia=up.idDivisionResidencia and up.idDivisionResidencia is not null)  ";
+				qry+= "  	       or (d.idRobot=up.idRobot and up.idRobot is not null)  ";
+				qry+= "  	       or (d.idResidencia=up.idResidencia and up.idResidencia is not null))  ";
+				qry+= "  	inner join SPD_usuarios u on u.idUsuario=up.idUsuario  ";
+				qry+= "  	where up.idUsuario='admin' "; //TO - DO cambiarlo
+				qry+= "  	and UPPER(u.estado)='ACTIVO' ";
+				qry+= "  	and UPPER(r.status)='ACTIVA' ";
+				qry+= "  	and d.idDivisionResidencia='"+idDivisionResidencia+"' ";
+				  
+		    	 Connection con = Conexion.conectar();
+		    	 System.out.println(className + "--> getFarmaciaPorIdDivisionResidencia -->" +qry );		
+		    	 ResultSet resultSet = null;
+		    	
+		    	 try {
+		    		 PreparedStatement pstat = con.prepareStatement(qry);
+		    		 resultSet = pstat.executeQuery();
+
+		    		 while (resultSet.next()) {
+		    			  c =creaFarmacia(resultSet);
+		    		 }
+			     } catch (SQLException e) {
+			         e.printStackTrace();
+			     }finally {con.close();}
+		    	 return c;
+		  }
+
 	
 }
  

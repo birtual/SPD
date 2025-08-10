@@ -212,7 +212,7 @@ public class XMLRobotDao
             query.append(" , d.spdNombreBolsa, CASE d.spdAccionBolsa WHEN 'PASTILLERO' then 'S' ELSE 'N' END dispensar, d.spdNombreBolsa, d.spdAccionBolsa "  );
             query.append(" , d.fechaDesde, d.fechaHasta, d.resiD1, d.resiD2, d.resiD3, d.resiD4, d.resiD5, d.resiD6, d.resiD7  "  );
             //query.append(" , d.resiD1, d.resiD2, d.resiD3, d.resiD4, d.resiD5, d.resiD6, d.resiD7  "  );
-            query.append(" , d.resiInicioTratamiento, d.resiFinTratamiento,  d.resiInicioTratamientoParaSPD, d.resiFinTratamientoParaSPD, d.resiPeriodo "  );
+            query.append(" , d.resiInicioTratamiento, d.resiFinTratamiento,  d.resiInicioTratamientoParaSPD, d.resiFinTratamientoParaSPD, d.resiPeriodo, d.resiPauta "  );
             for (int i = 0; i < posiciones.size(); i++) {
                 query.append(", d.resiToma").append(posiciones.get(i)).append(" AS [").append(nombresTomas.get(i)).append("]");
             }
@@ -640,31 +640,31 @@ public class XMLRobotDao
     	String D7 = rs.getString("resiD7"); 
     	bean.setSpdD7(D7!=null&&D7.equalsIgnoreCase("X"));
 
+    	String resiPauta=rs.getString("resiPauta"); //si llega de bbdd la recogemos 
+    	if(resiPauta==null || resiPauta.equalsIgnoreCase("")) // si no, la construimos
+    	{
+       	 // Llenar las tomas dinámicas y de paso la pauta de residencia
+            List<String> resiTomaList = new ArrayList<>();
+              for (int i = 0; i < nombresTomas.size(); i++) {
+               // String tomaColumnName = "resiToma" + posiciones.get(i);
+            	//  String tomaColumnName = "["+nombresTomas.get(i)+"]";
+            	 String tomaColumnName = nombresTomas.get(i);
+            	 String valorToma=rs.getString(tomaColumnName);
+            	 if(valorToma==null) valorToma="";
+                 if(valorToma.contains(",")) 
+                	 valorToma=valorToma.replace(",", ".") ;
+                  resiTomaList.add(valorToma);
+                  //pautaResidencia+=valorToma!=null || valorToma.isEmpty()?"0":valorToma;
+                  //if(i<nombresTomas.size()-1)    pautaResidencia+="-";
+            }
+            bean.setResiTomas(resiTomaList);
+            resiPauta = resiTomaList.stream()
+            	    .map(v -> (v == null || v.isEmpty()) ? "0" : v)
+            	    .collect(Collectors.joining("-"));
+     	}
+        bean.setPautaResidencia(resiPauta);
     	
-    	 // Llenar las tomas dinámicas y de paso la pauta de residencia
-        List<String> resiTomaList = new ArrayList<>();
-        String pautaResidencia="";
-        for (int i = 0; i < nombresTomas.size(); i++) {
-           // String tomaColumnName = "resiToma" + posiciones.get(i);
-        	//  String tomaColumnName = "["+nombresTomas.get(i)+"]";
-        	 String tomaColumnName = nombresTomas.get(i);
-        	 String valorToma=rs.getString(tomaColumnName);
-        	 if(valorToma==null) valorToma="";
-             if(valorToma.contains(",")) 
-            	 valorToma=valorToma.replace(",", ".") ;
-              resiTomaList.add(valorToma);
-              //pautaResidencia+=valorToma!=null || valorToma.isEmpty()?"0":valorToma;
-              //if(i<nombresTomas.size()-1)    pautaResidencia+="-";
-        }
-        bean.setResiTomas(resiTomaList);
-        pautaResidencia = resiTomaList.stream()
-        	    .map(v -> (v == null || v.isEmpty()) ? "0" : v)
-        	    .collect(Collectors.joining("-"));
-        
-        bean.setPautaResidencia(pautaResidencia);
-    	
-
-  		return bean;
+ 		return bean;
 	}
 
 

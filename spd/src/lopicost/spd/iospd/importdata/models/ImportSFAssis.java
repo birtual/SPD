@@ -96,6 +96,8 @@ public class ImportSFAssis extends ImportGenericLite
 		medResi.setResiToma4(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; //merienda 16h
 		medResi.setResiToma5(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; //cena 20h
 		medResi.setResiToma6(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; //resopón 24h
+		String resiPauta=medResi.getResiToma1()+"-"+medResi.getResiToma2()+"-"+medResi.getResiToma3()+"-"+medResi.getResiToma4()+"-"+medResi.getResiToma5()+"-"+medResi.getResiToma6();
+		medResi.setResiPauta(resiPauta);
 
 		HelperSPD.getDatosPaciente(medResi);	
 

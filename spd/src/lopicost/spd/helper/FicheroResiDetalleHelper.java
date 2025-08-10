@@ -1,6 +1,7 @@
 
 package lopicost.spd.helper;
 
+import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -291,7 +292,32 @@ public class FicheroResiDetalleHelper {
 	
 	
 	
+	public static List<Dose> getTomasCabeceraYHora(FicheroResiBean medResi) {
+	    List<Dose> doses = new ArrayList<>();
+	    try {
+	        int numeroDoses = medResi.getNumeroDeTomas();
+	        for (int i = 1; i <= numeroDoses && i <= 24; i++) {
+	            // Construimos el nombre del método: getResiToma1, getResiToma2, ...
+	            String methodName = "getResiToma" + i;
+	            // Usamos reflexión para invocar el método correspondiente
+	            Method method = medResi.getClass().getMethod(methodName);
+	            Object tomaValue = method.invoke(medResi);
+
+	            doses.add(DoseDAO.getTomaCabecera(
+	                    medResi.getIdDivisionResidencia(),
+	                    (String) tomaValue,
+	                    0,
+	                    i
+	            ));
+	        }
+	    } catch (Exception e) {
+	        // Manejo de errores según tu necesidad
+	        e.printStackTrace();
+	    }
+	    return doses;
+	}
 	
+	/*
 	public static List getTomasCabeceraYHora(FicheroResiBean medResi) {
 		List<Dose> doses =new ArrayList<Dose>();
 		int numeroDoses=0;
@@ -328,7 +354,7 @@ public class FicheroResiDetalleHelper {
 		}
 			return doses;
 	}
-
+*/
 
 	/**
 	 * si llega CIP vacío el método busca algún CIP del mismo nombre+apellidos 
@@ -458,7 +484,7 @@ public class FicheroResiDetalleHelper {
 			{
 				PacienteBean pac1 = (PacienteBean) it_1.next();
 				result+= "<li>"+pac1.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac1.getApellidosNombre()) + "</li>";
-				System.out.println("1 - Se añade Diferencia CIP: " + pac1.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac1.getApellidosNombre()));
+				//System.out.println("1 - Se añade Diferencia CIP: " + pac1.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac1.getApellidosNombre()));
 			}
 			result+="</ul><br/>";
 		}
@@ -471,7 +497,7 @@ public class FicheroResiDetalleHelper {
 			{
 				PacienteBean pac2 = (PacienteBean) it_2.next();
 				result+= "<li>"+pac2.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac2.getApellidosNombre()) + "</li>";
-				System.out.println("2 - Se añade Diferencia CIP: " + pac2.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac2.getApellidosNombre()));
+				//System.out.println("2 - Se añade Diferencia CIP: " + pac2.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac2.getApellidosNombre()));
 			}
 			result+="</ul><br/>";
 		}
@@ -484,7 +510,7 @@ public class FicheroResiDetalleHelper {
 			{
 				PacienteBean pac3 = (PacienteBean) it_3.next();
 				result+= "<li>"+pac3.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac3.getApellidosNombre()) + "</li>";
-				System.out.println("3 - Se añade Diferencia CIP: " + pac3.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac3.getApellidosNombre()));
+				//System.out.println("3 - Se añade Diferencia CIP: " + pac3.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac3.getApellidosNombre()));
 			}
 			result+="</ul><br/>";
 			

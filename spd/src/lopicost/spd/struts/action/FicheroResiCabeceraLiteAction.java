@@ -569,15 +569,20 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			pac=PacientesHelper.getPacientePorOID(getIdUsuario(), formulari.getOidPaciente());
 		//Paso0 - Bloqueo del proceso para evitar concurrencia del mismo idProceso.
 		//mirar si existe el registro de bloqueo
-		if(XMLRobotDao.existeRegitroBloqueo(getIdUsuario(),  cab, true))
-		//	if(!bloquearProceso)
+		try
 		{
-				String fechaInicioBloqueo = PlantillaUnificadaHelper.consultaFechaProcesoBloqueado(getIdUsuario(), cab);
-				request.setAttribute("fechaInicioBloqueo", fechaInicioBloqueo);
-				return mapping.findForward("bloqueadoRX");
-				
-		}	
-		boolean bloquearProceso = PlantillaUnificadaHelper.bloqueaProcesoResidencia(getIdUsuario(),  cab);
+			if(XMLRobotDao.existeRegitroBloqueo(getIdUsuario(),  cab, true))
+				//	if(!bloquearProceso)
+				{
+						String fechaInicioBloqueo = PlantillaUnificadaHelper.consultaFechaProcesoBloqueado(getIdUsuario(), cab);
+						request.setAttribute("fechaInicioBloqueo", fechaInicioBloqueo);
+						return mapping.findForward("bloqueadoRX");
+						
+				}	
+				boolean bloquearProceso = PlantillaUnificadaHelper.bloqueaProcesoResidencia(getIdUsuario(),  cab);
+		}			
+		catch(Exception e){}
+
 		// Paso1 - Borrado previo de posibles datos del mismo proceso. en caso que sea un  solo paciente, borraría solo los datos del paciente
     	PlantillaUnificadaHelper.borraProcesosResidencia(getIdUsuario(),  cabDetalle, pac);
 			
@@ -678,13 +683,13 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
         }
         else 
         {
-            boolean desBloquearProceso = PlantillaUnificadaHelper.desBloqueaProcesoResidencia(getIdUsuario(),  cab);
+            try{boolean desBloquearProceso = PlantillaUnificadaHelper.desBloqueaProcesoResidencia(getIdUsuario(),  cab);}			
+        	catch(Exception e){}
         	return mapping.findForward("sinDatosRX");
             
         }
-          
-        boolean desBloquearProceso = PlantillaUnificadaHelper.desBloqueaProcesoResidencia(getIdUsuario(),  cab);
-        
+        try{boolean desBloquearProceso = PlantillaUnificadaHelper.desBloqueaProcesoResidencia(getIdUsuario(),  cab);}			
+    	catch(Exception e){}
    		return mapping.findForward("generarFicherosDMyRX");
 	}
 	

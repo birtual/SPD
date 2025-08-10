@@ -100,6 +100,9 @@ public class ImportGDRExcel extends ImportGenericLite
     	try{medResi.setResiToma3(HelperSPD.getPautaStandard(medResi, partes[2].trim())); }catch(Exception e){medResi.setResiToma3("");}//merienda
     	try{medResi.setResiToma4(HelperSPD.getPautaStandard(medResi, partes[3].trim())); }catch(Exception e){medResi.setResiToma4("");}//cena
        		
+		String resiPauta=medResi.getResiToma1()+"-"+medResi.getResiToma2()+"-"+medResi.getResiToma3()+"-"+medResi.getResiToma4();
+		medResi.setResiPauta(resiPauta);
+
  		//medResi.setResiCn(StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiMedicamento(), true ));//10/07/2025 - De momento en este sistema no llega nunca el CN, ponemos la descripción
  		String variante = normalizar(medResi.getResiVariante());
  		boolean diaria=variante.isEmpty() || variante.contains("diaria");

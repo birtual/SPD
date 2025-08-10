@@ -92,13 +92,23 @@ public class ImportOnada extends ImportGenericLite
 		}
 		medResi.setNumeroDeTomas(numeroDoses); // IMPORTANTE PARA TABULAR EL LISTADO!! TO-DO
 
-		medResi.setResiToma1(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; //AD - Antes desayuno
-		medResi.setResiToma2(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; //esmorzar 9h
-		medResi.setResiToma3(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; //dinar 13h
-		medResi.setResiToma4(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; //merienda 16h
-		medResi.setResiToma5(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; //cena 20h
-		medResi.setResiToma6(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; //resopón 24h
+		
+		String toma1=HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i));i++; //AD - Antes desayuno
+		String toma2=HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i));i++; //esmorzar 9h
+		String toma3=HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i));i++; //dinar 13h
+		String toma4=HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i));i++; //merienda 16h
+		String toma5=HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i));i++; //cena 20h
+		String toma6=HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i));i++; //resopón 24h
+		String resiPauta=toma1+"-"+toma2+"-"+toma3+"-"+toma4+"-"+toma5+"-"+toma6;
 
+		medResi.setResiToma1(toma1);
+		medResi.setResiToma2(toma2);
+		medResi.setResiToma3(toma3);
+		medResi.setResiToma4(toma4);
+		medResi.setResiToma5(toma5);
+		medResi.setResiToma6(toma6);
+		medResi.setResiPauta(resiPauta);
+		
 		HelperSPD.hayNumerosAsteriscos(medResi);
 		
 		medResi.setResiInicioTratamiento(StringUtil.getStringArregloFecha((String) row.elementAt(i), "dd/MM/yyyy"));i++;	//ok

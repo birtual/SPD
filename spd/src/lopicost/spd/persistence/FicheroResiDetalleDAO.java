@@ -103,7 +103,7 @@ public class FicheroResiDetalleDAO {
 	  	   	qry+= "  spdCnFinal, spdNombreBolsa, spdFormaMedicacion, ";
 	  	   	qry+= "  spdAccionBolsa, spdNomGtVmpp, ";
 	  	   	qry+= "  resiD1, resiD2, resiD3, resiD4, resiD5, resiD6, resiD7,   ";
-	  	   	qry+= "  diasAutomaticos, resiViaAdministracion , resiVariante,  ";
+	  	   	qry+= "  diasAutomaticos, resiViaAdministracion , resiVariante, resiPauta, ";
 	  	   	qry+= "  resiToma1, resiToma2, resiToma3, resiToma4, resiToma5, resiToma6, resiToma7, resiToma8,   ";
 	  	   	qry+= "  resiToma9, resiToma10, resiToma11, resiToma12, resiToma13, resiToma14, resiToma15, resiToma16, ";
 	  	   	qry+= "  resiToma17, resiToma18, resiToma19, resiToma20, resiToma21, resiToma22, resiToma23, resiToma24, ";	 
@@ -130,7 +130,7 @@ public class FicheroResiDetalleDAO {
    			qry+= " '" + spdCn +"', REPLACE('" +   StringUtil.replaceInvalidChars(b.getSpdNombreBolsa()) +"', '''', ''''''), '"+  b.getSpdFormaMedicacion() +"', ";
 			qry+= " '" + b.getSpdAccionBolsa()+"', COALESCE('"+ b.getSpdNomGtVmpp()+"', ''), ";
 			qry+= " '" + b.getResiD1()+"', '"+b.getResiD2()+"', '"+b.getResiD3()+"', '"+b.getResiD4()+"', '"+b.getResiD5()+"', '"+b.getResiD6()+"', '"+ b.getResiD7()+"', ";      
-			qry+= " '" + b.getResiDiasAutomaticos()+"',   COALESCE('" + b.getResiViaAdministracion()+"', ''), COALESCE('" + b.getResiVariante()+"', ''), ";
+			qry+= " '" + b.getResiDiasAutomaticos()+"',   COALESCE('" + b.getResiViaAdministracion()+"', ''), COALESCE('" + b.getResiVariante()+"', ''), COALESCE('" + b.getResiPauta()+"', ''), ";
 			qry+= " '" + b.getResiToma1()+"', '"+b.getResiToma2()+"', '"+b.getResiToma3()+"', '"+b.getResiToma4()+"', '"+b.getResiToma5()+"', '"+b.getResiToma6()+"', ";
 			qry+= " '" + b.getResiToma7()+"', '"+b.getResiToma8()+"', '"+b.getResiToma9()+"', '"+b.getResiToma10()+"', '"+b.getResiToma11()+"', '"+b.getResiToma12()+"', ";
 			qry+= " '" + b.getResiToma13()+"', '"+b.getResiToma14()+"', '"+b.getResiToma15()+"', '"+b.getResiToma16()+"', '"+b.getResiToma17()+"', '"+b.getResiToma18()+"', ";
@@ -1925,7 +1925,7 @@ public class FicheroResiDetalleDAO {
 			  	    qry+= "  AND idDivisionResidencia ='"+cab.getIdDivisionResidencia() +"' ";   	  
 			  	    qry+= "  AND tipoRegistro='CABECERA' ";   	  
 			  	    
-			  	  System.out.println(className + "--> addToma -->" +qry );		
+			  	  System.out.println(className + "--> addTomaCabecera -->" +qry );		
 		      		 
 			    try {
 			         PreparedStatement pstat = con.prepareStatement(qry);
@@ -1965,7 +1965,7 @@ public class FicheroResiDetalleDAO {
 			  	    qry+= "  AND idDivisionResidencia ='"+cab.getIdDivisionResidencia() +"' ";   	  
 			  	    qry+= "  AND tipoRegistro='LINEA' ";   	  
 			  	    
-			  	  System.out.println(className + "--> addToma -->" +qry );		
+			  	  System.out.println(className + "--> addTomaLineas -->" +qry );		
 		      		 
 			    try {
 			         PreparedStatement pstat = con.prepareStatement(qry);
@@ -2621,7 +2621,7 @@ public class FicheroResiDetalleDAO {
 			qry+= " fechaHistorico, fechaInsert, oidFicheroResiCabecera, oidFicheroResiDetalle, tipoRegistro, idTratamientoCIP, idDivisionResidencia, idProceso, resiCIP, ";
 			qry+= " resiNombre, resiApellido1, resiApellido2, resiApellidos, resiApellidosNombre, resiCn, resiMedicamento, resiFormaMedicacion, resiInicioTratamiento, resiFinTratamiento, ";
 			qry+= " resiObservaciones, resiComentarios, resiPeriodo, resiVariante, resiSiPrecisa, spdCIP, spdCnFinal, spdNombreBolsa, spdFormaMedicacion, spdAccionBolsa, spdNomGtVmpp, ";
-			qry+= " resiD1, resiD2, resiD3, resiD4, resiD5, resiD6, resiD7, diasAutomaticos, resiViaAdministracion, resiToma1, resiToma2, resiToma3, resiToma4, resiToma5, resiToma6, resiToma7, resiToma8, ";
+			qry+= " resiD1, resiD2, resiD3, resiD4, resiD5, resiD6, resiD7, diasAutomaticos, resiViaAdministracion, resiPauta, resiToma1, resiToma2, resiToma3, resiToma4, resiToma5, resiToma6, resiToma7, resiToma8, ";
 			qry+= " resiToma9, resiToma10, resiToma11, resiToma12, resiToma13, resiToma14, resiToma15, resiToma16, resiToma17, resiToma18, resiToma19, resiToma20, resiToma21, resiToma22, resiToma23, resiToma24, ";
 			qry+= " numeroDeTomas, incidencia, resultLog, [row], mensajesInfo, mensajesAlerta, idEstado, validar, fechaDesde, fechaHasta, frecuencia, diasMesConcretos, diasSemanaConcretos, secuenciaGuide, ";
 			qry+= " tipoEnvioHelium, diasSemanaMarcados, resiInicioTratamientoParaSPD, resiFinTratamientoParaSPD, editable, resiTipoMedicacion, detalleRow, editado, mensajesResidencia, resiTomaAux, idTratamientoSPD, ";
@@ -2630,7 +2630,7 @@ public class FicheroResiDetalleDAO {
 			qry+= " SELECT getDate(), fechaInsert, oidFicheroResiCabecera, oidFicheroResiDetalle, tipoRegistro, idTratamientoCIP, idDivisionResidencia, idProceso, resiCIP, ";
 			qry+= " resiNombre, resiApellido1, resiApellido2, resiApellidos, resiApellidosNombre, resiCn, resiMedicamento, resiFormaMedicacion, resiInicioTratamiento, resiFinTratamiento, ";
 			qry+= " resiObservaciones, resiComentarios, resiPeriodo, resiVariante, resiSiPrecisa, spdCIP, spdCnFinal, spdNombreBolsa, spdFormaMedicacion, spdAccionBolsa, spdNomGtVmpp, ";
-			qry+= " resiD1, resiD2, resiD3, resiD4, resiD5, resiD6, resiD7, diasAutomaticos, resiViaAdministracion, resiToma1, resiToma2, resiToma3, resiToma4, resiToma5, resiToma6, resiToma7, resiToma8, ";
+			qry+= " resiD1, resiD2, resiD3, resiD4, resiD5, resiD6, resiD7, diasAutomaticos, resiViaAdministracion, resiPauta, resiToma1, resiToma2, resiToma3, resiToma4, resiToma5, resiToma6, resiToma7, resiToma8, ";
 			qry+= " resiToma9, resiToma10, resiToma11, resiToma12, resiToma13, resiToma14, resiToma15, resiToma16, resiToma17, resiToma18, resiToma19, resiToma20, resiToma21, resiToma22, resiToma23, resiToma24, ";
 			qry+= " numeroDeTomas, incidencia, resultLog, [row], mensajesInfo, mensajesAlerta, idEstado, validar, fechaDesde, fechaHasta, frecuencia, diasMesConcretos, diasSemanaConcretos, secuenciaGuide, ";
 			qry+= " tipoEnvioHelium, diasSemanaMarcados, resiInicioTratamientoParaSPD, resiFinTratamientoParaSPD, editable, resiTipoMedicacion, detalleRow, editado, mensajesResidencia, resiTomaAux, idTratamientoSPD, ";

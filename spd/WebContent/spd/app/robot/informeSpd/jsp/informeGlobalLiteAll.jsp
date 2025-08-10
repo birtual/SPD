@@ -84,7 +84,7 @@
 			<logic:notEmpty name="cab" property="medicoResponsable">
 				<h4>Médico responsable: <bean:write name="cab" property="medicoResponsable" /></h4>
 			</logic:notEmpty>	
-			<h4><bean:write name="cab" property="nombreFarmacia" /> - Ldo. <bean:write name="cab" property="responsableFarmacia" />
+			<h4><bean:write name="cab" property="nombreFarmacia" /> - <bean:write name="cab" property="responsableFarmacia" />
 		</fieldset>	
 	<h4>Producción SPD</h4>
 	<logic:notEmpty  name="data" property="ttosEmblistados">

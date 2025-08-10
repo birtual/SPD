@@ -116,7 +116,9 @@ public class ImportGenericLite extends ImportProcessImpl
     		medResi.setIdDivisionResidencia(idDivisionResidencia);
     		medResi.setTipoRegistro(SPDConstants.REGISTRO_LINEA);
     		recogerDatosRow(medResi, row);		
-    		
+
+    	   	
+    	   	
         	int diasSemanaMarcados=HelperSPD.getDiasMarcados(medResi);  //importante!! para que detecte que hay días marcados y no los llene automáticamente.
         	medResi.setDiasSemanaMarcados(diasSemanaMarcados);
         	
@@ -166,7 +168,7 @@ public class ImportGenericLite extends ImportProcessImpl
     	System.out.println( "--> procesarEntrada. FIN row;  "  + new Date() );		
     }
     
- 
+
 	protected void recogerDatosRow(FicheroResiBean medResi, Vector row) throws Exception {
 	}
 

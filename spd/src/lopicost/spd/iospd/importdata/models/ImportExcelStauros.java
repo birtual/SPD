@@ -60,7 +60,9 @@ public class ImportExcelStauros extends ImportGenericLite
 		try{medResi.setResiToma4(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; }catch(Exception e){}//merienda 16h
 		try{medResi.setResiToma5(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; }catch(Exception e){}//cena 20h
 		try{medResi.setResiToma6(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; }catch(Exception e){}//resopón 24h
-
+		String resiPauta=medResi.getResiToma1()+"-"+medResi.getResiToma2()+"-"+medResi.getResiToma3()+"-"+medResi.getResiToma4()+"-"+medResi.getResiToma5()+"-"+medResi.getResiToma6();
+		medResi.setResiPauta(resiPauta);
+		
 		try{medResi.setResiD1(StringUtil.limpiarTextoyEspacios((String) row.elementAt(i)));i++;}catch(Exception e){}
 		try{medResi.setResiD2(StringUtil.limpiarTextoyEspacios((String) row.elementAt(i)));i++;}catch(Exception e){}
 		try{medResi.setResiD3(StringUtil.limpiarTextoyEspacios((String) row.elementAt(i)));i++;}catch(Exception e){}

@@ -75,10 +75,15 @@
 	
 		<table border="1" style="width:80%">
             <thead>
-   			<h4>Residente:<bean:write name="pac" property="nombre" /> <bean:write name="pac" property="apellidos" /> - (<bean:write name="pac" property="CIP" />)</h4>
-			<h4>Código numérico interno:<bean:write name="data" property="orderNumber" /></h4>
-			<h4>Farmacia Bertran39 - Barcelona. Ldo Marco A. González</h4>
-
+			<h4>Residente: <bean:write name="pac" property="nombre" /> <bean:write name="pac" property="apellidos" /> - (<bean:write name="pac" property="CIP" />)</h4>
+			<h4>Código numérico interno: <bean:write name="data" property="orderNumber" /></h4>
+			<h4>Fechas SPD: <bean:write name="cab" property="fechaDesde" /> - <bean:write name="cab" property="fechaHasta" /></h4>
+			
+		<logic:notEmpty name="cab" property="medicoResponsable">
+			<h4>Médico responsable: <bean:write name="cab" property="medicoResponsable" /></h4>
+		</logic:notEmpty>	
+			
+			<h4><bean:write name="cab" property="nombreFarmacia" /> - <bean:write name="cab" property="responsableFarmacia" /></h4>
 			<br/><br/>
 			<logic:iterate id="dia" name="data" property="diasSPD" type="lopicost.spd.robot.bean.rd.DiaSPD">
 			<tr>

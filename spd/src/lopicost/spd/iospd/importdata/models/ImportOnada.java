@@ -1,6 +1,7 @@
 
 package lopicost.spd.iospd.importdata.models;
 
+import lopicost.spd.excepciones.LineaDescartadaException;
 import lopicost.spd.persistence.GestSustitucionesLiteDAO;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.utils.StringUtil;
@@ -58,7 +59,8 @@ public class ImportOnada extends ImportGenericLite
 		String esOkFechaDesde = StringUtil.getStringArregloFecha((String) row.elementAt(i+10), "dd/MM/yyyy");
 		if(!DateUtilities.isDateValid(esOkFechaDesde, "dd/MM/yyyy")) //si no es fecha válida (fecha inicio) se entiende que la fecha inicio es la siguiente columna (+1)
 		{
-			throw new Exception ("No es un tratamiento válido.");
+			//throw new Exception ("No es un tratamiento válido.");
+			throw new LineaDescartadaException("No es un tratamiento válido. ");
 		}
 		
 		

@@ -147,7 +147,7 @@ public class SPDConstants
 	/**
 	 * Constantes para el upload de ficheros
 	 */
-	public static String FILEUPLOAD_EXTENSIONS = ".doc,.txt,.zip,.xls,.xlsx,.pdf,.ppt,.pps,.jpg,.gif,.csv,.html,.htm";
+	public static String FILEUPLOAD_EXTENSIONS = ".doc,.txt,.zip,.xls,.xlsx,.pdf,.ppt,.pps,.jpg,.gif,.csv,.html,.htm,.XLS,.XLSX";
 	//public static String FILEUPLOAD_REAL_PATH = "c:/projects/spd/desarrollo/webapp";
 	public static String PATH_DOCUMENTOS = "C:/eclipse/workspace/spd_files";
 	//public static String FILEUPLOAD_REAL_PATH = FileUtil.dameURLBase();// Obtener la ruta de la aplicación web en Tomcat
@@ -345,6 +345,7 @@ public class SPDConstants
 	public static final String PROCESO_BLOQUEO_FECHA = "FECHA";
 	public static final String CN_SEGUN_DESCRIPCION = "(SD)";
 	public static final int CUANTAS_DISPENSACIONES = 15; // indica el número de dispensaciones a recuperar, para el RD
+	public static final int MAX_LINEAS_NULAS_CARGA = 20; // máximo de líneas nulas que se aceptan en la carga 
 
 	
 	/**

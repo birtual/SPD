@@ -3,6 +3,8 @@ package lopicost.spd.iospd.importdata.models;
 
 
 import lopicost.spd.controller.SpdLogAPI;
+import lopicost.spd.excepciones.LineaDescartadaException;
+import lopicost.spd.excepciones.LineaDuplicadaException;
 import lopicost.spd.persistence.GestSustitucionesLiteDAO;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.bean.PacienteBean;
@@ -35,11 +37,15 @@ public class ImportExcelStauros extends ImportGenericLite
 			//saltamos cabecera
 			if(getProcessedRows()==0)
 			{
-				throw new Exception ("No es un tratamiento válido.");
+				//throw new Exception ("No es un tratamiento válido.");
+				throw new LineaDescartadaException("No es un tratamiento válido. ");
 			}
 			
 		}catch(Exception e)
-		{throw new Exception ("No es un tratamiento válido.");}
+		{
+			//throw new Exception ("No es un tratamiento válido.");
+			throw new LineaDescartadaException("No es un tratamiento válido. ");
+		}
     	
     	
     	
@@ -126,7 +132,8 @@ public class ImportExcelStauros extends ImportGenericLite
 		if(existeDuplicado)
 			//this.errors.add(TextManager.getMensaje("ImportData.error.linea")+" " + row);
 			//this.errors.add("Es un tratamiento que está duplicado " );
-			throw new Exception ("Es un tratamiento que está duplicado ");
+			//throw new Exception ("Es un tratamiento que está duplicado ");
+			throw new LineaDuplicadaException("Es un tratamiento que está duplicado ");
 		System.out.println(" -----  borrarPosibleDuplicado Fin-->  " );
 		
 	}

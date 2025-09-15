@@ -2,6 +2,8 @@
 package lopicost.spd.iospd.importdata.models;
 
 
+import lopicost.spd.excepciones.LineaDescartadaException;
+import lopicost.spd.excepciones.LineaDuplicadaException;
 import lopicost.spd.model.BdConsejo;
 import lopicost.spd.persistence.BdConsejoDAO;
 import lopicost.spd.persistence.GestSustitucionesLiteDAO;
@@ -49,12 +51,22 @@ public class ImportGDRExcel extends ImportGenericLite
 			//saltamos cabecera
 			if(getProcessedRows()==0)
 			{
-				throw new Exception ("No es un tratamiento válido.");
+				//throw new Exception ("No es un tratamiento válido.");
+				throw new LineaDescartadaException("No es un tratamiento válido. ");
 			}
 		}catch(Exception e)
-		{throw new Exception ("No es un tratamiento válido.");}
+		{
+			//throw new Exception ("No es un tratamiento válido.");
+			throw new LineaDescartadaException("No es un tratamiento válido. ");
+		}
     	
     	String detalleRow = HelperSPD.getDetalleRow(row, COLUMNAS);
+    	try 
+    	{ //quitamos el caso del pipe final ya que lo envían con y sin 
+    		detalleRow = detalleRow.replace("|(", "(");
+    	}catch(Exception e){
+    		
+    	}
         medResi.setDetalleRow(detalleRow);
         medResi.setDetalleRowKey(crearDetalleRowKey(detalleRow, getPosicionesAEliminar()));
         medResi.setDetalleRowKeyLite(crearDetalleRowKeyLite(row, detalleRow, getPosicionesAEliminar()));
@@ -182,7 +194,8 @@ public class ImportGDRExcel extends ImportGenericLite
 		if(existeDuplicado)
 			//this.errors.add(TextManager.getMensaje("ImportData.error.linea")+" " + row);
 			//this.errors.add("Es un tratamiento que está duplicado " );
-			throw new Exception ("Es un tratamiento que está duplicado ");
+			//throw new Exception ("Es un tratamiento que está duplicado ");
+			throw new LineaDuplicadaException("Es un tratamiento que está duplicado ");
 		System.out.println(" -----  borrarPosibleDuplicado Fin-->  " );
 		
 	}

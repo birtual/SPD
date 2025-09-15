@@ -2,6 +2,7 @@
 package lopicost.spd.iospd.importdata.models;
 
 
+import lopicost.spd.excepciones.LineaDescartadaException;
 import lopicost.spd.persistence.GestSustitucionesLiteDAO;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.bean.PacienteBean;
@@ -37,12 +38,15 @@ public class ImportResiplus extends ImportGenericLite
 			{
 				//this.errors.add("Importación - Linea descartada por no ser válida --> " + row);
 				//return;
-				throw new Exception ("No es un tratamiento válido.");
+				//throw new Exception ("No es un tratamiento válido.");
+				throw new LineaDescartadaException("No es un tratamiento válido. ");
+				
 			}
 			
 		}catch(Exception e)
 		{
-			throw new Exception ("No es un tratamiento válido.");
+			//throw new Exception ("No es un tratamiento válido.");
+			throw new LineaDescartadaException("No es un tratamiento válido. ");
 			//this.errors.add("Importación - Linea descartada por no ser válida --> " + row);
 			//return;
 			

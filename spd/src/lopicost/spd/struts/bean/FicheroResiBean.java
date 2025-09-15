@@ -14,6 +14,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	
 	
 	  //Datos de cabecera
+	  private String idRobot;
 	  private String nombreFarmacia;
 	  private String responsableFarmacia;
 	  private Date fechaValidacionDatos;
@@ -503,6 +504,14 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 
 	public void setNombreProduccionRobot(String nombreProduccionRobot) {
 		this.nombreProduccionRobot = nombreProduccionRobot;
+	}
+
+	public String getIdRobot() {
+		return idRobot;
+	}
+
+	public void setIdRobot(String idRobot) {
+		this.idRobot = idRobot;
 	}
 
 	public String getResultLog() {		return resultLog;	}	public void setResultLog(String resultLog) {		this.resultLog = resultLog;	}

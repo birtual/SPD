@@ -26,6 +26,7 @@ public class SpdLogAPI
 	public static final String A_RENTABILIDAD = "RENTABILIDAD";
 	public static final String A_PROCESO = "PROCESO_RECOGIDA_DATOS";
 	public static final String A_PROCESO_BLOQUEO_HORARIO = "BLOQUEO_HORARIA_PROCESOS";
+	public static final String A_CABECERA= "CABECERA";
 	
 	
 	//accion - Constantes de segundo nivel 
@@ -53,6 +54,7 @@ public class SpdLogAPI
 	public static final String C_DETALLE= "DETALLE";
 	public static final String C_DIAS= "DIAS";
 	public static final String C_PAUTAS= "PAUTAS";
+	public static final String C_TOMAS= "TOMAS";
 	public static final String C_START= "INICIO";
 	public static final String C_END= "FIN";	
 	public static final String C_PREVISION= "PREVISION";

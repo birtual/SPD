@@ -3,6 +3,8 @@ package lopicost.spd.iospd.importdata.models;
 
 import lopicost.spd.controller.ControlSPD;
 import lopicost.spd.controller.SpdLogAPI;
+import lopicost.spd.excepciones.ColumnasInsuficientesException;
+import lopicost.spd.excepciones.MaxLineasNulasException;
 import lopicost.spd.helper.FicheroResiDetalleHelper;
 import lopicost.spd.iospd.importdata.process.ImportProcessImpl;
 import lopicost.spd.persistence.FicheroResiCabeceraDAO;
@@ -26,6 +28,7 @@ import java.util.Vector;
 public class ImportGenericLite extends ImportProcessImpl
 {
 	String CIPanterior="";
+	int nulasSeguidas=0;
 	int numeroDoses=0;
 	int oidFicheroResiCabecera= 0;
 	int reg = 11;  //numeroCorteCabecera  / celda de la fecha inicio, que es la obligatoria. a partir de aquí pueden venir vacías
@@ -94,15 +97,15 @@ public class ImportGenericLite extends ImportProcessImpl
      * @see lopicost.spd.iospd.importdata.process.ImportProcessImpl#procesarEntrada(java.lang.String, java.lang.String, java.util.Vector, int)
      */
     //public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count) throws Exception 
-    public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception
+    public boolean procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception
     {
-       	boolean result = false;
+       	boolean finalizar = false;
        //	System.out.println( "--> procesarEntrada. INICIO row  "  + new Date() ); 		
        	
 	   	//int oidFicheroResiCabecera= ioSpdApi.getOidFicheroResiCabecera(getSpdUsuario(), idDivisionResidencia, idProceso);
        	
      	//if (row!=null && row.size()>=reg+1) así está en resi+
-    	if (row!=null && row.size()>=reg)
+    	if (row!=null && row.size()>=reg && nulasSeguidas<SPDConstants.MAX_LINEAS_NULAS_CARGA)  //20250901 - Control de máx líneas nulas 
         {
     		if (this.rowsTratados.containsKey(String.valueOf(row))) {
     			throw new Exception ("Es un tratamiento que está duplicado ");
@@ -162,10 +165,22 @@ public class ImportGenericLite extends ImportProcessImpl
   	    	}
    	    		
   	       }
-  	        else 
-  	            throw new Exception ("Columnas insuficientes para la importación. ");
-    	
+ 	        else 
+  	        {
+ 	        	nulasSeguidas++;
+ 	        	if(nulasSeguidas>=SPDConstants.MAX_LINEAS_NULAS_CARGA)
+ 	        	{
+ 	        		finalizar=true; //interesa que no se siga procesando
+ 	        		//throw new Exception ("Se ha superado el máximo líneas nulas permitidas en la carga: " + SPDConstants.MAX_LINEAS_NULAS_CARGA);
+ 	        		throw new MaxLineasNulasException("Se ha superado el máximo líneas nulas permitidas en la carga: " + SPDConstants.MAX_LINEAS_NULAS_CARGA);
+ 	        	}
+ 	        		
+  	            //throw new Exception ("Columnas insuficientes para la importación. ");
+ 	        	throw new ColumnasInsuficientesException("Columnas insuficientes para la importación.");
+  	        	
+  	        }
     	System.out.println( "--> procesarEntrada. FIN row;  "  + new Date() );		
+    	return finalizar;
     }
     
 

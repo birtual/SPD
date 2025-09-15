@@ -281,6 +281,7 @@
 				<!--<input type="button" onclick="javascript:grabar('<bean:write name="data" property="oidFicheroResiCabecera"/>')" value="Confirmar"/> -->
 				<input type="button" class="btn primary" onclick="javascript:grabar()" value="Grabar"/>
 				
+		<logic:equal property="idUsuario" name="formulari" value="admin">
 				
 			<c:choose> 
    					 <c:when test="${data.porcentajeCIPS > 90}">
@@ -291,6 +292,7 @@
     				(No es posible modificar o añadir tomas porque esta producción solo contiene el <c:out value="${data.porcentajeCIPS}%" /> de los cips de la residencia)
 			    </c:otherwise>
 			</c:choose>
+		</logic:equal>
 
 
 

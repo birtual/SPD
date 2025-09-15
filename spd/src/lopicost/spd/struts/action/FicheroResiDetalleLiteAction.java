@@ -44,7 +44,8 @@ public class FicheroResiDetalleLiteAction extends GenericAction  {
 		FicheroResiForm formulari =  (FicheroResiForm) form;
 		List errors = new ArrayList();
 		formulari.setErrors(errors);
-	
+		formulari.setIdUsuario(getIdUsuario());
+
 		DivisionResidencia dr = DivisionResidenciaDAO.getDivisionResidenciaByOid(getIdUsuario(), formulari.getOidDivisionResidencia());
 		if(dr==null) 
 		{
@@ -106,6 +107,7 @@ public class FicheroResiDetalleLiteAction extends GenericAction  {
 		List errors = new ArrayList();
 		formulari.setErrors(errors);
 		ActionForward actionForward = mapping.findForward("editar");
+		formulari.setIdUsuario(getIdUsuario());
 
 		//recuperamos el detalle
 		//FicheroResiBean  frb = FicheroResiDetalleHelper.getFicheroResiDetalleByIdOid(formulari, getIdUsuario());

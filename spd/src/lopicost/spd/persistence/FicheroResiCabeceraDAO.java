@@ -317,6 +317,10 @@ public class FicheroResiCabeceraDAO {
 				 c.setIdDivisionResidencia(resultSet.getString("idDivisionResidencia"));
 				 c.setIdEstado(resultSet.getString("idEstado"));
 				 c.setIdProceso(resultSet.getString("idProceso"));
+				 try{
+					 c.setIdRobot(resultSet.getString("idRobot"));
+				 	}catch(Exception e){}
+				 
 				 c.setNombreDivisionResidencia(resultSet.getString("nombreDivisionResidencia"));
 				 c.setNombreFicheroResi(resultSet.getString("nombreFicheroResi"));
 				 c.setNombreFicheroXML(resultSet.getString("nombreFicheroXML"));

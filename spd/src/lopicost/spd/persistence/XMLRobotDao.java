@@ -641,8 +641,8 @@ public class XMLRobotDao
     	bean.setSpdD7(D7!=null&&D7.equalsIgnoreCase("X"));
 
     	String resiPauta=rs.getString("resiPauta"); //si llega de bbdd la recogemos 
-    	if(resiPauta==null || resiPauta.equalsIgnoreCase("")) // si no, la construimos
-    	{
+    	//if(resiPauta==null || resiPauta.equalsIgnoreCase("")) // si no, la construimos
+    	{ //ARREGLAR!!
        	 // Llenar las tomas dinámicas y de paso la pauta de residencia
             List<String> resiTomaList = new ArrayList<>();
               for (int i = 0; i < nombresTomas.size(); i++) {
@@ -873,7 +873,8 @@ public class XMLRobotDao
 					qry+=  " , dtr.CN as  code ";
 					qry+=  " , dtr.cantidadToma as val ";
 					qry+=  " , dtr.idLineaRX as id ";
-					qry+=  " , dtr.nombreMedicamento as textMedicamento ";
+					//qry+=  " , dtr.nombreMedicamento as textMedicamento ";
+					qry+=  " , SUBSTRING(dtr.nombreMedicamento, 0,23) as textMedicamento ";
 					qry+=  " FROM SPD_XML_detallesTomasRobot dtr ";
 					//qry+=  " LEFT JOIN SPD_ficheroResiDetalle frd ON dtr.Cip=frd.resiCIP AND dtr.idDivisionResidencia=frd.idDivisionResidencia AND dtr.idProceso=frd.idProceso AND dtr.CN=frd.spdCnFinal ";
 					qry+=  " WHERE 1=1 ";

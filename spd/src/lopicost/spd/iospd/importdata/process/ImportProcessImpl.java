@@ -3,6 +3,10 @@ package lopicost.spd.iospd.importdata.process;
 
 import  lopicost.config.logger.Logger;
 import lopicost.spd.controller.SpdLogAPI;
+import lopicost.spd.excepciones.ColumnasInsuficientesException;
+import lopicost.spd.excepciones.LineaDescartadaException;
+import lopicost.spd.excepciones.LineaDuplicadaException;
+import lopicost.spd.excepciones.MaxLineasNulasException;
 import  lopicost.spd.iospd.IOSpdApi;
 import  lopicost.spd.iospd.ProcessLogging;
 import  lopicost.spd.iospd.connectors.Connector;
@@ -83,7 +87,7 @@ public abstract class ImportProcessImpl implements ImportProcess
 
     
     protected abstract boolean beforeProcesarEntrada(Vector row) throws Exception;
-    protected abstract void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception;
+    protected abstract boolean procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception;
 
     protected abstract void afterprocesarEntrada(Vector row) throws Exception;
     protected abstract boolean beforeStart(String filein) throws Exception;
@@ -148,25 +152,37 @@ public abstract class ImportProcessImpl implements ImportProcess
 			// 1.- Tratamos los datos
 			//xxxxxwhile ((rowInProcess!=null ||  (rowInProcess=conector.getNextRow())!=null)   && !rowInProcess.isEmpty()) 
 		    int totalFilas = conector.getFilasTotales();
-		    
+		    boolean fin = false;
 //		    boolean cargaAnexa = conector.isCargaAnexa();  //en caso que se añada un fichero a un proceso ya existente 
 		    //while ( totalFilas>=count && (rowInProcess=conector.getNextRow())!=null )
-		    while ( totalFilas>=count )
+		    while ( totalFilas>=count && !fin)
 			{
 		    	rowInProcess=conector.getNextRow();
 		    			
 		    	//esCabecera=compruebaSiEsCabecera(rowInProcess);
 				count++;
-			    if (this.beforeProcesarEntrada(rowInProcess))
+			    if (this.beforeProcesarEntrada(rowInProcess) && !fin)
 			    {
 				    // 2.- procesar registro y recoger errores
 			        try {
-			        	
-			        	
-			        	procesarEntrada(this.idRobot, this.idDivisionResidencia, this.idProceso, rowInProcess, count, this.cargaAnexa);
-			        }
-                    catch(Exception e)
-			        {
+			        	fin=procesarEntrada(this.idRobot, this.idDivisionResidencia, this.idProceso, rowInProcess, count, this.cargaAnexa);
+			       
+			        /*catch (MaxLineasNulasException e) {
+                 		e.getMessage();
+                        fin = true;
+                        break;
+                   } catch (LineaDescartadaException e) {
+                    	e.getMessage();
+                    } catch (LineaDuplicadaException e) {
+                    	e.getMessage();
+                    } catch (ColumnasInsuficientesException e) {
+                        e.getMessage();
+                    */
+			        	} catch (Exception e) {
+                        if (e instanceof MaxLineasNulasException) {		//cortamos el bucle si recibimos esta excepción
+                            fin = true;
+                         } 
+                        
                     	if(this.processedRows>1); //no guardamos error de cabecera
 			            {
 			            	int filasExcel = this.getProcessedRows()+1 ;
@@ -193,7 +209,8 @@ public abstract class ImportProcessImpl implements ImportProcess
 		}
 		catch (Exception e) 
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
+			throw new Exception("Error en la carga. " + e.getMessage());
 		}
 		finally
 		{

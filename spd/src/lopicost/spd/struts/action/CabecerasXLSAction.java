@@ -10,12 +10,14 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import lopicost.spd.controller.SpdLogAPI;
 import lopicost.spd.persistence.CabecerasXLSDAO;
 import lopicost.spd.persistence.FicheroResiDetalleDAO;
 import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.form.FicheroResiForm;
 import lopicost.spd.struts.helper.CabecerasXLSHelper;
+import lopicost.spd.utils.HelperSPD;
 
 
 
@@ -50,6 +52,16 @@ public class CabecerasXLSAction extends GenericAction  {
     	{
         	CabecerasXLSBean nuevaToma = new CabecerasXLSBean( cab.getIdDivisionResidencia(), formulari.getResiToma(),  formulari.getResiTomaLiteral(), cab.getNumeroDeTomas()+1, "EXTRA", false, false); 
         	result = CabecerasXLSHelper.nuevaToma(getIdUsuario(), cab, nuevaToma);
+			//INICIO eación de log en BBDD
+			try{
+				SpdLogAPI.addLog(getIdUsuario(),  null,  cab.getIdDivisionResidencia(), formulari.getIdProceso()
+						, SpdLogAPI.A_CABECERA, SpdLogAPI.B_CREACION, SpdLogAPI.C_TOMAS, "SpdLog.cabecera.creacion.toma"
+						, new String[]{ formulari.getIdProceso(), nuevaToma.getNombreToma(), nuevaToma.getHoraToma(), String.valueOf(nuevaToma.getPosicionEnBBDD())
+								, String.valueOf(nuevaToma.getPosicionEnVistas()), nuevaToma.getTipo()
+								, String.valueOf(nuevaToma.isDesdeTomaPrimerDia()),  String.valueOf(nuevaToma.isHastaTomaUltimoDia())}  );//variables
+			}catch(Exception e){}	
+			//FIN de log en BBDD
+
     	}
     	//actualización con la nueva toma
 		tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
@@ -88,6 +100,16 @@ public class CabecerasXLSAction extends GenericAction  {
 				{
 		   			result=CabecerasXLSDAO.borradoDeToma(getIdUsuario(), formulari, cabPlantilla, cab, resiToma.getPosicionEnBBDD());
 					errors.add( "Toma borrada correctamente ");
+					//INICIO eación de log en BBDD
+					try{
+						SpdLogAPI.addLog(getIdUsuario(),  null,  cab.getIdDivisionResidencia(), formulari.getIdProceso()
+								, SpdLogAPI.A_CABECERA, SpdLogAPI.B_BORRADO, SpdLogAPI.C_TOMAS, "SpdLog.cabecera.borrado.toma"
+								, new String[]{formulari.getIdProceso(), resiToma.getIdToma(), resiToma.getNombreToma(), resiToma.getHoraToma(), String.valueOf(resiToma.getPosicionEnBBDD())
+										, String.valueOf(resiToma.getPosicionEnVistas()), resiToma.getTipo()
+										, String.valueOf(resiToma.isDesdeTomaPrimerDia()),  String.valueOf(resiToma.isHastaTomaUltimoDia())}  );//variables
+					}catch(Exception e){}	
+					//FIN de log en BBDD
+					
 
 				}
 				else errors.add( "No se ha podido borrar la toma porque existen pautas asignadas en esa hora.");
@@ -134,6 +156,19 @@ public class CabecerasXLSAction extends GenericAction  {
 		    	CabecerasXLSDAO.actualizaPosicion(cabResiTomaAIntercambiar);
 	    	}
 	    	    	
+			//INICIO eación de log en BBDD
+			try{
+				SpdLogAPI.addLog(getIdUsuario(),  null,  cabResiToma.getIdDivisionResidencia(), formulari.getIdProceso()
+						, SpdLogAPI.A_CABECERA, SpdLogAPI.B_EDICION, SpdLogAPI.C_TOMAS, "SpdLog.cabecera.moverPosicion.toma"
+						, new String[]{formulari.getIdProceso(), cabResiToma.getNombreToma()
+								, String.valueOf(cabResiToma.getPosicionEnVistas()), String.valueOf(cabResiTomaAIntercambiar.getPosicionEnVistas())
+								, cabResiTomaAIntercambiar.getNombreToma()
+								, String.valueOf(cabResiTomaAIntercambiar.getPosicionEnVistas()), String.valueOf(cabResiToma.getPosicionEnVistas()) }  );//variables
+			}catch(Exception e){}
+			//FIN de log en BBDD
+
+			//Se ha intercambiado la posición de la toma  @@ --> antes:  @@ - después:  @@, con la posición de la toma  @@ --> antes:  @@ - después:  @@
+			
 	    	List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
 	    	
 	    	formulari.setListaTomasCabecera(tomasCabecera);

@@ -2,6 +2,10 @@
 package lopicost.spd.iospd.importdata.models;
 
 import lopicost.spd.controller.SpdLogAPI;
+import lopicost.spd.excepciones.ColumnasInsuficientesException;
+import lopicost.spd.excepciones.LineaDescartadaException;
+import lopicost.spd.excepciones.LineaDuplicadaException;
+import lopicost.spd.excepciones.MaxLineasNulasException;
 import lopicost.spd.helper.FicheroResiDetalleHelper;
 
 import lopicost.spd.iospd.importdata.process.ImportProcessImpl;
@@ -35,6 +39,7 @@ import java.util.Vector;
 public class ImportAegerus extends ImportProcessImpl
 {
 	int reg = 11;  //numeroCorteCabecera  / celda de la fecha inicio, que es la obligatoria. a partir de aquí pueden venir vacías
+	int nulasSeguidas=0;
 	String CIPanterior="";
 	int numeroDoses=0;
 	int oidFicheroResiCabecera= 0;
@@ -145,8 +150,9 @@ public class ImportAegerus extends ImportProcessImpl
 	   // diasRangoSPD= AegerusHelper.buscarDiasRangoSPD(fechaDesde, fechaHasta);
      }
 
-    public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception {
+    public boolean procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception {
  
+    	boolean finalizar= false;
        	System.out.println( "--> procesarEntrada. INICIO row  "  + new Date() );		
  
        	this.idProceso=idProceso;
@@ -158,13 +164,30 @@ public class ImportAegerus extends ImportProcessImpl
         	{
             	
                 this.creaRegistro(row, count);
-                return;
+                //return finalizar;
         	}
         	else
-     	       throw new Exception ("Línea descartada  " + row.toString());
+        		throw new LineaDescartadaException("Línea descartada " + row.toString());
+     	       //throw new Exception ("Línea descartada  " + row.toString());
         }        
- 	    else 
-	       throw new Exception ("Columnas insuficientes para la importación. " + row.toString());
+        else 
+        {
+        	nulasSeguidas++;
+        	if(nulasSeguidas>=SPDConstants.MAX_LINEAS_NULAS_CARGA)
+        	{
+        		finalizar=true; //interesa que no se siga procesando
+        		//throw new Exception ("Se ha superado el máximo líneas nulas permitidas en la carga: " + SPDConstants.MAX_LINEAS_NULAS_CARGA);
+        		throw new MaxLineasNulasException(
+        	            "Se ha superado el máximo de líneas nulas permitidas: " + SPDConstants.MAX_LINEAS_NULAS_CARGA
+        	        );
+        		
+        	}
+        		
+            //throw new Exception ("Columnas insuficientes para la importación. ");
+        	throw new ColumnasInsuficientesException("Columnas insuficientes para la importación.");
+        	
+        }
+        return finalizar;
     }
     
     
@@ -173,7 +196,8 @@ public class ImportAegerus extends ImportProcessImpl
     	//row = AegerusHelper.comenzarEnMediodia(this.fechaDesde, row);
     	//row = AegerusHelper.acabarEnMediodia(this.fechaHasta, row);
 		if (this.rowsTratados.containsKey(String.valueOf(row))) {
-			throw new Exception ("Es un tratamiento que está duplicado ");
+			//throw new Exception ("Es un tratamiento que está duplicado ");
+			throw new LineaDuplicadaException("Es un tratamiento que está duplicado ");
 		}
 		this.rowsTratados.put(String.valueOf(row), String.valueOf(row));
 		

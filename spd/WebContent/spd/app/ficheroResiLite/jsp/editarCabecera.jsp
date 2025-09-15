@@ -260,8 +260,21 @@
 	<fieldset style="text-align: left;">
 		
 		<div style="color: blue;" align="left">
-			Producción.  Forzar recogida de datos --> <input type="button" value="Lanzar proceso 1" onclick="lanzarProceso('24', this);" />
-			<input type="button" value="Lanzar proceso 2" onclick="lanzarProceso('20', this);" />
+			Producción.  Forzar recogida de datos --> 
+			<c:choose>
+		    <c:when test="${data.idRobot=='robot3'}">
+		      	<input type="button" value="Lanzar proceso 1" onclick="lanzarProceso('24', this);" />
+				<input type="button" value="Lanzar proceso 2" onclick="lanzarProceso('20', this);" />
+		    </c:when>
+		    <c:when test="${data.idRobot=='robot4'}">
+		      	<input type="button" value="Lanzar proceso 1" onclick="lanzarProceso('25', this);" />
+				<input type="button" value="Lanzar proceso 2" onclick="lanzarProceso('19', this);" />
+		    </c:when>		    
+		    <c:otherwise>
+		        
+		    </c:otherwise>
+		</c:choose>
+
 			</br></br>
 		<a href="#" onclick="informeRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />', 'etiquetasR'); return false;">
 			Generador etiquetas agosto

@@ -2,6 +2,7 @@
 package lopicost.spd.iospd.importdata.models;
 
 
+import lopicost.spd.excepciones.LineaDuplicadaException;
 import lopicost.spd.persistence.GestSustitucionesLiteDAO;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.bean.PacienteBean;
@@ -162,7 +163,8 @@ public class ImportSFAssis extends ImportGenericLite
 		if(existeDuplicado)
 			//this.errors.add(TextManager.getMensaje("ImportData.error.linea")+" " + row);
 			//this.errors.add("Es un tratamiento que está duplicado " );
-			throw new Exception ("Es un tratamiento que está duplicado ");
+			//throw new Exception ("Es un tratamiento que está duplicado ");
+			throw new LineaDuplicadaException("Es un tratamiento que está duplicado ");
 		System.out.println(" -----  borrarPosibleDuplicado Fin-->  " );
 		
 	}

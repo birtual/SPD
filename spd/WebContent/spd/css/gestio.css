@@ -414,13 +414,18 @@ th {
 th.nombres {
 	width: 5em;	
 }
+td.BASE {
+	background-color: #00abfd;
+}
+td.EXTRA {
+	background-color: #00ff00;
+}
 th.BASE {
 	/*background-color: blue;*/
 }
 th.EXTRA {
 	background-color: #00ff00;
 }
-
 td {
 	font: normal 0.8em Verdana, Geneva, Arial, Helvetica, sans-serif;
 	/*font: 0.9em Arial, sans-serif;*/

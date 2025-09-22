@@ -59,6 +59,11 @@ public class InformeSpdAction extends GenericAction
 	public ActionForward global(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 	    return baseLite(mapping, form, request, "global", true, false);
 	}
+
+	public ActionForward globalAdminAll(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+	    return baseLite(mapping, form, request, "globalAdminAll", true, false);
+	}
+	
 	
 	/*
     public ActionForward global(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {

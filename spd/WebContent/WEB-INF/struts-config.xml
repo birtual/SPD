@@ -30,6 +30,7 @@
   		<form-bean name="ProcesosForm" type="lopicost.spd.struts.form.ProcesosForm"/>     
   		<form-bean name="ProcesosBloqueosHorariosForm" type="lopicost.spd.struts.form.ProcesosBloqueosHorariosForm"/>     
   		<form-bean name="InformeSpdForm" type="lopicost.spd.struts.form.InformeSpdForm"/>     
+  		<form-bean name="InformeRDForm" type="lopicost.spd.struts.form.InformeRDForm"/>     
     		
 
 	<!-- IOSPD Import -->
@@ -226,7 +227,23 @@
 
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
         </action>  
-        
+
+
+        <action path="/InformeRD" type="lopicost.spd.struts.action.InformeRDAction" 
+        	parameter="parameter"  name="InformeRDForm"         
+        	scope="request"  validate="false">
+        	<forward name="etiquetas" path="/spd/app/robot/informeRD/jsp/generadorEtiquetas.jsp" />
+        	<forward name="etiquetasR" path="/spd/app/robot/informeRD/jsp/generadorEtiquetasR.jsp" />
+        	<forward name="global" path="/spd/app/robot/informeRD/jsp/informeGlobal.jsp" />
+        	<forward name="globalLite" path="/spd/app/robot/informeRD/jsp/informeGlobalLite.jsp" />
+        	<forward name="globalLiteAll" path="/spd/app/robot/informeRD/jsp/informeGlobalLiteAll.jsp" />
+        	<forward name="detalle" path="/spd/app/robot/informeRD/jsp/informeDetalle.jsp" />
+        	<forward name="globalAdminAll" path="/spd/app/robot/informeRD/jsp/globalAdminAll.jsp" />
+            <forward name="error" path="/spd/common/jsp/error.jsp"/>
+		</action>
+		
+		
+		
         <action path="/InformeSpd" type="lopicost.spd.struts.action.InformeSpdAction" 
         	parameter="parameter"  name="InformeSpdForm"         
         	scope="request"  validate="false">
@@ -236,6 +253,7 @@
         	<forward name="globalLite" path="/spd/app/robot/informeSpd/jsp/informeGlobalLite.jsp" />
         	<forward name="globalLiteAll" path="/spd/app/robot/informeSpd/jsp/informeGlobalLiteAll.jsp" />
         	<forward name="detalle" path="/spd/app/robot/informeSpd/jsp/informeDetalle.jsp" />
+        	<forward name="globalAdminAll" path="/spd/app/robot/informeSpd/jsp/globalAdminAll.jsp" />
             <forward name="error" path="/spd/common/jsp/error.jsp"/>
 		</action>
 
@@ -331,6 +349,8 @@
          <action path="/CabecerasXLS" type="lopicost.spd.struts.action.CabecerasXLSAction"  
 		 	parameter="parameter"  name="FicheroResiForm" 
 		 	scope="request" validate="false">
+        	<forward name="consulta" path="/spd/app/cabecerasXLS/jsp/consulta.jsp" />
+        	<forward name="edicionLista" path="/spd/app/cabecerasXLS/jsp/edicionLista.jsp" />
         	<forward name="list" path="/spd/app/cabecerasXLS/jsp/list.jsp" />
         	<forward name="editar" path="/spd/app/cabecerasXLS/jsp/editarCabecera.jsp" />
             <forward name="error" path="/spd/common/jsp/error.jsp"/>

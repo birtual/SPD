@@ -17,14 +17,25 @@ import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.form.FicheroResiForm;
 import lopicost.spd.struts.helper.CabecerasXLSHelper;
-import lopicost.spd.utils.HelperSPD;
+import lopicost.spd.utils.StringUtil;
+
 
 
 
 public class CabecerasXLSAction extends GenericAction  {
 
-    public ActionForward list(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    public ActionForward consulta(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
     	FicheroResiForm formulari =  (FicheroResiForm) form;
+    	formulari.setIdUsuario(getIdUsuario());
+    	List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
+    	formulari.setListaTomasCabecera(tomasCabecera);
+        return mapping.findForward("consulta");
+    }
+
+    
+    public ActionForward edicionLista(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    	FicheroResiForm formulari =  (FicheroResiForm) form;
+    	formulari.setIdUsuario(getIdUsuario());
     	List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
     	boolean existenPosteriores = CabecerasXLSHelper.controlEdicion(formulari.getOidDivisionResidencia(), formulari.getOidFicheroResiCabecera());
     	if(existenPosteriores )
@@ -32,25 +43,32 @@ public class CabecerasXLSAction extends GenericAction  {
     		formulari.setMode("VIEW");
     	}
     	formulari.setListaTomasCabecera(tomasCabecera);
-        return mapping.findForward("list");
+        return mapping.findForward("edicionLista");
     }
 
     public ActionForward nuevaToma(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
     	FicheroResiForm formulari =  (FicheroResiForm) form;
-		List errors = new ArrayList();
+		
+    	formulari.setIdUsuario(getIdUsuario());
+    	List errors = new ArrayList();
 		boolean result = false;
 		List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
     	FicheroResiBean  cab = FicheroResiDetalleDAO.getGestFicheroResiBolsaByForm(getIdUsuario(), 0, formulari, true, false, false);
     	cab.setNumeroDeTomas(tomasCabecera.size());
     	
     	boolean existeTomaPrevia = CabecerasXLSHelper.existeTomaPrevia(tomasCabecera, formulari.getResiToma(), formulari.getResiTomaLiteral());
-    	CabecerasXLSBean existeIdToma = CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), -1, -1, null, formulari.getResiToma(), formulari.getResiTomaLiteral(), false, false);
+    	String horaTomaLiteral=formulari.getResiTomaLiteral(); 
+    	if(horaTomaLiteral!=null && !horaTomaLiteral.equals("")) 
+    		horaTomaLiteral=StringUtil.limpiarTextoyEspacios(horaTomaLiteral);  //quitamos espacios y algunos caracteres que no gustan al robot
+
+    	
+    	CabecerasXLSBean existeIdToma = CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), -1, -1, null, formulari.getResiToma(), horaTomaLiteral, false, false);
     	if(existeTomaPrevia)
     		 errors.add( "La hora y el nombre de la toma son obligatorios y han de ser diferentes a los existentes");
 
     	else 
     	{
-        	CabecerasXLSBean nuevaToma = new CabecerasXLSBean( cab.getIdDivisionResidencia(), formulari.getResiToma(),  formulari.getResiTomaLiteral(), cab.getNumeroDeTomas()+1, "EXTRA", false, false); 
+        	CabecerasXLSBean nuevaToma = new CabecerasXLSBean( cab.getIdDivisionResidencia(), formulari.getResiToma(),  horaTomaLiteral, cab.getNumeroDeTomas()+1, "EXTRA", false, false); 
         	result = CabecerasXLSHelper.nuevaToma(getIdUsuario(), cab, nuevaToma);
 			//INICIO eación de log en BBDD
 			try{
@@ -68,7 +86,7 @@ public class CabecerasXLSAction extends GenericAction  {
 		formulari.setListaTomasCabecera(tomasCabecera);
 		formulari.setErrors(errors);
     	//list(mapping,  form,  request,  response);
-    	return mapping.findForward("list");
+    	return mapping.findForward("edicionLista");
     }
 
     
@@ -77,7 +95,7 @@ public class CabecerasXLSAction extends GenericAction  {
 	public ActionForward borrar(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		FicheroResiForm formulari =  (FicheroResiForm) form;
 		List errors = new ArrayList();
-		
+		formulari.setIdUsuario(getIdUsuario());
 		//recuperamos la lista
 		FicheroResiBean  cabPlantilla = CabecerasXLSDAO.getCabecerasXLSByOidCabecera(getIdUsuario(), formulari.getOidFicheroResiCabecera());
 		
@@ -133,7 +151,7 @@ public class CabecerasXLSAction extends GenericAction  {
 	
 	public ActionForward moverPosicion(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 	    	FicheroResiForm formulari =  (FicheroResiForm) form;
-	    	
+	    	formulari.setIdUsuario(getIdUsuario());
 	    	String accion = formulari.getACTIONTODO();
 	    	CabecerasXLSBean cabResiToma = CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), formulari.getOidResiToma(), -1, null, null, null, false, false);
 	    	CabecerasXLSBean cabResiTomaAIntercambiar = null;
@@ -175,7 +193,7 @@ public class CabecerasXLSAction extends GenericAction  {
 	    	
 	    	
 	    	//list(mapping,  form,  request,  response);
-	    	return mapping.findForward("list");
+	    	return mapping.findForward("edicionLista");
 	    }
 	   
 	   

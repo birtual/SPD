@@ -110,7 +110,7 @@
 			
 						
 	        	<tr class="rd_cabecera">
-				<td><bean:write name="medic" property="cn" /> - <bean:write name="medic" property="nombreMedicamentoConsejo" /></td>
+				<td><bean:write name="medic" property="cn" /> - <bean:write name="medic" property="nombreMedicamentoBolsa" /></td>
 					<td><bean:write name="medic" property="pautaResidencia" /></td>
 					<td><bean:write name="medic" property="lote" /></td>
 					<td><bean:write name="medic" property="caducidad" /></td>

@@ -125,7 +125,7 @@ function volver()
 
 </fieldset>	
 
- <table class="CSS_Table_Example" >
+ <table class="detalle">
  <tr>
  <td class="primera"></td>
 		<td class="primera">horaToma</td>
@@ -178,8 +178,8 @@ function volver()
 			</c:if>
 			<c:out value="${toma.nombreToma}" ></c:out>
 			</td>
-			<td><c:out value="${toma.posicionEnBBDD}" ></c:out></td>
-			<td><c:out value="${toma.posicionEnVistas}" ></c:out></td>
+			<td align="center"><c:out value="${toma.posicionEnBBDD}" ></c:out></td>
+			<td align="center"><c:out value="${toma.posicionEnVistas}" ></c:out></td>
 			<td><c:out value="${toma.tipo}" ></c:out>
 			<c:if test="${formulari.mode != 'VIEW'}" >
 			<c:if test="${toma.tipo == 'EXTRA'}" >
@@ -193,9 +193,9 @@ function volver()
 		<c:if test="${formulari.mode != 'VIEW'}" >
 			<tr>
 			<td></td>
-			<td><input type="text" name="resiToma" placeholder="hh:mm"> <br>(formato hh:mm)</td>
+			<td><input type="text" name="resiToma" placeholder="formato hh:mm"> <br></td>
 			<td></td>
-			<td><input type="text" name="resiTomaLiteral"  ></td>
+			<td><input type="text" name="resiTomaLiteral"  placeholder="añadir nombre"> </td>
 			<td></td>
 			<td></td>
 			<td>

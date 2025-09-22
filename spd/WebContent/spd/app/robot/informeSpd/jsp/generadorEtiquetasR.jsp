@@ -123,7 +123,7 @@
 			<td>
 		</c:otherwise>
 		</c:choose>
-        <bean:write name="receta" property="cn" /> - <bean:write name="receta" property="nombreMedicamentoConsejo" />
+        <bean:write name="receta" property="cn" /> - <bean:write name="receta" property="nombreMedicamentoBolsa" />
        		</td>
 
         <td style="text-align: center;"><bean:write name="medic" property="pautaResidencia" /></td>

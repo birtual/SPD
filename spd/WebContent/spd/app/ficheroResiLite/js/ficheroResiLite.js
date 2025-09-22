@@ -310,7 +310,7 @@
 	function crearNuevaToma()
 	{
 		var f = document.FicheroResiForm;
-		var loc = '/spd/CabecerasXLS.do?parameter=list&oidDivisionResidencia=' + f.oidDivisionResidencia.value + '&oidFicheroResiCabecera='+f.oidFicheroResiCabecera.value; 		
+		var loc = '/spd/CabecerasXLS.do?parameter=consulta&oidDivisionResidencia=' + f.oidDivisionResidencia.value + '&oidFicheroResiCabecera='+f.oidFicheroResiCabecera.value; 		
 		window.open(loc, 'crearNuevaToma', 'dependent=yes,height=500,width=800,top=50,left=50,resizable=yes,scrollbars=yes' );
 	}	
 

@@ -131,7 +131,7 @@
 	       	<logic:iterate id="trat" name="data" property="ttosEmblistados" type="lopicost.spd.robot.bean.rd.TratamientoPaciente">
 			<bean:define id="medic" name="trat" property="medicamentoPaciente" />
 	        	<tr class="rd_cabecera">
-					<td><bean:write name="medic" property="cn" /> - <bean:write name="medic" property="nombreMedicamentoConsejo" /></td>
+					<td><bean:write name="medic" property="cn" /> - <bean:write name="medic" property="nombreMedicamentoBolsa" /></td>
 					<td><bean:write name="medic" property="labMedicamento" /></td>
 					<td><bean:write name="medic" property="pautaResidencia" /></td>
 					<td><bean:write name="medic" property="nombreMedicamentoBolsa" /></td>

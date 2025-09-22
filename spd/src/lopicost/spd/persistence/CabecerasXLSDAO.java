@@ -15,6 +15,7 @@ import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.form.FicheroResiForm;
 import lopicost.spd.utils.SPDConstants;
+import lopicost.spd.utils.StringUtil;
  
  
 public class CabecerasXLSDAO {
@@ -408,6 +409,8 @@ public class CabecerasXLSDAO {
      	
     	Connection con = Conexion.conectar();
     	CabecerasXLSBean  c =null;
+    	if(horaTomaLiteral!=null && !horaTomaLiteral.equals("")) 
+    		horaTomaLiteral=StringUtil.limpiarTextoyEspacios(horaTomaLiteral);
       
     	String qry = "SELECT * FROM dbo.SPD_cabecerasXLS g  ";
  		qry+= " WHERE 1=1 ";

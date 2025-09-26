@@ -10,8 +10,18 @@ public abstract class Medicamento {
     private String caducidad;
     private String numeroSerie;
     private Identificacion identificacion;
-    
-    
+	private String nombreMedicamentoBolsa;
+
+	public String getNombreMedicamentoBolsa() {
+		return nombreMedicamentoBolsa;
+	}
+
+
+	public void setNombreMedicamentoBolsa(String nombreMedicamentoBolsa) {
+		this.nombreMedicamentoBolsa = nombreMedicamentoBolsa;
+	}
+
+
 	public Identificacion getIdentificacion() {
 		return identificacion;
 	}

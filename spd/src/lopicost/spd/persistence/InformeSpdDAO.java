@@ -36,117 +36,7 @@ public class InformeSpdDAO
         InformeSpdDAO.className = "InformeSPDDAO";
     }
     
-    
-    public static String getQueryByIdProceso(FicheroResiBean cab) throws Exception {
-
-    	String fechaInicioSPD = cab.getFechaDesde();
-    	
-    	String qry = " SELECT    ISNULL( r.offsetDays,   		";	
-		  qry +=  "     CASE WHEN b.fechaToma IS NOT NULL THEN    				";	
-		  qry +=  "         DATEDIFF(DAY, CAST(CONVERT(date, '"+fechaInicioSPD+"', 103) AS date), b.fechaToma)    			";	
-		  qry +=  "         ELSE NULL  		";	
-		  qry +=  "  	END   ) AS offsetDays, ";	
-		  qry +=  "      b.fechaHoraProceso AS fechaHoraProceso_Birtual, ";	
-		  qry +=  " 	b.idDivisionResidencia AS idDivisionResidencia_Birtual, ";	
-		  qry +=  " 	b.idProceso AS idProceso_Birtual, ";	
-		  qry +=  " 	b.CIP AS CIP_Birtual, ";	
-		  qry +=  " 	b.CN AS CN_Birtual, ";	
-		  qry +=  " 	b.nombreMedicamento AS nombreMedicamento_Birtual, ";	
-		  qry +=  " 	b.cantidadToma AS cantidadToma_Birtual, ";	
-		  qry +=  " 	b.dispensar AS dispensar_Birtual, ";	
-		  qry +=  " 	b.fechaToma AS fechaToma_Birtual, ";	
-		  qry +=  " 	CONVERT(VARCHAR(10), CAST(b.fechaToma AS DATE), 103) AS fechaToma2_Birtual,";	
-		  qry +=  " 	b.idLineaRX AS idLineaRX_Birtual, ";	
-		  qry +=  " 	b.tramoToma AS tramoToma_Birtual, ";	
-		  qry +=  " 	b.idToma AS idToma_Birtual, ";	
-		  qry +=  " 	b.nombreToma AS nombreToma_Birtual, ";	
-		  qry +=  " 	b.planta AS planta_Birtual, ";	
-		  qry +=  " 	b.habitacion AS habitacion_Birtual, ";	
-		  qry +=  " 	b.numBolsa AS numBolsa_Birtual, ";	
-		  qry +=  " 	b.idBolsa AS idBolsa_Birtual, ";	
-		  qry +=  " 	b.idFreeInformation AS idFreeInformation_Birtual, ";	
-		  qry +=  " 	b.idDetalle AS idDetalle_Birtual, ";	
-		  qry +=  " 	b.orderNumber AS orderNumber_Birtual, ";	
-		  qry +=  " 	b.CodGtVm AS CodGtVm_Birtual, ";	
-		  qry +=  " 	b.NomGtVm AS NomGtVm_Birtual, ";	
-		  qry +=  " 	b.CodGtVmp AS CodGtVmp_Birtual, ";	
-		  qry +=  " 	b.NomGtVmp AS NomGtVmp_Birtual, ";	
-		  qry +=  " 	b.CodGtVmpp AS CodGtVmpp_Birtual, ";	
-		  qry +=  " 	b.NomGtVmpp AS NomGtVmpp_Birtual, ";	
-		  qry +=  " 	b.pautaResidencia AS pautaResidencia_Birtual, ";	
-		  qry +=  " 	b.nombreMedicamentoConsejo AS nombreConsejo_Birtual,";	 
-		  qry +=  " 	b.nombreLaboratorio AS nombreLab_Birtual,";	
-		  qry +=  " 	r.idRobot AS idRobot_Robot, ";	
-		  qry +=  " 	r.idDivisionResidencia AS idDivisionResidencia_Robot, ";	
-		  qry +=  " 	r.idResidenciaCarga AS idResidenciaCarga_Robot, ";	
-		  qry +=  " 	r.diaInicioSPD AS diaInicioSPD_Robot, ";	
-		  qry +=  " 	r.CIP AS CIP_Robot, ";	
-		  qry +=  " 	r.prescriptionOrderNumber AS prescriptionOrderNumber_Robot, ";	
-		  qry +=  " 	r.diaDesemblistado AS diaDesemblistado_Robot, ";	
-		  qry +=  " 	r.diaEmbolsado AS diaEmbolsado_Robot, ";	
-		  qry +=  " 	r.horaEmbolsado AS horaEmbolsado_Robot, ";	
-		  qry +=  " 	r.totalBolsas AS totalBolsas_Robot, ";	
-		  qry +=  " 	r.numeroOrdenBolsa AS numeroOrdenBolsa_Robot, ";	
-		  qry +=  " 	r.primerIdBolsaSPD AS primerIdBolsaSPD_Robot, ";	
-		  qry +=  " 	r.ultimoIdBolsaSPD AS ultimoIdBolsaSPD_Robot, ";	
-		  qry +=  " 	r.idBolsa AS idBolsa_Robot, ";	
-		  qry +=  " 	r.CN AS CN_Robot, ";	
-		  qry +=  " 	r.nombreMedicamentoBolsa AS nombreEnBolsa_Robot, ";	
-		  qry +=  " 	r.cantidad AS cantidad_Robot, ";	
-		  qry +=  " 	r.lote AS lote_Robot, ";	
-		  qry +=  " 	r.caducidad AS caducidad_Robot, ";	
-		  qry +=  " 	r.codigoBarras AS codigoBarras_Robot, ";	
-		  qry +=  " 	r.codigoMedicamentoRobot AS codigoM_Interno_Robot, ";	
-		  qry +=  " 	r.freeInformation AS freeInformation_Robot, ";	
-		  qry +=  " 	r.offsetDays AS offsetDays_Robot, ";	
-		  qry +=  " 	r.doseTime AS doseTime_Robot, ";	
-		  qry +=  " 	r.numeroTolva AS numeroTolva_Robot, ";	
-		  qry +=  " 	r.fechaInsert AS fechaInsert_Robot, ";	
-		  qry +=  " 	r.CodGtVm AS CodGtVm_Robot, ";	
-		  qry +=  " 	r.NomGtVm AS NomGtVm_Robot, ";	
-		  qry +=  " 	r.CodGtVmpp AS CodGtVmpp_Robot, ";	
-		  qry +=  " 	r.NomGtVmpp AS NomGtVmpp_Robot, ";	
-		  qry +=  " 	r.CodGtVmp AS CodGtVmp_Robot, ";	
-		  qry +=  " 	r.NomGtVmp AS NomGtVmp_Robot, ";	
-		  qry +=  " 	r.idProceso AS idProceso_Robot, ";	
-		  qry +=  " 	r.numeroSerie AS numeroSerie_Robot, ";	
-		  qry +=  " 	r.fechaCorte AS fechaCorte_Robot, ";	
-		  qry +=  " 	r.FORMA AS FORMA_Robot, ";	
-		  qry +=  " 	r.COLOR1 AS COLOR1_Robot, ";	
-		  qry +=  " 	r.COLOR2 AS COLOR2_Robot, ";	
-		  qry +=  " 	r.RANURA AS RANURA_Robot, ";	
-		  qry +=  " 	r.INSCRIPCIONA AS INSCRIPCIONA_Robot, ";	
-		  qry +=  " 	r.INSCRIPCIONB AS INSCRIPCIONB_Robot, ";	
-		  qry +=  " 	r.DIBUJO AS DIBUJO_Robot, ";	
-		  qry +=  " 	r.LARGO AS LARGO_Robot, ";	
-		  qry +=  " 	r.ANCHO AS ANCHO_Robot, ";	
-		  qry +=  " 	r.nombreMedicamentoConsejo AS nombreConsejo_Robot, ";	
-		  qry +=  " 	r.nombreLaboratorio AS nombreLab_Robot";	
-		  qry +=  " FROM SPD_XML_detallesTomasRobot b ";	
-		  qry +=  " LEFT JOIN SPD_robotProducciones r ";	
-		  qry +=  "     ON b.idProceso = r.idProceso ";	
-		  qry +=  " 	AND b.CIP = r.CIP ";	
-		  qry +=  " 	AND b.idFreeInformation = r.FreeInformation ";	
-		  qry +=  " 	AND b.idDivisionResidencia = r.idDivisionResidencia ";	
-		  qry +=  " 	AND ( b.CodGtVm = r.CodGtVm or b.nombreMedicamento=r.nombreMedicamentoBolsa) ";	
-		  /*qry +=  " LEFT JOIN spd_auxCodGT t  ";	
-		  qry +=  "     ON t.codGtVmp = r.codGtVmp  ";	
-		  qry +=  " 	AND t.codGtVm = r.codGtVm  ";	
-		  qry +=  " 	AND t.codGtVmpp = r.codGtVmpp ";	
-		  qry +=  " 	AND t.codGtVmp = b.codGtVmp  ";	
-		  qry +=  " 	AND t.codGtVm = b.codGtVm  ";	*/
-	//	  qry +=  " --  AND t.codGtVmpp = b.codGtVmpp ";	
-		  qry +=  " WHERE b.idProceso = '"+ cab.getIdProceso() +"' ";	
-		  qry +=  " AND NOT (dispensar = 'S' AND idRobot IS NULL) ";	
-	//	  qry +=  " -- AND b.nomGtVm ='SERTRALINA' ";	
-	//	  qry +=  " -- AND b.CIP='SEBO0660228000' ";	
-	//	  qry +=  " -- AND NOT (r.codGtVm IS NOT NULL AND t.codGtVm IS NULL); ";
-		  qry +=  " ORDER BY b.CIP, b.fechaToma, b.idToma, b.dispensar; ";
-		    
-			  return qry;
-    }
- 
-    
+  
     public static String getQueryUnionAll(FicheroResiBean cab) throws Exception {
 
     	String fechaInicioSPD = cab.getFechaDesde();
@@ -262,20 +152,6 @@ public class InformeSpdDAO
 			  qry +=  " ORDER BY CIP, fechaToma, idToma, dispensar; ";
 		    
 			  return qry;
-    }
- 
-    
-    
-    
-    public static List<ProduccionPaciente> findLiteByIdProceso(String spdUsuario, FicheroResiBean cab, boolean recetas, boolean mezclar) throws Exception {
-    	
-	   	String qry = getQueryByIdProceso(cab);
-    	
-    	List<ProduccionPaciente> producciones = new ArrayList<ProduccionPaciente>();
-    	
-    	producciones = desarrollaListadoProduccion( spdUsuario,  qry,  cab,  recetas,  mezclar);
-    	
-        return producciones;
     }
  
     

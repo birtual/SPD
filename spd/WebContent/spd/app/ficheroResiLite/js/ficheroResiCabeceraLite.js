@@ -368,5 +368,11 @@
 			var url = "/spd/InformeSpd.do?parameter="+parameter+"&oidFicheroResiCabecera=" + oidFicheroResiCabecera;
 	 		window.open(url, parameter, 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
 		}
-		
+
+		function informeRobotRD(oidFicheroResiCabecera, parameter)
+		{
+			var url = "/spd/InformeRD.do?parameter="+parameter+"&oidFicheroResiCabecera=" + oidFicheroResiCabecera;
+	 		window.open(url, parameter, 'dependent=yes,width=850,height=400,top=50,left=0,resizable=yes,scrollbars=yes' );
+		}
+
 		

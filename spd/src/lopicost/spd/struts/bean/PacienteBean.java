@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import lopicost.spd.robot.bean.rd.BolsaSPD;
-import lopicost.spd.robot.bean.rd.MedicamentoReceta;
-import lopicost.spd.robot.bean.rd.MedicamentoPaciente;
 import lopicost.spd.utils.HelperSPD;
 
 
@@ -55,8 +53,8 @@ public class PacienteBean {
 	  private String mensajeTratamiento;	
 	  private String mensajePendientes;	
 	  private String claseId;	
-	  private List<BolsaSPD> produccionSPD;        				
-	  private List<MedicamentoReceta> dispensacionesReceta;        				
+	  private List produccionSPD;        				
+	  private List dispensacionesReceta;        				
 
 	  public PacienteBean() 									{			super();										}
 		
@@ -178,11 +176,11 @@ public class PacienteBean {
 		this.produccionSPD = produccionSPD;
 	}
 
-	public List<MedicamentoReceta> getDispensacionesReceta() {
+	public List getDispensacionesReceta() {
 		return dispensacionesReceta;
 	}
 
-	public void setDispensacionesReceta(List<MedicamentoReceta> list) {
+	public void setDispensacionesReceta(List list) {
 		this.dispensacionesReceta = list;
 	}
 	  

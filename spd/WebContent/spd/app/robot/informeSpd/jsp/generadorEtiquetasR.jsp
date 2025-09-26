@@ -22,7 +22,6 @@
 <html:form action="/InformeSpd.do" method="post">
 
 <fieldset>
-				 
 	<!-- div>
 		<label for="nombreDivisionResidencia" accesskey="e">Nombre de la residencia:</label><bean:write name="cab" property="nombreDivisionResidencia" />
 	</div-->

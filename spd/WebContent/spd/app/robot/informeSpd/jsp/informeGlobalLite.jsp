@@ -23,7 +23,6 @@
 
 <fieldset>
 				 
-				 
 	<!-- div>
 		<label for="nombreDivisionResidencia" accesskey="e">Nombre de la residencia:</label><bean:write name="cab" property="nombreDivisionResidencia" />
 	</div-->
@@ -69,6 +68,7 @@
 		Sin datos de la producción SPD
 	</logic:empty>	
 	<html:hidden property="parameter" />
+
 	<input type="hidden" name="oidFicheroResiCabecera" value="<bean:write name='InformeSpdForm' property='oidFicheroResiCabecera' />" />
     <logic:iterate id="data" name="formulari" property="producciones" type="lopicost.spd.robot.bean.rd.ProduccionPaciente">
 

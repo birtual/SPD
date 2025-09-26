@@ -285,13 +285,32 @@
 		<a href="#" onclick="informeRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />', 'globalLiteAll'); return false;">
 			Generador etiquetas (con receta)
 		</a></br></br>
+		<logic:equal property="idUsuario" name="formulari" value="test">
+		<a href="#" onclick="informeRobotRD('<bean:write name="data" property="oidFicheroResiCabecera" />', 'spdTest'); return false;">
+			- etiquetas Test
+		</logic:equal>
 		<logic:equal property="idUsuario" name="formulari" value="admin">
 		<a href="#" onclick="informeRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />', 'global'); return false;">
 			Generador etiquetas (con receta y días en columnas)
 		</a></br></br>
 			<a href="#" onclick="informeRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />', 'detalle'); return false;">
 				Detalle
-			</a></br>
+			</a>			</br></br>
+		<a href="#" onclick="informeRobotRD('<bean:write name="data" property="oidFicheroResiCabecera" />', 'spdTest'); return false;">
+			- etiquetas Test
+		</a></br></br>
+		<a href="#" onclick="informeRobotRD('<bean:write name="data" property="oidFicheroResiCabecera" />', 'spd'); return false;">
+			- etiquetas
+		</a></br></br>
+		<a href="#" onclick="informeRobotRD('<bean:write name="data" property="oidFicheroResiCabecera" />', 'spdR'); return false;">
+			- etiquetas R
+		</a></br></br>
+		<a href="#" onclick="informeRobotRD('<bean:write name="data" property="oidFicheroResiCabecera" />', 'spdBloques'); return false;">
+			- Producción/Fuera blister/Receta 
+		</a></br></br>					
+		<a href="#" onclick="informeRobotRD('<bean:write name="data" property="oidFicheroResiCabecera" />', 'spdBloquesYTomas'); return false;">
+			Producción/Fuera blister/Receta con detalle de tomas
+		</a></br></br>					
 		</logic:equal>
 		</div>
 		<!-- a href="#" onclick="informeRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />', 'globalLite'); return false;">

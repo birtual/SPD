@@ -52,7 +52,13 @@ public class InformeHelper {
 		TratamientoPaciente tto = new TratamientoPaciente();
 		tto.setMedicamentoPaciente(creaMedicamentoPaciente(rs));
 		if(mezclar) //Marco - 20250806 - Necesita que aparezca la info de receta en la dispensación (TEMPORALMENTE)
-			tto.setMedicamentoReceta(InformeSpdDAO.buscarUltimaDispensacionReceta(rs.getString("CIP"), rs.getString("NomGtVmp")));
+		{
+			MedicamentoReceta receta = InformeSpdDAO.buscarUltimaDispensacionReceta(rs.getString("CIP"), rs.getString("NomGtVmp"));
+			if(receta!=null) {
+				receta.setNombreMedicamentoBolsa(rs.getString("nombreMedicamento"));
+				tto.setMedicamentoReceta(receta);
+			}
+		}
 		tto.setCantidadUtilizadaSPD(rs.getDouble("cantidad"));
 		tto.setPautaResidencia(rs.getString("pautaResidencia"));
 		tto.setEmblistar(rs.getString("dispensar")!=null&&rs.getString("dispensar").equalsIgnoreCase("S"));
@@ -200,8 +206,8 @@ public class InformeHelper {
 
 	public List<ProduccionPaciente> findByIdResidenciaCarga(String spdUsuario, FicheroResiBean cab, boolean recetas, boolean prevaleceReceta) throws Exception {
 		//return InformeSpdDAO.findByIdResidenciaCarga(spdUsuario, cab);
-		//return InformeSpdDAO.findLiteByResidenciaCarga(spdUsuario, cab, recetas, prevaleceReceta);
-		return InformeSpdDAO.findLiteByIdProceso(spdUsuario, cab, recetas, prevaleceReceta);
+		return InformeSpdDAO.findLiteByResidenciaCarga(spdUsuario, cab, recetas, prevaleceReceta);
+		//return InformeSpdDAO.findLiteByIdProceso(spdUsuario, cab, recetas, prevaleceReceta);
 	}
 
 	/**

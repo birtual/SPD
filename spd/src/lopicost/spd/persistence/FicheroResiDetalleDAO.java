@@ -13,6 +13,7 @@ import lopicost.config.logger.Logger;
 import lopicost.config.pool.dbaccess.Conexion;
 import lopicost.spd.controller.ControlSPD;
 import lopicost.spd.security.helper.VisibilidadHelper;
+import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.CamposPantallaBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.bean.PacienteBean;
@@ -28,9 +29,9 @@ public class FicheroResiDetalleDAO {
 	static String className="FicheroResiDetalleDAO";
 	static String classNam2e="FicheroResiDetalleDAO";
 	static String TABLA_ACTIVA		=	"dbo.SPD_ficheroResiDetalle";
-	static String TABLA_HISTORICO 	=	"dbo.SPDHst_ficheroResiDetalle";   //tabla de histórico
+	static String TABLA_HISTORICO 	=	"dbo.SPDHst_ficheroResiDetalle";   //tabla de histï¿½rico
 	static String TABLA_CAB_ACTIVA		=	"dbo.SPD_ficheroResiCabecera";
-	static String TABLA_CAB_HISTORICO 	=	"dbo.SPDHst_ficheroResiCabecera";   //tabla de histórico
+	static String TABLA_CAB_HISTORICO 	=	"dbo.SPDHst_ficheroResiCabecera";   //tabla de histï¿½rico
 
 	public static FicheroResiBean getFicheroResiDetalleByIdOid(String spdUsuario, int oidFicheroResiDetalle) throws Exception {
 		return getFicheroResiDetalleByIdOid(spdUsuario, oidFicheroResiDetalle, false);
@@ -166,7 +167,7 @@ public class FicheroResiDetalleDAO {
 	
 	public static boolean borraDetalleSinCabecera() throws Exception {
         int result=0;
-        //TODO generar histórico
+        //TODO generar histï¿½rico
 		  Connection con = Conexion.conectar();
 	  	   String qry = " delete from  dbo.SPD_ficheroResiDetalle where oidFicheroResiCabecera not in (select oidFicheroResiCabecera from SPD_ficheroResiCabecera)  ";
 
@@ -188,7 +189,7 @@ public class FicheroResiDetalleDAO {
 	
 	public static boolean limpiarCIPIdproceso(String spdUsuario, FicheroResiBean medResi, boolean cipNombre) throws Exception {
         int result=0;
-        //TODO generar histórico
+        //TODO generar histï¿½rico
 		  Connection con = Conexion.conectar();
 	  	   String qry = " DELETE FROM dbo.SPD_ficheroResiDetalle ";
 			qry+= " WHERE idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
@@ -216,7 +217,7 @@ public class FicheroResiDetalleDAO {
 
 	public static boolean generarHistoricoProcesoAnterior(String spdUsuario, FicheroResiBean medResi, boolean cipNombre) throws Exception {
         int result=0;
-        //TODO generar histórico
+        //TODO generar histï¿½rico
 		  Connection con = Conexion.conectar();
 	  	   String qry = " INSERT INTO [dbo].[SPD_ficheroResiDetalle_HST]  ";
 	  	   		qry+= "   SELECT getdate(), * FROM dbo.SPD_ficheroResiDetalle ";
@@ -424,7 +425,7 @@ public class FicheroResiDetalleDAO {
 			{
 				qry+="AND ( ";
 				
-				// añadimos los filtros de alertas
+				// aï¿½adimos los filtros de alertas
 				if(form.isFiltroNumComprimidos()){
 					qry+=  "  g.controlNumComprimidos= '"+ SPDConstants.CTRL_NCOMPRIMIDOS_DIFERENTE +"' ";
 					if(filtrosChecked > 1)
@@ -583,7 +584,7 @@ public class FicheroResiDetalleDAO {
 	
 	
   	/**
-	 * Fetch es una cláusula que funciona a partir del SqlServer 2008 (no inclusive)
+	 * Fetch es una clï¿½usula que funciona a partir del SqlServer 2008 (no inclusive)
 	 * @param form
 	 * @param inicio
 	 * @param fin
@@ -602,7 +603,7 @@ public class FicheroResiDetalleDAO {
 	}
 
 	/**
-	 * Como FETCH es una cláusula de versión SQLSERVER>2008 se crea una función un poco más engorrosa pero
+	 * Como FETCH es una clï¿½usula de versiï¿½n SQLSERVER>2008 se crea una funciï¿½n un poco mï¿½s engorrosa pero
 	 * que sirve para todas las versiones (ROW_NUMBER() OVER)
 	 * @param form
 	 * @param inicio
@@ -651,7 +652,7 @@ public class FicheroResiDetalleDAO {
 
 	   		    			//if(c.getSpdCnFinal()==null || c.getSpdCnFinal().equals("")  || c.getSpdCnFinal().equals("null") )
 	    			//	c.setMensajesAlerta(c.getMensajesAlerta() + " FALTA CN FINAL ");
-	    			//??no recuerdo por qué está puesto lo del duplicado, no encuentro dónde se fija el texto "DUPLICADO"....
+	    			//??no recuerdo por quï¿½ estï¿½ puesto lo del duplicado, no encuentro dï¿½nde se fija el texto "DUPLICADO"....
 	    			//if(c.getResultLog()!=null && c.getResultLog().contains("DUPLICADO") && c.getMensajesInfo()!=null && !c.getMensajesInfo().contains("DUPLICADO"))
 	    			 //	c.setMensajesAlerta(c.getMensajesAlerta() + " POSIBLE DUPLICADO ");
 	    			
@@ -682,7 +683,7 @@ public class FicheroResiDetalleDAO {
 	    			 */
 	    			 
 	    			 /*
-	    			 //(NO ME ACUERDO POR QUE PUSE ESTO) --> solo metemos en lista los que cumplen condición X según formulario
+	    			 //(NO ME ACUERDO POR QUE PUSE ESTO) --> solo metemos en lista los que cumplen condiciÃ³n X segÃºn formulario
 	    			if(form.getSoloConMensajesInfo()!=null && form.getSoloConMensajesInfo().equals("1")	&& (c.getMensajesInfo()==null || c.getMensajesInfo().equals("")  || c.getMensajesInfo().equals("null")))
 	    				c=null;
 	    			 else
@@ -763,7 +764,7 @@ public class FicheroResiDetalleDAO {
 				qry+=	" AND (f.spdCnFinal IS NULL OR UPPER(f.spdCnFinal) = UPPER('NULL') OR UPPER(f.spdCnFinal) = UPPER(''))   "; 
 				qry+=	" AND (f.resiCn IS NOT NULL) AND UPPER(f.resiCn) NOT IN ('NULL') "; 
 				qry+=	" AND (c.rn = 1 or c.rn is null);  "; 
-				qry+=	" -- Filtrar por la primera coincidencia con mayor número de coincidencias "; 
+				qry+=	" -- Filtrar por la primera coincidencia con mayor nï¿½mero de coincidencias "; 
 
 						
 							
@@ -828,7 +829,7 @@ public class FicheroResiDetalleDAO {
 			 	 }
 
 		/**OK
-		 * Método para borrar el detalle de los ficheros, de uno en concreto o de forma masiva
+		 * Mï¿½todo para borrar el detalle de los ficheros, de uno en concreto o de forma masiva
 		 * @param oidFicheroResiDetalle
 		 * @param idDivisionresidencia
 		 * @param idProceso
@@ -843,7 +844,7 @@ public class FicheroResiDetalleDAO {
 			
 			String query = " DELETE FROM dbo.SPD_ficheroResiDetalle  ";
 			query+= " WHERE idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
-			 //solo se borra masivamente si nos envían los dos campos
+			 //solo se borra masivamente si nos envï¿½an los dos campos
 			query+=  " AND oidFicheroResiCabecera  = "+oidFicheroResiCabecera;
 
 			if(idTratamientoCIP!=null && !idTratamientoCIP.equals(""))
@@ -866,8 +867,8 @@ public class FicheroResiDetalleDAO {
 		
 
 		/**
-		 * Método que actualiza el id del tratamieno CIP-CN-resultadoFinalrobot
-		 * Se utilizará para control y detección de posibles cambios entre producciones
+		 * Mï¿½todo que actualiza el id del tratamieno CIP-CN-resultadoFinalrobot
+		 * Se utilizarï¿½ para control y detecciï¿½n de posibles cambios entre producciones
 		 * @param spdUsuario
 		 * @param oidFicheroResiCabecera
 		 * @param oidFicheroResiDetalle
@@ -954,7 +955,7 @@ public class FicheroResiDetalleDAO {
 		
 		
 		/**OK
-		 * Método para borrar el detalle de los ficheros, de uno en concreto o de forma masiva
+		 * Mï¿½todo para borrar el detalle de los ficheros, de uno en concreto o de forma masiva
 		 * @param oidFicheroResiDetalle
 		 * @param idDivisionresidencia
 		 * @param idProceso
@@ -987,7 +988,7 @@ public class FicheroResiDetalleDAO {
 		}
 		
 		/**OK
-		 * Método para borrar el detalle de los ficheros, de uno en concreto o de forma masiva
+		 * Mï¿½todo para borrar el detalle de los ficheros, de uno en concreto o de forma masiva
 		 * @param form
 		 * @return
 		 * @throws Exception 
@@ -998,7 +999,7 @@ public class FicheroResiDetalleDAO {
 			}
 
 		/**OK
-		 * Método para borrar el detalle de los ficheros que proviene de una secuenciaGuide creada.
+		 * Mï¿½todo para borrar el detalle de los ficheros que proviene de una secuenciaGuide creada.
 		 * 
 		 * @param oidFicheroResiDetalle
 		 * @param idDivisionresidencia
@@ -1040,7 +1041,7 @@ public class FicheroResiDetalleDAO {
 		
 
 		/**
-		 * Método para borrar el detalle de los ficheros que proviene de una trazodona editada .
+		 * Mï¿½todo para borrar el detalle de los ficheros que proviene de una trazodona editada .
 		 * @param spdUsuario
 		 * @param medResi
 		 * @return 
@@ -1199,7 +1200,7 @@ public class FicheroResiDetalleDAO {
 			if(b.getSpdNombreBolsa()==null || b.getSpdNombreBolsa().equals("") )
 				result+= "Falta Nombre medicamento Robot. <br>   ";
 			if(b.getSpdAccionBolsa()==null || b.getSpdAccionBolsa().equals("") )
-				result+= "Falta Acción en bolsa. <br>   ";
+				result+= "Falta Acciï¿½n en bolsa. <br>   ";
 			
 			return result;
 		}
@@ -1375,7 +1376,7 @@ public class FicheroResiDetalleDAO {
 				 	 }
 
 		/**
-		 * Método que retorna el número de CIPS que vienen en listado 
+		 * Mï¿½todo que retorna el nï¿½mero de CIPS que vienen en listado 
 		 * @param idDivisionResidencia
 		 * @param idProceso
 		 * @return
@@ -1411,7 +1412,7 @@ public class FicheroResiDetalleDAO {
 		
 		
 		/**
-		 * Método que retorna el número de CIPS que vienen en listado que no existen en la bbdd de pacientes
+		 * Mï¿½todo que retorna el nï¿½mero de CIPS que vienen en listado que no existen en la bbdd de pacientes
 		 * @param idDivisionResidencia
 		 * @param idProceso
 		 * @return
@@ -1426,7 +1427,7 @@ public class FicheroResiDetalleDAO {
 		   	qry+= " AND g.idDivisionResidencia='"+idDivisionResidencia+"' ";
 	   		qry+= " AND g.idProceso='"+idProceso+"' ";
 	   		qry+= " AND g.resiCIP not in (select cip from bd_pacientes) ";
-	   		qry+= " AND isdate(resiInicioTratamiento) = 1 "; // miramos que sean registros de tratamiento válidos, con fecha de tratamiento
+	   		qry+= " AND isdate(resiInicioTratamiento) = 1 "; // miramos que sean registros de tratamiento vï¿½lidos, con fecha de tratamiento
 	   		
 	   		System.out.println(className + "--> getCipsNoExistentesBbdd  --> " +qry );		
 			     ResultSet resultSet = null;
@@ -1445,7 +1446,7 @@ public class FicheroResiDetalleDAO {
 		   }
 		
 		/**
-		 * Método que retorna el número de CIPS que existen como SPD=S en la gestión de pacientes y no vienen en listado de la resi
+		 * Mï¿½todo que retorna el nï¿½mero de CIPS que existen como SPD=S en la gestiï¿½n de pacientes y no vienen en listado de la resi
 		 * @param idDivisionResidencia
 		 * @param idProceso
 		 * @return
@@ -1486,7 +1487,7 @@ public class FicheroResiDetalleDAO {
 
 		
 		/**
-		 * Método que retorna el número de CIPs activos de SPD en una residencia concreta
+		 * Mï¿½todo que retorna el nï¿½mero de CIPs activos de SPD en una residencia concreta
 		 * @param spdUsuario
 		 * @param idDivisionResidencia
 		 * @param idProceso
@@ -1532,7 +1533,7 @@ public class FicheroResiDetalleDAO {
 			qry+=  " WHERE g.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
 	   		qry+=  " AND g.idDivisionResidencia='"+idDivisionResidencia+"' ";
 	   		qry+=  " AND g.idProceso='"+idProceso+"' ";
-		   	qry+=  " AND isdate(g.resiInicioTratamiento) =1 "; // miramos que sean registros de tratamiento válidos, con fecha de tratamiento
+		   	qry+=  " AND isdate(g.resiInicioTratamiento) =1 "; // miramos que sean registros de tratamiento vï¿½lidos, con fecha de tratamiento
 	   		
 	   		System.out.println(className + "--> getNumeroMensajesInfo  --> " +qry );		
 			     ResultSet resultSet = null;
@@ -1558,7 +1559,7 @@ public class FicheroResiDetalleDAO {
 			qry+=  " WHERE g.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
 	   		qry+=  " AND g.idDivisionResidencia='"+idDivisionResidencia+"' ";
 	   		qry+=  " AND g.idProceso='"+idProceso+"' ";
-		   	qry+=  " AND isdate(g.resiInicioTratamiento) =1 "; // miramos que sean registros de tratamiento válidos, con fecha de tratamiento
+		   	qry+=  " AND isdate(g.resiInicioTratamiento) =1 "; // miramos que sean registros de tratamiento vï¿½lidos, con fecha de tratamiento
 	   		
 	   		
 	   		System.out.println(className + "--> getNumeroMensajesAlerta  --> " +qry );		
@@ -1650,7 +1651,7 @@ public class FicheroResiDetalleDAO {
 
 
 		/**
-		 * Método que retorna el último tratamiento válido del residente en el que coincide EXACTAMENTE el cn, comentarios, observaciones y periodo, y es diferente al idProceso actual.
+		 * Mï¿½todo que retorna el ï¿½ltimo tratamiento vï¿½lido del residente en el que coincide EXACTAMENTE el cn, comentarios, observaciones y periodo, y es diferente al idProceso actual.
 		 * Lo queremos para recuperar los datos de frecuencia, dias marcados del mes, etc que nos interese
 		 * @param medResiActual
 		 * @return
@@ -1838,7 +1839,7 @@ public class FicheroResiDetalleDAO {
 		}
 
 		/**
-		 * Una vez creada la nueva toma se actualiza a +1 el número de tomas del proceso
+		 * Una vez creada la nueva toma se actualiza a +1 el nï¿½mero de tomas del proceso
 		 * @param cabeceraActual
 		 * @return
 		 * @throws Exception 
@@ -1946,7 +1947,7 @@ public class FicheroResiDetalleDAO {
 		
 		
 		/**
-		 * Una vez creada una nueva toma se inicializa a null (o 0 TO-DO) las líneas creadas
+		 * Una vez creada una nueva toma se inicializa a null (o 0 TO-DO) las lï¿½neas creadas
 		 * @param cab
 		 * @param resiTomaX
 		 * @param resiTomaXValue
@@ -2299,7 +2300,7 @@ public class FicheroResiDetalleDAO {
 			    	CIP=resultSet.getString("resiCIP");
 			    	cuantos++;
 			    }
-			    if(cuantos>1) CIP=null;	//si hay más de uno no insertamos nada por si hay dos residentes con el mismo nombre
+			    if(cuantos>1) CIP=null;	//si hay mï¿½s de uno no insertamos nada por si hay dos residentes con el mismo nombre
 			 } catch (SQLException e) {
 			       e.printStackTrace();
 			   }finally {
@@ -2603,13 +2604,13 @@ public class FicheroResiDetalleDAO {
 
 
 		public static void actualizaIdSPD(FicheroResiBean medResi) {
-			// TODO Esbozo de método generado automáticamente
+			// TODO Esbozo de mï¿½todo generado automï¿½ticamente
 			
 		}
 
 
 	/**
-	 * Pasamos a histórico las producciones de más de X días
+	 * Pasamos a histï¿½rico las producciones de mï¿½s de X dï¿½as
 	 * @param conn 
 	 * @param aHistorico 
 	 * @throws ClassNotFoundException
@@ -2651,7 +2652,7 @@ public class FicheroResiDetalleDAO {
 			}
 
 	/**OK
-	 * Método para borrar el detalle de los ficheros, de forma masiva, una vez ya pasados a histórico
+	 * Mï¿½todo para borrar el detalle de los ficheros, de forma masiva, una vez ya pasados a histï¿½rico
 	 * @param conn 
 	 * @param oidFicheroResiDetalle
 	 * @param idDivisionresidencia
@@ -2665,7 +2666,7 @@ public class FicheroResiDetalleDAO {
 		
 		String query = " DELETE FROM dbo.SPD_ficheroResiDetalle  ";
 		query+= " WHERE oidFicheroResiCabecera IN (" + HelperSPD.convertirListSecuencia(aHistorico).toString() + ")";
-		query+= " AND oidFicheroResiCabecera in (select oidFicheroResiCabecera from dbo.SPDhst_ficheroResiDetalle) "; //nos aseguramos que ya se ha copiado en histórico 
+		query+= " AND oidFicheroResiCabecera in (select oidFicheroResiCabecera from dbo.SPDhst_ficheroResiDetalle) "; //nos aseguramos que ya se ha copiado en histï¿½rico 
 		System.out.println(className + "--> borrarDetalleYaEnHistorico -->" +query );		
 		 	
 	    try {
@@ -2945,14 +2946,41 @@ public class FicheroResiDetalleDAO {
 	   return result;
 	}
 
-    // Método auxiliar para obtener el valor limpio del resultSet
+    // Mï¿½todo auxiliar para obtener el valor limpio del resultSet
  	private static String getSafeString(ResultSet resultSet, String columnName) throws SQLException {
  	    String value = resultSet.getString(columnName);
  	    return (value != null && !value.equalsIgnoreCase("null")) ? value : "";
  	}
 
+	public static boolean modificaCabeceraTomaDelProceso(String idUsuario, CabecerasXLSBean tomaAntigua, CabecerasXLSBean tomaNueva, String idProceso) throws Exception {
 
-	
+        int result=0;
+			  Connection con = Conexion.conectar();
+			  int posicionToma=tomaNueva.getPosicionEnBBDD();
+			  String campoPosicionToma = "resiToma" + posicionToma;
+		  	   String qry = " UPDATE dbo.SPD_ficheroResiDetalle ";
+		  	    qry+= "  SET " + campoPosicionToma + " = '"+tomaNueva.getNombreToma()+"'" ;
+				qry+= "  WHERE idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(idUsuario)  + ")";
+		  	    qry+= "  AND idProceso='"+ idProceso +"' "; 
+		  	    
+		  	    //qry+= "  AND REPLACE(" + campoPosicionToma + ", ' ', '') = '"+StringUtil.limpiarTextoEspaciosYAcentos(tomaAntigua.getNombreToma(), false)+"'" ;
+		  	    qry+= "  AND tipoRegistro='CABECERA' ";   	  
+		  	    
+
+		  	  
+		  	  System.out.println(className + "--> modificaCabeceraTomaDelProceso -->" +qry );		
+	      		 
+		    try {
+		         PreparedStatement pstat = con.prepareStatement(qry);
+		         result=pstat.executeUpdate();
+		       
+		     } catch (SQLException e) {
+		         e.printStackTrace();
+		     }finally {con.close();}
+
+			
+			return result>0;
+		}
 
 
 

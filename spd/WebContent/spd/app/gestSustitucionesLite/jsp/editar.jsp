@@ -7,13 +7,13 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML  4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Edici髇 sustituci髇 lite</title>
+<title>Edici贸n sustituci贸n lite</title>
 
 </head>
 
@@ -25,7 +25,7 @@
 
 <body>
 		<center>
-		<h2>Edici髇 sustituci髇 lite </h2>
+		<h2>Edici贸n sustituci贸n lite </h2>
 		<html:form action="/GestSustitucionesLite.do" method="post">	
 
 
@@ -41,7 +41,7 @@
      <html:hidden property="fieldName1" /> 
      <html:hidden property="campoGoogle" />
      
-	<!-- se pasan par醡etros de los filtros del listado para la vuelta -->
+	<!-- se pasan par锟絤etros de los filtros del listado para la vuelta -->
      <html:hidden property="filtroNombreCorto" />
      <html:hidden property="filtroMedicamentoResi" />
      <html:hidden property="filtroNombreCortoOK" />
@@ -53,11 +53,11 @@
 			<td><bean:write name="data" property="idDivisionResidencia" /></td>
 		</tr>
 		<tr>
-			<td>C骴igo CN residencia</td>
+			<td>C贸digo CN residencia</td>
 			<td><html:text name="data" property="resiCn" styleId="resiCn"/> - <html:text name="data"  property="resiMedicamento"  styleId="spdNombreMedicamento"/></td>
 		</tr>
 		<tr>
-			<td>C骴igo -  Nombre medicamento </td>
+			<td>C贸digo -  Nombre medicamento </td>
 			<td><html:text name="data" property="spdCn" styleId="spdCn"/> - <html:text name="data" property="spdNombreMedicamento" styleId="spdNombreMedicamento" readonly="true"/>
 				<a href="javascript:buscaConsejoPorCodGtVm('<bean:write name="data" property="codGtVm" />');">Buscar</a>
 			</td>
@@ -71,11 +71,11 @@
 			<td><bean:write name="data" property="nomGtVmp" /></td>
 		</tr>
 		<tr>
-			<td>Forma farmac閡tica</td>
+			<td>Forma farmac茅utica</td>
 			<td><html:text name="data" property="spdFormaMedicacion" /></td>
 		</tr>
 		<tr>
-			<td>Accion</td>
+			<td>Acci贸n</td>
 			<td>		
 				<bean:define id="tiposAccion" name="formulari" property="listaTiposAccion" />
 			<html:select property="idTipoAccion" value="<%= formulari.getSustitucionLite().getSpdAccionBolsa() %>">
@@ -97,13 +97,13 @@
 				<p class="botons">
 					<input type="button" onclick="javascript:volver('<bean:write name="formulari" property="oidDivisionResidenciaFiltro"/>')" value="Volver"/>
 					<input type="button" onclick="javascript:grabar()" value="Confirmar"/>
-				</p>	
+				</p>
 			</td>	
 		</tr>	
 	</table>
-	</center>
 </div>	
 </html:form>
+</center>
 
 </body>
 </html>

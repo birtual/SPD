@@ -31,7 +31,7 @@ public class ImportGenericLite extends ImportProcessImpl
 	int nulasSeguidas=0;
 	int numeroDoses=0;
 	int oidFicheroResiCabecera= 0;
-	int reg = 11;  //numeroCorteCabecera  / celda de la fecha inicio, que es la obligatoria. a partir de aquí pueden venir vacías
+	int reg = 11;  //numeroCorteCabecera  / celda de la fecha inicio, que es la obligatoria. a partir de aquÃ­ pueden venir vacÃ­as
 	TreeMap rowsTratados =new TreeMap();
 	TreeMap<String, String>  cipsFicheroAnexo =new TreeMap<>(); // se guardan los CIPS que se cargan de nuevo, para borrar previamente el tratamiento y cargarlo con el nuevo fichero
 	
@@ -41,7 +41,7 @@ public class ImportGenericLite extends ImportProcessImpl
 
     protected boolean beforeProcesarEntrada(Vector row) throws Exception 
     {
-    	//comprobación de que no es línea vacía, solo tendría dos carácteres, "[" y "]".
+    	//comprobaciÃ³n de que no es linea vacÃ­a, solo tendrÃ­a dos caracteres, "[" y "]".
     	if(row!=null)
     	{
         	String rowString=row.toString().replace(",", "").replace(" ", "");
@@ -72,7 +72,7 @@ public class ImportGenericLite extends ImportProcessImpl
 		if(cab==null)  //si no devuelve nada, vamos a la cabecera por defecto 
 			cab =  FicheroResiDetalleHelper.getCabeceraFicheroResi(getSpdUsuario(), idDivisionResidencia, idProceso, true);
 
-		//esta sería la cabecera top del proceso
+		//esta serï¿½a la cabecera top del proceso
 		FicheroResiBean cabeceraTop=FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(getSpdUsuario(), cab.getOidFicheroResiCabecera());
 		if(cabeceraTop!=null && cabeceraTop.getErrores()!=null && !cabeceraTop.getErrores().equals(""))
 			errors.add( cabeceraTop.getErrores() );
@@ -92,7 +92,7 @@ public class ImportGenericLite extends ImportProcessImpl
  
  
     /*
-     * Las Onadas llegan con 5 o 6  pautas de tomas--> primera hora(opcional) / quincdesayuno / comida / merienda / cena / resopón
+     * Las Onadas llegan con 5 o 6  pautas de tomas--> primera hora(opcional) / quincdesayuno / comida / merienda / cena / resopÃ³n
      * (non-Javadoc)
      * @see lopicost.spd.iospd.importdata.process.ImportProcessImpl#procesarEntrada(java.lang.String, java.lang.String, java.util.Vector, int)
      */
@@ -104,11 +104,11 @@ public class ImportGenericLite extends ImportProcessImpl
        	
 	   	//int oidFicheroResiCabecera= ioSpdApi.getOidFicheroResiCabecera(getSpdUsuario(), idDivisionResidencia, idProceso);
        	
-     	//if (row!=null && row.size()>=reg+1) así está en resi+
-    	if (row!=null && row.size()>=reg && nulasSeguidas<SPDConstants.MAX_LINEAS_NULAS_CARGA)  //20250901 - Control de máx líneas nulas 
+     	//if (row!=null && row.size()>=reg+1) asÃ­ estÃ¡ en resi+
+    	if (row!=null && row.size()>=reg && nulasSeguidas<SPDConstants.MAX_LINEAS_NULAS_CARGA)  //20250901 - Control de mï¿½x lï¿½neas nulas 
         {
     		if (this.rowsTratados.containsKey(String.valueOf(row))) {
-    			throw new Exception ("Es un tratamiento que está duplicado ");
+    			throw new Exception ("Es un tratamiento que estï¿½ duplicado ");
     		}
     		this.rowsTratados.put(String.valueOf(row), String.valueOf(row));
     		
@@ -122,7 +122,7 @@ public class ImportGenericLite extends ImportProcessImpl
 
     	   	
     	   	
-        	int diasSemanaMarcados=HelperSPD.getDiasMarcados(medResi);  //importante!! para que detecte que hay días marcados y no los llene automáticamente.
+        	int diasSemanaMarcados=HelperSPD.getDiasMarcados(medResi);  //importante!! para que detecte que hay dÃ­as marcados y no los llene automÃ¡ticamente.
         	medResi.setDiasSemanaMarcados(diasSemanaMarcados);
         	
         	medResi.setFechaDesde(HelperSPD.obtenerFechaDesde(medResi.getIdProceso()));  
@@ -131,7 +131,7 @@ public class ImportGenericLite extends ImportProcessImpl
         	
         //	HelperSPD.controlAlertasRegistro(medResi);
         	//tratamos los casos de un segundo fichero de carga.
-        	//localización de los CIPS a tratar, se borrará lo que se haya cargado previamente y se mete en un TreeMap para no borrarlo de nuevo e insertar los nuevos. 
+        	//localizaciÃ³n de los CIPS a tratar, se borrarÃ¡ lo que se haya cargado previamente y se mete en un TreeMap para no borrarlo de nuevo e insertar los nuevos. 
         	if(cargaAnexa)
         	{
         		int oidCabecera =-1;
@@ -171,12 +171,12 @@ public class ImportGenericLite extends ImportProcessImpl
  	        	if(nulasSeguidas>=SPDConstants.MAX_LINEAS_NULAS_CARGA)
  	        	{
  	        		finalizar=true; //interesa que no se siga procesando
- 	        		//throw new Exception ("Se ha superado el máximo líneas nulas permitidas en la carga: " + SPDConstants.MAX_LINEAS_NULAS_CARGA);
- 	        		throw new MaxLineasNulasException("Se ha superado el máximo líneas nulas permitidas en la carga: " + SPDConstants.MAX_LINEAS_NULAS_CARGA);
+ 	        		//throw new Exception ("Se ha superado el mï¿½ximo lï¿½neas nulas permitidas en la carga: " + SPDConstants.MAX_LINEAS_NULAS_CARGA);
+ 	        		throw new MaxLineasNulasException("Se ha superado el mï¿½ximo lï¿½neas nulas permitidas en la carga: " + SPDConstants.MAX_LINEAS_NULAS_CARGA);
  	        	}
  	        		
-  	            //throw new Exception ("Columnas insuficientes para la importación. ");
- 	        	throw new ColumnasInsuficientesException("Columnas insuficientes para la importación.");
+  	            //throw new Exception ("Columnas insuficientes para la importaciï¿½n. ");
+ 	        	throw new ColumnasInsuficientesException("Columnas insuficientes para la importaciï¿½n.");
   	        	
   	        }
     	System.out.println( "--> procesarEntrada. FIN row;  "  + new Date() );		
@@ -189,7 +189,7 @@ public class ImportGenericLite extends ImportProcessImpl
 
 
 	/**
-     * Método para crear un registro de inicio del proceso de carga
+     * Mï¿½todo para crear un registro de inicio del proceso de carga
      * y para crear el registro de los datos de cabecera del proceso
      */
 
@@ -199,7 +199,7 @@ public class ImportGenericLite extends ImportProcessImpl
 		try {
 			if(isCargaAnexa())
 			{
-				//creación de log en BBDD
+				//creaciï¿½n de log en BBDD
 				try{
 					SpdLogAPI.addLog(getSpdUsuario(), "",  this.getIdDivisionResidencia(),  this.getIdProceso(),  SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CARGAFICHERO, SpdLogAPI.C_START
 							, "SpdLog.produccion.cargafichero.anexo", this.getIdProceso()  );
@@ -210,7 +210,7 @@ public class ImportGenericLite extends ImportProcessImpl
 				result=ioSpdApi.addGestFicheroResi(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso(), filein);
 				if(result)
 				{
-					//creación de log en BBDD
+					//creaciï¿½n de log en BBDD
 					try{
 						SpdLogAPI.addLog(getSpdUsuario(), "",  this.getIdDivisionResidencia(),  this.getIdProceso(),  SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CARGAFICHERO, SpdLogAPI.C_START
 								, "SpdLog.produccion.cargafichero.inicio", this.getIdProceso()  );
@@ -228,7 +228,7 @@ public class ImportGenericLite extends ImportProcessImpl
 	
 	
     /**
-     * Método para actualizar el registro de carga
+     * Mï¿½todo para actualizar el registro de carga
      * @throws Exception 
      */
     protected void afterStart() throws Exception 
@@ -250,7 +250,7 @@ public class ImportGenericLite extends ImportProcessImpl
 			result=FicheroResiDetalleHelper.editaFinCargaFicheroResi(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso(), filasTotales, cipsTotales, cipsActivosSPD, porcent, this.errors);
 			if(result)
 			{
-				//creación de log en BBDD
+				//creaciï¿½n de log en BBDD
 				try{
 					SpdLogAPI.addLog(getSpdUsuario(), "",  this.getIdDivisionResidencia(),  this.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CARGAFICHERO, SpdLogAPI.C_START
 							, "SpdLog.produccion.cargafichero.fin", this.getIdProceso()  );
@@ -294,7 +294,7 @@ public class ImportGenericLite extends ImportProcessImpl
   		//se intenta extraer la periodicidad de l tratamiento
 		detectarPeriodoAlta(getSpdUsuario(), medResi);
 
-       //cálculo de la dosis que se prevee que entra en la producción según lo recibido de la resi
+       //cÃ¡lculo de la dosis que se prevee que entra en la producciÃ³n segÃºn lo recibido de la resi
        medResi.setPrevisionResi(ControlSPD.contarDosisProduccionResi(medResi));
        
        //tratamiento de la trazodona, por si hay medias pastillas
@@ -303,7 +303,7 @@ public class ImportGenericLite extends ImportProcessImpl
 	      		HelperSPD.changeTrazodona(getSpdUsuario(), medResi);
       	}
 
-		//se recupera información de la producción anterior en caso que no se haya reutilizado previamente.
+		//se recupera informaciÃ³n de la producciÃ³n anterior en caso que no se haya reutilizado previamente.
 		boolean reutilizado = medResi.getIdEstado().equalsIgnoreCase(SPDConstants.REGISTRO_REUTILIZADO_DE_ANTERIOR_PRODUCCION); //estado);
 		
 		if(!reutilizado)
@@ -351,7 +351,7 @@ public class ImportGenericLite extends ImportProcessImpl
 
 	   	}
 
-	       //cálculo de la dosis que se enviará a robot
+	       //cÃ¡lculo de la dosis que se enviarÃ¡ a robot
 		//medResi.setPrevisionSPD(ControlSPD.contarDosisProduccionSPD(medResi));
 	   	
 	   	if(validoParaSpd) //filtros que siempre hemos de pasar es el de desdoblamiento de secuencias
@@ -379,7 +379,7 @@ public class ImportGenericLite extends ImportProcessImpl
 	protected String  crearDetalleRowKey(String detalleRow, List<Integer> posicionesEliminar  )throws Exception {
         
 		
-		// Si la lista de posiciones a eliminar es nula o vacía, devolver detalleRow
+		// Si la lista de posiciones a eliminar es nula o vacÃ­a, devolver detalleRow
         //if (detalleRow==null  || detalleRow.isEmpty() || posicionesEliminar == null || posicionesEliminar.isEmpty()) {
         if (posicionesEliminar == null || posicionesEliminar.isEmpty()) 
         {
@@ -410,7 +410,7 @@ public class ImportGenericLite extends ImportProcessImpl
 	protected String  crearDetalleRowKeyLite(Vector row, String detalleRow, List<Integer> posicionesEliminar  )throws Exception {
         
 		
-		// Si la lista de posiciones a eliminar es nula o vacía, devolver detalleRow
+		// Si la lista de posiciones a eliminar es nula o vacÃ­a, devolver detalleRow
         //if (detalleRow==null  || detalleRow.isEmpty() || posicionesEliminar == null || posicionesEliminar.isEmpty()) {
         if (posicionesEliminar == null || posicionesEliminar.isEmpty()) 
         {
@@ -440,7 +440,7 @@ public class ImportGenericLite extends ImportProcessImpl
     }
 	
 
-    // Método que determina si un índice debería ser eliminado
+    // MÃ©todo que determina si un Ã­ndice deberÃ­a ser eliminado
     public static boolean deberiaEliminar(int indice, List<Integer> posicionesEliminar) {
         if (posicionesEliminar == null || posicionesEliminar.isEmpty()) {
             return false;
@@ -449,12 +449,12 @@ public class ImportGenericLite extends ImportProcessImpl
     }
 
 	public List<Integer> getPosicionesAEliminar() {
-		// TODO Esbozo de método generado automáticamente
+		// TODO Esbozo de mÃ©todo generado automÃ¡ticamente
 		return new ArrayList<Integer>();
 	}
 
 	/**
-	 * Función que intenta detectar el periodo
+	 * FunciÃ³n que intenta detectar el periodo
 	 * @param medResi
 	 * @throws Exception 
 	 */
@@ -469,7 +469,7 @@ public class ImportGenericLite extends ImportProcessImpl
 			if(medResi.getDiasSemanaMarcados()==7 || medResi.getDiasSemanaMarcados()==0 || medResi.getResiDiasAutomaticos().equalsIgnoreCase("SI"))
 			{
 				
-				//si llegan sin marcar, los ponemos automáticos
+				//si llegan sin marcar, los ponemos automÃ¡ticos
 				if(medResi.getDiasSemanaMarcados()==0 && medResi.getResiDiasAutomaticos().equalsIgnoreCase("NO")) medResi.setResiDiasAutomaticos("SI");
 				
 				medResi.setDiasConToma(7);
@@ -496,7 +496,7 @@ public class ImportGenericLite extends ImportProcessImpl
     			medResi.setSecuenciaGuide("");
  			}
 			
-			//aqui ya miramos lo que hay en variante, pero después de mirar los dias anteriores
+			//aqui ya miramos lo que hay en variante, pero despuÃ©s de mirar los dias anteriores
 	        String resultVariante=tratarVariante(medResi);
 
 	        
@@ -656,8 +656,8 @@ public class ImportGenericLite extends ImportProcessImpl
 			//int freq = 0; //por defecto 0,
 			String result="";
 			String a = "";
-			String gdrVariante = "";	//variante de la opción GDR
-			String gdrComentarios = "";	//comentarios de la opción GDR
+			String gdrVariante = "";	//variante de la opciï¿½n GDR
+			String gdrComentarios = "";	//comentarios de la opciï¿½n GDR
 				try	{ 			
 					a = StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiVariante(), true);
 					if(a.equalsIgnoreCase("diasidiano")|| a.equalsIgnoreCase("cada48horas"))

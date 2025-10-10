@@ -48,7 +48,7 @@
 <meta Http-Equiv="Cache-Control" Content="no-cache" />
 <meta Http-Equiv="Pragma" Content="no-cache" />
 <meta Http-Equiv="Expires" Content="0" /> 
-<meta http-equiv="Content-Type" pageEncoding="text/html; charset=ISO-8859-1" %>
+<meta http-equiv="Content-Type" pageEncoding="text/html; charset=UTF-8" %>
 
 
 

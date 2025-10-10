@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
@@ -18,7 +18,7 @@
 
 <jsp:include page="/spd/jsp/global/head.jsp"/>
 <head>
-<title>Selecci髇 de proceso</title>
+<title>Selecci贸n de proceso</title>
    
 </head>
 <bean:define id="formulari" name="ProcesosForm" type="lopicost.spd.struts.form.ProcesosForm" />
@@ -75,21 +75,21 @@ if (request.getParameter("fieldName1")!=null)
 
 		<table style="width:80%">
 			<tr>
-				<th class="segunda">Fecha creaci髇</th>
+				<th class="segunda">Fecha creaci贸n</th>
 		        <th>Lanzadera</th>
 		        <th>Nombre</th>
-		        <th>Usuario creaci髇</th>
-		        <th>Versi髇</th>
-		        <th>Descripci髇</th>
-		        <th>Par醡etros</th>
-		        <th>Tipo ejecuci髇</th>
+		        <th>Usuario creaci贸n</th>
+		        <th>Versi贸n</th>
+		        <th>Descripci锟絥</th>
+		        <th>Par谩metros</th>
+		        <th>Tipo ejecuci贸n</th>
 		        <th>Cada</th>
 		        <th>Periodo</th>
-		        <th>D韆s semana</th>
-		        <th>D韆s concretos (opcional)</th>
-		        <th>Hora ejecuci髇</th>
+		        <th>D铆as semana</th>
+		        <th>D铆as concretos (opcional)</th>
+		        <th>Hora ejecuci贸n</th>
 		        <th>Max reintentos</th>
-		        <th>Max duraci髇 (s)</th>
+		        <th>Max duraci贸n (s)</th>
 		        <th>Fecha desde</th>
 		        <th>Fecha hasta</th>
 		        <th>Activo</th>

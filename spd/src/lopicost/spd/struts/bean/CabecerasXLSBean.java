@@ -2,7 +2,7 @@ package lopicost.spd.struts.bean;
 
 import java.util.Date;
 
-public class CabecerasXLSBean {
+public class CabecerasXLSBean implements  Cloneable {
     private int oidCabeceraXLS;
     private Date fechaInsert;
     private String idDivisionResidencia;
@@ -15,11 +15,23 @@ public class CabecerasXLSBean {
     private String tipo;
     private boolean desdeTomaPrimerDia;
     private boolean hastaTomaUltimoDia;
+    private boolean edicionNombreToma=false;
+    private boolean edicionHoraToma=false;
 
     // Constructor por defecto
     public CabecerasXLSBean() {
     }
 
+    public CabecerasXLSBean clone() {
+        try {
+            return (CabecerasXLSBean) super.clone();
+        } catch (CloneNotSupportedException e) {
+            // Manejo de excepciones en caso de que no se pueda clonar
+            return null;
+        }
+    }
+  
+    
     public CabecerasXLSBean(String idDivisionResidencia, String horaToma, String nombreToma, int posicionEnBBDD, String tipo, boolean desdeTomaPrimerDia, boolean hastaTomaUltimoDia) {
     	this.idDivisionResidencia=idDivisionResidencia;
     	this.horaToma=horaToma;
@@ -33,7 +45,25 @@ public class CabecerasXLSBean {
     }
     
     
-    // Getters y setters para cada propiedad
+
+
+	public boolean isEdicionNombreToma() {
+		return edicionNombreToma;
+	}
+
+	public void setEdicionNombreToma(boolean edicionNombreToma) {
+		this.edicionNombreToma = edicionNombreToma;
+	}
+
+	public boolean isEdicionHoraToma() {
+		return edicionHoraToma;
+	}
+
+	public void setEdicionHoraToma(boolean edicionHoraToma) {
+		this.edicionHoraToma = edicionHoraToma;
+	}
+
+	// Getters y setters para cada propiedad
     public int getOidCabeceraXLS() {
         return oidCabeceraXLS;
     }

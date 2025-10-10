@@ -22,7 +22,7 @@
 
 <script language="JavaScript" type="text/javascript" src="<%=getString("scriptRTE")%>"></script>
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><%=getString("titleRTE")%></title>
 
 <style type="text/css">

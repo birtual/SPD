@@ -7,13 +7,13 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML  4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Edici髇 sustituci髇 lite</title>
+<title>Edici贸n sustituci贸n lite</title>
 
 </head>
 
@@ -27,7 +27,7 @@
 
 <body>
 		<center>
-		<h2>Edici髇 sustituci髇 lite </h2>
+		<h2>Edici贸n sustituci贸n lite </h2>
 		<html:form action="/GestSustitucionesLite.do" method="post">	
 
 
@@ -43,7 +43,7 @@
      <html:hidden property="fieldName1" /> 
      <html:hidden property="campoGoogle" />
      
-	<!-- se pasan par醡etros de los filtros del listado para la vuelta -->
+	<!-- se pasan par锟絤etros de los filtros del listado para la vuelta -->
      <html:hidden property="filtroNombreCorto" />
      <html:hidden property="filtroMedicamentoResi" />
      <html:hidden property="filtroNombreCortoOK" />
@@ -59,11 +59,11 @@
 			<th>Datos SPD </th> <td><html:text name="data" property="spdCn"  styleId="" />- <html:text name="data" property="spdNombreBolsa" styleId="spdNombreBolsa" /></td>
 		</tr>
 	</table>
-	
-		<table>		
+	<table>		
 		<tr>
 			<td>Accion</td>			
-			<td><bean:define id="tiposAccion" name="formulari" property="listaTiposAccion" />
+			<td>
+				<bean:define id="tiposAccion" name="formulari" property="listaTiposAccion" />
 				<html:select property="idTipoAccion" value="<%= formulari.getSustitucionLite().getSpdAccionBolsa() %>">
 					<html:options collection="tiposAccion" property="idTipoAccion" labelProperty="idTipoAccion" />
 					<html:option value="">-------------</html:option>
@@ -79,16 +79,14 @@
 			<td>GTVMP</td><td><bean:write name="data" property="nomGtVmp" /></td>
 			</tr>
 		<tr>
-			<td>Forma farmac閡tica</td><td><bean:write name="data" property="spdFormaMedicacion" /></td>
+			<td>Forma farmac茅utica</td><td><bean:write name="data" property="spdFormaMedicacion" /></td>
 		</tr>
 		<tr>
-				<td>Excepciones</td>
+			<td>Excepciones</td>
 			<td><html:textarea name="data" property="excepciones"  styleId="excepciones"/></td>
 		</tr>
 		<tr>
-				<td>Aux1</td>
-			
-
+			<td>Aux1</td>
 			<td><html:textarea name="data" property="aux1"  styleId="aux1"/></td>
 		</tr>
 		<tr>
@@ -100,9 +98,9 @@
 			</td>	
 		</tr>	
 	</table>
-	</center>
 </div>	
 </html:form>
+</center>
 
 </body>
 </html>

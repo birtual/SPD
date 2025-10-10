@@ -14,6 +14,7 @@ import lopicost.spd.security.helper.VisibilidadHelper;
 import lopicost.spd.struts.bean.CabecerasXLSBean;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.form.FicheroResiForm;
+import lopicost.spd.struts.helper.CabecerasXLSHelper;
 import lopicost.spd.utils.SPDConstants;
 import lopicost.spd.utils.StringUtil;
  
@@ -32,7 +33,8 @@ public class CabecerasXLSDAO {
 		   String qry = "SELECT * FROM dbo.SPD_cabecerasXLS g INNER JOIN bd_divisionResidencia d on g.idDivisionResidencia=d.idDivisionResidencia ";
 	 			qry+= " WHERE g.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
 	 			qry+= " AND d.OidDivisionResidencia ='" + OidDivisionResidencia+"'";
-	 			qry+= " ORDER BY g.posicionEnVistas ASC";
+	 			//qry+= " ORDER BY g.posicionEnVistas ASC";
+	 			qry+= " ORDER BY g.idToma ";
 
 	   			System.out.println(className + "--> list -->  " +qry );		
 		     	ResultSet resultSet = null;
@@ -283,7 +285,7 @@ public class CabecerasXLSDAO {
 	 				
 				String qry = "INSERT INTO SPD_cabecerasXLS (idDivisionResidencia, idToma, nombreToma, posicionEnBBDD, posicionEnVistas, horaToma, langToma, tipo, desdeTomaPrimerDia, hastaTomaUltimoDia)  ";
 				qry+= " SELECT '"+ultimaCabecera.getIdDivisionResidencia() +"',  ";
-				qry+= " '"+getIdToma("'" +resiTomaX+"'", i)+"' , "+resiTomaX+", " + i + ", " + i + ", '"+getHoraToma("+'"+resiTomaX+"'", i)+"' , 0, '"+getBase(i)+"', 0, 0 ";
+				qry+= " '"+CabecerasXLSHelper.getIdToma("'" +resiTomaX+"'", i)+"' , "+resiTomaX+", " + i + ", " + i + ", '"+CabecerasXLSHelper.getHoraToma("+'"+resiTomaX+"'", i)+"' , 0, '"+CabecerasXLSHelper.getBase(i)+"', 0, 0 ";
 				qry+= " FROM SPD_ficheroResiDetalle WHERE oidFicheroResiCabecera= '"+form.getOidFicheroResiCabecera() +"' AND tipoRegistro='CABECERA'";
 				System.out.println(className + "  - esCampoBorrable -->  " +qry );		
 				
@@ -299,57 +301,6 @@ public class CabecerasXLSDAO {
 
 	
 	
-	
-	/**
-	 * Devuelve el ID de la toma, que acostumbra ser 4 dígitos (la hora sin los :)
-	 * @param cadena
-	 * @param posicion
-	 * @return
-	 */
-	private static String getIdToma(String cadena, int posicion) {
-		String result = getHoraToma(cadena, posicion);
-		if(result!=null && !result.equals("")) 
-			result=result.replace(":", "");
-		
-		return result;
-	}
-
-
-	/**
-	 * Por defecto devuelve que es una toma BASE (de las que hay en Excel de la resi. En caso de superar 6 se devuelve como si fuera Extra
-	 * @param i
-	 * @return
-	 */
-	private static String getBase(int i) {
-		String result = "BASE";
-		if(i>6) result="EXTRA";
-		return result;
-	}
-
-
-	/**
-	 * A partir de lo que se devuelva en la select, se construye el resultado. En caso de ser una hora, se devuelve tal cual. En caso de ser un texto que no sigue 
-	 * formato XX:XX se construye una hora a partir de la posición que ocupa, devolviendo formato XX:XX  
-	 * @param cadena
-	 * @param posicion
-	 * @return
-	 */
-	private static String getHoraToma(String cadena, int posicion) {
-		String result="";
-		String formatoExpresionRegular = "\\d{2}:\\d{2}";
-		System.out.println(cadena.matches(formatoExpresionRegular));
-		 if (cadena.matches(formatoExpresionRegular)) {
-			 result =cadena;
-	        } else {
-	        	 if (posicion < 1 || posicion > 99) {
-	        		 throw new IllegalArgumentException("El número debe estar en el rango de 1 a 99.");
-	             }
-	        	 result = String.format("%02d:00", posicion, 0);
-	        }
-		return result;
-		
-	}
-
 
 
 	public static boolean addNuevaToma(String idUsuario, FicheroResiBean cab, CabecerasXLSBean nuevaToma) throws Exception {
@@ -358,9 +309,9 @@ public class CabecerasXLSDAO {
 
         try {     	
 				String qry = "INSERT INTO SPD_cabecerasXLS (idDivisionResidencia, idToma, nombreToma, posicionEnBBDD, posicionEnVistas, horaToma, langToma, tipo, desdeTomaPrimerDia, hastaTomaUltimoDia )  ";
-				qry+= " VALUES ( '"+nuevaToma.getIdDivisionResidencia() +"',  '"+getIdToma(nuevaToma.getHoraToma(), nuevaToma.getPosicionEnBBDD())+"' , ";
+				qry+= " VALUES ( '"+nuevaToma.getIdDivisionResidencia() +"',  '"+CabecerasXLSHelper.getIdToma(nuevaToma.getHoraToma(), nuevaToma.getPosicionEnBBDD())+"' , ";
 				qry+= "'"+ nuevaToma.getNombreToma()+"', " + nuevaToma.getPosicionEnBBDD() + ", " + nuevaToma.getPosicionEnBBDD() + ", ";
-				qry+= "'"+getHoraToma(nuevaToma.getHoraToma(),  nuevaToma.getPosicionEnBBDD())+"' , 0, '"+getBase(nuevaToma.getPosicionEnBBDD())+"', 0, 0)";
+				qry+= "'"+CabecerasXLSHelper.getHoraToma(nuevaToma.getHoraToma(),  nuevaToma.getPosicionEnBBDD())+"' , 0, '"+CabecerasXLSHelper.getBase(nuevaToma.getPosicionEnBBDD())+"', 0, 0)";
 				System.out.println(className + "  - addNuevaToma -->  " +qry );		
 				
 				PreparedStatement pstat = con.prepareStatement(qry);
@@ -401,6 +352,29 @@ public class CabecerasXLSDAO {
 			}
 
 
+	public static boolean editarToma(CabecerasXLSBean cab) throws Exception {
+        int result=0;
+		Connection con = Conexion.conectar();
+
+			  String qry = " UPDATE dbo.SPD_cabecerasXLS ";
+			  qry+= "  SET posicionEnVistas='"+cab.getPosicionEnVistas()+"'"; 
+			  qry+= "  WHERE idDivisionResidencia ='"+cab.getIdDivisionResidencia() +"' ";   	 
+		  	  qry+= "  AND oidCabeceraXLS ='"+cab.getOidCabeceraXLS()+"'  ";   	    
+   	
+		  	  System.out.println(className + "--> actualizaPosicion -->" +qry );		
+
+		
+		    try {
+		         PreparedStatement pstat = con.prepareStatement(qry);
+		         result=pstat.executeUpdate();
+		       
+		     } catch (SQLException e) {
+		         e.printStackTrace();
+		     }finally {con.close();}
+
+			
+			return result>0;
+		}
 
 
 
@@ -502,12 +476,60 @@ public class CabecerasXLSDAO {
     }
 
 
+	/**
+	 * Modificamos la toma de la cabecera para futuras cargas y la cabecera del proceso en el que se ha realizado la modificación, que ha de ser el último global
+	 * @param idUsuario
+	 * @param tomaAntigua
+	 * @param tomaNueva
+	 * @param horaToma
+	 * @param nombreToma
+	 * @return
+	 * @throws SQLException
+	 */
+	public static boolean editarToma(String idUsuario, CabecerasXLSBean tomaAntigua, CabecerasXLSBean tomaNueva, String horaToma, String nombreToma) throws SQLException {
+	    int result=0;
+	    boolean cambiaHora =false;
+	    boolean cambiaNombre =false;
+	    String queryHora="";
+	    String queryNombre="";
+	       
+	    if(tomaNueva!=null && tomaNueva.getHoraToma()!=null &&  horaToma!=null &&  !horaToma.equals("")  && !tomaNueva.getHoraToma().equals(horaToma))
+	    {
+	       queryHora= ", horaToma='"+horaToma+"', idToma='" +CabecerasXLSHelper.getIdToma(horaToma, tomaNueva.getPosicionEnBBDD())+"' "; 
+	       cambiaHora=true;
+	    	   
+	    }
+	    if(tomaNueva!=null && tomaNueva.getNombreToma()!=null &&  nombreToma!=null &&  !nombreToma.equals("") && !tomaNueva.getNombreToma().equals(nombreToma))
+	    {
+	       queryNombre= ", nombreToma='"+nombreToma+"' ";
+	       cambiaNombre=true;
+	    }
 
+	    if(cambiaHora || cambiaNombre)
+		{
+				String qry = " UPDATE dbo.SPD_cabecerasXLS ";
+				qry+= "  SET posicionEnVistas='"+tomaNueva.getPosicionEnVistas()+"' "; //redundante, para poder añadir las que cambian 
+				if(cambiaHora)
+				  qry+=queryHora;
+				if(cambiaNombre)
+				  qry+=queryNombre;
+				qry+= "  WHERE idDivisionResidencia ='"+tomaNueva.getIdDivisionResidencia() +"' ";   	 
+			  	qry+= "  AND oidCabeceraXLS ='"+tomaNueva.getOidCabeceraXLS()+"'  ";   	    
+				Connection con = Conexion.conectar();
+				
+				System.out.println(className + "--> editarToma -->" +qry );		
+				  
+				try {
+				    PreparedStatement pstat = con.prepareStatement(qry);
+				    result=pstat.executeUpdate();
+				       
+				 } catch (SQLException e) {
+					 result=0;
+				         //e.printStackTrace();
+				}finally {con.close();}
 
-
-	
-	
-	
-
-}
+		}
+			return result>0;
+		}
+	}
 

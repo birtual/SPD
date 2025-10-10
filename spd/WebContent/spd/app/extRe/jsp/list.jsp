@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page session="true" %>
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html:html>
 <HEAD>
@@ -99,7 +99,7 @@
 	<h2> </h2>
 
 <div id="conMargenSuperior">
-<h3>Actualización de datos</h3>
+<h3>ActualizaciÃ³n de datos</h3>
 	</br>
  	<table style="width:70%">
 		<thead>
@@ -114,11 +114,11 @@
 			<th class="verde">CON tratamientos</th>
 			<th class="verde">SIN tratamientos</th>
 			<th class="verde">NO Recogidos</th>
-			<th class="verde">última fecha recogida</th>
+			<th class="verde">Ãºltima fecha recogida</th>
 			<th class="naranja">CON ventana activa</th>
 			<th class="naranja">SIN ventana activa</th>
 			<th class="naranja">NO Recogidos</th>
-			<th class="naranja">última fecha recogida</th>					
+			<th class="naranja">Ãºltima fecha recogida</th>					
 		</tr>
 		</thead>
 		<logic:iterate id="data" name="formulari" property="listaBeans" type="lopicost.spd.struts.bean.ExtReBean" indexId="position">
@@ -126,8 +126,8 @@
 				<td style="width: 25%; text-align: left;"><bean:write name="data" property="nombreDivisionResidencia" /></td>
 				<td style="width: 10%; text-align: center;"><bean:write name="data" property="cipsActivos" /></td>
 				<%
-				 String porcenTrat = ""; // Inicializar port como un String vacío
-				 String porcenPend = ""; // Inicializar port como un String vacío
+				 String porcenTrat = ""; // Inicializar port como un String vacÃ­o
+				 String porcenPend = ""; // Inicializar port como un String vacÃ­o
 				 int tratSinError = 0;
 				 int tratConError = 0;
 				 int pendSinError = 0;

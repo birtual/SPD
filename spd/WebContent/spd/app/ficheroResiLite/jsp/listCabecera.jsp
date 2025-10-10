@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
@@ -17,15 +17,15 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Gestión carga ficheros Robot (lite)</title>
+<title>GestiÃ³n carga ficheros Robot (lite)</title>
 </head>
 <script>
-    // Este script maneja la respuesta del servidor y actualiza o redirecciona según se necesite
+    // Este script maneja la respuesta del servidor y actualiza o redirecciona segï¿½n se necesite
     function handleServerResponse(responseText) {
-        //  mostrar una alerta, actualizar la página o redirigir según se necesite
+        //  mostrar una alerta, actualizar la pï¿½gina o redirigir segï¿½n se necesite
         alert(responseText);
-        // window.location.reload();  // Para recargar la página
-        // window.location.href = '/tuApp/list';  // Para redirigir a un mapeo específico
+        // window.location.reload();  // Para recargar la pï¿½gina
+        // window.location.href = '/tuApp/list';  // Para redirigir a un mapeo especï¿½fico
     }
 
 </script>
@@ -117,14 +117,14 @@
 			<tr>
 			 	<!-- th>Residencia</th> -->
 				<th>Id Proceso</th>
-				<th>Fecha Creación</th>
+				<th>Fecha CreaciÃ³n</th>
 				<th>Filas totales</th>
-				<th>nº Errores</th>
+				<th>nÂº Errores</th>
 				<th>Cips Fichero</th>
 				<th>Cips Resi</th>
 				<th>Creador carga</th>
 				<th>pendiente validar</th>
-				<th>Previsión actualizada</th>
+				<th>PrevisiÃ³n actualizada</th>
 				<!-- <th>Nota1</th>-->
 				<!-- <th>Nota2</th>-->
 				<!-- <th>Nota3</th>-->
@@ -206,7 +206,7 @@
 				</td>
 				    <logic:empty name="data" property="fechaCalculoPrevision">
 				    
-					<td class="a150"><a href="javascript:addTratamientos('<bean:write name="data" property="idDivisionResidencia" />', '<bean:write name="data" property="idProceso" />');">Añadir tratamientos</a>
+					<td class="a150"><a href="javascript:addTratamientos('<bean:write name="data" property="idDivisionResidencia" />', '<bean:write name="data" property="idProceso" />');">AÃ±adir tratamientos</a>
 				</td>
 					</logic:empty>
 								</tr>
@@ -215,7 +215,7 @@
 		</table>
 	</fieldset>
 
-	<!--  paginación  -->
+	<!--  paginaciï¿½n  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -229,7 +229,7 @@
 		</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginación   -->
+	<!--  paginaciï¿½n   -->
 </div>	
 </html:form>
 </body>

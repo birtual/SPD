@@ -7,13 +7,13 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Creaci髇 de control especial en las producciones para un principio activo</title>
+<title>Creaci贸n de control especial en las producciones para un principio activo</title>
 </head>
 
 
@@ -46,7 +46,7 @@
 <body id="general">
 <div id="contingut">
 	<center>
-		<h2>Creaci髇 de control especial en las producciones para un principio activo</h2>
+		<h2>Creaci贸n de control especial en las producciones para un principio activo</h2>
 		<html:form action="/CtrlPrincActivos.do" >	
 		
 		 <html:hidden property="parameter" value="nuevo"/>
@@ -73,7 +73,7 @@
 			<td><logic:notEmpty name="formulari" property="listaFarmacias">	
 			  
 		   	 <html:select property="idFarmacia"> 
-		   	 	<html:option value="">Selecci髇</html:option>
+		   	 	<html:option value="">Selecci贸n</html:option>
    					<html:optionsCollection name="formulari" property="listaFarmacias" label="nombreFarmacia" value="idFarmacia" />
 
 				</html:select>
@@ -87,7 +87,7 @@
 			<td><logic:notEmpty name="formulari" property="listaDivisionResidencia">	
 			  
 		   	 <html:select property="oidDivisionResidencia" > 
-		   	 	<html:option value="">Selecci髇</html:option>
+		   	 	<html:option value="">Selecci贸n</html:option>
    					<html:optionsCollection name="formulari" property="listaDivisionResidencia" label="nombreDivisionResidencia" value="oidDivisionResidencia" />
    					
 				</html:select>

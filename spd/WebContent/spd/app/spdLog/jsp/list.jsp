@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
 <%@ page session="true" %>
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html:html>
 <HEAD>
@@ -99,7 +99,7 @@
 	    </logic:notEmpty>	
 		<logic:notEmpty name="formulari" property="listaAcciones">	
 		<div>
-		     <label for="listaAcciones" accesskey="e">Acci髇</label>
+		     <label for="listaAcciones" accesskey="e">Acci贸n</label>
 					<html:select property="idAccionFiltro"  value="<%= formulari.getIdAccionFiltro() %>" onchange="submit()"> 
 			   	 		<html:option value="">Todos</html:option>
 	  					<html:optionsCollection name="formulari" property="listaAcciones" label="idAccion" value="idAccion" />
@@ -108,7 +108,7 @@
 	    </logic:notEmpty>	
 		<logic:notEmpty name="formulari" property="listaSubAcciones">	
 		<div>
-		     <label for="listaSubAcciones" accesskey="e">SubAcci髇</label>
+		     <label for="listaSubAcciones" accesskey="e">SubAcci贸n</label>
 					<html:select property="idSubAccionFiltro"  value="<%= formulari.getIdSubAccionFiltro() %>" onchange="submit()"> 
 			   	 		<html:option value="">Todos</html:option>
 	  					<html:optionsCollection name="formulari" property="listaSubAcciones" label="idSubAccion" value="idSubAccion" />
@@ -130,9 +130,9 @@
 		<td class="primera">CIP</td>
 		<td class="primera">Residencia</td>
 		<td class="segunda">Apartado</td>
-		<td class="segunda">Accion</td>
-		<td class="segunda">SubAccion</td>
-		<td class="segunda">Descripcion</td>
+		<td class="segunda">Acci贸n</td>
+		<td class="segunda">SubAcci贸n</td>
+		<td class="segunda">Descripci贸n</td>
    </tr>
 
         
@@ -158,7 +158,7 @@
 
 
  </table>
-	<!--  paginaci髇  -->
+	<!--  paginaci锟絥  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -172,7 +172,7 @@
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginaci髇   -->
+	<!--  paginaci锟絥   -->
 				
 </html:form>
 </html:html>

@@ -7,7 +7,7 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
@@ -69,25 +69,25 @@
 		</td>
 			</tr>			
 			<tr><th class="primera">Nombre del Proceso</th><td><bean:write name="data"  property="nombreProceso"/></td></tr>
-			<tr><th class="primera">Lanzadera (versi髇 <bean:write name="data"  property="version"/>)</th><td><bean:write name="data"  property="lanzadera"/></td></tr>
-			<tr><th class="segunda">Descripci髇</th><td><bean:write name="data"  property="descripcion"/></td></tr>
+			<tr><th class="primera">Lanzadera (versi贸n <bean:write name="data"  property="version"/>)</th><td><bean:write name="data"  property="lanzadera"/></td></tr>
+			<tr><th class="segunda">Descripci贸n</th><td><bean:write name="data"  property="descripcion"/></td></tr>
 			<tr><th class="primera">Apartado</th><td><bean:write name="data"  property="apartado"/></td></tr>
 			<tr><th class="segunda">Activo</th><td><bean:write name="data"  property="activo"/></td></tr>
-			<tr><th class="segunda">Par醡etros</th><td><bean:write name="data" property="parametros"/></td></tr>
+			<tr><th class="segunda">Par谩metros</th><td><bean:write name="data" property="parametros"/></td></tr>
 			<tr><th class="segunda">Periodo</th><td>
 				Cada
 				<bean:write  name="data" property="frecuenciaPeriodo" />
 				<bean:write  name="data" property="tipoPeriodo" />
 				</td>
 			</tr>
-			<tr><th class="segunda">D韆s de la Semana</th><td><bean:write  name="data" property="diasSemana" /></td></tr>
-			<tr><th class="segunda">D韆s concretos</th><td><bean:write  name="data" property="diasMes" /></td></tr>
-	 		<tr><th class="segunda">Hora de Ejecuci髇</th><td><bean:write  name="data" property="horaEjecucion" /></td></tr>
-			<tr><th class="segunda">M醲. Reintentos</th><td><bean:write  name="data" property="maxReintentos" /></td></tr>
-			<tr><th class="segunda">M醲. Duraci髇 (segundos)</th><td><bean:write  name="data" property="maxDuracionSegundos" /></td></tr>
+			<tr><th class="segunda">D铆as de la Semana</th><td><bean:write  name="data" property="diasSemana" /></td></tr>
+			<tr><th class="segunda">D铆as concretos</th><td><bean:write  name="data" property="diasMes" /></td></tr>
+	 		<tr><th class="segunda">Hora de Ejecuci贸n</th><td><bean:write  name="data" property="horaEjecucion" /></td></tr>
+			<tr><th class="segunda">M谩x. Reintentos</th><td><bean:write  name="data" property="maxReintentos" /></td></tr>
+			<tr><th class="segunda">M谩x. Duraci贸n (segundos)</th><td><bean:write  name="data" property="maxDuracionSegundos" /></td></tr>
 			<tr><th class="segunda">Fecha desde</th><td><bean:write  name="data" property="fechaDesde" /></td></tr>
 			<tr><th class="segunda">Fecha hasta</th><td><bean:write  name="data" property="fechaHasta" /></td></tr>
-			<tr><th class="segunda">Tipo de Ejecuci髇</th><td><bean:write  name="data" property="tipoEjecucion" /></td></tr>
+			<tr><th class="segunda">Tipo de Ejecuci贸n</th><td><bean:write  name="data" property="tipoEjecucion" /></td></tr>
 			<tr><th class="segunda">Orden</th><td><bean:write  name="data" property="orden" /></td></tr>
 			<c:if test="${not empty data.nombreOriginal}">
 				<tr><td colspan=2 align="center">(Nombre original: <bean:write name="data"  property="nombreOriginal"/>)</td></tr>

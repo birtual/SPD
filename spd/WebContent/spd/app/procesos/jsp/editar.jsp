@@ -7,13 +7,13 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
 <head>
 	<jsp:include page="/spd/jsp/global/head.jsp"/>
-	<title>Edición del proceso</title>
+	<title>EdiciÃ³n del proceso</title>
 </head>
 
 <script>
@@ -39,9 +39,9 @@ window.addEventListener('DOMContentLoaded', function() {
   if (sel) actualizarColorPrioridad(sel);
 });
 
-<!-- Configuración de Flatpickr -->
+<!-- Configuraciï¿½n de Flatpickr -->
 window.onload = function() {
-	document.getElementById("fechaDesde").placeholder = "Selecciona fecha de activación";
+	document.getElementById("fechaDesde").placeholder = "Selecciona fecha de activaciï¿½n";
     document.getElementById("horaEjecucion").setAttribute("placeholder", "HH:mm");
 };
 
@@ -91,14 +91,14 @@ window.onload = function() {
 			else if(f.descripcion.value=='')
 				alert('Falta indicar algo de descripcion sobre el proceso ');
 			else if(f.fechaDesde.value=='')
-				alert('Falta indicar la fecha de activación del proceso');
+				alert('Falta indicar la fecha de activaciï¿½n del proceso');
 			else if(f.horaEjecucion.value=='')
-				alert('Falta indicar la hora de ejecución del proceso ');
+				alert('Falta indicar la hora de ejecuciï¿½n del proceso ');
 			else if(f.maxDuracionSegundos.value=='')
-				alert('Falta indicar el tope de duración posible ');
+				alert('Falta indicar el tope de duraciï¿½n posible ');
 			else */
 			if (f.activo.value == 'DESCARTADO') {
-			    if (confirm('En caso de descartar el proceso no aparecerá en el listado. ¿Está seguro?')) {
+			    if (confirm('En caso de descartar el proceso no aparecerï¿½ en el listado. ï¿½Estï¿½ seguro?')) {
 			        f.parameter.value = 'editar';
 			        f.ACTIONTODO.value = 'EDITA_OK';
 			        f.submit();
@@ -155,8 +155,8 @@ window.onload = function() {
 		</td>
 		</tr>
 		<tr><th class="primera">Nombre del Proceso  *</th><td><html:text name="data" style="width: 30em;"  property="nombreProceso"/></td></tr>
-		<tr><th class="primera">Lanzadera  * (versión <bean:write name="data"  property="version"/>)</th><td><html:text name="data"  style="width: 30em;"  property="lanzadera"/></td></tr>
-		<tr><th class="segunda">Descripción  *</th><td><html:textarea name="data"  property="descripcion" cols="40" rows="3"/></td></tr>
+		<tr><th class="primera">Lanzadera  * (versiÃ³n <bean:write name="data"  property="version"/>)</th><td><html:text name="data"  style="width: 30em;"  property="lanzadera"/></td></tr>
+		<tr><th class="segunda">DescripciÃ³n  *</th><td><html:textarea name="data"  property="descripcion" cols="40" rows="3"/></td></tr>
 		<tr><th class="primera">Apartado</th><td><html:text name="data" style="width: 20em;"  property="apartado"/></td></tr>
 
 		<tr>
@@ -169,7 +169,7 @@ window.onload = function() {
         		</html:select>
 			</td>
 		</tr>
-		<tr><th class="segunda">Parámetros <br>(separados por # o  |)</th><td><html:textarea name="data" property="parametros" cols="40" rows="3"/></td></tr>
+		<tr><th class="segunda">ParÃ¡metros <br>(separados por # o  |)</th><td><html:textarea name="data" property="parametros" cols="40" rows="3"/></td></tr>
 		<!-- %= java.util.Arrays.toString(formulari.getDiasSemanaArray()) %> -->
 
 		<tr><th class="segunda">Periodo  *</th>
@@ -179,7 +179,7 @@ window.onload = function() {
 			<html:select  name="data" property="tipoPeriodo" style="text-align: left;">>
 				<html:option value="MINUTOS">Minutos</html:option>
 				<html:option value="HORAS">Horas</html:option>
-				<html:option value="DIAS">Días</html:option>
+				<html:option value="DIAS">DÃ­as</html:option>
 	            <html:option value="SEMANAS">Semanas</html:option>
 	            <html:option value="MESES">Meses</html:option>
 			</html:select>
@@ -187,34 +187,34 @@ window.onload = function() {
 		
 		</tr>
 		<tr>
-		    <th class="segunda">Días de la Semana  *</th>
+		    <th class="segunda">DÃ­as de la Semana  *</th>
 		    <td>
 				<html:multibox property="diasSemanaArray" name="data" value="1"/>Lunes<br/>
 				<html:multibox property="diasSemanaArray" name="data" value="2"/>Martes<br/>
-				<html:multibox property="diasSemanaArray" name="data" value="3"/>Miércoles<br/>
+				<html:multibox property="diasSemanaArray" name="data" value="3"/>MiÃ©rcoles<br/>
 				<html:multibox property="diasSemanaArray" name="data" value="4"/>Jueves<br/>
 				<html:multibox property="diasSemanaArray" name="data" value="5"/>Viernes<br/>
-				<html:multibox property="diasSemanaArray" name="data" value="6"/>Sábado<br/>
+				<html:multibox property="diasSemanaArray" name="data" value="6"/>SÃ¡bado<br/>
 				<html:multibox property="diasSemanaArray" name="data" value="7"/>Domingo<br/>
 		    </td>
 		</tr>
 		<tr>
-		    <th class="segunda">Días concretos </th>
-    		<td><html:text name="data"  property="diasMes"/><br><small>(usar coma para separar días o guión para intervalos)</small></td>
+		    <th class="segunda">DÃ­as concretos </th>
+    		<td><html:text name="data"  property="diasMes"/><br><small>(usar coma para separar dÃ­as o guiÃ³n para intervalos)</small></td>
 		</tr>
 
 
-		<tr><th class="segunda">Hora de Ejecución  *</th>
+		<tr><th class="segunda">Hora de EjecuciÃ³n  *</th>
 			<td>
 				<html:text property="horaEjecucion" name="data" styleId="horaEjecucion" style="width: 80px;" />
 			</td>
 		</tr>
-		<tr><th class="segunda">Máx. Reintentos  *</th>
+		<tr><th class="segunda">MÃ¡x. Reintentos  *</th>
 			<td>
 				<input type="number" name="maxReintentos" style="width: 2em;"  id="maxReintentos" value="<bean:write name='data' property='maxReintentos'/>" />
 			</td>
 		</tr>
-		<tr><th class="segunda">Máx. Duración (segundos)  *</th>
+		<tr><th class="segunda">MÃ¡x. DuraciÃ³n (segundos)  *</th>
 			<td>
 				<input type="number" name="maxDuracionSegundos" style="width: 4em;"   id="maxDuracionSegundos" value="<bean:write name='data' property='maxDuracionSegundos'/>" />
 			</td>
@@ -223,21 +223,21 @@ window.onload = function() {
 		<tr>
 			<th class="segunda">Fecha desde  *</th>
 			<td>
-				<input type="text" id="fechaDesde" name="fechaDesde" style="width: 8em;" value="<bean:write name='data' property='fechaDesde'/>" placeholder="Selecciona fecha de activación" class="flatpickr">
+				<input type="text" id="fechaDesde" name="fechaDesde" style="width: 8em;" value="<bean:write name='data' property='fechaDesde'/>" placeholder="Selecciona fecha de activaciï¿½n" class="flatpickr">
 						</td>
 		</tr>
 		<tr>
 			<th class="segunda">Fecha hasta</th>
 			<td>
-				<input type="text" id="fechaHasta" name="fechaHasta" style="width: 8em;" value="<bean:write name='data' property='fechaHasta'/>" placeholder="Selecciona fecha de desactivación" class="flatpickr">
+				<input type="text" id="fechaHasta" name="fechaHasta" style="width: 8em;" value="<bean:write name='data' property='fechaHasta'/>" placeholder="Selecciona fecha de desactivaciï¿½n" class="flatpickr">
 			</td>
 		</tr>
 
 
-		<tr><th class="segunda">Tipo de Ejecución</th>
+		<tr><th class="segunda">Tipo de EjecuciÃ³n</th>
 			<td>
 				 <html:select  name="data" property="tipoEjecucion" style="text-align: left;">>
-			        <html:option value="AUTOMATICO">Automático</html:option>
+			        <html:option value="AUTOMATICO">AutomÃ¡tico</html:option>
 			    	<html:option value="MANUAL">Manual</html:option>
 	        	</html:select>
 			</td>

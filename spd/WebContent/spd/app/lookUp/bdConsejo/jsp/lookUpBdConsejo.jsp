@@ -8,7 +8,7 @@
 
 
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
@@ -19,7 +19,7 @@
 
 <jsp:include page="/spd/jsp/global/head.jsp"/>
 <head>
-<title>Selección de medicamento</title>
+<title>SelecciÃ³n de medicamento</title>
    
 <bean:define id="formulari" name="BdConsejoForm" type="lopicost.spd.struts.form.BdConsejoForm" />
 
@@ -28,7 +28,7 @@ $(document).ready(function () {
     // Variable para almacenar el valor seleccionado
     var valorSeleccionado = "";
 
-    // Obtener el valor de filtroGtVm del formulario (puedes obtenerlo de tu lógica del servidor)
+    // Obtener el valor de filtroGtVm del formulario (puedes obtenerlo de tu lï¿½gica del servidor)
     var valorInicial = $("#filtroNomGtVm").val();
 
     // Establecer el valor inicial en el campo de entrada
@@ -63,26 +63,26 @@ $(document).ready(function () {
             // Al seleccionar un elemento, establece el valor del campo oculto
             valorSeleccionado = ui.item.value;
             //alert("Elemento seleccionado: " + ui.item.value);
-            // Log para verificar la selección
+            // Log para verificar la selecciï¿½n
             console.log("Elemento seleccionado:", valorSeleccionado);
 
             // Establece el valor del campo de entrada
             $("#filtroNomGtVm").val(valorSeleccionado);
 
-            // Evitar el comportamiento predeterminado de la selección del autocompletar
+            // Evitar el comportamiento predeterminado de la selecciï¿½n del autocompletar
             return false;
         }
     });
 
-    // Maneja el envío del formulario
+    // Maneja el envï¿½o del formulario
     $("#formulari").submit(function () {
         // Almacena el valor actual de filtroGtVm
         var valorFiltroGtVm = valorSeleccionado;
         console.log("Valor de filtroNomGtVm al enviar el formulario:", valorFiltroGtVm);
 
-        // Puedes agregar lógica adicional aquí antes de enviar el formulario
+        // Puedes agregar lï¿½gica adicional aquï¿½ antes de enviar el formulario
 
-        // Devuelve true para permitir que el formulario se envíe
+        // Devuelve true para permitir que el formulario se envï¿½e
         return true;
     });
 });
@@ -172,7 +172,7 @@ if (request.getParameter("fieldName1")!=null)
 			f.submit();
 		}			
 		
-		//función de carga del lookUp
+		//funciï¿½n de carga del lookUp
 		function doLookUpLabsBdConsejo(){				
 			var loc = '/spd/LookUpLabsBdConsejo.do?parameter=initLabs&'+ 						//url de llamanda				
 				'CallBackID=filtroCodiLaboratorio&'+			  			//Nombre del campo para el valor Id
@@ -240,7 +240,7 @@ if (request.getParameter("fieldName1")!=null)
 
 
 						<p class="select_corto">
-							<label for="listaGtVmpp" accesskey="e">Grupo VMPP (+ presentación)</label>
+							<label for="listaGtVmpp" accesskey="e">Grupo VMPP (+ presentaciÃ³n)</label>
 							<html:select property="filtroCodGtVmpp"  value="<%= formulari.getFiltroCodGtVmpp() %>" onchange="submit()" styleClass="select_corto"> 
 					   	 		<html:option value="">Todos</html:option>
 			   					<html:optionsCollection name="formulari" property="listaGtVmpp" label="nomGtVmpp" value="codGtVmpp" />
@@ -273,8 +273,8 @@ if (request.getParameter("fieldName1")!=null)
 					<th>nombre medicamento</th>
 					<th>nombreLab</th>
 					<th>GtVm (Principio Activo)</th>
-					<th>GtVmp (Base Conjunto homogéneo)</th>
-					<th>GtVmpp (Conjunto homogéneo)</th>
+					<th>GtVmp (Base Conjunto homogÃ©neo)</th>
+					<th>GtVmpp (Conjunto homogÃ©neo)</th>
 				</thead>
 
 		<logic:present name="formulari" property="listaBdConsejo">
@@ -338,7 +338,7 @@ if (request.getParameter("fieldName1")!=null)
 			</table>	
 		</fieldset>
 	</div>			
-	<!--  paginación  -->
+	<!--  paginaciï¿½n  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -352,7 +352,7 @@ if (request.getParameter("fieldName1")!=null)
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginación   -->
+	<!--  paginaciï¿½n   -->
 					
 					
 </div>

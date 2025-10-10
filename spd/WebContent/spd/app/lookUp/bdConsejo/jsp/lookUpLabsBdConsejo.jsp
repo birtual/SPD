@@ -7,13 +7,13 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Selección de laboratorio</title>
+<title>SelecciÃ³n de laboratorio</title>
 </head>
 
 <bean:define id="formulari" name="BdConsejoForm" type="lopicost.spd.struts.form.BdConsejoForm" />
@@ -102,7 +102,7 @@ if (request.getParameter("fieldName1")!=null)
 						<table class="graella">
 						<thead>
 									<th class="logo">logo</th>
-									<th>Código</th>
+									<th>CÃ³digo</th>
 									<th>Nombre Laboratorio</th>
 						</thead>
 							
@@ -134,7 +134,7 @@ if (request.getParameter("fieldName1")!=null)
 							</table>	
 					</div>			
 
-	<!--  paginación  -->
+	<!--  paginaciï¿½n  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -148,7 +148,7 @@ if (request.getParameter("fieldName1")!=null)
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginación   -->
+	<!--  paginaciï¿½n   -->
 					
 					
 			</div>

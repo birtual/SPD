@@ -9,7 +9,7 @@
 <%@ page import="java.util.concurrent.atomic.AtomicInteger" %>
 
 <%@ page session="true" %>
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html:html>
 	<HEAD>
@@ -56,7 +56,7 @@
         <div class="${dat.tipo}">
            <bean:write name="dat" property="fechaInicio" /> - <bean:write name="dat" property="texto" />
         </div>
-        <!-- Agregar un espacio vacío entre los avisos -->
+        <!-- Agregar un espacio vacÃ­o entre los avisos -->
         <div>&nbsp;</div>
     </logic:iterate>
 	</div>
@@ -69,7 +69,7 @@
 	</br>
  	
  	<table align="center" style="width:50%">
-	<h3 align="center" >Avisos en la actualización de datos </h3>
+	<h3 align="center" >Avisos en la actualizaciÃ³n de datos </h3>
 		<thead>
 		<th>Residencia</th>
 		<th>Residentes activos</th>
@@ -91,9 +91,9 @@
 
 	<logic:iterate id="lista" name="formulari" property="listaEnlaces">
 	<%
-		// Obtén la lista de enlaces desde el atributo 'lista' en el objeto 'request'
+		// ObtÃ©n la lista de enlaces desde el atributo 'lista' en el objeto 'request'
 		List<Enlace> listaEnlaces = (List<Enlace>) request.getAttribute("lista");
-		// Calcula el tamaño de la lista
+		// Calcula el tamaÃ±o de la lista
 		int totalIteraciones = (listaEnlaces != null) ? listaEnlaces.size() : 0;
 		// Inicializa un contador
 		int contador = 0;

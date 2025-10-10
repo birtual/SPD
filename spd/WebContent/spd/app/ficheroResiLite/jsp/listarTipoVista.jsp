@@ -1,24 +1,17 @@
-<%@ page language="java" %>
-<%@ page import="java.util.*" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="true" %>
+<%@ include file="/spd/jsp/global/headFragmento.jspf" %>
 
-
-<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
-<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
-<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
-
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<!DOCTYPE html>
+<html:html>
+<head>
 	<script language="javaScript" src="/spd/spd/app/ficheroResiLite/js/ficheroResiLite.js"></script>
 
-<head>
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
  <style>
-        /* Estilos para los iconos de acción */
+        /* Estilos para los iconos de acciï¿½n */
         .action-icon {
             font-size: 20px;
-            color: #0000a0; /* Color del ícono */
+            color: #0000a0; /* Color del ï¿½cono */
             cursor: pointer;
         }
 
@@ -29,7 +22,7 @@
     
 <jsp:include page="/spd/jsp/global/head.jsp"/>
 	<link rel="stylesheet" href="/spd/spd/css/ficheroResiLite/base.css" media="screen" />
-<title>Gestión carga ficheros Robot</title>
+<title>GestiÃ³n carga ficheros Robot</title>
 </head>
 
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
@@ -80,26 +73,26 @@
 						</logic:notEmpty>				
 				</div>
 				<div>
-						<!--  <input type="button" class="btn primary" value="Actualizar previsión" onclick="javascript:enviarAPrevision()" /> -->
+						<!--  <input type="button" class="btn primary" value="Actualizar previsiï¿½n" onclick="javascript:enviarAPrevision()" /> -->
 						<!--  <input type="button" class="btn primary" value="Generar ficheros robot" onclick="javascript:generarFicherosRobot()" /> -->
 						<input type="button" class="btn primary" value="Limpiar filtros listado" onclick="javascript:limpiarFiltrosResi();" />
 						<input type="button" class="btn primary" value="Excluir NoPintar" onclick="javascript:visualizarActivos();" />
 						<input type="button" class="btn primary" value="Exportar Excel"  onclick="javascript:exportExcel();"/>
-						<!-- input type="button" class="btn primary" value="Exportar Filas sin sustitución "  onclick="javascript:exportFilasSinSust();"/>-->
+						<!-- input type="button" class="btn primary" value="Exportar Filas sin sustituciï¿½n "  onclick="javascript:exportFilasSinSust();"/>-->
 						<input type="button" class="btn primary" value="Exportar Filas con mensajes "  onclick="javascript:exportFilasConInfo();"/>
 						
 						<!--  Para validaciones masivas -->
 						<logic:equal property="free1" name="FicheroResiForm" value="inicio">
-								<input type="button" class="azul" onclick="javascript:confirmadoMasiva('<bean:write name="FicheroResiForm" property="idDivisionResidencia" />', '<bean:write name="FicheroResiForm" property="idProceso" />')" value="Confirmación masiva"  />
+								<input type="button" class="azul" onclick="javascript:confirmadoMasiva('<bean:write name="FicheroResiForm" property="idDivisionResidencia" />', '<bean:write name="FicheroResiForm" property="idProceso" />')" value="Confirmaciï¿½n masiva"  />
 						</logic:equal>
 
 								 
 					<!-- 	
 						<logic:equal property="mode" name="FicheroResiForm" value="">
-							<input type="button" class="btn primary" value="Versión reducida" onclick="javascript:modoVisual('Reducido');" />	
+							<input type="button" class="btn primary" value="Versiï¿½n reducida" onclick="javascript:modoVisual('Reducido');" />	
 						</logic:equal>
 						<logic:equal property="mode" name="FicheroResiForm" value="Reducido">
-							<input type="button" class="btn primary" value="Versión ampliada" onclick="javascript:modoVisual('');" />	
+							<input type="button" class="btn primary" value="Versiï¿½n ampliada" onclick="javascript:modoVisual('');" />	
 						</logic:equal>
  					-->						
 				</div> 	
@@ -136,4 +129,4 @@
 		</div>
 	</html:form>
 </body>
-</html>
+</html:html>

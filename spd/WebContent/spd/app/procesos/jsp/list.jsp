@@ -9,7 +9,7 @@
 
 
 <%@ page session="true" %>
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html:html>
 <HEAD>
@@ -22,8 +22,8 @@
 <script type="text/javascript">	
 
 function lanzar(oidProceso) {
-    // Mostrar un cuadro de confirmación
-    var confirmacion = window.confirm("¿Estás seguro de que deseas lanzar este proceso?");
+    // Mostrar un cuadro de confirmaciï¿½n
+    var confirmacion = window.confirm("Â¿EstÃ¡s seguro de que deseas lanzar este proceso?");
     
     // Si el usuario hace clic en "Aceptar" (true)
     if (confirmacion) {
@@ -41,8 +41,8 @@ function lanzar(oidProceso) {
 
 
 function borrar(oidProceso) {
-    // Mostrar un cuadro de confirmación
-    var confirmacion = window.confirm("¿Estás seguro de que deseas borrar este proceso?");
+    // Mostrar un cuadro de confirmaciï¿½n
+    var confirmacion = window.confirm("ï¿½Estï¿½s seguro de que deseas borrar este proceso?");
     
     // Si el usuario hace clic en "Aceptar" (true)
     if (confirmacion) {
@@ -145,27 +145,27 @@ function getContextPath() {
 
 <table style="width:80%">
 	<tr>
-		<!-- th class="segunda">Fecha creación</th> -->
+		<!-- th class="segunda">Fecha creaciï¿½n</th> -->
         <th>Orden</th>
         <th>Lanzadera</th>
         <th>Nombre</th>
-        <!-- <th>Usuario creación</th> -->
-        <!-- <th>Versión</th> -->
-        <!-- <th>Descripción</th> -->
-        <th>Parámetros</th>
-        <!--<th>Tipo ejecución</th> -->
+        <!-- <th>Usuario creaciï¿½n</th> -->
+        <!-- <th>Versiï¿½n</th> -->
+        <!-- <th>Descripciï¿½n</th> -->
+        <th>ParÃ¡metros</th>
+        <!--<th>Tipo ejecuciï¿½n</th> -->
         <!--<th>Cada</th> -->
         <!--<th>Periodo</th> -->
         <th>Frecuencia</th>
-        <th>Hora ejecución</th>
-        <th>Días semana</th>
-        <th>Días concretos (opcional)</th>
+        <th>Hora ejecuciÃ³n</th>
+        <th>DÃ­as semana</th>
+        <th>DÃ­as concretos (opcional)</th>
        <!--  <th>Max reintentos</th> -->
-       <!--  <th>Max duración (s)</th> -->
+       <!--  <th>Max duraciï¿½n (s)</th> -->
        <!--  <th>Fecha desde</th> -->
        <!--  <th>Fecha hasta</th> -->
         <th>Activo</th>
-        <td>Última ejecución</td>
+        <td>Ãšltima ejecuciÃ³n</td>
         <td>Resultado</td>
         <td>Fecha inicio</td>
         <td>Fecha fin</td>
@@ -177,13 +177,13 @@ function getContextPath() {
 	
 	<logic:iterate id="data" name="formulari" property="procesos" type="lopicost.spd.model.Proceso" indexId="position">
 	<c:if test="${ultimoApartado != (data.apartado != null ? data.apartado : '')}">
-		<!-- Fila de separación por cambio de apartado -->
+		<!-- Fila de separaciï¿½n por cambio de apartado -->
 		<tr>
 			<td colspan="100" style="background-color:#e0e0e0; font-weight:bold; padding:8px;">
 				<c:out value="${data.apartado}" />
 			</td>
 		</tr>
-		<!-- Actualizar valor del último apartado mostrado -->
+		<!-- Actualizar valor del ï¿½ltimo apartado mostrado -->
 		<c:set var="ultimoApartado" value="${data.apartado}" />
 	</c:if>
 	
@@ -275,7 +275,7 @@ function getContextPath() {
 			<input type="button" onclick="javascript:goDetalle('<bean:write name="data" property="oidProceso" />');"  value="Detalle"  />
 			<input type="button" onclick="javascript:editar('<bean:write name="data" property="oidProceso" />');"  value="Editar"  />
 			<input type="button" onclick="javascript:lanzar('<bean:write name="data" property="oidProceso" />');"  value="Lanzar proceso"  />
-			<input type="button" onclick="javascript:ejecuciones('<bean:write name="data" property="oidProceso" />');"  value="Ver histórico"  />
+			<input type="button" onclick="javascript:ejecuciones('<bean:write name="data" property="oidProceso" />');"  value="Ver histÃ³rico"  />
 		</p>
 	</td>
 	</tr>	

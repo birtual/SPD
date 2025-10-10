@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 <script language="javaScript" src="/spd/spd/app/ficheroResiLite/js/ficheroResiCabeceraLite.js"></script>
@@ -45,8 +45,8 @@
 	        flatpickr("#nuevaFechaDesde", {
 	            dateFormat: "d/m/Y", // Formato DD/MM/YYYY
 	            locale: "es",
-	            minDate: fechaDesde || "today", // El rango mínimo es fechaDesde
-	            maxDate: fechaHasta || fechaDesde, // El rango máximo es fechaHasta
+	            minDate: fechaDesde || "today", // El rango mï¿½nimo es fechaDesde
+	            maxDate: fechaHasta || fechaDesde, // El rango mï¿½ximo es fechaHasta
 	            defaultDate: nuevaFechaDesde || undefined, // Fecha predeterminada en nuevaFechaDesde
 	        });
 
@@ -65,12 +65,12 @@
         flatpickr("#nuevaFechaHasta", {
             dateFormat: "d/m/Y", // Formato DD/MM/YYYY
             locale: "es",
-            minDate: fechaDesde || "today", // El rango mínimo es fechaDesde
-            maxDate: fechaHasta || fechaDesde, // El rango máximo es fechaHasta
+            minDate: fechaDesde || "today", // El rango mï¿½nimo es fechaDesde
+            maxDate: fechaHasta || fechaDesde, // El rango mï¿½ximo es fechaHasta
             defaultDate: nuevaFechaHasta || undefined, // Fecha predeterminada en nuevaFechaHasta
         });
 
-        // Función de confirmación de fechas
+        // Funciï¿½n de confirmaciï¿½n de fechas
         function confirmarFechas(oidCab) {
             // Obtener las fechas seleccionadas
             const nuevaFechaDesde = document.getElementById('nuevaFechaDesde').value;
@@ -83,11 +83,11 @@
             // Verificar si la fecha hasta es anterior a la fecha desde
             if (fechaHastaObj < fechaDesdeObj) {
                 alert("La fecha 'Hasta' no puede ser anterior a la fecha 'Desde'. Por favor, revisa las fechas.");
-                return; // No ejecutar la acción si las fechas no son correctas
+                return; // No ejecutar la acciï¿½n si las fechas no son correctas
             } else {
-                // Llamada a la función editarOk si las fechas son válidas
+                // Llamada a la funciï¿½n editarOk si las fechas son vï¿½lidas
                 editarOk(oidCab);
-                // Si quisieras hacer algo más después de la verificación, puedes agregarlo aquí.
+                // Si quisieras hacer algo mï¿½s despuï¿½s de la verificaciï¿½n, puedes agregarlo aquï¿½.
             }
         }
     });
@@ -98,8 +98,8 @@
 
 <script type="text/javascript">
     function lanzarProceso(oidProceso, boton) {
-        if (window.confirm("¿Estás seguro de que deseas lanzar este proceso?")) {
-            // Desactivar el botón
+        if (window.confirm("Â¿EstÃ¡s seguro de que deseas lanzar este proceso?")) {
+            // Desactivar el botï¿½n
             boton.disabled = true;
             boton.value = "Lanzando...";
 
@@ -116,7 +116,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    alert('Proceso lanzado correctamente, en unos minutos estarán recogidos');
+                    alert('Proceso lanzado correctamente, en unos minutos estarÃ¡n recogidos');
                 } else {
                     alert('Error al lanzar el proceso');
                     boton.disabled = false;
@@ -125,7 +125,7 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Error en la petición');
+                alert('Error en la peticiÃ³n');
                 boton.disabled = false;
                 boton.value = "Lanzar proceso";
             });
@@ -143,7 +143,7 @@
 
 <body id="general">
 	<center>
-		<h2>Edición de cabecera de proceso</h2>
+		<h2>Ediciï¿½n de cabecera de proceso</h2>
 		<html:form action="/FicheroResiCabeceraLite.do" method="post"  >	
 
 <div>
@@ -155,9 +155,9 @@
      <html:hidden property="oidDivisionResidencia" />
   	 <html:hidden property="fechaDesde" styleId="fechaDesde" />
 	 <html:hidden property="fechaHasta" styleId="fechaHasta" />
-<!-- Variables ocultas que contienen las fechas mínima y máxima del rango -->
+<!-- Variables ocultas que contienen las fechas mï¿½nima y mï¿½xima del rango -->
 
-	<h3>Confirmar edición</h3>
+	<h3>Confirmar ediciÃ³n</h3>
 	<bean:define id="data" name="formulari" property="ficheroResiDetalleBean" />
 	<fieldset align="left">
 		<div>
@@ -173,10 +173,10 @@
 			<bean:write name="data" property="fechaHoraProceso" />
 		</div>
 		<div>
-		<label for="nombreProduccionRobot">Nombre en robot<br> (residencia + inicio + nºcreaciones de fichero)</label>
+		<label for="nombreProduccionRobot">Nombre en robot<br> (residencia + inicio + nÂº creaciones de fichero)</label>
 		<c:choose>
 		    <c:when test="${empty data.nombreProduccionRobot}">
-		        Pendiente de creación 
+		        Pendiente de creaciÃ³n 
 		    </c:when>
 		    <c:otherwise>
 		        <bean:write name="data" property="nombreProduccionRobot" />  
@@ -189,7 +189,7 @@
 			(Afecta a "Ficheros DM y RX")
 		</div>
 		<div>
-			Selección de otras fechas, en caso de querer que esta producción se envíe en otras fechas (siempre dentro del rango de días)
+			SelecciÃ³n de otras fechas, en caso de querer que esta producciÃ³n se envÃ­e en otras fechas (siempre dentro del rango de dÃ­as)
 		</div>
 	
 		<!-- Campo de entrada para nuevaFechaDesde -->
@@ -205,10 +205,10 @@
 		</div>
 
 		<div>
-			<p>Se puede configurar cuando comienzan las tomas del primer día y acaban las del último</p>
+			<p>Se puede configurar cuando comienzan las tomas del primer dÃ­a y acaban las del Ãºltimo</p>
 		</div>
 		<div>    
-		    <label for="nuevaTomaDesde">Primer día desde la toma:</label>    
+		    <label for="nuevaTomaDesde">Primer dÃ­a desde la toma:</label>    
 		    <html:select property="nuevaTomaDesde"> 
 		        <!-- Opciones generadas desde la lista -->
 		        <logic:iterate id="toma" name="formulari" property="listaTomasCabecera" type="lopicost.spd.struts.bean.CabecerasXLSBean">
@@ -220,7 +220,7 @@
 		    </html:select>
 		</div>
 		<div>    
-		    <label for="nuevaTomaHasta">Último día hasta la toma:</label>    
+		    <label for="nuevaTomaHasta">Ãºltimo dÃ­a hasta la toma:</label>    
 		    <html:select property="nuevaTomaHasta"> 
 		        <!-- Opciones generadas desde la lista -->
 		        <logic:iterate id="toma" name="formulari" property="listaTomasCabecera" type="lopicost.spd.struts.bean.CabecerasXLSBean">
@@ -260,7 +260,7 @@
 	<fieldset style="text-align: left;">
 		
 		<div style="color: blue;" align="left">
-			Producción.  Forzar recogida de datos --> 
+			ProducciÃ³n.  Forzar recogida de datos --> 
 			<c:choose>
 		    <c:when test="${data.idRobot=='robot3'}">
 		      	<input type="button" value="Lanzar proceso 1" onclick="lanzarProceso('24', this);" />
@@ -277,51 +277,70 @@
 
 			</br></br>
 		<a href="#" onclick="informeRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />', 'etiquetasR'); return false;">
-			Generador etiquetas agosto
+			<c:choose>
+			<c:when test="${data.idRobot=='robot3'}">
+				Generador etiquetas D
+			</c:when>
+		    <c:otherwise>
+		        Generador etiquetas agosto
+		    </c:otherwise>
+		</c:choose>			
 		</a></br></br>
 		<a href="#" onclick="informeRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />', 'etiquetas'); return false;">
-			Generador etiquetas
+			
+		<c:choose>
+			<c:when test="${data.idRobot=='robot3'}">
+				Generador etiquetas R
+			</c:when>
+		    <c:otherwise>
+		        Generador etiquetas
+		    </c:otherwise>
+		</c:choose>			
 		</a></br></br>		
 		<a href="#" onclick="informeRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />', 'globalLiteAll'); return false;">
 			Generador etiquetas (con receta)
 		</a></br></br>
-		<logic:equal property="idUsuario" name="formulari" value="test">
+		<logic:equal property="idUsuario" name="formulari" value="admin">
 		<a href="#" onclick="informeRobotRD('<bean:write name="data" property="oidFicheroResiCabecera" />', 'spdTest'); return false;">
 			- etiquetas Test
 		</logic:equal>
-		<logic:equal property="idUsuario" name="formulari" value="admin">
-		<a href="#" onclick="informeRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />', 'global'); return false;">
-			Generador etiquetas (con receta y días en columnas)
-		</a></br></br>
-			<a href="#" onclick="informeRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />', 'detalle'); return false;">
-				Detalle
-			</a>			</br></br>
-		<a href="#" onclick="informeRobotRD('<bean:write name="data" property="oidFicheroResiCabecera" />', 'spdTest'); return false;">
+
+		<c:if test="${data.idRobot=='robot3'  || idUsuario=='admin' }">
+			<a href="#" onclick="informeRobotRD('<bean:write name="data" property="oidFicheroResiCabecera" />', 'spdTest'); return false;">
 			- etiquetas Test
 		</a></br></br>
-		<a href="#" onclick="informeRobotRD('<bean:write name="data" property="oidFicheroResiCabecera" />', 'spd'); return false;">
+		
+		</c:if>
+		<!--<logic:equal property="idUsuario" name="formulari" value="admin">-->
+		<!--<a href="#" onclick="informeRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />', 'global'); return false;">
+			Generador etiquetas (con receta y dÃ­as en columnas)
+		</a></br></br>
+		<a href="#" onclick="informeRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />', 'detalle'); return false;">
+				Detalle
+			</a></br></br>-->	
+		<!--<a href="#" onclick="informeRobotRD('<bean:write name="data" property="oidFicheroResiCabecera" />', 'spd'); return false;">
 			- etiquetas
 		</a></br></br>
 		<a href="#" onclick="informeRobotRD('<bean:write name="data" property="oidFicheroResiCabecera" />', 'spdR'); return false;">
 			- etiquetas R
 		</a></br></br>
 		<a href="#" onclick="informeRobotRD('<bean:write name="data" property="oidFicheroResiCabecera" />', 'spdBloques'); return false;">
-			- Producción/Fuera blister/Receta 
+			- ProducciÃ³n/Fuera blister/Receta 
 		</a></br></br>					
 		<a href="#" onclick="informeRobotRD('<bean:write name="data" property="oidFicheroResiCabecera" />', 'spdBloquesYTomas'); return false;">
-			Producción/Fuera blister/Receta con detalle de tomas
-		</a></br></br>					
-		</logic:equal>
+			ProducciÃ³n/Fuera blister/Receta con detalle de tomas
+		</a></br></br>		
+		</logic:equal> -->
 		</div>
 		<!-- a href="#" onclick="informeRobotSpd('<bean:write name="data" property="oidFicheroResiCabecera" />', 'globalLite'); return false;">
 			Global - Modelo 3 (globalLite)
 		</a> -->
 		<div style="color: blue;">
-			Campos opcionales, en caso de rellenarse y grabar, aparecerán en el informe
+			Campos opcionales, en caso de rellenarse y grabar, aparecerÃ¡n en el informe
 		</div>
 
 		<div>
-		    <label for="medicoResponsable">Médico responsable</label>
+		    <label for="medicoResponsable">MÃ©dico responsable</label>
 		    <html:text name="data" property="medicoResponsable"  />
 		</div>		
 		<div>
@@ -330,7 +349,7 @@
 		    / <html:text name="formulari" property="fechaDesemblistaSPD" styleId="fechaDesemblistaSPD" value="${data.fechaDesemblistaSPD}" />
 		</div>
 		<div>
-		    <label for="usuarioProduccionSPD">Resp. producción  / fecha</label>
+		    <label for="usuarioProduccionSPD">Resp. producciÃ³n  / fecha</label>
 		    <html:text name="data" property="usuarioProduccionSPD"  />
 		    / <html:text name="formulari" property="fechaProduccionSPD" styleId="fechaProduccionSPD" value="${data.fechaProduccionSPD}" />
 		</div>

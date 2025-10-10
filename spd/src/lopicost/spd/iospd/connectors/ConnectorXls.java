@@ -230,7 +230,7 @@ public class ConnectorXls implements Connector
         Vector pData=this.pData;
         List result=new ArrayList();;
         StringBuffer buff= null;
-        result.add("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
+        result.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
         result.add("<iospd>\r\n");
         for (int i=0;i<pData.size();i++)
         {

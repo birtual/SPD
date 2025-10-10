@@ -6,12 +6,12 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 <head>
 	<jsp:include page="/spd/jsp/global/head.jsp"/>
-	<title>Pañales por CIP</title>
+	<title><bean:message key="paciente.edicion.panyales.titulo"/></title>
 </head>
 
 <bean:define id="formulari" name="PacientesForm" type="lopicost.spd.struts.form.PacientesForm" />
@@ -29,7 +29,7 @@
    	<!--html:hidden property="filtroVerDatosPersonales" /-->  
 	<div>
 		<input type="checkbox" name="filtroVerDatosPersonales" ${formulari.filtroVerDatosPersonales ? 'checked' : ''}  onchange="reloadCheckbox('filtroVerDatosPersonales', 'detallBolquers')" />
-			Mostrar datos 
+			<bean:message key="global.mostrarDatos"/>
 	</div>	
 	<c:choose>
 		    <c:when test="${formulari.filtroVerDatosPersonales}">
@@ -48,7 +48,7 @@
 			 <div >identificador: <b><bean:write name="formulari" property="oidPaciente" /></b></div>
 		</logic:greaterThan>
 		<logic:lessEqual name="formulari" property="oidPaciente" value="0">
-			 <div ><b>No existe en mantenimiento de residentes</b></div>
+			 <div ><b><bean:message key="paciente.edicion.sinAlta"/></b></div>
 		</logic:lessEqual>
 		</p>
 	</div>
@@ -62,13 +62,13 @@
 			 	<th>CIP</th>
 				<th>Nombre</th>
 			 	<th>Identificador residente</th>
-				<th>servir pañales</th>
+				<th><bean:message key="paciente.edicion.panyales"/></th>
 			 	<th>CN</th>
-			 	<th>Nombre pañal</th>
+			 	<th><bean:message key="paciente.edicion.nombrePanyal"/></th>
 			 	<th>LAB</th>
 			 	<th>PVP</th>
-			 	<th>Grupo terapéutico</th>
-			 	<th>Presentación</th>
+			 	<th><bean:message key="paciente.edicion.gt"/></th>
+			 	<th><bean:message key="paciente.edicion.presentacion"/></th>
 			 	<th>Fin tratamiento</th>
 			 	<th>Cantidad</th>
 			 	<th>Pauta</th>
@@ -95,7 +95,7 @@
 		</table>
 	</logic:notEmpty>
 	<logic:empty  name="formulari" property="listaBeans">
-		No existen registros a mostrar
+		<bean:message key="paciente.edicion.sinRegistros"/>
 	</logic:empty>
 
 	</fieldset>

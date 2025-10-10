@@ -1,4 +1,4 @@
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%> 
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%> 
 
@@ -10,7 +10,7 @@
 <head>
 	<!-- link rel="stylesheet"  href="spd/css/login.css"> -->
 	<link rel="stylesheet"  href="spd/css/login.css"> 
-	<meta http-equiv="Content-Type" pageEncoding="text/html; charset=ISO-8859-1" %>
+	<meta http-equiv="Content-Type" pageEncoding="text/html; charset=UTF-8" %>
 	<TITLE>Formulario acceso </TITLE>
 </head>	
 
@@ -21,14 +21,14 @@
     <p class="text">Formulario de acceso</p>
     <html:form action="/login">
       <input type="text" name="idUsuario" placeholder="Nombre de usuario">
-      <input type="password" name="password" placeholder="Contraseña">
-      <button>Iniciar sesión</button>	
+      <input type="password" name="password" placeholder="ContraseÃ±a">
+      <button>Iniciar sesiï¿½n</button>	
       
       <html:hidden  property="parameter" value="list"/>
     </html:form>
   </div>	
 
-  <%-- Verifica si el formulario se ha enviado y almacena el nombre de usuario en la sesión --%>
+  <%-- Verifica si el formulario se ha enviado y almacena el nombre de usuario en la sesiï¿½n --%>
   <%
   if ("POST".equalsIgnoreCase(request.getMethod())) {
     String idUsuario = request.getParameter("idUsuario");  

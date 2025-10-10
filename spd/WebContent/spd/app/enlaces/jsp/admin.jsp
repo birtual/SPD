@@ -9,21 +9,13 @@
 
 
 <%@ page session="true" %>
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html:html>
 <HEAD>
-
- 
 <title>
-
-
-
-
 </title>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-
-
 
 </HEAD>
 <bean:define id="formulari" name="EnlacesForm" type="lopicost.spd.struts.form.EnlacesForm" />
@@ -131,7 +123,7 @@ function getContextPath() {
 		<!-- input type="button" class="btn primary" value="Inicio" onclick="javascript:goInicio();" /> -->
 		<input type="button" onclick="javascript:buscar();"  value="Buscar"  />  
 		<input type="button" onclick="javascript:nuevo();"  value="Nuevo"  />  
-		<input type="button" onclick="javascript:goAdminMenu();" value="Ir a gestiÛn de  men˙"/>
+		<input type="button" onclick="javascript:goAdminMenu();" value="Ir a gesti√≥n de  men√∫"/>
 		<input type="button" class="azulCielo" value="Salir" onclick="javascript:salir();" />
 	</p>
 	
@@ -141,10 +133,10 @@ function getContextPath() {
 		<th class="segunda">idapartado</th>
 		<th class="segunda">idEnlace</th>
 		<th class="segunda">Nombre enlace</th>
-		<th class="segunda">DescripciÛn</th>
+		<th class="segunda">Descripci√≥n</th>
 		<!-- th class="segunda">preEnlace</th> -->
 		<th class="segunda">link</th>
-		<!-- th class="segunda">Par·metros</th> -->
+		<!-- th class="segunda">Par√°metros</th> -->
 		<th class="segunda">activo</th>
 		<th class="segunda">nueva ventana</th>
 	</tr>
@@ -157,8 +149,8 @@ function getContextPath() {
 		<!-- th><bean:write name="data" property="preEnlace" /></th> -->
 		<td><bean:write name="data" property="linkEnlace" /></td>
 		<!-- th><bean:write name="data" property="paramsEnlace" /></th> -->
-		<td>${data.activo ? 'SÌ' : 'No'}</td>
-		<td>${data.nuevaVentana ? 'SÌ' : 'No'}</td>
+		<td>${data.activo ? 'S√≠' : 'No'}</td>
+		<td>${data.nuevaVentana ? 'S√≠' : 'No'}</td>
 		
 		
 			<td>

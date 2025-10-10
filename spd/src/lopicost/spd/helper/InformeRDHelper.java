@@ -2,6 +2,9 @@ package lopicost.spd.helper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -186,6 +189,18 @@ public class InformeRDHelper {
 		BdConsejo bdConsejo = BdConsejoDAO.getByCN(rs.getString("CodigoDispensado"));
 		medic.setNombreConsejoCn(bdConsejo!=null?bdConsejo.getNombreConsejo():"");
 		medic.setLab(bdConsejo!=null?bdConsejo.getNombreLaboratorio():"");
+		
+		Timestamp  ts = rs.getTimestamp("fecha");
+		if (ts != null) {
+		    // Formatear fecha
+		    String fechaFormateada = ts.toLocalDateTime()
+		                               .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+		   medic.setFechaVenta(fechaFormateada);
+		   if(esFechaMasAntiguaQue(ts, SPDConstants.DIAS_DISPENSACION_ANTIGUA))
+			   medic.setVentaAntigua(true);   
+		} 
+		
+			
 		//medic.setNombreMedicamentoConsejo(rs.getString("nombreMedicamentoConsejo"));
 		//medic.setLabMedicamento(rs.getString("nombreLaboratorio"));
 		medic.setLote(rs.getString("lote"));
@@ -353,6 +368,16 @@ public class InformeRDHelper {
 		return false;
 	}
 
+    public static boolean esFechaMasAntiguaQue(Timestamp ts, int dias) {
+        if (ts == null) {
+            return false; // o true, según cómo quieras tratar un NULL
+        }
+
+        LocalDateTime fecha = ts.toLocalDateTime();
+        LocalDateTime limite = LocalDateTime.now().minusDays(dias);
+
+        return fecha.isBefore(limite);
+    }
 
 
 

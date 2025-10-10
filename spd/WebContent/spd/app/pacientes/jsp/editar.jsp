@@ -1,22 +1,9 @@
-<%@ page language="java" %>
-<%@ page import="java.util.*" %>
+<%@ include file="/spd/jsp/global/headFragmento.jspf" %>
 
-
-<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
-<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
-<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
-
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
-
+<!DOCTYPE html>
+<html:html>
 <head>
-
-
-
-<jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Edición de usuario SPD</title>
+<title><bean:message key="paciente.edicion.titulo"/></title>
 </head>
 
 <bean:define id="formulari" name="PacientesForm" type="lopicost.spd.struts.form.PacientesForm" />
@@ -44,7 +31,7 @@
  	   	<!-- mostramos mensajes y errores, si existen -->
 		<logic:notEmpty name="formulari" property="errors">
 			<font color="red"><ul>
-				<u>Mensaje:</u>
+				<u><bean:message key="global.mensaje"/>:</u>
 					<logic:iterate id="error" name="formulari" property="errors" type="java.lang.String">
 							<li><bean:write name="error"/></li>
 					</logic:iterate>
@@ -53,15 +40,15 @@
  			
 		<div>
 			<input type="checkbox" name="filtroVerDatosPersonales" ${formulari.filtroVerDatosPersonales ? 'checked' : ''}  onchange="reloadCheckbox('filtroVerDatosPersonales', 'editar')" />
-				Mostrar datos
+				<bean:message key="global.mostrarDatos"/>
 		</div>	
 		
   		<table class="detallePaciente">
   		<tr >
-			<td>Residencia</td><td>
+			<td><bean:message key="paciente.edicion.residencia"/></td><td>
 		
 			<html:select property="idDivisionResidencia"  > 
-				<html:option value="">Residencia</html:option>
+				<html:option value=""><bean:message key="paciente.edicion.residencia"/></html:option>
 	   			<html:optionsCollection name="formulari" property="listaDivisionResidencias" label="nombreDivisionResidencia" value="idDivisionResidencia" />
 			</html:select>
 			
@@ -69,35 +56,35 @@
 		
 		</tr>
 		<tr>
-			<td>Identificador</td><td class="oidPaciente"><bean:write name="data" property="oidPaciente"/></td>
+			<td><bean:message key="paciente.edicion.identificador"/></td><td class="oidPaciente"><bean:write name="data" property="oidPaciente"/></td>
 		</tr>
 		<tr>
 			<c:choose>
 			    <c:when test="${formulari.filtroVerDatosPersonales}">
-					<td>CIP<br>
+					<td><bean:message key="paciente.edicion.cip"/><br>
 					<input type="button" onclick="javascript:goCambiarCip()" value="cambiar CIP"/>
 					</td><td><bean:write name="data" property="CIP"/> 
 					</td>
 			    </c:when>
 			    <c:otherwise>
-					<td>CIP</td><td><bean:write name="data" property="CIPMask"/></td>
+					<td><bean:message key="paciente.edicion.cip"/></td><td><bean:write name="data" property="CIPMask"/></td>
 			    </c:otherwise>
 			</c:choose>
 		</tr>
 		<tr>
 			<c:choose>
 			    <c:when test="${formulari.filtroVerDatosPersonales}">
-					<td>Residente</td><td><html:text name="data" property="nombre"/>  <html:text name="data" property="apellido1"/>  <html:text name="data" property="apellido2"/></td>
+					<td><bean:message key="paciente.edicion.residente"/></td><td><html:text name="data" property="nombre"/>  <html:text name="data" property="apellido1"/>  <html:text name="data" property="apellido2"/></td>
 			    </c:when>
 			    <c:otherwise>
-					<td>Residente</td><td><bean:write name="data" property="nombreMask"/>  <bean:write name="data" property="apellido1Mask"/>  <bean:write name="data" property="apellido2Mask"/></td>
+					<td><bean:message key="paciente.edicion.residente"/></td><td><bean:write name="data" property="nombreMask"/>  <bean:write name="data" property="apellido1Mask"/>  <bean:write name="data" property="apellido2Mask"/></td>
 			    </c:otherwise>
 			</c:choose>
 		</tr>
 		
 
 		<tr>
-			<td>Mutua</td>
+			<td><bean:message key="paciente.edicion.mutua"/></td>
 			<td><select name="mutua" >
 			   	 	<option value='S' ${data.mutua == 'S' ? 'selected' : ' '}><c:out value="SI" ></c:out></option>
 			   	 	<option value='N' ${data.mutua == 'N' || data.mutua == null ? 'selected' : ' '}><c:out value="NO" ></c:out></option>  
@@ -105,7 +92,7 @@
 			</td>
 		</tr>		
 		<tr>
-			<td>Nº identidad</td>
+			<td><bean:message key="paciente.edicion.nIdentidad"/></td>
 			<c:choose>
 			    <c:when test="${formulari.filtroVerDatosPersonales}">
 					<td><html:text name="data" property="numIdentidad"/></td>
@@ -116,7 +103,7 @@
 			</c:choose>
 		</tr>
 		<tr>
-			<td>Nº Seg Social</td>
+			<td><bean:message key="paciente.edicion.nSegSocial"/></td>
 			<c:choose>
 			    <c:when test="${formulari.filtroVerDatosPersonales}">
 					<td><html:text name="data" property="segSocial"/></td>
@@ -127,15 +114,15 @@
 			</c:choose>
 		</tr>
 		<tr>
-			<td>id en la residencia</td>
+			<td><bean:message key="paciente.edicion.idPacienteResidencia"/></td>
 			<td><html:text name="data" property="idPacienteResidencia"/></td>
 		</tr>
 		<tr>
-			<td>Planta</br>Habitación</td>
+			<td><bean:message key="paciente.planta"/></br><bean:message key="paciente.habitacion"/></td>
 			<td><html:text name="data" property="planta" /></br><html:text name="data" property="habitacion" /></td>
 		</tr>
 		<tr>
-			<td>Hacer spd</td>
+			<td><bean:message key="paciente.edicion.hacerSpd"/></td>
 			<td><select name="spd" >
 			   	 	<option value='S' ${data.spd == 'S' ? 'selected' : ' '}><c:out value="SI" ></c:out></option>
 			   	 	<option value='N' ${data.spd == 'N' ? 'selected' : ' '}><c:out value="NO" ></c:out></option>  
@@ -143,7 +130,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>Servir pañales</td>
+			<td><bean:message key="paciente.edicion.panyales"/></td>
 			<td>
 				<select name="bolquers" >
 			   	 	<option value='S' ${data.bolquers == 'S' ? 'selected' : ' '}><c:out value="SI" ></c:out></option>
@@ -152,15 +139,15 @@
 			</td>
 		</tr>		
 		<tr>
-			<td>Fecha alta</td>
+			<td><bean:message key="paciente.edicion.fechaAlta"/></td>
 			<td><bean:write name="data" property="fechaAltaPaciente" /></td>
 		</tr>
 		<tr>
-			<td>Comentarios</td>
+			<td><bean:message key="paciente.edicion.comentarios"/></td>
 			<td><html:textarea name="data" property="comentarios" /></td>
 		</tr>
 		<tr>
-			<td>Estado</td>
+			<td><bean:message key="paciente.edicion.estado"/></td>
 			<td>
 				<select name="estatus">
 				    <option value=""></option>
@@ -175,11 +162,11 @@
 			</td>
 		</tr>
 		<tr>
-			<td>idFarmatic</td>
+			<td><bean:message key="paciente.edicion.idFarmatic"/></td>
 			<td><bean:write name="data" property="idPharmacy"/></td>
 		</tr>
 		<tr>
-			<td>Código UP Farmacia</td>
+			<td><bean:message key="paciente.edicion.codigoUP"/></td>
 			<td><bean:write name="data" property="UPFarmacia"/></td>
 		</tr>				
 		<tr>
@@ -195,4 +182,4 @@
 </html:form>
 
 </body>
-</html>
+</html:html>

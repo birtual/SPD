@@ -537,4 +537,7 @@ tr.rd_cabecera th {
   color: black;
   border: 1px solid #000;
 }
-
+tr.rd_cabecera th.receta{
+  background-color: #6f9aec;
+ 
+}

@@ -1,4 +1,4 @@
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%> 
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%> 
 <%@ page session="true" %>
@@ -9,7 +9,7 @@
 <html lang="es">
 <head>
 	<link rel="stylesheet"  href="spd/css/login.css">
-	<meta http-equiv="Content-Type" pageEncoding="text/html; charset=ISO-8859-1" %>
+	<meta http-equiv="Content-Type" pageEncoding="text/html; charset=UTF-8" %>
 	<TITLE>Formulario acceso</TITLE>
 </head>	
 

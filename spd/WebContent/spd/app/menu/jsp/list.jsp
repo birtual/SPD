@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
 <%@ page session="true" %>
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html:html>
 <HEAD>
@@ -127,9 +127,9 @@ function goInicio()
 		<td class="primera">Perfil</td>
 		<td class="primera">Apartado</td>
 		<td class="primera">Enlace</td>
-		<td class="segunda">Descripción</td>
-		<td class="segunda">Asignación</td>
-		<td class="segunda">orden</td>
+		<td class="segunda">DescripciÃ³n</td>
+		<td class="segunda">AsignaciÃ³n</td>
+		<td class="segunda">Orden</td>
    </tr>
 
 	   <c:forEach items="${formulari.listaMenu}" var="menu"> 

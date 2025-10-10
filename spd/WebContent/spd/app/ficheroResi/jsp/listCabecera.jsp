@@ -7,13 +7,13 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Gestión carga ficheros Robot</title>
+<title>GestiÃ³n carga ficheros Robot</title>
 </head>
 
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
@@ -127,7 +127,7 @@
 				</ul></font>
 		</logic:notEmpty>
 		
-		<p><html:link page="/Iospd/Iospd.do?parameter=list&operation=FILTER">Gestión de carga de ficheros resi</html:link></p> 
+		<p><html:link page="/Iospd/Iospd.do?parameter=list&operation=FILTER">GestiÃ³n de carga de ficheros resi</html:link></p> 
 				<!-- <p><a href="javascript:generarFicherosRobot();">Generar ficheros robot</a></p>  -->
 				<!-- <p><a href="javascript:limpiarFiltrosResi();">Limpiar filtros listado</a></p>  -->
 	
@@ -172,17 +172,17 @@
 		 	<th>Residencia</th>
 			<th>Id Proceso</th>
 			<th>Estado</th>
-			<th>Fecha Creación</th>
+			<th>Fecha CreaciÃ³n</th>
 			<th>Filas totales</th>
 		<%--	<th>Nombre Fichero Resi</th>  --%>
-			<th>nº Cips Fichero Resi</th>
-			<th>nº Cips no existentes <br>en Gestió pacientes</th>
-			<th>nº Cips no existentes <br>en fichero resi</th>
-			<th>nº mensajes Info</th>
-			<th>nº mensajes Alertas</th>
+			<th>nÂº Cips Fichero Resi</th>
+			<th>nÂº Cips no existentes <br>en GestiÃ³n pacientes</th>
+			<th>nÂº Cips no existentes <br>en fichero resi</th>
+			<th>nÂº mensajes Info</th>
+			<th>nÂº mensajes Alertas</th>
 		<%--		<th>Fecha Validacion Datos</th>--%>
-			<th>fecha Creación Fichero Robot</th>
-			<th>Usuario validacion</th>
+			<th>fecha CreaciÃ³n Fichero Robot</th>
+			<th>Usuario validaciÃ³n</th>
 			<%--	<th>Nombre Fichero Robot</th>--%>
 			<th>Cips Fichero Robot</th>
 	   </tr>
@@ -218,12 +218,8 @@
 				<input type="button" onclick="javascript:refrescar('<bean:write name="data" property="oidFicheroResiCabecera" />');"  value="Refrescar"  />
 			</p>
 		</td>
-	
 	</tr>
-	
-	
     </logic:iterate>
-
 
     
 </table>
@@ -232,7 +228,7 @@
 	</p> 
 		
 		
-	<!--  paginación  -->
+	<!--  paginaciÃ³n  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -246,7 +242,7 @@
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginación   -->
+	<!--  paginaciÃ³n   -->
 		
 	</div>	
 	</html:form>

@@ -307,14 +307,15 @@
 	}		
 	
 
-	function crearNuevaToma()
+	function gestionTomas()
 	{
 		var f = document.FicheroResiForm;
-		var loc = '/spd/CabecerasXLS.do?parameter=consulta&oidDivisionResidencia=' + f.oidDivisionResidencia.value + '&oidFicheroResiCabecera='+f.oidFicheroResiCabecera.value; 		
-		window.open(loc, 'crearNuevaToma', 'dependent=yes,height=500,width=800,top=50,left=50,resizable=yes,scrollbars=yes' );
+//		var loc = '/spd/CabecerasXLS.do?parameter=edicionLista&oidDivisionResidencia=' + f.oidDivisionResidencia.value + '&oidFicheroResiCabecera='+f.oidFicheroResiCabecera.value; 		
+		var loc = '/spd/CabecerasXLS.do?parameter=edicionLista&oidDivisionResidencia=' + f.oidDivisionResidencia.value + '&oidFicheroResiCabecera='+f.oidFicheroResiCabecera.value+ '&oidFicheroResiDetalle=' + f.oidFicheroResiDetalle.value ;
+		window.open(loc, 'gestionTomas', 'dependent=yes,height=700,width=1000,top=50,left=50,resizable=yes,scrollbars=yes' );
 	}	
 
-	
+
 
 	function reloadCheckbox(name) {
 	    var f = document.FicheroResiForm;
@@ -350,4 +351,5 @@
 		f.ACTIONTODO.value='CONFIRMAR';
 		f.submit();
 	}
+
 	

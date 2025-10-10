@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page session="true" %>
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html:html>
 <HEAD>
@@ -57,7 +57,7 @@
 			<h4>  <bean:write name="data" property="nombreTabla" /></h4>
 		</tr>
 		<tr>
-			<th>Días desde última fecha</th>
+			<th>DÃ­as desde Ãºltima fecha</th>
 			<logic:notEqual property="idFarmacia" name="data" value="NO">
 				<th>Farmacia</th>
 			</logic:notEqual>
@@ -65,13 +65,13 @@
 				<th>Residencia</th>
 			</logic:notEqual>
 			<logic:notEqual property="numeroCIPs" name="data" value="-1">
-				<th>número CIPs</th>
+				<th>nÃºmero CIPs</th>
 			</logic:notEqual>					
 			<logic:notEqual property="ultimaFechaEnOrigen" name="data" value="NO">
-				<th>última fecha en Farmatic</th>
+				<th>Ãºltima fecha en Farmatic</th>
 			</logic:notEqual>					
 			<logic:notEqual property="ultimaFechaRecogida" name="data" value="NO">
-				<th>última fecha recogida</th>
+				<th>Ãºltima fecha recogida</th>
 			</logic:notEqual>					
 			<logic:notEqual property="cuantos" name="data" value="-1">
 				<th>Total </th>

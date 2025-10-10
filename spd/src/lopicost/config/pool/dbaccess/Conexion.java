@@ -10,10 +10,10 @@ import java.util.Properties;
 public class Conexion {
     private static String url;
     private static String usuario;
-    private static String contraseña;
+    private static String contraseÃ±a;
     private static String maxConnections; 
 	   static {
-	        // Cargar las propiedades de conexión desde el archivo properties
+	        // Cargar las propiedades de conexiÃ³n desde el archivo properties
 	        try {
 	            Properties propiedades = new Properties();
 	            InputStream input = Conexion.class.getClassLoader().getResourceAsStream("lopicost/config/pool/dbaccess/poolSpd.properties");
@@ -22,7 +22,7 @@ public class Conexion {
 	                Class.forName(propiedades.getProperty("db.driver"));
 	                url = propiedades.getProperty("db.url");
 	                usuario = propiedades.getProperty("db.username");
-	                contraseña = propiedades.getProperty("db.password");
+	                contraseÃ±a = propiedades.getProperty("db.password");
 	                maxConnections = propiedades.getProperty("db.maxConnections");
 
 	                url=url+";maxPoolSize="+maxConnections;
@@ -36,7 +36,7 @@ public class Conexion {
 	    }
 
 	    public static Connection conectar() throws SQLException {
-	        return DriverManager.getConnection(url, usuario, contraseña);
+	        return DriverManager.getConnection(url, usuario, contraseÃ±a);
 	    }
 
 	    public static void close(Connection conexion) throws SQLException {

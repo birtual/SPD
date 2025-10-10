@@ -84,7 +84,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	  private String resiFormaMedicacion="";
 	  private String resiInicioTratamiento="";
 	  private String resiFinTratamiento="";
-	  private String resiInicioTratamientoParaSPD="";	//en trat periódicos o especiales se  ha de modificar para enviar a robot dias concretos
+	  private String resiInicioTratamientoParaSPD="";	//en trat periï¿½dicos o especiales se  ha de modificar para enviar a robot dias concretos
 	  private String resiFinTratamientoParaSPD="";
 	  private String resiObservaciones="";
 	  private String resiComentarios="";
@@ -229,7 +229,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 		 * 1 --> Diario
 		 * 2 --> Semanal
 		 * 3 --> Frecuencia
-		 * 4 --> Envío guide
+		 * 4 --> Envï¿½o guide
 		 *  
 		 */
 		
@@ -272,7 +272,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 		        }
 		    }
 		  
-		  //importante para limpiar el texto, sin espacios, ni acentos, ni caracteres extraños y en UPPER
+		  //importante para limpiar el texto, sin espacios, ni acentos, ni caracteres extraï¿½os y en UPPER
 			public String getDetalleRow() 				{
 				if(detalleRow!=null && detalleRow.length()>900)
 					detalleRow=detalleRow.substring(0, 900);
@@ -294,7 +294,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 			}
 
 			/**
-			 * Añadimos también el valor al campo detalleRowKeyLiteFechas
+			 * Aï¿½adimos tambiï¿½n el valor al campo detalleRowKeyLiteFechas
 			 * @param detalleRowKeyLite
 			 */
 			public void setDetalleRowKeyLite(String detalleRowKeyLite) {
@@ -529,7 +529,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	public String getSpdCIP() 		{		return spdCIP;		}	public void setSpdCIP(String spdCIP) 			{		this.spdCIP = spdCIP;			}
 	public int getOidFicheroResiCabecera() {		return oidFicheroResiCabecera;	}	public void setOidFicheroResiCabecera(int oidFicheroResiCabecera) {		this.oidFicheroResiCabecera = oidFicheroResiCabecera;	}	
 	public Date getFechaValidacionDatos() {		return fechaValidacionDatos;	}	public void setFechaValidacionDatos(Date fechaValidacionDatos) {		this.fechaValidacionDatos = fechaValidacionDatos;	}
-	public Date getFechaCreacionFicheroXML() {		return fechaCreacionFicheroXML;	}	public void setFechaCreacionFicheroXML(Date fechaCreaciónFicheroXML) {		this.fechaCreacionFicheroXML = fechaCreaciónFicheroXML;	}
+	public Date getFechaCreacionFicheroXML() {		return fechaCreacionFicheroXML;	}	public void setFechaCreacionFicheroXML(Date fechaCreacion) {		this.fechaCreacionFicheroXML = fechaCreacion;	}
 	public String getUsuarioValidacion() {		return usuarioValidacion;	}	public void setUsuarioValidacion(String usuarioValidacion) {		this.usuarioValidacion = usuarioValidacion;	}
 	public int getFilasTotales() {		return filasTotales;	}	public void setFilasTotales(int filasTotales) {		this.filasTotales = filasTotales;	}
 	public String getNombreFicheroResi() {		return nombreFicheroResi;	}	public void setNombreFicheroResi(String nombreFicheroResi) {		this.nombreFicheroResi = nombreFicheroResi;	}

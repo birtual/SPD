@@ -1,4 +1,4 @@
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%> 
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%> 
 
@@ -9,7 +9,7 @@
 <html lang="es">
 <head>
 	<link rel="stylesheet"  href="spd/css/login.css">
-	<meta http-equiv="Content-Type" pageEncoding="text/html; charset=ISO-8859-1" %>
+	<meta http-equiv="Content-Type" pageEncoding="text/html; charset=UTF-8" %>
 	<TITLE>Formulario acceso </TITLE>
 </head>	
 
@@ -39,8 +39,8 @@ String error = (String)session.getAttribute("error");
 		<p class="text">Formulario de acceso</p>
 		<html:form action="/login">
 			<input type="text" name="idUsuario" placeholder="Nombre de usuario">
-			<input type="password" name="password" placeholder="Contraseña">
-			<button>Iniciar sesión</button>	
+			<input type="password" name="password" placeholder="ContraseÃ±a">
+			<button>Iniciar sesiï¿½n</button>	
 			
 			
 			<html:hidden  property="parameter" value="list"/>
@@ -52,7 +52,7 @@ String error = (String)session.getAttribute("error");
 // Recupera el valor del idlogin proporcionado por el usuario
 String idUsuario = request.getParameter("idUsuario"); 
 
-// Almacenar el idlogin en la sesión
+// Almacenar el idlogin en la sesiï¿½n
 session.setAttribute("idUsuario", idUsuario);
 
 %>

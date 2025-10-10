@@ -10,7 +10,7 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
@@ -93,7 +93,7 @@
 				 <div >identificador: <b><bean:write name="formulari" property="oidPaciente" /></b></div>
 			</logic:greaterThan>
 			<logic:lessEqual name="formulari" property="oidPaciente" value="0">
-				 <div ><b>No existe en mantenimiento de residentes</b></div>
+				 <div ><b><bean:message key="paciente.edicion.sinAlta"/></b></div>
 			</logic:lessEqual>
 			</p>
 		</div>
@@ -114,7 +114,7 @@
 			<th>spdCnFinal</th>
 			<th >Nombre en bolsa</th>
 			<th>Forma medicacion</th>
-			<th>Acción bolsa</th> 	
+			<th><bean:message key="paciente.edicion.accionBolsa"/></th> 	
 			<th>Si Precisa</th>	 
 			<th>Identificador residente</th>	
 			<th>Nombre </th>	
@@ -124,7 +124,7 @@
 			<th>Variante</th>	
 			<th>Observaciones</th>	
 			<th>Comentarios</th>
-	        <th > Tipo medicación</th>
+	        <th ><bean:message key="paciente.edicion.tipoMedicacion"/></th>
 			<th >inicio-fin tratamiento
 			<th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th><th>D</th>	  
 			<logic:notEmpty name="PacientesForm" property="listaTomasCabecera">	
@@ -202,7 +202,7 @@
 	</table>
 	</logic:notEmpty>
 	<logic:empty name="formulari" property="listaBeans">
-		No existen registros a mostrar
+		<bean:message key="paciente.edicion.sinRegistros"/>
 	</logic:empty>
 		
 		</fieldset>

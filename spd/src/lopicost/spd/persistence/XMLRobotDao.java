@@ -2,11 +2,9 @@ package lopicost.spd.persistence;
 
 import java.sql.*;
 import java.text.*;
-import java.time.format.DateTimeFormatter;
 
 import lopicost.spd.model.DivisionResidencia;
 import lopicost.spd.robot.bean.DetallesTomasBean;
-import lopicost.spd.robot.bean.rd.MedicamentoReceta;
 import lopicost.spd.robot.helper.PlantillaUnificadaHelper;
 import lopicost.spd.robot.model.*;
 import lopicost.spd.struts.bean.CabecerasXLSBean;
@@ -314,6 +312,8 @@ public class XMLRobotDao
             		valorToma=bean.getResiTomas().get(i);
             		posicion=String.format("%02d", posiciones.get(i));
            			nombreToma=nombresTomas.get(i);
+            		String nombreTomaLimpia=StringUtil.limpiarTextoEspaciosYAcentos(nombreToma, false);
+           			
            			idToma=idTomas.get(i);
             			
            			if(dateObjetivoMarcado && DataUtil.isNumero(valorToma) && DataUtil.isNumeroGreatherThanZero(valorToma))
@@ -321,8 +321,8 @@ public class XMLRobotDao
            				int posicionVirtual=posiciones.indexOf(posiciones.get(i))+1;
            				String sPosicionVirtual=String.format("%02d", posicionVirtual);
            				
-           				tramoToma="["+sPosicionVirtual+"]_["+nombreToma+"]";
-           				IDbolsaFechaDispTramo = bean.getCIP() + "_" + dateObjetivo + "_" + bean.getDispensar()+ "_" + tramoToma;
+           				tramoToma="["+sPosicionVirtual+"]_["+nombreTomaLimpia+"]";
+           				IDbolsaFechaDispTramo = bean.getCIP() + "_" + dateObjetivo + "_" + bean.getDispensar()+ "_" + nombreTomaLimpia;
            				numeroBolsa = getNumeroBolsas(IDbolsaFechaDispTramo, valorToma, bean.getDispensar());
            				//idBolsa = bean.getCIP() + fechaTomaParaIdBolsa + tramoToma + bean.getDispensar()+ String.format("%02d", numeroBolsa );
            				idBolsa = bean.getCIP() + fechaTomaParaIdBolsa + tramoToma + bean.getDispensar()+ numeroBolsa;
@@ -805,7 +805,7 @@ public class XMLRobotDao
 
 
 
-	public static FiliaRX getTratamientosDeProceso(String spdUsuario, FicheroResiBean cab, DivisionResidencia div) throws SQLException, ParseException {
+	public static FiliaRX getTratamientosDeProceso(String spdUsuario, FicheroResiBean cab, DivisionResidencia div, PacienteBean pac) throws SQLException, ParseException {
 		   Connection con = Conexion.conectar();
 		   List<DrugRX>  result = new ArrayList();
 		   FiliaRX rx = new FiliaRX();
@@ -879,6 +879,9 @@ public class XMLRobotDao
 					//qry+=  " LEFT JOIN SPD_ficheroResiDetalle frd ON dtr.Cip=frd.resiCIP AND dtr.idDivisionResidencia=frd.idDivisionResidencia AND dtr.idProceso=frd.idProceso AND dtr.CN=frd.spdCnFinal ";
 					qry+=  " WHERE 1=1 ";
 					qry+=  " AND dtr.idDivisionResidencia='"+cab.getIdDivisionResidencia()+"' ";
+					if(pac!=null && pac.getCIP()!=null && !pac.getCIP().equals(""))
+						qry+=  " AND dtr.CIP='"+pac.getCIP()+"' ";
+						
 					qry+=  " AND dtr.idProceso='"+cab.getIdProceso()+"' ";
 					qry+=  " order by dtr.idBolsa, dtr.dispensar, dtr.numbolsa, dtr.idLineaRX  ";
 					//ordenación importante  idBolsa contiene el cip y orden de la toma. dispensar para que salgan primero las N. Numero bolsa para que no mezcle contenido

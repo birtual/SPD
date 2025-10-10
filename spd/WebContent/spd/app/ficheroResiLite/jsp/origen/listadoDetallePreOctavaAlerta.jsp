@@ -7,7 +7,7 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
@@ -331,7 +331,7 @@
 
  	<td>
 		<p class="botons">
-			<!--  		<input type="button"  class="boton-actualizar" onclick="javascript:refrescar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Actualizar sustituciÃ³n"  /> -->
+			<!--  		<input type="button"  class="boton-actualizar" onclick="javascript:refrescar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Actualizar sustitución"  /> -->
 			<!--  		<input type="button" class="boton-editar" onclick="javascript:editar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Editar"  /> -->
   			<!--  	<input type="button"   class="boton-borrar" onclick="borrar('<bean:write name="data" property="oidFicheroResiDetalle" />');" title="Borrar" / -->
 			

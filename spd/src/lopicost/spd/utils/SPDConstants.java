@@ -345,6 +345,7 @@ public class SPDConstants
 	public static final String PROCESO_BLOQUEO_FECHA = "FECHA";
 	public static final String CN_SEGUN_DESCRIPCION = "(SD)";
 	public static final int CUANTAS_DISPENSACIONES = 15; // indica el número de dispensaciones a recuperar, para el RD
+	public static final int DIAS_DISPENSACION_ANTIGUA = 40; // indica el número de días para considerar que una dispensación es antigua, info para el report RD
 	public static final int MAX_LINEAS_NULAS_CARGA = 20; // máximo de líneas nulas que se aceptan en la carga 
 
 	

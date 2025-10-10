@@ -7,7 +7,7 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
@@ -72,7 +72,7 @@ var clicks=0;  //para impedir que se ejecute dos cllicks en el proceso
 			if (document.forms[0].file.value!=""){
 				document.forms[0].operation.value="GENERATE";
 				document.forms[0].submit();
-			}else alert('Falta añadir fichero');
+			}else alert('Falta aÃ±adir fichero');
 		}
 		function refreshPage() 
 		{
@@ -238,7 +238,7 @@ var clicks=0;  //para impedir que se ejecute dos cllicks en el proceso
 				<logic:notEmpty name="ImportIOSpdForm" property="errors">
 					<%request.setAttribute("listaErrores", formulari.getErrors());  %>
 						<font color="red"><ul>
-							<u>Descripción avisos"/></u>
+							<u>DescripciÃ³n avisos"/></u>
 								<logic:iterate id="error" name="ImportIOSpdForm" property="errors" type="java.lang.String">
 									<li><bean:write name="error"/></li>
 								</logic:iterate>
@@ -251,12 +251,12 @@ var clicks=0;  //para impedir que se ejecute dos cllicks en el proceso
 	</div>
 </fieldset>	
 	</html:form>
-			<!-- p><html:link page="/FicheroResiCabeceraLite.do?parameter=list">Gestión de ficheros de residencia</html:link></p> --> 
+			<!-- p><html:link page="/FicheroResiCabeceraLite.do?parameter=list">GestiÃ³n de ficheros de residencia</html:link></p> --> 
 				<p class="botons">
 				<!--	<input type="button" class="btn primary" value="Inicio" onclick="javascript:goInicio();" /> --> 
 					<input type="button" class="azulCielo" value="Salir" onclick="javascript:salir();" />
 					
-					<input type="button" onclick="javascript:goGestion();"  value="Gestión de ficheros de residencia"  />
+					<input type="button" onclick="javascript:goGestion();"  value="GestiÃ³n de ficheros de residencia"  />
 				</p>
 			
 	<div>

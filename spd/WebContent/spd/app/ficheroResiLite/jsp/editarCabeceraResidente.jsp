@@ -11,7 +11,7 @@
 
 
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 <script language="javaScript" src="/spd/spd/app/ficheroResiLite/js/ficheroResiCabeceraLite.js"></script>
@@ -42,8 +42,8 @@
         flatpickr("#nuevaFechaDesde", {
             dateFormat: "d/m/Y", // Formato DD/MM/YYYY
             locale: "es",
-            minDate: fechaDesde || "today", // El rango mínimo es fechaDesde
-            maxDate: fechaHasta || fechaDesde, // El rango máximo es fechaHasta
+            minDate: fechaDesde || "today", // El rango mï¿½nimo es fechaDesde
+            maxDate: fechaHasta || fechaDesde, // El rango mï¿½ximo es fechaHasta
             defaultDate: nuevaFechaDesde || undefined, // Fecha predeterminada en nuevaFechaDesde
         });
 
@@ -51,12 +51,12 @@
         flatpickr("#nuevaFechaHasta", {
             dateFormat: "d/m/Y", // Formato DD/MM/YYYY
             locale: "es",
-            minDate: fechaDesde || "today", // El rango mínimo es fechaDesde
-            maxDate: fechaHasta || fechaDesde, // El rango máximo es fechaHasta
+            minDate: fechaDesde || "today", // El rango mï¿½nimo es fechaDesde
+            maxDate: fechaHasta || fechaDesde, // El rango mï¿½ximo es fechaHasta
             defaultDate: nuevaFechaHasta || undefined, // Fecha predeterminada en nuevaFechaHasta
         });
 
-        // Función de confirmación de fechas
+        // Funciï¿½n de confirmaciï¿½n de fechas
         function confirmarFechas(oidCab) {
             // Obtener las fechas seleccionadas
             const nuevaFechaDesde = document.getElementById('nuevaFechaDesde').value;
@@ -69,17 +69,17 @@
             // Verificar si la fecha hasta es anterior a la fecha desde
             if (fechaHastaObj < fechaDesdeObj) {
                 alert("La fecha 'Hasta' no puede ser anterior a la fecha 'Desde'. Por favor, revisa las fechas.");
-                return; // No ejecutar la acción si las fechas no son correctas
+                return; // No ejecutar la acciï¿½n si las fechas no son correctas
             } else {
-                // Llamada a la función editarOk si las fechas son válidas
+                // Llamada a la funciï¿½n editarOk si las fechas son vï¿½lidas
                 editarOk(oidCab);
-                // Si quisieras hacer algo más después de la verificación, puedes agregarlo aquí.
+                // Si quisieras hacer algo mï¿½s despuï¿½s de la verificaciï¿½n, puedes agregarlo aquï¿½.
             }
         }
     });
 </script>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Edición de cabecera de proceso</title>
+<title>EdiciÃ³n de cabecera de proceso</title>
 </head>
 
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
@@ -87,7 +87,7 @@
 
 <body id="general">
 	<center>
-		<h2>Edición de cabecera de proceso</h2>
+		<h2>EdiciÃ³n de cabecera de proceso</h2>
 		<html:form action="/FicheroResiCabeceraLite.do" method="post"  >	
 
 <div >
@@ -100,10 +100,10 @@
      <html:hidden property="oidDivisionResidencia" />
   	 <html:hidden property="fechaDesde" styleId="fechaDesde" />
 	 <html:hidden property="fechaHasta" styleId="fechaHasta" />
-<!-- Variables ocultas que contienen las fechas mínima y máxima del rango -->
+<!-- Variables ocultas que contienen las fechas mï¿½nima y mï¿½xima del rango -->
 
 
-	<h3>Confirmar edición</h3>
+	<h3>Confirmar ediciÃ³n</h3>
 	<bean:define id="data" name="formulari" property="ficheroResiDetalleBean" />
 	<fieldset align="left">
 		<div>
@@ -124,7 +124,7 @@
 			(Afecta a "Ficheros DM y RX")
 		</div>
 		<div>
-			Selección de otras fechas, en caso de querer que esta producción se envíe en otras fechas (siempre dentro del rango de días)
+			SelecciÃ³n de otras fechas, en caso de querer que esta producciÃ³n se envÃ­e en otras fechas (siempre dentro del rango de dÃ­as)
 		</div>
 	
 		<!-- Campo de entrada para nuevaFechaDesde -->
@@ -140,10 +140,10 @@
 		</div>
 
 		<div>
-			<p>Se puede configurar cuando comienzan las tomas del primer día y acaban las del último</p>
+			<p>Se puede configurar cuando comienzan las tomas del primer dÃ­a y acaban las del Ãºltimo</p>
 		</div>
 		<div>    
-		    <label for="nuevaTomaDesde">Primer día desde la toma:</label>    
+		    <label for="nuevaTomaDesde">Primer dÃ­a desde la toma:</label>    
 		    <html:select property="nuevaTomaDesde"> 
 		        <!-- Opciones generadas desde la lista -->
 		        <logic:iterate id="toma" name="formulari" property="listaTomasCabecera" type="lopicost.spd.struts.bean.CabecerasXLSBean">
@@ -155,7 +155,7 @@
 		    </html:select>
 		</div>
 		<div>    
-		    <label for="nuevaTomaHasta">Último día hasta la toma:</label>    
+		    <label for="nuevaTomaHasta">Ãºltimo dÃ­a hasta la toma:</label>    
 		    <html:select property="nuevaTomaHasta"> 
 		        <!-- Opciones generadas desde la lista -->
 		        <logic:iterate id="toma" name="formulari" property="listaTomasCabecera" type="lopicost.spd.struts.bean.CabecerasXLSBean">

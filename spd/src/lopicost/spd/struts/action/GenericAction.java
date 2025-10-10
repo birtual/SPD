@@ -9,18 +9,16 @@ import org.apache.struts.actions.DispatchAction;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import org.apache.struts.Globals;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.DispatchAction;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import lopicost.spd.security.form.LoginForm;
 import lopicost.spd.utils.TextManager;
@@ -45,6 +43,9 @@ public abstract class GenericAction extends DispatchAction
   		logDirectory = "c:/logs";
         System.setProperty("log.directory", logDirectory);
         System.out.println(" logDirectory " + logDirectory );
+        Locale locale = new Locale("es", "ES"); //
+        setLocale(request, locale);
+        session.setAttribute(Globals.LOCALE_KEY, locale);
         
         // Inicializa Log4j con la configuración desde el archivo log4j.properties
         String log4jConfigFile = getServlet().getServletContext().getRealPath("/WEB-INF/classes/lopicost/config/pool/dbaccess/log4j.properties");

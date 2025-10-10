@@ -14,6 +14,7 @@ import java.util.*;
 		public static String getMensaje(String literal){
 			try{
 				if( literals==null ) literals = ResourceBundle.getBundle( SPDConstants.MESSAGE_RESOURCE_PROPERTIES );
+				//para idiomas - ResourceBundle bundle = ResourceBundle.getBundle("SPDMessageResources", new Locale("es", "ES"));
 				return literals.getString(literal);
 			}catch(Exception e){
 				return "!["+literal+"]";

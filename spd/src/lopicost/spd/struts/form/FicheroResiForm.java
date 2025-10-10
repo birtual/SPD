@@ -46,6 +46,7 @@ public class FicheroResiForm   extends GenericForm {
 	private boolean filtroCheckedMostrarGeneradosSeq=false;
 	private boolean filtroCheckedVerDatosPersonales=false;
 	
+	private boolean modoConsulta=true;
 	private boolean procesoValido=true;
 	private boolean soloCabecera=false;
 	private boolean excluirCabecera=false;
@@ -232,6 +233,9 @@ public class FicheroResiForm   extends GenericForm {
 	private String resiToma24;
 	private String numeroDeTomas;
 	
+	private String idToma;
+	private String nombreToma;
+	private String horaToma;
 	
 	private int oidResiToma;
 	
@@ -306,6 +310,15 @@ public class FicheroResiForm   extends GenericForm {
 	public List<String> getListaResiApellidosNombre() {		return listaResiApellidosNombre;	}
 
 	
+	
+	public String getHoraToma() {
+		return horaToma;
+	}
+
+	public void setHoraToma(String horaToma) {
+		this.horaToma = horaToma;
+	}
+
 	public int getOidProceso() {
 		return oidProceso;
 	}
@@ -1738,6 +1751,30 @@ public class FicheroResiForm   extends GenericForm {
 
 	public void setMedicoResponsable(String medicoResponsable) {
 		this.medicoResponsable = medicoResponsable;
+	}
+
+	public String getIdToma() {
+		return idToma;
+	}
+
+	public void setIdToma(String idToma) {
+		this.idToma = idToma;
+	}
+
+	public String getNombreToma() {
+		return nombreToma;
+	}
+
+	public void setNombreToma(String nombreToma) {
+		this.nombreToma = nombreToma;
+	}
+
+	public boolean isModoConsulta() {
+		return modoConsulta;
+	}
+
+	public void setModoConsulta(boolean soloConsulta) {
+		this.modoConsulta = soloConsulta;
 	}
 
 

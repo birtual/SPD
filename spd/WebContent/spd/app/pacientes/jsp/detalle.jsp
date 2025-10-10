@@ -7,7 +7,7 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
@@ -34,43 +34,43 @@
 		
 		<div>
 			<input type="checkbox" name="filtroVerDatosPersonales" ${formulari.filtroVerDatosPersonales ? 'checked' : ''}  onchange="reloadCheckbox('filtroVerDatosPersonales', 'detalle')" />
-				Mostrar datos 
+				<bean:message key="global.mostrarDatos"/>
 		</div>	
 	
 
 	
   		<table class="detallePaciente">
 		<tr >
-			<td id="campo1" >Residencia</td><td><bean:write name="data" property="idDivisionResidencia" /></td>
+			<td id="campo1" ><bean:message key="paciente.edicion.residencia"/></td><td><bean:write name="data" property="idDivisionResidencia" /></td>
 		</tr>
 		<tr>
-			<td>Identificador</td><td class="oidPaciente"><bean:write name="data" property="oidPaciente"/></td>
+			<td><bean:message key="paciente.edicion.identificador"/></td><td class="oidPaciente"><bean:write name="data" property="oidPaciente"/></td>
 		</tr>
 		<tr>
 			<c:choose>
 			    <c:when test="${formulari.filtroVerDatosPersonales}">
-					<td>CIP</td><td><bean:write name="data" property="CIP"/></td>
+					<td><bean:message key="paciente.edicion.cip"/></td><td><bean:write name="data" property="CIP"/></td>
 			    </c:when>
 			    <c:otherwise>
-					<td>CIP</td><td><bean:write name="data" property="CIPMask"/></td>
+					<td><bean:message key="paciente.edicion.cip"/></td><td><bean:write name="data" property="CIPMask"/></td>
 			    </c:otherwise>
 			</c:choose>
 		</tr>
 		<tr>
 			<c:choose>
 			    <c:when test="${formulari.filtroVerDatosPersonales}">
-					<td>Residente</td><td><bean:write name="data" property="nombre"/>  <bean:write name="data" property="apellido1"/>  <bean:write name="data" property="apellido2"/></td>
+					<td><bean:message key="paciente.edicion.residente"/></td><td><bean:write name="data" property="nombre"/>  <bean:write name="data" property="apellido1"/>  <bean:write name="data" property="apellido2"/></td>
 			    </c:when>
 			    <c:otherwise>
-					<td>Residente</td><td><bean:write name="data" property="nombreMask"/>  <bean:write name="data" property="apellido1Mask"/>  <bean:write name="data" property="apellido2Mask"/></td>
+					<td><bean:message key="paciente.edicion.residente"/></td><td><bean:write name="data" property="nombreMask"/>  <bean:write name="data" property="apellido1Mask"/>  <bean:write name="data" property="apellido2Mask"/></td>
 			    </c:otherwise>
 			</c:choose>
 		</tr>
 		<tr>
-			<td>Mutua</td><td><bean:write name="data" property="mutua"/></td>
+			<td><bean:message key="paciente.edicion.mutua"/></td><td><bean:write name="data" property="mutua"/></td>
 		</tr>
 		<tr>
-			<td>Nº identidad</td>
+			<td><bean:message key="paciente.edicion.nIdentidad"/></td>
 			<c:choose>
 			    <c:when test="${formulari.filtroVerDatosPersonales}">
 					<td><bean:write name="data" property="numIdentidad"/></td>
@@ -81,7 +81,7 @@
 			</c:choose>
 		</tr>
 		<tr>
-			<td>Nº Seg Social</td>
+			<td><bean:message key="paciente.edicion.nSegSocial"/></td>
 			<c:choose>
 			    <c:when test="${formulari.filtroVerDatosPersonales}">
 					<td><bean:write name="data" property="segSocial"/></td>
@@ -92,18 +92,18 @@
 			</c:choose>
 		</tr>
 		<tr>
-			<td>id en la residencia</td>
+			<td><bean:message key="paciente.edicion.idPacienteResidencia"/></td>
 			<td><bean:write name="data" property="idPacienteResidencia"/></td>
 		</tr>
 		<tr>
-			<td>Planta</br>Habitación</td><td><bean:write name="data" property="planta" /></br><bean:write name="data" property="habitacion" /></td>
+			<td><bean:message key="paciente.edicion.planta"/></br><bean:message key="paciente.edicion.habitacion"/></td><td><bean:write name="data" property="planta" /></br><bean:write name="data" property="habitacion" /></td>
 		</tr>
 		<tr>
-			<td>Hacer spd</td>
+			<td><bean:message key="paciente.edicion.hacerSpd"/></td>
 			<td><bean:write name="data" property="spd" /></td>
 		</tr>
 		<tr>
-			<td>Servir pañales</td>
+			<td><bean:message key="paciente.edicion.panyales"/></td>
 			<td><bean:write name="data" property="bolquers" /></td>
 		</tr>		
 		<tr>

@@ -1,7 +1,7 @@
 
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
 <%@ page session="true" %>
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html:html>
 <HEAD>

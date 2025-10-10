@@ -42,10 +42,9 @@ public class DetallesTomasBean implements Serializable  {
 	public String getPlanta() 				{		return planta;					}	public void setPlanta(String planta) 				{		this.planta = planta;					}
 	public String getHabitacion() 			{		return habitacion;				}	public void setHabitacion(String habitacion)		{		this.habitacion = habitacion;			}
 	public String getCN() 					{		return CN;						}	public void setCN(String cN) 						{		CN = cN;								}
-	public String getNombreMedicamento()			{		return nombreMedicamento;				}	public void setNombreMedicamento(String nombre) 			{		this.nombreMedicamento = nombre;		}
+	public String getNombreMedicamento()	{		return nombreMedicamento;		}	public void setNombreMedicamento(String nombre) 	{		this.nombreMedicamento = nombre;		}
 	public Date getDateInicioTratamiento() 	{		return dateInicioTratamiento;	}	public void setDateInicioTratamiento(Date dateInici){		this.dateInicioTratamiento = dateInici;	}
-	public Date getDateFinTratamiento() 	{		return dateFinTratamiento;		}	
-	
+	public Date getDateFinTratamiento() 	{		return dateFinTratamiento;		}	public void setDateFinTratamiento(Date dateFin) 	{		this.dateFinTratamiento = dateFin;		}
 	public String getPautaResidencia() 		{		return pautaResidencia;			}	public void setPautaResidencia(String pauta) 		{		this.pautaResidencia = pauta;			}
 	/*
 	public Date getDateFinTratamiento() throws ParseException 	
@@ -58,12 +57,10 @@ public class DetallesTomasBean implements Serializable  {
 		return dateFinTratamiento;		
 	}	
 	*/
-	public void setDateFinTratamiento(Date dateFinTratamiento) 		{		this.dateFinTratamiento = dateFinTratamiento;		}
 
-	public Date getDateDesde() 				{		return dateDesde;				}	public void setDateDesde(Date dateDesde) 						{		this.dateDesde = dateDesde;							}
-	public Date getDateHasta() 				{		return dateHasta;				}	public void setDateHasta(Date dateHasta) 						{		this.dateHasta = dateHasta;							}
-
-	public List<String> getResiTomas() 		{		return resiTomas;				}	public void setResiTomas(List<String> resiTomas) 				{		this.resiTomas = resiTomas;							}
+	public Date getDateDesde() 			{	return dateDesde;		}	public void setDateDesde(Date dateDesde) 		{		this.dateDesde = dateDesde;	}
+	public Date getDateHasta() 			{	return dateHasta;		}	public void setDateHasta(Date dateHasta) 		{		this.dateHasta = dateHasta;	}
+	public List<String> getResiTomas() 	{	return resiTomas;		}	public void setResiTomas(List<String> resiTomas){		this.resiTomas = resiTomas;	}
 	
 	public boolean isSpdD1() {		return spdD1;	}	public void setSpdD1(boolean spdD1) {		this.spdD1 = spdD1;	}
 	public boolean isSpdD2() {		return spdD2;	}	public void setSpdD2(boolean spdD2) {		this.spdD2 = spdD2;	}

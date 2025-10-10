@@ -231,9 +231,9 @@ public class PlantillaUnificadaHelper {
 		return filiaDm;
 	}
 	
-	public static FiliaRX getTratamientosProceso(String spdUsuario, FicheroResiBean cab, DivisionResidencia div) throws SQLException, ParseException {
+	public static FiliaRX getTratamientosProceso(String spdUsuario, FicheroResiBean cab, DivisionResidencia div, PacienteBean pac) throws SQLException, ParseException {
 		
-		FiliaRX filiaRx = XMLRobotDao.getTratamientosDeProceso(spdUsuario, cab, div);
+		FiliaRX filiaRx = XMLRobotDao.getTratamientosDeProceso(spdUsuario, cab, div, pac);
 		
 		return filiaRx;
 	}

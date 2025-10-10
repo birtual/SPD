@@ -35,7 +35,7 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 	            resultSet = pstat.executeQuery();
 	             
 	           while (resultSet.next()) {
-	        		//creación del objeto sustitución base
+	        		//creaciï¿½n del objeto sustituciï¿½n base
 	        	   c = creaObjeto(resultSet);
 	       		}
 	        } catch (SQLException e) {
@@ -58,7 +58,7 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 	            resultSet = pstat.executeQuery();
 	             
 	           while (resultSet.next()) {
-	        		//creación del objeto sustitución base
+	        		//creaciï¿½n del objeto sustituciï¿½n base
 	        	   c = creaObjeto(resultSet);
 	       		}
 	        } catch (SQLException e) {
@@ -100,7 +100,7 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
     	
     	GestSustitucionesLite result=null;
     	
-    	//actualizamos el oid por defecto a 0 para que la select tenga en cuenta la condición
+    	//actualizamos el oid por defecto a 0 para que la select tenga en cuenta la condiciï¿½n
     	if(gestSustitucionesLiteForm.getOidGestSustitucionesLite()==-1)
     		gestSustitucionesLiteForm.setOidGestSustitucionesLite(0);
     	
@@ -282,30 +282,30 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 		String select =" select fecha, idDivisionResidencia, resiCn, resiMedicamento, spdCn, spdNombreBolsa, spdFormaMedicacion, spdAccionBolsa, excepciones, aux1, aux2  ";
 		String 	from = " from SPD_sustitucionesLite ";
 		//String 	where= " WHERE idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
-		String 	where= " WHERE 1 = 1 "; // para no sobrecargar eliminamos la condición de la visibilidad. En este punto el usuario tendría permisos 
+		String 	where= " WHERE 1 = 1 "; // para no sobrecargar eliminamos la condiciï¿½n de la visibilidad. En este punto el usuario tendrï¿½a permisos 
 		where+=" AND idDivisionResidencia='"+medResi.getIdDivisionResidencia()+"' ";
 		//if((cnResi!=null && !cnResi.isEmpty()) || !DataUtil.isNumero(cnResi))
 		if((cnResi!=null && !cnResi.isEmpty()) || DataUtil.isNumero(cnResi))
 		{
 			where+=" AND ( ";
-			where+="  replace(replace(replace(replace(replace(replace(resiCN, 'ÿ', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', '')='"+ cnResi +"' ";
-			where+=" 	 OR spdCn = '"+StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiCn(), false)+"' "; 	//si ya llega con el CN de sust final también se debería recoger
+			where+="  replace(replace(replace(replace(replace(replace(resiCN, 'ï¿½', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', '')='"+ cnResi +"' ";
+			where+=" 	 OR spdCn = '"+StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiCn(), false)+"' "; 	//si ya llega con el CN de sust final tambiï¿½n se deberï¿½a recoger
 			if(cnResi.startsWith("0"))
-				where+=" OR RIGHT(replace(replace(replace(replace(replace(replace(resiCN, 'ÿ', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', ''), 6)=RIGHT('"+ cnResi +"', 6) ";
+				where+=" OR RIGHT(replace(replace(replace(replace(replace(replace(resiCN, 'ï¿½', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', ''), 6)=RIGHT('"+ cnResi +"', 6) ";
 			else
-				where+=" OR LEFT(replace(replace(replace(replace(replace(replace(resiCN, 'ÿ', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', ''), 6)=LEFT('"+ cnResi +"', 6) ";
+				where+=" OR LEFT(replace(replace(replace(replace(replace(replace(resiCN, 'ï¿½', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', ''), 6)=LEFT('"+ cnResi +"', 6) ";
 			where+=" ) ";
 		}
 		else if(	
-					(cnResi==null || cnResi.isEmpty()) //llega sin CN y con nombre, miramos de buscar por descripción (GDR)
+					(cnResi==null || cnResi.isEmpty()) //llega sin CN y con nombre, miramos de buscar por descripciï¿½n (GDR)
 					&& (nombreMedicamento!=null && !nombreMedicamento.isEmpty())
 				)
 		{
 			where+=" AND ( ";
-			where+=" 	UPPER(replace(replace(replace(replace(replace(replace(resiMedicamento, 'ÿ', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', '')) = '"+ nombreMedicamento +"' ";
+			where+=" 	UPPER(replace(replace(replace(replace(replace(replace(resiMedicamento, 'ï¿½', ''), ';', ''), ',', ''), '-', ''), ' ', ''), '.', '')) = '"+ nombreMedicamento +"' ";
 			where+=" ) ";
 		}
-		else //llega cn y nombre vacío, no devolverá nada 
+		else //llega cn y nombre vacï¿½o, no devolverï¿½ nada 
 		{
 			where = " WHERE 1 = 0 "; 
 		}
@@ -316,12 +316,12 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 		SELECT
 	    REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
 	        resiCn,
-	        N'á', N'a'), N'é', N'e'), N'í', N'i'), N'ó', N'o'), N'ú', N'u'),
-	        N'Á', N'A'), N'É', N'E'), N'Í', N'I'), N'Ó', N'O'), N'Ú', N'U')
+	        N'ï¿½', N'a'), N'ï¿½', N'e'), N'ï¿½', N'i'), N'ï¿½', N'o'), N'ï¿½', N'u'),
+	        N'ï¿½', N'A'), N'ï¿½', N'E'), N'ï¿½', N'I'), N'ï¿½', N'O'), N'ï¿½', N'U')
 	FROM
 	    SPD_sustitucionesLite
 	WHERE
-	    resiCn COLLATE Latin1_General_CI_AI LIKE '%[áéíóúÁÉÍÓÚ]%'
+	    resiCn COLLATE Latin1_General_CI_AI LIKE '%[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]%'
 		*/
 		
 		
@@ -342,14 +342,14 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 	        	//medResi.setSpdNombreBolsa(resultSet.getString("spdNombreBolsa"));
 	        	medResi.setSpdNombreBolsa(resultSet.getString("spdNombreBolsa"));
         		medResi.setSpdAccionBolsa(resultSet.getString("spdAccionBolsa"));
-	        	//ponemos la acción de la sustitución solo en caso que no sea un SIPRECISA
+	        	//ponemos la acciï¿½n de la sustituciï¿½n solo en caso que no sea un SIPRECISA
 	        	//if(medResi.getResiSiPrecisa()==null || (!medResi.getResiSiPrecisa().equalsIgnoreCase("X") && ( medResi.getSpdAccionBolsa() ==null || !medResi.getSpdAccionBolsa().equalsIgnoreCase(SPDConstants.SPD_ACCIONBOLSA_SI_PRECISA))))
         		if(medResi.getResiSiPrecisa()!=null && (medResi.getResiSiPrecisa().equalsIgnoreCase("X") || medResi.getResiSiPrecisa().equalsIgnoreCase("SIPRECISA")) )
         		{
 	        		medResi.setSpdAccionBolsa(SPDConstants.SPD_ACCIONBOLSA_SI_PRECISA);
         		}
 	    		
-	        	//en caso que tenga 999 y PASTILLERO se pone como SOLO_INFO y se añade mensaje 
+	        	//en caso que tenga 999 y PASTILLERO se pone como SOLO_INFO y se aï¿½ade mensaje 
 	        	if(medResi.getAsteriscos()!=null && medResi.getAsteriscos().equalsIgnoreCase("SI")&& medResi.getSpdAccionBolsa()!=null && medResi.getSpdAccionBolsa().equalsIgnoreCase(SPDConstants.SPD_ACCIONBOLSA_PASTILLERO))
 	        	{
 	        		medResi.setSpdAccionBolsa(SPDConstants.SPD_ACCIONBOLSA_SOLO_INFO);
@@ -420,11 +420,11 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 	}
 	
 	/**
-	 * Método primario para la búsqueda de las sustituciones de un tratamiento que llegue en el listado con un CN de la residencia.
-	 * Se buscará si existe alguna sustitución para esa residencia, ya sea por CN Resi o directamente en el CN FINAL 
+	 * Mï¿½todo primario para la bï¿½squeda de las sustituciones de un tratamiento que llegue en el listado con un CN de la residencia.
+	 * Se buscarï¿½ si existe alguna sustituciï¿½n para esa residencia, ya sea por CN Resi o directamente en el CN FINAL 
 	 * @param spdUsuario
 	 * @param lite
-	 * @return un GestSustitucionesLite con la info de la sustitución 
+	 * @return un GestSustitucionesLite con la info de la sustituciï¿½n 
 	 * @throws Exception
 	 */
 	public static GestSustitucionesLite buscaSustitucionLite(String spdUsuario, GestSustitucionesLite lite) throws Exception {
@@ -476,8 +476,8 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 	}
 	
 	/**
-	 * Método auxiliar para la búsqueda de las sustituciones de un tratamiento que llegue en el listado con un CN ya FINAL
-	 * Se buscará para detectar solo el nombre corto, y en caso que no exista la acción en bolsa, añadirla también 
+	 * Mï¿½todo auxiliar para la bï¿½squeda de las sustituciones de un tratamiento que llegue en el listado con un CN ya FINAL
+	 * Se buscarï¿½ para detectar solo el nombre corto, y en caso que no exista la acciï¿½n en bolsa, aï¿½adirla tambiï¿½n 
 	 * @param spdUsuario
 	 * @param medResi
 	 * @throws Exception
@@ -560,14 +560,14 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 			where+=" and bc.Codgtvmp='"+filtroGtvmp+"'  ";
 		if(campoGoogle!=null && !campoGoogle.equals(""))
 		{
-			where+=" and ( s.resiCn like '%"+StringUtil.limpiarTextoEspaciosYAcentos(campoGoogle, false)+"%'  OR ";
-			where+=" 		 s.resiMedicamento like '%"+campoGoogle+"%'  OR ";
-			where+=" 		 s.spdCn like '%"+campoGoogle+"%'  OR ";
-			where+=" 		 s.spdNombreBolsa like '%"+campoGoogle+"%'  OR ";
-			where+=" 		 s.excepciones like '%"+campoGoogle+"%'  OR ";
-			where+=" 		 s.aux1 like '%"+campoGoogle+"%'  OR ";
-			where+=" 		 s.aux2 like '%"+campoGoogle+"%'  ";
-			where+=" ) ";
+			where+=" and ( s.resiCn like '%"+StringUtil.limpiarTextoEspaciosYAcentos(campoGoogle, false)+"%'	OR 	";
+			where+=" 	   s.resiMedicamento like '%"+campoGoogle+"%' 											OR	";
+			where+=" 	   s.spdCn like '%"+campoGoogle+"%'  													OR	";
+			where+=" 	   s.spdNombreBolsa 	like '%"+campoGoogle+"%'  										OR 	";
+			where+=" 	   s.excepciones 		like '%"+campoGoogle+"%'  										OR 	";
+			where+=" 	   s.aux1 			like '%"+campoGoogle+"%'  											OR	";
+			where+=" 	   s.aux2 			like '%"+campoGoogle+"%'  											";
+			where+=" 	) ";
 		}
 			
 			
@@ -621,7 +621,7 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 
     
 	/**
-	 * Fetch es una cláusula que funciona a partir del SqlServer 2008 (no inclusive)
+	 * Fetch es una clï¿½usula que funciona a partir del SqlServer 2008 (no inclusive)
 	 * @param form
 	 * @param inicio
 	 * @param fin
@@ -640,7 +640,7 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
 	}
 
 	/**
-	 * Como FETCH es una cláusula de versión SQLSERVER>2008 se crea una función un poco más engorrosa pero
+	 * Como FETCH es una clï¿½usula de versiï¿½n SQLSERVER>2008 se crea una funciï¿½n un poco mï¿½s engorrosa pero
 	 * que sirve para todas las versiones (ROW_NUMBER() OVER)
 	 * @param form
 	 * @param inicio
@@ -675,10 +675,10 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
              
            while (resultSet.next()) {
              	//controlamos si es una sust nueva
-               		//creamos nuevo objeto de sustitución e inicializamos objetos asociados	
+               		//creamos nuevo objeto de sustituciï¿½n e inicializamos objetos asociados	
         	   GestSustitucionesLite c = creaObjeto(resultSet);
                  
-           		//añadimos la sust anterior a la lista y creamos una  nueva
+           		//aï¿½adimos la sust anterior a la lista y creamos una  nueva
            	    listaGestSustitucionesLite.add(c);
 
                 
@@ -707,10 +707,10 @@ public class GestSustitucionesLiteDAO extends GestSustitucionesDAO{
              
            while (resultSet.next()) {
              	//controlamos si es una sust nueva
-               		//creamos nuevo objeto de sustitución e inicializamos objetos asociados	
+               		//creamos nuevo objeto de sustituciï¿½n e inicializamos objetos asociados	
         	   GestSustitucionesLite c = creaObjeto(resultSet);
                  
-           		//añadimos la sust anterior a la lista y creamos una  nueva
+           		//aï¿½adimos la sust anterior a la lista y creamos una  nueva
            	    listaGestSustitucionesLite.add(c);
 
                 

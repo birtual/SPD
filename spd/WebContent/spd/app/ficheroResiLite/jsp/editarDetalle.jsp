@@ -1,20 +1,10 @@
-<%@ page language="java" %>
-<%@ page import="java.util.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/spd/jsp/global/headFragmento.jspf" %>
 
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
-<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
-<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
-<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
-
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
-
+<!DOCTYPE html>
+<html:html>
 <head>
-<jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Edici髇 Fichero Resi Carga Robot</title>
+<title>Edici贸n Fichero Resi Carga Robot</title>
 </head>
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
 	<script language="javaScript" src="/spd/spd/app/ficheroResiLite/js/ficheroResiLite.js"></script>
@@ -25,7 +15,7 @@
 <body id="general">
 	<!-- mostramos mensajes y errores, si existen -->
 
-		<h2>Edici髇 Fichero Resi Carga Robot</h2>
+		<h2>Edici贸n Fichero Resi Carga Robot</h2>
 		<html:form action="/FicheroResiDetalleLite.do" method="post">	
 
 
@@ -126,7 +116,7 @@
 			<th>Variante</th>
 		 	<th>Comentarios</th>
 		 	<th>TipoMedicacion</th>
-		  	<th>V韆 administraci髇</th>	
+		  	<th>V铆a administraci贸n</th>	
 		</tr>	
 		 <tr>	
 		 	<td><html:text name="data" property="resiCn" /></td>
@@ -143,7 +133,7 @@
 		
 	<table class="tablaResi">
 		<tr>	
-			<th>marcado autom醫ico</th>	
+			<th>marcado autom谩tico</th>	
 			<th>L</th>	  
 			<th>M</th>	  
 			<th>X</th>	  
@@ -190,11 +180,11 @@
 	 		<th>CN Final</th>
 		  	<th>Nombre en bolsa</th>
 	  		<th>Inicio fin (formato dd/mm/yyyy)</th>
- 		  	<th>Acci髇 bolsa</th>
+ 		  	<th>Acci贸n bolsa</th>
 		  	<th>SiPrecisa</th>
- 			<th>Forma Medicacion</th>
+ 			<th>Forma medicacion</th>
 			<th>Periodo</th>					
-			<th>D韆s Mes Concretos</th>
+			<th>D铆as de mes concretos</th>
 			<th>SecuenciaGuide</th>
 		</tr>	
 		<tr>	
@@ -206,8 +196,8 @@
 			    </br>
 			    <logic:notEmpty name="FicheroResiForm" property="listaSpdAccionBolsa">    
 			        <html:select property="spdAccionBolsa" value="${data.spdAccionBolsa != null ? data.spdAccionBolsa : ''}">
-			            <!-- Agregar opci髇 vac韆 por defecto si no hay valor seleccionado -->
-			            <option value="" ${empty data.spdAccionBolsa ? 'selected' : ''}>Seleccione una opci髇</option> 
+			            <!-- Agregar opci锟絥 vac锟絘 por defecto si no hay valor seleccionado -->
+			            <option value="" ${empty data.spdAccionBolsa ? 'selected' : ''}>Seleccione una opci贸n</option> 
 			            <c:forEach items="${FicheroResiForm.listaSpdAccionBolsa}" var="bean"> 
 			                <option value='${bean}' ${data.spdAccionBolsa == bean ? 'selected' : ' '}>
 			                    <c:out value="${bean}" />
@@ -262,7 +252,7 @@
 		        <li>Texto original cargado:<span  class="textoAzul"><bean:write name="data" property="detalleRow" /></li>
 		    </c:when>
 		    <c:otherwise>
-		        <li>Texto original cargado:<span  class="textoAzul">*** informaci髇 con datos personales ***</li>
+		        <li>Texto original cargado:<span  class="textoAzul">*** informaci贸n con datos personales ***</li>
 		    </c:otherwise>
 	</c:choose>
 	
@@ -281,18 +271,18 @@
 				<!--<input type="button" onclick="javascript:grabar('<bean:write name="data" property="oidFicheroResiCabecera"/>')" value="Confirmar"/> -->
 				<input type="button" class="btn primary" onclick="javascript:grabar()" value="Grabar"/>
 				
-		<logic:equal property="idUsuario" name="formulari" value="admin">
+	
 				
 			<c:choose> 
    					 <c:when test="${data.porcentajeCIPS > 90}">
-        				<input type="button" class="btn primary"  onclick="javascript:crearNuevaToma()" value="Gestionar las tomas"/>
-        				(Esta producci髇 es del <c:out value="${data.porcentajeCIPS}%" /> de los cips de la residencia)
+        				<input type="button" class="btn primary"  onclick="javascript:gestionTomas()" value="Gestionar las tomas"/>
+        				(Esta producci贸n es del <c:out value="${data.porcentajeCIPS}%" /> de los cips de la residencia)
     				</c:when>
     			<c:otherwise>
-    				(No es posible modificar o a馻dir tomas porque esta producci髇 solo contiene el <c:out value="${data.porcentajeCIPS}%" /> de los cips de la residencia)
+    				(No es posible modificar o a帽adir tomas porque esta producci贸n solo contiene el <c:out value="${data.porcentajeCIPS}%" /> de los cips de la residencia)
 			    </c:otherwise>
 			</c:choose>
-		</logic:equal>
+		
 
 
 
@@ -307,4 +297,4 @@
 
 	</html:form>
 </body>
-</html>
+</html:html>

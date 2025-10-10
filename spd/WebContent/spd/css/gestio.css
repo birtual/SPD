@@ -536,13 +536,13 @@ table.tablaResi {
 	background-color: #ffff80;
 	width:auto;
 	border: 0.1em solid #400040; 
-	border-width: 1 1.2em 1.3em 1; 
+	/*border-width: 1 1.2em 1.3em 1; */
 }
 table.detallePaciente, table.detalleEnlace, table.detalle{
 	width: 50%;
-	width:auto;
+	/*width:auto;*/
 	border: 0.1em solid #400040; 
-	border-width: 1 1.2em 1.3em 1; 
+	/*border-width: 1 1.2em 1.3em 1;*/ 
 	font-size: 2em; /* Aumentamos el tamaño de la fuente  */
 }
 table.tablaSpdOk {

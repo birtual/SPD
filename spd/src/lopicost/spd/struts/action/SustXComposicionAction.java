@@ -25,7 +25,7 @@ import lopicost.spd.persistence.SustXGtDAO;
 import lopicost.spd.struts.form.SustXComposicionForm;
 import lopicost.spd.utils.DataUtil;
 import lopicost.spd.utils.SPDConstants;
-public class SustXComposicionAction extends DispatchAction  {
+public class SustXComposicionAction extends GenericAction  {
 
 	SustXComposicionDAO dao= new  SustXComposicionDAO();
 	SustXGtDAO daoGt= new SustXGtDAO();

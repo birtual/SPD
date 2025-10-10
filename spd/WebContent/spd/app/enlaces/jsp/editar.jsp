@@ -7,13 +7,13 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Edición enlace</title>
+<title>EdiciÃ³n enlace</title>
 
 </head>
 
@@ -51,7 +51,7 @@
 <body id="general">
 	<div id="contingut">
 		<center>
-		<h2>Edición sustitución lite </h2>
+		<h2>EdiciÃ³n sustituciÃ³n lite </h2>
 		<html:form action="/Enlaces.do" method="post">	
 
 		<bean:define id="data" name="formulari" property="enlace"/>
@@ -74,7 +74,7 @@
 			<th class="segunda">Nombre enlace</th><td><html:text name="data" property="nombreEnlace" styleClass="inputLargo" /></td>
 		</tr>
 		<tr>
-			<th class="segunda">Descripción</th><td><html:text name="data" property="descripcion"  styleClass="inputLargo" /></td>
+			<th class="segunda">DescripciÃ³n</th><td><html:text name="data" property="descripcion"  styleClass="inputLargo" /></td>
 		</tr>
 		<tr>
 			<th class="segunda">idapartado</th><td><bean:write name="data" property="idApartado"  /></td>
@@ -86,13 +86,13 @@
 			<th class="segunda">link</th><td><html:text name="data" property="linkEnlace" styleClass="inputLargo" /></td>
 		</tr>
 		<tr>
-			<th class="segunda">Parámetros</th><td><html:text name="data" property="paramsEnlace" styleClass="inputLargo" /></td>
+			<th class="segunda">ParÃ¡metros</th><td><html:text name="data" property="paramsEnlace" styleClass="inputLargo" /></td>
 		</tr>
 		<tr>
 			<th class="segunda">activo</th>
 			<td>
 				<select name="activo" style="text-align: left;">>
-				    <option value="true" ${data.activo ? 'selected="selected"' : ''}>Sí</option>
+				    <option value="true" ${data.activo ? 'selected="selected"' : ''}>SÃ­</option>
 				    <option value="false" ${!data.activo ? 'selected="selected"' : ''}>No</option>
 				</select>
 			</td>
@@ -101,7 +101,7 @@
 			<th class="segunda">abrir en nueva ventana</th>
 			<td>
 				<select name="nuevaVentana" style="text-align: left;">
-				    <option value="true" ${data.nuevaVentana ? 'selected="selected"' : ''}>Sí</option>
+				    <option value="true" ${data.nuevaVentana ? 'selected="selected"' : ''}>SÃ­</option>
 				    <option value="false" ${!data.nuevaVentana ? 'selected="selected"' : ''}>No</option>
 				</select>
 			</td>

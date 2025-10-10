@@ -349,7 +349,8 @@
          <action path="/CabecerasXLS" type="lopicost.spd.struts.action.CabecerasXLSAction"  
 		 	parameter="parameter"  name="FicheroResiForm" 
 		 	scope="request" validate="false">
-        	<forward name="consulta" path="/spd/app/cabecerasXLS/jsp/consulta.jsp" />
+        	<!-- forward name="consulta" path="/spd/app/cabecerasXLS/jsp/consulta.jsp" /> -->
+        	<forward name="consulta" path="/spd/app/cabecerasXLS/jsp/edicionLista.jsp" />
         	<forward name="edicionLista" path="/spd/app/cabecerasXLS/jsp/edicionLista.jsp" />
         	<forward name="list" path="/spd/app/cabecerasXLS/jsp/list.jsp" />
         	<forward name="editar" path="/spd/app/cabecerasXLS/jsp/editarCabecera.jsp" />
@@ -646,5 +647,10 @@
 
               
 	</action-mappings>
-<message-resources parameter="example.ApplicationResources" null="false"/>
+
+   <!-- Configuración de mensajes con factory por defecto -->
+    <message-resources
+        parameter="SPDMessageResources"
+        factory="org.apache.struts.util.PropertyMessageResourcesFactory"
+        null="false"/>
 </struts-config>

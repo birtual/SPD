@@ -1,21 +1,10 @@
-<%@page import="lopicost.spd.struts.bean.CabecerasXLSBean"%>
-<%@ page language="java" %>
-<%@ page import="java.util.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/spd/jsp/global/headFragmento.jspf" %>
 
-
-<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
-<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
-<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-
-<%@ page session="true" %>
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html>
 <html:html>
-<HEAD>
+<head>
 <title></title>
-<jsp:include page="/spd/jsp/global/head.jsp"/>
-
 </HEAD>
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -55,9 +44,9 @@ function volver()
 			//alert('1');
 			var horaMinutos = document.getElementsByName("resiToma")[0].value;
 			var resiTomaLiteral = document.getElementsByName('resiTomaLiteral')[0].value;
-		    // Verificar si el formato es válido (hh:mm)
+		    // Verificar si el formato es vÃ¡lido (hh:mm)
 		    if (/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(horaMinutos)) {
-		     // La hora tiene el formato válido, puedes enviarla directamente al servidor
+		     // La hora tiene el formato vÃ¡lido, puedes enviarla directamente al servidor
 				
 				var f = document.FicheroResiForm;
 				f.parameter.value='nuevaToma';
@@ -69,7 +58,7 @@ function volver()
 				}
 
 		    } else {
-		        // Si el formato no es válido, muestra un mensaje de error o realiza alguna acción para informar al usuario.
+		        // Si el formato no es vÃ¡lido, muestra un mensaje de error o realiza alguna acciï¿½n para informar al usuario.
 		        alert("El formato de hora debe ser hh:mm");
 		      }
 		}	
@@ -115,7 +104,7 @@ function volver()
 	</logic:notEmpty>
 	
 
- <fieldset><h2>Edición de las tomas </h2>
+ <fieldset><h2>EdiciÃ³n de las tomas </h2>
  <table>     	
  <logic:iterate id="toma" name="formulari" property="listaTomasCabecera" type="lopicost.spd.struts.bean.CabecerasXLSBean" indexId="position">
 
@@ -134,10 +123,11 @@ function volver()
 		<td class="segunda">posicionEnBBDD</td>
 		<td class="segunda">posicionEnVistas</td>
 		<td class="segunda">tipo</td>
+		
    </tr>
 
 	<%
-		// Calcula el tamaño de la lista
+		// Calcula el tamaÃ±o de la lista
 		int totalIteraciones = (formulari.getListaTomasCabecera() != null) ? formulari.getListaTomasCabecera().size() : 0;
 		int contador =0;
 
@@ -159,7 +149,7 @@ function volver()
 			if(contador>1)
 			{
 				%>
-				<i class="fa fa-arrow-up action-icon" onclick="javascript:moverPosicion('${toma.oidCabeceraXLS}', 'SUBIR')"  title="más pronto"></i> 
+				<i class="fa fa-arrow-up action-icon" onclick="javascript:moverPosicion('${toma.oidCabeceraXLS}', 'SUBIR')"  title="mÃ¡s pronto"></i> 
 				<% 
 			}else 
 			{
@@ -171,7 +161,7 @@ function volver()
 			if(contador!=totalIteraciones)
 			{
 				%>
-				<i class="fa fa-arrow-down action-icon" onclick="javascript:moverPosicion('${toma.oidCabeceraXLS}', 'BAJAR')"  title="más tarde"></i>
+				<i class="fa fa-arrow-down action-icon" onclick="javascript:moverPosicion('${toma.oidCabeceraXLS}', 'BAJAR')"  title="mÃ¡s tarde"></i>
 				<% 
 			}
 			%>
@@ -188,14 +178,14 @@ function volver()
 			</c:if>
 		</td>
 	</tr>	
-
 		</c:forEach> 
+
 		<c:if test="${formulari.mode != 'VIEW'}" >
 			<tr>
 			<td></td>
 			<td><input type="text" name="resiToma" placeholder="formato hh:mm"> <br></td>
 			<td></td>
-			<td><input type="text" name="resiTomaLiteral"  placeholder="añadir nombre"> </td>
+			<td><input type="text" name="resiTomaLiteral"  placeholder="aÃ±adir nombre"> </td>
 			<td></td>
 			<td></td>
 			<td>

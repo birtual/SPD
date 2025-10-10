@@ -7,13 +7,13 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
 <head>
 	<jsp:include page="/spd/jsp/global/head.jsp"/>
-	<title>Creaci髇 de sustituci髇 Lite</title>
+	<title>Creaci贸n de sustituci贸n Lite</title>
 </head>
 
 
@@ -24,7 +24,7 @@
 <script type="text/javascript">	
 
 
-		//funci髇 de carga del lookUp
+		//funci锟絥 de carga del lookUp
 		function doLookUpBdConsejo(){				
 			var loc = '/spd/LookUpBdConsejo.do?parameter=init'+ 						//url de llamanda
 				'&resiCn='+document.GestSustitucionesLiteForm.resiCn.value+'&mode=showGtvmpCn'+	
@@ -52,7 +52,7 @@
 <body id="general">
 
 	<center>
-		<h2>Creaci髇 de sustituci髇 Lite</h2>
+		<h2>Creaci贸n de sustituci贸n Lite</h2>
 		<html:form action="/GestSustitucionesLite.do" >	
 
 
@@ -85,17 +85,17 @@
 		<td><logic:notEmpty name="formulari" property="listaDivisionResidencia">	
 			  
 		   	 <html:select property="oidDivisionResidenciaFiltro"  onchange="submit()"> 
-		   	 	<html:option value="">Selecci髇</html:option>
+		   	 	<html:option value="">Selecci贸n</html:option>
    					<html:optionsCollection name="formulari" property="listaDivisionResidencia" label="nombreDivisionResidencia" value="oidDivisionResidencia" />
 				</html:select>
 		     </logic:notEmpty>	
 			</td>
 	<tr>
-		<td>C骴igo CN residencia</td>
+		<td>C贸digo CN residencia</td>
 		<td><html:text name="data" property="resiCn" styleId="resiCn" value="<%=formulari.getResiCn() %>"/> - <html:text name="data"  property="resiMedicamento"  styleId="spdNombreMedicamento" value="<%=formulari.getResiMedicamento() %>"/></td>
 	</tr>
 	<tr>
-		<td>C骴igo -  Nombre medicamento </td>
+		<td>C贸digo -  Nombre medicamento </td>
 				<td><html:text name="data" property="spdCn" styleId="spdCn"/> - <html:text name="data" property="spdNombreMedicamento" styleId="spdNombreMedicamento" readonly="true"/>
 		<a href="#" onclick="javascript:doLookUpBdConsejo();">Buscar</a>
 		</td>

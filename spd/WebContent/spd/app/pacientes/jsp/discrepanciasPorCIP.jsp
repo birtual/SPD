@@ -7,13 +7,13 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
 <head>
 	<jsp:include page="/spd/jsp/global/head.jsp"/>
-	<title>Discrepancias por CIP </title>
+	<title><bean:message key="paciente.edicion.discrepancias.titulo"/> </title>
 </head>
 
 <bean:define id="formulari" name="PacientesForm" type="lopicost.spd.struts.form.PacientesForm" />
@@ -44,14 +44,14 @@
 		    </c:otherwise>
 	</c:choose>
 	
-	<div><h3><p>Discrepancias por CIP (cálculos realizados sobre 14 días)</p></h3></div>
+	<div><h3><p><bean:message key="paciente.edicion.discrepancias.nota14dias"/></p></h3></div>
 	<div>
 		<p>		
 		<logic:greaterThan name="formulari" property="oidPaciente" value="0">
 			 <div >Identificador: <b><bean:write name="formulari" property="oidPaciente" /></b></div>
 		</logic:greaterThan>
 		<logic:lessEqual name="formulari" property="oidPaciente" value="0">
-			 <div ><b>No existe en mantenimiento de residentes</b></div>
+			 <div ><b><bean:message key="paciente.edicion.sinAlta"/></b></div>
 		</logic:lessEqual>
 		</p>
 	</div>
@@ -62,34 +62,34 @@
 			<tr>
 				<th class="amarilloClaro"></th>
 				<th class="amarilloClaro"></th>
-				<th class="amarilloClaro">Residencia</th>
+				<th class="amarilloClaro"><bean:message key="paciente.edicion.discrepancias.residencia"/></th>
 				<th class="amarilloClaro"></th>
 				<th class="amarilloClaro"></th>
 				<th class="azulClaro"></th>
-				<th class="azulClaro">Comparación</th>
+				<th class="azulClaro"><bean:message key="paciente.edicion.discrepancias.comparacion"/></th>
 				<th class="azulClaro"></th>
 			 	<th class="verdeClaro"></th>
 			 	<th class="verdeClaro"></th>
-			 	<th class="verdeClaro">Farmatic</th>
+			 	<th class="verdeClaro"><bean:message key="paciente.edicion.discrepancias.farmaticPrevision"/></th>
 			 	<th class="verdeClaro"></th>
 			 	<th class="verdeClaro"></th>
 			 	<th class="verdeClaro"></th>
 			</tr>
 			<tr>
 			 	<th class="amarilloClaro">Cn Resi</th>
-				<th class="amarilloClaro">Medicamento resi</th>
-			 	<th class="amarilloClaro">Cn Sust</th>
-				<th class="amarilloClaro">Nombre bolsa</th>
-				<th class="amarilloClaro">Acción bolsa</th>
-			 	<th class="azulClaro">SPD Previsión</th>
-			 	<th class="azulClaro">Nombre GtVmp</th>
-			 	<th class="azulClaro">Farmatic Previsión</th>
-			 	<th class="verdeClaro">Cn</th>
-			 	<th class="verdeClaro">Medicamento</th>
-			 	<th class="verdeClaro">Cantidad</th>
-			 	<th class="verdeClaro">Pauta</th>
-			 	<th class="verdeClaro">Caducidad</th>
-			 	<th class="verdeClaro">Disponibles</th>
+				<th class="amarilloClaro"><bean:message key="paciente.edicion.discrepancias.medicamentoResi"/></th>
+			 	<th class="amarilloClaro"><bean:message key="paciente.edicion.discrepancias.cnSust"/></th>
+				<th class="amarilloClaro"><bean:message key="paciente.edicion.discrepancias.nombreBolsa"/></th>
+				<th class="amarilloClaro"><bean:message key="paciente.edicion.accionBolsa"/></th>
+			 	<th class="azulClaro"><bean:message key="paciente.edicion.discrepancias.spdPrevision"/></th>
+			 	<th class="azulClaro"><bean:message key="paciente.edicion.discrepancias.nombreGtvmp"/></th>
+			 	<th class="azulClaro"><bean:message key="paciente.edicion.discrepancias.farmaticPrevision"/></th>
+			 	<th class="verdeClaro"><bean:message key="paciente.edicion.discrepancias.cn"/>Cn</th>
+			 	<th class="verdeClaro"><bean:message key="paciente.edicion.discrepancias.medicamento"/></th>
+			 	<th class="verdeClaro"><bean:message key="paciente.edicion.discrepancias.cantidad"/></th>
+			 	<th class="verdeClaro"><bean:message key="paciente.edicion.discrepancias.pauta"/></th>
+			 	<th class="verdeClaro"><bean:message key="paciente.edicion.discrepancias.caducidad"/></th>
+			 	<th class="verdeClaro"><bean:message key="paciente.edicion.discrepancias.disponibles"/></th>
 		   </tr>
 	
 	 	<logic:iterate id="data" name="formulari" property="listaBeans" type="lopicost.spd.struts.bean.DiscrepanciaBean" indexId="position">
@@ -138,7 +138,7 @@
 
 	</logic:notEmpty>
 	<logic:empty  name="formulari" property="listaBeans">
-		No existen registros a mostrar
+		<bean:message key="paciente.edicion.sinRegistros"/>
 	</logic:empty>
 		
 	</fieldset>

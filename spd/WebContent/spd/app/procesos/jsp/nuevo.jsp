@@ -1,22 +1,14 @@
-<%@ page language="java" %>
-<%@ page import="java.util.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/spd/jsp/global/headFragmento.jspf" %>
 
+<!DOCTYPE html>
+<html:html>
 
-<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
-<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
-<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
-
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
-
-<head>
-	<jsp:include page="/spd/jsp/global/head.jsp"/>
-	<title>Creación de Proceso</title>
+</HEAD>
+	<title>CreaciÃ³n de Proceso</title>
 </head>
 <script>
-<!-- Configuración de Flatpickr -->
+<!-- Configuraciï¿½n de Flatpickr -->
 
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -65,11 +57,11 @@
 			else if(f.descripcion.value=='')
 				alert('Falta indicar algo de descripcion sobre el proceso ');
 			else if(f.fechaDesde.value=='')
-				alert('Falta indicar la fecha de activación del proceso');
+				alert('Falta indicar la fecha de activaciï¿½n del proceso');
 			//else if(f.fechaDesde.value=='')
-				//alert('Falta indicar la fecha de desactivación del Proceso ');
+				//alert('Falta indicar la fecha de desactivaciï¿½n del Proceso ');
 			else if(f.horaEjecucion.value=='')
-				alert('Falta indicar la hora de ejecución del proceso ');
+				alert('Falta indicar la hora de ejecuciï¿½n del proceso ');
 			else */
 			{
 				//f.nombreCorto.value=f.nombreCorto.value;
@@ -122,7 +114,7 @@
 		<tr><th class="primera">Nombre del Proceso *</th><td><html:text property="nombreProceso"/></td></tr>
 		<tr><th class="primera">Nombre original</th><td><html:text property="nombreOriginal"/></td></tr>
 		<tr><th class="primera">Lanzadera *</th><td><html:text property="lanzadera"/></td></tr>
-		<tr><th class="segunda">Descripción *</th><td><html:textarea property="descripcion" cols="40" rows="3"/></td></tr>
+		<tr><th class="segunda">DescripciÃ³n *</th><td><html:textarea property="descripcion" cols="40" rows="3"/></td></tr>
 		<tr><th class="segunda">Apartado</th><td><html:textarea property="apartado" cols="40" rows="3"/></td></tr>
 
 		<tr>
@@ -134,7 +126,7 @@
         		</html:select>
 			</td>
 		</tr>
-		<tr><th class="segunda">Parámetros</th><td><html:textarea property="parametros" cols="40" rows="3"/></td></tr>
+		<tr><th class="segunda">ParÃ¡metros</th><td><html:textarea property="parametros" cols="40" rows="3"/></td></tr>
 		<!-- %= java.util.Arrays.toString(formulari.getDiasSemanaArray()) %> -->
 
 		<tr><th class="segunda">Periodo  *</th>
@@ -144,7 +136,7 @@
 			<html:select property="tipoPeriodo" name="formulari" style="text-align: left;">
 			    <html:option value="MINUTOS">Minutos</html:option>
 			    <html:option value="HORAS">Horas</html:option>
-			    <html:option value="DIAS">Días</html:option>
+			    <html:option value="DIAS">DÃ­as</html:option>
 			    <html:option value="SEMANAS">Semanas</html:option>
 			    <html:option value="MESES">Meses</html:option>
 			</html:select>
@@ -153,48 +145,48 @@
 		
 	</tr>
 	<tr>
- 	   <th class="segunda">Días de la Semana  *</th>
+ 	   <th class="segunda">DÃ­as de la Semana  *</th>
 	    <td>
 			<html:multibox property="diasSemanaArray" value="1"/> Lunes<br/>
 			<html:multibox property="diasSemanaArray" value="2"/> Martes<br/>
-			<html:multibox property="diasSemanaArray" value="3"/> Miércoles<br/>
+			<html:multibox property="diasSemanaArray" value="3"/> MiÃ©rcoles<br/>
 			<html:multibox property="diasSemanaArray" value="4"/> Jueves<br/>
 			<html:multibox property="diasSemanaArray" value="5"/> Viernes<br/>
-			<html:multibox property="diasSemanaArray" value="6"/> Sábado<br/>
+			<html:multibox property="diasSemanaArray" value="6"/> SÃ¡bado<br/>
 			<html:multibox property="diasSemanaArray" value="7"/> Domingo<br/>
 	    </td>
 	</tr>
 	<tr>
-        <th class="segunda">Días del mes</th>
-        <td><html:text property="diasMes"/><br><small>(usar coma para separar días o guión para intervalos)</small></td>
+        <th class="segunda">DÃ­as del mes</th>
+        <td><html:text property="diasMes"/><br><small>(usar coma para separar dÃ­as o guiÃ³n para intervalos)</small></td>
 	</tr>
 
 
-		<tr><th class="segunda">Hora de Ejecución *</th>
+		<tr><th class="segunda">Hora de EjecuciÃ³n *</th>
 			<td><input type="text" id="horaEjecucion" name="horaEjecucion" value="${formulari.horaEjecucion} placeholder="HH:mm" style="width: 5em;"></td>
 			
 		</tr>
-		<tr><th class="segunda">Máx. Reintentos *</th>
+		<tr><th class="segunda">MÃ¡x. Reintentos *</th>
 			<td>
 				<input type="number" name="maxReintentos" id="maxReintentos" style="width: 3em;" value="<bean:write name='formulari' property='maxReintentos'/>" />
 			</td>
 		</tr>
-		<tr><th class="segunda">Máx. Duración (segundos) *</th>
+		<tr><th class="segunda">MÃ¡x. DuraciÃ³n (segundos) *</th>
 			<td>
 				<input type="number" name="maxDuracionSegundos" id="maxDuracionSegundos" style="width: 5em;" value="<bean:write name='formulari' property='maxDuracionSegundos'/>" />
 			</td>
 		</tr>
 
 		<tr>
-			<th class="segunda">Fecha desde *</th><td><input type="text" id="fechaDesde" name="fechaDesde" value="${formulari.fechaDesde}" placeholder="Selecciona fecha de activación"></td>
+			<th class="segunda">Fecha desde *</th><td><input type="text" id="fechaDesde" name="fechaDesde" value="${formulari.fechaDesde}" placeholder="Selecciona fecha de activaciï¿½n"></td>
 		</tr>
 		<tr>
-			<th class="segunda">Fecha hasta</th><td><input type="text" id="fechaHasta" name="fechaHasta" value="${formulari.fechaHasta}" placeholder="Selecciona fecha de desactivación"></td>
+			<th class="segunda">Fecha hasta</th><td><input type="text" id="fechaHasta" name="fechaHasta" value="${formulari.fechaHasta}" placeholder="Selecciona fecha de desactivaciï¿½n"></td>
 		</tr>
-		<tr><th class="segunda">Tipo de Ejecución</th>
+		<tr><th class="segunda">Tipo de EjecuciÃ³n</th>
 		<td>
 			<select name="tipoEjecucion" style="text-align: left;">
-			    <option value="AUTOMATICO" ${formulari.tipoEjecucion}='AUTOMATICO' ? 'selected="selected"' : ''}>Automático</option>
+			    <option value="AUTOMATICO" ${formulari.tipoEjecucion}='AUTOMATICO' ? 'selected="selected"' : ''}>AutomÃ¡tico</option>
 			    <option value="MANUAL" ${formulari.tipoEjecucion}='MANUAL' ? 'selected="selected"' : ''}>Manual</option>
 			</select>
 		</td>
@@ -216,9 +208,9 @@
 		</tr>	
 	</table>
 
+	</html:form>
 	</div>	
 
-	</html:form>
 
 </body>
-</html>
+</html:html>

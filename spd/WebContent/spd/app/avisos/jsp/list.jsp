@@ -9,15 +9,13 @@
 
 
 <%@ page session="true" %>
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html:html>
 <HEAD>
 
  
 <title>
-
-
 
 
 </title>
@@ -33,8 +31,8 @@
 
 
 function borrar(oidAviso) {
-    // Mostrar un cuadro de confirmación
-    var confirmacion = window.confirm("¿Estás seguro de que deseas borrar este aviso?");
+    // Mostrar un cuadro de confirmaciÃ³n
+    var confirmacion = window.confirm("Â¿EstÃ¡s seguro de que deseas borrar este aviso?");
     
     // Si el usuario hace clic en "Aceptar" (true)
     if (confirmacion) {
@@ -123,7 +121,7 @@ function getContextPath() {
 	
 <table style="width:50%">
 	<tr>
-		<th class="segunda">Fecha modificación</th>
+		<th class="segunda">Fecha modificaciÃ³n</th>
 		<th class="segunda">Texto</th>
 		<th class="segunda">Fecha inicio</th>
 		<th class="segunda">Fecha fin</th>
@@ -132,7 +130,7 @@ function getContextPath() {
 		<th class="segunda">Creador</th>
 		<th class="segunda">Orden</th>
 		<th class="segunda">Tipo</th>
-		<th class="segunda">Usuario modificación</th>
+		<th class="segunda">Usuario modificaciÃ³n</th>
 	</tr>
 	<logic:iterate id="data" name="formulari" property="avisos" type="lopicost.spd.model.Aviso" indexId="position">
 	<tr>

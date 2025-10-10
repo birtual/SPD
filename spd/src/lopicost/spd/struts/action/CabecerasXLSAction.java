@@ -2,6 +2,7 @@ package lopicost.spd.struts.action;
 
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,14 +34,60 @@ public class CabecerasXLSAction extends GenericAction  {
     }
 
     
+    public ActionForward edicionToma(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    	FicheroResiForm formulari =  (FicheroResiForm) form;
+      	FicheroResiBean cab = FicheroResiDetalleDAO.getFicheroResiDetalleByIdOid(getIdUsuario(), formulari.getOidFicheroResiDetalle());
+
+    	formulari.setIdUsuario(getIdUsuario());
+      	List errors = new ArrayList();
+      	List<CabecerasXLSBean> tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
+    	String idToma = formulari.getIdToma();
+    	if(formulari.getACTIONTODO()!=null && formulari.getACTIONTODO().equals("NOMBRETOMA"))
+    	{
+    	   	CabecerasXLSHelper.marcarEdicionNombreToma(tomasCabecera, idToma);
+    	} 
+    	else if(formulari.getACTIONTODO()!=null && formulari.getACTIONTODO().equals("HORATOMA"))
+      	{
+       	   	CabecerasXLSHelper.marcarEdicionHoraToma(tomasCabecera, idToma);
+        }
+    	else if(formulari.getACTIONTODO()!=null && formulari.getACTIONTODO().equals("EDITAR_OK"))
+    	{
+    		CabecerasXLSBean toma = CabecerasXLSHelper.getByIdToma(tomasCabecera, idToma);
+    		CabecerasXLSBean tomaAntigua=toma.clone();
+    		
+    		
+    		toma = CabecerasXLSHelper.editarToma(getIdUsuario(), tomaAntigua, toma, formulari, cab);
+ 				//INICIO eaciï¿½n de log en BBDD
+			if(toma!=null)
+			{
+				try{
+				SpdLogAPI.addLog(getIdUsuario(),  null,  toma.getIdDivisionResidencia(), formulari.getIdProceso()
+						, SpdLogAPI.A_CABECERA, SpdLogAPI.B_EDICION, SpdLogAPI.C_TOMAS, "SpdLog.cabecera.edicion.toma"
+						, new String[]{ formulari.getIdProceso(), toma.getNombreToma(), toma.getHoraToma(), formulari.getNombreToma(), formulari.getHoraToma()}  );//variables
+				}catch(Exception e){}	
+				//FIN de log en BBDD
+			}    	
+			else
+		    	errors.add( "No se ha podido realizar la modificaciÃ³n. Revise los datos introducidos");
+
+    	}
+    	tomasCabecera.sort(Comparator.comparingInt((CabecerasXLSBean t) -> Integer.parseInt(t.getIdToma())));
+		formulari.setErrors(errors);
+		formulari.setListaTomasCabecera(tomasCabecera);
+        return mapping.findForward("edicionLista");
+    }
+    
+    
+    
+    
     public ActionForward edicionLista(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
     	FicheroResiForm formulari =  (FicheroResiForm) form;
     	formulari.setIdUsuario(getIdUsuario());
-    	List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
+     	List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
     	boolean existenPosteriores = CabecerasXLSHelper.controlEdicion(formulari.getOidDivisionResidencia(), formulari.getOidFicheroResiCabecera());
-    	if(existenPosteriores )
+    	if(!existenPosteriores)
     	{
-    		formulari.setMode("VIEW");
+    		formulari.setMode("EDIT");
     	}
     	formulari.setListaTomasCabecera(tomasCabecera);
         return mapping.findForward("edicionLista");
@@ -61,8 +108,7 @@ public class CabecerasXLSAction extends GenericAction  {
     	if(horaTomaLiteral!=null && !horaTomaLiteral.equals("")) 
     		horaTomaLiteral=StringUtil.limpiarTextoyEspacios(horaTomaLiteral);  //quitamos espacios y algunos caracteres que no gustan al robot
 
-    	
-    	CabecerasXLSBean existeIdToma = CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), -1, -1, null, formulari.getResiToma(), horaTomaLiteral, false, false);
+    	//CabecerasXLSBean existeIdToma = CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), -1, -1, null, formulari.getResiToma(), horaTomaLiteral, false, false);
     	if(existeTomaPrevia)
     		 errors.add( "La hora y el nombre de la toma son obligatorios y han de ser diferentes a los existentes");
 
@@ -70,7 +116,7 @@ public class CabecerasXLSAction extends GenericAction  {
     	{
         	CabecerasXLSBean nuevaToma = new CabecerasXLSBean( cab.getIdDivisionResidencia(), formulari.getResiToma(),  horaTomaLiteral, cab.getNumeroDeTomas()+1, "EXTRA", false, false); 
         	result = CabecerasXLSHelper.nuevaToma(getIdUsuario(), cab, nuevaToma);
-			//INICIO eación de log en BBDD
+			//INICIO eaciï¿½n de log en BBDD
 			try{
 				SpdLogAPI.addLog(getIdUsuario(),  null,  cab.getIdDivisionResidencia(), formulari.getIdProceso()
 						, SpdLogAPI.A_CABECERA, SpdLogAPI.B_CREACION, SpdLogAPI.C_TOMAS, "SpdLog.cabecera.creacion.toma"
@@ -81,7 +127,7 @@ public class CabecerasXLSAction extends GenericAction  {
 			//FIN de log en BBDD
 
     	}
-    	//actualización con la nueva toma
+    	//actualizaciï¿½n con la nueva toma
 		tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
 		formulari.setListaTomasCabecera(tomasCabecera);
 		formulari.setErrors(errors);
@@ -100,7 +146,7 @@ public class CabecerasXLSAction extends GenericAction  {
 		FicheroResiBean  cabPlantilla = CabecerasXLSDAO.getCabecerasXLSByOidCabecera(getIdUsuario(), formulari.getOidFicheroResiCabecera());
 		
 		//if(cabPlantilla==null || cabPlantilla.getOidFicheroResiDetalle()==0)
-		//en caso que no exista plantilla de cabecera, la creamos en base a la última producción 
+		//en caso que no exista plantilla de cabecera, la creamos en base a la ï¿½ltima producciï¿½n 
 		if(cabPlantilla==null)
 			crearPlantilla(formulari);
 		formulari.setFicheroResiDetalleBean(cabPlantilla);
@@ -117,8 +163,8 @@ public class CabecerasXLSAction extends GenericAction  {
 		   		if(borrable)
 				{
 		   			result=CabecerasXLSDAO.borradoDeToma(getIdUsuario(), formulari, cabPlantilla, cab, resiToma.getPosicionEnBBDD());
-					errors.add( "Toma borrada correctamente ");
-					//INICIO eación de log en BBDD
+					errors.add("Toma borrada correctamente");
+					//INICIO eaciï¿½n de log en BBDD
 					try{
 						SpdLogAPI.addLog(getIdUsuario(),  null,  cab.getIdDivisionResidencia(), formulari.getIdProceso()
 								, SpdLogAPI.A_CABECERA, SpdLogAPI.B_BORRADO, SpdLogAPI.C_TOMAS, "SpdLog.cabecera.borrado.toma"
@@ -141,61 +187,13 @@ public class CabecerasXLSAction extends GenericAction  {
     	
     	formulari.setListaTomasCabecera(tomasCabecera);
 		//formulari.setACTIONTODO("VIEW");
-		formulari.setParameter("list");
+		formulari.setParameter("edicionLista");
 		//list(mapping,  form,  request,  response);
-		return mapping.findForward("list");
+		return mapping.findForward("edicionLista");
 
 	}
 
 	
-	
-	public ActionForward moverPosicion(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
-	    	FicheroResiForm formulari =  (FicheroResiForm) form;
-	    	formulari.setIdUsuario(getIdUsuario());
-	    	String accion = formulari.getACTIONTODO();
-	    	CabecerasXLSBean cabResiToma = CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), formulari.getOidResiToma(), -1, null, null, null, false, false);
-	    	CabecerasXLSBean cabResiTomaAIntercambiar = null;
-	    	
-	    	if(cabResiToma!=null && accion!=null && accion.equalsIgnoreCase("SUBIR"))
-	    	{
-	    		cabResiToma.setPosicionEnVistas(cabResiToma.getPosicionEnVistas()-1);
-	    		cabResiTomaAIntercambiar=CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), -1, cabResiToma.getPosicionEnVistas(), null, null, null, false, false);
-	    		cabResiTomaAIntercambiar.setPosicionEnVistas(cabResiTomaAIntercambiar.getPosicionEnVistas()+1);
-	    	}
-	    	if(cabResiToma!=null && accion!=null && accion.equalsIgnoreCase("BAJAR"))
-	    	{
-	    		cabResiToma.setPosicionEnVistas(cabResiToma.getPosicionEnVistas()+1);
-	    		cabResiTomaAIntercambiar=CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), -1, cabResiToma.getPosicionEnVistas(), null, null, null, false, false);
-	    		cabResiTomaAIntercambiar.setPosicionEnVistas(cabResiTomaAIntercambiar.getPosicionEnVistas()-1);
-	    	}
-	    	if(cabResiTomaAIntercambiar!=null)
-	    	{
-		    	CabecerasXLSDAO.actualizaPosicion(cabResiToma);
-		    	CabecerasXLSDAO.actualizaPosicion(cabResiTomaAIntercambiar);
-	    	}
-	    	    	
-			//INICIO eación de log en BBDD
-			try{
-				SpdLogAPI.addLog(getIdUsuario(),  null,  cabResiToma.getIdDivisionResidencia(), formulari.getIdProceso()
-						, SpdLogAPI.A_CABECERA, SpdLogAPI.B_EDICION, SpdLogAPI.C_TOMAS, "SpdLog.cabecera.moverPosicion.toma"
-						, new String[]{formulari.getIdProceso(), cabResiToma.getNombreToma()
-								, String.valueOf(cabResiToma.getPosicionEnVistas()), String.valueOf(cabResiTomaAIntercambiar.getPosicionEnVistas())
-								, cabResiTomaAIntercambiar.getNombreToma()
-								, String.valueOf(cabResiTomaAIntercambiar.getPosicionEnVistas()), String.valueOf(cabResiToma.getPosicionEnVistas()) }  );//variables
-			}catch(Exception e){}
-			//FIN de log en BBDD
-
-			//Se ha intercambiado la posición de la toma  @@ --> antes:  @@ - después:  @@, con la posición de la toma  @@ --> antes:  @@ - después:  @@
-			
-	    	List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
-	    	
-	    	formulari.setListaTomasCabecera(tomasCabecera);
-	    	
-	    	
-	    	//list(mapping,  form,  request,  response);
-	    	return mapping.findForward("edicionLista");
-	    }
-	   
 	   
 	private void crearPlantilla(FicheroResiForm formulari) throws Exception {
 		boolean result=CabecerasXLSDAO.crearPlantilla(getIdUsuario(), formulari);
@@ -203,118 +201,6 @@ public class CabecerasXLSAction extends GenericAction  {
 		
 	}
 
-	/*
-	//SUBIR / BAJAR POSICIONES
-	public ActionForward moverPosicion(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		FicheroResiForm formulari =  (FicheroResiForm) form;
-
-		FicheroResiBean  cab = FicheroResiDetalleDAO.getGestFicheroResiBolsaByForm(getIdUsuario(), 0, formulari, true, false, false);
-
-		int posicion = -1;
-		try {
-			posicion = new Integer(request.getParameter("posicion")).intValue();
-		}
-		catch(Exception e)
-		{
-			
-		}
-		
-		if(posicion>-1 && formulari.getACTIONTODO()!=null && formulari.getACTIONTODO().equalsIgnoreCase("SUBIR"))
-		{
-			CabecerasXLSDAO.intercambiaPosicion(cab, posicion, posicion+1);
-		}
-		
-	    // Obtén el registro correspondiente al lugar que ocupará el actual
-
-		
-	    Registro registro = obtenerRegistroPorId(registroId);
-
-	    // Obtén la lista actualizada de registros desde la base de datos
-	    List<Registro> registrosList = obtenerRegistrosDeBaseDeDatos();
-
-	    // Encuentra la posición actual del registro en la lista
-	    int posicionActual = registrosList.indexOf(registro);
-
-	    // Realiza la lógica para subir o bajar el registro
-	    if ("Subir".equals(accion) && posicionActual > 0) {
-	        // Intercambia el registro con el que está en la posición anterior
-	        Registro registroAnterior = registrosList.get(posicionActual - 1);
-	        registrosList.set(posicionActual, registroAnterior);
-	        registrosList.set(posicionActual - 1, registro);
-	    } else if ("Bajar".equals(accion) && posicionActual < registrosList.size() - 1) {
-	        // Intercambia el registro con el que está en la posición siguiente
-	        Registro registroSiguiente = registrosList.get(posicionActual + 1);
-	        registrosList.set(posicionActual, registroSiguiente);
-	        registrosList.set(posicionActual + 1, registro);
-	    }
-
-	    // Actualiza la lista de registros en la base de datos (esto puede depender de tu implementación)
-	    actualizarRegistrosEnBaseDeDatos(registrosList);
-
-	    // Pasa la lista actualizada a tu JSP
-	    request.setAttribute("registrosList", registrosList);
-
-	    // Redirige de nuevo a la página de visualización de registros
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("tu_jsp.jsp");
-	    dispatcher.forward(request, response);
-	}
-
-	// Métodos auxiliares para obtener, actualizar registros, etc.
-
-	
-	*/
-	
-	
-
-
-	 /*
-		public ActionForward editar(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-			FicheroResiForm formulari =  (FicheroResiForm) form;
-			List errors = new ArrayList();
-			
-			//recuperamos la lista
-			FicheroResiBean  cabPlantilla = CabecerasXLSDAO.getCabecerasXLSByOidCabecera(getIdUsuario(), formulari.getOidFicheroResiCabecera());
-			
-			//if(cabPlantilla==null || cabPlantilla.getOidFicheroResiDetalle()==0)
-			if(cabPlantilla==null)
-				crearPlantilla(formulari);
-			formulari.setFicheroResiDetalleBean(cabPlantilla);
-			
-			
-			boolean result=false;
-			if(formulari.getACTIONTODO()!=null && formulari.getACTIONTODO().equals("EDITA_OK"))
-			{
-				FicheroResiBean  cab = FicheroResiDetalleDAO.getGestFicheroResiBolsaByForm(getIdUsuario(), 0, formulari, true, false, false);
-				CabecerasXLSBean resiToma = CabecerasXLSDAO.findByFilters(formulari.getOidDivisionResidencia(), formulari.getOidResiToma(), -1, null, null);
-				
-				result=CabecerasXLSDAO.edita(getIdUsuario(), formulari, cabPlantilla, cab);
-				
-		   		if(result)
-				{
-		   			//result=FicheroResiDetalleDAO.actualizaNumeroDeTomas(cab);
-					errors.add( "Registro editado correctamente ");
-					//volvemos a mostrar el registro
-					//formulari.setOidFicheroResiDetalle(0);
-				}
-				else errors.add( "No se ha podido editar el registro");
-
-				formulari.setErrors(errors);
-				cabPlantilla = CabecerasXLSDAO.getCabecerasXLSByOidCabecera(getIdUsuario(), formulari.getOidFicheroResiCabecera());
-				formulari.setFicheroResiDetalleBean(cabPlantilla);
-
-				
-			}
-			List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia(), formulari.getOidFicheroResiCabecera());
-	    	
-	    	formulari.setListaTomasCabecera(tomasCabecera);
-			//formulari.setACTIONTODO("VIEW");
-			formulari.setParameter("list");
-			//list(mapping,  form,  request,  response);
-			return mapping.findForward("list");
-		}
-		
-	*/	
-	
 
 
 }

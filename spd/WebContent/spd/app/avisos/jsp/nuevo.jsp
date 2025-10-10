@@ -7,13 +7,13 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Creación de aviso</title>
+<title>CreaciÃ³n de aviso</title>
 </head>
 
 
@@ -54,7 +54,7 @@
 
 				
 </script>
-		<!-- Configuración de Flatpickr -->
+		<!-- ConfiguraciÃ³n de Flatpickr -->
 		<script>
 		    document.addEventListener("DOMContentLoaded", function () {
 		        flatpickr("#fechaInicio", {
@@ -76,7 +76,7 @@
 <body id="general">
 	<div id="contingut">
 		<center>
-		<h2>Edición aviso</h2>
+		<h2>EdiciÃ³n aviso</h2>
 		<html:form action="/Avisos.do" method="post">	
 
 	
@@ -108,7 +108,7 @@
 			<th class="segunda">Activo</th>
 			<td>
 				<select name="activo" style="text-align: left;">>
-				    <option value="SI" ${dat.activo}='SI' ? 'selected="selected"' : ''}>Sí</option>
+				    <option value="SI" ${dat.activo}='SI' ? 'selected="selected"' : ''}>SÃ­</option>
 				    <option value="No" ${dat.activo}='NO' ? 'selected="selected"' : ''}>No</option>
 				</select>
 			</td>
@@ -131,7 +131,7 @@
 			<th class="segunda">Tipo</th>
 			<td>
 				<select name="tipo">
-				    <option value="" selected>Selección de tipo</option>
+				    <option value="" selected>SelecciÃ³n de tipo</option>
 				    <option value="INFO" >Aviso informativo</option>
 				    <option value="INCIDENCIA">Incidencia</option>
 				    <option value="ALERTA" >Alerta</option>

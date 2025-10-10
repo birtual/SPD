@@ -7,7 +7,7 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
@@ -57,11 +57,11 @@
 		<tr>
 			<th class="segunda">idEnlace</th>
 			<th class="segunda">Nombre enlace</th>
-			<th class="segunda">DescripciÛn</th>
+			<th class="segunda">Descripci√≥n</th>
 			<th class="segunda">idapartado</th>
 			<th class="segunda">preEnlace</th>
 			<th class="segunda">link</th>
-			<th class="segunda">Par·metros</th>
+			<th class="segunda">Par√°metros</th>
 			<th class="segunda">activo</th>
 		</tr>
 		<th><bean:write name="data" property="idEnlace" /></th>

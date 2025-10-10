@@ -8,6 +8,7 @@ import lopicost.spd.model.DivisionResidencia;
 import lopicost.spd.robot.model.FiliaDM;
 import lopicost.spd.robot.model.FiliaRX;
 import lopicost.spd.struts.bean.FicheroResiBean;
+import lopicost.spd.struts.bean.PacienteBean;
 
 
 public class PlantillaUnificada {
@@ -30,11 +31,11 @@ public class PlantillaUnificada {
 		
 		}
 	
-	public static FiliaRX creaFicheroRX(String spdUsuario, FicheroResiBean cab, DivisionResidencia div) throws Exception {
+	public static FiliaRX creaFicheroRX(String spdUsuario, FicheroResiBean cab, DivisionResidencia div, PacienteBean pac) throws Exception {
 		//Cabecera con tomas
 		//arrayTramosHorarios
 	//	FicheroResiBean cab = FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(spdUsuario, oidFicheroResiCabecera);
-		FiliaRX filiaRX = PlantillaUnificadaHelper.getTratamientosProceso(spdUsuario, cab, div);
+		FiliaRX filiaRX = PlantillaUnificadaHelper.getTratamientosProceso(spdUsuario, cab, div, pac);
 
 		//recuperar el listado ORDENADO del detalle del proceso,ordenado por CIP, nombreBolsa
 		

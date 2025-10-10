@@ -21,7 +21,7 @@ import java.util.Vector;
 
 public class ImportGDRExcel extends ImportGenericLite
 {
-	int COLUMNAS = 13; //número de columnas a tratar del fichero 
+	int COLUMNAS = 13; //nÃºmero de columnas a tratar del fichero 
 
 	
 	public ImportGDRExcel(){
@@ -29,18 +29,18 @@ public class ImportGDRExcel extends ImportGenericLite
 	}
 
 	/**
-	 * Resident
-		Nº Targ.San.
+	 * 	Resident
+		NÂº Targ.San.
 		Tipus
 		Medicament
 		Data inici
 		Data fi
-		Planificació
+		PlanificaciÃ³
 		Posologia
 		Tipus unitat
 		Emblistable
-		Només en cas de
-		Història CAP
+		NomÃ©s en cas de
+		HistÃ²ria CAP
 		Comentari
 
 	 */
@@ -51,18 +51,18 @@ public class ImportGDRExcel extends ImportGenericLite
 			//saltamos cabecera
 			if(getProcessedRows()==0)
 			{
-				//throw new Exception ("No es un tratamiento válido.");
-				throw new LineaDescartadaException("No es un tratamiento válido. ");
+				//throw new Exception ("No es un tratamiento vÃ¡lido.");
+				throw new LineaDescartadaException("No es un tratamiento vï¿½lido. ");
 			}
 		}catch(Exception e)
 		{
-			//throw new Exception ("No es un tratamiento válido.");
-			throw new LineaDescartadaException("No es un tratamiento válido. ");
+			//throw new Exception ("No es un tratamiento vÃ¡lido.");
+			throw new LineaDescartadaException("No es un tratamiento vï¿½lido. ");
 		}
     	
     	String detalleRow = HelperSPD.getDetalleRow(row, COLUMNAS);
     	try 
-    	{ //quitamos el caso del pipe final ya que lo envían con y sin 
+    	{ //quitamos el caso del pipe final ya que lo envÃ­an con y sin 
     		detalleRow = detalleRow.replace("|(", "(");
     	}catch(Exception e){
     		
@@ -76,35 +76,33 @@ public class ImportGDRExcel extends ImportGenericLite
 
         if(!reutilizado) rellenaDatosDeExcel(medResi, row);
     	
-
-		
 	}
 	
 
 	private void rellenaDatosDeExcel(FicheroResiBean medResi, Vector row) throws Exception {
     	int i = 0;   
 	   	medResi.setNombrePacienteEnFichero((String) row.elementAt(i));i++;								//Resident
-       	medResi.setResiCIP(StringUtil.limpiarTextoyEspacios((String) row.elementAt(i)));i++;			//Nº Targ.San.
+       	medResi.setResiCIP(StringUtil.limpiarTextoyEspacios((String) row.elementAt(i)));i++;			//NÂº Targ.San.
  		HelperSPD.getDatosPaciente(medResi);	
   		medResi.setResiTipoMedicacion((String) row.elementAt(i));i++;									//Tipus
 		medResi.setResiMedicamento((String) row.elementAt(i));i++;										//Medicament
 		try{medResi.setResiInicioTratamiento(StringUtil.getStringArregloFecha((String) row.elementAt(i),  "dd/MM/yyyy"));i++;}    	catch(Exception e){} //Data inici 
     	try{medResi.setResiFinTratamiento(StringUtil.getStringArregloFecha((String) row.elementAt(i),  "dd/MM/yyyy"));i++;}    	catch(Exception e){} //Data fi
-    	medResi.setResiVariante(StringUtil.limpiarTextoComentarios((String) row.elementAt(i)));i++;		//Planificació
+    	medResi.setResiVariante(StringUtil.limpiarTextoComentarios((String) row.elementAt(i)));i++;		//PlanificaciÃ³
     	//medResi.setResiPeriodo((String) row.elementAt(i));i++;
     	medResi.setResiPauta((String) row.elementAt(i));i++;											//Posologia
     	medResi.setResiFormaMedicacion((String) row.elementAt(i));i++;									//Tipus unitat
     	medResi.setResiEmblistable((String) row.elementAt(i));i++;										//Emblistable
-       	medResi.setResiObservaciones((String) row.elementAt(i));i++;									//Només en cas de
-       	i++; //saltamos Història CAP																	//saltamos "Història CAP"
+       	medResi.setResiObservaciones((String) row.elementAt(i));i++;									//NomÃ©s en cas de
+       	i++; //saltamos Histï¿½ria CAP																	//saltamos "HistÃ²ria CAP"
        	medResi.setResiComentarios(StringUtil.limpiarTextoComentarios((String) row.elementAt(i)));i++;	//Comentari
     	
        	
        	String valor = medResi.getResiPauta(); // Ejemplo: "1|0|2|0 (3)"
        	
        	
-        // Eliminamos lo que está entre paréntesis (incluido el espacio antes)
-       	String sinSuma = limpiarFormatoPautaGDR(valor.replaceAll("\\s*\\(.*\\)", "")); //  "12|3|45|6" o "4- 12|3|45|6" (se descarta lo anterior al guión)
+        // Eliminamos lo que estÃ¡ entre parÃ©ntesis (incluido el espacio antes)
+       	String sinSuma = limpiarFormatoPautaGDR(valor.replaceAll("\\s*\\(.*\\)", "")); //  "12|3|45|6" o "4- 12|3|45|6" (se descarta lo anterior al guiÃ³n)
        	String[] partes = sinSuma.split("\\|");
        	
        	try{medResi.setResiToma1(HelperSPD.getPautaStandard(medResi, partes[0].trim())); }catch(Exception e){medResi.setResiToma1("");}//esmorzar
@@ -115,7 +113,7 @@ public class ImportGDRExcel extends ImportGenericLite
 		String resiPauta=medResi.getResiToma1()+"-"+medResi.getResiToma2()+"-"+medResi.getResiToma3()+"-"+medResi.getResiToma4();
 		medResi.setResiPauta(resiPauta);
 
- 		//medResi.setResiCn(StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiMedicamento(), true ));//10/07/2025 - De momento en este sistema no llega nunca el CN, ponemos la descripción
+ 		//medResi.setResiCn(StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiMedicamento(), true ));//10/07/2025 - De momento en este sistema no llega nunca el CN, ponemos la descripciÃ³n
  		String variante = normalizar(medResi.getResiVariante());
  		boolean diaria=variante.isEmpty() || variante.contains("diaria");
  		String resultVariante=tratarVariante(medResi);
@@ -129,7 +127,7 @@ public class ImportGDRExcel extends ImportGenericLite
  		if(	diaria || variante.contains("dissabte") || variante.contains("martes")) 			medResi.setResiD6("X");
  		if(	diaria || variante.contains("diumenge") || variante.contains("domingo")) 			medResi.setResiD7("X");
 		
-		int diasSemanaMarcados=HelperSPD.getDiasMarcados(medResi);  //importante!! para que detecte que hay días marcados y no los llene automáticamente.
+		int diasSemanaMarcados=HelperSPD.getDiasMarcados(medResi);  //importante!! para que detecte que hay dÃ­as marcados y no los llene automÃ¡ticamente.
     	medResi.setDiasSemanaMarcados(diasSemanaMarcados);
     	
  		
@@ -140,22 +138,20 @@ public class ImportGDRExcel extends ImportGenericLite
 		
 		medResi.setNumeroDeTomas(numeroDoses); // IMPORTANTE PARA TABULAR EL LISTADO!! TO-DO
 		
-		//la búsqueda de sustitución se realiza en la carga
+		//la bÃºsqueda de sustituciÃ³n se realiza en la carga
 		boolean reutilizado = false;
 		if( (medResi.getResiCn()!=null && !medResi.getResiCn().equals("") ) || (medResi.getResiMedicamento()!=null && !medResi.getResiMedicamento().equals("") )  )
 			reutilizado = GestSustitucionesLiteDAO.buscaSustitucionLite(getSpdUsuario(), medResi);
 
-		///esta residencia no envía CN (a fecha 10/07/2025), pero el nombre del medicamento es el del Consejo Nombre + ' - ' + presentacion
+		///esta residencia no envÃ­a CN (a fecha 10/07/2025), pero el nombre del medicamento es el del Consejo Nombre + ' - ' + presentacion
 		if(!DataUtil.isNumero(medResi.getResiCn()) && !reutilizado)
 		{
 			BdConsejo bdConsejo = BdConsejoDAO.getBdCNPorNombre(medResi.getResiMedicamento());
 			//if(bdConsejo!=null) medResi.setResiCn(bdConsejo.getCnConsejo());
-			//añadimos un sufijo "-(SD)" para indicar que se ha obtenido a partir del nombre
+			//aÃ±adimos un sufijo "-(SD)" para indicar que se ha obtenido a partir del nombre
 			if(bdConsejo!=null) medResi.setResiCn(bdConsejo.getCnConsejo() + SPDConstants.CN_SEGUN_DESCRIPCION);
 		}
 
-		
-		
     	//si no hay CNResi ponemos el nombre de medicamento
 		if(medResi.getResiCn()==null || medResi.getResiCn().equals(""))
 		{
@@ -163,14 +159,14 @@ public class ImportGDRExcel extends ImportGenericLite
 
 			/*
 			 *
-			//si hemos encontrado sustitución no hacemos validar/confirmar
+			//si hemos encontrado sustituciï¿½n no hacemos validar/confirmar
 			if(medResi.getSpdCnFinal()!=null && !medResi.getSpdCnFinal().isEmpty())
 			{
 				medResi.setResiCn(StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiMedicamento(), true));
 			}
 			//else
 			*/
-			//si hemos encontrado sustitución no hacemos validar/confirmar
+			//si hemos encontrado sustituciï¿½n no hacemos validar/confirmar
 			if(medResi.getSpdCnFinal()==null || medResi.getSpdCnFinal().isEmpty())	
 			{
 				medResi.setValidar(SPDConstants.REGISTRO_VALIDAR);
@@ -185,7 +181,7 @@ public class ImportGDRExcel extends ImportGenericLite
 		if(medResi.getResiSiPrecisa()!=null && medResi.getResiSiPrecisa().equalsIgnoreCase("X")) {
 			medResi.setSpdAccionBolsa(SPDConstants.SPD_ACCIONBOLSA_SI_PRECISA);
 			//medResi.setRevisar("SI");
-			medResi.setValidar(""); //mejor no revisarlo porque cada vez aparecerían en cada producción
+			medResi.setValidar(""); //mejor no revisarlo porque cada vez aparecerÃ­an en cada producciÃ³n
 		}
 		
 		medResi.setIdTratamientoCIP(HelperSPD.getID(medResi));
@@ -193,9 +189,9 @@ public class ImportGDRExcel extends ImportGenericLite
 		
 		if(existeDuplicado)
 			//this.errors.add(TextManager.getMensaje("ImportData.error.linea")+" " + row);
-			//this.errors.add("Es un tratamiento que está duplicado " );
-			//throw new Exception ("Es un tratamiento que está duplicado ");
-			throw new LineaDuplicadaException("Es un tratamiento que está duplicado ");
+			//this.errors.add("Es un tratamiento que estÃ¡ duplicado " );
+			//throw new Exception ("Es un tratamiento que estÃ¡ duplicado ");
+			throw new LineaDuplicadaException("Es un tratamiento que estï¿½ duplicado ");
 		System.out.println(" -----  borrarPosibleDuplicado Fin-->  " );
 		
 	}
@@ -211,7 +207,7 @@ public class ImportGDRExcel extends ImportGenericLite
 	        }
 	    }
 
-	    // Paso 2: eliminar lo que esté entre paréntesis (si lo hay)
+	    // Paso 2: eliminar lo que estÃ¡ entre parï¿½ntesis (si lo hay)
 	    entrada = entrada.replaceAll("\\s*\\(.*\\)", "");
 
 	    // Paso 3: reemplazar los guiones por ceros
@@ -232,7 +228,7 @@ public class ImportGDRExcel extends ImportGenericLite
 
 	private static String normalizar(String str) {
     	if(str==null) return "";
-        // Elimina acentos y convierte a minúsculas
+        // Elimina acentos y convierte a minÃºsculas
         return Normalizer.normalize(str, Normalizer.Form.NFD)
                          .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
                          .toLowerCase();
@@ -242,10 +238,10 @@ public class ImportGDRExcel extends ImportGenericLite
 	
 	/**
 1		 2				3		4			5			6		7				8		  9		10		11			12				13				14
-Resident Nº Targ.San.	Tipus	Medicament	Data inici	Data fi	Planificació	Posologia Tipus unitat	Emblistable	Només en cas de	Història CAP	Comentari
+Resident Nï¿½ Targ.San.	Tipus	Medicament	Data inici	Data fi	Planificaciï¿½	Posologia Tipus unitat	Emblistable	Nomï¿½s en cas de	Histï¿½ria CAP	Comentari
 	 */
 	public List<Integer> getPosicionesAEliminar() {
-		//en GDR no tendremos en cuenta  13 Història CAP
+		//en GDR no tendremos en cuenta  13 Histï¿½ria CAP
 		List<Integer> result =new ArrayList<Integer>();
 		result.add(13);
 		//result.add(6);

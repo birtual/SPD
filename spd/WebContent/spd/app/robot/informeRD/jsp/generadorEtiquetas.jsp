@@ -24,27 +24,27 @@
 <html:form action="/InformeRD.do" method="post">
 	<fieldset>
 	<div>
-		<label for="fechaConsumo" accesskey="e">Fechas de consumo:</label>${cab.fechaDesde} - ${cab.fechaHasta}
+		<label for="fechaConsumo" accesskey="e">Fechas de consumo:</label>${cab.fechaDesde} - ${cab.fechaHasta}/>
 	</div>
 	<div>
 		<label for="idProceso" accesskey="e">Id carga fichero :</label>${cab.idProceso}
 	</div>	
-	<c:if test="${not empty cab.usuarioDesemblistaSPD and cab.usuarioDesemblistaSPD != 'null'}}">
+	<c:if test="${not empty cab.usuarioDesemblistaSPD}">
 		<div>
 			<label>Resp. desemblistado:</label>${cab.fechaDesemblistaSPD} - ${cab.usuarioDesemblistaSPD}
 		</div>	
 	</c:if>	
-	<c:if test="${not empty cab.usuarioProduccionSPD and cab.usuarioProduccionSPD != 'null'}}">
+	<c:if test="${not empty cab.usuarioProduccionSPD}">
 		<div>
 			<label>Resp. producción:</label>${cab.fechaProduccionSPD} - ${cab.usuarioProduccionSPD}
 		</div>	
 	</c:if>	
-	<c:if test="${not empty cab.usuarioEntregaSPD and cab.usuarioEntregaSPD != 'null'}}">
+	<c:if test="${not empty cab.usuarioEntregaSPD}">
 		<div>
 			<label>Resp. entrega en residencia:</label>${cab.fechaEntregaSPD} - ${cab.usuarioEntregaSPD}
 		</div>	
 	</c:if>	
-	<c:if test="${not empty cab.usuarioRecogidaSPD and cab.usuarioRecogidaSPD != 'null'}} ">
+	<c:if test="${not empty cab.usuarioRecogidaSPD}">
 		<div>
 			<label>Resp. recogida en destino:</label>${cab.fechaRecogidaSPD} -  ${cab.usuarioRecogidaSPD}
 		</div>	
@@ -71,11 +71,11 @@
 
 	<fieldset style="width:90%">
 		<fieldset style="width:95%">
-			<h4>Residente: ${pac.nombre} ${pac.apellidos} - (${pac.CIP})</h4>
+			<h4>Residente: ${pac.nombre} ${pac.apellidos} - (${pac.CIP}>)</h4>
 			<h4>Código numérico interno: ${data.orderNumber}</h4>
 			<h4>Fechas SPD: ${cab.fechaDesde} - ${cab.fechaHasta} </h4>
 			
-			<c:if test="${not empty cab.medicoResponsable and cab.medicoResponsable != 'null'}} ">
+			<c:if test="${not empty cab.medicoResponsable}">
 				<h4>Médico responsable:${cab.medicoResponsable}</h4>
 			</c:if>
 			
@@ -94,11 +94,10 @@
 			<th>lote / caducidad</th>
 			<th>numeroSerie</th>
 			<th>aspecto</th>
-			<th class="receta">Medicamento RECETA</th> 
-			<th class="receta">Fecha dispensación</th> 
-			<th class="receta">lote / caducidad</th>
-			<th class="receta">numeroSerie</th>
-			<th class="receta">aspecto</th>
+			<th>Medicamento RECETA</th> 
+			<th>lote / caducidad</th>
+			<th>numeroSerie</th>
+			<th>aspecto</th>
 		</tr>
 		</thead>
 	    <tbody>
@@ -116,12 +115,9 @@
 	</c:if>
 
 		<tr class="rd_cabecera">
-<!-- DATOS DE RESIDENCIA/bIRTUAL  -->	
-			<td align="center">${birtual.pautaResidencia}</td>
+			<td>${birtual.pautaResidencia}</td>
 			<td>${birtual.nombreMedicamentoBolsa}</td>
-<!-- DATOS DE ROBOT  -->	
-
-			<td align="center">
+			<td>
 			<c:choose>
 			  <c:when test="${trat.cantidadTotalEmblistadaSPD % 1 == 0}">
 			    ${trat.cantidadTotalEmblistadaSPD.intValue()}
@@ -131,74 +127,19 @@
 			  </c:otherwise>
 			</c:choose>
 			</td>
-			<c:choose>
-	        <c:when test="${robot.cn=='111111'}">
-	            <td style="color:blue;">111111 - 1/2 DEPRAX 100MG </td>
-	        </c:when>
-	        <c:otherwise>
-	            <td>${robot.cn} - ${robot.nombreConsejoCn} (${robot.lab})</td>
-	        </c:otherwise>
-	    </c:choose>
-			<td align="right">${robot.lote} - ${robot.caducidad}</td>
-			<td align="right">${robot.numeroSerie}</td>
+			<td>${robot.cn} / ${robot.nombreConsejoCn} (${robot.lab})</td>
+			<td>${robot.lote} - ${robot.caducidad}</td>
+			<td>${robot.numeroSerie}</td>
 			<td>${identRobot.resumen}</td>
-<!-- DATOS DE RECETA  -->	
 	<c:choose>
     	<c:when test="${not empty receta}">
-	    	<c:choose>
-	        <c:when test="${receta.cn != robot.cn}">
-	            <td style="color:blue;">
-	                ${receta.cn} - ${receta.nombreConsejoCn} (${receta.lab})
-	            </td>
-	        </c:when>
-	        <c:otherwise>
-	            <td>
-	                ${receta.cn} - ${receta.nombreConsejoCn} (${receta.lab})
-	            </td>
-	        </c:otherwise>
-	    </c:choose>
-	    <!-- Fecha venta  -->	
-	    <c:if test="${receta.ventaAntigua}">
-    		<td style="color:blue;">${receta.fechaVenta}</td>
-    	</c:if>
-	    <c:if test="${not receta.ventaAntigua}">
-    		<td>${receta.fechaVenta}</td>
-    	</c:if>
-
-
-	    <!-- Lote/Caducidad  -->	
-		<c:choose>
-		    <c:when test="${receta.lote != robot.lote or receta.caducidad != robot.caducidad}">
-		        <td style="color:blue;">${receta.lote} / ${receta.caducidad}</td>
-		    </c:when>
-		    <c:otherwise>
-		        <td>${receta.lote} / ${receta.caducidad}</td>
-		    </c:otherwise>
-		</c:choose>
-
-	    <!-- Número de serie  -->
-	    <c:choose>	
-	    <c:when test="${receta.numeroSerie!= null and receta.numeroSerie != robot.numeroSerie}">
-    		<td style="color:blue;">${receta.numeroSerie}</td>
-		 </c:when>
-		 <c:otherwise>
-	   		<td>${receta.numeroSerie}</td>
-		 </c:otherwise>
-		</c:choose>>
-
-			
-	    <!-- Resumen  -->	
-	    <c:if test="${identRobot.resumen != identReceta.resumen}">
-    		<td style="color:blue;">${identReceta.resumen}</td>
-    	</c:if>
-	    <c:if test="${identRobot.resumen == identReceta.resumen}">
-    		<td>${identReceta.resumen}</td>
-    	</c:if>
-    	
-			
+    		<td>${receta.codigoDispensado} / ${receta.nombreConsejoCn} (${receta.lab})</td>
+			<td>${receta.lote} /${receta.caducidad}</td>
+			<td>${receta.numeroSerie}</td>
+			<td>${identReceta.resumen}</td>
 		 </c:when>
    		<c:otherwise>
-   			<td style="color:blue;" colspan="5">No hay receta disponible.</td>
+   			<td colspan="4">No hay receta disponible.</td>
    		</c:otherwise>
 	</c:choose>
 		</tr>

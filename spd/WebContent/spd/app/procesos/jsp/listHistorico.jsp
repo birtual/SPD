@@ -9,7 +9,7 @@
 
 
 <%@ page session="true" %>
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html:html>
 <HEAD>
@@ -33,8 +33,8 @@
 
 
 function borrar(oidProceso) {
-    // Mostrar un cuadro de confirmaci髇
-    var confirmacion = window.confirm("縀st醩 seguro de que deseas borrar este proceso?");
+    // Mostrar un cuadro de confirmaci锟絥
+    var confirmacion = window.confirm("锟紼st锟絪 seguro de que deseas borrar este proceso?");
     
     // Si el usuario hace clic en "Aceptar" (true)
     if (confirmacion) {
@@ -123,31 +123,31 @@ function getContextPath() {
 	
 <table style="width:50%">
 	<tr>
-		<th class="segunda">Fecha creaci髇</th>
+		<th class="segunda">Fecha creaci贸n</th>
         <th>OID Proceso</th>
         <th>Nombre</th>
         <th>Lanzadera</th>
-        <th>Descripci髇</th>
+        <th>Descripci贸n</th>
         <th>Estado</th>
-        <th>Par醡etros</th>
-        <th>Tipo ejecuci髇</th>
+        <th>Par谩metros</th>
+        <th>Tipo ejecuci贸n</th>
         <th>Veces</th>
         <th>Periodo</th>
-        <th>D韆s semana</th>
-        <th>Hora ejecuci髇</th>
+        <th>D铆as semana</th>
+        <th>Hora ejecuci贸n</th>
         <th>Max reintentos</th>
-        <th>Max duraci髇 (s)</th>
+        <th>Max duraci贸n (s)</th>
         <th>Fecha desde</th>
         <th>Fecha hasta</th>
-        <th>inicio ejecuci髇</th>
-        <th>fin ejecuci髇</th>  
-        <th>趌tima duraci髇 (s)</th>
-        <th>趌timo resultado</th>
-        <th>趌timo usuario ejecuci髇</th>
-        <th>趌timo mensaje</th>
-        <th>趌timo tipo error</th>
-        <th>趌timo c骴igo resultado</th>
-        <th>趌timo error</th>
+        <th>inicio ejecuci贸n</th>
+        <th>fin ejecuci贸n</th>  
+        <th>脷ltimo duraci贸n (s)</th>
+        <th>脷ltimo resultado</th>
+        <th>脷ltimo usuario ejecuci贸n</th>
+        <th>脷ltimo mensaje</th>
+        <th>脷ltimo tipo error</th>
+        <th>脷ltimo c贸digo resultado</th>
+        <th>脷ltimo error</th>
 	</tr>
 	<logic:iterate id="data" name="formulari" property="procesos" type="lopicost.spd.model.Proceso" indexId="position">
 	<tr>

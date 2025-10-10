@@ -1,5 +1,7 @@
 package lopicost.spd.model.rd;
 
+import java.util.Date;
+
 import lopicost.spd.model.Medicamento;
 
 public class MedicamentoReceta extends Medicamento{
@@ -10,6 +12,16 @@ public class MedicamentoReceta extends Medicamento{
     private String fechaVenta;
     private String idVenta;
     private String idNLinea;
+    private boolean ventaAntigua=false;
+    
+    
+    
+	public boolean isVentaAntigua() {
+		return ventaAntigua;
+	}
+	public void setVentaAntigua(boolean ventaAntigua) {
+		this.ventaAntigua = ventaAntigua;
+	}
 	public String getCodigoPrescrito() {
 		return codigoPrescrito;
 	}

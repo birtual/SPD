@@ -7,13 +7,13 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Creación de usuario SPD</title>
+<title>Creaciï¿½n de usuario SPD</title>
 </head>
 
 <bean:define id="formulari" name="PacientesForm" type="lopicost.spd.struts.form.PacientesForm" />
@@ -60,7 +60,7 @@
 			</td>
 		</tr>	
 		<tr>
-			<td>Nº identidad</br>
+			<td>NÂº identidad</br>
 			
 			id en la residencia
 			</td>
@@ -68,7 +68,7 @@
 			<html:text name="formulari" property="idPacienteResidencia"/></td>
 		</tr>
 		<tr>
-			<td>Planta</br>Habitación</td>
+			<td>Planta</br>HabitaciÃ³n</td>
 			<td><html:text name="formulari" property="planta" /></br><html:text name="formulari" property="habitacion" /></td>
 		</tr>
 		<tr>
@@ -80,7 +80,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>Servir pañales</td>
+			<td>Servir paÃ±ales</td>
 			<td>
 				<select name="bolquers" >
 			   	 	<option value="S"  selected>SI</option>
@@ -125,9 +125,9 @@
 
 		         <script type="text/javascript">
         // Agregar placeholders a los campos de texto
-        document.getElementById('nombreField').setAttribute('placeholder', 'Añadir el nombre');
-        document.getElementById('apellido1Field').setAttribute('placeholder', 'Añadir primer apellido');
-        document.getElementById('apellido2Field').setAttribute('placeholder', 'Añadir segundo apellido');
+        document.getElementById('nombreField').setAttribute('placeholder', 'AÃ±adir el nombre');
+        document.getElementById('apellido1Field').setAttribute('placeholder', 'AÃ±adir primer apellido');
+        document.getElementById('apellido2Field').setAttribute('placeholder', 'AÃ±adir segundo apellido');
     </script>
 	
 </div>	

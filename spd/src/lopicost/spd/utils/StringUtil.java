@@ -16,7 +16,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.poi.ss.usermodel.DateUtil;
 
 
-/** String Util: recopilaciÛn de utilidades para tratamiento de Strings
+
+/** String Util: recopilaci√≥n de utilidades para tratamiento de Strings
 
  */
 public class StringUtil{
@@ -35,7 +36,7 @@ public class StringUtil{
 	
 	
 	/**
-	 * MÈtodo para eliminar algunos car·cteres de un texto concreto
+	 * m√©todo para eliminar algunos caracteres de un texto concreto
 	 * @param text
 	 * @return
 	 */
@@ -50,7 +51,7 @@ public class StringUtil{
 	}
 	
 	/**
-	 * MÈtodo para eliminar algunos car·cteres de un texto concreto
+	 * m√©todo para eliminar algunos caracteres de un texto concreto
 	 * @param text
 	 * @return
 	 */
@@ -59,20 +60,20 @@ public class StringUtil{
 		if(result!=null&&!result.equals(""))
 		{ 
 			result=result.replace("'", "");
-			result=result.replace("¥", "");			
+			result=result.replace("ÔøΩ", "");			
 			result=result.replace("`", "");
 			result=result.replace(".", "");
 			result=result.replace("-", "");
 			result=result.replace(",", "");
 			result=result.replace(";", "");
-			result=result.replace("ˇ", "");
+			result=result.replace("ÔøΩ", "");
 			result=result.replaceAll("\\t","");
 			result=result.trim();
 		}
 		return result;
 	}
 	/**
-	 * MÈtodo para eliminar algunos car·cteres de un texto concreto
+	 * m√©todo para eliminar algunos caracteres de un texto concreto
 	 * @param text
 	 * @return 
 	 */
@@ -81,13 +82,13 @@ public class StringUtil{
 		if(result!=null&&!result.equals(""))
 		{ 
 			result=result.replace("'", " ");
-			result=result.replace("¥", " ");			
+			result=result.replace("ÔøΩ", " ");			
 			result=result.replace("`", " ");
 			result=result.replace(".", " ");
 			result=result.replace("-", " ");
 			result=result.replace(",", " ");
 			result=result.replace(";", " ");
-			result=result.replace("ˇ", " ");
+			result=result.replace("ÔøΩ", " ");
 			result=result.replaceAll("\\t","");
 			result=result.trim();
 		}
@@ -108,7 +109,7 @@ public class StringUtil{
 	}	
 	
 	/**
-	 * MÈtodo para eliminar algunos car·cteres de un texto concreto
+	 * m√©todo para eliminar algunos caracteres de un texto concreto
 	 * @param text
 	 * @return
 	 */
@@ -127,7 +128,7 @@ public class StringUtil{
 			result=result.replace("_", " ");
 			result=result.replace(";", ",");
 			result=result.replace("'", ",");
-			result=result.replace("¥", " ");
+			result=result.replace("ÔøΩ", " ");
 			if(quitaEspacios) result=quitaEspacios(result);
 			
 			
@@ -136,7 +137,7 @@ public class StringUtil{
 	}
 
 	/**
-	 * MÈtodo para eliminar todos los espacios de un texto
+	 * m√©todo para eliminar todos los espacios de un texto
 	 * @param text
 	 * @return
 	 */
@@ -166,49 +167,49 @@ public class StringUtil{
 	}
 	
 	/**
-	 * MÈtodo que transforma en may˙sculas, eliminando acentos
+	 * m√©todo que transforma en mayÔøΩsculas, eliminando acentos
 	 * @param q String base
-	 * @return String Retorna un String cuyas letras estar·n todas en may˙sculas y sin acentos
+	 * @return String Retorna un String cuyas letras estar√°n todas en mayÔøΩsculas y sin acentos
 	 */
 	public final static String makeFlat(String q, boolean upper){
 		if(q==null) return "";
-		q = StringUtil.replaceChar(q,'¡','A');
-		q = StringUtil.replaceChar(q,'…','E');
-		q = StringUtil.replaceChar(q,'Õ','I');
-		q = StringUtil.replaceChar(q,'”','O');
-		q = StringUtil.replaceChar(q,'⁄','U');
-		q = StringUtil.replaceChar(q,'¿','A');
-		q = StringUtil.replaceChar(q,'»','E');
-		q = StringUtil.replaceChar(q,'Ã','I');
-		q = StringUtil.replaceChar(q,'“','O');
-		q = StringUtil.replaceChar(q,'Ÿ','U');
-		q = StringUtil.replaceChar(q,'ƒ','A');
-		q = StringUtil.replaceChar(q,'À','E');
-		q = StringUtil.replaceChar(q,'œ','I');
-		q = StringUtil.replaceChar(q,'÷','O');
-		q = StringUtil.replaceChar(q,'‹','U');
-		q = StringUtil.replaceChar(q,'—','N');
-		q = StringUtil.replaceChar(q,'«','C');
+		q = StringUtil.replaceChar(q,'√Å','A');
+		q = StringUtil.replaceChar(q,'√â','E');
+		q = StringUtil.replaceChar(q,'√ç','I');
+		q = StringUtil.replaceChar(q,'√ì','O');
+		q = StringUtil.replaceChar(q,'√ö','U');
+		q = StringUtil.replaceChar(q,'√Ä','A');
+		q = StringUtil.replaceChar(q,'√à','E');
+		q = StringUtil.replaceChar(q,'√å','I');
+		q = StringUtil.replaceChar(q,'√í','O');
+		q = StringUtil.replaceChar(q,'√ô','U');
+		q = StringUtil.replaceChar(q,'√Ñ','A');
+		q = StringUtil.replaceChar(q,'√ã','E');
+		q = StringUtil.replaceChar(q,'√è','I');
+		q = StringUtil.replaceChar(q,'√ñ','O');
+		q = StringUtil.replaceChar(q,'√ú','U');
+		q = StringUtil.replaceChar(q,'√ë','N');
+		q = StringUtil.replaceChar(q,'√á','C');
 		
-		q = StringUtil.replaceChar(q,'·','a');
-		q = StringUtil.replaceChar(q,'È','e');
-		q = StringUtil.replaceChar(q,'Ì','i');
-		q = StringUtil.replaceChar(q,'Û','o');
-		q = StringUtil.replaceChar(q,'˙','u');
-		q = StringUtil.replaceChar(q,'‡','a');
-		q = StringUtil.replaceChar(q,'Ë','e');
-		q = StringUtil.replaceChar(q,'Ï','i');
-		q = StringUtil.replaceChar(q,'Ú','o');
-		q = StringUtil.replaceChar(q,'˘','u');
-		q = StringUtil.replaceChar(q,'‰','a');
-		q = StringUtil.replaceChar(q,'Î','e');
-		q = StringUtil.replaceChar(q,'Ô','i');
-		q = StringUtil.replaceChar(q,'ˆ','o');
-		q = StringUtil.replaceChar(q,'¸','u');
-		q = StringUtil.replaceChar(q,'Ò','n');
-		q = StringUtil.replaceChar(q,'Á','c');
-		q = StringUtil.replaceChar(q,'™','.');
-		q = StringUtil.replaceChar(q,'∫','.');
+		q = StringUtil.replaceChar(q,'√°','a');
+		q = StringUtil.replaceChar(q,'√©','e');
+		q = StringUtil.replaceChar(q,'√≠','i');
+		q = StringUtil.replaceChar(q,'√≥','o');
+		q = StringUtil.replaceChar(q,'√∫','u');
+		q = StringUtil.replaceChar(q,'√†','a');
+		q = StringUtil.replaceChar(q,'√®','e');
+		q = StringUtil.replaceChar(q,'√¨','i');
+		q = StringUtil.replaceChar(q,'√≤','o');
+		q = StringUtil.replaceChar(q,'√∫','u');
+		q = StringUtil.replaceChar(q,'√§','a');
+		q = StringUtil.replaceChar(q,'√´','e');
+		q = StringUtil.replaceChar(q,'√Ø','i');
+		q = StringUtil.replaceChar(q,'√∂','o');
+		q = StringUtil.replaceChar(q,'√º','u');
+		q = StringUtil.replaceChar(q,'√±','n');
+		q = StringUtil.replaceChar(q,'√ß','c');
+		q = StringUtil.replaceChar(q,'ÔøΩ','.');
+		q = StringUtil.replaceChar(q,'ÔøΩ','.');
 		
 		q = StringUtil.replaceChar(q,'\"',' ');
 		
@@ -217,7 +218,7 @@ public class StringUtil{
 	}
 
 	
-	 //MÈtodo que reemplaza un car·cter dentro de un String
+	 //m√©todo que reemplaza un caracter dentro de un String
 	final static public String replaceChar(String q,char in,char out){
 		int idx;
 		idx=q.indexOf(in);
@@ -226,7 +227,7 @@ public class StringUtil{
 		return q.replace(in,out);
 	}
 	
-	//Retorna el n˙mero de veces que un car·cter aparece en un String
+	//Retorna el n√∫mero de veces que un caracter aparece en un String
 	public final  static int charCount( String str, char c ){
 		int n = 0;
 		for ( int i = 0; i < str.length(); ++i )
@@ -236,10 +237,10 @@ public class StringUtil{
 	}
 	
 	/** 
-	 * MÈtodo que se encarga de reemplazar un subString por otro <BR>
+	 * m√©todo que se encarga de reemplazar un subString por otro <BR>
 	 * <b>NOTA</b>: OJO CON EL ORDEN DE LOS PARAMS DE ESTE METODO! el string base donde queremos hacer los replaces es el ULTIMO PARAMETRO
 	 * <b>NOTA</b>: ESTE METODO NO ES SEGURO (peta por ej con el string "") --> usar replaceString
-	 * @param substr String cuyo contenido ser· reemplazado
+	 * @param substr String cuyo contenido serÔøΩ reemplazado
 	 * @param newsubstr String cuyo valor es el "reemplazante"
 	 * @param fullstr String base para realizar los cambios
 	 * @return String Retorna el String despues del reemplazo
@@ -259,11 +260,11 @@ public class StringUtil{
 	}
 		
 	/**
-	 * MÈtodo que reemplaza un car·cter dentro de un String por un String
+	 * m√©todo que reemplaza un caracter dentro de un String por un String
 	 * @param q String base
-	 * @param in Car·cter a reemplazar
-	 * @param out Cadena de sustituciÛn
-	 * @return String Nuevo String con el car·cter reemplazado
+	 * @param in caracter a reemplazar
+	 * @param out Cadena de sustituci√≥n
+	 * @return String Nuevo String con el caracter reemplazado
 	 */
 	public final static  String replaceChar (String q, char in, String out){
 		
@@ -306,9 +307,9 @@ public class StringUtil{
 		
 	
 	/**
-	 * Reemplaza los caracteres no v·lidos de una cadena alfanumÈrcia.
+	 * Reemplaza los caracteres no v√°lidos de una cadena alfanum√©rcia.
 	 * @param inString cadena de entrada
-	 * @return String Retorna la cadena alfanumÈrica que contiene ˙nicamente caracteres validos.
+	 * @return String Retorna la cadena alfanum√©rica que contiene ÔøΩnicamente caracteres validos.
 	 */    
 	public static String replaceInvalidChars(String inString)
 	{
@@ -316,56 +317,56 @@ public class StringUtil{
 
 		if (inString== null) return inString;
 		
-		inString = inString.replace('¡','A');
-		inString = inString.replace('…','E');
-		inString = inString.replace('Õ','I');
-		inString = inString.replace('”','O');
-		inString = inString.replace('⁄','U');
-		inString = inString.replace('¿','A');
-		inString = inString.replace('»','E');
-		inString = inString.replace('Ã','I');
-		inString = inString.replace('“','O');
-		inString = inString.replace('Ÿ','U');
-		inString = inString.replace('ƒ','A');
-		inString = inString.replace('À','E');
-		inString = inString.replace('œ','I');
-		inString = inString.replace('÷','O');
-		inString = inString.replace('‹','U');
-		inString = inString.replace('—','N');
-		inString = inString.replace('«','C');
-		inString = inString.replace('¬','A');
-		inString = inString.replace(' ','E');
-		inString = inString.replace('Œ','I');
-		inString = inString.replace('‘','O');
-		inString = inString.replace('€','U');
-		inString = inString.replace('≈','A');
-		inString = inString.replace('∆','A');
+		inString = inString.replace('√Å','A');
+		inString = inString.replace('√â','E');
+		inString = inString.replace('√ç','I');
+		inString = inString.replace('√ì','O');
+		inString = inString.replace('√ö','U');
+		inString = inString.replace('√Ä','A');
+		inString = inString.replace('√à','E');
+		inString = inString.replace('√å','I');
+		inString = inString.replace('√í','O');
+		inString = inString.replace('√ô','U');
+		inString = inString.replace('√Ñ','A');
+		inString = inString.replace('√ã','E');
+		inString = inString.replace('√è','I');
+		inString = inString.replace('√ñ','O');
+		inString = inString.replace('√ú','U');
+		inString = inString.replace('√ë','N');
+		inString = inString.replace('√á','C');
+		inString = inString.replace('√Ç','A');
+		inString = inString.replace('√ä','E');
+		inString = inString.replace('√é','I');
+		inString = inString.replace('√î','O');
+		inString = inString.replace('√õ','U');
+		inString = inString.replace('√Ö','A');
+		inString = inString.replace('√Ü','A');
 		
-		inString = inString.replace('·','a');
-		inString = inString.replace('È','e');
-		inString = inString.replace('Ì','i');
-		inString = inString.replace('Û','o');
-		inString = inString.replace('˙','u');
-		inString = inString.replace('‡','a');
-		inString = inString.replace('Ë','e');
-		inString = inString.replace('Ï','i');
-		inString = inString.replace('Ú','o');
-		inString = inString.replace('˘','u');
-		inString = inString.replace('‰','a');
-		inString = inString.replace('Î','e');
-		inString = inString.replace('Ô','i');
-		inString = inString.replace('ˆ','o');
-		inString = inString.replace('¸','u');
-		inString = inString.replace('Ò','n');
-		inString = inString.replace('Á','c');
-		inString = inString.replace('‚','a');
-		inString = inString.replace('Í','e');
-		inString = inString.replace('Ó','i');
-		inString = inString.replace('Ù','o');
-		inString = inString.replace('˚','u');
-		inString = inString.replace('Â','a');
-		inString = inString.replace('Ê','a');
-		inString = inString.replace('¢','o');
+		inString = inString.replace('√°','a');
+		inString = inString.replace('√©','e');
+		inString = inString.replace('√≠','i');
+		inString = inString.replace('√≥','o');
+		inString = inString.replace('√∫','u');
+		inString = inString.replace('√†','a');
+		inString = inString.replace('√®','e');
+		inString = inString.replace('√¨','i');
+		inString = inString.replace('√≤','o');
+		inString = inString.replace('√π','u');
+		inString = inString.replace('√§','a');
+		inString = inString.replace('√´','e');
+		inString = inString.replace('√Ø','i');
+		inString = inString.replace('√∂','o');
+		inString = inString.replace('√º','u');
+		inString = inString.replace('√±','n');
+		inString = inString.replace('√ß','c');
+		inString = inString.replace('√¢','a');
+		inString = inString.replace('√™','e');
+		inString = inString.replace('√Æ','i');
+		inString = inString.replace('√¥','o');
+		inString = inString.replace('√ª','u');
+		inString = inString.replace('√•','a');
+		inString = inString.replace('√¶','a');
+		inString = inString.replace('¬¢','o');
 		inString = inString.replace('\'',',');
 		
 		inString = inString.replaceAll("'\"","");
@@ -376,7 +377,7 @@ public class StringUtil{
 	}
 	
 	 /**
-     * Transforma un String en un Vector de Strings mediante la separaciÛn de un token
+     * Transforma un String en un Vector de Strings mediante la separaci√≥n de un token
      * @param str String base
      * @param token String delimitador
      * @return Vector de Strings
@@ -429,7 +430,7 @@ public class StringUtil{
 	 /**
 	  * Convierto un decimal a binario.
 	  * Le mete todos los zeros que sean necesarios hasta llegar
-	  * al tamaÒo definido por leadingSize. 
+	  * al tamaÔøΩo definido por leadingSize. 
 	  */
 	 public static String decimalToBinary(String decimal, int leadingSize)
 	 {
@@ -546,7 +547,7 @@ public class StringUtil{
 			fechaString=fechaString.replace(".", "/");
 			fechaString=fechaString.replace(";", "");
 			fechaString=fechaString.replace("'", "");
-			fechaString=fechaString.replace("¥", "");
+			fechaString=fechaString.replace("ÔøΩ", "");
 			fechaString=fechaString.replace("'", "");
 			
 			//Date javaDate= DateUtil.getJavaDate((double) new Double(fechaString).doubleValue());
@@ -570,7 +571,7 @@ public class StringUtil{
 		}
 		catch(Exception e)
 		{
-			//en caso que llegue en formato numÈrico
+			//en caso que llegue en formato num√©rico
 			Date javaDate= DateUtil.getJavaDate((double) new Double(fechaString).doubleValue());
 			return DateUtilities.getDatetoString( "dd/MM/yyyy", javaDate);
 		}
@@ -622,7 +623,7 @@ public class StringUtil{
 */
 	
 	/**
-	 * Elimina los car·cteres "duros o invisibles" 
+	 * Elimina los caracteres "duros o invisibles" 
 	 * https://stackoverflow.com/questions/6198986/how-can-i-replace-non-printable-unicode-characters-in-java
 	 * Based on the answers by Op De Cirkel and noackjr, the following is what I do for general string cleaning: 1. trimming leading or trailing whitespaces, 2. dos2unix, 3. mac2unix, 4. removing all "invisible Unicode characters" except whitespaces:
 	 */
@@ -639,7 +640,7 @@ public class StringUtil{
 	
 	/**
 	 * Dejamos la fecha en formato STRING DD/MM/YYYY. 
-	 * Utilizado para producciones SPD no se aceptar· fecha con aÒo errÛneo o fecha no v·lida
+	 * Utilizado para producciones SPD no se aceptar√° fecha con aÔøΩo err√°neo o fecha no v√°lida
 	 * @param fechaString
 	 * @return
 	 */
@@ -664,22 +665,22 @@ public class StringUtil{
 			}
 			
 			
-			//Arreglo sÌmbolos
+			//Arreglo sÔøΩmbolos
 			fechaString=quitaEspacios(fechaString);
 			fechaString=fechaString.replace("_", "/");
 			fechaString=fechaString.replace("-", "/");
 			fechaString=fechaString.replace(".", "/");
 			fechaString=fechaString.replace(";", "");
 			fechaString=fechaString.replace("'", "");
-			fechaString=fechaString.replace("ˇ", "");		//sÌmbolo que llega en conversiÛn del Excel,es un espacio
-			fechaString=fechaString.replace("¥", "");
+			fechaString=fechaString.replace("ÔøΩ", "");		//sÔøΩmbolo que llega en conversi√≥n del Excel,es un espacio
+			fechaString=fechaString.replace("ÔøΩ", "");
 			fechaString=fechaString.replace("'", "");
 			fechaString=fechaString.replace("//", "/");
 			fechaString=fechaString.replace("  ", "");		//dos espacios	
 			
 
 			
-			//localizaciÛn fecha 
+			//localizaci√≥n fecha 
 			String[] parts = fechaString.split("/");
 			String part1 = parts[0]; // d
 			String part2 = parts[1]; // m
@@ -693,7 +694,7 @@ public class StringUtil{
             //getting the current year from the current_date
             int current_Year = current_date.getYear();
            
-            if (anyo>=current_Year+120 || anyo<=current_Year-120) return ""; //Devolvemos nulo por aÒo fuera de un rango lÛgico
+            if (anyo>=current_Year+120 || anyo<=current_Year-120) return ""; //Devolvemos nulo por aÔøΩo fuera de un rango l√≥gico
 			
 
             java.util.Calendar c=java.util.Calendar.getInstance();	
@@ -703,7 +704,7 @@ public class StringUtil{
 			
 			fechaString=DateUtilities.getDatetoString(formato,c.getTime());
 			//System.out.println(" fechaStringArreglada " + fechaStringArreglada);
-			//devolvemos fecha en caso que dia y mes estÈn dentro del rango. sino devolvemos ""
+			//devolvemos fecha en caso que dia y mes est√°n dentro del rango. sino devolvemos ""
 			System.out.println(" isDateValid " + DateUtilities.isDateValid( fechaString, "dd/MM/yyyy"));
 			if (DateUtilities.isDateValid( fechaString, "dd/MM/yyyy") ) 
 				fechaStringArreglada = DateUtilities.getDatetoString( "dd/MM/yyyy", c.getTime());
@@ -735,7 +736,7 @@ public class StringUtil{
 			fechaString=fechaString.replace(".", "/");
 			fechaString=fechaString.replace(";", "");
 			fechaString=fechaString.replace("'", "");
-			fechaString=fechaString.replace("¥", "");
+			fechaString=fechaString.replace("ÔøΩ", "");
 			fechaString=fechaString.replace("'", "");
 			
 			int day=Integer.parseInt(fechaString.substring(0,2));
@@ -744,7 +745,7 @@ public class StringUtil{
 			  if (anyo<2000) //Tratamos fechas cortas
 				  	anyo+=2000;
 
-			  //devolvemos fecha en caso que dia y mes estÈn dentro del rango. Es posible que se reciba 31/04/, en este caso se transformarÌa en 01/05
+			  //devolvemos fecha en caso que dia y mes est√°n dentro del rango. Es posible que se reciba 31/04/, en este caso se transformar√≠a en 01/05
 			if (0<day && day<=31 && 0<mes && mes<=12 ) 
 			{
 				java.util.Calendar c=java.util.Calendar.getInstance();	
@@ -820,11 +821,11 @@ public class StringUtil{
         Pattern pattern = Pattern.compile("\\p{M}");
         String result = pattern.matcher(normalized).replaceAll("");
 
-        // Reemplazar '—' y 'Ò' por 'N' y 'n'
-        result = result.replace('—', 'N').replace('Ò', 'n');
-        result = result.replace('«', 'C').replace('Á', 'c');
-        result = result.replace('™', '.').replace('™', '.');
-        result = result.replace('∫', '.').replace('∫', '.');
+        // Reemplazar 'ÔøΩ' y 'ÔøΩ' por 'N' y 'n'
+        result = result.replace('ÔøΩ', 'N').replace('ÔøΩ', 'n');
+        result = result.replace('ÔøΩ', 'C').replace('ÔøΩ', 'c');
+        result = result.replace('ÔøΩ', '.').replace('ÔøΩ', '.');
+        result = result.replace('ÔøΩ', '.').replace('ÔøΩ', '.');
 
         return result;
     }
@@ -851,7 +852,7 @@ public class StringUtil{
         if (input == null) {
             return ""; // 
         }
-        int start = Math.max(0, input.length() - length); // Asegura que no haya Ìndices negativos
+        int start = Math.max(0, input.length() - length); // Asegura que no haya ÔøΩndices negativos
         return input.substring(start);
     }
 

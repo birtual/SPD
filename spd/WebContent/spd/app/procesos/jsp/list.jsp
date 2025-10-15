@@ -22,7 +22,7 @@
 <script type="text/javascript">	
 
 function lanzar(oidProceso) {
-    // Mostrar un cuadro de confirmaci�n
+    // Mostrar un cuadro de confirmación
     var confirmacion = window.confirm("¿Estás seguro de que deseas lanzar este proceso?");
     
     // Si el usuario hace clic en "Aceptar" (true)
@@ -41,8 +41,8 @@ function lanzar(oidProceso) {
 
 
 function borrar(oidProceso) {
-    // Mostrar un cuadro de confirmaci�n
-    var confirmacion = window.confirm("�Est�s seguro de que deseas borrar este proceso?");
+    // Mostrar un cuadro de confirmación
+    var confirmacion = window.confirm("¿Estás seguro de que deseas borrar este proceso?");
     
     // Si el usuario hace clic en "Aceptar" (true)
     if (confirmacion) {
@@ -145,15 +145,15 @@ function getContextPath() {
 
 <table style="width:80%">
 	<tr>
-		<!-- th class="segunda">Fecha creaci�n</th> -->
+		<!-- th class="segunda">Fecha creación</th> -->
         <th>Orden</th>
         <th>Lanzadera</th>
         <th>Nombre</th>
-        <!-- <th>Usuario creaci�n</th> -->
-        <!-- <th>Versi�n</th> -->
-        <!-- <th>Descripci�n</th> -->
+        <!-- <th>Usuario creación</th> -->
+        <!-- <th>Versión</th> -->
+        <!-- <th>Descripción</th> -->
         <th>Parámetros</th>
-        <!--<th>Tipo ejecuci�n</th> -->
+        <!--<th>Tipo ejecución</th> -->
         <!--<th>Cada</th> -->
         <!--<th>Periodo</th> -->
         <th>Frecuencia</th>
@@ -161,7 +161,7 @@ function getContextPath() {
         <th>Días semana</th>
         <th>Días concretos (opcional)</th>
        <!--  <th>Max reintentos</th> -->
-       <!--  <th>Max duraci�n (s)</th> -->
+       <!--  <th>Max duración (s)</th> -->
        <!--  <th>Fecha desde</th> -->
        <!--  <th>Fecha hasta</th> -->
         <th>Activo</th>
@@ -177,13 +177,13 @@ function getContextPath() {
 	
 	<logic:iterate id="data" name="formulari" property="procesos" type="lopicost.spd.model.Proceso" indexId="position">
 	<c:if test="${ultimoApartado != (data.apartado != null ? data.apartado : '')}">
-		<!-- Fila de separaci�n por cambio de apartado -->
+		<!-- Fila de separación por cambio de apartado -->
 		<tr>
 			<td colspan="100" style="background-color:#e0e0e0; font-weight:bold; padding:8px;">
 				<c:out value="${data.apartado}" />
 			</td>
 		</tr>
-		<!-- Actualizar valor del �ltimo apartado mostrado -->
+		<!-- Actualizar valor del último apartado mostrado -->
 		<c:set var="ultimoApartado" value="${data.apartado}" />
 	</c:if>
 	

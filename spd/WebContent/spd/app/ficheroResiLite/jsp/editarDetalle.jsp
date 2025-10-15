@@ -196,7 +196,7 @@
 			    </br>
 			    <logic:notEmpty name="FicheroResiForm" property="listaSpdAccionBolsa">    
 			        <html:select property="spdAccionBolsa" value="${data.spdAccionBolsa != null ? data.spdAccionBolsa : ''}">
-			            <!-- Agregar opci�n vac�a por defecto si no hay valor seleccionado -->
+			            <!-- Agregar opción vacía por defecto si no hay valor seleccionado -->
 			            <option value="" ${empty data.spdAccionBolsa ? 'selected' : ''}>Seleccione una opción</option> 
 			            <c:forEach items="${FicheroResiForm.listaSpdAccionBolsa}" var="bean"> 
 			                <option value='${bean}' ${data.spdAccionBolsa == bean ? 'selected' : ' '}>

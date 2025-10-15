@@ -45,8 +45,8 @@
 	        flatpickr("#nuevaFechaDesde", {
 	            dateFormat: "d/m/Y", // Formato DD/MM/YYYY
 	            locale: "es",
-	            minDate: fechaDesde || "today", // El rango m�nimo es fechaDesde
-	            maxDate: fechaHasta || fechaDesde, // El rango m�ximo es fechaHasta
+	            minDate: fechaDesde || "today", // El rango mínimo es fechaDesde
+	            maxDate: fechaHasta || fechaDesde, // El rango máximo es fechaHasta
 	            defaultDate: nuevaFechaDesde || undefined, // Fecha predeterminada en nuevaFechaDesde
 	        });
 
@@ -65,12 +65,12 @@
         flatpickr("#nuevaFechaHasta", {
             dateFormat: "d/m/Y", // Formato DD/MM/YYYY
             locale: "es",
-            minDate: fechaDesde || "today", // El rango m�nimo es fechaDesde
-            maxDate: fechaHasta || fechaDesde, // El rango m�ximo es fechaHasta
+            minDate: fechaDesde || "today", // El rango mínimo es fechaDesde
+            maxDate: fechaHasta || fechaDesde, // El rango máximo es fechaHasta
             defaultDate: nuevaFechaHasta || undefined, // Fecha predeterminada en nuevaFechaHasta
         });
 
-        // Funci�n de confirmaci�n de fechas
+        // Función de confirmación de fechas
         function confirmarFechas(oidCab) {
             // Obtener las fechas seleccionadas
             const nuevaFechaDesde = document.getElementById('nuevaFechaDesde').value;
@@ -83,11 +83,11 @@
             // Verificar si la fecha hasta es anterior a la fecha desde
             if (fechaHastaObj < fechaDesdeObj) {
                 alert("La fecha 'Hasta' no puede ser anterior a la fecha 'Desde'. Por favor, revisa las fechas.");
-                return; // No ejecutar la acci�n si las fechas no son correctas
+                return; // No ejecutar la acción si las fechas no son correctas
             } else {
-                // Llamada a la funci�n editarOk si las fechas son v�lidas
+                // Llamada a la función editarOk si las fechas son válidas
                 editarOk(oidCab);
-                // Si quisieras hacer algo m�s despu�s de la verificaci�n, puedes agregarlo aqu�.
+                // Si quisieras hacer algo más después de la verificación, puedes agregarlo aquí.
             }
         }
     });
@@ -99,7 +99,7 @@
 <script type="text/javascript">
     function lanzarProceso(oidProceso, boton) {
         if (window.confirm("¿Estás seguro de que deseas lanzar este proceso?")) {
-            // Desactivar el bot�n
+            // Desactivar el botón
             boton.disabled = true;
             boton.value = "Lanzando...";
 
@@ -143,7 +143,7 @@
 
 <body id="general">
 	<center>
-		<h2>Edici�n de cabecera de proceso</h2>
+		<h2>Edición de cabecera de proceso</h2>
 		<html:form action="/FicheroResiCabeceraLite.do" method="post"  >	
 
 <div>
@@ -155,7 +155,7 @@
      <html:hidden property="oidDivisionResidencia" />
   	 <html:hidden property="fechaDesde" styleId="fechaDesde" />
 	 <html:hidden property="fechaHasta" styleId="fechaHasta" />
-<!-- Variables ocultas que contienen las fechas m�nima y m�xima del rango -->
+<!-- Variables ocultas que contienen las fechas mínima y máxima del rango -->
 
 	<h3>Confirmar edición</h3>
 	<bean:define id="data" name="formulari" property="ficheroResiDetalleBean" />

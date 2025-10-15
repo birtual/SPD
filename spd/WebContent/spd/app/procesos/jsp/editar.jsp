@@ -39,9 +39,9 @@ window.addEventListener('DOMContentLoaded', function() {
   if (sel) actualizarColorPrioridad(sel);
 });
 
-<!-- Configuraci�n de Flatpickr -->
+<!-- Configuración de Flatpickr -->
 window.onload = function() {
-	document.getElementById("fechaDesde").placeholder = "Selecciona fecha de activaci�n";
+	document.getElementById("fechaDesde").placeholder = "Selecciona fecha de activación";
     document.getElementById("horaEjecucion").setAttribute("placeholder", "HH:mm");
 };
 
@@ -91,14 +91,14 @@ window.onload = function() {
 			else if(f.descripcion.value=='')
 				alert('Falta indicar algo de descripcion sobre el proceso ');
 			else if(f.fechaDesde.value=='')
-				alert('Falta indicar la fecha de activaci�n del proceso');
+				alert('Falta indicar la fecha de activación del proceso');
 			else if(f.horaEjecucion.value=='')
-				alert('Falta indicar la hora de ejecuci�n del proceso ');
+				alert('Falta indicar la hora de ejecución del proceso ');
 			else if(f.maxDuracionSegundos.value=='')
-				alert('Falta indicar el tope de duraci�n posible ');
+				alert('Falta indicar el tope de duración posible ');
 			else */
 			if (f.activo.value == 'DESCARTADO') {
-			    if (confirm('En caso de descartar el proceso no aparecer� en el listado. �Est� seguro?')) {
+			    if (confirm('En caso de descartar el proceso no aparecerá en el listado. ¿Está seguro?')) {
 			        f.parameter.value = 'editar';
 			        f.ACTIONTODO.value = 'EDITA_OK';
 			        f.submit();
@@ -223,13 +223,13 @@ window.onload = function() {
 		<tr>
 			<th class="segunda">Fecha desde  *</th>
 			<td>
-				<input type="text" id="fechaDesde" name="fechaDesde" style="width: 8em;" value="<bean:write name='data' property='fechaDesde'/>" placeholder="Selecciona fecha de activaci�n" class="flatpickr">
+				<input type="text" id="fechaDesde" name="fechaDesde" style="width: 8em;" value="<bean:write name='data' property='fechaDesde'/>" placeholder="Selecciona fecha de activación" class="flatpickr">
 						</td>
 		</tr>
 		<tr>
 			<th class="segunda">Fecha hasta</th>
 			<td>
-				<input type="text" id="fechaHasta" name="fechaHasta" style="width: 8em;" value="<bean:write name='data' property='fechaHasta'/>" placeholder="Selecciona fecha de desactivaci�n" class="flatpickr">
+				<input type="text" id="fechaHasta" name="fechaHasta" style="width: 8em;" value="<bean:write name='data' property='fechaHasta'/>" placeholder="Selecciona fecha de desactivación" class="flatpickr">
 			</td>
 		</tr>
 

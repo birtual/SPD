@@ -23,13 +23,13 @@
     <html:form action="/login">
       <input type="text" name="idUsuario" placeholder="Nombre de usuario">
       <input type="password" name="password" placeholder="Contraseña">
-      <button>Iniciar sesi�n</button>	
+      <button>Iniciar sesión</button>	
       
       <html:hidden  property="parameter" value="list"/>
     </html:form>
   </div>	
 
-  <%-- Verifica si el formulario se ha enviado y almacena el nombre de usuario en la sesi�n --%>
+  <%-- Verifica si el formulario se ha enviado y almacena el nombre de usuario en la sesión --%>
   <%
   if ("POST".equalsIgnoreCase(request.getMethod())) {
     String idUsuario = request.getParameter("idUsuario");  

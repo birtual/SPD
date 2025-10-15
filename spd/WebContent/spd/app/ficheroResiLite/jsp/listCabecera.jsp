@@ -20,12 +20,12 @@
 <title>Gestión carga ficheros Robot (lite)</title>
 </head>
 <script>
-    // Este script maneja la respuesta del servidor y actualiza o redirecciona seg�n se necesite
+    // Este script maneja la respuesta del servidor y actualiza o redirecciona según se necesite
     function handleServerResponse(responseText) {
-        //  mostrar una alerta, actualizar la p�gina o redirigir seg�n se necesite
+        //  mostrar una alerta, actualizar la página o redirigir según se necesite
         alert(responseText);
-        // window.location.reload();  // Para recargar la p�gina
-        // window.location.href = '/tuApp/list';  // Para redirigir a un mapeo espec�fico
+        // window.location.reload();  // Para recargar la página
+        // window.location.href = '/tuApp/list';  // Para redirigir a un mapeo específico
     }
 
 </script>
@@ -215,7 +215,7 @@
 		</table>
 	</fieldset>
 
-	<!--  paginaci�n  -->
+	<!--  paginación  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -229,7 +229,7 @@
 		</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginaci�n   -->
+	<!--  paginación   -->
 </div>	
 </html:form>
 </body>

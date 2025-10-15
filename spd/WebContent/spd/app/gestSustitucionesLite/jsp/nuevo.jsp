@@ -24,7 +24,7 @@
 <script type="text/javascript">	
 
 
-		//funci�n de carga del lookUp
+		//función de carga del lookUp
 		function doLookUpBdConsejo(){				
 			var loc = '/spd/LookUpBdConsejo.do?parameter=init'+ 						//url de llamanda
 				'&resiCn='+document.GestSustitucionesLiteForm.resiCn.value+'&mode=showGtvmpCn'+	

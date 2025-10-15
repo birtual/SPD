@@ -8,10 +8,10 @@
 
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
  <style>
-        /* Estilos para los iconos de acci�n */
+        /* Estilos para los iconos de acción */
         .action-icon {
             font-size: 20px;
-            color: #0000a0; /* Color del �cono */
+            color: #0000a0; /* Color del ícono */
             cursor: pointer;
         }
 
@@ -73,26 +73,26 @@
 						</logic:notEmpty>				
 				</div>
 				<div>
-						<!--  <input type="button" class="btn primary" value="Actualizar previsi�n" onclick="javascript:enviarAPrevision()" /> -->
+						<!--  <input type="button" class="btn primary" value="Actualizar previsión" onclick="javascript:enviarAPrevision()" /> -->
 						<!--  <input type="button" class="btn primary" value="Generar ficheros robot" onclick="javascript:generarFicherosRobot()" /> -->
 						<input type="button" class="btn primary" value="Limpiar filtros listado" onclick="javascript:limpiarFiltrosResi();" />
 						<input type="button" class="btn primary" value="Excluir NoPintar" onclick="javascript:visualizarActivos();" />
 						<input type="button" class="btn primary" value="Exportar Excel"  onclick="javascript:exportExcel();"/>
-						<!-- input type="button" class="btn primary" value="Exportar Filas sin sustituci�n "  onclick="javascript:exportFilasSinSust();"/>-->
+						<!-- input type="button" class="btn primary" value="Exportar Filas sin sustitución "  onclick="javascript:exportFilasSinSust();"/>-->
 						<input type="button" class="btn primary" value="Exportar Filas con mensajes "  onclick="javascript:exportFilasConInfo();"/>
 						
 						<!--  Para validaciones masivas -->
 						<logic:equal property="free1" name="FicheroResiForm" value="inicio">
-								<input type="button" class="azul" onclick="javascript:confirmadoMasiva('<bean:write name="FicheroResiForm" property="idDivisionResidencia" />', '<bean:write name="FicheroResiForm" property="idProceso" />')" value="Confirmaci�n masiva"  />
+								<input type="button" class="azul" onclick="javascript:confirmadoMasiva('<bean:write name="FicheroResiForm" property="idDivisionResidencia" />', '<bean:write name="FicheroResiForm" property="idProceso" />')" value="Confirmación masiva"  />
 						</logic:equal>
 
 								 
 					<!-- 	
 						<logic:equal property="mode" name="FicheroResiForm" value="">
-							<input type="button" class="btn primary" value="Versi�n reducida" onclick="javascript:modoVisual('Reducido');" />	
+							<input type="button" class="btn primary" value="Versión reducida" onclick="javascript:modoVisual('Reducido');" />	
 						</logic:equal>
 						<logic:equal property="mode" name="FicheroResiForm" value="Reducido">
-							<input type="button" class="btn primary" value="Versi�n ampliada" onclick="javascript:modoVisual('');" />	
+							<input type="button" class="btn primary" value="Versión ampliada" onclick="javascript:modoVisual('');" />	
 						</logic:equal>
  					-->						
 				</div> 	

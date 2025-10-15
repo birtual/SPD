@@ -17,12 +17,12 @@
 <title>Info de control de alertas</title>
 </head>
 <script>
-    // Este script manejar� la respuesta del servidor y actualizar� o redireccionar� seg�n sea necesario
+    // Este script manejará la respuesta del servidor y actualizará o redireccionará según sea necesario
     function handleServerResponse(responseText) {
-        // Puedes mostrar una alerta, actualizar la p�gina o redirigir seg�n tus necesidades
+        // Puedes mostrar una alerta, actualizar la página o redirigir según tus necesidades
         alert(responseText);
-        // window.location.reload();  // Para recargar la p�gina
-        // window.location.href = '/tuApp/list';  // Para redirigir a un mapeo espec�fico
+        // window.location.reload();  // Para recargar la página
+        // window.location.href = '/tuApp/list';  // Para redirigir a un mapeo específico
     }
 </script>
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />

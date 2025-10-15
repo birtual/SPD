@@ -58,7 +58,7 @@ function volver()
 				}
 
 		    } else {
-		        // Si el formato no es válido, muestra un mensaje de error o realiza alguna acci�n para informar al usuario.
+		        // Si el formato no es válido, muestra un mensaje de error o realiza alguna acción para informar al usuario.
 		        alert("El formato de hora debe ser hh:mm");
 		      }
 		}	

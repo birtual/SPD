@@ -80,7 +80,7 @@ if (request.getParameter("fieldName1")!=null)
 		        <th>Nombre</th>
 		        <th>Usuario creación</th>
 		        <th>Versión</th>
-		        <th>Descripci�n</th>
+		        <th>Descripción</th>
 		        <th>Parámetros</th>
 		        <th>Tipo ejecución</th>
 		        <th>Cada</th>

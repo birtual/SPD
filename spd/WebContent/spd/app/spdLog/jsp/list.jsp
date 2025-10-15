@@ -158,7 +158,7 @@
 
 
  </table>
-	<!--  paginaci�n  -->
+	<!--  paginación  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -172,7 +172,7 @@
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginaci�n   -->
+	<!--  paginación   -->
 				
 </html:form>
 </html:html>

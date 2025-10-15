@@ -15,7 +15,7 @@
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
 
-<title>�ndice</title>
+<title>Índice</title>
 </head>
 
 <bean:define id="formulari" name="LoginForm" type="lopicost.spd.security.form.LoginForm" />

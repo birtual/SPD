@@ -41,7 +41,7 @@
      <html:hidden property="fieldName1" /> 
      <html:hidden property="campoGoogle" />
      
-	<!-- se pasan par�metros de los filtros del listado para la vuelta -->
+	<!-- se pasan parámetros de los filtros del listado para la vuelta -->
      <html:hidden property="filtroNombreCorto" />
      <html:hidden property="filtroMedicamentoResi" />
      <html:hidden property="filtroNombreCortoOK" />

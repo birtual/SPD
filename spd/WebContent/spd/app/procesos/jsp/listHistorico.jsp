@@ -33,8 +33,8 @@
 
 
 function borrar(oidProceso) {
-    // Mostrar un cuadro de confirmaci�n
-    var confirmacion = window.confirm("�Est�s seguro de que deseas borrar este proceso?");
+    // Mostrar un cuadro de confirmación
+    var confirmacion = window.confirm("�estás seguro de que deseas borrar este proceso?");
     
     // Si el usuario hace clic en "Aceptar" (true)
     if (confirmacion) {

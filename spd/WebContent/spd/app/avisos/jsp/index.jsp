@@ -38,7 +38,7 @@
 		<td>Pacientes Farmatic vs Gestión pacientes</td>
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_13b_pacientesComalisFarmatic.rptdesign" target=_blank>
-				Datos de los pacientes de Farmatic cruzados con los de la gesti�n de pacientes, para detectar discrepancias.
+				Datos de los pacientes de Farmatic cruzados con los de la gestión de pacientes, para detectar discrepancias.
 			</a>
 		</td>
 	</tr>		
@@ -121,7 +121,7 @@
 				bd Consejo
 			</a>
 					<!--a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_7b_bd_consejo_ampliado_v1.rptdesign" target=_blank>
-				bd Consejo - Ampliado con informaci�n de NO FINANCIADOS
+				bd Consejo - Ampliado con información de NO FINANCIADOS
 			</a!-->	
 		</td>
 	</tr>
@@ -145,7 +145,7 @@
 	</tr>		
 	<tr>
 		<td>9c</td>
-		<td>Pañales en previsi�n</td>	
+		<td>Pañales en previsión</td>	
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_10c_bolquers_ttos_para_pedir_prevision.rptdesign" target=_blank>
 				 Pañales para pedir mensualmente, según una simulación de la ventana activa y su tratamiento.
@@ -239,7 +239,7 @@
 		<td>Ventana activa  (TODOS)</td>
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_3b_pend_dispensar_all_sire_v1.rptdesign" target=_blank>
-				Muestra todos lo dispensable a d�a de hoy, tal como lo recibimos, incluyendo recetas bloqueadas.
+				Muestra todos lo dispensable a día de hoy, tal como lo recibimos, incluyendo recetas bloqueadas.
 			</a>
 		</td>
         </tr>  
@@ -275,10 +275,10 @@
    		 </tr-->	
 		<!--tr>
 		<td>9</td>
-		<td>Pa�ales dispensables (CREU DE PALAU)</td>	
+		<td>Pañales dispensables (CREU DE PALAU)</td>	
 		<td>
 			<a href="/birt-viewer/frameset?__report=/box_rpt/adhoc_cp/rpt_lp_CP_bolquers_v1.rptdesign" target=_blank>
-				Para CREU DE PALAU. Pa�ales dispensables en ventana activa. Filtro de fecha hasta fin de dispensable
+				Para CREU DE PALAU. Pañales dispensables en ventana activa. Filtro de fecha hasta fin de dispensable
 			</a>
 		</td>
        
@@ -289,7 +289,7 @@
 			</td>
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_2a_pend_dispensar_sire_agrupado_v1.rptdesign" target=_blank>
-				Muestra todos lo dispensable a d�a de hoy, agrupado por CN.
+				Muestra todos lo dispensable a día de hoy, agrupado por CN.
 			</a>
 		</td>
     </tr-->
@@ -299,7 +299,7 @@
 			</td>
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_2b_pend_dispensar_all_sire_agrupado_v1.rptdesign" target=_blank>
-				Muestra todos lo dispensable a d�a de hoy, agrupado por CN, incluyendo recetas bloqueadas.
+				Muestra todos lo dispensable a día de hoy, agrupado por CN, incluyendo recetas bloqueadas.
 			</a>
 		</td>
     </tr-->
@@ -308,12 +308,12 @@
 		<td>Ventana activa</td>
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_3a_pend_dispensar_sire_v1.rptdesign" target=_blank>
-				Muestra todos lo dispensable a d�a de hoy, tal como lo recibimos.
+				Muestra todos lo dispensable a día de hoy, tal como lo recibimos.
 			</a>
 		</td>
         </tr>	  
 			<tr>
-		<td>1 - Report t�cnico  - (Robot)</td>
+		<td>1 - Report técnico  - (Robot)</td>
 		<td>sustituciones Gerisoft	</td>	
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_1_sust_fichero_robot_Gerisoft_v1.rptdesign" target=_blank>

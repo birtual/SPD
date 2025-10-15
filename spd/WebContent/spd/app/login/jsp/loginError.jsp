@@ -40,7 +40,7 @@ String error = (String)session.getAttribute("error");
 		<html:form action="/login">
 			<input type="text" name="idUsuario" placeholder="Nombre de usuario">
 			<input type="password" name="password" placeholder="Contraseña">
-			<button>Iniciar sesi�n</button>	
+			<button>Iniciar sesión</button>	
 			
 			
 			<html:hidden  property="parameter" value="list"/>
@@ -52,7 +52,7 @@ String error = (String)session.getAttribute("error");
 // Recupera el valor del idlogin proporcionado por el usuario
 String idUsuario = request.getParameter("idUsuario"); 
 
-// Almacenar el idlogin en la sesi�n
+// Almacenar el idlogin en la sesión
 session.setAttribute("idUsuario", idUsuario);
 
 %>

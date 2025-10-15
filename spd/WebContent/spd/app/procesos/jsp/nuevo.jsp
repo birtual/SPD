@@ -8,7 +8,7 @@
 	<title>Creación de Proceso</title>
 </head>
 <script>
-<!-- Configuraci�n de Flatpickr -->
+<!-- Configuración de Flatpickr -->
 
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -57,11 +57,11 @@
 			else if(f.descripcion.value=='')
 				alert('Falta indicar algo de descripcion sobre el proceso ');
 			else if(f.fechaDesde.value=='')
-				alert('Falta indicar la fecha de activaci�n del proceso');
+				alert('Falta indicar la fecha de activación del proceso');
 			//else if(f.fechaDesde.value=='')
-				//alert('Falta indicar la fecha de desactivaci�n del Proceso ');
+				//alert('Falta indicar la fecha de desactivación del Proceso ');
 			else if(f.horaEjecucion.value=='')
-				alert('Falta indicar la hora de ejecuci�n del proceso ');
+				alert('Falta indicar la hora de ejecución del proceso ');
 			else */
 			{
 				//f.nombreCorto.value=f.nombreCorto.value;
@@ -178,10 +178,10 @@
 		</tr>
 
 		<tr>
-			<th class="segunda">Fecha desde *</th><td><input type="text" id="fechaDesde" name="fechaDesde" value="${formulari.fechaDesde}" placeholder="Selecciona fecha de activaci�n"></td>
+			<th class="segunda">Fecha desde *</th><td><input type="text" id="fechaDesde" name="fechaDesde" value="${formulari.fechaDesde}" placeholder="Selecciona fecha de activación"></td>
 		</tr>
 		<tr>
-			<th class="segunda">Fecha hasta</th><td><input type="text" id="fechaHasta" name="fechaHasta" value="${formulari.fechaHasta}" placeholder="Selecciona fecha de desactivaci�n"></td>
+			<th class="segunda">Fecha hasta</th><td><input type="text" id="fechaHasta" name="fechaHasta" value="${formulari.fechaHasta}" placeholder="Selecciona fecha de desactivación"></td>
 		</tr>
 		<tr><th class="segunda">Tipo de Ejecución</th>
 		<td>

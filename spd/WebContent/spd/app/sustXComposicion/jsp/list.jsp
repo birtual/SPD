@@ -86,7 +86,7 @@
 			f.ACTIONTODO.value='BORRADO_MASIVO';
 			f.submit();
 		}		
-		//funci�n de carga del lookUp
+		//función de carga del lookUp
 		function doLookUpBdConsejo(){				
 			var loc = '/spd/LookUpBdConsejo.do?parameter=init&'+ 						//url de llamanda				
 				'CallBackID=cnOk&'+			  			//Nombre del campo para el valor Id
@@ -96,7 +96,7 @@
 			window.open(loc, 'LookUpBdConsejo', 'dependent=yes,height=500,width=800,top=50,left=50,resizable=yes,scrollbars=yes' );
 		}	
 		
-		//funci�n de carga del lookUp
+		//función de carga del lookUp
 		function doLookUpLabsBdConsejo(){				
 			var loc = '/spd/LookUpLabsBdConsejo.do?parameter=initLabs&'+ 						//url de llamanda				
 				'CallBackID=filtroCodiLaboratorio&'+			  			//Nombre del campo para el valor Id
@@ -201,7 +201,7 @@
 		<div>Texto a buscar 
 		   	<html:text property="filtroTextoABuscar" alt="Texto a buscar" title="Texto a buscar" />
 		</div>
-		<div>B�squeda por medicamento
+		<div>básqueda por medicamento
 			<html:text name="SustXComposicionForm" property="cnOk" styleClass="cnOk"/>-<html:text name="SustXComposicionForm" property="nombreConsejo" styleClass="nombreConsejo"/>
 			<a href="#" onclick="javascript:doLookUpBdConsejo();">Buscar CN</a>
 		 </div>	
@@ -218,7 +218,7 @@
 		     </logic:notEmpty>	
 		</div>
 		<div>
-			Grupo VMP  (Principio activo, dosis y forma farmac�utica) 
+			Grupo VMP  (Principio activo, dosis y forma farmacéutica) 
 			<logic:notEmpty name="SustXComposicionForm" property="listaGtVmp">	
 		   	 <html:select property="filtroCodGtVmp"  value="<%= formulari.getFiltroCodGtVmp() %>" onchange="submit()" styleClass="select_corto"> 
 		   	 	<html:option value="">Todos</html:option>
@@ -227,7 +227,7 @@
 		     </logic:notEmpty>	
 		</div>	
 		<div>
-			Grupo VMPP  (Igual que Conjunto homog�neo - Principio activo, dosis, forma farmac�utica y n�mero de unidades de dosificaci�n)
+			Grupo VMPP  (Igual que Conjunto homogéneo - Principio activo, dosis, forma farmacéutica y número de unidades de dosificación)
 			<logic:notEmpty name="SustXComposicionForm" property="listaGtVmpp">	
 		   	 <html:select property="filtroCodGtVmpp"  value="<%= formulari.getFiltroCodGtVmpp() %>" onchange="submit()" styleClass="select_corto"> 
 		   	 	<html:option value="">Todos</html:option>
@@ -235,7 +235,7 @@
 				</html:select>
 		     </logic:notEmpty>	
 		</div>	
-		<div>GtVmpp (Conjuntos homog�neos) disponibles del siguiente lab: 
+		<div>GtVmpp (Conjuntos homogéneos) disponibles del siguiente lab: 
 			<html:text name="SustXComposicionForm" readonly="true"  property="filtroCodiLaboratorio" styleClass="filtroCodiLaboratorio"/> - 
 			
 			<logic:notEmpty name="SustXComposicionForm" property="listaLabs">	
@@ -248,7 +248,7 @@
 		</div>
 		<div>&nbsp;</div>
 
-		<div>GtVmpp (Conjuntos homog�neos) asignados al laboratorio
+		<div>GtVmpp (Conjuntos homogéneos) asignados al laboratorio
 			<logic:equal name="SustXComposicionForm" property="filtroCheckedLabsSoloAsignados" value="false">
 				<input type="checkbox" name="filtroLabsSoloAsignados"   onclick="reloadCheckbox1()" />
 			</logic:equal>
@@ -256,7 +256,7 @@
 				<input type="checkbox" name="filtroLabsSoloAsignados" checked onclick="reloadCheckbox1()" />
 			</logic:equal>
 		</div>
-		<div>GtVmpp (Conjuntos homog�neos) SIN ASIGNAR a ning�n laboratorio
+		<div>GtVmpp (Conjuntos homogéneos) SIN ASIGNAR a ningún laboratorio
 			<logic:equal name="SustXComposicionForm" property="filtroCheckedComposicionSinLabs" value="false">
 				<input type="checkbox" name=filtroComposicionSinLabs   onclick="reloadCheckbox2()" />
 			</logic:equal>
@@ -264,11 +264,11 @@
 				<input type="checkbox" name="filtroComposicionSinLabs" checked onclick="reloadCheckbox2()" />
 			</logic:equal>
 		</div>		
-		<div><a href="javascript:asignarTodos();" >Asignar rentabilidad/lab a los conjuntos homog�neos listados</a></div>
+		<div><a href="javascript:asignarTodos();" >Asignar rentabilidad/lab a los conjuntos homogéneos listados</a></div>
 <!--  		<div>Rentabilidad:<html:text name="SustXComposicionForm" property="rentabilidad" styleClass="rentabilidad"/></div>
-		<div>Ponderaci�n:<html:text name="SustXComposicionForm" property="ponderacion" styleClass="ponderacion"/></div>
+		<div>Ponderación:<html:text name="SustXComposicionForm" property="ponderacion" styleClass="ponderacion"/></div>
 -->					  
-		<div><a href="javascript:desasignarTodos();">Dessignar la rentabilidad/lab de los conjuntos homog�neos listados</a></div>
+		<div><a href="javascript:desasignarTodos();">Dessignar la rentabilidad/lab de los conjuntos homogéneos listados</a></div>
 		
   			</th>
 		</tr>
@@ -288,16 +288,16 @@
     
 
     <!--<th>fecha</th> --> 
-	<!--<th>Grupo VMP  (Principio activo, dosis y forma farmac�utica) </th> -->
+	<!--<th>Grupo VMP  (Principio activo, dosis y forma farmacéutica) </th> -->
 		<th>Robot</th>
-		<th>Conj Homog - Grupo VMPP (Princ.Activo, dosis, forma  y n�mero de unidades de dosificaci�n)</th>
+		<th>Conj Homog - Grupo VMPP (Princ.Activo, dosis, forma  y número de unidades de dosificación)</th>
         <th>Rentabilidad</th>
         <th>Ponderacion</th>
         <th>Nota</th>
-      <!--    <th>C�digo Lab Asignado</th>-->
+      <!--    <th>Código Lab Asignado</th>-->
         <th>Nombre Lab Asignado</th>
-        <!--  <th>Fecha creaci�n</th>-->
-        <!--  <th>�ltima modificacion</th>-->
+        <!--  <th>Fecha creación</th>-->
+        <!--  <th>última modificacion</th>-->
         <th>Comentario</th>
 		<th></th>
 		<th></th>
@@ -353,7 +353,7 @@
 		  	<input type="button" value="<bean:message key="new.window"/>"  onclick="javascript:exportExcel();"/>
 		  	<input type="button" value="<bean:message key="Export.SustXConj.submit"/>" 	="javascript:document.forms[0].action='/spd/Iospd/ExportData.do?parameter=specificPerform'; document.forms[0].submit();" />
 
-	<!--  paginaci�n  -->
+	<!--  paginación  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -367,7 +367,7 @@
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginaci�n   -->
+	<!--  paginación   -->
 
 		<%= Thread.currentThread().getContextClassLoader().getResource("SPDMessageResources.properties") %>
 		

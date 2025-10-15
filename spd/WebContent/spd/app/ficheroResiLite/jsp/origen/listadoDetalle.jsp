@@ -531,7 +531,7 @@
 		        <i class="fa fa-pencil action-icon" onclick="javascript:editar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Editar"></i>
 		        
 		      <logic:notEqual property="spdCnFinal" name="data" value="111111">  
-  				    <i class="fa fa-refresh action-icon" onclick="javascript:reiniciar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Reiniciar sustituci�n"></i> 
+  				    <i class="fa fa-refresh action-icon" onclick="javascript:reiniciar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Reiniciar sustitución"></i> 
 	  		  </logic:notEqual>
 		      </logic:equal>		
 					

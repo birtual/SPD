@@ -134,7 +134,7 @@ if (request.getParameter("fieldName1")!=null)
 							</table>	
 					</div>			
 
-	<!--  paginaci�n  -->
+	<!--  paginación  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -148,7 +148,7 @@ if (request.getParameter("fieldName1")!=null)
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginaci�n   -->
+	<!--  paginación   -->
 					
 					
 			</div>

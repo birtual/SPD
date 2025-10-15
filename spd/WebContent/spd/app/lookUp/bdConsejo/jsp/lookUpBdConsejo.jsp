@@ -28,7 +28,7 @@ $(document).ready(function () {
     // Variable para almacenar el valor seleccionado
     var valorSeleccionado = "";
 
-    // Obtener el valor de filtroGtVm del formulario (puedes obtenerlo de tu l�gica del servidor)
+    // Obtener el valor de filtroGtVm del formulario (puedes obtenerlo de tu lógica del servidor)
     var valorInicial = $("#filtroNomGtVm").val();
 
     // Establecer el valor inicial en el campo de entrada
@@ -63,26 +63,26 @@ $(document).ready(function () {
             // Al seleccionar un elemento, establece el valor del campo oculto
             valorSeleccionado = ui.item.value;
             //alert("Elemento seleccionado: " + ui.item.value);
-            // Log para verificar la selecci�n
+            // Log para verificar la selección
             console.log("Elemento seleccionado:", valorSeleccionado);
 
             // Establece el valor del campo de entrada
             $("#filtroNomGtVm").val(valorSeleccionado);
 
-            // Evitar el comportamiento predeterminado de la selecci�n del autocompletar
+            // Evitar el comportamiento predeterminado de la selección del autocompletar
             return false;
         }
     });
 
-    // Maneja el env�o del formulario
+    // Maneja el envío del formulario
     $("#formulari").submit(function () {
         // Almacena el valor actual de filtroGtVm
         var valorFiltroGtVm = valorSeleccionado;
         console.log("Valor de filtroNomGtVm al enviar el formulario:", valorFiltroGtVm);
 
-        // Puedes agregar l�gica adicional aqu� antes de enviar el formulario
+        // Puedes agregar lógica adicional aquí antes de enviar el formulario
 
-        // Devuelve true para permitir que el formulario se env�e
+        // Devuelve true para permitir que el formulario se envíe
         return true;
     });
 });
@@ -172,7 +172,7 @@ if (request.getParameter("fieldName1")!=null)
 			f.submit();
 		}			
 		
-		//funci�n de carga del lookUp
+		//función de carga del lookUp
 		function doLookUpLabsBdConsejo(){				
 			var loc = '/spd/LookUpLabsBdConsejo.do?parameter=initLabs&'+ 						//url de llamanda				
 				'CallBackID=filtroCodiLaboratorio&'+			  			//Nombre del campo para el valor Id
@@ -338,7 +338,7 @@ if (request.getParameter("fieldName1")!=null)
 			</table>	
 		</fieldset>
 	</div>			
-	<!--  paginaci�n  -->
+	<!--  paginación  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -352,7 +352,7 @@ if (request.getParameter("fieldName1")!=null)
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginaci�n   -->
+	<!--  paginación   -->
 					
 					
 </div>

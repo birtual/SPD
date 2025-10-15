@@ -3,12 +3,10 @@ package lopicost.spd.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class DivisionResidencia implements Serializable {
-	  private int oidResidencia;
+public class DivisionResidencia extends Residencia implements Serializable {
 	  private int oidDivisionResidencia;
 	  private String idDivisionResidencia;
 	  private String nombreDivisionResidencia;
-	  private String idResidencia;
 	  private Residencia residencia;
 	  private Farmacia farmacia;
 	  private Robot robot;
@@ -32,7 +30,6 @@ public class DivisionResidencia implements Serializable {
 
 	public String getIdDivisionResidencia() 	{	return idDivisionResidencia;	}	public void setIdDivisionResidencia(String idDivResidencia) {		this.idDivisionResidencia = idDivResidencia;}
 	public String getNombreDivisionResidencia() {	return nombreDivisionResidencia;}	public void setNombreDivisionResidencia(String nDivResi)	{		this.nombreDivisionResidencia = nDivResi;	}
-	public String getIdResidencia() 			{	return idResidencia;			}	public void setIdResidencia(String idResidencia)			{		this.idResidencia = idResidencia;			}
 	public String getIdFarmacia() 				{	return idFarmacia;				}	public void setIdFarmacia(String idFarmacia) 				{		this.idFarmacia = idFarmacia;				}
 	public String getIdRobot() 					{	return idRobot;					}	public void setIdRobot(String idRobot) 						{		this.idRobot = idRobot;						}
 	public Date getFechaAlta() 					{	return fechaAlta;				}	public void setFechaAlta(Date fechaAlta) 					{		this.fechaAlta = fechaAlta;					}
@@ -44,7 +41,6 @@ public class DivisionResidencia implements Serializable {
 	public String getLocationId() 				{	return locationId;				}	public void setLocationId(String locationId) 				{		this.locationId = locationId;				}
 	public String getNombreBolsa() 				{	return nombreBolsa;				}	public void setNombreBolsa(String nombreBolsa)				{		this.nombreBolsa = nombreBolsa;				}
 	public String getIdProcessIospd() 			{	return idProcessIospd;			}	public void setIdProcessIospd(String idProcessIospd) 		{		this.idProcessIospd = idProcessIospd;		}
-	public int getOidResidencia() 				{	return oidResidencia;			}	public void setOidResidencia(int oidResidencia) 			{		this.oidResidencia = oidResidencia;			}
 	public Farmacia getFarmacia() 				{	return farmacia;				}	public void setFarmacia(Farmacia farmacia) 					{		this.farmacia = farmacia;					}
 	public Residencia getResidencia() 			{	return residencia;				}	public void setResidencia(Residencia residencia) 			{		this.residencia = residencia;				}
 	public Robot getRobot() 					{	return robot;					}	public void setRobot(Robot robot) 							{		this.robot = robot;							}

@@ -4,6 +4,7 @@ import lopicost.spd.struts.bean.FicheroResiBean;
 
 import lopicost.spd.iospd.IOSpdApi;
 import lopicost.spd.model.BdConsejo;
+import lopicost.spd.model.DivisionResidencia;
 import lopicost.spd.model.SustXComposicion;
 import lopicost.spd.utils.DateUtilities;
 import lopicost.spd.utils.HelperSPD;
@@ -45,23 +46,27 @@ public class ImportDatosResiAegerusSPDPrevision extends ImportProcessImpl
     public void procesarCabecera(final Vector row) throws Exception {
     }
     
-    public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count) throws Exception {
-        if(count>1 ) //saltamos cabecera
+    public boolean procesarEntrada(String idRobot, DivisionResidencia div, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception {
+        boolean result=false;
+        if(div==null)  return result;//y aseguramos que sea div!=null
+        
+    	if(count>1) //saltamos cabecera 
         {
         	this.idProceso=idProceso;
-        	this.idDivisionResidencia=idDivisionResidencia;
+        	this.idDivisionResidencia=div.getIdDivisionResidencia();
         	 
         	 
         	if (row != null && row.size() >= 12) {
-                boolean result = false;
+                result = false;
                 
               //  final String element = (String) row.elementAt(1);
               //  if (!element.toUpperCase().contains("IDPROCESO")) {
                     result = this.creaRegistro(row);
               //  }
-                return;
+                return result;
             }
         }
+    	return result;
         //throw new Exception(TextManager.getMensaje("ImportData.error.ImportDatosResiSPD"));
     }
     
@@ -83,7 +88,7 @@ public class ImportDatosResiAegerusSPDPrevision extends ImportProcessImpl
        if (!this.CNSTratados.containsKey(String.valueOf(CIP) + "_" + spdCnFinal)) {
     	   // if (!this.CNSTratados.containsKey(String.valueOf(CIP))) {
             if (this.fila != null) {
-        		//Búsqueda de BDConsejo
+        		//Bï¿½squeda de BDConsejo
         		BdConsejo bdConsejo=BdConsejoDAO.getByCN(fila.getSpdCnFinal()); 
         		if(bdConsejo!=null)
         		{
@@ -147,9 +152,9 @@ public class ImportDatosResiAegerusSPDPrevision extends ImportProcessImpl
             }
             if (this.fila.getSpdAccionBolsa() != null && this.fila.getSpdAccionBolsa().equalsIgnoreCase(SPDConstants.SPD_ACCIONBOLSA_PASTILLERO)) {
                 this.fila.setDiasConToma(conteoDias);
-                this.fila.setComprimidosDosSemanas(this.fila.getComprimidosDia() * conteoDias);	//son tratamientos de 14 días!!
+                this.fila.setComprimidosDosSemanas(this.fila.getComprimidosDia() * conteoDias);	//son tratamientos de 14 dï¿½as!!
 
-                this.fila.setComprimidosSemana(this.fila.getComprimidosDosSemanas()/2);	//son tratamientos de 14 días!!
+                this.fila.setComprimidosSemana(this.fila.getComprimidosDosSemanas()/2);	//son tratamientos de 14 dï¿½as!!
                 
                 this.fila.setComprimidosTresSemanas((this.fila.getComprimidosDosSemanas()/2)  * 3);
                 this.fila.setComprimidosCuatroSemanas(this.fila.getComprimidosDosSemanas() * 2);
@@ -168,9 +173,9 @@ public class ImportDatosResiAegerusSPDPrevision extends ImportProcessImpl
             }
             
             if (this.fila.getSpdAccionBolsa() != null && this.fila.getSpdAccionBolsa().equalsIgnoreCase(SPDConstants.SPD_ACCIONBOLSA_PASTILLERO)) {
-            	int comprimidos14dias=(int) (comprimidosDia * conteoDias); //son tratamientos de 14 días!!
+            	int comprimidos14dias=(int) (comprimidosDia * conteoDias); //son tratamientos de 14 dï¿½as!!
             	
-                this.fila.setComprimidosDosSemanas(this.fila.getComprimidosDosSemanas()+ comprimidos14dias);  //son tratamientos de 14 días!!
+                this.fila.setComprimidosDosSemanas(this.fila.getComprimidosDosSemanas()+ comprimidos14dias);  //son tratamientos de 14 dï¿½as!!
                 this.fila.setComprimidosSemana(this.fila.getComprimidosSemana()+ (comprimidos14dias/2));
 
                 this.fila.setComprimidosTresSemanas((this.fila.getComprimidosTresSemanas()+comprimidos14dias* 3.0f/2));
@@ -224,12 +229,7 @@ public class ImportDatosResiAegerusSPDPrevision extends ImportProcessImpl
         
     }
 
-	@Override
-	protected void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count,
-			boolean cargaAnexa) throws Exception {
-		// TODO Esbozo de método generado automáticamente
-		
-	}
+
 
 
 }

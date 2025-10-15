@@ -20,7 +20,7 @@ import java.util.TreeMap;
 import java.util.Vector;
 
 /**
- * Método encargado de importar registros de sustituciones y sustXResi, 
+ * MÃ©todo encargado de importar registros de sustituciones y sustXResi, 
  * Todos los registros del listado
  *
  */
@@ -35,7 +35,7 @@ public class ImportSustituciones extends ImportProcessImpl
 		super();
 	}
 
-	/**los ficheros han de venir con cabecera. Se tendrá en cuenta a partir de la fila 2**/	
+	/**los ficheros han de venir con cabecera. Se tendrï¿½ en cuenta a partir de la fila 2**/	
     protected boolean beforeProcesarEntrada(Vector row) throws Exception 
     {
     	return true;
@@ -51,20 +51,26 @@ public class ImportSustituciones extends ImportProcessImpl
      
     
     /*
-     * Las Onadas llegan con 5 pautas de tomas--> desayuno / comida / merienda / cena /resopón
+     * Las Onadas llegan con 5 pautas de tomas--> desayuno / comida / merienda / cena /resopï¿½n
      * (non-Javadoc)
      * @see lopicost.spd.iospd.importdata.process.ImportProcessImpl#procesarEntrada(java.lang.String, java.lang.String, java.util.Vector, int)
      */
-    public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count) throws Exception 
+    //public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count) throws Exception 
+    
+    
+    public boolean procesarEntrada(String idRobot, DivisionResidencia div, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception
     {
+    	boolean result = false;
         if (row!=null && row.size()>=8)
         {
     		FicheroResiBean medResi= new FicheroResiBean();
-    		boolean result = creaRegistro(row);
+    		result = creaRegistro(row);
         
         }
         else 
             throw new Exception (TextManager.getMensaje("ImportData.error.ImportSustituciones"));
+        
+        return result;
     }
     
     private boolean creaRegistro(Vector row) throws Exception {
@@ -81,7 +87,7 @@ public class ImportSustituciones extends ImportProcessImpl
        	BdConsejo consejo = BdConsejoDAO.getBdConsejobyCN(sust.getCnOk());
        	sust.setNombreMedicamentoOk(consejo!=null?consejo.getNombreConsejo():(String) row.elementAt(3));						// BdConsejo o nombreBolsa
        	sust.setFormaFarmaceuticaSustitucion(consejo!=null?consejo.getNombreFormaFarmaceutica():(String) row.elementAt(4));		// BdConsejo o FORMA Excel
-		sust.setAccion((String) row.elementAt(5));											//acción
+		sust.setAccion((String) row.elementAt(5));											//acciï¿½n
 		sust.setComentario((String) row.elementAt(6));										//comentario
 		String sustituible = (String) row.elementAt(7);
 		sust.setSustituible(sustituible!=null && sustituible.equals("NO")?"0":"1");
@@ -117,8 +123,8 @@ public class ImportSustituciones extends ImportProcessImpl
 	        	sustXResi.setNombreCortoSustXResi(sust.getNombreCorto());						//nombreBolsa
 	        	sustXResi.setCodGtVmppOkSustXResi(sust.getCodGtVmppOk());
 	        	sustXResi.setNomGtVmppOkSustXResi(sust.getNomGtVmppOk());
-	    		sustXResi.setOidDivisionResidencia(new Integer(divResi.getOidDivisionResidencia()).intValue());			//acciónSustXResi
-	    		sustXResi.setIdDivisionResidencia(divResi.getIdDivisionResidencia());			//acciónSustXResi
+	    		sustXResi.setOidDivisionResidencia(new Integer(divResi.getOidDivisionResidencia()).intValue());			//acciï¿½nSustXResi
+	    		sustXResi.setIdDivisionResidencia(divResi.getIdDivisionResidencia());			//acciï¿½nSustXResi
 	    		sustXResi.setAccionSustXResi((String) row.elementAt(9));
 	    		sustXResi.setComentarioSustXResi((String) row.elementAt(10));
 	    		String sustituibleXResi = (String) row.elementAt(11);
@@ -168,13 +174,6 @@ public class ImportSustituciones extends ImportProcessImpl
     protected void afterStart() 
     {
     }
-
-	@Override
-	protected void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception {
-		procesarEntrada( idRobot,  idDivisionResidencia,  idProceso,  row,  count);
-		
-	}
-
 
 
     

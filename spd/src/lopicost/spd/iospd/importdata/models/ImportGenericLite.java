@@ -7,6 +7,7 @@ import lopicost.spd.excepciones.ColumnasInsuficientesException;
 import lopicost.spd.excepciones.MaxLineasNulasException;
 import lopicost.spd.helper.FicheroResiDetalleHelper;
 import lopicost.spd.iospd.importdata.process.ImportProcessImpl;
+import lopicost.spd.model.DivisionResidencia;
 import lopicost.spd.persistence.FicheroResiCabeceraDAO;
 import lopicost.spd.persistence.FicheroResiDetalleDAO;
 import lopicost.spd.persistence.PacienteDAO;
@@ -20,7 +21,11 @@ import lopicost.spd.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 
@@ -34,6 +39,8 @@ public class ImportGenericLite extends ImportProcessImpl
 	int reg = 11;  //numeroCorteCabecera  / celda de la fecha inicio, que es la obligatoria. a partir de aquí pueden venir vacías
 	TreeMap rowsTratados =new TreeMap();
 	TreeMap<String, String>  cipsFicheroAnexo =new TreeMap<>(); // se guardan los CIPS que se cargan de nuevo, para borrar previamente el tratamiento y cargarlo con el nuevo fichero
+	
+	Map<String, Set<String>> mapaCipCn = new HashMap<>();	//guardamos CIP Set de Cn para recorrido posterior de interacciones
 	
 	public ImportGenericLite(){
 		super();
@@ -72,7 +79,7 @@ public class ImportGenericLite extends ImportProcessImpl
 		if(cab==null)  //si no devuelve nada, vamos a la cabecera por defecto 
 			cab =  FicheroResiDetalleHelper.getCabeceraFicheroResi(getSpdUsuario(), idDivisionResidencia, idProceso, true);
 
-		//esta ser�a la cabecera top del proceso
+		//esta sería la cabecera top del proceso
 		FicheroResiBean cabeceraTop=FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(getSpdUsuario(), cab.getOidFicheroResiCabecera());
 		if(cabeceraTop!=null && cabeceraTop.getErrores()!=null && !cabeceraTop.getErrores().equals(""))
 			errors.add( cabeceraTop.getErrores() );
@@ -97,18 +104,20 @@ public class ImportGenericLite extends ImportProcessImpl
      * @see lopicost.spd.iospd.importdata.process.ImportProcessImpl#procesarEntrada(java.lang.String, java.lang.String, java.util.Vector, int)
      */
     //public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count) throws Exception 
-    public boolean procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception
-    {
+    //public boolean procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception
+    public boolean procesarEntrada(String idRobot, DivisionResidencia div, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception
+    {	
+    	if(div==null) return false;
        	boolean finalizar = false;
        //	System.out.println( "--> procesarEntrada. INICIO row  "  + new Date() ); 		
        	
 	   	//int oidFicheroResiCabecera= ioSpdApi.getOidFicheroResiCabecera(getSpdUsuario(), idDivisionResidencia, idProceso);
        	
      	//if (row!=null && row.size()>=reg+1) así está en resi+
-    	if (row!=null && row.size()>=reg && nulasSeguidas<SPDConstants.MAX_LINEAS_NULAS_CARGA)  //20250901 - Control de m�x l�neas nulas 
+    	if (row!=null && row.size()>=reg && nulasSeguidas<SPDConstants.MAX_LINEAS_NULAS_CARGA)  //20250901 - Control de máx líneas nulas 
         {
     		if (this.rowsTratados.containsKey(String.valueOf(row))) {
-    			throw new Exception ("Es un tratamiento que est� duplicado ");
+    			throw new Exception ("Es un tratamiento que está duplicado ");
     		}
     		this.rowsTratados.put(String.valueOf(row), String.valueOf(row));
     		
@@ -116,7 +125,7 @@ public class ImportGenericLite extends ImportProcessImpl
     		medResi.setOidFicheroResiCabecera(this.oidFicheroResiCabecera);
        		medResi.setRow(count);
     		medResi.setIdProceso(idProceso);
-    		medResi.setIdDivisionResidencia(idDivisionResidencia);
+    		medResi.setIdDivisionResidencia(div.getIdDivisionResidencia());
     		medResi.setTipoRegistro(SPDConstants.REGISTRO_LINEA);
     		recogerDatosRow(medResi, row);		
 
@@ -138,7 +147,7 @@ public class ImportGenericLite extends ImportProcessImpl
         		String CIP = medResi.getResiCIP();
         		if(!cipsFicheroAnexo.containsKey(CIP))
         		{
-        			oidCabecera =  FicheroResiDetalleHelper.getCabeceraFicheroResi(getSpdUsuario(), idDivisionResidencia, idProceso);
+        			oidCabecera =  FicheroResiDetalleHelper.getCabeceraFicheroResi(getSpdUsuario(), div.getIdDivisionResidencia(), idProceso);
         			FicheroResiDetalleHelper.borrarTratamientosCIPEnProceso(getSpdUsuario(), medResi);
         			medResi.setOidFicheroResiCabecera(oidCabecera);
         			cipsFicheroAnexo.put(CIP, CIP);
@@ -163,6 +172,12 @@ public class ImportGenericLite extends ImportProcessImpl
   		
   				System.out.println( "--> FicheroResiDetalleHelper.nuevo;  "  + medResi.getIdTratamientoSPD() );		
   	    	}
+  	    	
+  	    	//añadimos para control de interacciones final
+  	    	if(medResi!=null && medResi.getSpdCnFinal()!=null && !medResi.getSpdCnFinal().equals("") )
+  	    		mapaCipCn.computeIfAbsent(medResi.getResiCIP(), k -> new HashSet<>()).add(medResi.getSpdCnFinal());
+
+  	    	
    	    		
   	       }
  	        else 
@@ -171,12 +186,12 @@ public class ImportGenericLite extends ImportProcessImpl
  	        	if(nulasSeguidas>=SPDConstants.MAX_LINEAS_NULAS_CARGA)
  	        	{
  	        		finalizar=true; //interesa que no se siga procesando
- 	        		//throw new Exception ("Se ha superado el m�ximo l�neas nulas permitidas en la carga: " + SPDConstants.MAX_LINEAS_NULAS_CARGA);
- 	        		throw new MaxLineasNulasException("Se ha superado el m�ximo l�neas nulas permitidas en la carga: " + SPDConstants.MAX_LINEAS_NULAS_CARGA);
+ 	        		//throw new Exception ("Se ha superado el máximo líneas nulas permitidas en la carga: " + SPDConstants.MAX_LINEAS_NULAS_CARGA);
+ 	        		throw new MaxLineasNulasException("Se ha superado el máximo líneas nulas permitidas en la carga: " + SPDConstants.MAX_LINEAS_NULAS_CARGA);
  	        	}
  	        		
-  	            //throw new Exception ("Columnas insuficientes para la importaci�n. ");
- 	        	throw new ColumnasInsuficientesException("Columnas insuficientes para la importaci�n.");
+  	            //throw new Exception ("Columnas insuficientes para la importación. ");
+ 	        	throw new ColumnasInsuficientesException("Columnas insuficientes para la importación.");
   	        	
   	        }
     	System.out.println( "--> procesarEntrada. FIN row;  "  + new Date() );		
@@ -189,7 +204,7 @@ public class ImportGenericLite extends ImportProcessImpl
 
 
 	/**
-     * M�todo para crear un registro de inicio del proceso de carga
+     * Método para crear un registro de inicio del proceso de carga
      * y para crear el registro de los datos de cabecera del proceso
      */
 
@@ -199,7 +214,7 @@ public class ImportGenericLite extends ImportProcessImpl
 		try {
 			if(isCargaAnexa())
 			{
-				//creaci�n de log en BBDD
+				//creación de log en BBDD
 				try{
 					SpdLogAPI.addLog(getSpdUsuario(), "",  this.getIdDivisionResidencia(),  this.getIdProceso(),  SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CARGAFICHERO, SpdLogAPI.C_START
 							, "SpdLog.produccion.cargafichero.anexo", this.getIdProceso()  );
@@ -210,7 +225,7 @@ public class ImportGenericLite extends ImportProcessImpl
 				result=ioSpdApi.addGestFicheroResi(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso(), filein);
 				if(result)
 				{
-					//creaci�n de log en BBDD
+					//creación de log en BBDD
 					try{
 						SpdLogAPI.addLog(getSpdUsuario(), "",  this.getIdDivisionResidencia(),  this.getIdProceso(),  SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CARGAFICHERO, SpdLogAPI.C_START
 								, "SpdLog.produccion.cargafichero.inicio", this.getIdProceso()  );
@@ -228,7 +243,7 @@ public class ImportGenericLite extends ImportProcessImpl
 	
 	
     /**
-     * M�todo para actualizar el registro de carga
+     * Método para actualizar el registro de carga
      * @throws Exception 
      */
     protected void afterStart() throws Exception 
@@ -250,7 +265,7 @@ public class ImportGenericLite extends ImportProcessImpl
 			result=FicheroResiDetalleHelper.editaFinCargaFicheroResi(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso(), filasTotales, cipsTotales, cipsActivosSPD, porcent, this.errors);
 			if(result)
 			{
-				//creaci�n de log en BBDD
+				//creación de log en BBDD
 				try{
 					SpdLogAPI.addLog(getSpdUsuario(), "",  this.getIdDivisionResidencia(),  this.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CARGAFICHERO, SpdLogAPI.C_START
 							, "SpdLog.produccion.cargafichero.fin", this.getIdProceso()  );
@@ -656,8 +671,8 @@ public class ImportGenericLite extends ImportProcessImpl
 			//int freq = 0; //por defecto 0,
 			String result="";
 			String a = "";
-			String gdrVariante = "";	//variante de la opci�n GDR
-			String gdrComentarios = "";	//comentarios de la opci�n GDR
+			String gdrVariante = "";	//variante de la opción GDR
+			String gdrComentarios = "";	//comentarios de la opción GDR
 				try	{ 			
 					a = StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiVariante(), true);
 					if(a.equalsIgnoreCase("diasidiano")|| a.equalsIgnoreCase("cada48horas"))

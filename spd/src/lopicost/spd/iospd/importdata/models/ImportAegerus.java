@@ -9,7 +9,7 @@ import lopicost.spd.excepciones.MaxLineasNulasException;
 import lopicost.spd.helper.FicheroResiDetalleHelper;
 
 import lopicost.spd.iospd.importdata.process.ImportProcessImpl;
-
+import lopicost.spd.model.DivisionResidencia;
 import lopicost.spd.persistence.FicheroResiDetalleDAO;
 import lopicost.spd.persistence.GestSustitucionesLiteDAO;
 import lopicost.spd.struts.bean.FicheroResiBean;
@@ -28,22 +28,22 @@ import java.util.Vector;
 
 
 /**
- * Método encargado de importar el fichero recibido de la residencia, pero habiendo realizado nuestras sustituciones 
+ * Mï¿½todo encargado de importar el fichero recibido de la residencia, pero habiendo realizado nuestras sustituciones 
  * La finalidad es persistir los datos de SOLO_INFO y PASTILLERO del SPD junto con los NO_PINTAR, para poder compararlos
  * con las recetas y ver discrepancias.
- * El fichero ya viene "limpio" porque es el paso previo al envío al robot
+ * El fichero ya viene "limpio" porque es el paso previo al envï¿½o al robot
  * author CARLOS
  *
  */
 
 public class ImportAegerus extends ImportProcessImpl
 {
-	int reg = 11;  //numeroCorteCabecera  / celda de la fecha inicio, que es la obligatoria. a partir de aquí pueden venir vacías
+	int reg = 11;  //numeroCorteCabecera  / celda de la fecha inicio, que es la obligatoria. a partir de aquï¿½ pueden venir vacï¿½as
 	int nulasSeguidas=0;
 	String CIPanterior="";
 	int numeroDoses=0;
 	int oidFicheroResiCabecera= 0;
-   	int celdaFinal=30; //sería un valor tope cuando encontremos la fecha final que coincide con fecha hasta
+   	int celdaFinal=30; //serï¿½a un valor tope cuando encontremos la fecha final que coincide con fecha hasta
 
 
 
@@ -52,7 +52,7 @@ public class ImportAegerus extends ImportProcessImpl
 	TreeMap rowsTratados =new TreeMap();
 	TreeMap tFechasProduccionTeorico =new TreeMap();		//fechas que se eligen como inicio / fin para producir
 	TreeMap tFechasProduccionFichero =new TreeMap();		//fechas que se detectan que se reciben en el fichero Aegerus
-	TreeMap tFechasProduccionSPD =new TreeMap();			//fechas intersección de las dos anteriores, que serán las que se envíen a robot
+	TreeMap tFechasProduccionSPD =new TreeMap();			//fechas intersecciï¿½n de las dos anteriores, que serï¿½n las que se envï¿½en a robot
 	TreeMap<String, String>  cipsFicheroAnexo =new TreeMap<>(); // se guardan los CIPS que se cargan de nuevo, para borrar previamente el tratamiento y cargarlo con el nuevo fichero
 
 	
@@ -75,7 +75,7 @@ public class ImportAegerus extends ImportProcessImpl
 		try {
 			if(isCargaAnexa())
 			{
-				//creación de log en BBDD
+				//creaciï¿½n de log en BBDD
 				try{
 					SpdLogAPI.addLog(getSpdUsuario(), "",  this.getIdDivisionResidencia(),  this.getIdProceso(),  SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CARGAFICHERO, SpdLogAPI.C_START
 							, "SpdLog.produccion.cargafichero.anexo", this.getIdProceso()  );
@@ -86,7 +86,7 @@ public class ImportAegerus extends ImportProcessImpl
 				result=ioSpdApi.addGestFicheroResi(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso(), filein);
 				if(result)
 				{
-					//creación de log en BBDD
+					//creaciï¿½n de log en BBDD
 					try{
 						SpdLogAPI.addLog(getSpdUsuario(), "",  this.getIdDivisionResidencia(),  this.getIdProceso(),  SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CARGAFICHERO, SpdLogAPI.C_START
 								, "SpdLog.produccion.cargafichero.inicio", this.getIdProceso()  );
@@ -109,7 +109,7 @@ public class ImportAegerus extends ImportProcessImpl
 	
     protected boolean beforeProcesarEntrada(Vector row) throws Exception 
     {
-    	//comprobación de que no es línea vacía, solo tendría dos carácteres, "[" y "]".
+    	//comprobaciï¿½n de que no es lï¿½nea vacï¿½a, solo tendrï¿½a dos carï¿½cteres, "[" y "]".
     	if(row!=null)
     	{
         	String rowString=row.toString().replace(",", "").replace(" ", "");
@@ -145,18 +145,19 @@ public class ImportAegerus extends ImportProcessImpl
     		FicheroResiDetalleDAO.nuevo(idDivisionResidencia, idProceso, cab);
     	
     	tFechasProduccionTeorico = AegerusHelper.getTreeMapDiasRango(fechaDesde, fechaHasta); //TreeMap con todas las fecha entre el rango de fechas inicio/fin 
-		diasProduccionSPD= tFechasProduccionTeorico.size();	//días de producción teóricos
+		diasProduccionSPD= tFechasProduccionTeorico.size();	//dï¿½as de producciï¿½n teï¿½ricos
 		
 	   // diasRangoSPD= AegerusHelper.buscarDiasRangoSPD(fechaDesde, fechaHasta);
      }
 
-    public boolean procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception {
+  //  public boolean procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception {
+    public boolean procesarEntrada(String idRobot, DivisionResidencia div, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception {
  
     	boolean finalizar= false;
        	System.out.println( "--> procesarEntrada. INICIO row  "  + new Date() );		
  
        	this.idProceso=idProceso;
-       	this.idDivisionResidencia=idDivisionResidencia;
+       	this.idDivisionResidencia=div!=null?idDivisionResidencia:null;
         	 
         if (row != null && row.size() >= 12) {
         	
@@ -167,8 +168,8 @@ public class ImportAegerus extends ImportProcessImpl
                 //return finalizar;
         	}
         	else
-        		throw new LineaDescartadaException("Línea descartada " + row.toString());
-     	       //throw new Exception ("Línea descartada  " + row.toString());
+        		throw new LineaDescartadaException("Lï¿½nea descartada " + row.toString());
+     	       //throw new Exception ("Lï¿½nea descartada  " + row.toString());
         }        
         else 
         {
@@ -176,15 +177,15 @@ public class ImportAegerus extends ImportProcessImpl
         	if(nulasSeguidas>=SPDConstants.MAX_LINEAS_NULAS_CARGA)
         	{
         		finalizar=true; //interesa que no se siga procesando
-        		//throw new Exception ("Se ha superado el máximo líneas nulas permitidas en la carga: " + SPDConstants.MAX_LINEAS_NULAS_CARGA);
+        		//throw new Exception ("Se ha superado el mï¿½ximo lï¿½neas nulas permitidas en la carga: " + SPDConstants.MAX_LINEAS_NULAS_CARGA);
         		throw new MaxLineasNulasException(
-        	            "Se ha superado el máximo de líneas nulas permitidas: " + SPDConstants.MAX_LINEAS_NULAS_CARGA
+        	            "Se ha superado el mï¿½ximo de lï¿½neas nulas permitidas: " + SPDConstants.MAX_LINEAS_NULAS_CARGA
         	        );
         		
         	}
         		
-            //throw new Exception ("Columnas insuficientes para la importación. ");
-        	throw new ColumnasInsuficientesException("Columnas insuficientes para la importación.");
+            //throw new Exception ("Columnas insuficientes para la importaciï¿½n. ");
+        	throw new ColumnasInsuficientesException("Columnas insuficientes para la importaciï¿½n.");
         	
         }
         return finalizar;
@@ -196,14 +197,14 @@ public class ImportAegerus extends ImportProcessImpl
     	//row = AegerusHelper.comenzarEnMediodia(this.fechaDesde, row);
     	//row = AegerusHelper.acabarEnMediodia(this.fechaHasta, row);
 		if (this.rowsTratados.containsKey(String.valueOf(row))) {
-			//throw new Exception ("Es un tratamiento que está duplicado ");
-			throw new LineaDuplicadaException("Es un tratamiento que está duplicado ");
+			//throw new Exception ("Es un tratamiento que estï¿½ duplicado ");
+			throw new LineaDuplicadaException("Es un tratamiento que estï¿½ duplicado ");
 		}
 		this.rowsTratados.put(String.valueOf(row), String.valueOf(row));
 		
 		
     	boolean result = true;
-        //En el TreeMap hemos de guardar las cnResi-CIP-diasAegerus para cada FicheroResiBean. Si hay variación de alguna de ellas, crearíamos otro nuevo.
+        //En el TreeMap hemos de guardar las cnResi-CIP-diasAegerus para cada FicheroResiBean. Si hay variaciï¿½n de alguna de ellas, crearï¿½amos otro nuevo.
     	final String cnResi = StringUtil.replaceInvalidCharsInNumeric((String)row.elementAt(1));
         final String CIP = StringUtil.replaceInvalidChars((String)row.elementAt(2));
         
@@ -233,7 +234,7 @@ public class ImportAegerus extends ImportProcessImpl
 
         
  		String detalleRow = HelperSPD.getDetalleRow(row, celdaFinal);
-          // Procesa la cadena de Excel y conviértela en un arreglo o lista, por ejemplo
+          // Procesa la cadena de Excel y conviï¿½rtela en un arreglo o lista, por ejemplo
  		detalleRow = StringUtil.quitaEspaciosYAcentos(row.toString().replaceAll("[\\[\\]]", "").replaceAll("'", ""), true);
 
         if (!this.CNSTratados.containsKey(String.valueOf(CIP) + "_" + cnResi+ "_" + diasMesConcretos)) {
@@ -246,7 +247,7 @@ public class ImportAegerus extends ImportProcessImpl
          	{
            		//mensual
         		medResi.setTipoEnvioHelium("2");
-        		medResi.setResiPeriodo(SPDConstants.SPD_PERIODO_DIAS_SEMANA_CONCRETOS); //sin marcar días para que no salga
+        		medResi.setResiPeriodo(SPDConstants.SPD_PERIODO_DIAS_SEMANA_CONCRETOS); //sin marcar dï¿½as para que no salga
         		medResi.setDiasSemanaConcretos("");
         		medResi.setDiasSemanaMarcados(0);
         		medResi.setSecuenciaGuide("");
@@ -278,12 +279,12 @@ public class ImportAegerus extends ImportProcessImpl
          		medResi.setDiasMesConcretos(diasMesConcretos);
          		AegerusHelper.marcaTodosDias(medResi);
            }
-         	medResi.setNumeroDeTomas(24); //importante, todas tienen este número
+         	medResi.setNumeroDeTomas(24); //importante, todas tienen este nï¿½mero
             
             
     		medResi.setOidFicheroResiCabecera(oidFicheroResiCabecera);
       		//String detalleRow = HelperSPD.getDetalleRow(row, celdaFinal);
-      	             // Procesa la cadena de Excel y conviértela en un arreglo o lista, por ejemplo
+      	             // Procesa la cadena de Excel y conviï¿½rtela en un arreglo o lista, por ejemplo
             //detalleRow = StringUtil.quitaEspaciosYAcentos(row.toString().replaceAll("[\\[\\]]", "").replaceAll("'", ""), true);
             //medResi.setDetalleRow(HelperSPD.getDetalleRowFechasOk(detalleRow));
     		medResi.setDetalleRow(detalleRow);
@@ -316,7 +317,7 @@ public class ImportAegerus extends ImportProcessImpl
         	String hora=(String) row.elementAt(i);i++;
         	AegerusHelper.detectarToma(medResi, toma, hora);
         	
-            //cálculo de la dosis que se prevee que entra en la producción según lo recibido de la resi
+            //cï¿½lculo de la dosis que se prevee que entra en la producciï¿½n segï¿½n lo recibido de la resi
         	try {medResi.setPrevisionResi(new Float(toma.replace(",", ".")).floatValue() * diasProduccionSPD );} catch(Exception e){}
         	try {medResi.setPrevisionSPD(new Float(toma.replace(",", ".")).floatValue() * diasProduccionSPD );} catch(Exception e){}
         	
@@ -327,12 +328,12 @@ public class ImportAegerus extends ImportProcessImpl
        		this.CNSTratados.put(String.valueOf(CIP) + "_" + cnResi+ "_" + diasMesConcretos, medResi);
                 		
     	}
-        else {//añadimos los datos que nos interesa, ResiToma, 
+        else {//aÃ±adimos los datos que nos interesa, ResiToma, 
          
          	
         	
         	this.medResi = (FicheroResiBean)this.CNSTratados.get(String.valueOf(CIP) + "_" + cnResi+ "_" + diasMesConcretos);
-          	//se añade la línea del excel en el detalleRow para consulta desde la web
+          	//se aï¿½ade la lï¿½nea del excel en el detalleRow para consulta desde la web
         	this.medResi.setDetalleRow(this.medResi.getDetalleRow() + "_" +  detalleRow);
  
         	String toma = "0";
@@ -341,12 +342,12 @@ public class ImportAegerus extends ImportProcessImpl
         	AegerusHelper.detectarToma(this.medResi, toma, hora);
            
 	      // String detalleRow = row.toString();
-	       // Procesa la cadena de Excel y conviértela en un arreglo o lista, por ejemplo
+	       // Procesa la cadena de Excel y conviï¿½rtela en un arreglo o lista, por ejemplo
 	      // detalleRow = row.toString().replaceAll("[\\[\\]]", "").replaceAll("'", "");
 	      // this.medResi.setDetalleRow(this.medResi.getDetalleRow() + "  <br>  " + detalleRow);
 	       
             		
-            //añadimos cálculo de la dosis que se prevee que entra en la producción según lo recibido de la resi
+            //aï¿½adimos cï¿½lculo de la dosis que se prevee que entra en la producciï¿½n segï¿½n lo recibido de la resi
 	       float previsionResiAcumulada=medResi.getPrevisionResi();
 	       float previsionSPDAcumulada=medResi.getPrevisionSPD();
 	       try {medResi.setPrevisionResi(previsionResiAcumulada + new Float(toma).floatValue() * diasProduccionSPD );} catch(Exception e){}
@@ -374,21 +375,21 @@ public class ImportAegerus extends ImportProcessImpl
 
 
 
-/* * Método para crear un registro de inicio del proceso de carga
+/* * Mï¿½todo para crear un registro de inicio del proceso de carga
     * y para crear el registro de los datos de cabecera del proceso
    
 
 	private String buscarDiasAegerusEnRango(Vector row) {
 		
 		String diasProduccionRango="";
-		int i=10; //los días empiezan a partir de la fila 11 (row.elementAt(10))
+		int i=10; //los dï¿½as empiezan a partir de la fila 11 (row.elementAt(10))
        	String dia = (String) row.elementAt(i);i++; //dia1
        	boolean finalDias = AegerusHelper.checkFinalDias(dia);
        	boolean diario=true;
-       	int contador=0; //si llega todo como NO para poder tener un límite en el bucle 
+       	int contador=0; //si llega todo como NO para poder tener un lï¿½mite en el bucle 
         while (!finalDias && contador<=celdaFinal)
     	{
-        	//es dia de tratamiento casos y está dentro del rango de producción
+        	//es dia de tratamiento casos y estï¿½ dentro del rango de producciï¿½n
           	if(AegerusHelper.esFechaAegerus(dia) && HelperSPD.verificarEnRango(this.fechaDesde, this.fechaHasta, dia))
            	{
            		int diaFechas = HelperSPD.obtenerDia(dia);
@@ -424,7 +425,7 @@ public class ImportAegerus extends ImportProcessImpl
 
         if(diario) 
         {
-        	diasProduccionRango=""; //si es diario quitamos los días
+        	diasProduccionRango=""; //si es diario quitamos los dï¿½as
         }else
         {
         	//en caso que todo haya llegado con NO hemos de evitar que sea diario.
@@ -440,14 +441,14 @@ public class ImportAegerus extends ImportProcessImpl
 	private String buscarDiasAegerusEnRangoNumerico(Vector row) {
 		
 		String diasProduccionRango="";
-		int i=10; //los días empiezan a partir de la fila 11 (row.elementAt(10))
+		int i=10; //los dï¿½as empiezan a partir de la fila 11 (row.elementAt(10))
        	String dia = (String) row.elementAt(i);i++; //dia1
        	boolean finalDias = AegerusHelper.checkFinalDias(dia);
        	boolean diario=true;
-       	int contador=0; //si llega todo como NO para poder tener un límite en el bucle 
+       	int contador=0; //si llega todo como NO para poder tener un lï¿½mite en el bucle 
         while (!finalDias && contador<=celdaFinal)
     	{
-        	//es dia de tratamiento casos y está dentro del rango de producción
+        	//es dia de tratamiento casos y estï¿½ dentro del rango de producciï¿½n
           	if(AegerusHelper.esFechaAegerus(dia) && HelperSPD.verificarEnRango(this.fechaDesde, this.fechaHasta, dia))
            	{
            		int diaFechas = HelperSPD.obtenerDia(dia);
@@ -473,7 +474,7 @@ public class ImportAegerus extends ImportProcessImpl
 
         if(diario) 
         {
-        	diasProduccionRango=""; //si es diario quitamos los días
+        	diasProduccionRango=""; //si es diario quitamos los dï¿½as
         }else
         {
         	//en caso que todo haya llegado con NO hemos de evitar que sea diario.
@@ -490,14 +491,14 @@ public class ImportAegerus extends ImportProcessImpl
 		
 		TreeMap tDiasProduccionRango=new TreeMap();
 		
-		int i=10; //los días empiezan a partir de la fila 11 (row.elementAt(10))
+		int i=10; //los dï¿½as empiezan a partir de la fila 11 (row.elementAt(10))
        	String dia = (String) row.elementAt(i);i++; //dia1
        	boolean finalDias = AegerusHelper.checkFinalDias(dia);
        	boolean diario=true;
-       	int contador=0; //si llega todo como NO para poder tener un límite en el bucle 
+       	int contador=0; //si llega todo como NO para poder tener un lï¿½mite en el bucle 
         while (!finalDias && contador<=celdaFinal)
     	{
-        	//es dia de tratamiento casos y está dentro del rango de producción
+        	//es dia de tratamiento casos y estï¿½ dentro del rango de producciï¿½n
           	if(AegerusHelper.esFechaAegerus(dia) && HelperSPD.verificarEnRango(this.fechaDesde, this.fechaHasta, dia))
            	{
            		tDiasProduccionRango.put(dia, HelperSPD.obtenerDia(dia)+"");
@@ -529,7 +530,7 @@ public class ImportAegerus extends ImportProcessImpl
 	
 	
    /**
-    * Método para actualizar el registro de carga
+    * Mï¿½todo para actualizar el registro de carga
     * @throws Exception 
     */
    protected void afterStart() throws Exception 
@@ -559,7 +560,7 @@ public class ImportAegerus extends ImportProcessImpl
 
 			if(result)
 			{
-				//creación de log en BBDD
+				//creaciï¿½n de log en BBDD
 				try{
 					SpdLogAPI.addLog(getSpdUsuario(), "",  this.getIdDivisionResidencia(),  this.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CARGAFICHERO, SpdLogAPI.C_START
 							, "SpdLog.produccion.cargafichero.fin", this.getIdProceso()  );
@@ -603,7 +604,7 @@ public class ImportAegerus extends ImportProcessImpl
      	      	HelperSPD.changeTrazodona(getSpdUsuario(), medResi);
            	}
      		
-     		//se recupera información de la producción anterior.
+     		//se recupera informaciï¿½n de la producciï¿½n anterior.
      		boolean reutilizado = AegerusHelper.getDatosProduccionAnterior(getSpdUsuario(), medResi, true);
        	   	//si es un registro nuevo pasamos varios de los filtros
      	   	if(validoParaSpd)
@@ -624,7 +625,7 @@ public class ImportAegerus extends ImportProcessImpl
      		}   
      		
         	//tratamos los casos de un segundo fichero de carga.
-        	//localización de los CIPS a tratar, se borrará lo que se haya cargado previamente y se mete en un TreeMap para no borrarlo de nuevo e insertar los nuevos. 
+        	//localizaciï¿½n de los CIPS a tratar, se borrarï¿½ lo que se haya cargado previamente y se mete en un TreeMap para no borrarlo de nuevo e insertar los nuevos. 
         	if(isCargaAnexa())
         	{
         		int oidCabecera =-1;
@@ -677,7 +678,7 @@ public class ImportAegerus extends ImportProcessImpl
     
 	
     private void buscaSustitucion(FicheroResiBean fila) throws Exception {
-		//la búsqueda de sustitución se realiza en la carga
+		//la bï¿½squeda de sustituciï¿½n se realiza en la carga
 		if(fila.getResiCn()!=null && !fila.getResiCn().equals("") )
 			GestSustitucionesLiteDAO.buscaSustitucionLite(getSpdUsuario(), fila);
 

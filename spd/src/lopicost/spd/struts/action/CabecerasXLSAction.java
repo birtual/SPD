@@ -57,7 +57,7 @@ public class CabecerasXLSAction extends GenericAction  {
     		
     		
     		toma = CabecerasXLSHelper.editarToma(getIdUsuario(), tomaAntigua, toma, formulari, cab);
- 				//INICIO eaci�n de log en BBDD
+ 				//INICIO eación de log en BBDD
 			if(toma!=null)
 			{
 				try{
@@ -116,7 +116,7 @@ public class CabecerasXLSAction extends GenericAction  {
     	{
         	CabecerasXLSBean nuevaToma = new CabecerasXLSBean( cab.getIdDivisionResidencia(), formulari.getResiToma(),  horaTomaLiteral, cab.getNumeroDeTomas()+1, "EXTRA", false, false); 
         	result = CabecerasXLSHelper.nuevaToma(getIdUsuario(), cab, nuevaToma);
-			//INICIO eaci�n de log en BBDD
+			//INICIO eación de log en BBDD
 			try{
 				SpdLogAPI.addLog(getIdUsuario(),  null,  cab.getIdDivisionResidencia(), formulari.getIdProceso()
 						, SpdLogAPI.A_CABECERA, SpdLogAPI.B_CREACION, SpdLogAPI.C_TOMAS, "SpdLog.cabecera.creacion.toma"
@@ -127,7 +127,7 @@ public class CabecerasXLSAction extends GenericAction  {
 			//FIN de log en BBDD
 
     	}
-    	//actualizaci�n con la nueva toma
+    	//actualización con la nueva toma
 		tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
 		formulari.setListaTomasCabecera(tomasCabecera);
 		formulari.setErrors(errors);
@@ -146,7 +146,7 @@ public class CabecerasXLSAction extends GenericAction  {
 		FicheroResiBean  cabPlantilla = CabecerasXLSDAO.getCabecerasXLSByOidCabecera(getIdUsuario(), formulari.getOidFicheroResiCabecera());
 		
 		//if(cabPlantilla==null || cabPlantilla.getOidFicheroResiDetalle()==0)
-		//en caso que no exista plantilla de cabecera, la creamos en base a la �ltima producci�n 
+		//en caso que no exista plantilla de cabecera, la creamos en base a la última producción 
 		if(cabPlantilla==null)
 			crearPlantilla(formulari);
 		formulari.setFicheroResiDetalleBean(cabPlantilla);
@@ -164,7 +164,7 @@ public class CabecerasXLSAction extends GenericAction  {
 				{
 		   			result=CabecerasXLSDAO.borradoDeToma(getIdUsuario(), formulari, cabPlantilla, cab, resiToma.getPosicionEnBBDD());
 					errors.add("Toma borrada correctamente");
-					//INICIO eaci�n de log en BBDD
+					//INICIO eación de log en BBDD
 					try{
 						SpdLogAPI.addLog(getIdUsuario(),  null,  cab.getIdDivisionResidencia(), formulari.getIdProceso()
 								, SpdLogAPI.A_CABECERA, SpdLogAPI.B_BORRADO, SpdLogAPI.C_TOMAS, "SpdLog.cabecera.borrado.toma"

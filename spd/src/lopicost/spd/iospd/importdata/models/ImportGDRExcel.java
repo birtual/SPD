@@ -52,12 +52,12 @@ public class ImportGDRExcel extends ImportGenericLite
 			if(getProcessedRows()==0)
 			{
 				//throw new Exception ("No es un tratamiento válido.");
-				throw new LineaDescartadaException("No es un tratamiento v�lido. ");
+				throw new LineaDescartadaException("No es un tratamiento válido. ");
 			}
 		}catch(Exception e)
 		{
 			//throw new Exception ("No es un tratamiento válido.");
-			throw new LineaDescartadaException("No es un tratamiento v�lido. ");
+			throw new LineaDescartadaException("No es un tratamiento válido. ");
 		}
     	
     	String detalleRow = HelperSPD.getDetalleRow(row, COLUMNAS);
@@ -94,7 +94,7 @@ public class ImportGDRExcel extends ImportGenericLite
     	medResi.setResiFormaMedicacion((String) row.elementAt(i));i++;									//Tipus unitat
     	medResi.setResiEmblistable((String) row.elementAt(i));i++;										//Emblistable
        	medResi.setResiObservaciones((String) row.elementAt(i));i++;									//Només en cas de
-       	i++; //saltamos Hist�ria CAP																	//saltamos "Història CAP"
+       	i++; //saltamos História CAP																	//saltamos "Història CAP"
        	medResi.setResiComentarios(StringUtil.limpiarTextoComentarios((String) row.elementAt(i)));i++;	//Comentari
     	
        	
@@ -159,14 +159,14 @@ public class ImportGDRExcel extends ImportGenericLite
 
 			/*
 			 *
-			//si hemos encontrado sustituci�n no hacemos validar/confirmar
+			//si hemos encontrado sustitución no hacemos validar/confirmar
 			if(medResi.getSpdCnFinal()!=null && !medResi.getSpdCnFinal().isEmpty())
 			{
 				medResi.setResiCn(StringUtil.limpiarTextoEspaciosYAcentos(medResi.getResiMedicamento(), true));
 			}
 			//else
 			*/
-			//si hemos encontrado sustituci�n no hacemos validar/confirmar
+			//si hemos encontrado sustitución no hacemos validar/confirmar
 			if(medResi.getSpdCnFinal()==null || medResi.getSpdCnFinal().isEmpty())	
 			{
 				medResi.setValidar(SPDConstants.REGISTRO_VALIDAR);
@@ -191,7 +191,7 @@ public class ImportGDRExcel extends ImportGenericLite
 			//this.errors.add(TextManager.getMensaje("ImportData.error.linea")+" " + row);
 			//this.errors.add("Es un tratamiento que está duplicado " );
 			//throw new Exception ("Es un tratamiento que está duplicado ");
-			throw new LineaDuplicadaException("Es un tratamiento que est� duplicado ");
+			throw new LineaDuplicadaException("Es un tratamiento que está duplicado ");
 		System.out.println(" -----  borrarPosibleDuplicado Fin-->  " );
 		
 	}
@@ -207,7 +207,7 @@ public class ImportGDRExcel extends ImportGenericLite
 	        }
 	    }
 
-	    // Paso 2: eliminar lo que está entre par�ntesis (si lo hay)
+	    // Paso 2: eliminar lo que está entre parántesis (si lo hay)
 	    entrada = entrada.replaceAll("\\s*\\(.*\\)", "");
 
 	    // Paso 3: reemplazar los guiones por ceros
@@ -238,10 +238,10 @@ public class ImportGDRExcel extends ImportGenericLite
 	
 	/**
 1		 2				3		4			5			6		7				8		  9		10		11			12				13				14
-Resident N� Targ.San.	Tipus	Medicament	Data inici	Data fi	Planificaci�	Posologia Tipus unitat	Emblistable	Nom�s en cas de	Hist�ria CAP	Comentari
+Resident N� Targ.San.	Tipus	Medicament	Data inici	Data fi	Planificació	Posologia Tipus unitat	Emblistable	Nomás en cas de	Història CAP	Comentari
 	 */
 	public List<Integer> getPosicionesAEliminar() {
-		//en GDR no tendremos en cuenta  13 Hist�ria CAP
+		//en GDR no tendremos en cuenta  13 Història CAP
 		List<Integer> result =new ArrayList<Integer>();
 		result.add(13);
 		//result.add(6);

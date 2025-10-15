@@ -164,6 +164,7 @@ public class DivisionResidenciaDAO {
 	    	c.setExtRE_diaSemanaLiteral(getDiaLiteral(resultSet.getInt("extRE_diaSemana")));
 	    	c.setIdLayout(resultSet.getString("layoutBolsa"));
 	    	c.setLocationId(resultSet.getString("locationID"));
+	    	c.setCargarSoloCipsExistentes(resultSet.getInt("cargarSoloCipsExistentes"));
 			
 		}
     	return c;
@@ -175,10 +176,10 @@ public class DivisionResidenciaDAO {
 		switch (numDia) {
 		case 1: res= "lunes"; break;
 		case 2: res= "martes";break;
-		case 3: res= "miércoles";break;
+		case 3: res= "miï¿½rcoles";break;
 		case 4: res= "jueves";break;
 		case 5: res= "viernes";break;
-		case 6: res= "sábado";break;
+		case 6: res= "sï¿½bado";break;
 		case 7: res= "domingo";break;
 		} 
 		return res;
@@ -255,7 +256,7 @@ public class DivisionResidenciaDAO {
 		            for (i = 0; i < oidVariasDivisionResidencia.length-1; i++) {
 		            	textoIn+= oidVariasDivisionResidencia[i] + ",";
 		            }
-		            textoIn+= oidVariasDivisionResidencia[i]; // la última sin coma final 
+		            textoIn+= oidVariasDivisionResidencia[i]; // la ï¿½ltima sin coma final 
 		 	  	  
 		            String qry = " UPDATE dbo.bd_divisionResidencia set  extRE= 1 ";
 		  	   		qry+= " WHERE oidDivisionResidencia IN ( " + VisibilidadHelper.oidDivisionResidenciasVisibles(spdUsuario)  + ")";
@@ -274,7 +275,7 @@ public class DivisionResidenciaDAO {
 		}
 		
 	/**
-	 * Método para dar de alta una divisionResidencia,
+	 * Mï¿½todo para dar de alta una divisionResidencia,
 	 * @param spdUsuario
 	 * @param div
 	 * @return
@@ -294,7 +295,7 @@ public class DivisionResidenciaDAO {
 		  	qry+=" 	extRE, extRE_diaSemana  ";
 		  	qry+=" ) VALUES ( ";
 		  	qry+=" '"+ div.getIdDivisionResidencia()+"', '"+ div.getNombreDivisionResidencia()+"', ";
-		  	qry+=" '"+ div.getResidencia().getOidResidencia()+"' , '"+ div.getResidencia().getIdResidencia()+"', ";
+		  	qry+=" '"+ div.getOidResidencia()+"' , '"+ div.getIdResidencia()+"', ";
 		  	qry+=" '"+ div.getIdFarmacia()+"' , '"+ div.getIdRobot()+"', CONVERT(datetime, getdate(), 120),   ";
 		  	qry+=" '"+ div.getNombreBolsa()+"', '"+ div.getIdProcessIospd()+"', '"+ div.getTipoCLIfarmatic()+"', ";
 		  	qry+=" '"+ div.getExtRE()+"', '"+ div.getExtRE_diaSemana()+"' ";

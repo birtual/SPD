@@ -45,7 +45,7 @@ public class AegerusHelper{
    			+"_"+medResi.getResiToma19()+"_"+medResi.getResiToma20()+"_"+medResi.getResiToma21()+"_"+medResi.getResiToma22()+"_"+medResi.getResiToma23()+"_"+medResi.getResiToma24()
 			+"_"+medResi.getResiPeriodo();
    		
-   		//quitamos todos los caracteres que no son letras/números 
+   		//quitamos todos los caracteres que no son letras/nï¿½meros 
    		keyOk = keyOk.replaceAll("[^a-zA-Z0-9_]", "");
 	    
 	   	System.out.println("----- getID --> " + keyOk);
@@ -55,7 +55,7 @@ public class AegerusHelper{
    
 
 	/**
-	 * Método que buscará los días de toma concretos del mes para los casos que la frecuencia sea mensual o quincenal
+	 * Mï¿½todo que buscarï¿½ los dï¿½as de toma concretos del mes para los casos que la frecuencia sea mensual o quincenal
 	 * @param medResi
 	 * @throws Exception 
 	 */
@@ -74,7 +74,7 @@ public class AegerusHelper{
 		
 		if(medResiAnterior!=null)
 		{
-			//ponemos la información del último registro editado
+			//ponemos la informaciï¿½n del ï¿½ltimo registro editado
 			medResi.setResiSiPrecisa(medResiAnterior.getResiSiPrecisa());
 			medResi.setSpdCnFinal(medResiAnterior.getSpdCnFinal());
 			medResi.setSpdNombreBolsa(medResiAnterior.getSpdNombreBolsa());
@@ -94,7 +94,7 @@ public class AegerusHelper{
 			medResi.setConfirmar(medResiAnterior.getConfirmar()); 
 			medResi.setConfirmaciones(medResiAnterior.getConfirmaciones());
 			
-			if(medResi.getConfirmar().equalsIgnoreCase(SPDConstants.REGISTRO_CONFIRMADO)) //para control del número de validaciones
+			if(medResi.getConfirmar().equalsIgnoreCase(SPDConstants.REGISTRO_CONFIRMADO)) //para control del nï¿½mero de validaciones
 			{
 				int confirmaciones = medResiAnterior.getConfirmaciones();
 				int nConfirmaciones = SPDConstants.CTRL_PRINCIPIO_ACTIVO_N_VALIDACIONES;
@@ -184,19 +184,19 @@ public class AegerusHelper{
 	 */
 	
 	 public static boolean esFechaAegerus(String fecha) {
-	        // Expresión regular para varios formatos posibles
+	        // Expresiï¿½n regular para varios formatos posibles
 	        String regex = "^(\\d{1,2})([/-])(\\d{1,2})([/-])(\\d{4})$";
-	        // Compilar la expresión regular en un patrón
+	        // Compilar la expresiï¿½n regular en un patrï¿½n
 	        Pattern pattern = Pattern.compile(regex);
 	        // Crear un matcher para la cadena de texto
 	        Matcher matcher = pattern.matcher(fecha);
-	        // Comprobar si la cadena coincide con el patrón
+	        // Comprobar si la cadena coincide con el patrï¿½n
 	        return matcher.matches();
 	    }
 	
 
 		/**
-	     * Método que valida si la celda leida tiene un "NO" por lo que sabemos que es rtatamiento válido pero no se toma ese día
+	     * Mï¿½todo que valida si la celda leida tiene un "NO" por lo que sabemos que es rtatamiento vï¿½lido pero no se toma ese dï¿½a
 	     * @param dia
 	     * @return
 	     */
@@ -209,7 +209,7 @@ public class AegerusHelper{
 		}
 		
 	    /**
-	     * Método que valida si la celda leida tiene una fecha o un "NO" por lo que sabemos que es rtatamiento válido
+	     * Mï¿½todo que valida si la celda leida tiene una fecha o un "NO" por lo que sabemos que es rtatamiento vï¿½lido
 	     * @param dia
 	     * @return
 	     */
@@ -219,7 +219,7 @@ public class AegerusHelper{
 
 
 		public static void marcaTodosDias(FicheroResiBean fila) {
-			//Aegerus nos envía los días por fecha, por lo tanto podemos marcar siempre todos los días 
+			//Aegerus nos envï¿½a los dï¿½as por fecha, por lo tanto podemos marcar siempre todos los dï¿½as 
 			fila.setResiD1("X");
 			fila.setResiD2("X");
 			fila.setResiD3("X");
@@ -231,7 +231,7 @@ public class AegerusHelper{
 		}
 
 		/**
-		 * Devuelve un TreeMap con las fechas del rango de dos fechas pasadas por parámetro. Clave Fecha, Valor Día de la fecha 
+		 * Devuelve un TreeMap con las fechas del rango de dos fechas pasadas por parï¿½metro. Clave Fecha, Valor Dï¿½a de la fecha 
 		 * @param fechaDesde
 		 * @param fechaHasta
 		 * @return
@@ -362,7 +362,7 @@ public class AegerusHelper{
 			}
 	    	ControlSPD.controlRobot(idUsuario, medResi);
 	    	ControlSPD.controlNoSustituibles(idUsuario, medResi);
-	    	ControlSPD.controlPrincActivos(idUsuario, medResi, nConfirmaciones); // como hay más confirmaciones en este método ha de ir después de las anteriores, 
+	    	ControlSPD.controlPrincActivos(idUsuario, medResi, nConfirmaciones); // como hay mï¿½s confirmaciones en este mï¿½todo ha de ir despuï¿½s de las anteriores, 
 	    	ControlSPD.controlValidarDatos(idUsuario, medResi);
 
 			System.out.println("ControlSPD aplicarControles: INICIO");
@@ -373,10 +373,10 @@ public class AegerusHelper{
 		/**
 		 * UPDATE [SPDAC].[dbo].[tmp_detallesTomas_mtFalguera] SET [tramoToma] = '09H00' 
 			WHERE UPPER([tramoToma]) = '08H00' 
-			AND CIP <>'BEGA1451215004' --Salud Bellido García (10 sept 2021)
+			AND CIP <>'BEGA1451215004' --Salud Bellido GarcÃ­a (10 sept 2021)
 			AND 
 			(
-				--CIP <>'CACA1461116002' --María Jesús Cascudo Cascudo exitus 11/10/2022
+				--CIP <>'CACA1461116002' --MarÃ­a JesÃºs Cascudo Cascudo exitus 11/10/2022
 				--19112018 Solo mantenemos las 8h en caso que sea el CIP 'CACA1461116002' 
 				--25102022 Mantenemos las 8h si es TARDYFERON
 				(
@@ -452,7 +452,7 @@ public class AegerusHelper{
 		String[] partesHora = hora.split(":");
 		int horas = Integer.parseInt(partesHora[0]);
 		if (horas <= 15) {
-			for (int i = 10; i < row.size(); i++) {		//desde la posición 10, que empiezan los días
+			for (int i = 10; i < row.size(); i++) {		//desde la posiciï¿½n 10, que empiezan los dï¿½as
 				String fecha = (String) row.get(i);
 				try{
 					LocalDate fechaDate = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -470,7 +470,7 @@ public class AegerusHelper{
 		String[] partesHora = hora.split(":");
 		int horas = Integer.parseInt(partesHora[0]);
 		if (horas > 15) {
-			for (int i = 10; i < row.size(); i++) {		//desde la posición 10, que empiezan los días
+			for (int i = 10; i < row.size(); i++) {		//desde la posiciï¿½n 10, que empiezan los dï¿½as
 				String fecha = (String) row.get(i);
 				try{
 					LocalDate fechaDate = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yyyy"));

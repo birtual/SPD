@@ -23,7 +23,7 @@ public class SPDConstants
 
 	public static String MESSAGE_RESOURCE_PROPERTIES = "SPDMessageResources";
 	public static String MESSAGE_LOGS_PROPERTIES = "SPDLog";
-	//Id de usuario que se usará para hacer el doDummyLogin()
+	//Id de usuario que se usarÃ¡ para hacer el doDummyLogin()
 	//public static String DUMMYLOGIN= "";	
 
 	
@@ -115,7 +115,7 @@ public class SPDConstants
 	public static String IOSPD_OUTPATH ="";
 
 	/**
-	 * Número de registros por página de listado.
+	 * nÃºmero de registros por pÃ¡gina de listado.
 	 */
 	public static  int PAGE_ROWS= 20;	
 
@@ -150,7 +150,7 @@ public class SPDConstants
 	public static String FILEUPLOAD_EXTENSIONS = ".doc,.txt,.zip,.xls,.xlsx,.pdf,.ppt,.pps,.jpg,.gif,.csv,.html,.htm,.XLS,.XLSX";
 	//public static String FILEUPLOAD_REAL_PATH = "c:/projects/spd/desarrollo/webapp";
 	public static String PATH_DOCUMENTOS = "C:/eclipse/workspace/spd_files";
-	//public static String FILEUPLOAD_REAL_PATH = FileUtil.dameURLBase();// Obtener la ruta de la aplicación web en Tomcat
+	//public static String FILEUPLOAD_REAL_PATH = FileUtil.dameURLBase();// Obtener la ruta de la aplicaciÃ³n web en Tomcat
 	 
 	public static String FILEUPLOAD_RELATIVE_PATH = "/iospd";
 	public static String PLANTILLAS_IO_RELATIVE_PATH = "/plantillas";
@@ -160,13 +160,13 @@ public class SPDConstants
 	public static String AP_SPD_ADMIN= "---NOCARGADO---";
 
 
-	// Estos dos se usan para la asignación de alumnos a dominios en campus.
+	// Estos dos se usan para la asignaciÃ³n de alumnos a dominios en campus.
 	public static  String USERTYPE_RESPONSABLE= "---NOCARGADO---";	// <DDBB> CAMPUS.CAMPUSUSER.USERTYPEID
 
 	private static SPDConstants instance = null;
 	
 	/**
-	 * Clase de implementación de la seguridad.
+	 * Clase de implementaciÃ³n de la seguridad.
 	 */
 	public static String SECURITYIMP_CLASS="lopicost.spd.security.SecurityImpl";
 	
@@ -189,10 +189,10 @@ public class SPDConstants
 	
 	public static final String DIA1 = "lunes";
 	public static final String DIA2 = "martes";
-	public static final String DIA3 = "miércoles";
+	public static final String DIA3 = "miï¿½rcoles";
 	public static final String DIA4 = "jueves";
 	public static final String DIA5 = "viernes";
-	public static final String DIA6 = "sábado";
+	public static final String DIA6 = "sï¿½bado";
 	public static final String DIA7 = "domingo";
 
 	public static final String DIA1_HELIUM = "monday";
@@ -218,42 +218,42 @@ public class SPDConstants
 	public static final String TIPO_4_GUIDE_HELIUM = "4";
 
 	public static final String INFO_RESI_SIN_CIP_AVISO = "CIP no informado. ";
-	public static final String INFO_RESI_SIN_CIP_ARREGLO = "En el listado de la residencia falta añadir el CIP. ";
-	public static final String INFO_INTERNA_CIP_SIN_ALTA = " El CIP no está dado de alta en la gestión. ";
-	public static final String INFO_INTERNA_CIP_OTRA_RESI = " El CIP está asignado a otra residencia distinta. ";
-	public static final String INFO_INTERNA_CIP_SPD_NO = " CIP marcado como SPD=N en la gestión. ";
-	public static final String INFO_RESI_CN_NO_INDICADO = "Llega sin código, solicitamos que se incluya uno válido. ";
+	public static final String INFO_RESI_SIN_CIP_ARREGLO = "En el listado de la residencia falta aÃ±adir el CIP. ";
+	public static final String INFO_INTERNA_CIP_SIN_ALTA = " El CIP no estÃ¡ dado de alta en la gestiÃ³n. ";
+	public static final String INFO_INTERNA_CIP_OTRA_RESI = " El CIP estÃ¡ asignado a otra residencia distinta. ";
+	public static final String INFO_INTERNA_CIP_SPD_NO = " CIP marcado como SPD=N en la gestiÃ³n. ";
+	public static final String INFO_RESI_CN_NO_INDICADO = "Llega sin cÃ³digo, solicitamos que se incluya uno vÃ¡lido. ";
 	
-	public static final String INFO_INTERNA_REVISION_SEQGUIDE = " Revisa la SecuenciaGuide, no está bien creada. ";
-	public static final String INFO_INTERNA_REVISION_COMPRIMIDOS= " Revisar número total de comprimidos día en pauta. ";
-	public static final String INFO_INTERNA_REVISION_SUSTITUCION= " Revisar sustitución o caracteres correctos en pauta. ";
+	public static final String INFO_INTERNA_REVISION_SEQGUIDE = " Revisa la SecuenciaGuide, no estÃ¡ bien creada. ";
+	public static final String INFO_INTERNA_REVISION_COMPRIMIDOS= " Revisar nÃºmero total de comprimidos dÃ­a en pauta. ";
+	public static final String INFO_INTERNA_REVISION_SUSTITUCION= " Revisar sustituciÃ³n o caracteres correctos en pauta. ";
 	public static final String INFO_INTERNA_CONFIRMAR_SUSTITUCION_PAUTA= " Confirmar que se ha sustituido bien la pauta. ";
-	public static final String INFO_INTERNA_CNFINAL_NOVALIDO= " Revisar CN Final, ha de ser formato numérico con 6 dígitos. ";
+	public static final String INFO_INTERNA_CNFINAL_NOVALIDO= " Revisar CN Final, ha de ser formato numÃ©rico con 6 dÃ­gitos. ";
 	
 	
 	public static final String INFO_RESIDENCIA_AVISO_CN_RECETA= "Solicitamos que en los listados se indique el tratamiento con el CN que tiene en receta.";
 	
 	
-	public static final String ALERTA_NO_SUSTITUCION = "No se ha encontrado sustitución. ";
+	public static final String ALERTA_NO_SUSTITUCION = "No se ha encontrado sustituciÃ³n. ";
 	public static final String ALERTA_REVISION_FECHAINICIO = "Revisar fecha inicio. ";
-	public static final String ALERTA_NO_CODIGO = " Tratamiento con código vacío, solicitamos arreglo. ";
-	public static final String ALERTA_REVISION_FECHAFIN = "FechaFinTratamiento no válida. ";
-	public static final String ALERTA_REVISION_TIPOHELIUM = "Tipo de envío Helium no completado. ";
-	public static final String ALERTA_INTERNA_CNFINAL_NOVALIDO = " CIP marcado como SPD=N en la gestión. ";
+	public static final String ALERTA_NO_CODIGO = " Tratamiento con cÃ³digo vacÃ­o, solicitamos arreglo. ";
+	public static final String ALERTA_REVISION_FECHAFIN = "FechaFinTratamiento no vÃ¡lida. ";
+	public static final String ALERTA_REVISION_TIPOHELIUM = "Tipo de envÃ­o Helium no completado. ";
+	public static final String ALERTA_INTERNA_CNFINAL_NOVALIDO = " CIP marcado como SPD=N en la gestiÃ³n. ";
 
 	public static final String ERROR_FALTA_RESIDENCIA = "Falta indicar la residencia. ";
 
 	public static final String AVISO_REVISA_VALOR = " (INTERNO FARMACIA) OJO, revisar valor " ;
 
-	public static final String CTRL_NCOMPRIMIDOS_IGUAL 		 = "OK"; // CASO 1 - No alerta - Nº igual de comprimidos
-	public static final String CTRL_NCOMPRIMIDOS_DIFERENTE 	 = "ALERTA"; // CASO 2 - Alerta - Número diferente
+	public static final String CTRL_NCOMPRIMIDOS_IGUAL 		 = "OK"; // CASO 1 - No alerta - NÂº igual de comprimidos
+	public static final String CTRL_NCOMPRIMIDOS_DIFERENTE 	 = "ALERTA"; // CASO 2 - Alerta - nÃºmero diferente
 	public static final String CTRL_NCOMPRIMIDOS_NOAPLICA = ""; // CASO 3 - No aplica porque no va a robot
 	
 	
 	public static final String CTRL_REGISTRO_ANTERIOR_RI_SI = "RI_SI"; // CASO 1 - No alerta - Reutilizado ok
-	public static final String CTRL_REGISTRO_ANTERIOR_RD_SD = "RD_SD"; // CASO 2 - No alerta - Registro nuevo (Revisión si cabe)  
-	public static final String CTRL_REGISTRO_ANTERIOR_RI_SD = "RI_SD"; // CASO 3 - Alerta - Confirmar, se envía diferente a la anterior, recibiendo lo mismo
-	public static final String CTRL_REGISTRO_ANTERIOR_RD_SI = "RD_SI"; // CASO 4 - Alerta - Confirmar, se envía lo mismo que un tratamiento que se recibe diferente
+	public static final String CTRL_REGISTRO_ANTERIOR_RD_SD = "RD_SD"; // CASO 2 - No alerta - Registro nuevo (RevisiÃ³n si cabe)  
+	public static final String CTRL_REGISTRO_ANTERIOR_RI_SD = "RI_SD"; // CASO 3 - Alerta - Confirmar, se envÃ­a diferente a la anterior, recibiendo lo mismo
+	public static final String CTRL_REGISTRO_ANTERIOR_RD_SI = "RD_SI"; // CASO 4 - Alerta - Confirmar, se envÃ­a lo mismo que un tratamiento que se recibe diferente
 
 	public static final String CTRL_ROBOT_SE_ENVIA_A_ROBOT = "SI_ROBOT";
 	public static final String CTRL_ROBOT_NO_SE_ENVIA =  "NO_ROBOT";
@@ -270,6 +270,9 @@ public class SPDConstants
 	public static final String CTRL_UNICO_GTVM_OK = "OK";
 	public static final String CTRL_UNICO_GTVM_ALERTA = "ALERTA";
 
+	public static final String CTRL_INTERACCIONES_OK = "OK";
+	public static final String CTRL_INTERACCIONES_ALERTA = "ALERTA";
+	
 	public static final String REGISTRO_VALIDAR_SI = "SI";;
 
 	public static final String CTRL_VALIDAR_NO = "OK";;
@@ -282,20 +285,20 @@ public class SPDConstants
 	public static final String REGISTRO_VALIDAR = "VALIDAR";
 	public static final String REGISTRO_CONFIRMAR = "CONFIRMAR";
 
-	public static final int CTRL_PRINCIPIO_ACTIVO_N_VALIDACIONES = 3; //Número de validaciones necesarias para validarlo completamente
+	public static final int CTRL_PRINCIPIO_ACTIVO_N_VALIDACIONES = 3; //nÃºmero de validaciones necesarias para validarlo completamente
 
-	public static final int CTRL_MAX_COMPRIMIDOS_DIA = 8; //límite de pastillas para mostrar un mensaje y validar pauta mientras sea un registro nuevo
+	public static final int CTRL_MAX_COMPRIMIDOS_DIA = 8; //lÃ­mite de pastillas para mostrar un mensaje y validar pauta mientras sea un registro nuevo
 
-	public static final int MAX_COMPRIMIDOS_POR_BOLSA = 7; //límite de pastillas para mostrar un mensaje y validar pauta mientras sea un registro nuevo
-	public static final int MAX_LINEAS_PASTILLERO_POR_BOLSA = 7; //límite de líneas de PASTILLERO por bolsa
-	public static final int MAX_LINEAS_SOLO_INFO_POR_BOLSA = 5; //límite de líneas de SOLO_INFO por bolsa
+	public static final int MAX_COMPRIMIDOS_POR_BOLSA = 7; //lÃ­mite de pastillas para mostrar un mensaje y validar pauta mientras sea un registro nuevo
+	public static final int MAX_LINEAS_PASTILLERO_POR_BOLSA = 7; //lÃ­mite de lÃ­neas de PASTILLERO por bolsa
+	public static final int MAX_LINEAS_SOLO_INFO_POR_BOLSA = 5; //lÃ­mite de lÃ­neas de SOLO_INFO por bolsa
 
 
-	public static final int DIAS_CONSULTA_LOG = 180;		//Días atrás para consulta de logs
+	public static final int DIAS_CONSULTA_LOG = 180;		//dÃ­as atrÃ¡s para consulta de logs
 
 	public static final int DIAS_MAX_PROCESOS_IMPORT = 7;
-	public static final int DIAS_MAX_RECOGIDA_IOFWIN= 1;	//Días máximos para dar alerta en caso de que no se recojan datos de iofwin
-	public static final int PERCENT_MIN_RECOGIDA_DATOS_IOFWIN= 85;	//% Mínimo de datos recogidos  OK, para que no salte alarma
+	public static final int DIAS_MAX_RECOGIDA_IOFWIN= 1;	//dÃ­as mÃ¡ximos para dar alerta en caso de que no se recojan datos de iofwin
+	public static final int PERCENT_MIN_RECOGIDA_DATOS_IOFWIN= 85;	//% MÃ­nimo de datos recogidos  OK, para que no salte alarma
 
 	//public static final String REGISTRO_ENPROCESO_CONFIRMACION = "EN PROCESO DE CONFIRMACION";;
 	
@@ -309,17 +312,17 @@ public class SPDConstants
 	public static final String PROCESO_ACTIVO= "ACTIVO";		//Proceso activo
 	public static final String PROCESO_INACTIVO= "INACTIVO";		//Proceso inactivo
 	public static final String PROCESO_BLOQUEADO= "BLOQUEADO";		//Proceso bloqueado
-	public static final String PROCESO_DESCARTADO= "DESCARTADO";		//Proceso borrado, ya no se utilizará
+	public static final String PROCESO_DESCARTADO= "DESCARTADO";		//Proceso borrado, ya no se utilizarÃ¡
 
 	//Estados de Ejecuciones de procesos
-	public static final String PROCESO_EJEC_ESTADO_PENDIENTE = "PENDIENTE";		//aún no ejecutado. Por defecto
+	public static final String PROCESO_EJEC_ESTADO_PENDIENTE = "PENDIENTE";		//aÃºn no ejecutado. Por defecto
 	public static final String PROCESO_EJEC_ESTADO_EJECUTANDO = "EJECUTANDO";	//en curso.
 	public static final String PROCESO_EJEC_ESTADO_FINALIZADO = "FINALIZADO"; //Finalizado
-	public static final String PROCESO_EJEC_ESTADO_CANCELADO = "CANCELADO";	//acabado manualmente o cancelado por alguna lógica.
+	public static final String PROCESO_EJEC_ESTADO_CANCELADO = "CANCELADO";	//acabado manualmente o cancelado por alguna lÃ³gica.
 	
 	public static final String PROCESO_EJEC_RESULT_OK= "OK"; //ejecutado correctamente.
-	public static final String PROCESO_EJEC_RESULT_ERROR= "ERROR";	//fallo durante la ejecución.
-	public static final String PROCESO_EJEC_RESULT_CANCEL= "CANCEL";		//ejecución cancelada.
+	public static final String PROCESO_EJEC_RESULT_ERROR= "ERROR";	//fallo durante la ejecuciÃ³n.
+	public static final String PROCESO_EJEC_RESULT_CANCEL= "CANCEL";		//ejecuciÃ³n cancelada.
 	
 	public static final String PROCESO_CODE_FINALIZADO_OK		 	= "0";
 	public static final String PROCESO_CODE_ERROR_TIEMPO_EXCEDIDO	= "1";
@@ -334,7 +337,7 @@ public class SPDConstants
 	public static final String PROCESO_FREC_PERIODO_SEMANAS			=	"SEMANAS";
 	public static final String PROCESO_FREC_PERIODO_MESES			=	"MESES";
 	
-	public static final int PROCESO_FRECUENCIA_LISTENER= 300; //cada X segundos se mirará si ha de ejecutarse el proceso  
+	public static final int PROCESO_FRECUENCIA_LISTENER= 300; //cada X segundos se mirarÃ¡ si ha de ejecutarse el proceso  
 
 	public static final int MAX_DURACIONSEGUNDOS_PROCESO = 300;	//5 minutos por defecto
 	public static final String PROCESO_TIPOEJEC_AUTO = "AUTOMATICO";
@@ -344,9 +347,9 @@ public class SPDConstants
 	public static final String PROCESO_BLOQUEO_DIA = "DIA";
 	public static final String PROCESO_BLOQUEO_FECHA = "FECHA";
 	public static final String CN_SEGUN_DESCRIPCION = "(SD)";
-	public static final int CUANTAS_DISPENSACIONES = 15; // indica el número de dispensaciones a recuperar, para el RD
-	public static final int DIAS_DISPENSACION_ANTIGUA = 40; // indica el número de días para considerar que una dispensación es antigua, info para el report RD
-	public static final int MAX_LINEAS_NULAS_CARGA = 20; // máximo de líneas nulas que se aceptan en la carga 
+	public static final int CUANTAS_DISPENSACIONES = 15; // indica el nÃºmero de dispensaciones a recuperar, para el RD
+	public static final int DIAS_DISPENSACION_ANTIGUA = 40; // indica el nÃºmero de dÃ­as para considerar que una dispensaciÃ³n es antigua, info para el report RD
+	public static final int MAX_LINEAS_NULAS_CARGA = 20; // mÃ¡ximo de lÃ­neas nulas que se aceptan en la carga 
 
 	
 	/**

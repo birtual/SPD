@@ -1,11 +1,13 @@
 package lopicost.spd.struts.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import lopicost.spd.model.BdConsejo;
 import lopicost.spd.model.FicheroResiCabecera;
+import lopicost.spd.model.Interaccion;
 import lopicost.spd.utils.HelperSPD;
 import lopicost.spd.utils.SPDConstants;
 import lopicost.spd.utils.StringUtil;
@@ -84,7 +86,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 	  private String resiFormaMedicacion="";
 	  private String resiInicioTratamiento="";
 	  private String resiFinTratamiento="";
-	  private String resiInicioTratamientoParaSPD="";	//en trat peri�dicos o especiales se  ha de modificar para enviar a robot dias concretos
+	  private String resiInicioTratamientoParaSPD="";	//en trat periódicos o especiales se  ha de modificar para enviar a robot dias concretos
 	  private String resiFinTratamientoParaSPD="";
 	  private String resiObservaciones="";
 	  private String resiComentarios="";
@@ -229,7 +231,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 		 * 1 --> Diario
 		 * 2 --> Semanal
 		 * 3 --> Frecuencia
-		 * 4 --> Env�o guide
+		 * 4 --> envío guide
 		 *  
 		 */
 		
@@ -248,6 +250,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 		private String controlValidacionDatos="";
 		private String controlNoSustituible="No detectado";
 		private String controlUnicoGtvm="No detectado";
+		private String controlInteracciones="";
 		
 		private int contador;
 		private int porcentajeCIPS;
@@ -262,6 +265,12 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 		private String fechaProduccionSPD;
 		private String medicoResponsable;
 		private int numeroCreacionFicheroXML;
+		
+		private List<Interaccion> interacciones = new ArrayList<Interaccion>();
+	  
+		public boolean tieneInteracciones() {
+	        return !interacciones.isEmpty();
+	    }
 		
 		public FicheroResiBean clone() {
 		        try {
@@ -294,7 +303,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 			}
 
 			/**
-			 * A�adimos tambi�n el valor al campo detalleRowKeyLiteFechas
+			 * añadimos también el valor al campo detalleRowKeyLiteFechas
 			 * @param detalleRowKeyLite
 			 */
 			public void setDetalleRowKeyLite(String detalleRowKeyLite) {
@@ -826,6 +835,22 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 
 	public void setResponsableFarmacia(String responsableFarmacia) {
 		this.responsableFarmacia = responsableFarmacia;
+	}
+
+	public String getControlInteracciones() {
+		return controlInteracciones;
+	}
+
+	public void setControlInteracciones(String controlInteracciones) {
+		this.controlInteracciones = controlInteracciones;
+	}
+
+	public List<Interaccion> getInteracciones() {
+		return interacciones;
+	}
+
+	public void setInteracciones(List<Interaccion> interacciones) {
+		this.interacciones = interacciones;
 	}
 
 	

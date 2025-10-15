@@ -800,7 +800,7 @@ public class FicheroResiDetalleLiteAction extends GenericAction  {
 		BigDecimal number ;
         for (int i = 1; i <= 24; i++) {
             String fieldName = "ResiToma" + i;
-            String fieldValue = formulari.getClass().getMethod("get" + fieldName).invoke(formulari)!=null?formulari.getClass().getMethod("get" + fieldName).invoke(formulari).toString():"";
+            String fieldValue = formulari.getClass().getMethod("get" + fieldName).invoke(formulari)!=nulléformulari.getClass().getMethod("get" + fieldName).invoke(formulari).toString():"";
 
 
             // Verificar si el campo está vacío o no es un número válido

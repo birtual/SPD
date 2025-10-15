@@ -1,21 +1,19 @@
 package lopicost.spd.iospd.importdata.process;
 
 
-import  lopicost.config.logger.Logger;
+import lopicost.config.logger.Logger;
 import lopicost.spd.controller.SpdLogAPI;
-import lopicost.spd.excepciones.ColumnasInsuficientesException;
-import lopicost.spd.excepciones.LineaDescartadaException;
-import lopicost.spd.excepciones.LineaDuplicadaException;
 import lopicost.spd.excepciones.MaxLineasNulasException;
-import  lopicost.spd.iospd.IOSpdApi;
-import  lopicost.spd.iospd.ProcessLogging;
-import  lopicost.spd.iospd.connectors.Connector;
-import  lopicost.spd.iospd.statistics.DefaultStatistics;
-import  lopicost.spd.iospd.statistics.ProcessStatistics;
-import lopicost.spd.utils.DataUtil;
-import  lopicost.spd.utils.MessageManager;
+import lopicost.spd.iospd.IOSpdApi;
+import lopicost.spd.iospd.ProcessLogging;
+import lopicost.spd.iospd.connectors.Connector;
+import lopicost.spd.iospd.statistics.DefaultStatistics;
+import lopicost.spd.iospd.statistics.ProcessStatistics;
+import lopicost.spd.model.DivisionResidencia;
+import lopicost.spd.persistence.DivisionResidenciaDAO;
+import lopicost.spd.utils.MessageManager;
 import lopicost.spd.utils.StringUtil;
-import  lopicost.spd.utils.TextManager;
+import lopicost.spd.utils.TextManager;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -87,7 +85,8 @@ public abstract class ImportProcessImpl implements ImportProcess
 
     
     protected abstract boolean beforeProcesarEntrada(Vector row) throws Exception;
-    protected abstract boolean procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception;
+    //protected abstract boolean procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception;
+    protected abstract boolean procesarEntrada(String idRobot, DivisionResidencia div, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception;
 
     protected abstract void afterprocesarEntrada(Vector row) throws Exception;
     protected abstract boolean beforeStart(String filein) throws Exception;
@@ -153,8 +152,9 @@ public abstract class ImportProcessImpl implements ImportProcess
 			//xxxxxwhile ((rowInProcess!=null ||  (rowInProcess=conector.getNextRow())!=null)   && !rowInProcess.isEmpty()) 
 		    int totalFilas = conector.getFilasTotales();
 		    boolean fin = false;
-//		    boolean cargaAnexa = conector.isCargaAnexa();  //en caso que se añada un fichero a un proceso ya existente 
+//		    boolean cargaAnexa = conector.isCargaAnexa();  //en caso que se aï¿½ada un fichero a un proceso ya existente 
 		    //while ( totalFilas>=count && (rowInProcess=conector.getNextRow())!=null )
+		    DivisionResidencia div = DivisionResidenciaDAO.getDivisionResidenciaById(getSpdUsuario(), this.idDivisionResidencia);
 		    while ( totalFilas>=count && !fin)
 			{
 		    	rowInProcess=conector.getNextRow();
@@ -165,7 +165,8 @@ public abstract class ImportProcessImpl implements ImportProcess
 			    {
 				    // 2.- procesar registro y recoger errores
 			        try {
-			        	fin=procesarEntrada(this.idRobot, this.idDivisionResidencia, this.idProceso, rowInProcess, count, this.cargaAnexa);
+			        	//fin=procesarEntrada(this.idRobot, this.idDivisionResidencia, this.idProceso, rowInProcess, count, this.cargaAnexa);
+			        	fin=procesarEntrada(this.idRobot, div, this.idProceso, rowInProcess, count, this.cargaAnexa);
 			       
 			        /*catch (MaxLineasNulasException e) {
                  		e.getMessage();
@@ -179,7 +180,7 @@ public abstract class ImportProcessImpl implements ImportProcess
                         e.getMessage();
                     */
 			        	} catch (Exception e) {
-                        if (e instanceof MaxLineasNulasException) {		//cortamos el bucle si recibimos esta excepción
+                        if (e instanceof MaxLineasNulasException) {		//cortamos el bucle si recibimos esta excepciï¿½n
                             fin = true;
                          } 
                         
@@ -195,7 +196,7 @@ public abstract class ImportProcessImpl implements ImportProcess
 ////////////////////                        errores+= " --> "+rowInProcess.toString();
 						//writeError(rowInProcess, e.getMessage());                                   
 			        }
-					//Incrementem el número de files processades
+					//Incrementem el nï¿½mero de files processades
 					this.setProcessedRows(this.getProcessedRows()+1);
 					// 3.- En caso de errores escribirlo en la salida
 					if(errores!=null)
@@ -242,7 +243,7 @@ public abstract class ImportProcessImpl implements ImportProcess
 	 */
 	private void writeError(Vector row, String error)  throws IOException, ClassNotFoundException, SQLException
 	{
-		//Añado un log en BDD para poder relanzar los erroneos y tenerlo mejor detectados.
+		//Aï¿½ado un log en BDD para poder relanzar los erroneos y tenerlo mejor detectados.
 		SpdLogAPI.addLog(getSpdUsuario(), getIdDivisionResidencia(), getIdProceso(), SpdLogAPI.A_IOSPD, getLogSubAccion(), (getProcessedRows()+1)+"", error,row.toString());
 		
 		row.add(error);
@@ -276,7 +277,7 @@ public abstract class ImportProcessImpl implements ImportProcess
 			try {
 				log.top( statistics );
 				//jpapell 26/09/2007
-				//Añado un log en BDD para poder controlar los processos lanzados .
+				//Aï¿½ado un log en BDD para poder controlar los processos lanzados .
 				SpdLogAPI.addLog(getSpdUsuario(), getIdDivisionResidencia(), getIdProceso(), SpdLogAPI.A_IOSPD, getLogAccion(), SpdLogAPI.C_START,
 						"0", "["+new Date().toString()+"] Lanzado proceso IOSGA ");
 				
@@ -305,7 +306,7 @@ public abstract class ImportProcessImpl implements ImportProcess
 			try {
 				log.bottom( statistics );
 				//jpapell 26/09/2007
-				//Añado un log en BDD para poder controlar los processos lanzados .
+				//Aï¿½ado un log en BDD para poder controlar los processos lanzados .
 				SpdLogAPI.addLog(getSpdUsuario(), getIdDivisionResidencia(), getIdProceso(), SpdLogAPI.A_IOSPD, getLogAccion(), SpdLogAPI.C_END,
 						"0", "["+new Date().toString()+"] Lanzado proceso IOSGA-> procesados:["+statistics.getProcessedRowsCount()+"] ok:["+statistics.getOkRowsCount()+"] ko:["+statistics.getErrorsRowsCount()+"]");
 				

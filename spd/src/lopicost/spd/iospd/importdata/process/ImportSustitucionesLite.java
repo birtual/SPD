@@ -1,6 +1,7 @@
 
 package lopicost.spd.iospd.importdata.process;
 
+import lopicost.spd.model.DivisionResidencia;
 import lopicost.spd.model.GestSustitucionesLite;
 import lopicost.spd.persistence.GestSustitucionesLiteDAO;
 import lopicost.spd.utils.StringUtil;
@@ -9,7 +10,7 @@ import  lopicost.spd.utils.TextManager;
 import java.util.Vector;
 
 /**
- * Método encargado de importar registros de sustituciones para cada residencia
+ * Mï¿½todo encargado de importar registros de sustituciones para cada residencia
  * Todos los registros del listado
 
  *
@@ -22,7 +23,7 @@ public class ImportSustitucionesLite extends ImportProcessImpl
 		super();
 	}
 
-	/**los ficheros han de venir con cabecera. Se tendrá en cuenta a partir de la fila 2**/	
+	/**los ficheros han de venir con cabecera. Se tendrï¿½ en cuenta a partir de la fila 2**/	
     protected boolean beforeProcesarEntrada(Vector row) throws Exception 
     {
     	return true;
@@ -36,16 +37,21 @@ public class ImportSustitucionesLite extends ImportProcessImpl
     {
     }
      
-    public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count) throws Exception 
+    //public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count) throws Exception
+    public boolean procesarEntrada(String idRobot, DivisionResidencia div, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception
     {
+       	boolean result = false;
         if (row!=null && row.size()>=6)
         {
         	GestSustitucionesLite lite= new GestSustitucionesLite();
-        	lite.setIdDivisionResidencia(idDivisionResidencia);
-    		boolean result = creaRegistro(lite, row);
-         }
+        	lite.setIdDivisionResidencia((div!=null?div.getIdDivisionResidencia():null));
+    		result = creaRegistro(lite, row);
+        }
         else 
             throw new Exception (TextManager.getMensaje("ImportData.error.ImportSustitucionesLite"));
+        
+        return result;
+        
     }
     
     private boolean creaRegistro(GestSustitucionesLite lite, Vector row) throws Exception {
@@ -58,7 +64,7 @@ public class ImportSustitucionesLite extends ImportProcessImpl
         	i=i+1;
      	}
      	
-     	lite.setResiCn(StringUtil.limpiarTextoEspaciosYAcentos((String) row.elementAt(i), false));		//resiCnOk  lo ponemos porque está con máscara "000000"
+     	lite.setResiCn(StringUtil.limpiarTextoEspaciosYAcentos((String) row.elementAt(i), false));		//resiCnOk  lo ponemos porque estï¿½ con mï¿½scara "000000"
      	
      	lite.setResiMedicamento(StringUtil.limpiarTextoComentarios((String) row.elementAt(i+1)));		//resiMedicamento
     	lite.setSpdCn(StringUtil.limpiarTextoEspaciosYAcentos((String) row.elementAt(i+2), false));			//spdCn
@@ -115,15 +121,7 @@ public class ImportSustitucionesLite extends ImportProcessImpl
     {
     }
 
-	@Override
-	protected void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception {
-		procesarEntrada( idRobot,  idDivisionResidencia,  idProceso,  row,  count);
-		
-	}
 
-
-
-    
 }    
 
 

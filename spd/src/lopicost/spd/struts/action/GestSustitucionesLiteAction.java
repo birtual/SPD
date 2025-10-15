@@ -149,15 +149,15 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 				if(sustCreada)
 				{
 					errors.add( "Registro creado correctamente ");
-					//INICIO creaci�n de log en BBDD
+					//INICIO creación de log en BBDD
 					try{
 						SpdLogAPI.addLog(getIdUsuario(), "",  f.getIdDivisionResidencia(), f.getIdProceso(), SpdLogAPI.A_SUSTITUCION, SpdLogAPI.B_CREACION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.sustitucion.creacion.datosGenerales", 
 								new String[]{
 									" | "+f.getResiCn()+" "+ f.getResiMedicamento() + " | ", 
 									" | "+ f.getSpdCn() +" "+ f.getSpdNombreBolsa() +" "+ f.getIdTipoAccion() + " | "
 									} );
-					}catch(Exception e){}	//Se actualiza la previsi�n del proceso.
-					//FIN creaci�n de log en BBDD
+					}catch(Exception e){}	//Se actualiza la previsión del proceso.
+					//FIN creación de log en BBDD
 					
 				}
 				else errors.add( "No se ha podido crear el registro");
@@ -173,12 +173,12 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 	public ActionForward editar(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		GestSustitucionesLiteForm f =  (GestSustitucionesLiteForm) form;
 		GestSustitucionesLite sustitucionLite = GestSustitucionesLiteDAO.getSustitucionLiteByOid(getIdUsuario(), f);
-		// INICIO Creaci�n autom�tica de la sustituci�n
+		// INICIO Creación automática de la sustitución
 		System.out.println(HelperSPD.dameFechaHora() + " editar --> ACTIONTODO " + f.getACTIONTODO());		
-		System.out.println(HelperSPD.dameFechaHora() + " editar --> INICIO Creaci�n autom�tica de la sustituci�n ??" + sustitucionLite!=null?" SI":"NO");		
+		System.out.println(HelperSPD.dameFechaHora() + " editar --> INICIO Creación automática de la sustitución ??" + sustitucionLite!=null?" SI":"NO");		
 		if(sustitucionLite==null)
 		{
-			System.out.println(HelperSPD.dameFechaHora() + " editar --> INICIO Creaci�n autom�tica de la sustituci�n ");		
+			System.out.println(HelperSPD.dameFechaHora() + " editar --> INICIO Creación automática de la sustitución ");		
 			System.out.println(HelperSPD.dameFechaHora() + " editar --> crearNuevaaPartirFichero " + request.getParameter("oidFicheroResiDetalle"));		
 
 			sustitucionLite = crearNuevaaPartirFichero(request.getParameter("oidFicheroResiDetalle"));
@@ -187,7 +187,7 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 		String logAntes = sustitucionLite.getSpdCn() + " " + sustitucionLite.getResiMedicamento() + "  " + sustitucionLite.getSpdCn() + "  " + sustitucionLite.getSpdNombreBolsa() + "  " + sustitucionLite.getSpdFormaMedicacion()+ "  " + sustitucionLite.getSpdAccionBolsa() +" ";
 		System.out.println(HelperSPD.dameFechaHora() + " editar --> logAntes " + logAntes);		
 
-		//FIN Creaci�n autom�tica de la sustituci�n
+		//FIN Creación automática de la sustitución
 		f.setListaTiposAccion(GestSustitucionesLiteDAO.getListaTiposAccion());
 		f.setFiltroGtVm(f.getFiltroGtVm());
 		
@@ -224,12 +224,12 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 				f.setSustitucionLite(null);
 				String logDespues = sustitucionLite.getSpdCn() + " " + sustitucionLite.getResiMedicamento() + "  " + sustitucionLite.getSpdCn() + "  " + sustitucionLite.getSpdNombreBolsa() + "  " + sustitucionLite.getSpdFormaMedicacion()+ "  " + sustitucionLite.getSpdAccionBolsa() +" ";
 				
-				//INICIO creaci�n de log en BBDD
+				//INICIO creación de log en BBDD
 					try{
 						SpdLogAPI.addLog(getIdUsuario(), "",  sustitucionLite.getIdDivisionResidencia(), null, SpdLogAPI.A_SUSTITUCION, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.sustitucion.edicion.datosGenerales", 
 								new String[]{new String().valueOf(sustitucionLite.getOidGestSustitucionesLite()), logAntes,  logDespues	} );
-					}catch(Exception e){}	//Se actualiza la previsi�n del proceso.
-					//FIN creaci�n de log en BBDD
+					}catch(Exception e){}	//Se actualiza la previsión del proceso.
+					//FIN creación de log en BBDD
 
 			
 				
@@ -279,15 +279,15 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 			
 			if(sustCreada)
 			{
-				//INICIO creaci�n de log en BBDD
+				//INICIO creación de log en BBDD
 				try{
 					SpdLogAPI.addLog(getIdUsuario(), "",  sustitucionLite.getIdDivisionResidencia(), null, SpdLogAPI.A_SUSTITUCION, SpdLogAPI.B_CREACION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.sustitucion.creacion.porFichero", 
 							new String[]{new String().valueOf(sustitucionLite.getOidGestSustitucionesLite()), 
 								" | "+sustitucionLite.getResiCn()+" "+ sustitucionLite.getResiMedicamento() + " | ", 
 								" | "+ sustitucionLite.getSpdCn() +" "+ sustitucionLite.getSpdNombreBolsa() +" "+ sustitucionLite.getSpdNombreBolsa() +" "+ sustitucionLite.getSpdAccionBolsa() + " | "
 								} );
-				}catch(Exception e){}	//Se actualiza la previsi�n del proceso.
-				//FIN creaci�n de log en BBDD
+				}catch(Exception e){}	//Se actualiza la previsión del proceso.
+				//FIN creación de log en BBDD
 				
 			}
 		
@@ -349,15 +349,15 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 				errors.add( "Registro editado correctamente ");
 				f.setOidGestSustitucionesLite(0);
 				f.setSustitucionLite(null);
-				//INICIO creaci�n de log en BBDD
+				//INICIO creación de log en BBDD
 				try{
 					SpdLogAPI.addLog(getIdUsuario(), "",  sustitucionLite.getIdDivisionResidencia(), f.getIdProceso(), SpdLogAPI.A_SUSTITUCION, SpdLogAPI.B_EDICIONEXPRESS, SpdLogAPI.C_DATOSGENERALES, "SpdLog.sustitucion.creacion.express", 
 							new String[]{new String().valueOf(sustitucionLite.getOidGestSustitucionesLite()), 
 								" | "+sustitucionLite.getResiCn()+" "+ sustitucionLite.getResiMedicamento() + " | ", 
 								" | "+ sustitucionLite.getSpdCn() +" "+ sustitucionLite.getSpdNombreBolsa() +" "+ sustitucionLite.getSpdNombreBolsa() +" "+ sustitucionLite.getSpdAccionBolsa() + " | "
 								} );
-				}catch(Exception e){}	//Se actualiza la previsi�n del proceso.
-				//FIN creaci�n de log en BBDD
+				}catch(Exception e){}	//Se actualiza la previsión del proceso.
+				//FIN creación de log en BBDD
 
 			}
 			else errors.add( "No se ha podido editar el registro");
@@ -440,15 +440,15 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 			if(sustCreada)
 			{
 				errors.add( "Registro creado correctamente ");
-				//INICIO creaci�n de log en BBDD
+				//INICIO creación de log en BBDD
 				try{
 					SpdLogAPI.addLog(getIdUsuario(), "",  sustitucionLite.getIdDivisionResidencia(), f.getIdProceso(), SpdLogAPI.A_SUSTITUCION, SpdLogAPI.B_CREACION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.sustitucion.creacion.duplicar", 
 							new String[]{new String().valueOf(sustitucionLite.getOidGestSustitucionesLite()), 
 								" | "+f.getResiCn()+" "+ f.getResiMedicamento() + " | ", 
 								" | "+ sustitucionLite.getSpdCn() +" "+ sustitucionLite.getSpdNombreBolsa() +" "+ sustitucionLite.getSpdNombreBolsa() +" "+ sustitucionLite.getSpdAccionBolsa() + " | "
 								} );
-				}catch(Exception e){}	//Se actualiza la previsi�n del proceso.
-				//FIN creaci�n de log en BBDD
+				}catch(Exception e){}	//Se actualiza la previsión del proceso.
+				//FIN creación de log en BBDD
 
 				
 				
@@ -485,15 +485,15 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 			{
 			//	errors.add(SPDConstants.MSG_LEVEL_INFO, new ActionMessage("Registro borrado correctamente Info"));
 				errors.add( "Registro borrado correctamente ");
-				//INICIO creaci�n de log en BBDD
+				//INICIO creación de log en BBDD
 				try{
 					SpdLogAPI.addLog(getIdUsuario(), "",  sustitucionLite.getIdDivisionResidencia(), formulari.getIdProceso(), SpdLogAPI.A_SUSTITUCION, SpdLogAPI.B_BORRADO, SpdLogAPI.C_DATOSGENERALES, "SpdLog.sustitucion.borrado.datos", 
 							new String[]{new String().valueOf(sustitucionLite.getOidGestSustitucionesLite()), 
 								" | "+sustitucionLite.getResiCn()+" "+ sustitucionLite.getResiMedicamento() + " | ", 
 								" | "+ sustitucionLite.getSpdCn() +" "+ sustitucionLite.getSpdNombreBolsa() +" "+ sustitucionLite.getSpdNombreBolsa() +" "+ sustitucionLite.getSpdAccionBolsa() + " | "
 								} );
-				}catch(Exception e){}	//Se actualiza la previsi�n del proceso.
-				//FIN creaci�n de log en BBDD
+				}catch(Exception e){}	//Se actualiza la previsión del proceso.
+				//FIN creación de log en BBDD
 
 				
 				formulari.setOidGestSustitucionesLite(0);

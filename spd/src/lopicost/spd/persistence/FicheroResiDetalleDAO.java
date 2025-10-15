@@ -29,9 +29,9 @@ public class FicheroResiDetalleDAO {
 	static String className="FicheroResiDetalleDAO";
 	static String classNam2e="FicheroResiDetalleDAO";
 	static String TABLA_ACTIVA		=	"dbo.SPD_ficheroResiDetalle";
-	static String TABLA_HISTORICO 	=	"dbo.SPDHst_ficheroResiDetalle";   //tabla de hist�rico
+	static String TABLA_HISTORICO 	=	"dbo.SPDHst_ficheroResiDetalle";   //tabla de histórico
 	static String TABLA_CAB_ACTIVA		=	"dbo.SPD_ficheroResiCabecera";
-	static String TABLA_CAB_HISTORICO 	=	"dbo.SPDHst_ficheroResiCabecera";   //tabla de hist�rico
+	static String TABLA_CAB_HISTORICO 	=	"dbo.SPDHst_ficheroResiCabecera";   //tabla de histórico
 
 	public static FicheroResiBean getFicheroResiDetalleByIdOid(String spdUsuario, int oidFicheroResiDetalle) throws Exception {
 		return getFicheroResiDetalleByIdOid(spdUsuario, oidFicheroResiDetalle, false);
@@ -167,7 +167,7 @@ public class FicheroResiDetalleDAO {
 	
 	public static boolean borraDetalleSinCabecera() throws Exception {
         int result=0;
-        //TODO generar hist�rico
+        //TODO generar histórico
 		  Connection con = Conexion.conectar();
 	  	   String qry = " delete from  dbo.SPD_ficheroResiDetalle where oidFicheroResiCabecera not in (select oidFicheroResiCabecera from SPD_ficheroResiCabecera)  ";
 
@@ -189,7 +189,7 @@ public class FicheroResiDetalleDAO {
 	
 	public static boolean limpiarCIPIdproceso(String spdUsuario, FicheroResiBean medResi, boolean cipNombre) throws Exception {
         int result=0;
-        //TODO generar hist�rico
+        //TODO generar histórico
 		  Connection con = Conexion.conectar();
 	  	   String qry = " DELETE FROM dbo.SPD_ficheroResiDetalle ";
 			qry+= " WHERE idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
@@ -217,7 +217,7 @@ public class FicheroResiDetalleDAO {
 
 	public static boolean generarHistoricoProcesoAnterior(String spdUsuario, FicheroResiBean medResi, boolean cipNombre) throws Exception {
         int result=0;
-        //TODO generar hist�rico
+        //TODO generar histórico
 		  Connection con = Conexion.conectar();
 	  	   String qry = " INSERT INTO [dbo].[SPD_ficheroResiDetalle_HST]  ";
 	  	   		qry+= "   SELECT getdate(), * FROM dbo.SPD_ficheroResiDetalle ";
@@ -425,7 +425,7 @@ public class FicheroResiDetalleDAO {
 			{
 				qry+="AND ( ";
 				
-				// a�adimos los filtros de alertas
+				// añadimos los filtros de alertas
 				if(form.isFiltroNumComprimidos()){
 					qry+=  "  g.controlNumComprimidos= '"+ SPDConstants.CTRL_NCOMPRIMIDOS_DIFERENTE +"' ";
 					if(filtrosChecked > 1)
@@ -584,7 +584,7 @@ public class FicheroResiDetalleDAO {
 	
 	
   	/**
-	 * Fetch es una cl�usula que funciona a partir del SqlServer 2008 (no inclusive)
+	 * Fetch es una cláusula que funciona a partir del SqlServer 2008 (no inclusive)
 	 * @param form
 	 * @param inicio
 	 * @param fin
@@ -603,7 +603,7 @@ public class FicheroResiDetalleDAO {
 	}
 
 	/**
-	 * Como FETCH es una cl�usula de versi�n SQLSERVER>2008 se crea una funci�n un poco m�s engorrosa pero
+	 * Como FETCH es una cláusula de versión SQLSERVER>2008 se crea una función un poco más engorrosa pero
 	 * que sirve para todas las versiones (ROW_NUMBER() OVER)
 	 * @param form
 	 * @param inicio
@@ -652,7 +652,7 @@ public class FicheroResiDetalleDAO {
 
 	   		    			//if(c.getSpdCnFinal()==null || c.getSpdCnFinal().equals("")  || c.getSpdCnFinal().equals("null") )
 	    			//	c.setMensajesAlerta(c.getMensajesAlerta() + " FALTA CN FINAL ");
-	    			//??no recuerdo por qu� est� puesto lo del duplicado, no encuentro d�nde se fija el texto "DUPLICADO"....
+	    			//??no recuerdo por qué está puesto lo del duplicado, no encuentro dónde se fija el texto "DUPLICADO"....
 	    			//if(c.getResultLog()!=null && c.getResultLog().contains("DUPLICADO") && c.getMensajesInfo()!=null && !c.getMensajesInfo().contains("DUPLICADO"))
 	    			 //	c.setMensajesAlerta(c.getMensajesAlerta() + " POSIBLE DUPLICADO ");
 	    			
@@ -764,7 +764,7 @@ public class FicheroResiDetalleDAO {
 				qry+=	" AND (f.spdCnFinal IS NULL OR UPPER(f.spdCnFinal) = UPPER('NULL') OR UPPER(f.spdCnFinal) = UPPER(''))   "; 
 				qry+=	" AND (f.resiCn IS NOT NULL) AND UPPER(f.resiCn) NOT IN ('NULL') "; 
 				qry+=	" AND (c.rn = 1 or c.rn is null);  "; 
-				qry+=	" -- Filtrar por la primera coincidencia con mayor n�mero de coincidencias "; 
+				qry+=	" -- Filtrar por la primera coincidencia con mayor número de coincidencias "; 
 
 						
 							
@@ -829,7 +829,7 @@ public class FicheroResiDetalleDAO {
 			 	 }
 
 		/**OK
-		 * M�todo para borrar el detalle de los ficheros, de uno en concreto o de forma masiva
+		 * método para borrar el detalle de los ficheros, de uno en concreto o de forma masiva
 		 * @param oidFicheroResiDetalle
 		 * @param idDivisionresidencia
 		 * @param idProceso
@@ -844,7 +844,7 @@ public class FicheroResiDetalleDAO {
 			
 			String query = " DELETE FROM dbo.SPD_ficheroResiDetalle  ";
 			query+= " WHERE idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
-			 //solo se borra masivamente si nos env�an los dos campos
+			 //solo se borra masivamente si nos envían los dos campos
 			query+=  " AND oidFicheroResiCabecera  = "+oidFicheroResiCabecera;
 
 			if(idTratamientoCIP!=null && !idTratamientoCIP.equals(""))
@@ -867,8 +867,8 @@ public class FicheroResiDetalleDAO {
 		
 
 		/**
-		 * M�todo que actualiza el id del tratamieno CIP-CN-resultadoFinalrobot
-		 * Se utilizar� para control y detecci�n de posibles cambios entre producciones
+		 * método que actualiza el id del tratamieno CIP-CN-resultadoFinalrobot
+		 * Se utilizará para control y detección de posibles cambios entre producciones
 		 * @param spdUsuario
 		 * @param oidFicheroResiCabecera
 		 * @param oidFicheroResiDetalle
@@ -955,7 +955,7 @@ public class FicheroResiDetalleDAO {
 		
 		
 		/**OK
-		 * M�todo para borrar el detalle de los ficheros, de uno en concreto o de forma masiva
+		 * método para borrar el detalle de los ficheros, de uno en concreto o de forma masiva
 		 * @param oidFicheroResiDetalle
 		 * @param idDivisionresidencia
 		 * @param idProceso
@@ -988,7 +988,7 @@ public class FicheroResiDetalleDAO {
 		}
 		
 		/**OK
-		 * M�todo para borrar el detalle de los ficheros, de uno en concreto o de forma masiva
+		 * método para borrar el detalle de los ficheros, de uno en concreto o de forma masiva
 		 * @param form
 		 * @return
 		 * @throws Exception 
@@ -999,7 +999,7 @@ public class FicheroResiDetalleDAO {
 			}
 
 		/**OK
-		 * M�todo para borrar el detalle de los ficheros que proviene de una secuenciaGuide creada.
+		 * método para borrar el detalle de los ficheros que proviene de una secuenciaGuide creada.
 		 * 
 		 * @param oidFicheroResiDetalle
 		 * @param idDivisionresidencia
@@ -1041,7 +1041,7 @@ public class FicheroResiDetalleDAO {
 		
 
 		/**
-		 * M�todo para borrar el detalle de los ficheros que proviene de una trazodona editada .
+		 * método para borrar el detalle de los ficheros que proviene de una trazodona editada .
 		 * @param spdUsuario
 		 * @param medResi
 		 * @return 
@@ -1200,7 +1200,7 @@ public class FicheroResiDetalleDAO {
 			if(b.getSpdNombreBolsa()==null || b.getSpdNombreBolsa().equals("") )
 				result+= "Falta Nombre medicamento Robot. <br>   ";
 			if(b.getSpdAccionBolsa()==null || b.getSpdAccionBolsa().equals("") )
-				result+= "Falta Acci�n en bolsa. <br>   ";
+				result+= "Falta Acción en bolsa. <br>   ";
 			
 			return result;
 		}
@@ -1376,7 +1376,7 @@ public class FicheroResiDetalleDAO {
 				 	 }
 
 		/**
-		 * M�todo que retorna el n�mero de CIPS que vienen en listado 
+		 * método que retorna el número de CIPS que vienen en listado 
 		 * @param idDivisionResidencia
 		 * @param idProceso
 		 * @return
@@ -1412,7 +1412,7 @@ public class FicheroResiDetalleDAO {
 		
 		
 		/**
-		 * M�todo que retorna el n�mero de CIPS que vienen en listado que no existen en la bbdd de pacientes
+		 * método que retorna el número de CIPS que vienen en listado que no existen en la bbdd de pacientes
 		 * @param idDivisionResidencia
 		 * @param idProceso
 		 * @return
@@ -1427,7 +1427,7 @@ public class FicheroResiDetalleDAO {
 		   	qry+= " AND g.idDivisionResidencia='"+idDivisionResidencia+"' ";
 	   		qry+= " AND g.idProceso='"+idProceso+"' ";
 	   		qry+= " AND g.resiCIP not in (select cip from bd_pacientes) ";
-	   		qry+= " AND isdate(resiInicioTratamiento) = 1 "; // miramos que sean registros de tratamiento v�lidos, con fecha de tratamiento
+	   		qry+= " AND isdate(resiInicioTratamiento) = 1 "; // miramos que sean registros de tratamiento válidos, con fecha de tratamiento
 	   		
 	   		System.out.println(className + "--> getCipsNoExistentesBbdd  --> " +qry );		
 			     ResultSet resultSet = null;
@@ -1446,7 +1446,7 @@ public class FicheroResiDetalleDAO {
 		   }
 		
 		/**
-		 * M�todo que retorna el n�mero de CIPS que existen como SPD=S en la gesti�n de pacientes y no vienen en listado de la resi
+		 * método que retorna el número de CIPS que existen como SPD=S en la gestión de pacientes y no vienen en listado de la resi
 		 * @param idDivisionResidencia
 		 * @param idProceso
 		 * @return
@@ -1487,7 +1487,7 @@ public class FicheroResiDetalleDAO {
 
 		
 		/**
-		 * M�todo que retorna el n�mero de CIPs activos de SPD en una residencia concreta
+		 * método que retorna el número de CIPs activos de SPD en una residencia concreta
 		 * @param spdUsuario
 		 * @param idDivisionResidencia
 		 * @param idProceso
@@ -1533,7 +1533,7 @@ public class FicheroResiDetalleDAO {
 			qry+=  " WHERE g.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
 	   		qry+=  " AND g.idDivisionResidencia='"+idDivisionResidencia+"' ";
 	   		qry+=  " AND g.idProceso='"+idProceso+"' ";
-		   	qry+=  " AND isdate(g.resiInicioTratamiento) =1 "; // miramos que sean registros de tratamiento v�lidos, con fecha de tratamiento
+		   	qry+=  " AND isdate(g.resiInicioTratamiento) =1 "; // miramos que sean registros de tratamiento válidos, con fecha de tratamiento
 	   		
 	   		System.out.println(className + "--> getNumeroMensajesInfo  --> " +qry );		
 			     ResultSet resultSet = null;
@@ -1559,7 +1559,7 @@ public class FicheroResiDetalleDAO {
 			qry+=  " WHERE g.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
 	   		qry+=  " AND g.idDivisionResidencia='"+idDivisionResidencia+"' ";
 	   		qry+=  " AND g.idProceso='"+idProceso+"' ";
-		   	qry+=  " AND isdate(g.resiInicioTratamiento) =1 "; // miramos que sean registros de tratamiento v�lidos, con fecha de tratamiento
+		   	qry+=  " AND isdate(g.resiInicioTratamiento) =1 "; // miramos que sean registros de tratamiento válidos, con fecha de tratamiento
 	   		
 	   		
 	   		System.out.println(className + "--> getNumeroMensajesAlerta  --> " +qry );		
@@ -1651,7 +1651,7 @@ public class FicheroResiDetalleDAO {
 
 
 		/**
-		 * M�todo que retorna el �ltimo tratamiento v�lido del residente en el que coincide EXACTAMENTE el cn, comentarios, observaciones y periodo, y es diferente al idProceso actual.
+		 * método que retorna el último tratamiento válido del residente en el que coincide EXACTAMENTE el cn, comentarios, observaciones y periodo, y es diferente al idProceso actual.
 		 * Lo queremos para recuperar los datos de frecuencia, dias marcados del mes, etc que nos interese
 		 * @param medResiActual
 		 * @return
@@ -1839,7 +1839,7 @@ public class FicheroResiDetalleDAO {
 		}
 
 		/**
-		 * Una vez creada la nueva toma se actualiza a +1 el n�mero de tomas del proceso
+		 * Una vez creada la nueva toma se actualiza a +1 el número de tomas del proceso
 		 * @param cabeceraActual
 		 * @return
 		 * @throws Exception 
@@ -1947,7 +1947,7 @@ public class FicheroResiDetalleDAO {
 		
 		
 		/**
-		 * Una vez creada una nueva toma se inicializa a null (o 0 TO-DO) las l�neas creadas
+		 * Una vez creada una nueva toma se inicializa a null (o 0 TO-DO) las líneas creadas
 		 * @param cab
 		 * @param resiTomaX
 		 * @param resiTomaXValue
@@ -2300,7 +2300,7 @@ public class FicheroResiDetalleDAO {
 			    	CIP=resultSet.getString("resiCIP");
 			    	cuantos++;
 			    }
-			    if(cuantos>1) CIP=null;	//si hay m�s de uno no insertamos nada por si hay dos residentes con el mismo nombre
+			    if(cuantos>1) CIP=null;	//si hay más de uno no insertamos nada por si hay dos residentes con el mismo nombre
 			 } catch (SQLException e) {
 			       e.printStackTrace();
 			   }finally {
@@ -2604,13 +2604,13 @@ public class FicheroResiDetalleDAO {
 
 
 		public static void actualizaIdSPD(FicheroResiBean medResi) {
-			// TODO Esbozo de m�todo generado autom�ticamente
+			// TODO Esbozo de método generado automáticamente
 			
 		}
 
 
 	/**
-	 * Pasamos a hist�rico las producciones de m�s de X d�as
+	 * Pasamos a histórico las producciones de más de X días
 	 * @param conn 
 	 * @param aHistorico 
 	 * @throws ClassNotFoundException
@@ -2652,7 +2652,7 @@ public class FicheroResiDetalleDAO {
 			}
 
 	/**OK
-	 * M�todo para borrar el detalle de los ficheros, de forma masiva, una vez ya pasados a hist�rico
+	 * método para borrar el detalle de los ficheros, de forma masiva, una vez ya pasados a histórico
 	 * @param conn 
 	 * @param oidFicheroResiDetalle
 	 * @param idDivisionresidencia
@@ -2666,7 +2666,7 @@ public class FicheroResiDetalleDAO {
 		
 		String query = " DELETE FROM dbo.SPD_ficheroResiDetalle  ";
 		query+= " WHERE oidFicheroResiCabecera IN (" + HelperSPD.convertirListSecuencia(aHistorico).toString() + ")";
-		query+= " AND oidFicheroResiCabecera in (select oidFicheroResiCabecera from dbo.SPDhst_ficheroResiDetalle) "; //nos aseguramos que ya se ha copiado en hist�rico 
+		query+= " AND oidFicheroResiCabecera in (select oidFicheroResiCabecera from dbo.SPDhst_ficheroResiDetalle) "; //nos aseguramos que ya se ha copiado en histórico 
 		System.out.println(className + "--> borrarDetalleYaEnHistorico -->" +query );		
 		 	
 	    try {
@@ -2946,7 +2946,7 @@ public class FicheroResiDetalleDAO {
 	   return result;
 	}
 
-    // M�todo auxiliar para obtener el valor limpio del resultSet
+    // método auxiliar para obtener el valor limpio del resultSet
  	private static String getSafeString(ResultSet resultSet, String columnName) throws SQLException {
  	    String value = resultSet.getString(columnName);
  	    return (value != null && !value.equalsIgnoreCase("null")) ? value : "";

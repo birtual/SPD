@@ -71,7 +71,7 @@ public class EjemploXML {
         DOMSource source = new DOMSource(documento);
         // Resultado, el cual almacena en el archivo indicado
         StreamResult result = new StreamResult(archivo);
-        // Transformamos de �a fuente DOM a el resultado, lo que almacena todo en el archivo
+        // Transformamos de ía fuente DOM a el resultado, lo que almacena todo en el archivo
         transformer.transform(source, result);
     }
     
@@ -80,17 +80,17 @@ public class EjemploXML {
 	        
 		// Creamos el elemento principal
 		Element idCareHome = documento.createElement("careHome");
-		idCareHome.setAttribute("idCareHome", "general_cambrils");	//Identificador �nico nacional relacionado con el centro. Puede estar formado por varias claves como un CIF + c�digo interno del centro.
+		idCareHome.setAttribute("idCareHome", "general_cambrils");	//Identificador único nacional relacionado con el centro. Puede estar formado por varias claves como un CIF + código interno del centro.
 	
 		documento.appendChild(idCareHome);
 	
 	    //RESIDENCIA
-		Element resiActive = documento.createElement("active");		// Indica si el centro est� o no activo; toma los valores true o false
+		Element resiActive = documento.createElement("active");		// Indica si el centro está o no activo; toma los valores true o false
 		Element resiName = documento.createElement("name");			// Nombre del centro
 		Element resiCity = documento.createElement("city");			// Nombre de la ciudad
-		Element resiCp = documento.createElement("cp");				// C�digo postal
-		Element resiProvince = documento.createElement("province");	// C�digo de provincia
-		Element resiPhone = documento.createElement("phone");		// Tel�fono del centro
+		Element resiCp = documento.createElement("cp");				// Código postal
+		Element resiProvince = documento.createElement("province");	// Código de provincia
+		Element resiPhone = documento.createElement("phone");		// Teléfono del centro
 		Element resiEmail = documento.createElement("email");		// Email del centro
 		Element resiCountry = documento.createElement("country");	// Nombre del pais
 	    //Element doses = documento.createElement("doses");			// Contenido xml con todas las horas de las tomas existentes en el centro
@@ -98,72 +98,72 @@ public class EjemploXML {
 	    Element patients = documento.createElement("patients");				// Contenido xml con los pacientes
 
 		    //DOSES
-	    //Element dose = documento.createElement("dose");				// Identificador �nico del centro que referencie a una hora de toma. Su valor puede coincidir con la hora de la toma.
-	    //Element doseHour = documento.createElement("hour");			// Hora de la toma del paciente en formato �hh:mm�
-	    // Element doseName = documento.createElement("name");			// Descripci�n del periodo del d�a de la toma.
+	    //Element dose = documento.createElement("dose");				// Identificador único del centro que referencie a una hora de toma. Su valor puede coincidir con la hora de la toma.
+	    //Element doseHour = documento.createElement("hour");			// Hora de la toma del paciente en formato "hh:mm"
+	    // Element doseName = documento.createElement("name");			// Descripción del periodo del día de la toma.
 			        
 		    //SECTIONS
-		    Element section = documento.createElement("section");					// Identificador �nico de la secci�n
-		    Element sectionName = documento.createElement("name");					// Nombre de la secci�n
+		    Element section = documento.createElement("section");					// Identificador único de la sección
+		    Element sectionName = documento.createElement("name");					// Nombre de la sección
 		    Element sectionObservations = documento.createElement("observations>");	// Observaciones
 			        
 		    //PATIENS
-		    Element patient = documento.createElement("patient");								// Identificador �nico del paciente dentro del centro. Se puede coger una clave interna del sistema inform�tico siempre vinculada al paciente.
-		    Element patientActive = documento.createElement("active");							// Indicador de si el paciente est� o no activo, valores true y false. Si el paciente est� activo se podr�n generar blisters.
+		    Element patient = documento.createElement("patient");								// Identificador único del paciente dentro del centro. Se puede coger una clave interna del sistema informático siempre vinculada al paciente.
+		    Element patientActive = documento.createElement("active");							// Indicador de si el paciente está o no activo, valores true y false. Si el paciente está activo se podrán generar blisters.
 		    Element patientAdmissionDate = documento.createElement("admissionDate");			// Fecha de ingreso en el centro, su formato es dd-mm-yyyy. Ejemplo: 02-01-2019
 		    Element patientLastAdmissionDate = documento.createElement("lastAdmissionDate");	// Ultima fecha de ingreso en el centro, su formato es dd-mm-yyyy
-		    Element patientHospitalized = documento.createElement("hospitalized");				// Indicador de si el paciente est� o no hospitalizado, valores true y false.
+		    Element patientHospitalized = documento.createElement("hospitalized");				// Indicador de si el paciente está o no hospitalizado, valores true y false.
 		    Element patientDni = documento.createElement("dni");								// Documento nacional de identidad del paciente
 		    Element patientName = documento.createElement("name");     							// Nombre del paciente
 		    Element patientSurname1 = documento.createElement("surname1");     					// Primer apellido del paciente
 		    Element patientSurname2 = documento.createElement("surname2");    					// Segundo apellido del paciente
 		    Element patientBirthday = documento.createElement("birthday");     					// Fecha de nacimiento del paciente en format dd-mm-yyyy
-			Element  tratamientos= documento.createElement("treatments");						// Conjunto de tratamientos de un paciente o posolog�a
+			Element  tratamientos= documento.createElement("treatments");						// Conjunto de tratamientos de un paciente o posología
 	               
 				//TRATAMIENTOS
-				Element  tratamiento= documento.createElement("treatment");							// Identificador �nico del tratamiento en el centro. Un paciente puede tener varios tratamientos. Puede ser una clave compuesta, siempre vinculada al tratamiento del paciente. Si solo existe un tratamiento se puede coger como valor la clave del identificador del paciente.
-				Element  tratamientoIdReceipt= documento.createElement("idReceipt");				// Identificador �nico de la receta.
-				Element  tratamientoActive= documento.createElement("active");						// Indica si el tratamiento est� o no activo en este momento, puede tomar un valor true o false.
+				Element  tratamiento= documento.createElement("treatment");							// Identificador único del tratamiento en el centro. Un paciente puede tener varios tratamientos. Puede ser una clave compuesta, siempre vinculada al tratamiento del paciente. Si solo existe un tratamiento se puede coger como valor la clave del identificador del paciente.
+				Element  tratamientoIdReceipt= documento.createElement("idReceipt");				// Identificador único de la receta.
+				Element  tratamientoActive= documento.createElement("active");						// Indica si el tratamiento está o no activo en este momento, puede tomar un valor true o false.
 				Element  tratamientoStartTreatment= documento.createElement("startTreatment");		// Fecha de inicio del tratamiento en formato dd-mm-yyyy hh:mm.
-				Element  tratamientoEndTreatment= documento.createElement("endTreatment");			// Fecha de finalizaci�n del tratamiento en formato dd-mm-yyyy hh:mm.
-				Element  pouches = documento.createElement("pouches");								// Bolsas de medicaci�n que puede tomar un paciente en un d�a en diferentes periodos del d�a.
+				Element  tratamientoEndTreatment= documento.createElement("endTreatment");			// Fecha de finalización del tratamiento en formato dd-mm-yyyy hh:mm.
+				Element  pouches = documento.createElement("pouches");								// Bolsas de medicación que puede tomar un paciente en un día en diferentes periodos del día.
 	        
-					//BOLSAS DE MEDICACI�N
-					Element  pouch = documento.createElement("pouch");			// Identificador �nico de la bolsa de medicaci�n que toma un paciente en un d�a. Si no se dispone de ella esta clave puede estar compuesta por la clave del paciente, la clave del tratamiento y la clave de la hora de la toma.
+					//BOLSAS DE MEDICAción
+					Element  pouch = documento.createElement("pouch");			// Identificador único de la bolsa de medicación que toma un paciente en un día. Si no se dispone de ella esta clave puede estar compuesta por la clave del paciente, la clave del tratamiento y la clave de la hora de la toma.
 					Element  pouchDose = documento.createElement("dose");		// Contenido xml con ela hora de la toma
-					Element  pouchHour = documento.createElement("hour");		// Hora de la toma del paciente en formato �hh:mm�
-					Element  pouchName = documento.createElement("name");		// Descripci�n del periodo del d�a de la toma.
+					Element  pouchHour = documento.createElement("hour");		// Hora de la toma del paciente en formato "hh:mm"
+					Element  pouchName = documento.createElement("name");		// Descripción del periodo del día de la toma.
 					Element  doses = documento.createElement("doses");			// Contenido xml con todas las horas de las tomas existentes en el centro
-					Element  lines = documento.createElement("lines");			//Listado de medicamentos que tomar� un paciente en diferentes periodo del d�a durante un periodo del tiempo.
+					Element  lines = documento.createElement("lines");			//Listado de medicamentos que tomará un paciente en diferentes periodo del día durante un periodo del tiempo.
 				        
 					    //DOSES
-						Element dose = documento.createElement("dose");				// Identificador �nico del centro que referencie a una hora de toma. Su valor puede coincidir con la hora de la toma.
-						Element doseHour = documento.createElement("hour");			// Hora de la toma del paciente en formato �hh:mm�
-					    Element doseName = documento.createElement("name");			// Descripci�n del periodo del d�a de la toma.
+						Element dose = documento.createElement("dose");				// Identificador único del centro que referencie a una hora de toma. Su valor puede coincidir con la hora de la toma.
+						Element doseHour = documento.createElement("hour");			// Hora de la toma del paciente en formato "hh:mm"
+					    Element doseName = documento.createElement("name");			// Descripción del periodo del día de la toma.
 
 						//LINEAS BOLSA
-						Element  line = documento.createElement("line");							// Identificador �nico del medicamento a tomar por un paciente en una bolsa de medicaci�n correspondiente a un periodo del d�a. Si no se dispone de esta clave se puede coger la clave de la bolsa y el c�digo de medicamento mas un contador incremental (para casos de tener medicaci�n replicada, por ejemplo del tipo si precisa).
-						Element  lineActivePeriod = documento.createElement("activePeriod");		// Indicador que se ha de informar siempre; si es true indica que la medicaci�n del paciente es diaria, si es false no lo es.	
-						Element  lineFrom = documento.createElement("from");						// Solo se informa si la mediaci�n es diaria. Esta fecha es la fecha de inicio de la toma, tiene formato dd-mm-yyyy hh:mm.
-						Element  lineTo = documento.createElement("to");							// Solo se informa si la mediaci�n es diaria. Esta fecha es la fecha de fin de la toma, tiene formato dd-mm-yyyy hh:mm.
-						Element  lineDayfromWeek = documento.createElement("dayfromWeek");			// Solo se informa si la medicaci�n se toma ciertos dias de la semana. Esta fecha indica el inicio de la toma, tiene formato dd-mm-yyyy hh:mm.
-						Element  lineDaytoWeek = documento.createElement("daytoWeek");				// Solo se informa si la medicaci�n se toma ciertos dias de la semana. Esta fecha indica el fin de la toma, tiene formato dd-mm-yyyy hh:mm.
-						Element  lineDayfromMonth = documento.createElement("dayfromMonth");		// Solo se informa si la medicaci�n se toma ciertos dias del mes. Esta fecha indica el inicio de la toma, tiene formato dd-mm-yyyy hh:mm
-						Element  lineDaytMonth = documento.createElement("daytoMonth");				// Solo se informa si la medicaci�n se toma ciertos dias del mes. Esta fecha indica el fin de la toma, tiene formato dd-mm-yyyy hh:mm
-						Element  lineWeekdays = documento.createElement("weekdays");				// Solo se informa en caso de medicaci�n semanal. Indica los dias de la semana en los cuales se tiene que hacer las tomas.El valor de este campo es una cadena de par�metros no repetidos separados por comas que pueden tomar los siguientes valores: {�monday�,�tuesday�,�wednesday�,�thursday�,�friday�,�saturday�,�sunday�}.
-						Element  lineMonthdays = documento.createElement("monthdays");				// Solo se informa en caso de medicaci�n mensual. Indica los dias del mes en los cuales se tienen que hacer las tomas. Este valor es un entero comprendido entre 1 y 31.
-						Element  guides = documento.createElement("guides");						// Solo se informa en caso de tener medicaci�n con peculiaridades. En el caso de que la medicaci�n se tome dias,semanas o meses alternos con una determinada frecuencia aqu� se registran dichas peculiaridades. Estas pecularidades tienen un car�cter restrictivo sobre las tomas diarias, semanales o mensuales ya creadas.
-						Element  lineNeeded = documento.createElement("needed");					// Si la medicaci�n es de tipo si precisa toma el valor de true, en caso contrario toma el valor de false.
-						Element  lineIrreplaceblePill = documento.createElement("irreplaceblePill"); // Si la medicaci�n no es reemplazable toma el valor true, false en caso contrario
-						Element  linePill = documento.createElement("pill");						// Aqu� se informa del identificador del medicamento; puede ser el c�digo nacional (C.N) o bien otro c�digo interno del centro correspondiente a otro tipo de medicaci�n
-						Element  linePillDesc = documento.createElement("pill_desc");				// Esta es la descripci�n larga del medicamento. Se precisa para casos en los que la medicaci�n se crea de manera manual.
+						Element  line = documento.createElement("line");							// Identificador único del medicamento a tomar por un paciente en una bolsa de medicación correspondiente a un periodo del día. Si no se dispone de esta clave se puede coger la clave de la bolsa y el código de medicamento mas un contador incremental (para casos de tener medicación replicada, por ejemplo del tipo si precisa).
+						Element  lineActivePeriod = documento.createElement("activePeriod");		// Indicador que se ha de informar siempre; si es true indica que la medicación del paciente es diaria, si es false no lo es.	
+						Element  lineFrom = documento.createElement("from");						// Solo se informa si la mediación es diaria. Esta fecha es la fecha de inicio de la toma, tiene formato dd-mm-yyyy hh:mm.
+						Element  lineTo = documento.createElement("to");							// Solo se informa si la mediación es diaria. Esta fecha es la fecha de fin de la toma, tiene formato dd-mm-yyyy hh:mm.
+						Element  lineDayfromWeek = documento.createElement("dayfromWeek");			// Solo se informa si la medicación se toma ciertos dias de la semana. Esta fecha indica el inicio de la toma, tiene formato dd-mm-yyyy hh:mm.
+						Element  lineDaytoWeek = documento.createElement("daytoWeek");				// Solo se informa si la medicación se toma ciertos dias de la semana. Esta fecha indica el fin de la toma, tiene formato dd-mm-yyyy hh:mm.
+						Element  lineDayfromMonth = documento.createElement("dayfromMonth");		// Solo se informa si la medicación se toma ciertos dias del mes. Esta fecha indica el inicio de la toma, tiene formato dd-mm-yyyy hh:mm
+						Element  lineDaytMonth = documento.createElement("daytoMonth");				// Solo se informa si la medicación se toma ciertos dias del mes. Esta fecha indica el fin de la toma, tiene formato dd-mm-yyyy hh:mm
+						Element  lineWeekdays = documento.createElement("weekdays");				// Solo se informa en caso de medicación semanal. Indica los dias de la semana en los cuales se tiene que hacer las tomas.El valor de este campo es una cadena de parámetros no repetidos separados por comas que pueden tomar los siguientes valores: {�monday�,�tuesday�,�wednesday�,�thursday�,�friday�,�saturday�,�sunday�}.
+						Element  lineMonthdays = documento.createElement("monthdays");				// Solo se informa en caso de medicación mensual. Indica los dias del mes en los cuales se tienen que hacer las tomas. Este valor es un entero comprendido entre 1 y 31.
+						Element  guides = documento.createElement("guides");						// Solo se informa en caso de tener medicación con peculiaridades. En el caso de que la medicación se tome dias,semanas o meses alternos con una determinada frecuencia aquí se registran dichas peculiaridades. Estas pecularidades tienen un caracter restrictivo sobre las tomas diarias, semanales o mensuales ya creadas.
+						Element  lineNeeded = documento.createElement("needed");					// Si la medicación es de tipo si precisa toma el valor de true, en caso contrario toma el valor de false.
+						Element  lineIrreplaceblePill = documento.createElement("irreplaceblePill"); // Si la medicación no es reemplazable toma el valor true, false en caso contrario
+						Element  linePill = documento.createElement("pill");						// aquí se informa del identificador del medicamento; puede ser el código nacional (C.N) o bien otro código interno del centro correspondiente a otro tipo de medicación
+						Element  linePillDesc = documento.createElement("pill_desc");				// Esta es la descripción larga del medicamento. Se precisa para casos en los que la medicación se crea de manera manual.
 						Element  lineOutOfBlister = documento.createElement("outOfBlister");		// Indicador de si el medicamento va o no fuera de blister; es true si va fuera de blister y false si va en blister. Si no se informa se entiende que va dentro de blister
-						Element  lineAmount = documento.createElement("amount");					// Es la cantidad de medicaci�n que se deber� tomar; se acepta medicaci�n fraccionada. Ejemplo: 0.25,0.5,0.75, 1,1.25,2,3�.
+						Element  lineAmount = documento.createElement("amount");					// Es la cantidad de medicación que se deber� tomar; se acepta medicación fraccionada. Ejemplo: 0.25,0.5,0.75, 1,1.25,2,3�.
 	
 							//GUIDES	
-							Element  guide = documento.createElement("guide");				// Identificador �nico del patr�n a aplicar para esta toma de este paciente. Si no se dispone de esta clave se puede coger la clave de �idLine� y a�adir un contador incremental.
+							Element  guide = documento.createElement("guide");				// Identificador único del patrán a aplicar para esta toma de este paciente. Si no se dispone de esta clave se puede coger la clave de �idLine� y añadir un contador incremental.
 							Element  guideNumber = documento.createElement("number");		// Es un contador entero que indica el orden de la etiqueta; el contador empieza siempre por 1.
-							Element  guidePeriods = documento.createElement("periods");		// Este valor es un num�rico entero e indica el n�mero de periodos sobre los que se aplicar� esta restricci�n.
+							Element  guidePeriods = documento.createElement("periods");		// Este valor es un numérico entero e indica el número de periodos sobre los que se aplicará esta restricción.
 							Element  guidePeriodtype = documento.createElement("periodtype");// Este valor indica el tipo de periodo; este puede tomar los valores �DAYS�, �WEEKS� o �MONTHS�
 							Element  guideActive = documento.createElement("active");		// Este valor indica si sobre este periodo de tiempo el paciente ha de tomar o no el medicamento; si es s� toma el valor true, en caso contrario tiene el valor false.
 				        

@@ -122,7 +122,7 @@ public class FicheroResiDetalleHelper {
 				//Collections.sort(listaIdentificador);
 				Collections.sort(listaIdentificador, (a, b) -> Integer.compare(Integer.parseInt(a), Integer.parseInt(b)));
 				
-				//tenemos en cuenta si tiene m�scara
+				//tenemos en cuenta si tiene máscara
 				String CIP = (verDatosPersonales?(String) grb.getResiCIP():(String) grb.getResiCIPMask());
 				if(CIP!=null && !CIP.equals("")  &&  !listaResiCIP.contains(CIP) )											
 					listaResiCIP.add(CIP);
@@ -259,9 +259,9 @@ public class FicheroResiDetalleHelper {
 	}
 
 	/**
-	 * En la importaci�n de datos se busca la cabecera modelo de la residencia (CabecerasXLSBean), que estar� actualizada seg�n las �ltimas producciones y cambios de  ampliaci�n de tomas
-	 * En el caso de la gesti�n y listado de datos, se recupera la de la tabla bbdd ya relacionada con el detalle.
-	 * En el caso de la carga de plantilla unificada se devuelve la del modelo de plantilla tambi�n.  En caso contrario se busca la cabecera por defecto.
+	 * En la importación de datos se busca la cabecera modelo de la residencia (CabecerasXLSBean), que estará actualizada según las últimas producciones y cambios de  ampliación de tomas
+	 * En el caso de la gestión y listado de datos, se recupera la de la tabla bbdd ya relacionada con el detalle.
+	 * En el caso de la carga de plantilla unificada se devuelve la del modelo de plantilla también.  En caso contrario se busca la cabecera por defecto.
 	 * @param formulari
 	 * @return
 	 * @throws Exception 
@@ -297,9 +297,9 @@ public class FicheroResiDetalleHelper {
 	    try {
 	        int numeroDoses = medResi.getNumeroDeTomas();
 	        for (int i = 1; i <= numeroDoses && i <= 24; i++) {
-	            // Construimos el nombre del m�todo: getResiToma1, getResiToma2, ...
+	            // Construimos el nombre del método: getResiToma1, getResiToma2, ...
 	            String methodName = "getResiToma" + i;
-	            // Usamos reflexi�n para invocar el m�todo correspondiente
+	            // Usamos reflexión para invocar el método correspondiente
 	            Method method = medResi.getClass().getMethod(methodName);
 	            Object tomaValue = method.invoke(medResi);
 
@@ -311,7 +311,7 @@ public class FicheroResiDetalleHelper {
 	            ));
 	        }
 	    } catch (Exception e) {
-	        // Manejo de errores seg�n tu necesidad
+	        // Manejo de errores según tu necesidad
 	        e.printStackTrace();
 	    }
 	    return doses;
@@ -357,14 +357,14 @@ public class FicheroResiDetalleHelper {
 */
 
 	/**
-	 * si llega CIP vac�o el m�todo busca alg�n CIP del mismo nombre+apellidos 
-	 * Hace update en todos los vac�os y en caso de no encontrar se construye uno con el nombre + apellidos. En caso de error se a�ade un CIP temporal
+	 * si llega CIP vacío el método busca algún CIP del mismo nombre+apellidos 
+	 * Hace update en todos los vacíos y en caso de no encontrar se construye uno con el nombre + apellidos. En caso de error se añade un CIP temporal
 	 * @param frbean
 	 * @throws Exception 
 	 */
 	public static void actualizaCIP(String spdUsuario, FicheroResiBean frbean) throws Exception {
 		
-		//primero buscamos si existe un CIP con el mismo nombre EXACTO en esta misma producci�n
+		//primero buscamos si existe un CIP con el mismo nombre EXACTO en esta misma producción
 		String CIP = FicheroResiDetalleDAO.getCIPPorNombreCompleto(spdUsuario, frbean);
 		boolean resultOk = false; 
 		
@@ -479,39 +479,39 @@ public class FicheroResiDetalleHelper {
 		String result = "";
 		if(cipsFicheroSiGestionSPDNo!=null && cipsFicheroSiGestionSPDNo.size()>0)
 		{
-			result+="<span class=''textoRojo''><b>Fichero SI  -  Gesti�n SI pero SPD=''N''</b></span><br/> <ul>";
+			result+="<span class=''textoRojo''><b>Fichero SI  -  Gestión SI pero SPD=''N''</b></span><br/> <ul>";
 			Iterator it_1 = cipsFicheroSiGestionSPDNo.iterator();
 			while(it_1.hasNext())
 			{
 				PacienteBean pac1 = (PacienteBean) it_1.next();
 				result+= "<li>"+pac1.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac1.getApellidosNombre()) + "</li>";
-				//System.out.println("1 - Se a�ade Diferencia CIP: " + pac1.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac1.getApellidosNombre()));
+				//System.out.println("1 - Se añade Diferencia CIP: " + pac1.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac1.getApellidosNombre()));
 			}
 			result+="</ul><br/>";
 		}
 			
 		if(cipsFicheroSiGestionNo!=null && cipsFicheroSiGestionNo.size()>0)
 		{
-			result+="<span class=''textoRojo''><b>Fichero SI - Gesti�n NO</b></span><br/> <ul>";
+			result+="<span class=''textoRojo''><b>Fichero SI - Gestión NO</b></span><br/> <ul>";
 			Iterator it_2 = cipsFicheroSiGestionNo.iterator();
 			while(it_2.hasNext())
 			{
 				PacienteBean pac2 = (PacienteBean) it_2.next();
 				result+= "<li>"+pac2.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac2.getApellidosNombre()) + "</li>";
-				//System.out.println("2 - Se a�ade Diferencia CIP: " + pac2.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac2.getApellidosNombre()));
+				//System.out.println("2 - Se añade Diferencia CIP: " + pac2.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac2.getApellidosNombre()));
 			}
 			result+="</ul><br/>";
 		}
 			
 		if(cipsFicheroNoGestionSi!=null && cipsFicheroNoGestionSi.size()>0)
 		{
-			result+="<span class=''textoRojo''><b>Fichero NO - Gesti�n SI:</b></span><br/> <ul>";
+			result+="<span class=''textoRojo''><b>Fichero NO - Gestión SI:</b></span><br/> <ul>";
 			Iterator it_3 = cipsFicheroNoGestionSi.iterator();
 			while(it_3.hasNext())
 			{
 				PacienteBean pac3 = (PacienteBean) it_3.next();
 				result+= "<li>"+pac3.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac3.getApellidosNombre()) + "</li>";
-				//System.out.println("3 - Se a�ade Diferencia CIP: " + pac3.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac3.getApellidosNombre()));
+				//System.out.println("3 - Se añade Diferencia CIP: " + pac3.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac3.getApellidosNombre()));
 			}
 			result+="</ul><br/>";
 			
@@ -544,7 +544,7 @@ public class FicheroResiDetalleHelper {
 		List<InfoAlertasBean> listInfoAlertas = new ArrayList<InfoAlertasBean>();
 		if(frbean!=null)
 		{
-			// C - (N�mero comprimidos)
+			// C - (número comprimidos)
 			InfoAlertasBean infoAlertas = new InfoAlertasBean();
 			infoAlertas.setTituloAlerta("C - (Número comprimidos) ");
 			if(frbean.getControlNumComprimidos()!=null && frbean.getControlNumComprimidos().equalsIgnoreCase(SPDConstants.CTRL_NCOMPRIMIDOS_IGUAL))
@@ -603,23 +603,23 @@ public class FicheroResiDetalleHelper {
 			listInfoAlertas.add(infoAlertas);
 			
 			/*
-			// R - (env�o a robot) 
+			// R - (envío a robot) 
 			infoAlertas = new InfoAlertasBean();
-			infoAlertas.setTituloAlerta("R - (env�o a robot) ");
+			infoAlertas.setTituloAlerta("R - (envío a robot) ");
 			if(frbean.getControlRegistroRobot()!=null && frbean.getControlRegistroRobot().equalsIgnoreCase(SPDConstants.CTRL_ROBOT_SE_ENVIA_A_ROBOT))
 			{
 				infoAlertas.setCssAlerta("verde");
-				infoAlertas.setTextoAlerta("Se env�a a robot como '" + frbean.getSpdAccionBolsa()+"'");
+				infoAlertas.setTextoAlerta("Se envía a robot como '" + frbean.getSpdAccionBolsa()+"'");
 			}
 			else if(frbean.getControlRegistroRobot()!=null && frbean.getControlRegistroRobot().equalsIgnoreCase(SPDConstants.CTRL_ROBOT_NO_SE_ENVIA))
 			{
 				infoAlertas.setCssAlerta("gris");
-				infoAlertas.setTextoAlerta("NO se env�a a robot porque es '" + frbean.getSpdAccionBolsa()+"'");
+				infoAlertas.setTextoAlerta("NO se envía a robot porque es '" + frbean.getSpdAccionBolsa()+"'");
 			}
 			else 
 			{
 				infoAlertas.setCssAlerta("blanco");
-				infoAlertas.setTextoAlerta("Revisar acci�n en bolsa del tratamiento");
+				infoAlertas.setTextoAlerta("Revisar acción en bolsa del tratamiento");
 			}		
 			listInfoAlertas.add(infoAlertas);
 			*/
@@ -635,7 +635,7 @@ public class FicheroResiDetalleHelper {
 			else if(frbean.getControlValidacionDatos()!=null && frbean.getControlValidacionDatos().equalsIgnoreCase(SPDConstants.CTRL_VALIDAR_ALERTA))
 			{
 				infoAlertas.setCssAlerta("naranja");
-				infoAlertas.setTextoAlerta("Necesaria revisi�n de datos'");
+				infoAlertas.setTextoAlerta("Necesaria revisión de datos'");
 			}
 			else 
 			{
@@ -659,7 +659,7 @@ public class FicheroResiDetalleHelper {
 			else if(frbean.getControlPrincipioActivo()!=null && frbean.getControlPrincipioActivo().equalsIgnoreCase(SPDConstants.CTRL_PRINCIPIO_ACTIVO_ALERTA))
 			{
 				infoAlertas.setCssAlerta("amarillo");
-				infoAlertas.setTextoAlerta("El principio activo de este tratamiento est� marcado para CONTROL EXTRA  '" + frbean.getSpdNomGtVm()+"'");
+				infoAlertas.setTextoAlerta("El principio activo de este tratamiento está marcado para CONTROL EXTRA  '" + frbean.getSpdNomGtVm()+"'");
 			}
 			else 
 			{
@@ -712,7 +712,7 @@ public class FicheroResiDetalleHelper {
 
 			listInfoAlertas.add(infoAlertas);
 
-			// V - Control de GTVM �NICOS (para detectar tratamientos con el mismo GTVM) 
+			// V - Control de GTVM UNICOS (para detectar tratamientos con el mismo GTVM) 
 			infoAlertas = new InfoAlertasBean();
 			infoAlertas.setTituloAlerta("V - Control de principio activo repetido");
 			 if(frbean.getControlUnicoGtvm()!=null && frbean.getControlUnicoGtvm().equalsIgnoreCase(SPDConstants.CTRL_UNICO_GTVM_OK))

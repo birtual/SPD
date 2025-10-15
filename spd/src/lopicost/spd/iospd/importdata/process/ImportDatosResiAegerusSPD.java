@@ -26,10 +26,10 @@ import java.util.TreeMap;
 import java.util.Vector;
 
 /**
- * Método encargado de importar el fichero recibido de la residencia, pero habiendo realizado nuestras sustituciones 
+ * Mï¿½todo encargado de importar el fichero recibido de la residencia, pero habiendo realizado nuestras sustituciones 
  * La finalidad es persistir los datos de SOLO_INFO y PASTILLERO del SPD junto con los NO_PINTAR, para poder compararlos
  * con las recetas y ver discrepancias.
- * El fichero ya viene "limpio" porque es el paso previo al envío al robot
+ * El fichero ya viene "limpio" porque es el paso previo al envï¿½o al robot
  * author CARLOS
  *
  */
@@ -44,10 +44,10 @@ public class ImportDatosResiAegerusSPD extends ImportProcessImpl
 		super();
 	}
 
-	/**los ficheros han de venir con cabecera. Se tendrá en cuenta a partir de la fila 2**/	
+	/**los ficheros han de venir con cabecera. Se tendrï¿½ en cuenta a partir de la fila 2**/	
     protected boolean beforeProcesarEntrada(Vector row) throws Exception 
     {
-    	//pasar a histórico los inactivos
+    	//pasar a histï¿½rico los inactivos
     	//if(!procesosAnterioresLimpiados)ioSpdApi.limpiarCIPsInactivos();
     	//FicheroMedResiConSustitucionDAO.creaHistoricoPacientesInactivos();
     	//FicheroMedResiConSustitucionDAO.borraProcesosPacientesInactivos();
@@ -68,18 +68,20 @@ public class ImportDatosResiAegerusSPD extends ImportProcessImpl
 		resi			idproceso			CN_OK	NOMBRE_CORTO	PRESENTACION	TIPO_DISP
 		MEDICAMENTO		CODIGO NACIONAL		CIP		NOMBRE			HABITACION		UNIDAD ADMINISTRACION
 	*/
-    
-    public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count) throws Exception 
+
+    //public boolean procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception 
+    public boolean procesarEntrada(String idRobot, DivisionResidencia div, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception 
     {
-       if (row!=null && row.size()>=12)
+ 	   boolean result = false;
+ 	   if (row!=null && row.size()>=12)
        {        	
-    	   boolean result = false;
     	   String element = (String) row.elementAt(1);
     	   if(!element.toUpperCase().contains("IDPROCESO"))	//nos aseguramos de saltar la cabecera
     		   result=creaRegistro(row);
        }
        else 
             throw new Exception (TextManager.getMensaje("ImportData.error.ImportDatosResiSPD"));
+ 	   return result;
     }
     
     private boolean creaRegistro(Vector row) throws Exception {
@@ -107,7 +109,7 @@ public class ImportDatosResiAegerusSPD extends ImportProcessImpl
   		{
      		
         	ioSpdApi.limpiarCIPIdprocesoAnterior(fila.getIdProceso(), fila.getResiCIP());
-            //Una vez limpiado, se añade como CIP ya tratado para no volver a limpiar datos
+            //Una vez limpiado, se aï¿½ade como CIP ya tratado para no volver a limpiar datos
             CIPSTratados.put(fila.getResiCIP(), fila.getResiCIP());
             
   		}
@@ -152,12 +154,8 @@ public class ImportDatosResiAegerusSPD extends ImportProcessImpl
     	IOSpdApi.borraErrores(getIdDivisionResidencia());
     }
 
-	@Override
-	protected void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count,
-			boolean cargaAnexa) throws Exception {
-		// TODO Esbozo de método generado automáticamente
-		
-	}
+
+
 
 }
 

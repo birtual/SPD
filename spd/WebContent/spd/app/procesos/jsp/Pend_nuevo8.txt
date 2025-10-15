@@ -1,0 +1,39 @@
+https://www.saveris.net/users/login?login=dt@farmalogic.com&password=Farmalogic2012
+
+https://www.saveris.net/SampleValue?login=dt@farmalogic.com&password=Farmalogic2012
+
+
+2f7589d9a2f8cb65aa7acd5e31a229af4f8c9ec35fa089fd23b4902a8680dea7cfea2f0788494bc85461207b0951fe57866eeefaf281661862596f7d45a61085
+
+data[User][login]
+
+data[User][password]
+
+
+https://www.saveris.net/users/login?email=dt@farmalogic.com&password=Farmalogic2012&key=2f7589d9a2f8cb65aa7acd5e31a229af4f8c9ec35fa089fd23b4902a8680dea7cfea2f0788494bc85461207b0951fe57866eeefaf281661862596f7d45a61085
+
+https://www.saveris.net/SampleValue?email=dt@farmalogic.com&password=Farmalogic2012&key=2f7589d9a2f8cb65aa7acd5e31a229af4f8c9ec35fa089fd23b4902a8680dea7cfea2f0788494bc85461207b0951fe57866eeefaf281661862596f7d45a61085
+
+https://www.saveris.net/users/login?data[User][login]=dt@farmalogic.com&data[User][password]=Farmalogic2012&key=2f7589d9a2f8cb65aa7acd5e31a229af4f8c9ec35fa089fd23b4902a8680dea7cfea2f0788494bc85461207b0951fe57866eeefaf281661862596f7d45a61085
+
+https://www.saveris.net/SampleValue?data[User][login]=dt@farmalogic.com&data[User][password]=Farmalogic2012&key=2f7589d9a2f8cb65aa7acd5e31a229af4f8c9ec35fa089fd23b4902a8680dea7cfea2f0788494bc85461207b0951fe57866eeefaf281661862596f7d45a61085
+
+
+= 'data:text/html,<form action="https://www.ejemplo.com/login" method="POST"><input type="hidden" name="username" value="miusuario"><input type="hidden" name="password" value="miclave"></form><script>document.forms[0].submit();</script>'
+
+
+= 'data:text/html,<form action="https://www.saveris.net/SampleValue" method="POST"><input type="hidden" name="login" value="dt@farmalogic.com"><input type="hidden" name="password" value="Farmalogic2012"></form><script>document.forms[0].submit();</script>'
+
+
+='data:text/html;charset=utf-8,                                                                                  
+    <html>
+    <body>
+        <form id="autoLoginForm" action="https://www.saveris.net/SampleValue" method="POST">
+            <input type="hidden" name="login" value="dt@farmalogic.com">
+            <input type="hidden" name="password" value="Farmalogic2012">
+        </form>
+        <script>
+            document.getElementById("autoLoginForm").submit();
+        </script>
+    </body>
+    </html>'    xd

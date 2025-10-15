@@ -1,0 +1,329 @@
+
+<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
+<%@ page session="true" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html:html>
+<HEAD>
+
+	<jsp:include page="/spd/jsp/global/skin.jsp"/>
+
+
+<title>Reports BIRT. Lopicost
+
+</title>
+</HEAD>
+
+<body>
+<h2>Reports Lopicost </h2>
+ <html:hidden property="idUsuario" />
+ 
+ <table class="CSS_Table_Example" >
+ <tr>
+		<td class="primera">Número</td>
+		<td class="primera">Tipo</td>
+		<td class="segunda">Nombre report</td>
+   </tr>
+	<tr>
+		<td> 0</td>
+		<td>Pacientes totales</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_0_resumen_pacientes_v1.rptdesign" target=_blank>
+				Pacientes totales por centro.
+			</a>
+		</td>
+	</tr>	
+	<tr>
+		<td> 0b</td>
+		<td>Pacientes Farmatic vs Gestión pacientes</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_13b_pacientesComalisFarmatic.rptdesign" target=_blank>
+				Datos de los pacientes de Farmatic cruzados con los de la gestión de pacientes, para detectar discrepancias.
+			</a>
+		</td>
+	</tr>		
+	
+
+	
+	<tr>
+		<td> 1</td>
+		<td>Cruce Datos resi - SIRE por CIP</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_1a_resi_vs_sire_v1.rptdesign" target=_blank>
+				Detalle por CIP.
+			</a>
+</br>		</br>			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_1a_resi_vs_sire_v2.rptdesign" target=_blank>
+				Detalle por CIP (versión mejorada).
+			</a>
+		</td>
+	</tr>
+	<tr>
+		<td> 1b</td>
+		<td>Vigentes / No Vigentes</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_1b_no_vigentes.rptdesign" target=_blank>
+				Pacientes con código de seguridad Vigentes / No Vigentes.
+			</a>
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td>2</td>
+		<td>Pacientes</td>	
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_13_pacientes.rptdesign" target=_blank>Listado de pacientes
+		</td>
+       
+	</tr>	
+ 	<tr>
+		<td> 3c</td>
+		<td>Ventana activa con SUSTITUCION</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_3c_pend_dispensar_sire_sustitucion.rptdesign" target=_blank>
+				Muestra todos lo dispensable a día de hoy, con la sustitución a realizar.
+			</a>
+		</td>
+	</tr> 
+	<tr> 
+		<td> 4</td>
+		<td>Recetas que caducan</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_4a_recetas_que_caducan_v1.rptdesign" target=_blank>
+				Muestra las recetas que caducarán dentro del rango de días que se indica.
+			</a>
+		</td>
+	</tr>  	
+	<tr>
+		<td> 5</td>
+		<td>Tratamientos que caducan</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_5a_tratamientos_que_caducan_v1.rptdesign" target=_blank>
+				Muestra los tratamientos que caducarán dentro del rango de días que se indica.
+			</a>
+		</td>
+	</tr>  
+	<tr>
+		<td> 6</td>
+		<td>Previsión de pedidos mensuales según RE</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_a1_prevision_recetas_v2.rptdesign" target=_blank>
+				Ayuda a la previsión mensual de pedidos. Indica cajas a pedir según productos emblistables.
+			</a>
+		</td>
+	</tr> 
+	<tr>
+		<td>7</td>
+		<td>bd Consejo</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_7a_bd_consejo_v1.rptdesign" target=_blank>
+				bd Consejo
+			</a>
+					<!--a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_7b_bd_consejo_ampliado_v1.rptdesign" target=_blank>
+				bd Consejo - Ampliado con información de NO FINANCIADOS
+			</a!-->	
+		</td>
+	</tr>
+	<tr>
+		<td>9a</td>
+		<td>Pañales dispensables</td>	
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_9_bolquers_disp_v2.rptdesign" target=_blank>
+				 Pañales dispensables en ventana activa.
+			</a>
+		</td>
+	</tr>		
+	<tr>
+		<td>9b</td>
+		<td>Pañales en tratamiento</td>	
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_10b_dades_bolquers_SIRE.rptdesign" target=_blank>
+				 Pañales en tratamiento.
+			</a>
+		</td>
+	</tr>		
+	<tr>
+		<td>9c</td>
+		<td>Pañales en previsión</td>	
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_10c_bolquers_ttos_para_pedir_prevision.rptdesign" target=_blank>
+				 Pañales para pedir mensualmente, según una simulación de la ventana activa y su tratamiento.
+			</a>
+		</td>
+	</tr>
+	<tr>
+		<td>9c</td>
+		<td>Pañales en previsión (AGRUPADOS POR RESIDENCIA)</td>	
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_10d_bolquers_ttos_para_pedir_prevision_agrup.rptdesign" target=_blank>
+				 Pañales para pedir mensualmente (agrupados), según una simulación de la ventana activa y su tratamiento.
+			</a>
+		</td>
+	</tr>	
+	
+	
+	
+	
+	<tr>
+		<td>9d-AGRUPADO</td>
+		<td>Pañales - Búsqueda de coincidentes</td>	
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_9d_bolquers_coincidents_v1.rptdesign" target=_blank>
+				 Muestra los pañales que coinciden con los filtros aplicados. 
+			</a>
+		</td>
+	</tr>
+
+
+	<tr>
+		<td>10</td>
+		<td>Datos SIRE Ampliado</td>	
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_10_dades_SIRE.rptdesign" target=_blank>
+				Para extraer todos los datos de tratamiento, pendiente de dispensación y otros datos
+			</a>
+		</td>
+	</tr>	
+	<tr>
+		<td>11</td>
+		<td>Datos SIRE Reducido	</td>	
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_11_dades_SIRE_reducido_v1.rptdesign" target=_blank>
+				Para extraer todos los datos de tratamiento, pendiente de dispensación y con menos columnas que el anterior.
+			</a>
+		</td>
+	</tr>	
+	<tr>
+		<td>12a</td>
+		<td>Compara tratamientos por fechas y CIP	</td>	
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_12a_CIP_comparar_pautes_por_fechas_v1.rptdesign" target=_blank>
+				Para detectar los cambuios. Realiza una comparación de la pauta (en Receta) de un residente entre dos fechas.
+			</a>
+		</td>
+	</tr>	
+	<tr>
+		<td>12b</td>
+		<td>Compara tratamientos por fechas y Residencia	</td>	
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_12b_resi_comparar_pautes_por_fechas_v1.rptdesign" target=_blank>
+				Para detectar los cambios. Realiza una comparación de la pauta (en Receta) de los residetes de una residencia entre dos fechas.
+			</a>
+		</td>
+	</tr>	
+	<tr>
+		<td>12b</td>
+		<td>Solo muestra cambios - Compara tratamientos por fechas y Residencia	</td>	
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_12b_resi_comparar_pautes_por_fechas_solo_cambios_v1.rptdesign" target=_blank>
+				Solo muestra los cambios. Realiza una comparación de la pauta (en Receta) de los residetes de una residencia entre dos fechas.
+			</a>
+	</br>	</br>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_12c_comparar_cambios_ttos_hasta_hoy_v1.rptdesign" target=_blank>
+				Solo muestra los cambios de CN hasta hoy desde una fecha.
+			</a>
+		</td>	</tr>	
+	<tr>
+		<td>12d</td>
+		<td>Localizar cambios en ficheros recibidos de la residencia </td>	
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/farm/rpt_lp_tratamientosPorCIP_v2.rptdesign" target=_blank>
+				Consulta de los tratamientos recibidos por fichero de la residencia, por CIP y sus posibles cambios.
+				
+			</a>
+		</td>
+	</tr>	
+ 	<!--tr>
+		<td> 3b</td>
+		<td>Ventana activa  (TODOS)</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_3b_pend_dispensar_all_sire_v1.rptdesign" target=_blank>
+				Muestra todos lo dispensable a día de hoy, tal como lo recibimos, incluyendo recetas bloqueadas.
+			</a>
+		</td>
+        </tr>  
+	</tr-->		 
+			<!--tr>
+		<td>6a</td>
+		<td>Cruce Datos resi - SIRE</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_6a_resi_vs_sire_v1.rptdesign" target=_blank>
+				Todos los CIPS.
+			</a>
+		</td>
+       
+   		</tr-->
+		<!--tr>
+		<td>6b</td>
+		<td>Cruce Datos resi - SIRE - TODOS</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_6b_all_resi_vs_sire_v1.rptdesign" target=_blank>
+				Todos los CIPS, incluyendo recetas bloqueadas.
+			</a>
+		</td>
+       
+   		</tr--><!--tr>
+		<td>8</td>
+		<td>No financiados</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_8a_nofinanciados_v1.rptdesign" target=_blank>
+				No financiados
+			</a>
+		</td>
+       
+   		 </tr-->	
+		<!--tr>
+		<td>9</td>
+		<td>Pañales dispensables (CREU DE PALAU)</td>	
+		<td>
+			<a href="/birt-viewer/frameset?__report=/box_rpt/adhoc_cp/rpt_lp_CP_bolquers_v1.rptdesign" target=_blank>
+				Para CREU DE PALAU. Pañales dispensables en ventana activa. Filtro de fecha hasta fin de dispensable
+			</a>
+		</td>
+       
+   		 </tr-->				 	<!--tr>
+		<td> 2a</td>
+			<td>
+				Ventana activa agrupada
+			</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_2a_pend_dispensar_sire_agrupado_v1.rptdesign" target=_blank>
+				Muestra todos lo dispensable a día de hoy, agrupado por CN.
+			</a>
+		</td>
+    </tr-->
+ 	<!--tr>
+		<td> 2b</td>
+			<td>Ventana activa agrupada (TODOS)
+			</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_2b_pend_dispensar_all_sire_agrupado_v1.rptdesign" target=_blank>
+				Muestra todos lo dispensable a día de hoy, agrupado por CN, incluyendo recetas bloqueadas.
+			</a>
+		</td>
+    </tr-->
+	<!--tr>
+		<td> 3a</td>
+		<td>Ventana activa</td>
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_3a_pend_dispensar_sire_v1.rptdesign" target=_blank>
+				Muestra todos lo dispensable a día de hoy, tal como lo recibimos.
+			</a>
+		</td>
+        </tr>	  
+			<tr>
+		<td>1 - Report técnico  - (Robot)</td>
+		<td>sustituciones Gerisoft	</td>	
+		<td>
+			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_1_sust_fichero_robot_Gerisoft_v1.rptdesign" target=_blank>
+				Transformar datos que llegan de resis con Gerisoft.
+			</a>
+		</td>
+	</tr-->
+		<a href="index_farm1.html" target=_blank>.</a>
+			<a href="index_frm_rct2.html" target=_blank>.</a>
+ </table>
+ 
+
+</html:html>

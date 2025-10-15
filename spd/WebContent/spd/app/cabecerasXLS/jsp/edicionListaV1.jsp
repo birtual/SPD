@@ -1,21 +1,11 @@
-<%@page import="lopicost.spd.struts.bean.CabecerasXLSBean"%>
-<%@ page language="java" %>
-<%@ page import="java.util.*" %>
-
-
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-
-<%@ page session="true" %>
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html>
 <html:html>
 <HEAD>
-<title></title>
+<title>${pageTitle != null ? pageTitle : 'Título por defecto'}</title>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-
 </HEAD>
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -79,17 +69,22 @@ function volver()
 		      }
 		}	
 
-		function borrar(resiToma)
+		function borrar(oidResiToma)
 		{
-			var f = document.FicheroResiForm;
-			f.parameter.value='borrar';
-			f.ACTIONTODO.value='BORRAR_OK';
-			f.oidResiToma.value=resiToma;
+		    // Mostrar un cuadro de confirmación
+		    var confirmacion = window.confirm("¿Estás seguro de que deseas borrar la toma?");
+		    // Si el usuario hace clic en "Aceptar" (true)
+		    if (confirmacion) {
+				var f = document.FicheroResiForm;
+				f.oidResiToma.value = oidResiToma;
+				f.parameter.value = 'borrar';
+				f.ACTIONTODO.value='BORRAR_OK';
+		        f.submit();
+		    } else {
+		        // Si el usuario hace clic en "Cancelar", no hacer nada
+		        return false;
+		    }
 
-			f.submit();
-			if (window.opener && !window.opener.closed) {
-				window.opener.location.reload();
-			}
 		}	
 </script>		
 
@@ -108,16 +103,16 @@ function volver()
 	<p><h2>Edición de las tomas </h2></p>
    
 	<!-- mostramos mensajes y errores, si existen -->
-	<logic:notEmpty name="formulari" property="errors">
+	<c:if test="${not empty formulari.errors}">
 		<ul>
 		<font color="red">
 			<u>Mensaje:</u>
-				<logic:iterate id="error" name="formulari" property="errors" type="java.lang.String">
-						<li><bean:write name="error"/></li>
-				</logic:iterate>
+			<c:forEach items="${formulari.errors}" var="error"> 
+				<li>"${error}"</li>
+			</c:forEach> 
 		</font>
 		</ul>
-	</logic:notEmpty>
+	</c:if>
 	
 	<table class="detalle">
 	<%
@@ -148,10 +143,10 @@ function volver()
 					<% 
 				}
 				%>
-		</td>
-		
+			</td>
 			</c:forEach> 
-				<td><input type="text" name="resiTomaLiteral"  placeholder="añadir nombre"> </td>
+			<td>
+			<input type="text" name="resiTomaLiteral"  placeholder="añadir nombre"> </td>
 		</tr>	
 		<tr>
 			<c:forEach items="${formulari.listaTomasCabecera}" var="toma"> 
@@ -160,7 +155,7 @@ function volver()
 				<td><input type="text" name="resiToma" placeholder="formato hh:mm"> <br></td>
 			
 		</tr>	
-		<logic:equal property="idUsuario" name="formulari" value="admin">
+		<c:if test="${idUsuario == 'admin'}">
 		<tr>
 			<c:forEach items="${formulari.listaTomasCabecera}" var="toma"> 
 				<td><c:out value="${toma.idToma}" ></c:out></td>
@@ -179,7 +174,20 @@ function volver()
 			</c:forEach> 
 				<td>Posición en bbdd (solo visible para admins)<br></td>
 		</tr>	
-		</logic:equal>	
+		</c:if>
+		
+		<tr>
+			<c:forEach items="${formulari.listaTomasCabecera}" var="toma"> 
+			<td>
+			<c:if test="${formulari.mode != 'VIEW'}" >
+			<c:if test="${toma.tipo == 'EXTRA'}" >
+				<input type="button" onclick="javascript:borrar('${toma.oidCabeceraXLS}')" value="Borrar"/>
+			</c:if>
+			</c:if>
+			</td>
+			</c:forEach> 
+			
+		</tr>	
  </table>
  
  
@@ -191,7 +199,7 @@ function volver()
 
 		Orden en los SPD:<br>
 		- En los ficheros RX las tomas estarán ordenadas según aparece en la tabla <br>
-		- En case de utilizar Helium estarán ordenadas por la hora indicada (hh:mm)</td>
+		- En caso de utilizar Helium estarán ordenadas por la hora indicada (hh:mm)</td>
 		<br><br>
 		Borrado de tomas:<br>
 		- Las <span style="background-color: #00abfd;">tomas base</span> no pueden borrarse<br>

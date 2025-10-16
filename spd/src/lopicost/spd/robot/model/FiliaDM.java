@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 @XmlRootElement(name = "filiaServiceRequest")
-@XmlType(propOrder = {"requestType", "drugs"}) // Orden específico
+@XmlType(propOrder = {"requestType", "drugs"}) // Orden especÃ­fico
 public class FiliaDM {
     private int requestType=10;
     private List<DrugDM> drugs;

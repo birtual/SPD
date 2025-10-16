@@ -5,26 +5,26 @@ import java.util.*;
 
 
 public class ProcesoHistorico {
-    private int oidProcesoHistorico;            // Identificador 鷑ico del procesoHistorico
-    private int oidProceso;            			// Identificador 鷑ico del proceso
-    private int version		;                   // Versi髇 del proceso
-    private Date fechaCreacionHistorico;        // Fecha de creaci髇 del proceso
+    private int oidProcesoHistorico;            // Identificador 煤nico del procesoHistorico
+    private int oidProceso;            			// Identificador 煤nico del proceso
+    private int version		;                   // Versi贸n del proceso
+    private Date fechaCreacionHistorico;        // Fecha de creaci贸n del proceso
     private String usuarioCreacion;				// Usuario que crea el proceso
     private String lanzadera;                 	// Nombre de la lanzadera que lo ejecuta
     private String nombreProceso;               // Nombre del procedimiento o proceso
-    private String descripcion;                 // Descripci髇 del proceso
+    private String descripcion;                 // Descripci贸n del proceso
     private String activo;                      // SI/NO
-    private String parametros;                  // Par醡etros del procedimiento
+    private String parametros;                  // Par谩metros del procedimiento
     private String tipoEjecucion;               // "Manual", "Programada"
     private int frecuenciaPeriodo;             	// Frecuencia cada periodo
-    private String tipoPeriodo;                 // Frecuencia de ejecuci髇 ("Diaria", "Semanal", etc.)
-    private String diasSemana;                  // D韆s de la semana para ejecuci髇 programada
-    private String diasMes;                 	// D韆s del mes (para procesos mensuales o d韆s de mes puntuales )
-    private String horaEjecucion;          		// Hora de ejecuci髇 si es programado
-    private int maxReintentos;                  // M醲imos reintentos en caso de fallo
-    private Integer maxDuracionSegundos; 		// M醲ima duraci髇 de la ejecuci髇 en segundos
-    private String fechaDesde;               	// Fecha de activaci髇 del proceso
-    private String fechaHasta;                  // Fecha de desactivaci髇 del proceso
+    private String tipoPeriodo;                 // Frecuencia de ejecut贸 ("Diaria", "Semanal", etc.)
+    private String diasSemana;                  // D铆as de la semana para ejecut贸 programada
+    private String diasMes;                 	// D铆as del mes (para procesos mensuales o d铆as de mes puntuales )
+    private String horaEjecucion;          		// Hora de ejecut贸 si es programado
+    private int maxReintentos;                  // M谩ximos reintentos en caso de fallo
+    private Integer maxDuracionSegundos; 		// M谩xima duraci贸n de la ejecut贸 en segundos
+    private String fechaDesde;               	// Fecha de activaci贸n del proceso
+    private String fechaHasta;                  // Fecha de desactivaci贸n del proceso
    
 
     

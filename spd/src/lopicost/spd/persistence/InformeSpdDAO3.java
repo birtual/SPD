@@ -33,20 +33,20 @@ public class InformeSpdDAO3
     }
     
 	/**
-	 * MetodologÌa para procesar los datos:
+	 * Metodolog√≠a para procesar los datos:
 	 * En esta select se recoge:
-	 * - tabla D --> Tabla de generaciÛn del fichero RX
+	 * - tabla D --> Tabla de generaci√≥n del fichero RX
 	 * - tabla R --> Tabla con los datos recogidos del robot.
 	 * CASO 1 - Lo ideal es que lo enviado y recogido coincida 100% con freeInformation(localiza la bosa) enviado/recogido  y coGtVmp con lo producido (localiza el CN).
-	 * CASO 2 - Es posible que se envÌe un CN con codGtVmp determinado pero que se produzca uno distinto, por alguna razÛn de envÌo errÛneo de un CN pero que en el robot lo produce bien.
-	 * En este caso, la consulta dar· dos lÌneas por el mismo concepto, una de lo enviado (que habrÌa que descartar) y la otra de lo producido (correcta) pero sin informaciÛn suficiente, 
+	 * CASO 2 - Es posible que se env√≠e un CN con codGtVmp determinado pero que se produzca uno distinto, por alguna raz√≥n de env√≠o err√≥neo de un CN pero que en el robot lo produce bien.
+	 * En este caso, la consulta dar√° dos l√≠neas por el mismo concepto, una de lo enviado (que habr√≠a que descartar) y la otra de lo producido (correcta) pero sin informaci√≥n suficiente, 
 	 * que deberemos localizar.
-	 * CASO 3 - Lo que no se emblista no se recoge en tabla R, solo est· en tabla D, por lo que habr· que tenerlo en cuenta de cara al informe.
+	 * CASO 3 - Lo que no se emblista no se recoge en tabla R, solo est√° en tabla D, por lo que habr√° que tenerlo en cuenta de cara al informe.
 	 * Pasos: 
 	 * 	-	CASO 1 - No hay problema, se recoge toda la coincidencia, con datos tanto de D como de R
 	 * 	- 	CASO 2 - Descartar los registros sin bolsa en R (idBolsaR nula) y que dispensar es 'S' (se mantienen los N)
-	 * 		CASO 3 - Aceptar los que idBolsaR no es nulo y idBolsaD es nulo. Estos registros solo est·n en tabla R por lo tanto hay que tener en cuenta que no hay datos D
-	 *				 Para estos ˙ltimos, en la select se construye un idBolsaD del tipo CIP + YYYYMMDD + [01]_[+idToma + ]S1 buscando la coincidencia de otro idBolsaD y en caso de no encontrarlo, 
+	 * 		CASO 3 - Aceptar los que idBolsaR no es nulo y idBolsaD es nulo. Estos registros solo est√°n en tabla R por lo tanto hay que tener en cuenta que no hay datos D
+	 *				 Para estos √∫ltimos, en la select se construye un idBolsaD del tipo CIP + YYYYMMDD + [01]_[+idToma + ]S1 buscando la coincidencia de otro idBolsaD y en caso de no encontrarlo, 
 	 *				 lo simula como nuevo.
 	 * 	- 	CASO 4 - Aceptar los que tienen dispensar = 'N'
 	 * - 	CASO 5 - Si no tiene indicado dispensar  
@@ -92,7 +92,7 @@ public class InformeSpdDAO3
 			  qry +=  " idRobot, idResidenciaCarga, diaInicioSPD, diaDesemblistado,  diaEmbolsado, horaEmbolsado, totalBolsas, numeroOrdenBolsa, ";
 			  qry +=  " primerIdBolsaSPD, ultimoIdBolsaSPD, idBolsaD, idBolsaR,  cantidad_R, lote, caducidad, codigoBarras, codigoMedicamentoRobot,  ";
 			  qry +=  " offsetDays, numeroTolva, fechaInsert, cantidad_OK, ";
-			 // qry +=  " -- LÛgica para obtener el idBolsaD deseado ";
+			 // qry +=  " -- l√≥gica para obtener el idBolsaD deseado ";
 			  qry +=  " ISNULL( ";
 			  qry +=  "   idBolsaD, ";
 			  qry +=  "   ISNULL( ";
@@ -217,7 +217,7 @@ public class InformeSpdDAO3
             		
                 	tm_CIPS.put(keyCIP, paciente);
             	}
-            	// Control del tratamiento de la medicaciÛn
+            	// Control del tratamiento de la medicaci√≥n
         	    TratamientoPaciente tratamiento = null;
         	    //MedicamentoPaciente medic = new MedicamentoPaciente();
             	keyTratamiento = keyCIP + "_" +  rs.getString("CN") + "_" +  rs.getString("lote");
@@ -243,7 +243,7 @@ public class InformeSpdDAO3
             		medic = helper.creaMedicamentoPaciente(rs);
             	}
             	*/
-            	// Control del dÌa SPD con un solo CN. Se aÒade en la medicaciÛn, para el report 1 global 
+            	// Control del d√≠a SPD con un solo CN. Se a√±ade en la medicaci√≥n, para el report 1 global 
                	/*keyTomas =  keyCIP + rs.getString("offsetDays") + rs.getString("cn") + rs.getString("doseTime"); //contiene info de la toma
              	if (tm_DiasTomas.containsKey(keyDiaTomas)) 
  		      	{
@@ -251,22 +251,22 @@ public class InformeSpdDAO3
  		      	}
             	else
             	{
-                   	keyDiaTomas =  keyCIP + rs.getString("offsetDays") + rs.getString("cn") + rs.getString("doseTime"); //contiene solo la info del CN en el dÌa
+                   	keyDiaTomas =  keyCIP + rs.getString("offsetDays") + rs.getString("cn") + rs.getString("doseTime"); //contiene solo la info del CN en el d√≠a
            		
             		diaTomas = helper.creaDiaTomas(rs);
             	}
              	*/
         	    DiaTomas diaTomas = null;
-            	keyDiaTomas =  keyTratamiento + "_" + rs.getInt("offsetDays"); //contiene el CN y sus dÌas 
+            	keyDiaTomas =  keyTratamiento + "_" + rs.getInt("offsetDays"); //contiene el CN y sus d√≠as 
             	if (tm_DiasTomas.containsKey(keyDiaTomas)) 
  		      	{
              		diaTomas = tm_DiasTomas.get(keyDiaTomas);
-             		diaTomas.setCantidadDia(diaTomas.getCantidadDia() + rs.getInt("cantidad_OK")); //aÒadimos cantidad global
+             		diaTomas.setCantidadDia(diaTomas.getCantidadDia() + rs.getInt("cantidad_OK")); //a√±adimos cantidad global
  		      	}
             	else
             	{
             		diaTomas = helper.creaDiaTomas(rs);
-            		helper.insertarEnPosicion(tratamiento.getMedicamentoPaciente().getDiaTomas(), rs.getInt("offsetDays"), diaTomas); 	//aÒadimos el dÌa de tomas en el tratamiento/medicaciÛn 
+            		helper.insertarEnPosicion(tratamiento.getMedicamentoPaciente().getDiaTomas(), rs.getInt("offsetDays"), diaTomas); 	//a√±adimos el d√≠a de tomas en el tratamiento/medicaci√≥n 
             		tm_DiasTomas.put(keyDiaTomas, diaTomas);
             	}
             	int numTomas= tratamiento.getMedicamentoPaciente().getDiaTomas().size();
@@ -282,9 +282,9 @@ public class InformeSpdDAO3
             		
             	}*/
             	
-            	// Control del dÌa SPD con todos los CN. se aÒade en producciÛn, para el report 2 de detalle bolsas  
+            	// Control del d√≠a SPD con todos los CN. se a√±ade en producci√≥n, para el report 2 de detalle bolsas  
         	    DiaSPD diaSPD = null;
-        	    keyDiaSPD =  keyCIP + "_" + rs.getInt("offsetDays") ; //contiene todas las bolsas de la producciÛn
+        	    keyDiaSPD =  keyCIP + "_" + rs.getInt("offsetDays") ; //contiene todas las bolsas de la producci√≥n
 
         	    diaSPD = tm_DiasSPD.get(keyDiaSPD);
          		if(diaSPD.getCantidadDia()<=0) 
@@ -306,7 +306,7 @@ public class InformeSpdDAO3
             	}
              	*/
         	    BolsaSPD bolsaSPD = null;
-             	keyBolsaSPD = keyDiaSPD + "_" +  rs.getString("freeInformation"); //contiene una bolsa de la producciÛn. Ponemos tambiÈn freeInformation 
+             	keyBolsaSPD = keyDiaSPD + "_" +  rs.getString("freeInformation"); //contiene una bolsa de la producci√≥n. Ponemos tambi√≥n freeInformation 
             	if (tm_BolsaSPD.containsKey(keyBolsaSPD)) 
  		      	{
             		bolsaSPD = tm_BolsaSPD.get(keyBolsaSPD);

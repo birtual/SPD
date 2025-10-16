@@ -4,20 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.StringTokenizer;
-import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.objectspace.jgl.functions.ToString;
 
 import lopicost.config.pool.dbaccess.Conexion;
-import lopicost.spd.security.helper.VisibilidadHelper;
 import lopicost.spd.struts.bean.FicheroResiBean;
 
 

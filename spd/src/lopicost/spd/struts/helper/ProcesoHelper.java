@@ -50,7 +50,7 @@ public class ProcesoHelper {
 	}
 	
 	/**
-	 * Creaci髇 de un proceso en la base de datos, seg鷑 los datos que se reciben del formulario
+	 * Creaci贸n de un proceso en la base de datos, seg煤n los datos que se reciben del formulario
 	 * @param idUsuario
 	 * @param form
 	 * @param errors
@@ -84,7 +84,7 @@ public class ProcesoHelper {
 		proceso.setOrden(form.getOrden());
 		proceso.setDiasSemana(form.getDiasSemana());
 		proceso.setDiasMes(form.getDiasMes());
-		// Campos opcionales con conversi髇 y validaci髇
+		// Campos opcionales con conversi贸n y validaci贸n
 		if (form.getHoraEjecucion() != null && !form.getHoraEjecucion().isEmpty()) {
 		    proceso.setHoraEjecucion(form.getHoraEjecucion());
 		}
@@ -112,15 +112,15 @@ public class ProcesoHelper {
 			
 			String mensaje = proceso.toString();
 
-			//INICIO creaci髇 de historico en BBDD
+			//INICIO creaci贸n de historico en BBDD
 			boolean historico = creaProcesoHistoricoPorLanzadera(proceso.getLanzadera());
 			
-			//INICIO creaci髇 de log en BBDD
+			//INICIO creaci贸n de log en BBDD
 			try{
 				SpdLogAPI.addLog(idUsuario, null,  null, null, SpdLogAPI.A_PROCESO, SpdLogAPI.B_CREACION, "", "SpdLog.proceso.creado.general", 
-						" Creado hist髍ico --> " + historico  + " / Datos proceso " +  proceso.toString() );
+						" Creado hist贸rico --> " + historico  + " / Datos proceso " +  proceso.toString() );
 			}catch(Exception e){}	// Cambios--> @@.
-			//FIN creaci髇 de log en BBDD
+			//FIN creaci贸n de log en BBDD
 		}
 		return result;
 	}
@@ -141,7 +141,7 @@ public class ProcesoHelper {
 		case "MESES":
 			if(!contieneAlgunDiaValido(diasMes))
 			{
-				errors.add("Si es mensual es necesario indicar alg鷑 d韆 de mes");
+				errors.add("Si es mensual es necesario indicar alg煤n d铆a de mes");
 				result = false;
 			}
 			break;
@@ -149,7 +149,7 @@ public class ProcesoHelper {
 			if(diasSemana==null || diasSemana.equals("") || diasSemana.equalsIgnoreCase("null") 
 			|| (diasSemanaArray!=null && diasSemanaArray.length>1) )
 			{
-				errors.add("si es semanal es necesario indicar solo un d韆 de la semana");
+				errors.add("si es semanal es necesario indicar solo un d铆a de la semana");
 				result = false;
 			}
 			break;
@@ -159,7 +159,7 @@ public class ProcesoHelper {
 		
 		if(maxDuracionSegundos<=0)
 		{
-			errors.add("Falta indicar el tope de duraci髇 posible");
+			errors.add("Falta indicar el tope de duraci贸n posible");
 			result = false;
 		}
 		if(fechaDesde==null || fechaDesde.equals(""))
@@ -169,7 +169,7 @@ public class ProcesoHelper {
 		}
 		if(descripcion==null || descripcion.equals(""))
 		{
-			errors.add("Falta indicar alguna descripci髇 del proceso");
+			errors.add("Falta indicar alguna descripci贸n del proceso");
 			result = false;
 		}
 		if(frecuenciaPeriodo<=0)
@@ -179,7 +179,7 @@ public class ProcesoHelper {
 		}
 		if(horaEjecucion==null || horaEjecucion.equals(""))
 		{
-			errors.add("Es necesario indicar una hora de ejecuci髇");
+			errors.add("Es necesario indicar una hora de ejecut贸");
 			result = false;
 		}
 	
@@ -189,7 +189,7 @@ public class ProcesoHelper {
  * 			
 
 				else if(f.maxDuracionSegundos.value=='')
-				alert('Falta indicar el tope de duraci髇 posible ');
+				alert('Falta indicar el tope de duraci贸n posible ');
 
  * @param lanzadera
  * @return
@@ -226,7 +226,7 @@ public class ProcesoHelper {
 
 
 	/**
-	 * M閠odo que se encarga de actualizar los datos de un proceso, comparando los datos del formulario con los datos de origen.
+	 * M茅todo que se encarga de actualizar los datos de un proceso, comparando los datos del formulario con los datos de origen.
 	 * @param idUsuario
 	 * @param proceso
 	 * @param f
@@ -250,7 +250,7 @@ public class ProcesoHelper {
 
 				cambios =true;
 				if (!querySet.equals("")) 
-					querySet+= ", "; //a馻dimos la coma en caso que exista uno previo 		
+					querySet+= ", "; //a帽adimos la coma en caso que exista uno previo 		
 				 
 				querySet+= " Descripcion = '"+ f.getDescripcion() + "'" ;
 			}
@@ -262,7 +262,7 @@ public class ProcesoHelper {
 
 				cambios =true;
 				if (!querySet.equals("")) 
-					querySet+= ", "; //a馻dimos la coma en caso que exista uno previo 		
+					querySet+= ", "; //a帽adimos la coma en caso que exista uno previo 		
 				 
 				querySet+= " NombreOriginal = '"+ f.getNombreOriginal() + "'" ;
 			}
@@ -274,7 +274,7 @@ public class ProcesoHelper {
 
 				cambios =true;
 				if (!querySet.equals("")) 
-					querySet+= ", "; //a馻dimos la coma en caso que exista uno previo 		
+					querySet+= ", "; //a帽adimos la coma en caso que exista uno previo 		
 				 
 				querySet+= " NombreProceso = '"+ f.getNombreProceso() + "'" ;
 			}
@@ -286,7 +286,7 @@ public class ProcesoHelper {
 
 				cambios =true;
 				if (!querySet.equals("")) 
-					querySet+= ", "; //a馻dimos la coma en caso que exista uno previo 		
+					querySet+= ", "; //a帽adimos la coma en caso que exista uno previo 		
 				 
 				querySet+= " Apartado = '"+ f.getApartado() + "'" ;
 			}
@@ -315,7 +315,7 @@ public class ProcesoHelper {
 			/*  INICIO Activo*/
 			if (!Objects.equals(proceso.getActivo(), f.getActivo())) 
 			{
-				//tratamos el caso de procesos reactivados, para inicializar a 0 el n鷐ero de intentos de la 鷏tima ejecuci髇
+				//tratamos el caso de procesos reactivados, para inicializar a 0 el n煤mero de intentos de la 煤ltima ejecut贸
 				if(proceso.getActivo().equalsIgnoreCase(SPDConstants.PROCESO_BLOQUEADO))
 					ProcesoEjecucionDAO.inicializaContadorEjecucion(proceso.getUltimaEjecucion());
 				
@@ -324,16 +324,16 @@ public class ProcesoHelper {
 
 				cambios =true;
 				if (!querySet.equals("")) 
-					querySet+= ", "; //a馻dimos la coma en caso que exista uno previo 		
+					querySet+= ", "; //a帽adimos la coma en caso que exista uno previo 		
 				 
 				querySet+= " activo = '"+ f.getActivo() + "'" ;
 			}
 		
-			/*  INICIO Par醡etros*/
+			/*  INICIO Par谩metros*/
 			if (!Objects.equals(proceso.getParametros(), f.getParametros())) 
 			{
-				antes+=  " | Par醡etros: "+ proceso.getParametros();
-				despues+=" | Par醡etros: "+ f.getParametros();
+				antes+=  " | Par谩metros: "+ proceso.getParametros();
+				despues+=" | Par谩metros: "+ f.getParametros();
 
 				if (!querySet.equals(""))  	querySet+= ", ";
 				 
@@ -456,19 +456,19 @@ public class ProcesoHelper {
 				cambios = ProcesoDAO.update(query);
 				boolean historico = creaProcesoHistoricoPorLanzadera(proceso.getLanzadera());
 				String id = "oid: "+ proceso.getOidProceso() + "/  Lanzadera: "+ proceso.getLanzadera(); 
-				//INICIO creaci髇 de log en BBDD
+				//INICIO creaci贸n de log en BBDD
 				try{
 					SpdLogAPI.addLog(idUsuario, null,  null, null, SpdLogAPI.A_PROCESO, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.proceso.edicion.general", 
 							 new String[]{id, antes, despues} );
 				}catch(Exception e){}	// Cambios--> @@.
-				//FIN creaci髇 de log en BBDD
+				//FIN creaci贸n de log en BBDD
 			}
 		}
 		return cambios;
 	}
 
     /**
-     * Extrae todos los d韆s v醠idos del mes, incluyendo rangos tipo "1-5".
+     * Extrae todos los d铆as v谩lidos del mes, incluyendo rangos tipo "1-5".
      */
     public static Set<Integer> extraerDiasValidos(String texto) {
         Set<Integer> dias = new TreeSet<>();
@@ -494,7 +494,7 @@ public class ProcesoHelper {
                     }
                 }
             } else {
-                // N鷐ero suelto
+                // n煤mero suelto
                 try {
                     int dia = Integer.parseInt(parte);
                     if (dia >= 1 && dia <= 31) dias.add(dia);

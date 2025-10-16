@@ -37,8 +37,8 @@ public abstract class GenericAction extends DispatchAction
 		HttpSession session = request.getSession();
   	try{
   		
-	    // Configura la ubicaciÛn del directorio de logs
-        // Configura la ubicaciÛn del directorio de logs
+	    // Configura la ubicaci√≥n del directorio de logs
+        // Configura la ubicaci√≥n del directorio de logs
         //logDirectory = getServlet().getServletContext().getRealPath("/WEB-INF/logs");
   		logDirectory = "c:/logs";
         System.setProperty("log.directory", logDirectory);
@@ -47,7 +47,7 @@ public abstract class GenericAction extends DispatchAction
         setLocale(request, locale);
         session.setAttribute(Globals.LOCALE_KEY, locale);
         
-        // Inicializa Log4j con la configuraciÛn desde el archivo log4j.properties
+        // Inicializa Log4j con la configuraci√≥n desde el archivo log4j.properties
         String log4jConfigFile = getServlet().getServletContext().getRealPath("/WEB-INF/classes/lopicost/config/pool/dbaccess/log4j.properties");
         PropertyConfigurator.configure(log4jConfigFile);
 
@@ -77,19 +77,19 @@ public abstract class GenericAction extends DispatchAction
  	    else
  	    {
 	    	setIdUsuario(idUsuario);
-		    // Almacenar el valor de inicio de sesiÛn en la sesiÛn del usuario
+		    // Almacenar el valor de inicio de sesi√≥n en la sesi√≥n del usuario
 		    session.setAttribute("idUsuario", idUsuario);
  	    }
 	    
-        // Si el login no es v·lido, redirigir a la p·gina de inicio de sesiÛn
+        // Si el login no es v√°lido, redirigir a la p√°gina de inicio de sesi√≥n
 	    if (idUsuario == null || idUsuario.equals("")) 
 	    {
-	    	//errors.add( "Error sesiÛn usuario, es necesario volver a hacer login");
-	    	session.setAttribute("error", "Error sesiÛn usuario, es necesario volver a hacer login.");
+	    	//errors.add( "Error sesi√≥n usuario, es necesario volver a hacer login");
+	    	session.setAttribute("error", "Error sesi√≥n usuario, es necesario volver a hacer login.");
 	        return mapping.findForward("errorSession");
 	    }
 
-	    // Realizar otras operaciones especÌficas de la acciÛn madre aquÌ
+	    // Realizar otras operaciones espec√≠ficas de la acci√≥n madre Aqu√≠
 	    return super.execute(mapping, form, request, response);
 
 	}
@@ -106,7 +106,7 @@ public abstract class GenericAction extends DispatchAction
 
 
 	private Object getText() {
-		String text="Error al recuperar la sesiÛn de persistencia del contexto";
+		String text="Error al recuperar la sesi√≥n de persistencia del contexto";
 		
 		if(TextManager.getMensaje("error.persistence")!=null && !TextManager.getMensaje("error.persistence").equals(""))
 			text=TextManager.getMensaje("error.persistence");

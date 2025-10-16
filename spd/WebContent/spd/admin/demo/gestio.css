@@ -2,7 +2,7 @@
 @import "assistent.css";
 @import "especifics.css";
 
-/* deixo aquí els css generals */
+
 body {
 	background: #fff;
 	font: 0.7em Verdana, Arial, sans-serif;
@@ -548,7 +548,6 @@ li.fitxa a:link, li.fitxa a:visited {
 li.fitxa a:hover {
 	background-image: url(../images/pdfh.png);
 	}
-/* això només funx amb navegadors mosk (mozilla opera safari konkeror) */	
 tr:hover {
 	background-color: #EFEFEF;
 	}
@@ -559,7 +558,7 @@ tr:hover {
 }
 
 
-/* Llista d'aules */
+
 /* #prgformacio .opciones {
 	width: 60px;
 }*/
@@ -647,7 +646,7 @@ fieldset .avis {
 	padding: 15px 0;
 }
 
-/* distribució */
+/* distribuciÃ³ */
 .left {
 	text-align: left;
 }

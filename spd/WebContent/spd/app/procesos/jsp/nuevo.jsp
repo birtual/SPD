@@ -61,7 +61,7 @@
 			//else if(f.fechaDesde.value=='')
 				//alert('Falta indicar la fecha de desactivación del Proceso ');
 			else if(f.horaEjecucion.value=='')
-				alert('Falta indicar la hora de ejecución del proceso ');
+				alert('Falta indicar la hora de ejecutó del proceso ');
 			else */
 			{
 				//f.nombreCorto.value=f.nombreCorto.value;
@@ -162,7 +162,7 @@
 	</tr>
 
 
-		<tr><th class="segunda">Hora de Ejecución *</th>
+		<tr><th class="segunda">Hora de ejecutó *</th>
 			<td><input type="text" id="horaEjecucion" name="horaEjecucion" value="${formulari.horaEjecucion} placeholder="HH:mm" style="width: 5em;"></td>
 			
 		</tr>
@@ -183,7 +183,7 @@
 		<tr>
 			<th class="segunda">Fecha hasta</th><td><input type="text" id="fechaHasta" name="fechaHasta" value="${formulari.fechaHasta}" placeholder="Selecciona fecha de desactivación"></td>
 		</tr>
-		<tr><th class="segunda">Tipo de Ejecución</th>
+		<tr><th class="segunda">Tipo de ejecutó</th>
 		<td>
 			<select name="tipoEjecucion" style="text-align: left;">
 			    <option value="AUTOMATICO" ${formulari.tipoEjecucion}='AUTOMATICO' ? 'selected="selected"' : ''}>Automático</option>

@@ -1,4 +1,4 @@
-/* deixo aquÌ els css generals */
+/* deixo aqu√≠ els css generals */
 body {
 	margin: 0 1% 1% 1%;
 	padding: 0;
@@ -21,7 +21,7 @@ table {
   thead th {
     position: sticky;
     top: 0;
-     z-index: 1; /* Asegura que el encabezado estÈ sobre los otros elementos */
+     z-index: 1; /* Asegura que el encabezado est√° sobre los otros elementos */
   }
   
   
@@ -543,7 +543,7 @@ table.detallePaciente, table.detalleEnlace, table.detalle{
 	/*width:auto;*/
 	border: 0.1em solid #400040; 
 	/*border-width: 1 1.2em 1.3em 1;*/ 
-	font-size: 2em; /* Aumentamos el tamaÒo de la fuente  */
+	font-size: 2em; /* Aumentamos el tama√±o de la fuente  */
 }
 table.tablaSpdOk {
 	width: 50%;
@@ -689,7 +689,7 @@ li.fitxa a:hover {
 	background-image: url(../images/pdfh.png);
 }
 
-/* aixÚ nomÈs funx amb navegadors mosk (mozilla opera safari konkeror) */ 
+/* aix√≤ nom√°s funx amb navegadors mosk (mozilla opera safari konkeror) */ 
 
 
 .right {
@@ -714,9 +714,9 @@ li.fitxa a:hover {
 	clear: both;
 }
 
-/* Medios de comunicaciÛn */
+/* Medios de comunicaci√≥n */
 @media only screen and (max-width: 76.8em) {
-	/* Estilos para pantallas m·s pequeÒas */
+	/* Estilos para pantallas m√°s peque√≠as */
 	.table-responsive {
 		overflow-x: auto;
 	}
@@ -730,14 +730,14 @@ li.fitxa a:hover {
 		white-space: nowrap;
 	}
 
-	/* Ajustar tamaÒos de imagen */
+	/* Ajustar tama√±os de imagen */
 	.logo img,
 	.imagelogo {
 		width: 1.2em;
 		height: 1.2em;
 	}
 
-	/* Estilos para acordeÛn en pantallas m·s pequeÒas */
+	/* Estilos para acorde√≥n en pantallas m√°s peque√≠as */
 	.acordeo dt {
 		height: auto;
 		line-height: 1.5;
@@ -868,7 +868,7 @@ fieldset .avis {
 	padding: 1.5em 0;
 }
 
-/* Estilos para la distribuciÛn */
+/* Estilos para la distribuci√≥n */
 .left {
 	text-align: left;
 }

@@ -44,7 +44,7 @@ public class LoginAction extends GenericAction {
 		
 		// Verifica que el usuario y password sean correctos
 		try {
-		// Obligamos a que los logins sean en minúsculas.
+		// Obligamos a que los logins sean en minÃºsculas.
 		loginForm.setIdUsuario(loginForm.getIdUsuario().toLowerCase());
 	
 		LoginHelper lh = new LoginHelper();

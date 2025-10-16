@@ -13,7 +13,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Edici髇 Fichero Resi Carga Robot</title>
+<title>Edici贸n Fichero Resi Carga Robot</title>
 </head>
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
 
@@ -37,7 +37,7 @@
 			var f = document.FicheroResiForm;
 			/*
 			if(f.idTipoAccion.value=='')
-				alert('Falta indicar la acci髇');
+				alert('Falta indicar la acci贸n');
 			else if(f.formaFarmaceutica.value=='')
 				alert('Falta indicar la forma');
 			else
@@ -54,7 +54,7 @@
 
 
 
-		//funci髇 de carga del lookUp
+		//funci贸n de carga del lookUp
 		function doLookUpBdConsejo(){				
 			var loc = '/spd/LookUpBdConsejo.do?parameter=init&'+ 						//url de llamanda				
 				'CallBackID=cnOk&'+			  			//Nombre del campo para el valor Id
@@ -74,7 +74,7 @@
 	<!-- mostramos mensajes y errores, si existen -->
 
 	<center>
-		<h2>Edici髇 Fichero Resi Carga Robot</h2>
+		<h2>Edici贸n Fichero Resi Carga Robot</h2>
 		<html:form action="/FicheroResiDetalle.do" method="post">	
 
 
@@ -102,16 +102,16 @@
 	  <th>medicamento resi</th>
 	  <th>forma medicacion</th>
 	  <th>inicio-fin tratamiento</th>
-	  <th>inicio-fin producci髇</th>
+	  <th>inicio-fin producci贸n</th>
 	  <th>observaciones</th>
 	  <th>variante</th>
 	  <th>comentarios</th>
 	  <th>SiPrecisa</th>
-	  <th>via administraci髇</th>
+	  <th>via administraci贸n</th>
 	  <th>spdCnFinal</th>
 	  <th>Nombre en bolsa</th>
 	  <th>forma Medicacion</th>
-	  <th>acci髇 bolsa</th>
+	  <th>acci贸n bolsa</th>
 	  <th>L</th>	  
 	  <th>M</th>	  
 	  <th>X</th>	  
@@ -119,7 +119,7 @@
 	  <th>V</th>	  
 	  <th>S</th>	  
 	  <th>D</th>	  
-	  <th>marcado autom醫ico</th>	  
+	  <th>marcado autom谩tico</th>	  
 				<th width="3px">01h</th>
 				<th>02h</th>
 				<th>03h</th>

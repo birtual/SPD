@@ -45,7 +45,7 @@ public class AegerusHelper{
    			+"_"+medResi.getResiToma19()+"_"+medResi.getResiToma20()+"_"+medResi.getResiToma21()+"_"+medResi.getResiToma22()+"_"+medResi.getResiToma23()+"_"+medResi.getResiToma24()
 			+"_"+medResi.getResiPeriodo();
    		
-   		//quitamos todos los caracteres que no son letras/n�meros 
+   		//quitamos todos los caracteres que no son letras/números 
    		keyOk = keyOk.replaceAll("[^a-zA-Z0-9_]", "");
 	    
 	   	System.out.println("----- getID --> " + keyOk);
@@ -55,7 +55,7 @@ public class AegerusHelper{
    
 
 	/**
-	 * M�todo que buscar� los d�as de toma concretos del mes para los casos que la frecuencia sea mensual o quincenal
+	 * Método que buscará los días de toma concretos del mes para los casos que la frecuencia sea mensual o quincenal
 	 * @param medResi
 	 * @throws Exception 
 	 */
@@ -74,7 +74,7 @@ public class AegerusHelper{
 		
 		if(medResiAnterior!=null)
 		{
-			//ponemos la informaci�n del �ltimo registro editado
+			//ponemos la información del último registro editado
 			medResi.setResiSiPrecisa(medResiAnterior.getResiSiPrecisa());
 			medResi.setSpdCnFinal(medResiAnterior.getSpdCnFinal());
 			medResi.setSpdNombreBolsa(medResiAnterior.getSpdNombreBolsa());
@@ -94,7 +94,7 @@ public class AegerusHelper{
 			medResi.setConfirmar(medResiAnterior.getConfirmar()); 
 			medResi.setConfirmaciones(medResiAnterior.getConfirmaciones());
 			
-			if(medResi.getConfirmar().equalsIgnoreCase(SPDConstants.REGISTRO_CONFIRMADO)) //para control del n�mero de validaciones
+			if(medResi.getConfirmar().equalsIgnoreCase(SPDConstants.REGISTRO_CONFIRMADO)) //para control del número de validaciones
 			{
 				int confirmaciones = medResiAnterior.getConfirmaciones();
 				int nConfirmaciones = SPDConstants.CTRL_PRINCIPIO_ACTIVO_N_VALIDACIONES;
@@ -184,19 +184,19 @@ public class AegerusHelper{
 	 */
 	
 	 public static boolean esFechaAegerus(String fecha) {
-	        // Expresi�n regular para varios formatos posibles
+	        // Expresión regular para varios formatos posibles
 	        String regex = "^(\\d{1,2})([/-])(\\d{1,2})([/-])(\\d{4})$";
-	        // Compilar la expresi�n regular en un patr�n
+	        // Compilar la expresión regular en un patrón
 	        Pattern pattern = Pattern.compile(regex);
 	        // Crear un matcher para la cadena de texto
 	        Matcher matcher = pattern.matcher(fecha);
-	        // Comprobar si la cadena coincide con el patr�n
+	        // Comprobar si la cadena coincide con el patrón
 	        return matcher.matches();
 	    }
 	
 
 		/**
-	     * M�todo que valida si la celda leida tiene un "NO" por lo que sabemos que es rtatamiento v�lido pero no se toma ese d�a
+	     * Método que valida si la celda leida tiene un "NO" por lo que sabemos que es rtatamiento válido pero no se toma ese día
 	     * @param dia
 	     * @return
 	     */
@@ -209,7 +209,7 @@ public class AegerusHelper{
 		}
 		
 	    /**
-	     * M�todo que valida si la celda leida tiene una fecha o un "NO" por lo que sabemos que es rtatamiento v�lido
+	     * Método que valida si la celda leida tiene una fecha o un "NO" por lo que sabemos que es rtatamiento válido
 	     * @param dia
 	     * @return
 	     */
@@ -219,7 +219,7 @@ public class AegerusHelper{
 
 
 		public static void marcaTodosDias(FicheroResiBean fila) {
-			//Aegerus nos env�a los d�as por fecha, por lo tanto podemos marcar siempre todos los d�as 
+			//Aegerus nos envía los días por fecha, por lo tanto podemos marcar siempre todos los días 
 			fila.setResiD1("X");
 			fila.setResiD2("X");
 			fila.setResiD3("X");
@@ -231,7 +231,7 @@ public class AegerusHelper{
 		}
 
 		/**
-		 * Devuelve un TreeMap con las fechas del rango de dos fechas pasadas por par�metro. Clave Fecha, Valor D�a de la fecha 
+		 * Devuelve un TreeMap con las fechas del rango de dos fechas pasadas por parámetro. Clave Fecha, Valor día de la fecha 
 		 * @param fechaDesde
 		 * @param fechaHasta
 		 * @return
@@ -362,7 +362,7 @@ public class AegerusHelper{
 			}
 	    	ControlSPD.controlRobot(idUsuario, medResi);
 	    	ControlSPD.controlNoSustituibles(idUsuario, medResi);
-	    	ControlSPD.controlPrincActivos(idUsuario, medResi, nConfirmaciones); // como hay m�s confirmaciones en este m�todo ha de ir despu�s de las anteriores, 
+	    	ControlSPD.controlPrincActivos(idUsuario, medResi, nConfirmaciones); // como hay más confirmaciones en este método ha de ir después de las anteriores, 
 	    	ControlSPD.controlValidarDatos(idUsuario, medResi);
 
 			System.out.println("ControlSPD aplicarControles: INICIO");
@@ -452,7 +452,7 @@ public class AegerusHelper{
 		String[] partesHora = hora.split(":");
 		int horas = Integer.parseInt(partesHora[0]);
 		if (horas <= 15) {
-			for (int i = 10; i < row.size(); i++) {		//desde la posici�n 10, que empiezan los d�as
+			for (int i = 10; i < row.size(); i++) {		//desde la posición 10, que empiezan los días
 				String fecha = (String) row.get(i);
 				try{
 					LocalDate fechaDate = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -470,7 +470,7 @@ public class AegerusHelper{
 		String[] partesHora = hora.split(":");
 		int horas = Integer.parseInt(partesHora[0]);
 		if (horas > 15) {
-			for (int i = 10; i < row.size(); i++) {		//desde la posici�n 10, que empiezan los d�as
+			for (int i = 10; i < row.size(); i++) {		//desde la posición 10, que empiezan los días
 				String fecha = (String) row.get(i);
 				try{
 					LocalDate fechaDate = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yyyy"));

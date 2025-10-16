@@ -55,7 +55,7 @@ public class beanUpload {
                insertar = 5;
            }
 
-           //Mirem si el fitxer a pujar té una extensió permesa
+           //Mirem si el fitxer a pujar tÃ© una extensiÃ³ permesa
            try
            {
            	   if(filtroPorTipoDocumento){

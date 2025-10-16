@@ -23,7 +23,7 @@
 
 <body id="general">
 	<center>
-		<h2>Diferencias de CIPS entre fichero y gestión </h2>
+		<h2>Diferencias de CIPS entre fichero y gestiÃ³n </h2>
 		<html:form action="/FicheroResiCabeceraLite.do" method="post">	
 
 	<bean:define id="data" name="formulari" property="ficheroResiDetalleBean" />
@@ -40,7 +40,7 @@
 			<td><h5>
 				<c:choose>
 	    		<c:when test="${empty data.resumenCIPS}">
-	        		<p>Los CIP del fichero de producción coinciden 100% con los datos de residentes activos en el mantenimiento </p>
+	        		<p>Los CIP del fichero de producciÃ³n coinciden 100% con los datos de residentes activos en el mantenimiento </p>
 	    		</c:when>
 	    		<c:otherwise>
 	    			</BR>

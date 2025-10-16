@@ -32,7 +32,7 @@ public class FicheroResiCabeceraDAO {
 	static String className="FicheroResiCabeceraDAO";
 
 	static String TABLA_ACTIVA		=	"dbo.SPD_ficheroResiCabecera";
-	static String TABLA_HISTORICO 	=	"dbo.SPDHst_ficheroResiCabecera";   //tabla de histÛrico
+	static String TABLA_HISTORICO 	=	"dbo.SPDHst_ficheroResiCabecera";   //tabla de hist√≥rico
 
 	
 	public static boolean nuevo(String  spdUsuario, String idDivisionResidencia, String idProceso, String fileIn) throws Exception {
@@ -196,7 +196,7 @@ public class FicheroResiCabeceraDAO {
 
 
 	/**
-	 * Fetch es una cl·usula que funciona a partir del SqlServer 2008 (no inclusive)
+	 * Fetch es una cl√°usula que funciona a partir del SqlServer 2008 (no inclusive)
 	 * @param form
 	 * @param inicio
 	 * @param fin
@@ -215,7 +215,7 @@ public class FicheroResiCabeceraDAO {
 	}
 
 	/**
-	 * Como FETCH es una cl·usula de versiÛn SQLSERVER>2008 se crea una funciÛn un poco m·s engorrosa pero
+	 * Como FETCH es una cl√°usula de versi√≥n SQLSERVER>2008 se crea una funci√≥n un poco m√°s engorrosa pero
 	 * que sirve para todas las versiones (ROW_NUMBER() OVER)
 	 * @param form
 	 * @param inicio
@@ -364,7 +364,7 @@ public class FicheroResiCabeceraDAO {
 				 }
 	 			    
 				 c.setUsuarioCreacion(resultSet.getString("usuarioCreacion"));	 
-				 //campos que indican si la producciÛn ha de ser en ortos dÌas o tomas diferentes a la est·ndar
+				 //campos que indican si la producci√≥n ha de ser en ortos d√≠as o tomas diferentes a la est√°ndar
 				 c.setNuevaFechaDesde(resultSet.getString("nuevaFechaDesde"));
 				 c.setNuevaFechaHasta(resultSet.getString("nuevaFechaHasta"));
 				 c.setNuevaTomaDesde(resultSet.getString("nuevaTomaDesde"));
@@ -387,7 +387,7 @@ public class FicheroResiCabeceraDAO {
 
 
 	/**OK - 
-	   * MÈtodo que devuelve las diferentes residencias con fichero
+	   * M√©todo que devuelve las diferentes residencias con fichero
 	   * @return List<FicheroResiCabeceraBean>
 	 * @throws Exception 
 	   */
@@ -426,7 +426,7 @@ public class FicheroResiCabeceraDAO {
 			 	 }
 	
 		/**OK - 
-	   * MÈtodo que devuelve la cabecera anterior que haya tenido una carga de residentes 
+	   * M√©todo que devuelve la cabecera anterior que haya tenido una carga de residentes 
 	   * @return List<FicheroResiCabeceraBean>
 	 * @throws Exception 
 	   */
@@ -471,7 +471,7 @@ public class FicheroResiCabeceraDAO {
 		
 		
 		/**OK - 
-		   * MÈtodo que devuelve la cabecera anterior que haya tenido una carga de residentes > de un % de carga seg˙n los usuarios activos de SPD 
+		   * M√©todo que devuelve la cabecera anterior que haya tenido una carga de residentes > de un % de carga seg√∫n los usuarios activos de SPD 
 		   * @return List<FicheroResiCabeceraBean>
 		 * @throws Exception 
 		   */
@@ -482,7 +482,7 @@ public class FicheroResiCabeceraDAO {
 			
 			
 		/**OK - 
-		 * MÈtodo que devuelve los diferentes procesos cargados de una residencia
+		 * M√©todo que devuelve los diferentes procesos cargados de una residencia
 		 * @param idDivisionResidencia
 		 * @return
 		 * @throws Exception 
@@ -493,7 +493,7 @@ public class FicheroResiCabeceraDAO {
 		}
 		
 	 /**OK - 
-		 * MÈtodo que devuelve los diferentes procesos cargados de una residencia
+		 * M√©todo que devuelve los diferentes procesos cargados de una residencia
 		 * @param idDivisionResidencia, idEstado
 		 * @return List<FicheroResiCabeceraBean>
 	 * @throws Exception 
@@ -538,7 +538,7 @@ public class FicheroResiCabeceraDAO {
 
 
 		/**
-		 * ActualizaciÛn cabecera despuÈs de cargar el fichero.
+		 * Actualizaci√≥n cabecera despu√©s de cargar el fichero.
 		 * @param idDivisionResidencia
 		 * @param idProceso
 		 * @param processedRows
@@ -563,7 +563,7 @@ public class FicheroResiCabeceraDAO {
 		      Iterator<String> iterator = errors.iterator();
 		      while (iterator.hasNext()) {
 		    	  String error = iterator.next();
-		          stringBuilder.append(error).append("<br>"); // Agregar cada elemento seguido de un salto de lÌnea en HTML
+		          stringBuilder.append(error).append("<br>"); // Agregar cada elemento seguido de un salto de l√≠nea en HTML
 		        }
 
 		        // Obtener la cadena final
@@ -832,7 +832,7 @@ public class FicheroResiCabeceraDAO {
 
 			String qry = " UPDATE "+TABLA_ACTIVA+" set idEstado='"+SPDConstants.SPD_PROCESO_4_CARGA_ERROR+"' ";
 	  	 		qry+= " where  idEstado='"+SPDConstants.SPD_PROCESO_1_EN_CREACION+"' ";
-	  	 		//qry+= " and fechaCreacion < getDate() ";  //se actualiza el estado de  procesos colgados de hace un dÌa
+	  	 		//qry+= " and fechaCreacion < getDate() ";  //se actualiza el estado de  procesos colgados de hace un d√≠a
 	  	 		qry+= " AND DATEDIFF(HOUR, fechaCreacion, getDate()) >= 2 "; //2 horas
 		 	  	 		
 	  	 		System.out.println("actualizaEstadosSinFinalizar -->" +qry );		
@@ -847,7 +847,7 @@ public class FicheroResiCabeceraDAO {
 		}
 
 	/**
-	 * Pasamos a histÛrico las producciones de m·s de X dÌas
+	 * Pasamos a hist√≥rico las producciones de m√°s de X d√≠as
 	 * @param conn 
 	 * @param aHistorico 
 	 * @throws ClassNotFoundException
@@ -911,7 +911,7 @@ public class FicheroResiCabeceraDAO {
 
 
 	/**OK
-	 * MÈtodo para borrar el detalle de los ficheros, de forma masiva, una vez ya pasados a histÛrico
+	 * M√©todo para borrar el detalle de los ficheros, de forma masiva, una vez ya pasados a hist√≥rico
 	 * @param conn 
 	 * @param oidFicheroResiDetalle
 	 * @param idDivisionresidencia
@@ -925,7 +925,7 @@ public class FicheroResiCabeceraDAO {
 		
 		String query = " DELETE FROM "+TABLA_ACTIVA+"  ";
 		query+= " WHERE oidFicheroResiCabecera IN (" + HelperSPD.convertirListSecuencia(aHistorico).toString() + ") ";
-		query+= " AND oidFicheroResiCabecera in (SELECT oidFicheroResiCabecera FROM "+TABLA_HISTORICO+ ") "; //nos aseguramos que ya se ha copiado en histÛrico 
+		query+= " AND oidFicheroResiCabecera in (SELECT oidFicheroResiCabecera FROM "+TABLA_HISTORICO+ ") "; //nos aseguramos que ya se ha copiado en hist√≥rico 
 
 		System.out.println(className + "--> borrarCabecerasYaEnHistorico -->" +query );		
 		 	
@@ -1029,7 +1029,7 @@ public class FicheroResiCabeceraDAO {
 				//fechaArreglada = cab.getFechaDesde()!=null ? cab.getFechaDesde().replace("/", ""):""; //quitamos "/" en caso que no exista le ponemos  numeroCreacionesXML
 				//nombreProduccionRobot= div.getLocationId()+"_"+fechaArreglada;
 			
-				//En vez de fecha, ponemos el ˙ltimo String del idProceso, para poder diferenciar hay producciones con la misma fecha
+				//En vez de fecha, ponemos el √∫ltimo String del idProceso, para poder diferenciar hay producciones con la misma fecha
 				String codigo = PlantillaUnificadaHelper.extraerUltimaParte(cab.getIdProceso());
 				nombreProduccionRobot= div.getLocationId()+"_"+codigo;
 				

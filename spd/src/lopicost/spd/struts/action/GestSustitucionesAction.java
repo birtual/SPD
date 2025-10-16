@@ -36,7 +36,7 @@ public class GestSustitucionesAction extends GenericAction  {
 		
 		List<GestSustituciones> resultList= new ArrayList<GestSustituciones>();
 		GestSustitucionesForm gestSustitucionesForm =  (GestSustitucionesForm) form;
-		//inicializamos para que no haya datos de otros m骴ulos
+		//inicializamos para que no haya datos de otros m贸dulos
 		gestSustitucionesForm.setOidGestSustituciones(0);
 		gestSustitucionesForm.setOidGestSustitucionesXResi(0);
 		
@@ -224,14 +224,14 @@ public class GestSustitucionesAction extends GenericAction  {
 	public ActionForward nuevo(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		//inicializamos para que no haya datos de otros m骴ulos
+		//inicializamos para que no haya datos de otros m贸dulos
 			GestSustitucionesForm f =  (GestSustitucionesForm) form;
 			f.setListaTiposAccion(GestSustitucionesDAO.getListaTiposAccion());
 			//gestSustitucionesForm.setListaFormasFarmaceuticas(GestSustitucionesDAO.getFormasFarmaceuticas());
 			
 			List<DivisionResidencia> listaDivisionResidencias= new ArrayList<DivisionResidencia>(); 
 			
-			//si viene marcada la resi, creamos directamente una sustituci髇 para esa resi
+			//si viene marcada la resi, creamos directamente una sustituci贸n para esa resi
 			if(f.getOidDivisionResidenciaFiltro()>0 )
 			{
 				
@@ -279,7 +279,7 @@ public class GestSustitucionesAction extends GenericAction  {
 	public ActionForward nuevoSustXResi(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-			//inicializamos para que no haya datos de otros m骴ulos
+			//inicializamos para que no haya datos de otros m贸dulos
 			GestSustitucionesForm gestSustitucionesForm =  (GestSustitucionesForm) form;
 			
 			gestSustitucionesForm.setListaTiposAccion(GestSustitucionesDAO.getListaTiposAccion());

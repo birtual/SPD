@@ -37,7 +37,7 @@ public class DivResidenciasAction extends GenericAction  {
 		Usuario user = UsuarioDAO.findByIdUser(getIdUsuario());
 		if(user==null) 
 		{
-	    	errors.add( "Error sesión usuario, es necesario volver a hacer login");
+	    	errors.add( "Error sesiÃ³n usuario, es necesario volver a hacer login");
 			return mapping.findForward("errorSession");
 		}
 		
@@ -57,7 +57,7 @@ public class DivResidenciasAction extends GenericAction  {
 		Usuario user = UsuarioDAO.findByIdUser(f.getIdUsuario());
 		if(user==null) 
 		{
-	    	errors.add( "Error sesión usuario, es necesario volver a hacer login");
+	    	errors.add( "Error sesiÃ³n usuario, es necesario volver a hacer login");
 			return mapping.findForward("errorSession");
 		}	
 		return mapping.findForward("nuevo");
@@ -78,7 +78,7 @@ public class DivResidenciasAction extends GenericAction  {
 		Usuario user = UsuarioDAO.findByIdUser(getIdUsuario());
 		if(user==null) 
 		{
-	    	errors.add( "Error sesión usuario, es necesario volver a hacer login");
+	    	errors.add( "Error sesiÃ³n usuario, es necesario volver a hacer login");
 			return mapping.findForward("errorSession");
 		}
 

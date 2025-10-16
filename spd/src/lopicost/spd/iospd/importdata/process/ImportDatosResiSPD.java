@@ -16,7 +16,7 @@ import java.util.Vector;
  * Metodo encargado de importar el fichero recibido de la residencia, pero habiendo realizado nuestras sustituciones 
  * La finalidad es persistir los datos de SOLO_INFO y PASTILLERO del SPD junto con los NO_PINTAR, para poder compararlos
  * con las recetas y ver discrepancias.
- * El fichero ya viene "limpio" porque es el paso previo al env�o al robot
+ * El fichero ya viene "limpio" porque es el paso previo al envío al robot
  * author CARLOS
  *
  */
@@ -31,10 +31,10 @@ public class ImportDatosResiSPD extends ImportProcessImpl
 		super();
 	}
 
-	/**los ficheros han de venir con cabecera. Se tendr� en cuenta a partir de la fila 2**/	
+	/**los ficheros han de venir con cabecera. Se tendrá en cuenta a partir de la fila 2**/	
     protected boolean beforeProcesarEntrada(Vector row) throws Exception 
     {
-    	//pasar a hist�rico los inactivos
+    	//pasar a histórico los inactivos
     	//if(!procesosAnterioresLimpiados)ioSpdApi.limpiarCIPsInactivos();
     	//FicheroMedResiConSustitucionDAO.creaHistoricoPacientesInactivos();
     	//FicheroMedResiConSustitucionDAO.borraProcesosPacientesInactivos();
@@ -90,10 +90,10 @@ public class ImportDatosResiSPD extends ImportProcessImpl
     		fila.setResiSiPrecisa("SI_PRECISA");
     	fila.setResiInicioTratamiento(
     			StringUtil.getStringFechaArreglada((String) row.elementAt(7))
-    			); //conversi�n a formato DD/MM/YYYY
+    			); //conversión a formato DD/MM/YYYY
     	fila.setResiFinTratamiento(
     			StringUtil.getStringFechaArreglada((String) row.elementAt(8))
-    			); //conversi�n a formato DD/MM/YYYY
+    			); //conversión a formato DD/MM/YYYY
     	fila.setResiObservaciones(StringUtil.replaceInvalidChars((String) row.elementAt(9)));
     	fila.setResiComentarios(StringUtil.replaceInvalidChars((String) row.elementAt(10)));
     	fila.setSpdCnFinal((String) row.elementAt(11));
@@ -106,7 +106,7 @@ public class ImportDatosResiSPD extends ImportProcessImpl
   		{
      		
         	ioSpdApi.limpiarCIPIdprocesoAnterior(fila.getIdProceso(), fila.getResiCIP());
-            //Una vez limpiado, se a�ade como CIP ya tratado para no volver a limpiar datos
+            //Una vez limpiado, se añade como CIP ya tratado para no volver a limpiar datos
             CIPSTratados.put(fila.getResiCIP(), fila.getResiCIP());
             
   		}

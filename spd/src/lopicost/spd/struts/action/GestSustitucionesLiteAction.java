@@ -43,7 +43,7 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 		formulari.setIdDivisionResidencia(dr!=null?dr.getIdDivisionResidencia():"0");
 
 		
-		//inicializamos para que no haya datos de otros m�dulos
+		//inicializamos para que no haya datos de otros módulos
 		
 		int getCountSustitucionesLite = dao.getCountSustitucionesLite(getIdUsuario(), formulari);
 		int currpage = actualizaCurrentPage(formulari, getCountSustitucionesLite);
@@ -82,7 +82,7 @@ public class GestSustitucionesLiteAction extends GestSustitucionesAction  {
 	public ActionForward nuevo(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-			//inicializamos para que no haya datos de otros m�dulos
+			//inicializamos para que no haya datos de otros módulos
 			GestSustitucionesLiteForm f =  (GestSustitucionesLiteForm) form;
 			DivisionResidencia dr = DivisionResidenciaDAO.getDivisionResidenciaByOid(getIdUsuario(), f.getOidDivisionResidenciaFiltro());
 			f.setListaTiposAccion(GestSustitucionesLiteDAO.getListaTiposAccion());

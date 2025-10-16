@@ -88,7 +88,7 @@ public class ImportDatosResiAegerusSPDPrevision extends ImportProcessImpl
        if (!this.CNSTratados.containsKey(String.valueOf(CIP) + "_" + spdCnFinal)) {
     	   // if (!this.CNSTratados.containsKey(String.valueOf(CIP))) {
             if (this.fila != null) {
-        		//B�squeda de BDConsejo
+        		//Búsqueda de BDConsejo
         		BdConsejo bdConsejo=BdConsejoDAO.getByCN(fila.getSpdCnFinal()); 
         		if(bdConsejo!=null)
         		{
@@ -152,9 +152,9 @@ public class ImportDatosResiAegerusSPDPrevision extends ImportProcessImpl
             }
             if (this.fila.getSpdAccionBolsa() != null && this.fila.getSpdAccionBolsa().equalsIgnoreCase(SPDConstants.SPD_ACCIONBOLSA_PASTILLERO)) {
                 this.fila.setDiasConToma(conteoDias);
-                this.fila.setComprimidosDosSemanas(this.fila.getComprimidosDia() * conteoDias);	//son tratamientos de 14 d�as!!
+                this.fila.setComprimidosDosSemanas(this.fila.getComprimidosDia() * conteoDias);	//son tratamientos de 14 días!!
 
-                this.fila.setComprimidosSemana(this.fila.getComprimidosDosSemanas()/2);	//son tratamientos de 14 d�as!!
+                this.fila.setComprimidosSemana(this.fila.getComprimidosDosSemanas()/2);	//son tratamientos de 14 días!!
                 
                 this.fila.setComprimidosTresSemanas((this.fila.getComprimidosDosSemanas()/2)  * 3);
                 this.fila.setComprimidosCuatroSemanas(this.fila.getComprimidosDosSemanas() * 2);
@@ -173,9 +173,9 @@ public class ImportDatosResiAegerusSPDPrevision extends ImportProcessImpl
             }
             
             if (this.fila.getSpdAccionBolsa() != null && this.fila.getSpdAccionBolsa().equalsIgnoreCase(SPDConstants.SPD_ACCIONBOLSA_PASTILLERO)) {
-            	int comprimidos14dias=(int) (comprimidosDia * conteoDias); //son tratamientos de 14 d�as!!
+            	int comprimidos14dias=(int) (comprimidosDia * conteoDias); //son tratamientos de 14 días!!
             	
-                this.fila.setComprimidosDosSemanas(this.fila.getComprimidosDosSemanas()+ comprimidos14dias);  //son tratamientos de 14 d�as!!
+                this.fila.setComprimidosDosSemanas(this.fila.getComprimidosDosSemanas()+ comprimidos14dias);  //son tratamientos de 14 días!!
                 this.fila.setComprimidosSemana(this.fila.getComprimidosSemana()+ (comprimidos14dias/2));
 
                 this.fila.setComprimidosTresSemanas((this.fila.getComprimidosTresSemanas()+comprimidos14dias* 3.0f/2));

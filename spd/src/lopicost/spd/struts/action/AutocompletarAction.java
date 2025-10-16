@@ -18,14 +18,14 @@ public class AutocompletarAction extends DispatchAction
 	BdConsejoDAO dao= new BdConsejoDAO();
    
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // Obtener los par·metros desde la solicitud
+        // Obtener los par√°metros desde la solicitud
         String term = request.getParameter("query");
         String campo = request.getParameter("campo");
         String id = request.getParameter("id"); // El id de cada campo
         String paramAdicional = request.getParameter("paramAdicional");
         
         try {
-            // LÛgica para obtener sugerencias basadas en el tÈrmino de b˙squeda y el campo
+            // l√≥gica para obtener sugerencias basadas en el t√©rmino de b√∫squeda y el campo
             List<BdConsejo> sugerencias = obtenerSugerenciasDesdeBaseDeDatos(term, campo, id, paramAdicional);
 
             // Convertir la lista de sugerencias a formato JSON y escribir en la respuesta
@@ -37,14 +37,14 @@ public class AutocompletarAction extends DispatchAction
             response.getWriter().write("{\"error\":\"Error al procesar la solicitud\"}");
         }
 
-        return null; // Evitar el envÌo a una p·gina de resultados
+        return null; // Evitar el env√≠o a una p√°gina de resultados
     }
 
 	
     private List<BdConsejo> obtenerSugerenciasDesdeBaseDeDatos(String term, String campo, String id, String codGtVm) throws SQLException {
         List<BdConsejo> sugerencias = new ArrayList<>();
 
-        // LÛgica para buscar en el campo correspondiente y usar el ID para determinar la b˙squeda
+        // l√≥gica para buscar en el campo correspondiente y usar el ID para determinar la b√∫squeda
         if ("filtroNomGtVm".equalsIgnoreCase(campo)) {
             sugerencias = BdConsejoDAO.getAutoGtVm(term);
         } else if ("filtroNombreLaboratorio".equalsIgnoreCase(campo)) {
@@ -62,7 +62,7 @@ public class AutocompletarAction extends DispatchAction
         for (int i = 0; i < resultados.size(); i++) {
             BdConsejo consejo = resultados.get(i);
 
-            // Personalizar el texto seg˙n el campo y el id
+            // Personalizar el texto seg√∫n el campo y el id
             String ide = obtenerTextoPorCampoYId(campo, "id", consejo);
             String text = obtenerTextoPorCampoYId(campo, "nombre", consejo);
  

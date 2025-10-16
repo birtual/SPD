@@ -93,7 +93,7 @@ window.onload = function() {
 			else if(f.fechaDesde.value=='')
 				alert('Falta indicar la fecha de activación del proceso');
 			else if(f.horaEjecucion.value=='')
-				alert('Falta indicar la hora de ejecución del proceso ');
+				alert('Falta indicar la hora de ejecutó del proceso ');
 			else if(f.maxDuracionSegundos.value=='')
 				alert('Falta indicar el tope de duración posible ');
 			else */
@@ -204,7 +204,7 @@ window.onload = function() {
 		</tr>
 
 
-		<tr><th class="segunda">Hora de Ejecución  *</th>
+		<tr><th class="segunda">Hora de ejecutó  *</th>
 			<td>
 				<html:text property="horaEjecucion" name="data" styleId="horaEjecucion" style="width: 80px;" />
 			</td>
@@ -234,7 +234,7 @@ window.onload = function() {
 		</tr>
 
 
-		<tr><th class="segunda">Tipo de Ejecución</th>
+		<tr><th class="segunda">Tipo de ejecutó</th>
 			<td>
 				 <html:select  name="data" property="tipoEjecucion" style="text-align: left;">>
 			        <html:option value="AUTOMATICO">Automático</html:option>

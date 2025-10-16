@@ -13,7 +13,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Borrado de sustituci髇 Lite</title>
+<title>Borrado de sustituci贸n Lite</title>
 </head>
 
 <bean:define id="formulari" name="GestSustitucionesLiteForm" type="lopicost.spd.struts.form.GestSustitucionesLiteForm" />
@@ -21,7 +21,7 @@
 
 <body id="general">
 	<center>
-		<h2>Borrado de sustituci髇 Lite</h2>
+		<h2>Borrado de sustituci贸n Lite</h2>
 		<html:form action="/GestSustitucionesLite.do" method="post">	
 
 <div id="contingut">
@@ -31,7 +31,7 @@
      <html:hidden property="parameter" value="borrar"/>
      <html:hidden property="ACTIONTODO" value="CONFIRMAR"/>
      <html:hidden property="oidGestSustitucionesLite" />
-	<!-- se pasan par醡etros de los filtros del listado para la vuelta -->
+	<!-- se pasan par谩metros de los filtros del listado para la vuelta -->
      <html:hidden property="filtroNombreCorto" />
      <html:hidden property="filtroMedicamentoResi" />
      <html:hidden property="filtroNombreCortoOK" />
@@ -47,7 +47,7 @@
 		<td><bean:write name="data" property="idDivisionResidencia"/></td>
 	</tr>
 	<tr>
-		<td>C骴igo residencia</td>
+		<td>C贸digo residencia</td>
 		<td><bean:write name="data" property="resiCn"/></td>
 	</tr>
 	<tr>
@@ -55,7 +55,7 @@
 		<td><bean:write name="data" property="resiMedicamento"/></td>
 	</tr>
 	<tr>
-		<td>C骴igo OK</td>
+		<td>C贸digo OK</td>
 		<td><bean:write name="data" property="spdCn"/></td>
 	</tr>
 	<tr>
@@ -68,11 +68,11 @@
 		<td><bean:write name="data" property="spdFormaMedicacion"/></td>
 	</tr>
 	<tr>
-		<td>Acci磒on</td>
+		<td>Acci贸pon</td>
 		<td><bean:write name="data" property="spdAccionBolsa"/></td>
 	</tr>
 	<tr>
-		<td>Excepci髇</td>
+		<td>Excepci贸n</td>
 		<td><bean:write name="data" property="excepciones"/></td>
 	</tr>
 

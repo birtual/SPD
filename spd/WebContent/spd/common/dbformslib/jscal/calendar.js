@@ -271,7 +271,7 @@ function buildTopCalFrame() {
         "<INPUT " +
         "TYPE=BUTTON NAME='previousYear' VALUE='<<'    onClick='parent.opener.setPreviousYear()'><INPUT " +
         "TYPE=BUTTON NAME='previousMonth' VALUE=' < '   onClick='parent.opener.setPreviousMonth()'><INPUT " +
-        "TYPE=BUTTON NAME='today' VALUE='Aujourd�hui' onClick='parent.opener.setToday()'><INPUT " +
+        "TYPE=BUTTON NAME='today' VALUE='Aujourd'hui' onClick='parent.opener.setToday()'><INPUT " +
         "TYPE=BUTTON NAME='nextMonth' VALUE=' > '   onClick='parent.opener.setNextMonth()'><INPUT " +
         "TYPE=BUTTON NAME='nextYear' VALUE='>>'    onClick='parent.opener.setNextYear()'>" +
         "</TD>" +
@@ -620,7 +620,7 @@ function getMonthSelect() {
     }
     // IF CATALA
     else if (selectedLanguage == "cat") {
-        monthArray = new Array('Gener', 'Febrer', 'Mar�', 'Abril', 'Maig', 'Juny',
+        monthArray = new Array('Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny',
                                'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre');
     }
     // DEFAULT TO SPANISH

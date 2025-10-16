@@ -148,7 +148,7 @@
 	</table>	
 	 </fieldset>
 
-	<!--  paginación  -->
+	<!--  paginaciÃ³n  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 
@@ -164,7 +164,7 @@
 
 		</logic:greaterThan>
 	</div>
-	<!--  paginación   -->
+	<!--  paginaciÃ³n   -->
 		
 		
 </div>	

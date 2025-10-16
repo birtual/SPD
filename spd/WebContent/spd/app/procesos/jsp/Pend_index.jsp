@@ -20,7 +20,7 @@
  
  <table class="CSS_Table_Example" >
  <tr>
-		<td class="primera">N鷐ero</td>
+		<td class="primera">n煤mero</td>
 		<td class="primera">Tipo</td>
 		<td class="segunda">Nombre report</td>
    </tr>
@@ -35,10 +35,10 @@
 	</tr>	
 	<tr>
 		<td> 0b</td>
-		<td>Pacientes Farmatic vs Gesti髇 pacientes</td>
+		<td>Pacientes Farmatic vs Gesti贸n pacientes</td>
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_13b_pacientesComalisFarmatic.rptdesign" target=_blank>
-				Datos de los pacientes de Farmatic cruzados con los de la gesti髇 de pacientes, para detectar discrepancias.
+				Datos de los pacientes de Farmatic cruzados con los de la gesti贸n de pacientes, para detectar discrepancias.
 			</a>
 		</td>
 	</tr>		
@@ -53,7 +53,7 @@
 				Detalle por CIP.
 			</a>
 </br>		</br>			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_1a_resi_vs_sire_v2.rptdesign" target=_blank>
-				Detalle por CIP (versi髇 mejorada).
+				Detalle por CIP (versi贸n mejorada).
 			</a>
 		</td>
 	</tr>
@@ -62,7 +62,7 @@
 		<td>Vigentes / No Vigentes</td>
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_1b_no_vigentes.rptdesign" target=_blank>
-				Pacientes con c骴igo de seguridad Vigentes / No Vigentes.
+				Pacientes con c贸digo de seguridad Vigentes / No Vigentes.
 			</a>
 		</td>
 	</tr>
@@ -82,7 +82,7 @@
 		<td>Ventana activa con SUSTITUCION</td>
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_3c_pend_dispensar_sire_sustitucion.rptdesign" target=_blank>
-				Muestra todos lo dispensable a d韆 de hoy, con la sustituci髇 a realizar.
+				Muestra todos lo dispensable a d铆a de hoy, con la sustituci贸n a realizar.
 			</a>
 		</td>
 	</tr> 
@@ -91,7 +91,7 @@
 		<td>Recetas que caducan</td>
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_4a_recetas_que_caducan_v1.rptdesign" target=_blank>
-				Muestra las recetas que caducar醤 dentro del rango de d韆s que se indica.
+				Muestra las recetas que caducar谩n dentro del rango de d铆as que se indica.
 			</a>
 		</td>
 	</tr>  	
@@ -100,16 +100,16 @@
 		<td>Tratamientos que caducan</td>
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_5a_tratamientos_que_caducan_v1.rptdesign" target=_blank>
-				Muestra los tratamientos que caducar醤 dentro del rango de d韆s que se indica.
+				Muestra los tratamientos que caducar谩n dentro del rango de d铆as que se indica.
 			</a>
 		</td>
 	</tr>  
 	<tr>
 		<td> 6</td>
-		<td>Previsi髇 de pedidos mensuales seg鷑 RE</td>
+		<td>Previsi贸n de pedidos mensuales seg煤n RE</td>
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_a1_prevision_recetas_v2.rptdesign" target=_blank>
-				Ayuda a la previsi髇 mensual de pedidos. Indica cajas a pedir seg鷑 productos emblistables.
+				Ayuda a la previsi贸n mensual de pedidos. Indica cajas a pedir seg煤n productos emblistables.
 			</a>
 		</td>
 	</tr> 
@@ -121,43 +121,43 @@
 				bd Consejo
 			</a>
 					<!--a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_7b_bd_consejo_ampliado_v1.rptdesign" target=_blank>
-				bd Consejo - Ampliado con informaci髇 de NO FINANCIADOS
+				bd Consejo - Ampliado con informaci贸n de NO FINANCIADOS
 			</a!-->	
 		</td>
 	</tr>
 	<tr>
 		<td>9a</td>
-		<td>Pa馻les dispensables</td>	
+		<td>Pa帽ales dispensables</td>	
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_9_bolquers_disp_v2.rptdesign" target=_blank>
-				 Pa馻les dispensables en ventana activa.
+				 Pa帽ales dispensables en ventana activa.
 			</a>
 		</td>
 	</tr>		
 	<tr>
 		<td>9b</td>
-		<td>Pa馻les en tratamiento</td>	
+		<td>Pa帽ales en tratamiento</td>	
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_10b_dades_bolquers_SIRE.rptdesign" target=_blank>
-				 Pa馻les en tratamiento.
+				 Pa帽ales en tratamiento.
 			</a>
 		</td>
 	</tr>		
 	<tr>
 		<td>9c</td>
-		<td>Pa馻les en previsi髇</td>	
+		<td>Pa帽ales en previsi贸n</td>	
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_10c_bolquers_ttos_para_pedir_prevision.rptdesign" target=_blank>
-				 Pa馻les para pedir mensualmente, seg鷑 una simulaci髇 de la ventana activa y su tratamiento.
+				 Pa帽ales para pedir mensualmente, seg煤n una simulaci贸n de la ventana activa y su tratamiento.
 			</a>
 		</td>
 	</tr>
 	<tr>
 		<td>9c</td>
-		<td>Pa馻les en previsi髇 (AGRUPADOS POR RESIDENCIA)</td>	
+		<td>Pa帽ales en previsi贸n (AGRUPADOS POR RESIDENCIA)</td>	
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_10d_bolquers_ttos_para_pedir_prevision_agrup.rptdesign" target=_blank>
-				 Pa馻les para pedir mensualmente (agrupados), seg鷑 una simulaci髇 de la ventana activa y su tratamiento.
+				 Pa帽ales para pedir mensualmente (agrupados), seg煤n una simulaci贸n de la ventana activa y su tratamiento.
 			</a>
 		</td>
 	</tr>	
@@ -167,10 +167,10 @@
 	
 	<tr>
 		<td>9d-AGRUPADO</td>
-		<td>Pa馻les - B鷖queda de coincidentes</td>	
+		<td>Pa帽ales - B煤squeda de coincidentes</td>	
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_9d_bolquers_coincidents_v1.rptdesign" target=_blank>
-				 Muestra los pa馻les que coinciden con los filtros aplicados. 
+				 Muestra los pa帽ales que coinciden con los filtros aplicados. 
 			</a>
 		</td>
 	</tr>
@@ -181,7 +181,7 @@
 		<td>Datos SIRE Ampliado</td>	
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_10_dades_SIRE.rptdesign" target=_blank>
-				Para extraer todos los datos de tratamiento, pendiente de dispensaci髇 y otros datos
+				Para extraer todos los datos de tratamiento, pendiente de dispensaci贸n y otros datos
 			</a>
 		</td>
 	</tr>	
@@ -190,7 +190,7 @@
 		<td>Datos SIRE Reducido	</td>	
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_11_dades_SIRE_reducido_v1.rptdesign" target=_blank>
-				Para extraer todos los datos de tratamiento, pendiente de dispensaci髇 y con menos columnas que el anterior.
+				Para extraer todos los datos de tratamiento, pendiente de dispensaci贸n y con menos columnas que el anterior.
 			</a>
 		</td>
 	</tr>	
@@ -199,7 +199,7 @@
 		<td>Compara tratamientos por fechas y CIP	</td>	
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_12a_CIP_comparar_pautes_por_fechas_v1.rptdesign" target=_blank>
-				Para detectar los cambuios. Realiza una comparaci髇 de la pauta (en Receta) de un residente entre dos fechas.
+				Para detectar los cambuios. Realiza una comparaci贸n de la pauta (en Receta) de un residente entre dos fechas.
 			</a>
 		</td>
 	</tr>	
@@ -208,7 +208,7 @@
 		<td>Compara tratamientos por fechas y Residencia	</td>	
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_12b_resi_comparar_pautes_por_fechas_v1.rptdesign" target=_blank>
-				Para detectar los cambios. Realiza una comparaci髇 de la pauta (en Receta) de los residetes de una residencia entre dos fechas.
+				Para detectar los cambios. Realiza una comparaci贸n de la pauta (en Receta) de los residetes de una residencia entre dos fechas.
 			</a>
 		</td>
 	</tr>	
@@ -217,7 +217,7 @@
 		<td>Solo muestra cambios - Compara tratamientos por fechas y Residencia	</td>	
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_12b_resi_comparar_pautes_por_fechas_solo_cambios_v1.rptdesign" target=_blank>
-				Solo muestra los cambios. Realiza una comparaci髇 de la pauta (en Receta) de los residetes de una residencia entre dos fechas.
+				Solo muestra los cambios. Realiza una comparaci贸n de la pauta (en Receta) de los residetes de una residencia entre dos fechas.
 			</a>
 	</br>	</br>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_12c_comparar_cambios_ttos_hasta_hoy_v1.rptdesign" target=_blank>
@@ -239,7 +239,7 @@
 		<td>Ventana activa  (TODOS)</td>
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_3b_pend_dispensar_all_sire_v1.rptdesign" target=_blank>
-				Muestra todos lo dispensable a d韆 de hoy, tal como lo recibimos, incluyendo recetas bloqueadas.
+				Muestra todos lo dispensable a d铆a de hoy, tal como lo recibimos, incluyendo recetas bloqueadas.
 			</a>
 		</td>
         </tr>  
@@ -275,10 +275,10 @@
    		 </tr-->	
 		<!--tr>
 		<td>9</td>
-		<td>Pa馻les dispensables (CREU DE PALAU)</td>	
+		<td>Pa帽ales dispensables (CREU DE PALAU)</td>	
 		<td>
 			<a href="/birt-viewer/frameset?__report=/box_rpt/adhoc_cp/rpt_lp_CP_bolquers_v1.rptdesign" target=_blank>
-				Para CREU DE PALAU. Pa馻les dispensables en ventana activa. Filtro de fecha hasta fin de dispensable
+				Para CREU DE PALAU. Pa帽ales dispensables en ventana activa. Filtro de fecha hasta fin de dispensable
 			</a>
 		</td>
        
@@ -289,7 +289,7 @@
 			</td>
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_2a_pend_dispensar_sire_agrupado_v1.rptdesign" target=_blank>
-				Muestra todos lo dispensable a d韆 de hoy, agrupado por CN.
+				Muestra todos lo dispensable a d铆a de hoy, agrupado por CN.
 			</a>
 		</td>
     </tr-->
@@ -299,7 +299,7 @@
 			</td>
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_2b_pend_dispensar_all_sire_agrupado_v1.rptdesign" target=_blank>
-				Muestra todos lo dispensable a d韆 de hoy, agrupado por CN, incluyendo recetas bloqueadas.
+				Muestra todos lo dispensable a d铆a de hoy, agrupado por CN, incluyendo recetas bloqueadas.
 			</a>
 		</td>
     </tr-->
@@ -308,12 +308,12 @@
 		<td>Ventana activa</td>
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_3a_pend_dispensar_sire_v1.rptdesign" target=_blank>
-				Muestra todos lo dispensable a d韆 de hoy, tal como lo recibimos.
+				Muestra todos lo dispensable a d铆a de hoy, tal como lo recibimos.
 			</a>
 		</td>
         </tr>	  
 			<tr>
-		<td>1 - Report t閏nico  - (Robot)</td>
+		<td>1 - Report t茅cnico  - (Robot)</td>
 		<td>sustituciones Gerisoft	</td>	
 		<td>
 			<a href="/birt-viewer/frameset?__report=lopicost/ctrl/rpt_lp_1_sust_fichero_robot_Gerisoft_v1.rptdesign" target=_blank>

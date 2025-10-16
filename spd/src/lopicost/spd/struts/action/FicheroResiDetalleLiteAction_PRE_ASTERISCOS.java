@@ -55,7 +55,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 		formulari.setIdProcessIospd(dr.getIdProcessIospd());
 		
 
-		//20201016 - Aparcamos la paginaciÛn de momento en esta pantalla
+		//20201016 - Aparcamos la paginaci√≥n de momento en esta pantalla
 		//int getCountGestFicheroResiBolsa = dao.getCountGestFicheroResiBolsa(formulari);
 		//int currpage = actualizaCurrentPage(formulari, getCountGestFicheroResiBolsa);
 		//formulari.setListaFicheroResiDetalleBean(dao.getListaDivisionResidenciasCargadas());
@@ -69,7 +69,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 		
 
 		//formulari.setTodaLaListaGestFicheroResiBolsaBean(FicheroResiDetalleDAO.getGestFicheroResiBolsa(formulari, 0,100000, null, true));
-		//20201016 - Aparcamos la paginaciÛn de momento, el sistema est· preparado si se necesita activar.
+		//20201016 - Aparcamos la paginaci√≥n de momento, el sistema est√° preparado si se necesita activar.
 		//formulari.setListaGestFicheroResiBolsaBean(FicheroResiDetalleDAO.getGestFicheroResiBolsa(formulari, currpage*SPDConstants.PAGE_ROWS,(currpage+1)*SPDConstants.PAGE_ROWS, null, false));
 		//formulari.setListaFicheroResiDetalleBean(FicheroResiDetalleDAO.getGestFicheroResiBolsa(-1, formulari,  0,100000, null, false, null, false, true));
 		String ordenacion="mensajesAlerta desc, mensajesResidencia desc, g.mensajesInfo desc, g.resiCIP, g.SpdNombreBolsa, g.resiInicioTratamiento ";
@@ -87,11 +87,11 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 		formulari.setCamposPantallaBean(camposPantallaBean);
 		FicheroResiDetalleHelper.rellenaListados(formulari);
 		
-		//INICIO creaciÛn de log en BBDD  //no lo ponemos porque se sobrecarga al refrescar cada accion de validaciÛn o confirmaciÛn
+		//INICIO creaci√≥n de log en BBDD  //no lo ponemos porque se sobrecarga al refrescar cada accion de validaci√≥n o confirmaci√≥n
 		//try{
 		//			SpdLogAPI.addLog(getIdUsuario(), "",  formulari.getIdDivisionResidencia(), formulari.getIdProceso(),  SpdLogAPI.A_TRATAMIENTO, SpdLogAPI.B_CONSULTA, SpdLogAPI.C_LISTADO, "SpdLog.tratamiento.consulta.listado", formulari.getIdProceso());
-		//}catch(Exception e){}	 //Consulta del listado de tratamientos de la producciÛn
-		//FIN creaciÛn de log en BBDD
+		//}catch(Exception e){}	 //Consulta del listado de tratamientos de la producci√≥n
+		//FIN creaci√≥n de log en BBDD
 		FicheroResiBean cabeceraGeneral=FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(getIdUsuario(), cab.getOidFicheroResiCabecera());
 		formulari.setFree1(cabeceraGeneral.getFree1());
 		FicheroResiDetalleHelper.checkEstadoCabecera(getIdUsuario(), cab, cabeceraGeneral);
@@ -158,7 +158,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 			{
 				if(formulari.getErrors().size()==0)
 				{
-					//frb.setValidar(SPDConstants.REGISTRO_VALIDAR);	//al reiniciar la sustituciÛn forzamos una confirmaciÛn posterior
+					//frb.setValidar(SPDConstants.REGISTRO_VALIDAR);	//al reiniciar la sustituci√≥n forzamos una confirmaci√≥n posterior
 					//frb.setConfirmar("");
 
 					
@@ -194,23 +194,23 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 						HelperSPD.desdoblarTratamientosSecuenciales(getIdUsuario(), frb, DateUtilities.getDate(frb.getResiInicioTratamiento(), "dd/MM/yyyy"));
 
 						/**
-						 * 20241015 - Este punto es importante, aunque haya redundancia del mÈtodo de nuevo, hay que volver a llamarlo para que trate los ttos que se desdoblan y que son periÛdicos. (Aegerus)
+						 * 20241015 - Este punto es importante, aunque haya redundancia del m√©todo de nuevo, hay que volver a llamarlo para que trate los ttos que se desdoblan y que son peri√≥dicos. (Aegerus)
 						 */
 				      	HelperSPD.detectarPeriodoEdicion(getIdUsuario(), frb);
 				  	    
 						
-						frb.setValidar(SPDConstants.REGISTRO_VALIDAR);	//al reiniciar la sustituciÛn forzamos una confirmaciÛn posterior
+						frb.setValidar(SPDConstants.REGISTRO_VALIDAR);	//al reiniciar la sustituci√≥n forzamos una confirmaci√≥n posterior
 						ControlSPD.aplicarControles(getIdUsuario(), frb);
 						frb.setIdTratamientoCIP(HelperSPD.getID(frb));	//actualizamos el id del tratamiento
 						result=FicheroResiDetalleDAO.edita(getIdUsuario(), frb);
 
 						if(result)
 						{
-							//INICIO creaciÛn de log en BBDD
+							//INICIO creaci√≥n de log en BBDD
 							try{
 								SpdLogAPI.addLog(getIdUsuario(), frb.getResiCIP(),  frb.getIdDivisionResidencia(), formulari.getIdProceso(), SpdLogAPI.A_TRATAMIENTO, SpdLogAPI.B_EDICION, SpdLogAPI.C_DETALLE, "SpdLog.tratamiento.edicion.detalle", frb.getFree3());
 							}catch(Exception e){}	// Cambios--> @@.
-							//FIN creaciÛn de log en BBDD
+							//FIN creaci√≥n de log en BBDD
 							
 							errors.add( "Registro editado correctamente ");
 						}
@@ -266,7 +266,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 		  		{
 		     		
 		        	IOSpdApi.limpiarCIPIdprocesoAnterior(fila.getIdProceso(), fila.getResiCIP());
-		            //Una vez limpiado, se aÒade como CIP ya tratado para no volver a limpiar datos
+		            //Una vez limpiado, se a√±ade como CIP ya tratado para no volver a limpiar datos
 		            CIPSTratados.put(fila.getResiCIP(), fila.getResiCIP());
 		  		}
 		     	
@@ -274,8 +274,8 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 				if (!result){
 					resultTotal=false;
 					errors.add( "No se ha podido actualizar la fila " + fila.getRow() + " - " + fila.getResiCIP() + " - " + fila.getSpdCnFinal());
-					log("[FicheroResiCabeceraAction_BORRABLE] - actualizarPrevision() - ERROR actualizando previsiÛn de la fila : "+fila.getRow() + " - " + fila.getResiCIP() + " - " + fila.getSpdCnFinal() +" - " + formulari.getIdProceso(),Logger.ERROR);
-					throw new Exception("Error al actualizar previsiÛn de la fila");					
+					log("[FicheroResiCabeceraAction_BORRABLE] - actualizarPrevision() - ERROR actualizando previsi√≥n de la fila : "+fila.getRow() + " - " + fila.getResiCIP() + " - " + fila.getSpdCnFinal() +" - " + formulari.getIdProceso(),Logger.ERROR);
+					throw new Exception("Error al actualizar previsi√≥n de la fila");					
 				}
 			}
 			
@@ -285,21 +285,21 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 			if(result)
 			{
 			//	errors.add(SPDConstants.MSG_LEVEL_INFO, new ActionMessage("Registro borrado correctamente Info"));
-				errors.add( "PrevisiÛn de consumo correctamente actualizada ");
+				errors.add( "Previsi√≥n de consumo correctamente actualizada ");
 			
-				//INICIO creaciÛn de log en BBDD
+				//INICIO creaci√≥n de log en BBDD
 				try{
 					SpdLogAPI.addLog(getIdUsuario(), "",  formulari.getIdDivisionResidencia(), formulari.getIdProceso(), SpdLogAPI.A_TRATAMIENTO, SpdLogAPI.B_CREACION, SpdLogAPI.C_PREVISION, "SpdLog.tratamiento.creacion.prevision", formulari.getIdProceso());
-				}catch(Exception e){}	//Se actualiza la previsiÛn del proceso.
-				//FIN creaciÛn de log en BBDD
+				}catch(Exception e){}	//Se actualiza la previsi√≥n del proceso.
+				//FIN creaci√≥n de log en BBDD
 
 			}
 			else
 			
 			if (!result){
-				 errors.add( "Error en la actualizaciÛn de previsiÛn de consumo");
-				 log("[FicheroResiCabeceraAction_BORRABLE] - confirmar () - actualizando previsiÛn de la fila: "+formulari.getIdDivisionResidencia() +" - " + formulari.getIdProceso(),Logger.ERROR);
-				throw new Exception("Error en la actualizaciÛn de previsiÛn de consumo");					
+				 errors.add( "Error en la actualizaci√≥n de previsi√≥n de consumo");
+				 log("[FicheroResiCabeceraAction_BORRABLE] - confirmar () - actualizando previsi√≥n de la fila: "+formulari.getIdDivisionResidencia() +" - " + formulari.getIdProceso(),Logger.ERROR);
+				throw new Exception("Error en la actualizaci√≥n de previsi√≥n de consumo");					
 			}
 			
 			
@@ -323,7 +323,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 		if(validable)
 		{
 			frbean.setValidar(SPDConstants.REGISTRO_VALIDADO);
-			//si no hay que confirmar y ya est· validado quitamos el alert de control de datos.
+			//si no hay que confirmar y ya est√° validado quitamos el alert de control de datos.
 			if(frbean.getConfirmar()!=null 
 					&& !frbean.getConfirmar().equalsIgnoreCase(SPDConstants.REGISTRO_CONFIRMAR) 
 					&& frbean.getControlValidacionDatos()!=null 
@@ -337,11 +337,11 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 
 			if(validable && result)
 			{
-				//INICIO eaciÛn de log en BBDD
+				//INICIO eaci√≥n de log en BBDD
 				try{
 					SpdLogAPI.addLog(getIdUsuario(),  frbean.getResiCIP(),  frbean.getIdDivisionResidencia(), frbean.getIdProceso()
 							, SpdLogAPI.A_TRATAMIENTO, SpdLogAPI.B_VALIDACION, ".", "SpdLog.tratamiento.validar",  HelperSPD.tratamientoLog(frbean) );//variables
-				}catch(Exception e){}	//ValidaciÛn del tratamiento @@
+				}catch(Exception e){}	//Validaci√≥n del tratamiento @@
 				//FIN de log en BBDD
 				errors.add( "Registro validado correctamente");
 				//volvemos a mostrar listado
@@ -363,7 +363,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 		FicheroResiForm formulari =  (FicheroResiForm) form;
 		FicheroResiBean cabeceraGeneral=FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(getIdUsuario(),formulari.getOidFicheroResiCabecera());
 		
-		//actualizamos campos que lanzan el botÛn para que no se valide de nuevo en caso de entrar por segunda vez 
+		//actualizamos campos que lanzan el bot√≥n para que no se valide de nuevo en caso de entrar por segunda vez 
 		formulari.setFree1("");
 		formulari.setFree3(SPDConstants.SPD_PROCESO_3_POR_VALIDACION_MASIVA); 
 		FicheroResiCabeceraDAO.editarCabecera(getIdUsuario(), cabeceraGeneral, formulari);
@@ -387,7 +387,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
   				frbean.setIncidencia("NO");
 	  			frbean.setConfirmar(SPDConstants.REGISTRO_CONFIRMADO);
   				frbean.setValidar(SPDConstants.REGISTRO_VALIDADO);
-				//si no hay que confirmar y ya est· validado quitamos el alert de control de datos.
+				//si no hay que confirmar y ya est√° validado quitamos el alert de control de datos.
   				frbean.setControlValidacionDatos(SPDConstants.CTRL_VALIDAR_NO);
   				validadoAutomatico=true;
 	  			result=FicheroResiDetalleDAO.edita(getIdUsuario(), frbean);
@@ -395,19 +395,19 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
   			
   			if(confirmable && result)
 			{
-				//creaciÛn de log en BBDD
+				//creaci√≥n de log en BBDD
 				try{
 					SpdLogAPI.addLog(getIdUsuario(),  frbean.getResiCIP(),  frbean.getIdDivisionResidencia(), frbean.getIdProceso(), SpdLogAPI.A_TRATAMIENTO, SpdLogAPI.B_CONFIRMACION_MASIVA, "."
 							, "SpdLog.tratamiento.confirmadoMasivo", HelperSPD.tratamientoLog(frbean) );
-				}catch(Exception e){}	//ConfirmaciÛn del tratamiento @@.
+				}catch(Exception e){}	//Confirmaci√≥n del tratamiento @@.
 				
 				if(validadoAutomatico)
 				{
-					//creaciÛn de log en BBDD
+					//creaci√≥n de log en BBDD
 					try{
 						SpdLogAPI.addLog(getIdUsuario(),  frbean.getResiCIP(),  frbean.getIdDivisionResidencia(), frbean.getIdProceso(), SpdLogAPI.A_TRATAMIENTO, SpdLogAPI.B_VALIDACION, "."
 								, "SpdLog.tratamiento.validadoPorConfirmacionMasiva", "." );
-					}catch(Exception e){}	//ConfirmaciÛn del tratamiento @@.
+					}catch(Exception e){}	//Confirmaci√≥n del tratamiento @@.
 					
 				}
 			}
@@ -416,7 +416,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
         String oidDivisionResidencia = "someValue"; // Obtener el valor necesario
         String url = "/FicheroResiCabeceraLite.do?parameter=list";
 
-        // Crear un ActionForward din·mico
+        // Crear un ActionForward din√∫mico
         return new ActionForward(url, true);
 		//return mapping.findForward("listarTipoVista");
 	}
@@ -433,7 +433,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 			boolean  confirmable = PermisosHelper.confirmacion(getIdUsuario(), formulari.getIdDivisionResidencia());
 			boolean  validadoAutomatico = false; 
 			if(!confirmable)
-				errors.add( "Permisos insuficientes para para realizar confirmaciÛn del tratamiento");
+				errors.add( "Permisos insuficientes para para realizar confirmaci√≥n del tratamiento");
 			else{
 				FicheroResiBean  frbean = FicheroResiDetalleDAO.getFicheroResiDetalleByIdOid(getIdUsuario(), formulari.getOidFicheroResiDetalle());
 				boolean  registroConfirmable = ControlSPD.registroConfirmable(frbean);
@@ -443,7 +443,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 	  			{
 		  			frbean.setConfirmar(SPDConstants.REGISTRO_CONFIRMADO);
 	  				frbean.setValidar(SPDConstants.REGISTRO_VALIDADO);
-					//si no hay que confirmar y ya est· validado quitamos el alert de control de datos.
+					//si no hay que confirmar y ya est√° validado quitamos el alert de control de datos.
 	  				frbean.setControlValidacionDatos(SPDConstants.CTRL_VALIDAR_NO);
 	  				validadoAutomatico=true;
 		  			result=FicheroResiDetalleDAO.edita(getIdUsuario(), frbean);
@@ -452,19 +452,19 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 	  			
 	  			if(confirmable && result)
 				{
-					//creaciÛn de log en BBDD
+					//creaci√≥n de log en BBDD
 					try{
 						SpdLogAPI.addLog(getIdUsuario(),  frbean.getResiCIP(),  frbean.getIdDivisionResidencia(), frbean.getIdProceso(), SpdLogAPI.A_TRATAMIENTO, SpdLogAPI.B_CONFIRMACION, "."
 								, "SpdLog.tratamiento.confirmar", HelperSPD.tratamientoLog(frbean) );
-					}catch(Exception e){}	//ConfirmaciÛn del tratamiento @@.
+					}catch(Exception e){}	//Confirmaci√≥n del tratamiento @@.
 					
 					if(validadoAutomatico)
 					{
-						//creaciÛn de log en BBDD
+						//creaci√≥n de log en BBDD
 						try{
 							SpdLogAPI.addLog(getIdUsuario(),  frbean.getResiCIP(),  frbean.getIdDivisionResidencia(), frbean.getIdProceso(), SpdLogAPI.A_TRATAMIENTO, SpdLogAPI.B_VALIDACION, "."
 									, "SpdLog.tratamiento.validadoPorConfirmacion", "." );
-						}catch(Exception e){}	//ConfirmaciÛn del tratamiento @@.
+						}catch(Exception e){}	//Confirmaci√≥n del tratamiento @@.
 						
 					}
 
@@ -490,7 +490,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 	
 	
 	/**
-	 * MÈtodo que actualiza los datos del detalle, cruz·ndolo con los datos de gestiÛn.
+	 * M√©todo que actualiza los datos del detalle, cruz√°ndolo con los datos de gesti√≥n.
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -514,14 +514,14 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 			
 			FicheroResiBean  frbean = FicheroResiDetalleDAO.getFicheroResiDetalleByIdOid(getIdUsuario(), formulari.getOidFicheroResiDetalle());
 
-			//para registros que no se han creado autom·ticamente, sino podrÌan volver a actualizarse de inicio, lo que supondrÌa incoherencias 
+			//para registros que no se han creado autom√°ticamente, sino podr√°an volver a actualizarse de inicio, lo que supondr√≠a incoherencias 
 			if(frbean.getIdEstado()!=null && !frbean.getIdEstado().equals(SPDConstants.REGISTRO_CREADO_AUTOMATICAMENTE) && !frbean.getIdEstado().equals(SPDConstants.REGISTRO_CREADO_AUTOM_SECUENCIA_GUIDE))
 			{
 				//if(frbean!=null && (frbean.getSpdCnFinal()==null ||  frbean.getSpdCnFinal().equals("")))
 				GestSustitucionesLiteDAO.buscaSustitucionLite(getIdUsuario(), frbean);
 			}
 					
-				//TODO para que refresque sin dar  m·s clicks pero habrÌa que hacer que solo hubiera un update
+				//TODO para que refresque sin dar  m√°s clicks pero habr√≠a que hacer que solo hubiera un update
 		
 				HelperSPD.controlAlertasRegistro(frbean);
 		      	HelperSPD.detectarPeriodoEdicion(getIdUsuario(), frbean);
@@ -539,7 +539,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 				
 				
 				/**
-				 * 20241015 - Este punto es importante, aunque haya redundancia del mÈtodo de nuevo, hay que volver a llamarlo para que trate los ttos que se desdoblan y que son periÛdicos. (Aegerus)
+				 * 20241015 - Este punto es importante, aunque haya redundancia del m√©todo de nuevo, hay que volver a llamarlo para que trate los ttos que se desdoblan y que son peri√≥dicos. (Aegerus)
 				 */
 		      	HelperSPD.detectarPeriodoEdicion(getIdUsuario(), frbean);
 		  	    
@@ -553,9 +553,9 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 				formulari.setCamposPantallaBean(camposPantallaBean);
 				if(frbean.getSpdAccionBolsa().equalsIgnoreCase(SPDConstants.SPD_ACCIONBOLSA_SOLO_INFO) || frbean.getSpdAccionBolsa().equalsIgnoreCase(SPDConstants.SPD_ACCIONBOLSA_PASTILLERO))
 				{
-					frbean.setValidar(SPDConstants.REGISTRO_VALIDAR);	//al reiniciar la sustituciÛn forzamos una confirmaciÛn posterior
+					frbean.setValidar(SPDConstants.REGISTRO_VALIDAR);	//al reiniciar la sustituci√≥n forzamos una confirmaci√≥n posterior
 					//frbean.setConfirmar("");
-					frbean.setConfirmar(SPDConstants.REGISTRO_CONFIRMAR);	//al reiniciar la sustituciÛn forzamos una confirmaciÛn posterior
+					frbean.setConfirmar(SPDConstants.REGISTRO_CONFIRMAR);	//al reiniciar la sustituci√≥n forzamos una confirmaci√≥n posterior
 				}
 				
 				ControlSPD.aplicarControles(getIdUsuario(), frbean);
@@ -567,7 +567,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 					errors.add( "Registro refrescado correctamente ");
 					//volvemos a mostrar listado
 					formulari.setOidFicheroResiDetalle(0);
-					//INICIO eaciÛn de log en BBDD
+					//INICIO eaci√≥n de log en BBDD
 					try{
 						SpdLogAPI.addLog(getIdUsuario(),  frbean.getResiCIP(),  frbean.getIdDivisionResidencia(), frbean.getIdProceso()
 								, SpdLogAPI.A_TRATAMIENTO, SpdLogAPI.B_EDICION, ".", "SpdLog.tratamiento.refrescar",  HelperSPD.tratamientoLog(frbean) );//variables
@@ -621,11 +621,11 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 			{
 				return list(mapping, form, request, response);
 			}
-	   		//Volvemos a poner list porque se quedarÌa exportExcel en cualquier acciÛn posterior
+	   		//Volvemos a poner list porque se quedar√≠a exportExcel en cualquier acci√≥n posterior
 			formulari.setACTIONTODO("list");
 			
 
-		//	inicializamos para que no haya datos de otros mÛdulos
+		//	inicializamos para que no haya datos de otros m√≥dulos
 			ExcelFilasConInfo excelCreator = new ExcelFilasConInfo();
 			HSSFWorkbook workbook = excelCreator.createWorkbook(formulari, dao.getFilasConMensajesInfo(getIdUsuario(), formulari.getIdProceso()));
 			String nombreFichero = formulari.getIdProceso().replace("general_",  "")+"_/exportFilasConInfo.xls";
@@ -635,7 +635,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 	        out.flush();
 	        out.close();
 	        
-			//INICIO eaciÛn de log en BBDD
+			//INICIO eaci√≥n de log en BBDD
 			try{
 				SpdLogAPI.addLog(getIdUsuario(), "",  formulari.getIdDivisionResidencia(), formulari.getIdProceso()
 						, SpdLogAPI.A_TRATAMIENTO, SpdLogAPI.B_EXPORTACION, ".", "SpdLog.tratamiento.exportacion.info", nombreFichero  );//variables
@@ -660,12 +660,12 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 			{
 				return list(mapping, form, request, response);
 			}
-	   		//Volvemos a poner list porque se quedarÌa exportExcel en cualquier acciÛn posterior
+	   		//Volvemos a poner list porque se quedar√≠a exportExcel en cualquier acci√≥n posterior
 			formulari.setACTIONTODO("list");
 			
 			String nombreFichero = formulari.getIdProceso().replace("general_",  "")+"_/exportSustPendientes.xls";
 
-		//	inicializamos para que no haya datos de otros mÛdulos
+		//	inicializamos para que no haya datos de otros m√≥dulos
 			ExcelSustitucionesPendientes  excelCreator = new ExcelSustitucionesPendientes();
 			HSSFWorkbook workbook = excelCreator.createWorkbook(formulari, dao.getSustitucionesPendientes(formulari.getIdDivisionResidencia(), formulari.getIdProceso()));
 		
@@ -675,7 +675,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 	        out.flush();
 	        out.close();
 	        
-			//INICIO eaciÛn de log en BBDD
+			//INICIO eaci√≥n de log en BBDD
 			try{
 				SpdLogAPI.addLog(getIdUsuario(), "",  formulari.getIdDivisionResidencia(), formulari.getIdProceso()
 						, SpdLogAPI.A_TRATAMIENTO, SpdLogAPI.B_EXPORTACION, ".", "SpdLog.tratamiento.exportacion.info",  new String[]{ formulari.getIdProceso(), nombreFichero}  );//variables
@@ -704,7 +704,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 			{
 				return list(mapping, form, request, response);
 			}
-	   		//Volvemos a poner list porque se quedarÌa exportExcel en cualquier acciÛn posterior
+	   		//Volvemos a poner list porque se quedar√≠a exportExcel en cualquier acci√≥n posterior
 			formulari.setACTIONTODO("list");
 			
 			//recuperamos la cabecera del listado
@@ -714,7 +714,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 
 			
 			
-		//	inicializamos para que no haya datos de otros mÛdulos
+		//	inicializamos para que no haya datos de otros m√≥dulos
 			ExcelFicheroResiDetallePlantUnifLite excelCreator = new ExcelFicheroResiDetallePlantUnifLite();
 			List results = dao.getGestFicheroResiBolsa(getIdUsuario(), formulari.getOidFicheroResiDetalle(), formulari, 0, 100000, "", false,  " g.resiCIP, g.resiMedicamento ", true, false );
 			
@@ -731,7 +731,7 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 			// Lista para definir el orden deseado de las columnas
 	        List<String> ordenColumnas = Arrays.asList("resiToma1", "resiToma2", "resiToma3", "resiToma41", "resiToma5", "resiToma7", "resiToma8", "resiToma6"); // Utilizando Arrays.asList()
 
-	        // Llamar a la funciÛn para reorganizar las columnas
+	        // Llamar a la funci√≥n para reorganizar las columnas
 	        List<FicheroResiBean> resultadosReorganizados = HelperSPD.reordenarMatriz(resultsCab, ordenColumnas);
 
 	        // Imprimir los resultados reorganizados
@@ -773,31 +773,31 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
 */
 	
 	private void validarDatosFormulario(FicheroResiForm formulari) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		// Realiza la validaciÛn de la fecha aquÌ
+		// Realiza la validaci√≥n de la fecha Aqu√≠
 		String fechaInicio=formulari.getResiInicioTratamiento();
 		String fechaFin=formulari.getResiFinTratamiento();
 		
-		//validaciÛn de fechas
+		//validaci√≥n de fechas
 		if (fechaInicio!= null && !fechaInicio.trim().isEmpty() && !DateUtilities.isDateValid(fechaInicio, "dd/MM/yyyy")) 
                	formulari.getErrors().add("Fecha inicio tratamiento -  Formato incorrecto");
 		
 		if (fechaFin!= null && !fechaFin.trim().isEmpty() && !DateUtilities.isDateValid(fechaFin, "dd/MM/yyyy")) 
 	           formulari.getErrors().add("Fecha fin tratamiento -  Formato incorrecto");
 		        
-		//validaciÛn de tomas
-		 // Realiza la validaciÛn de los campos
+		//validaci√≥n de tomas
+		 // Realiza la validaci√≥n de los campos
 		BigDecimal number ;
         for (int i = 1; i <= 24; i++) {
             String fieldName = "ResiToma" + i;
-            String fieldValue = formulari.getClass().getMethod("get" + fieldName).invoke(formulari)!=nullÈformulari.getClass().getMethod("get" + fieldName).invoke(formulari).toString():"";
+            String fieldValue = formulari.getClass().getMethod("get" + fieldName).invoke(formulari)!=null?formulari.getClass().getMethod("get" + fieldName).invoke(formulari).toString():"";
 
 
-            // Verificar si el campo est· vacÌo o no es un n˙mero v·lido
+            // Verificar si el campo est√° vac√≠o o no es un n√∫mero v√°lido
             if (fieldValue != null && !fieldValue.equalsIgnoreCase("null") && !fieldValue.trim().isEmpty()) {
             	
             	try {
             		// number = Double.parseDouble(fieldValue);
-            		// Intenta parsear el valor como un n˙mero
+            		// Intenta parsear el valor como un n√∫mero
             		fieldValue = fieldValue.replace(',', '.');
             		
                      number = new BigDecimal(fieldValue);
@@ -805,8 +805,8 @@ public class FicheroResiDetalleLiteAction_PRE_ASTERISCOS extends GenericAction  
                          throw new NumberFormatException();  } 
                          
                 } catch (NumberFormatException e) {
-                    // El valor no es un n˙mero v·lido
-                	formulari.getErrors().add("Revisar n˙mero de la " + i + "™ toma " );
+                    // El valor no es un n√∫mero v√°lido
+                	formulari.getErrors().add("Revisar n√∫mero de la " + i + "  toma " );
                 }
    
             } 

@@ -74,11 +74,11 @@ public abstract class ConnectorImpl implements Connector {
       * Converteix 1 linea (en vector) al format del conector.
       * @param linTexto Vector d'Strings
       * @return String amb el format corresponent.
-      * 	null si linTexto no és un Vector de Srings o no és correcte
+      * 	null si linTexto no Ã©s un Vector de Srings o no Ã©s correcte
       */
     public String write(Vector linTexto){
     	
-    	// validem que és un vector de Strings
+    	// validem que Ã©s un vector de Strings
     	try {
     		String texto1 = (String)linTexto.get(0);
     	} catch (ClassCastException ce){

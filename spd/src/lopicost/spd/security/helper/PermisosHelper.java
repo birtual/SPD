@@ -10,7 +10,7 @@ import lopicost.config.pool.dbaccess.Conexion;
 public class PermisosHelper {
 	
 	/**
-	 * Permiso para poder confirmar. De momento es el nivel 1, pero hay que añadir una tabla para gestionarlo bien
+	 * Permiso para poder confirmar. De momento es el nivel 1, pero hay que aÃ±adir una tabla para gestionarlo bien
 	 * @param userId
 	 * @param idDivisionResidencia
 	 * @return

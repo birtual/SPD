@@ -34,8 +34,8 @@ public class XMLRobotDao
 	}
 */
     /**
-     * MÈtodo para bloquear un proceso para evitar concurrencia en caso de lanzar el mismo idProceso
-     * true en caso de exito en el bloqueo, false en caso de que el proceso est· bloqueado y por lo tanto no se podr· lanzar
+     * M√©todo para bloquear un proceso para evitar concurrencia en caso de lanzar el mismo idProceso
+     * true en caso de exito en el bloqueo, false en caso de que el proceso est√° bloqueado y por lo tanto no se podr√° lanzar
      * @param idUsuario
      * @param cab
      * @return
@@ -47,21 +47,21 @@ public class XMLRobotDao
 		
 		String 	query= " UPDATE SPD_XML_controlProcesos " ; 
 		query+= " SET enEjecucion = 1, fechaInicioEjecucion = GETDATE(), mensajeError = NULL ";
-		query+= " WHERE idProceso = '"+cab.getIdProceso()+"'  ;   "; // Solo si est· distinto
+		query+= " WHERE idProceso = '"+cab.getIdProceso()+"'  ;   "; // Solo si est√° distinto
 
 		return ejecutarSentencia(query);
 	}
 	
 
 	public static boolean crearRegistroBloqueo(String idUsuario, FicheroResiBean cab) throws ClassNotFoundException, SQLException {
-		System.out.println(HelperSPD.dameFechaHora() + " Inicio creaciÛn registro bloqueo " + cab.getIdProceso() );
+		System.out.println(HelperSPD.dameFechaHora() + " Inicio creaci√≥n registro bloqueo " + cab.getIdProceso() );
 		
 		String 	query= " INSERT INTO SPD_XML_controlProcesos (idProceso) " ; 
 		query+= " VALUES ('"+cab.getIdProceso()+"') ";
 		return ejecutarSentencia(query);
 	}
 
-	/** en caso que queden procesos colgado de m·s de 30 minutos/*
+	/** en caso que queden procesos colgado de m√°s de 30 minutos/*
 	 * @param idUsuario
 	 * @return
 	 * @throws ClassNotFoundException
@@ -205,7 +205,7 @@ public class XMLRobotDao
     		FicheroResiBean cabeceraTop=FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(idUsuario, cab.getOidFicheroResiCabecera());
 
 
-            // Construir la consulta din·mica
+            // Construir la consulta din√∫mica
             StringBuilder query = new StringBuilder(" SELECT ISNULL(p.planta, '') AS planta, d.resiCip as CIP, ISNULL(p.habitacion, '') AS habitacion, LEFT(d.spdCnFinal, 6) as CN  ");
             query.append(" , d.spdNombreBolsa, CASE d.spdAccionBolsa WHEN 'PASTILLERO' then 'S' ELSE 'N' END dispensar, d.spdNombreBolsa, d.spdAccionBolsa "  );
             query.append(" , d.fechaDesde, d.fechaHasta, d.resiD1, d.resiD2, d.resiD3, d.resiD4, d.resiD5, d.resiD6, d.resiD7  "  );
@@ -276,23 +276,23 @@ public class XMLRobotDao
            	String idFreeInformation=""; 
            	int numeroBolsa=0;
 
-           	Date dateObjetivo = bean.getDateDesde(); // inicializamos para recorrer los dÌas desde fechaDesde a fechaHasta
+           	Date dateObjetivo = bean.getDateDesde(); // inicializamos para recorrer los d√≠as desde fechaDesde a fechaHasta
            	Calendar calendario = Calendar.getInstance();
            	boolean dateObjetivoMarcado=dateObjetivoMarcado(calendario, dateObjetivo, bean);
            	
 			FicheroResiBean cabMadre = FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(idUsuario, cab.getOidFicheroResiCabecera());
-			//secuencia  de n˙mero de creaciones del fichero, para no solapar anteriores y diferenciar las  freeInformation enviados para bolsas 
+			//secuencia  de n√∫mero de creaciones del fichero, para no solapar anteriores y diferenciar las  freeInformation enviados para bolsas 
 			//int numeroCreacionesXML = cabMadre.getNumeroCreacionFicheroXML()+1;
 			String codigo = PlantillaUnificadaHelper.extraerUltimaParte(cabMadre.getIdProceso());
 
             	
-            //si el dÌa est· marcado, bucle de los dÌas de producciÛn SPD
+            //si el d√≠a est√° marcado, bucle de los d√≠as de producci√≥n SPD
            	//while(dateObjetivoMarcado && 
            	while( DateUtilities.isBeetwenTime(bean.getDateDesde(), bean.getDateHasta(), dateObjetivo) 
             		//&& DateUtilities.isBeetwenTime(bean.getDateInicioTratamiento(), bean.getDateFinTratamiento(), dateObjetivo)
             		&& count<32)  //count por seguridad en caso de de recibir fechas dispares por error
             {
-            	//si la fecha inicio/fin SPD no est· dentro pasamos al siguiente dÌa objetivo en el bucle
+            	//si la fecha inicio/fin SPD no est√° dentro pasamos al siguiente d√≠a objetivo en el bucle
             	if(!DateUtilities.isBeetwenTime(bean.getDateInicioTratamiento(), bean.getDateFinTratamiento(), dateObjetivo))
             	{
      	            //actualizamos calendario con la nueva fecha
@@ -332,7 +332,7 @@ public class XMLRobotDao
            				idFreeInformation+=StringUtil.substring(tramoToma, tramoToma.indexOf('[') + 1, 2);
            				idFreeInformation+=bean.getDispensar()!=null&&bean.getDispensar().equalsIgnoreCase("S")?"1":"0";
            				idFreeInformation+=numeroBolsa+"";
-           				//parece que el robot tiene limitaciÛn de caracteres, con 34 daba error en la carga. Limitamos a 25
+           				//parece que el robot tiene limitaci√≥n de caracteres, con 34 daba error en la carga. Limitamos a 25
        					//idFreeInformation = idFreeInformation.length() > 25 ? idFreeInformation.substring(idFreeInformation.length() - 25) : idFreeInformation;
 
                        	sql+= " ('"+idDivisionResidencia+"' ,'"+idProceso+"','"+bean.getCIP()+"','"+bean.getOrderNumber()+"','"+bean.getCN()+"','"+bean.getNombreMedicamento()+"'";
@@ -355,7 +355,7 @@ public class XMLRobotDao
 	
 	private static boolean dateObjetivoMarcado(Calendar calendario, Date dateObjetivo, DetallesTomasBean bean) {
       	calendario.setTime(dateObjetivo);
-       	//miramos si est· marcado el dÌa de la semana
+       	//miramos si est√° marcado el d√≠a de la semana
         int diaSemana =calendario.get(Calendar.DAY_OF_WEEK);
         // Ajustar para que Lunes sea 1, Martes sea 2, ..., Domingo sea 7
         diaSemana = (diaSemana == Calendar.SUNDAY) ? 7 : diaSemana - 1;
@@ -401,17 +401,17 @@ public class XMLRobotDao
            	String idFreeInformation=""; 
            	int numeroBolsa=0;
 
-           	Date dateObjetivo = bean.getDateDesde(); // inicializamos para recorrer los dÌas desde fechaDesde a fechaHasta
+           	Date dateObjetivo = bean.getDateDesde(); // inicializamos para recorrer los d√≠as desde fechaDesde a fechaHasta
            	Calendar calendario = Calendar.getInstance();
            	calendario.setTime(dateObjetivo);
                 
-           	//miramos si est· marcado el dÌa de la semana
+           	//miramos si est√° marcado el d√≠a de la semana
             int diaSemana =calendario.get(Calendar.DAY_OF_WEEK);
             boolean marcado = ( ( diaSemana==1 && bean.isSpdD1() ) || ( diaSemana==2 && bean.isSpdD2() )  || ( diaSemana==3 && bean.isSpdD3() ) || ( diaSemana==4 && bean.isSpdD4() )
             			 || ( diaSemana==5 && bean.isSpdD5() ) || ( diaSemana==6 && bean.isSpdD6() ) || ( diaSemana==7 && bean.isSpdD7() )
             			 );
             	
-            //si el dÌa est· marcado, bucle de los dÌas de producciÛn SPD
+            //si el d√≠a est√° marcado, bucle de los d√≠as de producci√≥n SPD
             while(marcado && DateUtilities.isBeetwenTime(bean.getDateDesde(), bean.getDateHasta(), dateObjetivo) && count<32)  //count por seguridad en caso de de recibir fechas dispares por error
             {
             	fechaTomaInsert= sdf.format(dateObjetivo);
@@ -508,7 +508,7 @@ public class XMLRobotDao
 	private static int getIdLineaRX(String iDbolsaFechaDispTramo, int numeroBolsas) {
 		int idLineaRX=9; //inicializada a la anterior a la 10, que es la primera
 		String key=iDbolsaFechaDispTramo + "_" + numeroBolsas;
-		//recuperamos el ˙ltimo idLineaRX guardado
+		//recuperamos el √∫ltimo idLineaRX guardado
 		idLineaRX =detalleContenidoBolsasTratadas.getOrDefault(key, 9);
 		//incrementamos en 1
 		idLineaRX++;
@@ -521,31 +521,31 @@ public class XMLRobotDao
 		int valorAcumulado = 0;
 		int valorNuevoAcumulado = 0;
 		int numBolsasAcumuladas = 0;	
-		//valor a partir del cual se cambia de bolsa, por defecto utilizamos PASTILLERO (el mÌnimo entre el m·ximo de lÌneas escritas y el m·x de pastillas por bolsa). 
+		//valor a partir del cual se cambia de bolsa, por defecto utilizamos PASTILLERO (el m√≠nimo entre el m√°ximo de l√≠neas escritas y el m√°x de pastillas por bolsa). 
 		int valorDeCorteBolsa=Math.min(SPDConstants.MAX_COMPRIMIDOS_POR_BOLSA,SPDConstants.MAX_LINEAS_PASTILLERO_POR_BOLSA); 
 		
 		if(dispensar!=null && dispensar.equals("N"))
 		{
 			valorDeCorteBolsa=SPDConstants.MAX_LINEAS_SOLO_INFO_POR_BOLSA;
-			valorToma="1"; //si es solo_info solo miramos lineas, ponemos 1 para que no cuente de m·s como comp
+			valorToma="1"; //si es solo_info solo miramos lineas, ponemos 1 para que no cuente de m√°s como comp
 		}
 			
-			//comprimidos hasta ahora (se redondea al entero m·s prÛximo porque media pastilla cuenta como una)
+			//comprimidos hasta ahora (se redondea al entero m√°s pr√°ximo porque media pastilla cuenta como una)
 			valorAcumulado = detalleBolsasTratadas.getOrDefault(iDbolsaFechaDispTramo, 0);
-			//miramos bolsas acumuladas hasta ahora, teniendo en cuenta el n˙mero menor entre max comprimidos o max lineas
+			//miramos bolsas acumuladas hasta ahora, teniendo en cuenta el n√∫mero menor entre max comprimidos o max lineas
 			numBolsasAcumuladas =	(int) Math.ceil((double) valorAcumulado/valorDeCorteBolsa);
 
 			
-			//por defecto nos darÌa 0, pero lo ponemos igualmente
+			//por defecto nos dar√≠a 0, pero lo ponemos igualmente
 			try {
 				//valor de la toma ...
 		    	double valorDouble = Double.parseDouble(valorToma);
 		        //... redondeado al entero superior
 		        int valorTomaRedondeado = (int) Math.ceil(valorDouble);
 		        valorNuevoAcumulado=    valorTomaRedondeado+valorAcumulado; 
-		        //miramos las bolsas con el valor que se le aÒade 
+		        //miramos las bolsas con el valor que se le a√±ade 
 		        int numBolsasAcumuladasNuevo =	(int) Math.ceil((double)  valorNuevoAcumulado/valorDeCorteBolsa);
-		        //Si salta de bolsa, aÒadimos una bolsa m·s
+		        //Si salta de bolsa, a√±adimos una bolsa m√°s
 		        if(numBolsasAcumuladasNuevo>numBolsasAcumuladas)
 		        	numBolsasAcumuladas=numBolsasAcumuladasNuevo;
 		                	
@@ -643,7 +643,7 @@ public class XMLRobotDao
     	String resiPauta=rs.getString("resiPauta"); //si llega de bbdd la recogemos 
     	//if(resiPauta==null || resiPauta.equalsIgnoreCase("")) // si no, la construimos
     	{ //ARREGLAR!!
-       	 // Llenar las tomas din·micas y de paso la pauta de residencia
+       	 // Llenar las tomas din√∫micas y de paso la pauta de residencia
             List<String> resiTomaList = new ArrayList<>();
               for (int i = 0; i < nombresTomas.size(); i++) {
                // String tomaColumnName = "resiToma" + posiciones.get(i);
@@ -754,7 +754,7 @@ public class XMLRobotDao
 
 
 	public static boolean procesarExcepciones(String idUsuario, FicheroResiBean cabGlobal, FicheroResiBean cabDetalle) throws Exception {
-		//ExcepciÛn Falguera, eliminar bolsas anteriores a las 16h del primer dÌa y posteriores a las 15h del ˙ltimo dÌa
+		//Excepci√≥n Falguera, eliminar bolsas anteriores a las 16h del primer d√≠a y posteriores a las 15h del √∫ltimo d√≠a
 		boolean result=true;
 		String sql ="";
 		
@@ -770,9 +770,9 @@ public class XMLRobotDao
 		fechaHasta = DateUtilities.convertFormatDateString(fechaHasta, "dd/MM/yyyy", "yyyyMMdd");
 
 		
-		//tratamiento de las tomas de inicio en el primer dÌa y las finales del ˙ltimo. Por el siguiente orden:
-		//1 - Se recupera de la configuraciÛn de la cabecera global de la producciÛn en curso por si se han modificado. 
-		//2 - En caso que no exista se recupera de la configuraciÛn general de las tomas de la residencia
+		//tratamiento de las tomas de inicio en el primer d√≠a y las finales del √∫ltimo. Por el siguiente orden:
+		//1 - Se recupera de la configuraci√≥n de la cabecera global de la producci√≥n en curso por si se han modificado. 
+		//2 - En caso que no exista se recupera de la configuraci√≥n general de las tomas de la residencia
 		//3 - Si existe alguno de los dos valores se borran los registros previos o posteriores.
 		
 		String horaInicioPrimerDia = cabGlobal.getNuevaTomaDesde();
@@ -814,7 +814,7 @@ public class XMLRobotDao
 		   String codigo ="";
 		   try{
 				FicheroResiBean cabMadre = FicheroResiCabeceraDAO.getFicheroResiCabeceraByOid(spdUsuario, cab.getOidFicheroResiCabecera());
-				//secuencia  de n˙mero de creaciones del fichero, para no solapar anteriores y diferenciar las  freeInformation enviados para bolsas 
+				//secuencia  de n√∫mero de creaciones del fichero, para no solapar anteriores y diferenciar las  freeInformation enviados para bolsas 
 				//int numeroCreacionesXML = cabMadre.getNumeroCreacionFicheroXML()+1;
 			   
 				String nombreProduccionRobot = cabMadre.getNombreProduccionRobot();
@@ -825,7 +825,7 @@ public class XMLRobotDao
 					//fechaArreglada = fechaArreglada!=null ? fechaArreglada.replace("/", ""):""; //quitamos "/" 
 					//nombreProduccionRobot= div.getLocationId()+"_"+fechaArreglada;
 
-					//En vez de fecha, ponemos el ˙ltimo String del idProceso, para poder diferenciar hay producciones con la misma fecha
+					//En vez de fecha, ponemos el √∫ltimo String del idProceso, para poder diferenciar hay producciones con la misma fecha
 					codigo = PlantillaUnificadaHelper.extraerUltimaParte(cabMadre.getIdProceso());
 					//nombreProduccionRobot= div.getLocationId()+"_"+codigo +"_"+numeroCreacionesXML ;
 					nombreProduccionRobot= div.getLocationId()+"_"+codigo ;
@@ -884,7 +884,7 @@ public class XMLRobotDao
 						
 					qry+=  " AND dtr.idProceso='"+cab.getIdProceso()+"' ";
 					qry+=  " order by dtr.idBolsa, dtr.dispensar, dtr.numbolsa, dtr.idLineaRX  ";
-					//ordenaciÛn importante  idBolsa contiene el cip y orden de la toma. dispensar para que salgan primero las N. Numero bolsa para que no mezcle contenido
+					//ordenaci√≥n importante  idBolsa contiene el cip y orden de la toma. dispensar para que salgan primero las N. Numero bolsa para que no mezcle contenido
 					
 		    		System.out.println(className + "--> getTratamientosDeProceso" +qry );		
 			     	ResultSet resultSet = null;
@@ -898,21 +898,21 @@ public class XMLRobotDao
 		 	         while (resultSet.next()) {
 		 	        	 String idBolsa="";
 		 	        	 CIP=resultSet.getString("patientId");
-		 	        	//comprobaciÛn que el CIP est· creado. En caso contrario se crea el objeto y se aÒade al TreeMap
+		 	        	//comprobaci√≥n que el CIP est√° creado. En caso contrario se crea el objeto y se a√±ade al TreeMap
 		 	        	if (!CIPS_TreeMap.containsKey(CIP)) 
 		 		      	{
-		 		      		// se crea el Patient si no se ha tratado prÈviamente 
+		 		      		// se crea el Patient si no se ha tratado pr√©viamente 
 		 		      		patient = new Patient();
 		 		      		//patient.setOrderNumber(resultSet.getString("freeInformation"));
 		 		      		patient.setOrderNumber(resultSet.getString("orderNumber"));
 		 		      		
-		 		      		patient.setOrderType("0"); //est· puesto a piÒÛn en los ficheros 4
+		 		      		patient.setOrderType("0"); //est√° puesto a pi√±√≥n en los ficheros 4
 		 		      		patient.setStartDate(StringUtil.makeFlat(resultSet.getString("fechaToma").replace("/", ""), false));
 		 		      		patient.setPatientId(StringUtil.makeFlat(CIP, true));
 		 		      		patient.setPatientName(StringUtil.makeFlat(resultSet.getString("patientName"), false));
 		 				    rx.getPatients().add(patient);
 
-		 		      		//aÒadimos en treemap
+		 		      		//a√±adimos en treemap
 		 			        CIPS_TreeMap.put(CIP, patient);
 		 		      	}
 		 	        	else 
@@ -922,7 +922,7 @@ public class XMLRobotDao
 		 	        		
 		 	        	idBolsa=resultSet.getString("idBolsa");
 		 	        	Pouch pouch = null;
-		 	        	//comprobaciÛn que la bolsa est· creada para aÒadir objetos en ella o crearla 
+		 	        	//comprobaci√≥n que la bolsa est√° creada para a√±adir objetos en ella o crearla 
 		 	        	if (!bolsas_TreeMap.containsKey(idBolsa)) 
 		 		      	{
 		 	        		pouch = new Pouch(); 
@@ -943,7 +943,7 @@ public class XMLRobotDao
 		 	        		Print printFecha = new Print();
 		 	        		SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy/MM/dd");
 		 	               	Date date = inputFormat.parse(resultSet.getString("startDate"));
-		 	        		SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, dd MMM yyyy", new Locale("es", "ES"));  //castellano por defecto, pero habrÌa que configurarlo
+		 	        		SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, dd MMM yyyy", new Locale("es", "ES"));  //castellano por defecto, pero habr√≠a que configurarlo
 		 	                String formattedDate = StringUtil.makeFlat(outputFormat.format(date), true);
 		 	        		//String fechaBolsa = DateUtilities.convertFormatDateString(formattedDate, "yyyy/MM/dd", "EEEE, dd MMM yyyy");
 		 	        		printFecha.setId( 51);			//nombre fecha en id=51
@@ -1068,7 +1068,7 @@ public class XMLRobotDao
 				sql+= " cantidadToma, dispensar, fechaToma, tramoToma, ";
 				sql+= " idToma, nombreToma, planta, habitacion, ";
 				sql+= " idFreeInformation, orderNumber ";
-				sql+= " ORDER BY fechaHoraProceso   ";   // conserva la fila m·s antigua
+				sql+= " ORDER BY fechaHoraProceso   ";   // conserva la fila m√°s antigua
 				sql+= " ) AS rn ";
 				sql+= " FROM dbo.SPD_XML_detallesTomasRobot where  idProceso='"+cab.getIdProceso()+"' ";
 				sql+= " ) ";

@@ -12,10 +12,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement(name = "pouch")
 public class Pouch {
 	@XmlAttribute(name = "idPouch")
-	private String idPouch;									// Identificador único de la bolsa de medicación que toma un paciente en un día. Si no se dispone de ella esta clave puede estar compuesta por la clave del paciente, la clave del tratamiento y la clave de la hora de la toma.
-	//private String codePouch;								// Identificador único de la bolsa de medicación que toma un paciente en un día. Si no se dispone de ella esta clave puede estar compuesta por la clave del paciente, la clave del tratamiento y la clave de la hora de la toma.
+	private String idPouch;									// Identificador Ãºnico de la bolsa de medicaciÃ³n que toma un paciente en un dÃ­a. Si no se dispone de ella esta clave puede estar compuesta por la clave del paciente, la clave del tratamiento y la clave de la hora de la toma.
+	//private String codePouch;								// Identificador Ãºnico de la bolsa de medicaciÃ³n que toma un paciente en un dÃ­a. Si no se dispone de ella esta clave puede estar compuesta por la clave del paciente, la clave del tratamiento y la clave de la hora de la toma.
 	private Dose dose;										// Contenido xml con la hora de la toma
-	private Lines lines = new Lines();						// Listado de medicamentos que tomará un paciente en diferentes periodo del día durante un periodo del tiempo.
+	private Lines lines = new Lines();						// Listado de medicamentos que tomarÃ¡ un paciente en diferentes periodo del dÃ­a durante un periodo del tiempo.
 	private boolean activa=false;
 	
 	//public String getIdPouch() 								{		return idPouch;				}

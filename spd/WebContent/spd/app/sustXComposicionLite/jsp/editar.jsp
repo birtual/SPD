@@ -13,7 +13,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Edici髇 sustituci髇</title>
+<title>Edici贸n sustituci贸n</title>
 
 </head>
 
@@ -41,7 +41,7 @@
 			f.submit();
 		}	
 
-		//funci髇 de carga del lookUp
+		//funci贸n de carga del lookUp
 		function doLookUpBdConsejo(filtroGtVmpp){				
 			var loc = '/spd/LookUpBdConsejo.do?parameter=init'+ 						//url de llamanda				
 				'&CallBackID=cn6'+			  			//Nombre del campo para el valor Id
@@ -61,7 +61,7 @@
 <body id="general">
 
 	<center>
-		<h2>Edici髇 sustituci髇</h2>
+		<h2>Edici贸n sustituci贸n</h2>
 		<html:form action="/SustXComposicionLite.do" method="post">	
 
 
@@ -84,7 +84,7 @@
 		<td>Nombre Conj Homog</td><td><bean:write name="data" property="nomGtVmpp" /></td>
 	</tr>	
 	<!--  tr>
-		<td>C骴igo Lab</td><td><bean:write name="data" property="codiLab"  /></td>
+		<td>C贸digo Lab</td><td><bean:write name="data" property="codiLab"  /></td>
 	</tr -->	
 	<tr>
 		<td>Nombre Lab Prioritario</td><td><bean:write name="data" property="nombreLab"  /></td>
@@ -99,10 +99,10 @@
 		<td>Comentario</td><td><html:text name="data" property="comentarios" styleClass="comentarios" /></td>
 	</tr>	
 	<tr>
-		<td>Fecha creaci髇</td><td><bean:write name="data" property="fechaCreacion"/></td>
+		<td>Fecha creaci贸n</td><td><bean:write name="data" property="fechaCreacion"/></td>
 	</tr>	
 	<tr>
-		<td>鷏tima modificacion</td><td><bean:write name="data" property="ultimaModificacion"/></td>
+		<td>煤ltima modificacion</td><td><bean:write name="data" property="ultimaModificacion"/></td>
 	</tr>	
 	<tr>
 		<td>CN a pedir</td><td><html:text name="data" property="cn6"/><a href="#" onclick="javascript:doLookUpBdConsejo('<bean:write name="data" property="codGtVmpp" />');">Buscar CN</a></td>
@@ -114,7 +114,7 @@
 		<td>Sustituible</td><td><html:text name="data" property="sustituible"/></td>
 	</tr>	
 		<tr>
-		<td>鷏tima modificacion</td><td><html:text name="data" property="nombreMedicamento"/></td>
+		<td>煤ltima modificacion</td><td><html:text name="data" property="nombreMedicamento"/></td>
 	</tr>	
 
 		

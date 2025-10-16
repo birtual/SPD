@@ -25,7 +25,7 @@ public class ControladorProcesos extends GenericAction implements ServletContext
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        System.out.println("Aplicación iniciada. Iniciando planificación de procesos...");
+        System.out.println("AplicaciÃ³n iniciada. Iniciando planificaciÃ³n de procesos...");
 
         // Crear el planificador (temporizador)
         planificador = Executors.newScheduledThreadPool(1);
@@ -34,11 +34,11 @@ public class ControladorProcesos extends GenericAction implements ServletContext
         planificador.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                System.out.println("Revisión periódica de procesos...");
+                System.out.println("RevisiÃ³n periÃ³dica de procesos...");
  				try {
 					evaluarYEjecutarProcesos();
 				} catch (SQLException e) {
-					// TODO Bloque catch generado automáticamente
+					// TODO Bloque catch generado automÃ¡ticamente
 					e.printStackTrace();
 				}
 
@@ -47,19 +47,19 @@ public class ControladorProcesos extends GenericAction implements ServletContext
         }, 0, 
         		//SPDConstants.PROCESO_FRECUENCIA_LISTENER+6000000
         		SPDConstants.PROCESO_FRECUENCIA_LISTENER
-        		, TimeUnit.SECONDS); // Ajusta el intervalo según sea necesario
+        		, TimeUnit.SECONDS); // Ajusta el intervalo segÃºn sea necesario
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("Aplicación detenida. Deteniendo planificación de procesos...");
+        System.out.println("AplicaciÃ³n detenida. Deteniendo planificaciÃ³n de procesos...");
         if (planificador != null) {
             planificador.shutdown();
         }
     }
 
     /** ok
-     * Método encargado de realizar los controles previos y ejecutar en su caso el proceso que sale del bucle
+     * MÃ©todo encargado de realizar los controles previos y ejecutar en su caso el proceso que sale del bucle
      * @throws SQLException
      */
     private void evaluarYEjecutarProcesos() throws SQLException {
@@ -81,22 +81,22 @@ public class ControladorProcesos extends GenericAction implements ServletContext
     	if(proceso==null) return result;
         System.out.println(HelperSPD.dameFechaHora() + " -  Lanzamiento de  = " + proceso.getLanzadera() + "");
 
-        // 1. Comprobar si hay ejecución activa y excede duración
+        // 1. Comprobar si hay ejecutÃ³ activa y excede duraciÃ³n
         helper.controlTiempoExcedido(proceso);
-    	// 2. Comprobamos errores  seguidos o intentos de ejecuciones desde el último ok
+    	// 2. Comprobamos errores  seguidos o intentos de ejecuciones desde el Ãºltimo ok
         //helper.controlMaxIntentosPrevios(proceso);
         //helper.controlMaxIntentos(proceso);
         // 3. (limpieza) Control de otros procesos que no se han cerrado ok
         helper.controlProcesosAnteriores(proceso);
-         // 3. Comprobación de si debe ejecutarse según frecuencia, hora y día 
+         // 3. ComprobaciÃ³n de si debe ejecutarse segÃºn frecuencia, hora y dÃ­a 
         result = helper.debeEjecutarse(idUsuario, proceso);
         if (result || !automatico) 
         {
             System.out.println(HelperSPD.dameFechaHora()  + " - evaluarYEjecutarProcesos / SI debeEjecutarse o Manual = " + automatico + "");
 
-        	//4. Si llegamos aquí es que no hay otra ejecución lanzada del proceso (última ejecución es null) 
+        	//4. Si llegamos aquÃ­ es que no hay otra ejecutÃ³ lanzada del proceso (Ãºltima ejecutÃ³ es null) 
             helper.ejecutarProceso(idUsuario, proceso);
-           	// 2. Comprobamos errores  seguidos o intentos de ejecuciones desde el último ok
+           	// 2. Comprobamos errores  seguidos o intentos de ejecuciones desde el Ãºltimo ok
            helper.controlMaxIntentos(proceso);
 
         }
@@ -106,7 +106,7 @@ public class ControladorProcesos extends GenericAction implements ServletContext
 
 
 	/** ok
-     * Devuelve una lista de procesos activos y que se procesan de forma automática
+     * Devuelve una lista de procesos activos y que se procesan de forma automÃ¡tica
      * @return
      * @throws SQLException
      */ 

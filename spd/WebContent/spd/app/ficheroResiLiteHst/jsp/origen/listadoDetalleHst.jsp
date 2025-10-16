@@ -127,7 +127,7 @@
 			</html:select>
 		</th>
 	
-		<!-- Acción bolsa -->
+		<!-- AcciÃ³n bolsa -->
 		  <th >
 			<html:select property="seleccionSpdAccionBolsa"  value="${formulari.seleccionSpdAccionBolsa}" onchange="javascript:goSubmit();" styleClass="ancho_7" >    
 	   			<html:option value="">Todos</html:option>
@@ -235,11 +235,11 @@
 		<!-- inicio-fin tratamiento -->
 		<th nowrap></th>
 
-		<!-- Días semana -->
+		<!-- DÃ­as semana -->
 		<th></th><th></th><th></th><th></th><th></th><th></th><th></th>	  
 	
 
-		<!-- Tomas día -->
+		<!-- Tomas dÃ­a -->
 	<logic:notEmpty name="FicheroResiForm" property="listaTomasCabecera">	
 	 	<logic:iterate id="dose" name="FicheroResiForm" property="listaTomasCabecera" type= "lopicost.spd.helium.model.Dose" >
 		 		<th class="<bean:write  name="dose" property="tipo" />"></th>
@@ -295,7 +295,7 @@
 
 
  	<tr>
- 		<th>nº fila			<a href="javascript:void(0);" onclick="ordenarPor('row asc')" class="boton-up"></a><a href="javascript:void(0);" onclick="ordenarPor('row desc')" class="boton-down"></a></th>
+ 		<th>nÂº fila			<a href="javascript:void(0);" onclick="ordenarPor('row asc')" class="boton-up"></a><a href="javascript:void(0);" onclick="ordenarPor('row desc')" class="boton-down"></a></th>
 		<th>alertas</th>
 		<th>acciones</th>
 		<!-- validar -->	  
@@ -317,8 +317,8 @@
 		<!-- Forma medicacion -->
 		<th >Forma medicacion			<a href="javascript:void(0);" onclick="ordenarPor('spdFormaMedicacion asc')" class="boton-up"></a><a href="javascript:void(0);" onclick="ordenarPor('spdFormaMedicacion desc')" class="boton-down"></a></th>
 	
-		<!-- Acción bolsa -->
-		<th >Acción bolsa				<a href="javascript:void(0);" onclick="ordenarPor('spdAccionBolsa asc')" class="boton-up"></a><a href="javascript:void(0);" onclick="ordenarPor('spdAccionBolsa desc')" class="boton-down"></a></th> 	
+		<!-- AcciÃ³n bolsa -->
+		<th >AcciÃ³n bolsa				<a href="javascript:void(0);" onclick="ordenarPor('spdAccionBolsa asc')" class="boton-up"></a><a href="javascript:void(0);" onclick="ordenarPor('spdAccionBolsa desc')" class="boton-down"></a></th> 	
 	
 		<!-- Si Precisa-->
 		<th>Si Precisa</th>	 
@@ -349,17 +349,17 @@
 		
 <c:choose>
     <c:when test="${not empty FicheroResiForm.listaResiTipoMedicacion}">
-        <th > Tipo medicación 		<a href="javascript:void(0);" onclick="ordenarPor('resiTipoMedicacion asc')" class="boton-up"></a><a href="javascript:void(0);" onclick="ordenarPor('resiTipoMedicacion desc')" class="boton-down"></a></th>
+        <th > Tipo medicaciÃ³n 		<a href="javascript:void(0);" onclick="ordenarPor('resiTipoMedicacion asc')" class="boton-up"></a><a href="javascript:void(0);" onclick="ordenarPor('resiTipoMedicacion desc')" class="boton-down"></a></th>
     </c:when>
 </c:choose>
 		
 		<!-- inicio-fin tratamiento -->
 		<th >inicio-fin tratamiento
 	 	
-		<!-- Días de la semana -->
+		<!-- DÃ­as de la semana -->
 		<th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th><th>D</th>	  
 	
-		<!-- Tomas del día -->
+		<!-- Tomas del dÃ­a -->
 		<logic:notEmpty name="FicheroResiForm" property="listaTomasCabecera">	
 		 	<logic:iterate id="dose" name="FicheroResiForm" property="listaTomasCabecera" type= "lopicost.spd.helium.model.Dose" >
 		 		<th><bean:write  name="dose" property="name" /></th>
@@ -419,10 +419,10 @@
     if (data != null) {
         if (data!=null && data.getControlNumComprimidos()!=null && data.getControlNumComprimidos().equals(SPDConstants.CTRL_NCOMPRIMIDOS_IGUAL)) {
         	claseCSS_1 = "verde";
-        	altText_1 = "Coincide el número de comprimidos resi-robot";
+        	altText_1 = "Coincide el nÃºmero de comprimidos resi-robot";
         } else if (data!=null && data.getControlNumComprimidos()!=null && data.getControlNumComprimidos().equals(SPDConstants.CTRL_NCOMPRIMIDOS_DIFERENTE)) {
         	claseCSS_1 = "rojo";
-        	altText_1 = "ALERTA: número de comprimidos diferente resi-robot";
+        	altText_1 = "ALERTA: nÃºmero de comprimidos diferente resi-robot";
         }
         else {
         	claseCSS_1 = "naranja";
@@ -442,7 +442,7 @@
         	altText_2 = "REVISAR registro, la salida es igual que la anterior, pero los datos de la resi son diferentes.";
         } else if (data.getControlRegistroAnterior().equals(SPDConstants.CTRL_REGISTRO_ANTERIOR_RI_SD)) {
         	claseCSS_2 = "rojo";
-        	altText_2 = "ALERTA: Revisar bien el tratamiento. Se envía diferente a la anterior producción";
+        	altText_2 = "ALERTA: Revisar bien el tratamiento. Se envÃ­a diferente a la anterior producciÃ³n";
         } else if (data.getControlRegistroAnterior().equals(SPDConstants.CTRL_REGISTRO_ANTERIOR_RD_SD)) {
         	claseCSS_2 = "azul";
         	altText_2 = "Registro nuevo";
@@ -459,13 +459,13 @@
     if (data != null) {
         if (data!=null && data.getControlRegistroRobot()!=null && data.getControlRegistroRobot().equals(SPDConstants.CTRL_ROBOT_SE_ENVIA_A_ROBOT)) {
         	claseCSS_3 = "verde";
-        	altText_3 = "Se envía a robot";
+        	altText_3 = "Se envÃ­a a robot";
         } else if (data!=null && data.getControlRegistroRobot()!=null && data.getControlRegistroRobot().equals(SPDConstants.CTRL_ROBOT_NO_SE_ENVIA)) {
         	claseCSS_3 = "gris";
-        	altText_3 = "No se envía a robot";
+        	altText_3 = "No se envÃ­a a robot";
         } else {
         	claseCSS_3 = "blanco";
-        	altText_3 = "Revisar acción en bolsa del tratamiento";
+        	altText_3 = "Revisar acciÃ³n en bolsa del tratamiento";
         	}
    
     }

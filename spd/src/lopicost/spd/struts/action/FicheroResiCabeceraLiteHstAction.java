@@ -28,20 +28,20 @@ public class FicheroResiCabeceraLiteHstAction extends GenericAction  {
 			throws Exception {
 		FicheroResiForm formulari =  (FicheroResiForm) form;
 		
-		//inicializamos para que no haya datos de otros m骴ulos al venir de un borrado por ejemplo
+		//inicializamos para que no haya datos de otros m贸dulos al venir de un borrado por ejemplo
 		formulari.setOidFicheroResiCabecera(0);
 		formulari.setListaFicheroResiCabeceraBean(dao.getListaDivisionResidenciasCargadas(getIdUsuario(), true));
-		//paginaci髇
+		//paginaci贸n
 		int currpage = actualizaCurrentPage(formulari, dao.getCountGestFicheroResi(getIdUsuario(), formulari, true));
 		formulari.setListaDivisionResidenciasCargadas(dao.getListaDivisionResidenciasCargadas(getIdUsuario(), true));
 	
 		formulari.setListaFicheroResiCabeceraBean(dao.getGestFicheroResi(getIdUsuario(), formulari, currpage*SPDConstants.PAGE_ROWS,(currpage+1)*SPDConstants.PAGE_ROWS, null, false, true));
 	
-		//INICIO creaci髇 de log en BBDD
+		//INICIO creaci贸n de log en BBDD
 		try{
 			SpdLogAPI.addLog(getIdUsuario(), "",  "", "",  SpdLogAPI.A_TRATAMIENTO, SpdLogAPI.B_ACCESO, SpdLogAPI.C_LISTADO_HIST, "SpdLog.tratamiento.consulta.acceso_listado_hist", getIdUsuario());
 		}catch(Exception e){}	 //Consulta del listado de tratamientos 
-		//FIN creaci髇 de log en BBDD
+		//FIN creaci贸n de log en BBDD
 		
 		return mapping.findForward("list");
 	}
@@ -50,7 +50,7 @@ public class FicheroResiCabeceraLiteHstAction extends GenericAction  {
 	public ActionForward detalle(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		FicheroResiForm formulari =  (FicheroResiForm) form;
-		//creaci髇 de log en BBDD
+		//creaci贸n de log en BBDD
 		try{
 			SpdLogAPI.addLog(getIdUsuario(), "",  formulari.getIdDivisionResidencia(), formulari.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CONSULTA, SpdLogAPI.C_DETALLE, "SpdLog.produccion.consulta.detalle", formulari.getIdProceso() );
 		}catch(Exception e){}	//SpdLog.produccion.consulta.detalle
@@ -71,7 +71,7 @@ public class FicheroResiCabeceraLiteHstAction extends GenericAction  {
 	
 
 	/**
-	 * m閠odo de ayuda a la paginaci髇
+	 * m茅todo de ayuda a la paginaci贸n
 	 * @param aForm
 	 * @param numberObjects
 	 * @return

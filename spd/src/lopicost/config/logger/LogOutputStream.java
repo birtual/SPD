@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import java.io.OutputStream;
 
 /**
- * Clase auxiliar para redirigir la salida est·ndar a un logger de Log4j.
+ * Clase auxiliar para redirigir la salida est√°ndar a un logger de Log4j.
  */
 public class LogOutputStream extends OutputStream {
     private final Logger logger;
@@ -14,7 +14,7 @@ public class LogOutputStream extends OutputStream {
     /**
      * Constructor para redirigir los logs al logger especificado.
      * 
-     * @param logger Logger de Log4j donde se redirigir·n los mensajes.
+     * @param logger Logger de Log4j donde se redirigir√°n los mensajes.
      * @param level Nivel del log (INFO, DEBUG, ERROR, etc.).
      */
     public LogOutputStream(Logger logger, int level) {
@@ -26,14 +26,14 @@ public class LogOutputStream extends OutputStream {
     public void write(int b) {
         char c = (char) b;
 
-        // Cuando se detecta un salto de lÌnea, se escribe el contenido al logger
+        // Cuando se detecta un salto de l√≠nea, se escribe el contenido al logger
         if (c == '\n' || c == '\r') {
             if (buffer.length() > 0) {
                 logger.log(convertLevel(level), buffer.toString());
                 buffer.setLength(0); // Limpia el buffer
             }
         } else {
-            buffer.append(c); // Agrega el car·cter al buffer
+            buffer.append(c); // Agrega el car√°cter al buffer
         }
     }
 

@@ -13,15 +13,15 @@ import org.w3c.dom.Element;
 @XmlRootElement(name = "treatment")
 public class Treatment {
 	@XmlAttribute(name = "idTreatment")
-	private String idTreatment;								// Identificador único del tratamiento en el centro. Un paciente puede tener varios tratamientos. Puede ser una clave compuesta, siempre vinculada al tratamiento del paciente. Si solo existe un tratamiento se puede coger como valor la clave del identificador del paciente.
-//	private String codeTreatment;							// Identificador único del tratamiento en el centro. Un paciente puede tener varios tratamientos. Puede ser una clave compuesta, siempre vinculada al tratamiento del paciente. Si solo existe un tratamiento se puede coger como valor la clave del identificador del paciente.
-	private String idReceipt;								// Identificador único de la receta.
-	private boolean active;									// Indica si el tratamiento está o no activo en este momento, puede tomar un valor true o false.
+	private String idTreatment;								// Identificador Ãºnico del tratamiento en el centro. Un paciente puede tener varios tratamientos. Puede ser una clave compuesta, siempre vinculada al tratamiento del paciente. Si solo existe un tratamiento se puede coger como valor la clave del identificador del paciente.
+//	private String codeTreatment;							// Identificador Ãºnico del tratamiento en el centro. Un paciente puede tener varios tratamientos. Puede ser una clave compuesta, siempre vinculada al tratamiento del paciente. Si solo existe un tratamiento se puede coger como valor la clave del identificador del paciente.
+	private String idReceipt;								// Identificador Ãºnico de la receta.
+	private boolean active;									// Indica si el tratamiento estÃ¡ o no activo en este momento, puede tomar un valor true o false.
 	@XmlElement
 	private String startTreatment;							// Fecha de inicio del tratamiento en formato dd-mm-yyyy hh:mm.
 	@XmlElement
-	private String endTreatment;							// Fecha de finalización del tratamiento en formato dd-mm-yyyy hh:mm.
-	private Pouches pouches = new Pouches();	// Bolsas de medicación que puede tomar un paciente en un día en diferentes periodos del día.
+	private String endTreatment;							// Fecha de finalizaciÃ³n del tratamiento en formato dd-mm-yyyy hh:mm.
+	private Pouches pouches = new Pouches();	// Bolsas de medicaciÃ³n que puede tomar un paciente en un dÃ­a en diferentes periodos del dÃ­a.
 	
 	//public String getIdTreatment() 							{		return idTreatment;						}
 	public void setIdTreatment(String idTreatment) 			{		this.idTreatment = idTreatment;			}

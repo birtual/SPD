@@ -35,7 +35,7 @@ public class ImportSustituciones extends ImportProcessImpl
 		super();
 	}
 
-	/**los ficheros han de venir con cabecera. Se tendr� en cuenta a partir de la fila 2**/	
+	/**los ficheros han de venir con cabecera. Se tendrá en cuenta a partir de la fila 2**/	
     protected boolean beforeProcesarEntrada(Vector row) throws Exception 
     {
     	return true;
@@ -51,7 +51,7 @@ public class ImportSustituciones extends ImportProcessImpl
      
     
     /*
-     * Las Onadas llegan con 5 pautas de tomas--> desayuno / comida / merienda / cena /resop�n
+     * Las Onadas llegan con 5 pautas de tomas--> desayuno / comida / merienda / cena /resopón
      * (non-Javadoc)
      * @see lopicost.spd.iospd.importdata.process.ImportProcessImpl#procesarEntrada(java.lang.String, java.lang.String, java.util.Vector, int)
      */
@@ -87,7 +87,7 @@ public class ImportSustituciones extends ImportProcessImpl
        	BdConsejo consejo = BdConsejoDAO.getBdConsejobyCN(sust.getCnOk());
        	sust.setNombreMedicamentoOk(consejo!=null?consejo.getNombreConsejo():(String) row.elementAt(3));						// BdConsejo o nombreBolsa
        	sust.setFormaFarmaceuticaSustitucion(consejo!=null?consejo.getNombreFormaFarmaceutica():(String) row.elementAt(4));		// BdConsejo o FORMA Excel
-		sust.setAccion((String) row.elementAt(5));											//acci�n
+		sust.setAccion((String) row.elementAt(5));											//acción
 		sust.setComentario((String) row.elementAt(6));										//comentario
 		String sustituible = (String) row.elementAt(7);
 		sust.setSustituible(sustituible!=null && sustituible.equals("NO")?"0":"1");
@@ -123,8 +123,8 @@ public class ImportSustituciones extends ImportProcessImpl
 	        	sustXResi.setNombreCortoSustXResi(sust.getNombreCorto());						//nombreBolsa
 	        	sustXResi.setCodGtVmppOkSustXResi(sust.getCodGtVmppOk());
 	        	sustXResi.setNomGtVmppOkSustXResi(sust.getNomGtVmppOk());
-	    		sustXResi.setOidDivisionResidencia(new Integer(divResi.getOidDivisionResidencia()).intValue());			//acci�nSustXResi
-	    		sustXResi.setIdDivisionResidencia(divResi.getIdDivisionResidencia());			//acci�nSustXResi
+	    		sustXResi.setOidDivisionResidencia(new Integer(divResi.getOidDivisionResidencia()).intValue());			//acciónSustXResi
+	    		sustXResi.setIdDivisionResidencia(divResi.getIdDivisionResidencia());			//acciónSustXResi
 	    		sustXResi.setAccionSustXResi((String) row.elementAt(9));
 	    		sustXResi.setComentarioSustXResi((String) row.elementAt(10));
 	    		String sustituibleXResi = (String) row.elementAt(11);

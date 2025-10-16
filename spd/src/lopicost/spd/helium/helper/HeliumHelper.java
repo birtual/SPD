@@ -58,7 +58,7 @@ public class HeliumHelper {
 	
 
 	/**
-	 * MÈtodo principal encargado de englobar toda la lÛgica de creaciÛn
+	 * M√©todo principal encargado de englobar toda la l√≥gica de creaci√≥n
 	 * @param formulari
 	 * @return
 	 * @throws Exception
@@ -76,12 +76,12 @@ public class HeliumHelper {
 		formulari.setListaTomasCabecera(getTomasCabecera(cab));	
 		Doses_TreeMap = getDoses(cab);
 
-		//creaciÛn del centro
+		//creaci√≥n del centro
 		Center careHome = new Center();
 	    Patients patients = new Patients();
 		creaCenter(spdUsuario, careHome, formulari);
 
-		//recuperaciÛn de los registros totales
+		//recuperaci√≥n de los registros totales
 		//List<FicheroResiBean> registros=FicheroResiDetalleDAO.getGestFicheroResiBolsa(-1, formulari,  0,10000, null, false, null, false, true);  
 		List<FicheroResiBean> registros=FicheroResiDetalleDAO.getGestFicheroResiBolsa( spdUsuario, -1, formulari,  0,100000, null, false, "g.resiCIP, g.SpdNombreBolsa, g.resiInicioTratamiento ", true, false);  
 		Iterator<FicheroResiBean> it= registros.iterator();
@@ -103,10 +103,10 @@ public class HeliumHelper {
 	      	String CIP = StringUtil.replaceInvalidCharsForRobot(registro.getResiCIP());
 	      	if (!CIPS_TreeMap.containsKey(CIP)) 
 	      	{
-	      		// se crea el Patient si no se ha tratado prÈviamente 
+	      		// se crea el Patient si no se ha tratado pr√©viamente 
 	      		patient = new Patient(Doses_TreeMap);
 	      		creaPatient(patient, registro);
-	      		//aÒadimos en treemap
+	      		//a√±adimos en treemap
 		        CIPS_TreeMap.put(CIP, patient);
 			    patients.add(patient);
 	      	} 
@@ -114,7 +114,7 @@ public class HeliumHelper {
 	      	patient = (Patient) CIPS_TreeMap.get(CIP);
 	
 	      	//Un treatment por residente, con todas los medicamentos en el treatment
-		    //recorrido por las tomas y creaciÛn de los tratamientos
+		    //recorrido por las tomas y creaci√≥n de los tratamientos
 		    boolean hayDose =false;
 		    String[] resiTomas = new String[24];
 		    
@@ -128,12 +128,12 @@ public class HeliumHelper {
 	  			    String fieldName = "getResiToma" + (i + 1);
 	  			    //System.out.println(" resiTomas[i] -->  " + i + " " + resiTomas[i]);
 
-	  			    resiTomas[i] = evaluarCampo(fieldName, registro); // Llama a la funciÛn evaluarCampo con el nombre del campo y el objeto registro
+	  			    resiTomas[i] = evaluarCampo(fieldName, registro); // Llama a la funci√≥n evaluarCampo con el nombre del campo y el objeto registro
 	  	        	if(checkTomaRegistroNoVacia(resiTomas[i]))
 	  	        	{
 		  			    //System.out.println(" checkTomaRegistroNoVacia resiTomas[i]-->  " + i + " " + resiTomas[i]);
 	  	        		
-		  			    //si pertenece a la bolsa OTROS hay que ponerlo en el ˙ltimo registro
+		  			    //si pertenece a la bolsa OTROS hay que ponerlo en el √∫ltimo registro
 		  				/*if(registro.getTipoEnvioHelium().equals("0")) //0 --> Otros (no_pintar, Si_precisa, pauta 0,1)
 		  				{
 		  					ponerloEnDoseOtros(patient, registro);
@@ -150,7 +150,7 @@ public class HeliumHelper {
 	  		        	//IdLine
 	  		        	//line.setIdLine(patient.getTreatments().getList().get(0).getCodeTreatment() + "-"+patient.getTreatments().getList().get(0).getPouches().getList().get(i).getDose().getCodeDose()+"-"+registro.getRow()+"_"+registro.getContador());
 	  		        	String idLine = StringUtil.left(patient.getTreatments().getList().get(0).getCodeTreatment(), 25) + "-"+patient.getTreatments().getList().get(0).getPouches().getList().get(i).getDose().getCodeDose()+"-"+registro.getRow()+"_"+registro.getContador();
-	  		        	line.setIdLine(StringUtil.right(idLine, 50));	//aseguramos que no pase de 50 (m·ximo Helium)
+	  		        	line.setIdLine(StringUtil.right(idLine, 50));	//aseguramos que no pase de 50 (m√°ximo Helium)
 
 	  		        	
 	  		        	patient.getTreatments().getList().get(0).getPouches().getList().get(i).setActiva(true);
@@ -160,7 +160,7 @@ public class HeliumHelper {
 	      	}
 	
 		        	
-	      	//Asignamos el NO_PINTAR a la ˙ltima dose reservada para los tratamientos sin pauta
+	      	//Asignamos el NO_PINTAR a la √∫ltima dose reservada para los tratamientos sin pauta
 	      	if(!hayDose)
 	      	{
 	      		creaDoseOtros(patient, registro, new Line());
@@ -233,7 +233,7 @@ public class HeliumHelper {
 	
 	
 	/**
-	 * CreaciÛn del centro
+	 * Creaci√≥n del centro
 	 * @param careHome
 	 * @param formulari
 	 * @throws Exception 
@@ -258,7 +258,7 @@ public class HeliumHelper {
 		// careHome.setName(cab.getIdDivisionResidencia());
 		careHome.setIdCareHome(formulari.getIdDivisionResidencia());
 		careHome.setIdProceso(formulari.getIdProceso());
-		//careHome.setCountry("EspaÒa");
+		//careHome.setCountry("Espa√±a");
 		careHome.setActive(true);
 		careHome.setDoses(getDosesTreemapToList(Doses_TreeMap));
 	        
@@ -267,7 +267,7 @@ public class HeliumHelper {
 	}
 
 	/**
-	 * CreaciÛn de la instancia Patient
+	 * Creaci√≥n de la instancia Patient
 	 * @param patient
 	 * @param registro
 	 * @throws Exception 
@@ -339,13 +339,13 @@ public class HeliumHelper {
 		int i = patient.getTreatments().getList().get(0).getPouches().getList().size();
 		//line.setIdLine();
 		String idLine = StringUtil.left(registro.getResiCIP(), 14) +"-T1-OTROS-" + registro.getRow()+"_"+registro.getContador();
-		line.setIdLine(StringUtil.right(idLine, 50));	//aseguramos que no pase de 50 (m·ximo Helium)
+		line.setIdLine(StringUtil.right(idLine, 50));	//aseguramos que no pase de 50 (m√°ximo Helium)
 		if(registro.getResiSiPrecisa()!=null && registro.getResiSiPrecisa().equalsIgnoreCase("X"))
 			line.setNeeded(true);
 		
 		line.setActivePeriod(false); 
 				
-		line.setAmount(new Float("0.01"));	//cantidad //restricciÛn porque no puede ser 0 en Helium
+		line.setAmount(new Float("0.01"));	//cantidad //restricci√≥n porque no puede ser 0 en Helium
 		line.setFrom(DateUtilities.getDate(registro.getResiInicioTratamiento(),  "dd/MM/yyyy", "dd-MM-yyyy HH:mm"));
 		line.setTo(DateUtilities.getDateOrDateDefault(registro.getResiFinTratamiento(),  "dd/MM/yyyy", "dd-MM-yyyy HH:mm"));
 		controlaFechaBaseTratamiento(patient, registro);
@@ -363,12 +363,12 @@ public class HeliumHelper {
 	
 			/**
 		 *   
-	     * Detectamos el tipo de envÌo Helium	
+	     * Detectamos el tipo de env√≠o Helium	
 			0 --> Otros (no_pintar, Si_precisa, pauta 0,1)
 			1 --> Diario
-			2 --> DÌas concretos
+			2 --> D√≠as concretos
 			3 --> Frecuencia
-			4 --> EnvÌo guide
+			4 --> Env√≠o guide
 		 * @param patient 
 		 * @param resiToma
 		 * @param registro
@@ -378,7 +378,7 @@ public class HeliumHelper {
 		private static Line creaLinePorTipo(Patient patient, String resiToma, FicheroResiBean registro ) {
 			Line line = new Line();
 			String idLine = StringUtil.left(registro.getResiCIP(), 14)+"-T1-" + "_" + StringUtil.left(registro.getSpdCnFinal(), 6) + "_" + registro.getRow()+"_"+registro.getContador()+"_"+registro.getContador(); 
-			line.setIdLine(StringUtil.right(idLine, 50));	//aseguramos que no pase de 50 (m·ximo Helium)
+			line.setIdLine(StringUtil.right(idLine, 50));	//aseguramos que no pase de 50 (m√°ximo Helium)
 			line.setActivePeriod(false); //por defecto NO diaria 
 
 			if(registro.getTipoEnvioHelium().equals("0")) //0 --> Otros (no_pintar, Si_precisa, pauta 0,1)
@@ -395,36 +395,36 @@ public class HeliumHelper {
 					line.setTo(DateUtilities.getDateOrDateDefault(registro.getResiFinTratamiento(),  "dd/MM/yyyy", "dd-MM-yyyy HH:mm"));
 					controlaFechaBaseTratamiento(patient, registro);
 				}
-				if(registro.getTipoEnvioHelium().equals("2") || (registro.getDiasSemanaConcretos()!=null && !registro.getDiasSemanaConcretos().equals(""))) //2 --> DÌas concretos
+				if(registro.getTipoEnvioHelium().equals("2") || (registro.getDiasSemanaConcretos()!=null && !registro.getDiasSemanaConcretos().equals(""))) //2 --> D√≠as concretos
 				{
-	    			//Solo se informa si la medicaciÛn se toma ciertos dias de la semana.Esta fecha indica el inicio de la toma, tiene formato dd-mm-yyyy hh:mm.
+	    			//Solo se informa si la medicaci√≥n se toma ciertos dias de la semana.Esta fecha indica el inicio de la toma, tiene formato dd-mm-yyyy hh:mm.
 	    			line.setDayfromWeek(DateUtilities.getDate(registro.getResiInicioTratamiento(),  "dd/MM/yyyy", "dd-MM-yyyy HH:mm"));
-	    			//Solo se informa si la medicaciÛn se toma ciertos dias de la semana. Esta fecha indica el fin de la toma, tiene formato dd-mm-yyyy hh:mm.
+	    			//Solo se informa si la medicaci√≥n se toma ciertos dias de la semana. Esta fecha indica el fin de la toma, tiene formato dd-mm-yyyy hh:mm.
 	    			line.setDaytoWeek(DateUtilities.getDateOrDateDefault(registro.getResiFinTratamiento(),  "dd/MM/yyyy", "dd-MM-yyyy HH:mm"));
 	    			controlaFechaBaseTratamiento(patient, registro);
-	    			//Solo se informa en caso de medicaciÛn semanal.
-	    			// Indica los dias de la semana en los cuales se tiene que hacer las tomas.El valor de este campo es una cadena de par·metros no repetidos separados 
-	    			//por comas que pueden tomar los siguientes valores: {ìmondayî,îtuesdayî,îwednesdayî,îthursdayî,îfridayî,îsaturdayî,îsundayî}.
+	    			//Solo se informa en caso de medicaci√≥n semanal.
+	    			// Indica los dias de la semana en los cuales se tiene que hacer las tomas.El valor de este campo es una cadena de par√°metros no repetidos separados 
+	    			//por comas que pueden tomar los siguientes valores: {‚Äúmonday‚Äù,‚Äùtuesday‚Äù,‚Äùwednesday‚Äù,‚Äùthursday‚Äù,‚Äùfriday‚Äù,‚Äùsaturday‚Äù,‚Äùsunday‚Äù}.
 	    			line.setWeekdays(registro.getDiasSemanaConcretos());
 	    			line.setActivePeriod(false); //diaria TO-DO
 				}
 				if(registro.getTipoEnvioHelium().equals("3") || (registro.getDiasMesConcretos()!=null && !registro.getDiasMesConcretos().equals("")))//3 --> Frecuencia
 				{
-		  			//Solo se informa si la medicaciÛn se toma ciertos dias del mes. Esta fecha indica el fin de la toma, tiene formato dd-mm-yyyy hh:mm
+		  			//Solo se informa si la medicaci√≥n se toma ciertos dias del mes. Esta fecha indica el fin de la toma, tiene formato dd-mm-yyyy hh:mm
 	    			line.setDayfromMonth(DateUtilities.getDate(registro.getResiInicioTratamiento(),  "dd/MM/yyyy", "dd-MM-yyyy HH:mm"));
-	    			//Solo se informa si la medicaciÛn se toma ciertos dias del mes. Esta fecha indica el inicio de la toma, tiene formato dd-mm-yyyy hh:mm
+	    			//Solo se informa si la medicaci√≥n se toma ciertos dias del mes. Esta fecha indica el inicio de la toma, tiene formato dd-mm-yyyy hh:mm
 	    			line.setDaytoMonth(DateUtilities.getDateOrDateDefault(registro.getResiFinTratamiento(),  "dd/MM/yyyy", "dd-MM-yyyy HH:mm"));
 	    			controlaFechaBaseTratamiento(patient, registro);
-	    			//buscamos dÌa mensual y en caso que no exista ponemos e1 "1" por defecto.
+	    			//buscamos d√≠a mensual y en caso que no exista ponemos e1 "1" por defecto.
 	    			String diasMesDefecto =registro.getDiasMesConcretos();
 	    			if(registro.getDiasMesConcretos()==null || registro.getDiasMesConcretos().equals(""))
 	    				diasMesDefecto ="1";
 	    			//if(registro.getResiFrecuencia()==15) diasMesDefecto ="1, 15";
 	    			if(registro.getResiFrecuencia()==15 && (diasMesDefecto==null || diasMesDefecto.equals(""))) diasMesDefecto ="1, 15";
-	    			//Solo se informa en caso de medicaciÛn mensual.
+	    			//Solo se informa en caso de medicaci√≥n mensual.
 	    			line.setMonthdays(String.valueOf(diasMesDefecto));
 				}
-				if(registro.getTipoEnvioHelium().equals("4"))	//4 --> EnvÌo guide
+				if(registro.getTipoEnvioHelium().equals("4"))	//4 --> Env√≠o guide
 				{
 					line.setActivePeriod(true); //diaria TO-DO
 					line.setFrom(DateUtilities.getDate(registro.getResiInicioTratamiento(),  "dd/MM/yyyy", "dd-MM-yyyy HH:mm"));
@@ -477,7 +477,7 @@ public class HeliumHelper {
 			{
 				creaDoseOtros(patient, registro, line);
 			}
-			else if(registro.getTipoEnvioHelium().equals("4"))	//4 --> EnvÌo guide
+			else if(registro.getTipoEnvioHelium().equals("4"))	//4 --> Env√≠o guide
 			{
 		   	    line.setActivePeriod(true); //diaria TO-DO
 				line.setFrom(DateUtilities.getDate(registro.getResiInicioTratamiento(),  "dd/MM/yyyy", "dd-MM-yyyy HH:mm"));
@@ -521,33 +521,33 @@ public class HeliumHelper {
 					line.setTo(DateUtilities.getDateOrDateDefault(registro.getResiFinTratamiento(),  "dd/MM/yyyy", "dd-MM-yyyy HH:mm"));
 					controlaFechaBaseTratamiento(patient, registro);
 				}
-				else if(registro.getTipoEnvioHelium().equals("2")) //2 --> DÌas concretos
+				else if(registro.getTipoEnvioHelium().equals("2")) //2 --> D√≠as concretos
 				{
-	    			//Solo se informa si la medicaciÛn se toma ciertos dias de la semana.Esta fecha indica el inicio de la toma, tiene formato dd-mm-yyyy hh:mm.
+	    			//Solo se informa si la medicaci√≥n se toma ciertos dias de la semana.Esta fecha indica el inicio de la toma, tiene formato dd-mm-yyyy hh:mm.
 	    			line.setDayfromWeek(DateUtilities.getDate(registro.getResiInicioTratamiento(),  "dd/MM/yyyy", "dd-MM-yyyy HH:mm"));
-	    			//Solo se informa si la medicaciÛn se toma ciertos dias de la semana. Esta fecha indica el fin de la toma, tiene formato dd-mm-yyyy hh:mm.
+	    			//Solo se informa si la medicaci√≥n se toma ciertos dias de la semana. Esta fecha indica el fin de la toma, tiene formato dd-mm-yyyy hh:mm.
 	    			line.setDaytoWeek(DateUtilities.getDateOrDateDefault(registro.getResiFinTratamiento(),  "dd/MM/yyyy", "dd-MM-yyyy HH:mm"));
 	    			controlaFechaBaseTratamiento(patient, registro);
-	    			//Solo se informa en caso de medicaciÛn semanal.
-	    			// Indica los dias de la semana en los cuales se tiene que hacer las tomas.El valor de este campo es una cadena de par·metros no repetidos separados 
-	    			//por comas que pueden tomar los siguientes valores: {ìmondayî,îtuesdayî,îwednesdayî,îthursdayî,îfridayî,îsaturdayî,îsundayî}.
+	    			//Solo se informa en caso de medicaci√≥n semanal.
+	    			// Indica los dias de la semana en los cuales se tiene que hacer las tomas.El valor de este campo es una cadena de par√°metros no repetidos separados 
+	    			//por comas que pueden tomar los siguientes valores: {‚Äúmonday‚Äù,‚Äùtuesday‚Äù,‚Äùwednesday‚Äù,‚Äùthursday‚Äù,‚Äùfriday‚Äù,‚Äùsaturday‚Äù,‚Äùsunday‚Äù}.
 	    			line.setWeekdays(registro.getDiasSemanaConcretos());
 	    			line.setActivePeriod(false); //diaria TO-DO
 
 				}
 				else if(registro.getTipoEnvioHelium().equals("3")) //3 --> Frecuencia
 				{
-		  			//Solo se informa si la medicaciÛn se toma ciertos dias del mes. Esta fecha indica el fin de la toma, tiene formato dd-mm-yyyy hh:mm
+		  			//Solo se informa si la medicaci√≥n se toma ciertos dias del mes. Esta fecha indica el fin de la toma, tiene formato dd-mm-yyyy hh:mm
 	    			line.setDayfromMonth(DateUtilities.getDate(registro.getResiInicioTratamiento(),  "dd/MM/yyyy", "dd-MM-yyyy HH:mm"));
-	    			//Solo se informa si la medicaciÛn se toma ciertos dias del mes. Esta fecha indica el inicio de la toma, tiene formato dd-mm-yyyy hh:mm
+	    			//Solo se informa si la medicaci√≥n se toma ciertos dias del mes. Esta fecha indica el inicio de la toma, tiene formato dd-mm-yyyy hh:mm
 	    			line.setDaytoMonth(DateUtilities.getDateOrDateDefault(registro.getResiFinTratamiento(),  "dd/MM/yyyy", "dd-MM-yyyy HH:mm"));
 	    			controlaFechaBaseTratamiento(patient, registro);
-	    			//buscamos dÌa mensual y en caso que no exista ponemos e1 "1" por defecto.
+	    			//buscamos d√≠a mensual y en caso que no exista ponemos e1 "1" por defecto.
 	    			String diasMesDefecto =registro.getDiasMesConcretos();
 	    			if(registro.getDiasMesConcretos()==null || registro.getDiasMesConcretos().equals(""))
 	    				diasMesDefecto ="1";
 	    			if(registro.getResiFrecuencia()==15) diasMesDefecto ="1, 15";
-	    			//Solo se informa en caso de medicaciÛn mensual.
+	    			//Solo se informa en caso de medicaci√≥n mensual.
 	    			line.setActivePeriod(false); //diaria TO-DO
 	    			line.setMonthdays(String.valueOf(diasMesDefecto));
 				}
@@ -696,7 +696,7 @@ public class HeliumHelper {
 
 	
 	/**
-	 * MÈtodo para saber quÈ tipo de tratamiento es: Diario, Quincenal, Mensual,....
+	 * M√©todo para saber qu√© tipo de tratamiento es: Diario, Quincenal, Mensual,....
 	 * @param registro
 	 * @return 0 Diario
 	 */
@@ -761,12 +761,12 @@ public class HeliumHelper {
 	
 
 	/**
-	 ** Detectamos el tipo de envÌo Helium	
+	 ** Detectamos el tipo de env√≠o Helium	
 			0 --> Otros (no_pintar, Si_precisa, pauta 0,1)
 			1 --> Diario
-			2 --> DÌas concretos
+			2 --> D√≠as concretos
 			3 --> Frecuencia
-			4 --> EnvÌo guide
+			4 --> Env√≠o guide
 	 * @param b
 	 * @return
 	 */

@@ -31,7 +31,7 @@ public class Nivel2 implements Serializable {
 				+ super.toString() + "]";
 	}
 
-	/**Para que no devuelva un nulo se inicializa en caso que no tenga ningún elemento asignado
+	/**Para que no devuelva un nulo se inicializa en caso que no tenga ningÃºn elemento asignado
 	 * @return
 	 */
 	public List<Nivel3> getListaNivel3() {

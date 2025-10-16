@@ -55,17 +55,17 @@
 	  <th>medicamento resi</th>
 	  <th>forma medicacion</th>
 	  <th>inicio-fin tratamiento</th>
-	  <th>inicio-fin producción</th>
+	  <th>inicio-fin producciÃ³n</th>
 
 	  <th>observaciones</th>
 	  <th>variante</th>
 	  <th>comentarios</th>
 	  <th>SiPrecisa</th>
-	  <th>via administración</th>
+	  <th>via administraciÃ³n</th>
 	  <th>spdCnFinal</th>
 	  <th>Nombre en bolsa</th>
 	  <th>forma Medicacion</th>
-	  <th>acción bolsa</th>
+	  <th>acciÃ³n bolsa</th>
 	  <th>L</th>	  
 	  <th>M</th>	  
 	  <th>X</th>	  
@@ -73,7 +73,7 @@
 	  <th>V</th>	  
 	  <th>S</th>	  
 	  <th>D</th>	  
-	  <th>marcado automático</th>	  
+	  <th>marcado automÃ¡tico</th>	  
 				<th width="3px">01h</th>
 				<th>02h</th>
 				<th>03h</th>

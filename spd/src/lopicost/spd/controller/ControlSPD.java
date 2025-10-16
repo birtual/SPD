@@ -16,25 +16,25 @@ import lopicost.spd.struts.bean.*;
 import lopicost.spd.utils.*;
 
 
-/** String Util: recopilaciÛn de utilidades para tratamiento de Strings
+/** String Util: recopilaci√≥n de utilidades para tratamiento de Strings
  * @author ccostap
  */
 public class ControlSPD{
 	
 	
 	/**
-	 * FunciÛn para poder transformar las fechas Excel numÈricas en dÌas desde el 30/12/1899 al formato DD/MM/YYYY
+	 * Funci√≥n para poder transformar las fechas Excel num√©ricas en d√≠as desde el 30/12/1899 al formato DD/MM/YYYY
 	 * @param numeroDeDias
 	 * @return Fecha formateada
 	 */
 	public static String convertirNumeroAFecha(String numeroDeDias) {
         int dias = Integer.parseInt(numeroDeDias);
         
-        // Ajustar la fecha base a "30/12/1899" para que "45047" dÈ como resultado "01/05"
+        // Ajustar la fecha base a "30/12/1899" para que "45047" d√© como resultado "01/05"
         LocalDate fechaBase = LocalDate.of(1899, 12, 30);
         LocalDate fechaCalculada = fechaBase.plusDays(dias);
 
-        // Utilizar el formato "dd/MM" solo si el dÌa es mayor que 0
+        // Utilizar el formato "dd/MM" solo si el d√≠a es mayor que 0
         String resultado = fechaCalculada.getDayOfMonth() > 0
                 ? fechaCalculada.format(DateTimeFormatter.ofPattern("dd/MM"))
                 : "";
@@ -44,9 +44,9 @@ public class ControlSPD{
 
 	
 	/**
-	 * MÈtodo que devuelve el total de dosis que se resultan del fichero de la residencia. Es la suma de las pautas del dia, multiplicado por las "X" marcadas.
-	 * En caso que no lleguen X marcadas, se dan por marcadas los 7 dÌas.
-	 * Para los casos de los tratamientos periÛdicos,.... de momento miramos que la pauta que sale de origen sea igual o mayor que la pauta que se envÌa a robot
+	 * M√©todo que devuelve el total de dosis que se resultan del fichero de la residencia. Es la suma de las pautas del dia, multiplicado por las "X" marcadas.
+	 * En caso que no lleguen X marcadas, se dan por marcadas los 7 d√≠as.
+	 * Para los casos de los tratamientos peri√≥dicos,.... de momento miramos que la pauta que sale de origen sea igual o mayor que la pauta que se env√≠a a robot
 	 * PRECONDICION - Previamente ha de haber pasado por detectarPeriodoAlta 
 	 * @param medResi
 	 * @return 
@@ -73,7 +73,7 @@ public class ControlSPD{
 				)
 			totalProduccion = totalDia*medResi.getDiasSemanaMarcados();
 		
-		//miramos si entran en la producciÛn
+		//miramos si entran en la producci√≥n
 		if(medResi.getResiPeriodo().contentEquals(SPDConstants.SPD_PERIODO_QUINCENAL))		
 		{
 			totalProduccion=totalDia;
@@ -149,11 +149,11 @@ public class ControlSPD{
 	
 	
 	/**
-	 * Control para ver si hay alg˙n cambio en lo que se recibe y lo que se envÌa.
-	 * Salta alerta en caso que se reciba lo mismo y se envÌe algo diferente respecto a lo anterior.
-	 * Salta alerta en caso que se reciba algo diferente y se envÌe lo mismo que lo anterior.
-	 * No salta alarma si se recibe lo mismo y se envÌa lo mismo
-	 * No salta alarma si no se recibe lo mismo y no se envÌa lo mismo
+	 * Control para ver si hay alg√∫n cambio en lo que se recibe y lo que se env√≠a.
+	 * Salta alerta en caso que se reciba lo mismo y se env√≠e algo diferente respecto a lo anterior.
+	 * Salta alerta en caso que se reciba algo diferente y se env√≠e lo mismo que lo anterior.
+	 * No salta alarma si se recibe lo mismo y se env√≠a lo mismo
+	 * No salta alarma si no se recibe lo mismo y no se env√≠a lo mismo
 	 * @param spdUsuario
 	 * @param medResi
 	 * @throws Exception
@@ -173,7 +173,7 @@ public class ControlSPD{
 			medResi.setControlRegistroAnterior(SPDConstants.CTRL_REGISTRO_ANTERIOR_RD_SD);
 			return;
 		}
-		//adem·s de ver lo que llega exactamente, miramos tambiÈn este id para descartar cambios menores en formatos de fecha por ejemplo
+		//adem√°s de ver lo que llega exactamente, miramos tambi√©n este id para descartar cambios menores en formatos de fecha por ejemplo
 		String idTratamientoCIPActual=medResi.getIdTratamientoCIP();
 		String idTratamientoCIPAnterior=medResiAnterior.getIdTratamientoCIP();
 		boolean idTratamientosCIPIguales = false;
@@ -236,10 +236,10 @@ public class ControlSPD{
 		}catch(Exception e){}
 		
 		String idTratamientoSPDActual= "";
-		try{ idTratamientoSPDActual = medResi.getIdTratamientoSPD().replace("|_|", "|0|");  }catch(Exception e){} //para no tener en cuenta si se ha puesto '0' o es vacÌo
+		try{ idTratamientoSPDActual = medResi.getIdTratamientoSPD().replace("|_|", "|0|");  }catch(Exception e){} //para no tener en cuenta si se ha puesto '0' o es vac√≠o
 		
 		String idTratamientoSPDAnterior = "";
-		try{ idTratamientoSPDAnterior = medResiAnterior.getIdTratamientoSPD().replace("|_|", "|0|"); }catch(Exception e){}  //para no tener en cuenta si se ha puesto '0' o es vacÌo;
+		try{ idTratamientoSPDAnterior = medResiAnterior.getIdTratamientoSPD().replace("|_|", "|0|"); }catch(Exception e){}  //para no tener en cuenta si se ha puesto '0' o es vac√≠o;
 		
 		boolean detalleRowKeyIguales =	
 				   Objects.equals(detalleRowActual, detalleRowAnterior)
@@ -253,15 +253,15 @@ public class ControlSPD{
 
 		System.out.println(new Date() + " detalleRowKeyActual / detalleRowKeyAnterior -->  " + detalleRowKeyIguales );
 
-		//CASO 1 - Resi envÌa igual y SPD se envÌa igual - No alerta - Reutilizado ok
+		//CASO 1 - Resi env√≠a igual y SPD se env√≠a igual - No alerta - Reutilizado ok
 		if((detalleRowKeyIguales)  && idTratamientoSPDIguales)
 			medResi.setControlRegistroAnterior(SPDConstants.CTRL_REGISTRO_ANTERIOR_RI_SI);
 		
-		//CASO 2 - Resi envÌa diferente y SPD tambiÈn diferente - No alerta - Registro nuevo (RevisiÛn si cabe)  
+		//CASO 2 - Resi env√≠a diferente y SPD tambi√©n diferente - No alerta - Registro nuevo (Revisi√≥n si cabe)  
 		if( !detalleRowKeyIguales && !idTratamientoSPDIguales)
 			medResi.setControlRegistroAnterior(SPDConstants.CTRL_REGISTRO_ANTERIOR_RD_SD);
 		
-		//CASO 3 -  Resi envÌa igual y SPD envÌa diferente al anterior -  Alerta - CONFIRMAR 
+		//CASO 3 -  Resi env√≠a igual y SPD env√≠a diferente al anterior -  Alerta - CONFIRMAR 
 		if(( detalleRowKeyIguales || idTratamientosCIPIguales ) && !idTratamientoSPDIguales)
 		{
 			//if(!medResi.getConfirmar().equalsIgnoreCase(SPDConstants.REGISTRO_CONFIRMADO)
@@ -277,7 +277,7 @@ public class ControlSPD{
 			medResi.setControlRegistroAnterior(SPDConstants.CTRL_REGISTRO_ANTERIOR_RI_SD);
 		}
 		
-		//CASO 4 -  Resi envÌa diferente y SPD se envÌa igual que el anterior -  Alerta - Confirmar 
+		//CASO 4 -  Resi env√≠a diferente y SPD se env√≠a igual que el anterior -  Alerta - Confirmar 
 		if(!detalleRowKeyIguales && !idTratamientosCIPIguales && idTratamientoSPDIguales)
 		{
 			//if(!medResi.getValidar().equals(SPDConstants.REGISTRO_VALIDADO))
@@ -292,15 +292,15 @@ public class ControlSPD{
 		}
 		
 		/*
-		 * //CASO 5 -  Resi envÌa igual y SPD envÌa diferente pero solo en cuanto a la fecha en tratamientos quincenales/mensuales
-		//se tratar· como CTRL_REGISTRO_ANTERIOR_RD_SD 
+		 * //CASO 5 -  Resi env√≠a igual y SPD env√≠a diferente pero solo en cuanto a la fecha en tratamientos quincenales/mensuales
+		//se tratar√° como CTRL_REGISTRO_ANTERIOR_RD_SD 
 		//solo si ambos detalleRow son iguales y cambian solo fechas 
 		if(medResi.getControlRegistroAnterior().equals(SPDConstants.CTRL_REGISTRO_ANTERIOR_RI_SD) //solo comprobamos en caso de 
 				&& (medResi.getResiPeriodo().equals(SPDConstants.SPD_PERIODO_QUINCENAL) || medResi.getResiPeriodo().equals(SPDConstants.SPD_PERIODO_MENSUAL)))
 		{
 			boolean resiIguales=comparacionRegistrosDeLaResi(medResiAnterior, medResi);
 			boolean enviadosIguales=comparacionEnviadosDeLaResiSinFecha(medResiAnterior, medResi);
-			//si sumamos la frecuencia a la fecha anterior y es como la actual, se dar· por buena
+			//si sumamos la frecuencia a la fecha anterior y es como la actual, se dar√° por buena
 			//StrmedResiAnterior.getResiInicioTratamientoParaSPD();
 			if(resiIguales && enviadosIguales)
 			{
@@ -312,9 +312,9 @@ public class ControlSPD{
 				int frecuencia=medResi.getResiFrecuencia(); 
 				
 				//fechas desplazadas OK
-				Date auxInicio=DateUtilities.addDate(fechaInicioAnterior, frecuencia-1);//quitamos uno porque saldrÌa siempre un dÌa m·s
+				Date auxInicio=DateUtilities.addDate(fechaInicioAnterior, frecuencia-1);//quitamos uno porque saldr√≠a siempre un d√≠a m√°s
 				long difInicio=DateUtilities.getLengthInDays(auxInicio, fechaInicioActual);
-				Date auxFin=DateUtilities.addDate(fechaFinAnterior, frecuencia-1);//quitamos uno porque saldrÌa siempre un dÌa m·s
+				Date auxFin=DateUtilities.addDate(fechaFinAnterior, frecuencia-1);//quitamos uno porque saldr√≠a siempre un d√≠a m√°s
 				long difFin=DateUtilities.getLengthInDays(auxFin, fechaFinActual);
 				if(difInicio==0
 						&& difFin==0)
@@ -325,19 +325,19 @@ public class ControlSPD{
 			}
 		}
 		*/
-		//CASO 5 -  Resi envÌa igual y SPD envÌa diferente pero solo en cuanto a la fecha en tratamientos quincenales/mensuales
-		//se tratar· como CTRL_REGISTRO_ANTERIOR_RD_SD 
-		//solo si ambos detalleRow son iguales y cambian solo fechas, y coincide con el dÌa marcado del mes 
+		//CASO 5 -  Resi env√≠a igual y SPD env√≠a diferente pero solo en cuanto a la fecha en tratamientos quincenales/mensuales
+		//se tratar√° como CTRL_REGISTRO_ANTERIOR_RD_SD 
+		//solo si ambos detalleRow son iguales y cambian solo fechas, y coincide con el d√≠a marcado del mes 
 			if(medResi.getControlRegistroAnterior().equals(SPDConstants.CTRL_REGISTRO_ANTERIOR_RI_SD) //solo comprobamos en caso de 
 					&& (medResi.getResiPeriodo().equals(SPDConstants.SPD_PERIODO_QUINCENAL) || medResi.getResiPeriodo().equals(SPDConstants.SPD_PERIODO_MENSUAL)))
 				{
 					boolean resiIguales=comparacionRegistrosDeLaResi(medResiAnterior, medResi);
 					boolean enviadosIguales=comparacionEnviadosDeLaResiSinFecha(medResiAnterior, medResi);
-					//si sumamos la frecuencia a la fecha anterior y es como la actual, se dar· por buena
+					//si sumamos la frecuencia a la fecha anterior y es como la actual, se dar√° por buena
 					//StrmedResiAnterior.getResiInicioTratamientoParaSPD();
 					if(resiIguales && enviadosIguales)
 					{
-						//si son iguales solo queda mirar si las fechas se han desplazado correctamente relativo a la frecuencia o que el dÌa coincide con el marcado en diasMesConcretos
+						//si son iguales solo queda mirar si las fechas se han desplazado correctamente relativo a la frecuencia o que el d√≠a coincide con el marcado en diasMesConcretos
 						Date fechaInicioAnterior = DateUtilities.getDate(medResiAnterior.getResiInicioTratamientoParaSPD(), "dd/MM/yyyy");
 						Date fechaFinAnterior = DateUtilities.getDate(medResiAnterior.getResiFinTratamientoParaSPD(), "dd/MM/yyyy");
 						Date fechaInicioActual = DateUtilities.getDate(medResi.getResiInicioTratamientoParaSPD(), "dd/MM/yyyy");
@@ -347,9 +347,9 @@ public class ControlSPD{
 						int frecuencia=medResi.getResiFrecuencia(); 
 						
 						//fechas desplazadas OK
-						Date auxInicio=DateUtilities.addDate(fechaInicioAnterior, frecuencia-1);//quitamos uno porque saldrÌa siempre un dÌa m·s
+						Date auxInicio=DateUtilities.addDate(fechaInicioAnterior, frecuencia-1);//quitamos uno porque saldr√≠a siempre un d√≠a m√°s
 						long difInicio=DateUtilities.getLengthInDays(auxInicio, fechaInicioActual);
-						Date auxFin=DateUtilities.addDate(fechaFinAnterior, frecuencia-1);//quitamos uno porque saldrÌa siempre un dÌa m·s
+						Date auxFin=DateUtilities.addDate(fechaFinAnterior, frecuencia-1);//quitamos uno porque saldr√≠a siempre un d√≠a m√°s
 						long difFin=DateUtilities.getLengthInDays(auxFin, fechaFinActual);
 						if(difInicio==0 && difFin==0 || coincideDiaMesConcreto(medResi))
 						{
@@ -369,7 +369,7 @@ public class ControlSPD{
 		// Convertir Date a LocalDate
 		LocalDate localDate = fechaInicioActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-		// Obtener el dÌa del mes
+		// Obtener el d√≠a del mes
 		int diaFechaInicioActual = localDate.getDayOfMonth();
 		// Convertir la cadena a una lista de enteros
 		List<Integer> diasLista = Arrays.stream(dias.split(","))
@@ -377,7 +377,7 @@ public class ControlSPD{
 		                                .map(Integer::parseInt) // Convierte a Integer
 		                                .collect(Collectors.toList());
 
-		// Verificar si el dÌa del mes est· en la lista
+		// Verificar si el d√≠a del mes est√° en la lista
 		boolean coincide = diasLista.contains(diaFechaInicioActual);
 
 		
@@ -406,7 +406,7 @@ public class ControlSPD{
 	}
 
 	/**
-	 * Devuelve un ID de sobre los campos b·sicos enviados a robot, Cip, CN, dias de la semana y tomas
+	 * Devuelve un ID de sobre los campos b√°sicos enviados a robot, Cip, CN, dias de la semana y tomas
 	 * @param medResi
 	 * @return
 	 */
@@ -463,7 +463,7 @@ public class ControlSPD{
 	}
 
 	/**
-	 * MÈtodo para controlar principios activos que se desean controlar, ya sea por MTE (Margen terapÈutico estrecho) o por cualqueir otro motivo. 
+	 * M√©todo para controlar principios activos que se desean controlar, ya sea por MTE (Margen terap√©utico estrecho) o por cualqueir otro motivo. 
 	 * @param spdUsuario
 	 * @param medResi
 	 * @throws SQLException 
@@ -480,7 +480,7 @@ public class ControlSPD{
 		if(control) 
 		{
 			medResi.setControlPrincipioActivo(SPDConstants.CTRL_PRINCIPIO_ACTIVO_ALERTA);
-			if(medResi.getIdEstado().equalsIgnoreCase(SPDConstants.REGISTRO_ORIGINAL) ) //aÒadimos mensaje de revisiÛn de CN vs receta
+			if(medResi.getIdEstado().equalsIgnoreCase(SPDConstants.REGISTRO_ORIGINAL) ) //a√±adimos mensaje de revisi√≥n de CN vs receta
 			{
 				if(!medResi.getMensajesResidencia().contains(SPDConstants.INFO_RESIDENCIA_AVISO_CN_RECETA) 
 						&& !medResi.getEditado().equalsIgnoreCase("SI") //necesario para que no se vuelva a incluir al editarse
@@ -501,7 +501,7 @@ public class ControlSPD{
 	}
 
 	/***
- 	 * MÈtodo para detectar tratamientos que tienen un GTVM (Principio activo) igual que otro tratamiento del mismo residente 
+ 	 * M√©todo para detectar tratamientos que tienen un GTVM (Principio activo) igual que otro tratamiento del mismo residente 
 	 * @param idUsuario
 	 * @param medResi
 	 * @throws Exception 
@@ -528,14 +528,14 @@ public class ControlSPD{
 
 			if(medResi!=null && medResi.getControlUnicoGtvm().equalsIgnoreCase(SPDConstants.CTRL_UNICO_GTVM_ALERTA))
 			{
-				actualizaRestoGTVM(medResi, false); //para que si que se actualice el ALERTA en todos, aunque estÈ confirmado.
+				actualizaRestoGTVM(medResi, false); //para que si que se actualice el ALERTA en todos, aunque est√© confirmado.
 			
 				if(!medResi.getConfirmar().equalsIgnoreCase(SPDConstants.REGISTRO_CONFIRMADO))
 				{
 					medResi.setValidar(SPDConstants.REGISTRO_VALIDAR);
 					medResi.setConfirmar(SPDConstants.REGISTRO_CONFIRMAR);	
 				}
-					//actualizaRestoGTVM(medResi, true);	//para que aparezcan a validar los que no est·n confirmados 
+					//actualizaRestoGTVM(medResi, true);	//para que aparezcan a validar los que no est√°n confirmados 
 			}
 
 				
@@ -550,7 +550,7 @@ public class ControlSPD{
 
 
 	private static void confirmaNVeces(String spdUsuario, FicheroResiBean medResi, int nVeces) {
-		int confirmaciones = medResi.getConfirmaciones()+1; //sumamos uno porque contamos con la que serÌa Èsta
+		int confirmaciones = medResi.getConfirmaciones()+1; //sumamos uno porque contamos con la que ser√≠a √©sta
 		
 		//if(medResi.getConfirmar()!=null && (medResi.getConfirmar().equalsIgnoreCase(SPDConstants.REGISTRO_CONFIRMADO) || (medResi.getConfirmar().equalsIgnoreCase(SPDConstants.REGISTRO_ENPROCESO_CONFIRMACION))))
 		{
@@ -596,7 +596,7 @@ public class ControlSPD{
 						medResi.setConfirmar(SPDConstants.REGISTRO_CONFIRMAR);			
 					}
 					
-					if(medResi.getIdEstado().equalsIgnoreCase(SPDConstants.REGISTRO_ORIGINAL) ) //aÒadimos mensaje de revisiÛn de CN vs receta
+					if(medResi.getIdEstado().equalsIgnoreCase(SPDConstants.REGISTRO_ORIGINAL) ) //a√±adimos mensaje de revisi√≥n de CN vs receta
 					{
 						if(!medResi.getMensajesResidencia().contains(SPDConstants.INFO_RESIDENCIA_AVISO_CN_RECETA) 
 								&& !medResi.getEditado().equalsIgnoreCase("SI") //necesario para que no se vuelva a incluir al editarse
@@ -623,7 +623,7 @@ public class ControlSPD{
 
 /*
 	public static void controlDiferentesGtvmp(String spdUsuario, FicheroResiBean medResi) {
-		// TODO Esbozo de mÈtodo generado autom·ticamente
+		// TODO Esbozo de m√©todo generado autom√°ticamente
 		
 	}
 */
@@ -651,7 +651,7 @@ public class ControlSPD{
 	}
 
 	public static void aplicarControles(String idUsuario, FicheroResiBean medResi) throws Exception {
-		aplicarControles( idUsuario,  medResi, true);  //por defecto se tendr·n en cuenta las Nconfirmaciones 
+		aplicarControles( idUsuario,  medResi, true);  //por defecto se tendr√°n en cuenta las Nconfirmaciones 
 	}
 
 		
@@ -660,11 +660,11 @@ public class ControlSPD{
 		
 		HelperSPD.actualizarIDTratamientoSPD(medResi); 
 
-		//por ˙ltimo hacemos control de alertas
+		//por √∫ltimo hacemos control de alertas
 		//if(!medResi.getConfirmar().equalsIgnoreCase(SPDConstants.REGISTRO_CONFIRMADO) 
 		//		&& ( medResi.getSpdAccionBolsa().equals(SPDConstants.SPD_ACCIONBOLSA_PASTILLERO) || medResi.getSpdAccionBolsa().equals(SPDConstants.SPD_ACCIONBOLSA_SOLO_INFO)))
 
-		ControlSPD.revisarPeriodicos(idUsuario, medResi); //control en validaciones de los tratamientos periÛdicos
+		ControlSPD.revisarPeriodicos(idUsuario, medResi); //control en validaciones de los tratamientos peri√≥dicos
 		
 		ControlSPD.controlGtvmpCnResiCnSpd(idUsuario, medResi);//este control primero para rellenar BDConsejo en el medResi
 
@@ -679,7 +679,7 @@ public class ControlSPD{
 		}
     	ControlSPD.controlRobot(idUsuario, medResi);
     	ControlSPD.controlNoSustituibles(idUsuario, medResi);
-    	ControlSPD.controlPrincActivos(idUsuario, medResi, nConfirmaciones); // como hay m·s confirmaciones en este mÈtodo ha de ir despuÈs de las anteriores, 
+    	ControlSPD.controlPrincActivos(idUsuario, medResi, nConfirmaciones); // como hay m√°s confirmaciones en este m√©todo ha de ir despu√©s de las anteriores, 
     	ControlSPD.controlValidarDatos(idUsuario, medResi);
 		ControlSPD.controlarUnicoGtvm(idUsuario, medResi);
 
@@ -690,7 +690,7 @@ public class ControlSPD{
 
 
 	/**
-	 * Control del CN numÈrico
+	 * Control del CN num√©rico
 	 * @param idUsuario
 	 * @param medResi
 	 */
@@ -718,7 +718,7 @@ public class ControlSPD{
 	}
 
 
-	/*Los registros periÛdicos o que no son diarios se han de validar al menos una vez
+	/*Los registros peri√≥dicos o que no son diarios se han de validar al menos una vez
 	 * 
 	 * 
 	 */
@@ -778,8 +778,8 @@ public class ControlSPD{
 		//System.out.println("iguales" + iguales);
 		if(!iguales)
 		{
-			//preparamos el nuevo info2 y lo aÒadimos
-			String mensajeNuevoInfo1 ="1# -  Corregir CÛdigo nacional -  El CN " + medResi.getResiCn() + " pertenece a " + gtvmpResi + ". Si se trata de " + gtvmpSpd + " sugerimos cambiarlo por el CN " + medResi.getSpdCnFinal() + " - 1#";
+			//preparamos el nuevo info2 y lo a√±adimos
+			String mensajeNuevoInfo1 ="1# -  Corregir C√≥digo nacional -  El CN " + medResi.getResiCn() + " pertenece a " + gtvmpResi + ". Si se trata de " + gtvmpSpd + " sugerimos cambiarlo por el CN " + medResi.getSpdCnFinal() + " - 1#";
 			mensaje=mensaje + " " +  mensajeNuevoInfo1;
 			if(!medResi.getConfirmar().equalsIgnoreCase(SPDConstants.REGISTRO_CONFIRMADO))
 			{
@@ -830,7 +830,7 @@ public class ControlSPD{
 			 if (stackTrace.length >= 4) { // al menos dos elementos en la pila
 			            StackTraceElement metodoAnterior = stackTrace[3];
 			            metodoLlamada=metodoAnterior.getMethodName();
-			            System.out.println("MÈtodo anterior: " + metodoAnterior.getMethodName());
+			            System.out.println("M√©todo anterior: " + metodoAnterior.getMethodName());
 				 }
 	    	}
 	    	catch(Exception e)

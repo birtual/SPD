@@ -1,5 +1,5 @@
 
-# Configuraci髇 del rootLogger
+# Configuraci贸n del rootLogger
 #Define el logger raiz
 #log4j.rootLogger=INFO, file, console
 log4j.rootLogger=ON
@@ -13,7 +13,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%d{ISO8601} %-5p [%t] %c{1} - %m
 
 
 
-# Configuraci髇 del appender de archivo
+# Configuraci贸n del appender de archivo
 log4j.appender.file=org.apache.log4j.RollingFileAppender
 log4j.appender.file.File=c:/logs/app.log
 log4j.appender.file.MaxFileSize=5MB
@@ -21,12 +21,12 @@ log4j.appender.file.MaxBackupIndex=10
 log4j.appender.file.layout=org.apache.log4j.PatternLayout
 log4j.appender.file.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
 
-# Configuraci髇 del appender de consola
+# Configuraci贸n del appender de consola
 # log4j.appender.console=org.apache.log4j.ConsoleAppender
 # log4j.appender.console.layout=org.apache.log4j.PatternLayoutDELETE FROM dbo.SPD_XML_detallesTomasRobot
 # log4j.appender.console.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
 
-# Configuraci髇 del logger para SPDLogger
+# Configuraci贸n del logger para SPDLogger
 log4j.logger.SPDLogger=DEBUG, console, SPDLogger
 log4j.additivity.SPDLogger=false
 
@@ -37,7 +37,7 @@ log4j.appender.SPDLogger.MaxBackupIndex=10
 log4j.appender.SPDLogger.layout=org.apache.log4j.PatternLayout
 log4j.appender.SPDLogger.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
 
-# Configuraci髇 del logger para FatalLogger
+# Configuraci贸n del logger para FatalLogger
 log4j.logger.FatalLogger=FATAL, FatalLoggerAppender
 log4j.additivity.FatalLogger=false
 

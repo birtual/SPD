@@ -51,7 +51,7 @@ public class InformeHelper {
 	public TratamientoPaciente creaTratamientoPaciente(ResultSet rs, boolean mezclar) throws SQLException, ClassNotFoundException {
 		TratamientoPaciente tto = new TratamientoPaciente();
 		tto.setMedicamentoPaciente(creaMedicamentoPaciente(rs));
-		if(mezclar) //Marco - 20250806 - Necesita que aparezca la info de receta en la dispensaci髇 (TEMPORALMENTE)
+		if(mezclar) //Marco - 20250806 - Necesita que aparezca la info de receta en la dispensaci贸n (TEMPORALMENTE)
 		{
 			MedicamentoReceta receta = InformeSpdDAO.buscarUltimaDispensacionReceta(rs.getString("CIP"), rs.getString("NomGtVmp"));
 			if(receta!=null) {
@@ -211,7 +211,7 @@ public class InformeHelper {
 	}
 
 	/**
-	 * A馻dimos un elemento en posici髇 determinada, controlando que los anteriores existen o en caso contrario las creamos nulas para que no desborde
+	 * a帽adimos un elemento en posici贸n determinada, controlando que los anteriores existen o en caso contrario las creamos nulas para que no desborde
 	 * @param lista
 	 * @param posicion
 	 * @param elemento
@@ -219,14 +219,14 @@ public class InformeHelper {
     public <T> void insertarEnPosicion(List<T> lista, int posicion, T elemento) {
         // Rellenar posiciones intermedias si es necesario
         for (int i = lista.size(); i < posicion; i++) {
-            lista.add(null); // A馻dir null solo si a鷑 no existe esa posici髇
+            lista.add(null); // a帽adir null solo si a煤n no existe esa posici贸n
         }
 
         if (lista.size() == posicion) {
-            // Si justo estamos al final, simplemente a馻dimos el nuevo elemento
+            // Si justo estamos al final, simplemente a帽adimos el nuevo elemento
             lista.add(elemento);
         } else {
-            // Si ya hay un valor en esa posici髇, lo desplazamos
+            // Si ya hay un valor en esa posici贸n, lo desplazamos
             lista.add(posicion, elemento);
         }
     }

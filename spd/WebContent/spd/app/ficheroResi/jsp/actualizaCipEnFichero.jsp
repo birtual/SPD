@@ -13,7 +13,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Actualización CIP en fichero</title>
+<title>ActualizaciÃ³n CIP en fichero</title>
 </head>
 
 
@@ -50,7 +50,7 @@
 <body id="general">
 
 	<center>
-		<h2>Edición Fichero Resi Carga Robot</h2>
+		<h2>EdiciÃ³n Fichero Resi Carga Robot</h2>
 		<html:form action="/FicheroResiDetalle.do" method="post">	
 
 

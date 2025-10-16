@@ -30,20 +30,20 @@
     background-color: #84ec84; !important;/* Verde claro */
 }
 .hijo-laboratorio-farmacia  td {
-    background-color: #3cc63c; !important;/* Verde m·s intenso */
+    background-color: #3cc63c; !important;/* Verde m√°s intenso */
 }
  table .gtvmp-col {
-    width: 25%; /* Ajusta al tamaÒo deseado */
+    width: 25%; /* Ajusta al tama√±o deseado */
 }  
     </style>
     
     <script>
 
     
- // Ejecutar al cargar la p·gina
+ // Ejecutar al cargar la p√°gina
     window.onload = function() {
         const toggleAll = document.getElementById("toggleAll");
-        // Llamar a la funciÛn toggleAllChildren con el estado del checkbox
+        // Llamar a la funci√≥n toggleAllChildren con el estado del checkbox
         toggleAllChildren(toggleAll.checked);
     };
 
@@ -89,7 +89,7 @@
    					<html:optionsCollection name="formulari" property="listaRobots" label="nombreRobot" value="idRobot" />
 				</html:select>
 		     </logic:notEmpty>	
-		LÛgica de filtrado:
+		l√≥gica de filtrado:
     <html:select property="filtroLogico" value="<%= formulari.getFiltroLogico() %>" onchange="submit()"> 
         <html:option value="AND">Y</html:option> <!-- AND para todas las condiciones -->
         <html:option value="OR">O</html:option> <!-- OR para cualquiera -->
@@ -185,7 +185,7 @@
 			     -->
 			    <td>
 			        <p class="botons">
-			            <input type="button" onclick="javascript:nuevoGtVmp('<bean:write name="padre" property="codGtVmp" />', 'NUEVO');" value="aÒadir" />
+			            <input type="button" onclick="javascript:nuevoGtVmp('<bean:write name="padre" property="codGtVmp" />', 'NUEVO');" value="a√±adir" />
 			        </p>
 			    </td>
 			</tr>
@@ -199,10 +199,10 @@
 <logic:iterate id="hijo" name="padre" property="hijos" type="lopicost.spd.model.SustXGtvmpp" indexId="position2">
     <tr id="hijo-${position}-${position2}" class="${!empty hijo.nomLaboratorio ? (!empty hijo.nombreRobot ? 'hijo-laboratorio-farmacia' : 'hijo-laboratorio') : 'hijo'}">
         <td class="gtvmp-col" style="text-align: right;">
-            <%-- Mostrar el valor solo si es diferente al ˙ltimo mostrado --%>
+            <%-- Mostrar el valor solo si es diferente al √∫ltimo mostrado --%>
             <%
                 if (ultimoNomGtVmpp == null || !ultimoNomGtVmpp.equals(hijo.getNomGtVmpp())) {
-                    ultimoNomGtVmpp = hijo.getNomGtVmpp(); // Actualizar el ˙ltimo valor mostrado
+                    ultimoNomGtVmpp = hijo.getNomGtVmpp(); // Actualizar el √∫ltimo valor mostrado
             %>
                     <bean:write name="hijo" property="nomGtVmpp" />
             <%

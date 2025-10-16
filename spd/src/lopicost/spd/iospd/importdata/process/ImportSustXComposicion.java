@@ -31,7 +31,7 @@ import java.util.Vector;
 
 
 /**
- * Método encargado de importar el stock de Farmalogic para cruzarlos con los pedidos de farmacia
+ * MÃ©todo encargado de importar el stock de Farmalogic para cruzarlos con los pedidos de farmacia
  * @author CARLOS
  *
  */
@@ -47,7 +47,7 @@ public class ImportSustXComposicion extends ImportProcessImpl
 		super();
 	}
 
-	/**los ficheros han de venir con cabecera. Se tendrá en cuenta a partir de la fila 2**/	
+	/**los ficheros han de venir con cabecera. Se tendrÃ¡ en cuenta a partir de la fila 2**/	
     protected boolean beforeProcesarEntrada(Vector row) throws Exception 
     {
     	return true;
@@ -70,8 +70,9 @@ public class ImportSustXComposicion extends ImportProcessImpl
     /*
       * @see lopicost.spd.iospd.importdata.process.ImportProcessImpl#procesarEntrada(java.lang.String, java.lang.String, java.util.Vector, int)
      */
-    public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count) throws Exception 
+    public boolean procesarEntrada(String idRobot, DivisionResidencia div, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception 
     {
+    	boolean result = false;
     	if(count==1) {
     		this.idRobot=idRobot;
     		inicializar();
@@ -80,7 +81,7 @@ public class ImportSustXComposicion extends ImportProcessImpl
     	{
         	if ( row!=null && row.size()>=1)   //con el count>1 nos saltamos la cabecera
             {
-        		//inicialización variables
+        		//inicializaciÃ³n variables
             	bdConsejoExcel = null;
             	bdConsejoGt = null;
             	sustXCompAInsertar =new ArrayList<SustXComposicion>();
@@ -91,51 +92,52 @@ public class ImportSustXComposicion extends ImportProcessImpl
 
             	
             	
-            	boolean result = creaRegistro(sustX, row);
+            	result = creaRegistro(sustX, row);
             
             }
             else 
                 throw new Exception (TextManager.getMensaje("ImportData.error.ImportSustXComposicion"));
     		
     	}
+    	return result;
         
     }
     
 
 
 	/**
-     * Método que importa los datos de sustitución por composición para poder asignar los CN correctos en los pedidos de farmacia o de cara a las produciones del robot
+     * MÃ©todo que importa los datos de sustituciÃ³n por composiciÃ³n para poder asignar los CN correctos en los pedidos de farmacia o de cara a las produciones del robot
 
-     	Opción 1 - porCN - Si llega solo un CN. Se comprueba si es válido, si existe y se actualizan los datos según el CN recibido. 
-    				Si además llega un LAB válido, tendrá prioridad sobre el CN que llega.
-    				Si llega GTVMPP se pasa a "Opción 2"
-    				Si no llega GTVMPP y llega GTVMP se pasa a "Opción 3"
+     	OpciÃ³n 1 - porCN - Si llega solo un CN. Se comprueba si es vÃ¡lido, si existe y se actualizan los datos segÃºn el CN recibido. 
+    				Si ademÃ¡s llega un LAB vÃ¡lido, tendrÃ¡ prioridad sobre el CN que llega.
+    				Si llega GTVMPP se pasa a "OpciÃ³n 2"
+    				Si no llega GTVMPP y llega GTVMP se pasa a "OpciÃ³n 3"
     				
-    	Opción 2 - porGTVMP - no llega GTVMPP (no es la opción 2). 
-    							Si llega LAB se buscan todos los GTVMPP del LAB y se actualiza con lo que llega en listado (ponderación, comentarios, etc)
+    	OpciÃ³n 2 - porGTVMP - no llega GTVMPP (no es la opciÃ³n 2). 
+    							Si llega LAB se buscan todos los GTVMPP del LAB y se actualiza con lo que llega en listado (ponderaciÃ³n, comentarios, etc)
     							Si llega 
-    					CN válido, se saca el Si que ha de llegar Se buscan si llega GTVMPP. 
+    					CN vÃ¡lido, se saca el Si que ha de llegar Se buscan si llega GTVMPP. 
     				Si existe GTVMPP se busca un CN en BdConsejo y se actualizan los datos	
 
-    	Opción 3 - porGTVMPP - si llega CN se extrae Lab del CN
+    	OpciÃ³n 3 - porGTVMPP - si llega CN se extrae Lab del CN
     							- si no llega CN es necesario LAB
     							- si no hay ninguno de los anteriores se descarta
-    							- si llega GTMVP se tendrá en cuenta el GTVMPP
+    							- si llega GTMVP se tendrÃ¡ en cuenta el GTVMPP
     	
 
     											
 			  KEY	  CN GTVMP GTVMPP LAB		
-				1000	1	0	0	0	Opción 1	Tenemos CN - Se busca LAB y GTVMPP del CN. Si CN no correcto se descarta
-				1001	1	0	0	1	Opción 2	Tenemos CN y LAB - Se busca LAB y GTVMPP del CN. Si CN no correcto se descarta
-				0101	0	1	0	1	Opción 3	Tenemos GTVMP y LAB - Se buscan los CN del LAB. Si LAB no correcto se descarta
-				1100	1	1	0	0	Opción 4	Tenemos CN y GTVMP - Se buscan los otros CN del LAB que sale del CN. Si CN no correcto se descarta
-				1101	1	1	0	1	Opción 5	Tenemos CN, GTVMP y LAB - Se buscan los CN del LAB. Si LAB no coincide se busca el LAB del CN. Si  CN no correcto se descarta
-				0011	0	0	1	1	Opción 6	Tenemos GTVMPP y LAB - Se busca un CN del Lab recibido
-				0111	0	1	1	1	Opción 7	Tenemos GTVMP, GTVMPP y LAB - Se busca un CN del Lab recibido, se descarta GTVMP. En caso que el LAB no coincida con el CN se busca el LAB del CN
-				1010	1	0	1	0	Opción 8	Tenemos CN y GTVMPP - Se busca un LAB del CN recibido
-				1110	1	1	1	0	Opción 9	Tenemos CN, GTVMP y GTVMPP - Se busca un LAB del CN recibido, se descarta GTVMP
-				1011	1	0	1	1	Opción 10	Tenemos CN, GTVMPP y LAB - Se asigna el LAB recibido, en caso que el LAB no coincida con el CN se busca el LAB del CN
-				1111	1	1	1	1	Opción 11	Tenemos CN, GTVMP, GTVMPP y LAB - Se asigna el LAB recibido, se descarta CN en caso que el LAB sea correcto. Si no se busca el LAB del CN. Se descarta GTVMP
+				1000	1	0	0	0	OpciÃ³n 1	Tenemos CN - Se busca LAB y GTVMPP del CN. Si CN no correcto se descarta
+				1001	1	0	0	1	OpciÃ³n 2	Tenemos CN y LAB - Se busca LAB y GTVMPP del CN. Si CN no correcto se descarta
+				0101	0	1	0	1	OpciÃ³n 3	Tenemos GTVMP y LAB - Se buscan los CN del LAB. Si LAB no correcto se descarta
+				1100	1	1	0	0	OpciÃ³n 4	Tenemos CN y GTVMP - Se buscan los otros CN del LAB que sale del CN. Si CN no correcto se descarta
+				1101	1	1	0	1	OpciÃ³n 5	Tenemos CN, GTVMP y LAB - Se buscan los CN del LAB. Si LAB no coincide se busca el LAB del CN. Si  CN no correcto se descarta
+				0011	0	0	1	1	OpciÃ³n 6	Tenemos GTVMPP y LAB - Se busca un CN del Lab recibido
+				0111	0	1	1	1	OpciÃ³n 7	Tenemos GTVMP, GTVMPP y LAB - Se busca un CN del Lab recibido, se descarta GTVMP. En caso que el LAB no coincida con el CN se busca el LAB del CN
+				1010	1	0	1	0	OpciÃ³n 8	Tenemos CN y GTVMPP - Se busca un LAB del CN recibido
+				1110	1	1	1	0	OpciÃ³n 9	Tenemos CN, GTVMP y GTVMPP - Se busca un LAB del CN recibido, se descarta GTVMP
+				1011	1	0	1	1	OpciÃ³n 10	Tenemos CN, GTVMPP y LAB - Se asigna el LAB recibido, en caso que el LAB no coincida con el CN se busca el LAB del CN
+				1111	1	1	1	1	OpciÃ³n 11	Tenemos CN, GTVMP, GTVMPP y LAB - Se asigna el LAB recibido, se descarta CN en caso que el LAB sea correcto. Si no se busca el LAB del CN. Se descarta GTVMP
 				0010	0	0	1	0	Se descarta	Tenemos solo GTVMPP
 				0100	0	1	0	0	Se descarta	Tenemos solo GTVMP	
 				0110	0	1	1	0	Se descarta	Tenemos solo GTVMP y GTVMPP	
@@ -198,22 +200,22 @@ public class ImportSustXComposicion extends ImportProcessImpl
 	    
 	   	
 	   	
-    	if ("1000".equals(key) || 	//Opción 1 
-    		"1001".equals(key) || 	//Opción 2
-			"1010".equals(key) ||	//Opción 8
-			"1110".equals(key) ||	//Opción 9 
-			"1011".equals(key) ||	//Opción 10 
-			"1111".equals(key) 		//Opción 11 
+    	if ("1000".equals(key) || 	//OpciÃ³n 1 
+    		"1001".equals(key) || 	//OpciÃ³n 2
+			"1010".equals(key) ||	//OpciÃ³n 8
+			"1110".equals(key) ||	//OpciÃ³n 9 
+			"1011".equals(key) ||	//OpciÃ³n 10 
+			"1111".equals(key) 		//OpciÃ³n 11 
     		)
     	{
      		sustRecogerDatosDeConsejo(sustX, bdConsejoExcel);  
     		sustXCompAInsertar.add(sustX);
       	}
-    	else if ("0101".equals(key)|| 	//Opción 3 
-    			"1100".equals(key) || 	//Opción 4 
-    			"1101".equals(key) ||	//Opción 5 
-    			"0011".equals(key) ||	//Opción 6 
-    			"0111".equals(key) 		//Opción 7 
+    	else if ("0101".equals(key)|| 	//OpciÃ³n 3 
+    			"1100".equals(key) || 	//OpciÃ³n 4 
+    			"1101".equals(key) ||	//OpciÃ³n 5 
+    			"0011".equals(key) ||	//OpciÃ³n 6 
+    			"0111".equals(key) 		//OpciÃ³n 7 
    			)
     	{ 
         	Iterator it =(Iterator) bdConsejoGt.iterator();
@@ -227,10 +229,10 @@ public class ImportSustXComposicion extends ImportProcessImpl
      		
       	} 	
     	
-    	else if ("0010".equals(key)|| 	//Opción 12 
-       			"0100".equals(key) || 	//Opción 13 
-       			"0110".equals(key) || 	//Opción 14 
-    			"0001".equals(key) 		//Opción 15 
+    	else if ("0010".equals(key)|| 	//OpciÃ³n 12 
+       			"0100".equals(key) || 	//OpciÃ³n 13 
+       			"0110".equals(key) || 	//OpciÃ³n 14 
+    			"0001".equals(key) 		//OpciÃ³n 15 
     	 	)
     	{
     		errors.add("No se crea el registro de la fila " + getProcessedRows()  + " key >> " + key);
@@ -265,7 +267,7 @@ public class ImportSustXComposicion extends ImportProcessImpl
 		clonado.setTipoCarga(origen.getTipoCarga());
 		clonado.setSustituible(origen.getSustituible());
 		clonado.setSustituible(origen.getSustituible());
-		clonado.setTolva("NO"); //a no ser que vengan explícito en el Excel de carga, no es tolva
+		clonado.setTolva("NO"); //a no ser que vengan explÃ­cito en el Excel de carga, no es tolva
 		clonado.setAplicarNivelGtvmp(origen.getAplicarNivelGtvmp());
 		
 		
@@ -303,7 +305,7 @@ public class ImportSustXComposicion extends ImportProcessImpl
 		boolean aplicarNivelGtvmp = sust.getAplicarNivelGtvmp().equalsIgnoreCase("SI");
 	
 		/**
-		* Opción 1
+		* OpciÃ³n 1
 		*/
 		if(cn!=null && !cn.equals("")) 
 		{
@@ -319,9 +321,9 @@ public class ImportSustXComposicion extends ImportProcessImpl
 			
 		
 		/**
-		* Fin Opción 1
+		* Fin OpciÃ³n 1
 		*/
-		//en caso que el CN sea válido, se extrae el LAB del CN
+		//en caso que el CN sea vÃ¡lido, se extrae el LAB del CN
 		if((codiGTVMP!=null && !codiGTVMP.equals("")) || (codiGTVMPP!=null && !codiGTVMPP.equals("")) || 
 			(nomGTVMP!=null && !nomGTVMP.equals("")) || (nomGTVMPP!=null && !nomGTVMPP.equals("")) || 
 			aplicarNivelGtvmp )
@@ -380,12 +382,6 @@ public class ImportSustXComposicion extends ImportProcessImpl
     {
     }
 
-	@Override
-	protected void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count,
-			boolean cargaAnexa) throws Exception {
-		// TODO Esbozo de método generado automáticamente
-		
-	}
 
 
 

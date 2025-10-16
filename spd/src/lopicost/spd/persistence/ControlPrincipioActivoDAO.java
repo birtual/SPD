@@ -23,7 +23,7 @@ public class ControlPrincipioActivoDAO {
 
 
     /**
-     * Método encargado de devolver true en caso que el GTVM se encuentre definido como controlable para alerta
+     * MÃ©todo encargado de devolver true en caso que el GTVM se encuentre definido como controlable para alerta
      * @param medResi
      * @return
      * @throws ClassNotFoundException

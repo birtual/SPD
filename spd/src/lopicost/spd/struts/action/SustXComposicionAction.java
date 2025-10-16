@@ -33,7 +33,7 @@ public class SustXComposicionAction extends GenericAction  {
 	public ActionForward list(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 	
 		SustXComposicionForm formulari =  (SustXComposicionForm) form;
-	//	inicializamos para que no haya datos de otros m骴ulos
+	//	inicializamos para que no haya datos de otros m贸dulos
 		formulari.setOidSustXComposicion(0);
 		formulari.setCodGtVmp("");
 		formulari.setNombreLab(SustXComposicionDAO.getNombreLaboratorio(formulari.getFiltroCodiLaboratorio()));
@@ -135,7 +135,7 @@ public class SustXComposicionAction extends GenericAction  {
 	public ActionForward nuevo(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		//inicializamos para que no haya datos de otros m骴ulos
+		//inicializamos para que no haya datos de otros m贸dulos
 		SustXComposicionForm formulari =  (SustXComposicionForm) form;
 		formulari.setListaGtVm(BdConsejoDAO.getListaGtVmDeConsejo());
 		formulari.setListaPresentacion(BdConsejoDAO.getListaPresentacion());
@@ -175,7 +175,7 @@ public class SustXComposicionAction extends GenericAction  {
 	
 		List<SustXComposicionAction> resultList= new ArrayList<SustXComposicionAction>();
 		SustXComposicionForm formulari =  (SustXComposicionForm) form;
-		//inicializamos para que no haya datos de otros m骴ulos
+		//inicializamos para que no haya datos de otros m贸dulos
 		
 		formulari.setOidSustXComposicion(0);
 		formulari.setListaSustXComposicion(dao.getSustXComposicion(formulari, 0, 100000));
@@ -197,7 +197,7 @@ public class SustXComposicionAction extends GenericAction  {
 			//	errors.add(SPDConstants.MSG_LEVEL_INFO, new ActionMessage("Registro borrado correctamente Info"));
 				errors.add( "Registros creados correctamente ");
 			}
-			else errors.add( "Error en la creaci髇 masiva de registros");
+			else errors.add( "Error en la creaci贸n masiva de registros");
 			list( mapping,  form,  request,  response);
 			formulari.setErrors(errors);
 			return mapping.findForward("list");
@@ -210,7 +210,7 @@ public class SustXComposicionAction extends GenericAction  {
 	
 		List<SustXComposicionAction> resultList= new ArrayList<SustXComposicionAction>();
 		SustXComposicionForm formulari =  (SustXComposicionForm) form;
-		//inicializamos para que no haya datos de otros m骴ulos
+		//inicializamos para que no haya datos de otros m贸dulos
 		
 		formulari.setFiltroLabsSoloAsignados(true);
 		formulari.setOidSustXComposicion(0);
@@ -266,7 +266,7 @@ public class SustXComposicionAction extends GenericAction  {
 	    public ActionForward exportExcel(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 	    	List errors = new ArrayList();
 	    	SustXComposicionForm formulari =  (SustXComposicionForm) form;
-	    //	inicializamos para que no haya datos de otros m骴ulos
+	    //	inicializamos para que no haya datos de otros m贸dulos
 	    	formulari.setOidSustXComposicion(0);
 	    	ExcelSustXComposicion excelCreator = new ExcelSustXComposicion();
 	    		 

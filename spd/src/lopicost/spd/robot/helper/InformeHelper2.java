@@ -166,7 +166,7 @@ public class InformeHelper2 {
 	}
 
 	/**
-	 * AÒadimos un elemento en posiciÛn determinada, controlando que los anteriores existen o en caso contrario las creamos nulas para que no desborde
+	 * a√±adimos un elemento en posici√≥n determinada, controlando que los anteriores existen o en caso contrario las creamos nulas para que no desborde
 	 * @param lista
 	 * @param posicion
 	 * @param elemento
@@ -174,14 +174,14 @@ public class InformeHelper2 {
     public <T> void insertarEnPosicion(List<T> lista, int posicion, T elemento) {
         // Rellenar posiciones intermedias si es necesario
         for (int i = lista.size(); i < posicion; i++) {
-            lista.add(null); // AÒadir null solo si a˙n no existe esa posiciÛn
+            lista.add(null); // a√±adir null solo si a√∫n no existe esa posici√≥n
         }
 
         if (lista.size() == posicion) {
-            // Si justo estamos al final, simplemente aÒadimos el nuevo elemento
+            // Si justo estamos al final, simplemente a√±adimos el nuevo elemento
             lista.add(elemento);
         } else {
-            // Si ya hay un valor en esa posiciÛn, lo desplazamos
+            // Si ya hay un valor en esa posici√≥n, lo desplazamos
             lista.add(posicion, elemento);
         }
     }

@@ -36,7 +36,7 @@ public class GestEnlacesAction extends GenericAction  {
 		Usuario user = UsuarioDAO.findByIdUser(enlacesForm.getIdUsuario());
 		if(user==null) 
 		{
-	    	errors.add( "Error sesión usuario, es necesario volver a hacer login");
+	    	errors.add( "Error sesiÃ³n usuario, es necesario volver a hacer login");
 			return mapping.findForward("errorSession");
 		}
 		
@@ -95,14 +95,14 @@ public class GestEnlacesAction extends GenericAction  {
 
     
 	public ActionForward nuevo(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//inicializamos para que no haya datos de otros módulos
+		//inicializamos para que no haya datos de otros mÃ³dulos
 		
 		EnlacesForm f =  (EnlacesForm) form;
 		Usuario user = UsuarioDAO.findByIdUser(f.getIdUsuario());
 		List errors = new ArrayList();
 		if(user==null) 
 		{
-	    	errors.add( "Error sesión usuario, es necesario volver a hacer login");
+	    	errors.add( "Error sesiÃ³n usuario, es necesario volver a hacer login");
 			return mapping.findForward("errorSession");
 		}
 		
@@ -141,7 +141,7 @@ public class GestEnlacesAction extends GenericAction  {
 				admin( mapping,  form,  request,  response);
 				return mapping.findForward("admin");
 			}
-			else errors.add( "No se ha podido crear el registro, revisa que el IDENLACE sea único");
+			else errors.add( "No se ha podido crear el registro, revisa que el IDENLACE sea Ãºnico");
 	
 			
 			f.setErrors(errors);
@@ -160,7 +160,7 @@ public class GestEnlacesAction extends GenericAction  {
 		Usuario user = UsuarioDAO.findByIdUser(f.getIdUsuario());
 		if(user==null) 
 		{
-	    	errors.add( "Error sesión usuario, es necesario volver a hacer login");
+	    	errors.add( "Error sesiÃ³n usuario, es necesario volver a hacer login");
 			return mapping.findForward("errorSession");
 		}
 
@@ -209,7 +209,7 @@ public class GestEnlacesAction extends GenericAction  {
 		Usuario user = UsuarioDAO.findByIdUser(formulari.getIdUsuario());
 		if(user==null) 
 		{
-	    	errors.add( "Error sesión usuario, es necesario volver a hacer login");
+	    	errors.add( "Error sesiÃ³n usuario, es necesario volver a hacer login");
 			return mapping.findForward("errorSession");
 		}
 
@@ -219,7 +219,7 @@ public class GestEnlacesAction extends GenericAction  {
 		boolean borrable = EnlacesHelper.checkBorrable(enlace);
 		if(!borrable) 
 		{
-	    	errors.add( "El enlace no es borrable, actualmente está asignado a algún perfil");
+	    	errors.add( "El enlace no es borrable, actualmente estÃ¡ asignado a algÃºn perfil");
 			formulari.setIdEnlace("");
 			formulari.setACTIONTODO("");
 			action=  mapping.findForward("admin");

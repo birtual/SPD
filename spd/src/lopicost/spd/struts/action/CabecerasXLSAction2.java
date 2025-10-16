@@ -70,7 +70,7 @@ public class CabecerasXLSAction2 extends GenericAction  {
     	{
         	CabecerasXLSBean nuevaToma = new CabecerasXLSBean( cab.getIdDivisionResidencia(), formulari.getResiToma(),  horaTomaLiteral, cab.getNumeroDeTomas()+1, "EXTRA", false, false); 
         	result = CabecerasXLSHelper.nuevaToma(getIdUsuario(), cab, nuevaToma);
-			//INICIO eaciÛn de log en BBDD
+			//INICIO eaci√≥n de log en BBDD
 			try{
 				SpdLogAPI.addLog(getIdUsuario(),  null,  cab.getIdDivisionResidencia(), formulari.getIdProceso()
 						, SpdLogAPI.A_CABECERA, SpdLogAPI.B_CREACION, SpdLogAPI.C_TOMAS, "SpdLog.cabecera.creacion.toma"
@@ -81,7 +81,7 @@ public class CabecerasXLSAction2 extends GenericAction  {
 			//FIN de log en BBDD
 
     	}
-    	//actualizaciÛn con la nueva toma
+    	//actualizaci√≥n con la nueva toma
 		tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
 		formulari.setListaTomasCabecera(tomasCabecera);
 		formulari.setErrors(errors);
@@ -100,7 +100,7 @@ public class CabecerasXLSAction2 extends GenericAction  {
 		FicheroResiBean  cabPlantilla = CabecerasXLSDAO.getCabecerasXLSByOidCabecera(getIdUsuario(), formulari.getOidFicheroResiCabecera());
 		
 		//if(cabPlantilla==null || cabPlantilla.getOidFicheroResiDetalle()==0)
-		//en caso que no exista plantilla de cabecera, la creamos en base a la ˙ltima producciÛn 
+		//en caso que no exista plantilla de cabecera, la creamos en base a la √∫ltima producci√≥n 
 		if(cabPlantilla==null)
 			crearPlantilla(formulari);
 		formulari.setFicheroResiDetalleBean(cabPlantilla);
@@ -118,7 +118,7 @@ public class CabecerasXLSAction2 extends GenericAction  {
 				{
 		   			result=CabecerasXLSDAO.borradoDeToma(getIdUsuario(), formulari, cabPlantilla, cab, resiToma.getPosicionEnBBDD());
 					errors.add( "Toma borrada correctamente ");
-					//INICIO eaciÛn de log en BBDD
+					//INICIO eaci√≥n de log en BBDD
 					try{
 						SpdLogAPI.addLog(getIdUsuario(),  null,  cab.getIdDivisionResidencia(), formulari.getIdProceso()
 								, SpdLogAPI.A_CABECERA, SpdLogAPI.B_BORRADO, SpdLogAPI.C_TOMAS, "SpdLog.cabecera.borrado.toma"
@@ -174,7 +174,7 @@ public class CabecerasXLSAction2 extends GenericAction  {
 		    	CabecerasXLSDAO.actualizaPosicion(cabResiTomaAIntercambiar);
 	    	}
 	    	    	
-			//INICIO eaciÛn de log en BBDD
+			//INICIO eaci√≥n de log en BBDD
 			try{
 				SpdLogAPI.addLog(getIdUsuario(),  null,  cabResiToma.getIdDivisionResidencia(), formulari.getIdProceso()
 						, SpdLogAPI.A_CABECERA, SpdLogAPI.B_EDICION, SpdLogAPI.C_TOMAS, "SpdLog.cabecera.moverPosicion.toma"
@@ -185,7 +185,7 @@ public class CabecerasXLSAction2 extends GenericAction  {
 			}catch(Exception e){}
 			//FIN de log en BBDD
 
-			//Se ha intercambiado la posiciÛn de la toma  @@ --> antes:  @@ - despuÈs:  @@, con la posiciÛn de la toma  @@ --> antes:  @@ - despuÈs:  @@
+			//Se ha intercambiado la posici√≥n de la toma  @@ --> antes:  @@ - despu√©s:  @@, con la posici√≥n de la toma  @@ --> antes:  @@ - despu√©s:  @@
 			
 	    	List tomasCabecera = CabecerasXLSDAO.list(getIdUsuario(), formulari.getOidDivisionResidencia());
 	    	
@@ -224,42 +224,42 @@ public class CabecerasXLSAction2 extends GenericAction  {
 			CabecerasXLSDAO.intercambiaPosicion(cab, posicion, posicion+1);
 		}
 		
-	    // ObtÈn el registro correspondiente al lugar que ocupar· el actual
+	    // Obt√©n el registro correspondiente al lugar que ocupar√° el actual
 
 		
 	    Registro registro = obtenerRegistroPorId(registroId);
 
-	    // ObtÈn la lista actualizada de registros desde la base de datos
+	    // Obt√©n la lista actualizada de registros desde la base de datos
 	    List<Registro> registrosList = obtenerRegistrosDeBaseDeDatos();
 
-	    // Encuentra la posiciÛn actual del registro en la lista
+	    // Encuentra la posici√≥n actual del registro en la lista
 	    int posicionActual = registrosList.indexOf(registro);
 
-	    // Realiza la lÛgica para subir o bajar el registro
+	    // Realiza la l√≥gica para subir o bajar el registro
 	    if ("Subir".equals(accion) && posicionActual > 0) {
-	        // Intercambia el registro con el que est· en la posiciÛn anterior
+	        // Intercambia el registro con el que est√° en la posici√≥n anterior
 	        Registro registroAnterior = registrosList.get(posicionActual - 1);
 	        registrosList.set(posicionActual, registroAnterior);
 	        registrosList.set(posicionActual - 1, registro);
 	    } else if ("Bajar".equals(accion) && posicionActual < registrosList.size() - 1) {
-	        // Intercambia el registro con el que est· en la posiciÛn siguiente
+	        // Intercambia el registro con el que est√° en la posici√≥n siguiente
 	        Registro registroSiguiente = registrosList.get(posicionActual + 1);
 	        registrosList.set(posicionActual, registroSiguiente);
 	        registrosList.set(posicionActual + 1, registro);
 	    }
 
-	    // Actualiza la lista de registros en la base de datos (esto puede depender de tu implementaciÛn)
+	    // Actualiza la lista de registros en la base de datos (esto puede depender de tu implementaci√≥n)
 	    actualizarRegistrosEnBaseDeDatos(registrosList);
 
 	    // Pasa la lista actualizada a tu JSP
 	    request.setAttribute("registrosList", registrosList);
 
-	    // Redirige de nuevo a la p·gina de visualizaciÛn de registros
+	    // Redirige de nuevo a la p√°gina de visualizaci√≥n de registros
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("tu_jsp.jsp");
 	    dispatcher.forward(request, response);
 	}
 
-	// MÈtodos auxiliares para obtener, actualizar registros, etc.
+	// M√©todos auxiliares para obtener, actualizar registros, etc.
 
 	
 	*/

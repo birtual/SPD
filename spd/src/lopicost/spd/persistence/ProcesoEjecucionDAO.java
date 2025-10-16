@@ -160,7 +160,7 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 	 	"PENDIENTE"  aún no ejecutado.
 		"EJECUTANDO"  en curso.
 		"FINALIZADO_OK"  ejecutado correctamente.
-		"ERROR"  fallo durante la ejecución.
+		"ERROR"  fallo durante la ejecutó.
 		"CANCELADO"  aborto manual o por lógica.
 	 * @param idUsuario
 	 * @param oidProceso
@@ -212,7 +212,7 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 		}
 
 	/** ok
-	 * Método que devuelve la última ejecución de un proceso
+	 * Método que devuelve la última ejecutó de un proceso
 	 * @param idUsuario
 	 * @param proceso
 	 * @return
@@ -223,7 +223,7 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 	}
 
 	/** ok
-	 * Método que devuelve la última ejecución de un proceso
+	 * Método que devuelve la última ejecutó de un proceso
 	 * @param idUsuario
 	 * @param proceso
 	 * @param estado
@@ -325,7 +325,7 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 
 
     	
-        //String sql = "UPDATE Procesos SET estado = 'En ejecución', fechaInicio = CURRENT_TIMESTAMP WHERE oidProceso = ?";
+        //String sql = "UPDATE Procesos SET estado = 'En ejecutó', fechaInicio = CURRENT_TIMESTAMP WHERE oidProceso = ?";
 
 
     public void finalizarProceso(int oidProceso, String estado, String resultado, String mensaje) {
@@ -371,7 +371,7 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 		
 	}
 
-	 // Método para consultar el estado de ejecución de un proceso
+	 // Método para consultar el estado de ejecutó de un proceso
     private String obtenerEstadoProcesoEjecucion(int oidProcesoEjecucion) {
         String sql = "SELECT estado FROM SPD_procesos WHERE oidProceso = ?";
         Connection con = null;
@@ -391,7 +391,7 @@ public class ProcesoEjecucionDAO extends GenericDAO{
     }
     
 
-    // Método para verificar si el procedimiento almacenado está en ejecución
+    // Método para verificar si el procedimiento almacenado está en ejecutó
     public boolean estaEnEjecucion(int oidProcesoEjecucion) {
         String sql = "SELECT COUNT(*) FROM sys.dm_exec_requests WHERE status = 'running' AND command = 'EXEC' AND blocking_session_id = 0";
         Connection con = null;
@@ -502,7 +502,7 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 		}
 
 	/**
-	 * Método que se encarga de actualizar el estado de una ejecución proceso según el nuevoEstado pasado por parámetro
+	 * Método que se encarga de actualizar el estado de una ejecutó proceso según el nuevoEstado pasado por parámetro
 	 * @param proceso
 	 * @param nuevoEstado
 	 * @return
@@ -515,7 +515,7 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 		
 		ProcesoEjecucion ejec = proceso.getUltimaEjecucion();
 
-		System.out.println(" Actualización de estado de ejecución ");
+		System.out.println(" Actualización de estado de ejecutó ");
 		int result=0;
 		Connection con = null;
 		con = Conexion.conectar();
@@ -542,7 +542,7 @@ public class ProcesoEjecucionDAO extends GenericDAO{
 	public  boolean actualizarEjecucion(ProcesoEjecucion ejec) throws SQLException {
 		if(ejec==null)
 			return false;
-		System.out.println(" Actualización de ejecución ");
+		System.out.println(" Actualización de ejecutó ");
 		int result=0;
 		Connection con = null;
 		con = Conexion.conectar();

@@ -57,11 +57,11 @@
 		<tr>
 			<th class="segunda">idEnlace</th>
 			<th class="segunda">Nombre enlace</th>
-			<th class="segunda">DescripciÛn</th>
+			<th class="segunda">Descripci√≥n</th>
 			<th class="segunda">idapartado</th>
 			<th class="segunda">preEnlace</th>
 			<th class="segunda">link</th>
-			<th class="segunda">Par·metros</th>
+			<th class="segunda">Par√°metros</th>
 			<th class="segunda">activo</th>
 		</tr>
 		<th><bean:write name="data" property="idEnlace" /></th>

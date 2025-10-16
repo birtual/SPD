@@ -303,7 +303,7 @@
 		<th></th>
  		<th>CN</th>
 		<th>Medicamento</th>
-		<th>�Sustituible?</th>
+		<th>¿Sustituible?</th>
 		    </tr>
      
  

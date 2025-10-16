@@ -43,7 +43,7 @@
 			if (document.forms[0].file.value!=""){
 				document.forms[0].operation.value="GENERATE";
 				document.forms[0].submit();
-			}else alert('Falta añadir fichero');
+			}else alert('Falta aÃ±adir fichero');
 		}
 			
 		function generateExcel() 
@@ -73,7 +73,7 @@
 			if (document.forms[0].file.value!=""){
 				document.forms[0].operation.value="GENERATE";
 				document.forms[0].submit();
-			}else alert('Falta añadir fichero');
+			}else alert('Falta aÃ±adir fichero');
 		}
 		function refreshPage() 
 		{
@@ -217,7 +217,7 @@
 				<logic:notEmpty name="ImportIOSpdForm" property="errors">
 					<%request.setAttribute("listaErrores", formulari.getErrors());  %>
 						<font color="red"><ul>
-							<u>Descripción avisos"/></u>
+							<u>DescripciÃ³n avisos"/></u>
 								<logic:iterate id="error" name="ImportIOSpdForm" property="errors" type="java.lang.String">
 									<li><bean:write name="error"/></li>
 								</logic:iterate>
@@ -230,7 +230,7 @@
 	</div>
 </fieldset>	
 	</html:form>
-			<!-- p><html:link page="/FicheroResiCabeceraLite.do?parameter=list">Gestión de ficheros de residencia</html:link></p> --> 
+			<!-- p><html:link page="/FicheroResiCabeceraLite.do?parameter=list">GestiÃ³n de ficheros de residencia</html:link></p> --> 
 				<p class="botons">
 				<!--	<input type="button" class="btn primary" value="Inicio" onclick="javascript:goInicio();" /> --> 
 					<input type="button" class="azulCielo" value="Salir" onclick="javascript:salir();" />

@@ -76,7 +76,7 @@ public class SpdListadoBaseDetalle_v0 {
 
 	  private String spdPeriodo;
 	  private Date spdPeriodoAPartirDeFecha;
-	  private String spdPeriodoDíasConcretos;
+	  private String spdPeriodoDÃ­asConcretos;
 	  private String spdCIP;
 	  
 	  private boolean persistir=true;

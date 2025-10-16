@@ -28,10 +28,10 @@ public class DataUtil {
 		return instance;
 	}
     /**
-     * Mètode que valida si el String és un numèric o si és buit (null o "")
-     * Creat pels casos en que s'accepta un string buit, que desprès serà substituit per un 0
+     * MÃ¨tode que valida si el String Ã©s un numÃ¨ric o si Ã©s buit (null o "")
+     * Creat pels casos en que s'accepta un string buit, que desprÃ¨s serÃ  substituit per un 0
      * @param string
-     * @return cert si l'string és un número o és null o és igual a ""
+     * @return cert si l'string Ã©s un nÃºmero o Ã©s null o Ã©s igual a ""
      * 		   fals la resta de casos
      */
     public boolean isNumeroOrEmpty(String string) {
@@ -55,7 +55,7 @@ public class DataUtil {
     }
     
     
-    //Funció que retorna true si es un numero y false si no ho és
+    //FunciÃ³ que retorna true si es un numero y false si no ho Ã©s
     public static boolean isNumero(String nom) {
     	if(nom==null || nom.isEmpty()) return false;
      	boolean esNumeric = true;
@@ -71,15 +71,15 @@ public class DataUtil {
 }    
 
     /**
-     * Método que devuelve un código nacional de 7 dígitos a partir de uno de 6
+     * MÃ©todo que devuelve un cÃ³digo nacional de 7 dÃ­gitos a partir de uno de 6
      * A - CODIGO6	707044
      * B - CODIGO7	=SI(LARGO(A2)=7;C;C&I2)
-     * D1 -	dígito1	7
-     * D2 -	dígito2	0
-     * D3 -	dígito3	7
-     * D4 -	dígito4	0
-     * D5 -	dígito	4
-     * D6 -	dígito	4
+     * D1 -	dÃ­gito1	7
+     * D2 -	dÃ­gito2	0
+     * D3 -	dÃ­gito3	7
+     * D4 -	dÃ­gito4	0
+     * D5 -	dÃ­gito	4
+     * D6 -	dÃ­gito	4
      * A -	Algoritmo			=3*D2+3*D4+3*D6+D1+D32+D5+27
      * E -	Entero				=ENTERO(A2/10)
      * R -	Residuo				=RESIDUO(A2;10)

@@ -17,12 +17,12 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
 <script language="javaScript" src="/spd/spd/app/sustXGt/js/sustXGt.js"></script>
-<title>Asignar Lab a una sustitución X GtVmpp (Conjunto Homogéneo)</title>
+<title>Asignar Lab a una sustituciÃ³n X GtVmpp (Conjunto HomogÃ©neo)</title>
 
 
 <style>
 .ui-autocomplete {
-    max-height: 200px; /* Limitar la altura del menú desplegable */
+    max-height: 200px; /* Limitar la altura del menÂº desplegable */
     overflow-y: auto;  /* Habilitar scroll vertical */
     overflow-x: hidden; /* Evitar scroll horizontal */
     z-index: 1000; /* Asegurarte de que sea visible */
@@ -107,7 +107,7 @@
 			var f = document.SustXGtForm;
 
 			if(f.filtroCodGtVmpp.value=='')
-				alert('Falta indicar el GtVmpp (conjunto homogéneo)');
+				alert('Falta indicar el GtVmpp (conjunto homogÃ©neo)');
 			if(f.filtroCodiLaboratorio.value=='')
 				alert('Falta indicar el laboratorio');
 		
@@ -120,7 +120,7 @@
 <body id="general">
 	<!-- mostramos mensajes y errores, si existen -->
 	<center>
-		<h2>Edición sustitución</h2>
+		<h2>EdiciÃ³n sustituciÃ³n</h2>
 		<html:form action="/SustXGt.do" method="post">	
 
 
@@ -134,7 +134,7 @@
      <html:hidden property="codGtVm" styleId="codGtVm" value="<%=formulari.getNivel3().getNivel2().getCodGtVm()%>"/>
  <table>
         <tr>
-            <th>Descripción</th>
+            <th>DescripciÃ³n</th>
             <th>Valor</th>
         </tr>
         <tr>

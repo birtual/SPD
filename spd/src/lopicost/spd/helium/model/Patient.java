@@ -23,13 +23,13 @@ import lopicost.spd.utils.DateUtilities;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Patient {
 	@XmlAttribute(name = "idPatient")
-	private String idPatient;										// Identificador ˙nico del paciente dentro del centro. Se puede coger una clave interna del sistema inform·tico siempre vinculada al paciente.
+	private String idPatient;										// Identificador √∫nico del paciente dentro del centro. Se puede coger una clave interna del sistema inform√°tico siempre vinculada al paciente.
 	@XmlTransient	//para que no se muestre en el XML
 	private String cip;		
-	private boolean active;											// Indicador de si el paciente est· o no activo, valores true y false. Si el paciente est· activo se podr·n generar blisters.
+	private boolean active;											// Indicador de si el paciente est√° o no activo, valores true y false. Si el paciente est√° activo se podr√°n generar blisters.
 	private Date admissionDate;										// Fecha de ingreso en el centro, su formato es dd-mm-yyyy. Ejemplo: 02-01-2019
 	private Date lastAdmissionDate;									// Ultima fecha de ingreso en el centro, su formato es dd-mm-yyyy
-	private boolean hospitalized;									// Indicador de si el paciente est· o no hospitalizado, valores true y false.
+	private boolean hospitalized;									// Indicador de si el paciente est√° o no hospitalizado, valores true y false.
 	private String dni;												// Documento nacional de identidad del paciente
 	private String name;											// Nombre del paciente
 	private String surname1;										// Primer apellido del paciente
@@ -37,9 +37,9 @@ public class Patient {
 	private Date birthday;											// Fecha de nacimiento del paciente en format dd-mm-yyyy
 	//private List<Treatment> treatments = new ArrayList<Treatment>();
 	//@XmlElement(name = "treatments")
-	private Treatments treatments;									  // Conjunto de tratamientos de un paciente o posologÌa
+	private Treatments treatments;									  // Conjunto de tratamientos de un paciente o posolog√≠a
 	private String 	floor;											// planta etc.			
-	private String room;											// DirecciÛn de la habitaciÛn de un paciente en el centro;
+	private String room;											// Direcci√≥n de la habitaci√≥n de un paciente en el centro;
 	private String idPharmacy;										//Id Farmatic
 	//public String getIdPatient() 									{		return idPatient;							}
 	public void setIdPatient(String idPatient) 						{		this.idPatient = idPatient;					}

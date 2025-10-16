@@ -10,7 +10,7 @@ import  lopicost.spd.utils.TextManager;
 import java.util.Vector;
 
 /**
- * M�todo encargado de importar registros de sustituciones para cada residencia
+ * Método encargado de importar registros de sustituciones para cada residencia
  * Todos los registros del listado
 
  *
@@ -23,7 +23,7 @@ public class ImportSustitucionesLite extends ImportProcessImpl
 		super();
 	}
 
-	/**los ficheros han de venir con cabecera. Se tendr� en cuenta a partir de la fila 2**/	
+	/**los ficheros han de venir con cabecera. Se tendrá en cuenta a partir de la fila 2**/	
     protected boolean beforeProcesarEntrada(Vector row) throws Exception 
     {
     	return true;
@@ -64,7 +64,7 @@ public class ImportSustitucionesLite extends ImportProcessImpl
         	i=i+1;
      	}
      	
-     	lite.setResiCn(StringUtil.limpiarTextoEspaciosYAcentos((String) row.elementAt(i), false));		//resiCnOk  lo ponemos porque est� con m�scara "000000"
+     	lite.setResiCn(StringUtil.limpiarTextoEspaciosYAcentos((String) row.elementAt(i), false));		//resiCnOk  lo ponemos porque está con máscara "000000"
      	
      	lite.setResiMedicamento(StringUtil.limpiarTextoComentarios((String) row.elementAt(i+1)));		//resiMedicamento
     	lite.setSpdCn(StringUtil.limpiarTextoEspaciosYAcentos((String) row.elementAt(i+2), false));			//spdCn

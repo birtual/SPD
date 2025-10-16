@@ -620,7 +620,7 @@ function getMonthSelect() {
     }
     // IF CATALA
     else if (selectedLanguage == "cat") {
-        monthArray = new Array('Gener', 'Febrer', 'Mar�', 'Abril', 'Maig', 'Juny',
+        monthArray = new Array('Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny',
                                'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre');
     }
     // DEFAULT TO FRENCH

@@ -126,12 +126,12 @@ public class ConnectorXlsCsv implements Connector
 	                        //hssFCell.setCellValue("");
 	                    }else{
 
-	                        // Verificar si la celda es de tipo numérico y si su valor es un número entero
+	                        // Verificar si la celda es de tipo numÃ©rico y si su valor es un nÃºmero entero
 	                        if (hssFCell.getCellType() == CellType.NUMERIC && hssFCell.getNumericCellValue() == (int) hssFCell.getNumericCellValue()) {
 	                            int intValue = (int) hssFCell.getNumericCellValue();
 	                            hssFCell.setCellValue(String.valueOf(intValue)); // Almacenar el valor como cadena sin ".0"
 	                        } else {
-	                        	hssFCell.setCellValue(hssFCell.toString()); // Si no es entero, almacenar el valor tal como está
+	                        	hssFCell.setCellValue(hssFCell.toString()); // Si no es entero, almacenar el valor tal como estÃ¡
 	                        }
 
 	                            

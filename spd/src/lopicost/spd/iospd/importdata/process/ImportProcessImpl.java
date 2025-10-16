@@ -152,7 +152,7 @@ public abstract class ImportProcessImpl implements ImportProcess
 			//xxxxxwhile ((rowInProcess!=null ||  (rowInProcess=conector.getNextRow())!=null)   && !rowInProcess.isEmpty()) 
 		    int totalFilas = conector.getFilasTotales();
 		    boolean fin = false;
-//		    boolean cargaAnexa = conector.isCargaAnexa();  //en caso que se a�ada un fichero a un proceso ya existente 
+//		    boolean cargaAnexa = conector.isCargaAnexa();  //en caso que se añada un fichero a un proceso ya existente 
 		    //while ( totalFilas>=count && (rowInProcess=conector.getNextRow())!=null )
 		    DivisionResidencia div = DivisionResidenciaDAO.getDivisionResidenciaById(getSpdUsuario(), this.idDivisionResidencia);
 		    while ( totalFilas>=count && !fin)
@@ -180,7 +180,7 @@ public abstract class ImportProcessImpl implements ImportProcess
                         e.getMessage();
                     */
 			        	} catch (Exception e) {
-                        if (e instanceof MaxLineasNulasException) {		//cortamos el bucle si recibimos esta excepci�n
+                        if (e instanceof MaxLineasNulasException) {		//cortamos el bucle si recibimos esta excepción
                             fin = true;
                          } 
                         
@@ -196,7 +196,7 @@ public abstract class ImportProcessImpl implements ImportProcess
 ////////////////////                        errores+= " --> "+rowInProcess.toString();
 						//writeError(rowInProcess, e.getMessage());                                   
 			        }
-					//Incrementem el n�mero de files processades
+					//Incrementem el número de files processades
 					this.setProcessedRows(this.getProcessedRows()+1);
 					// 3.- En caso de errores escribirlo en la salida
 					if(errores!=null)
@@ -243,7 +243,7 @@ public abstract class ImportProcessImpl implements ImportProcess
 	 */
 	private void writeError(Vector row, String error)  throws IOException, ClassNotFoundException, SQLException
 	{
-		//A�ado un log en BDD para poder relanzar los erroneos y tenerlo mejor detectados.
+		//añado un log en BDD para poder relanzar los erroneos y tenerlo mejor detectados.
 		SpdLogAPI.addLog(getSpdUsuario(), getIdDivisionResidencia(), getIdProceso(), SpdLogAPI.A_IOSPD, getLogSubAccion(), (getProcessedRows()+1)+"", error,row.toString());
 		
 		row.add(error);
@@ -277,7 +277,7 @@ public abstract class ImportProcessImpl implements ImportProcess
 			try {
 				log.top( statistics );
 				//jpapell 26/09/2007
-				//A�ado un log en BDD para poder controlar los processos lanzados .
+				//añado un log en BDD para poder controlar los processos lanzados .
 				SpdLogAPI.addLog(getSpdUsuario(), getIdDivisionResidencia(), getIdProceso(), SpdLogAPI.A_IOSPD, getLogAccion(), SpdLogAPI.C_START,
 						"0", "["+new Date().toString()+"] Lanzado proceso IOSGA ");
 				
@@ -306,7 +306,7 @@ public abstract class ImportProcessImpl implements ImportProcess
 			try {
 				log.bottom( statistics );
 				//jpapell 26/09/2007
-				//A�ado un log en BDD para poder controlar los processos lanzados .
+				//añado un log en BDD para poder controlar los processos lanzados .
 				SpdLogAPI.addLog(getSpdUsuario(), getIdDivisionResidencia(), getIdProceso(), SpdLogAPI.A_IOSPD, getLogAccion(), SpdLogAPI.C_END,
 						"0", "["+new Date().toString()+"] Lanzado proceso IOSGA-> procesados:["+statistics.getProcessedRowsCount()+"] ok:["+statistics.getOkRowsCount()+"] ko:["+statistics.getErrorsRowsCount()+"]");
 				

@@ -1,5 +1,3 @@
-/* conté els estils específics de certs aplicatius, normalment distingits per un id al body */
-/* modalitat dels cursos */
 .libre {
 	font-weight: bold;
 	font-size: 9px;
@@ -40,7 +38,7 @@
 	
 }
 
-/* la meva formació */
+/* la meva formaciÃ³ */
 #listadoaulas #prgformacio.datos  {
 	padding-bottom: 20px;
 	}
@@ -89,7 +87,7 @@
 }
 
 
-/* catalàleg */
+
 /* #catalog h2 {
 	padding: 10px 10px 0 10px;
 	margin: 0;

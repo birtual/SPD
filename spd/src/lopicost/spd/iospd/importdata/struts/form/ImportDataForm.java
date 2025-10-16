@@ -23,7 +23,7 @@ public class ImportDataForm extends ActionForm
 	}
 	private int filesProcessades=0;
 	private String idUsuario="";
-	private FormFile file = null; // Para el upload de la documentación
+	private FormFile file = null; // Para el upload de la documentaciÃ³n
 	private String filenameIn= "";
 	private String filenameOut= "";
 	private String exportType= "";

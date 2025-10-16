@@ -30,10 +30,10 @@ import java.util.TreeMap;
 import java.util.Vector;
 
 /**
- * Método encargado de importar el fichero recibido de la residencia, pero habiendo realizado nuestras sustituciones 
+ * MÃ©todo encargado de importar el fichero recibido de la residencia, pero habiendo realizado nuestras sustituciones 
  * La finalidad es persistir los datos de SOLO_INFO y PASTILLERO del SPD junto con los NO_PINTAR, para poder compararlos
  * con las recetas y ver discrepancias.
- * El fichero ya viene "limpio" porque es el paso previo al envío al robot
+ * El fichero ya viene "limpio" porque es el paso previo al envÃ­o al robot
  * author CARLOS
  *
  */
@@ -47,10 +47,10 @@ public class ImportDatosResiSPDPrevision extends ImportProcessImpl
 		super();
 	}
 
-	/**los ficheros han de venir con cabecera. Se tendrá en cuenta a partir de la fila 2**/	
+	/**los ficheros han de venir con cabecera. Se tendrÃ¡ en cuenta a partir de la fila 2**/	
     protected boolean beforeProcesarEntrada(Vector row) throws Exception 
     {
-    	//pasar a histórico los inactivos
+    	//pasar a histÃ³rico los inactivos
     	//if(!procesosAnterioresLimpiados)ioSpdApi.limpiarCIPsInactivos();
     	//FicheroMedResiConSustitucionDAO.creaHistoricoPacientesInactivos();
     	//FicheroMedResiConSustitucionDAO.borraProcesosPacientesInactivos();
@@ -73,17 +73,19 @@ public class ImportDatosResiSPDPrevision extends ImportProcessImpl
 		comentario		
 	*/
     
-    public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count) throws Exception 
+   //public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count) throws Exception 
+    public boolean procesarEntrada(String idRobot, DivisionResidencia div, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception
     {
+    	boolean result = false;
        if (row!=null && row.size()>=22)
        {        	
-    	   boolean result = false;
     	   String element = (String) row.elementAt(1);
     	   if(!element.toUpperCase().contains("IDPROCESO"))	//nos aseguramos de saltar la cabecera
     		   result=creaRegistro(row);
        }
        else 
             throw new Exception (TextManager.getMensaje("ImportData.error.ImportDatosResiSPD"));
+       return result;
     }
     
     private boolean creaRegistro(Vector row) throws Exception {
@@ -111,10 +113,10 @@ public class ImportDatosResiSPDPrevision extends ImportProcessImpl
     	{
     		double numeroDouble = Double.parseDouble(campoResiInicioTratamiento);
     		int parteEntera = (int) numeroDouble;
-    		if(parteEntera>50000) parteEntera=0;//número de una posible fecha 
+    		if(parteEntera>50000) parteEntera=0;//nÃºmero de una posible fecha 
     		campoResiInicioTratamiento = String.valueOf(parteEntera);
     	}
-    	campoResiInicioTratamiento = StringUtil.getStringArregloFecha(campoResiInicioTratamiento, "dd/MM/yyyy"); //conversión a formato DD/MM/YYYY
+    	campoResiInicioTratamiento = StringUtil.getStringArregloFecha(campoResiInicioTratamiento, "dd/MM/yyyy"); //conversiÃ³n a formato DD/MM/YYYY
     	fila.setResiInicioTratamiento(campoResiInicioTratamiento); 
  
     	String campoResiFinTratamiento = (String) row.elementAt(8);
@@ -123,12 +125,12 @@ public class ImportDatosResiSPDPrevision extends ImportProcessImpl
     	{
     		double numeroDouble = Double.parseDouble(campoResiFinTratamiento);
     		int parteEntera = (int) numeroDouble;
-    		if(parteEntera>50000) parteEntera=0;//número de una posible fecha 
+    		if(parteEntera>50000) parteEntera=0;//nÃºmero de una posible fecha 
     		campoResiFinTratamiento = String.valueOf(parteEntera);
     	}
-     	campoResiFinTratamiento = StringUtil.getStringArregloFecha(campoResiFinTratamiento, "dd/MM/yyyy"); //conversión a formato DD/MM/YYYY
+     	campoResiFinTratamiento = StringUtil.getStringArregloFecha(campoResiFinTratamiento, "dd/MM/yyyy"); //conversiÃ³n a formato DD/MM/YYYY
     	
-    	fila.setResiFinTratamiento(campoResiFinTratamiento); //conversión a formato DD/MM/YYYY
+    	fila.setResiFinTratamiento(campoResiFinTratamiento); //conversiÃ³n a formato DD/MM/YYYY
     	//fila.setResiInicioTratamientoParaSPD(fila.getResiInicioTratamiento());
     	//fila.setResiFinTratamientoParaSPD(fila.getResiFinTratamiento());
     	fila.setResiObservaciones(StringUtil.replaceInvalidChars((String) row.elementAt(9)));
@@ -208,7 +210,7 @@ public class ImportDatosResiSPDPrevision extends ImportProcessImpl
 			 
 		}
 		
-		//Búsqueda de BDConsejo
+		//BÃºsqueda de BDConsejo
 		BdConsejo bdConsejo=BdConsejoDAO.getByCN(fila.getSpdCnFinal()); 
 		if(bdConsejo!=null)
 		{
@@ -234,12 +236,12 @@ public class ImportDatosResiSPDPrevision extends ImportProcessImpl
   		{
      		
         	ioSpdApi.limpiarCIPIdprocesoAnterior(fila.getIdProceso(), fila.getResiCIP());
-            //Una vez limpiado, se añade como CIP ya tratado para no volver a limpiar datos
+            //Una vez limpiado, se aÃ±ade como CIP ya tratado para no volver a limpiar datos
             CIPSTratados.put(fila.getResiCIP(), fila.getResiCIP());
             
   		}
-		//INICIO importación en ctl_medicacioResi
-		//nos vamos al otro proceso de importación que había hasta el 03/2023
+		//INICIO importaciÃ³n en ctl_medicacioResi
+		//nos vamos al otro proceso de importaciÃ³n que habÃ­a hasta el 03/2023
 		//Lo enlazamos desde este mismo proceso para no tener que importar dos veces
     	
     	/* Ahora lo hacemos CIP a CIP
@@ -265,7 +267,7 @@ public class ImportDatosResiSPDPrevision extends ImportProcessImpl
  		
 		if(!resultPrevision)
 		{
-			throw new Exception ("No se ha podido crear el registro de previsión  (SPD_resiMedicacion)");
+			throw new Exception ("No se ha podido crear el registro de previsiÃ³n  (SPD_resiMedicacion)");
 			//errors.add( "Registro sust creado correctamente ");
 		}
 			if(!result)
@@ -274,7 +276,7 @@ public class ImportDatosResiSPDPrevision extends ImportProcessImpl
 			//errors.add( "Registro sust creado correctamente ");
 		}
 		
-		//FIN importación en ctl_medicacioResi
+		//FIN importaciÃ³n en ctl_medicacioResi
 
 
 	    
@@ -293,12 +295,7 @@ public class ImportDatosResiSPDPrevision extends ImportProcessImpl
     	IOSpdApi.borraErrores(getIdDivisionResidencia());
     }
 
-	@Override
-	protected void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count,
-			boolean cargaAnexa) throws Exception {
-		// TODO Esbozo de método generado automáticamente
-		
-	}
+
 
 }
 

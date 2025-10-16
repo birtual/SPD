@@ -69,11 +69,11 @@ public class FicheroResiDetalleLiteHstAction extends GenericAction  {
 		
 		FicheroResiDetalleHelper.rellenaListados(formulari);
 		
-		//INICIO creación de log en BBDD
+		//INICIO creaciÃ³n de log en BBDD
 		try{
 			SpdLogAPI.addLog(getIdUsuario(), "",  formulari.getIdDivisionResidencia(), formulari.getIdProceso(),  SpdLogAPI.A_TRATAMIENTO, SpdLogAPI.B_CONSULTA, SpdLogAPI.C_LISTADO_HIST, "SpdLog.tratamiento.consulta.listado_hist", formulari.getIdProceso());
-		}catch(Exception e){}	 //Consulta del listado de tratamientos de la producción
-		//FIN creación de log en BBDD
+		}catch(Exception e){}	 //Consulta del listado de tratamientos de la producciÃ³n
+		//FIN creaciÃ³n de log en BBDD
 		
 		return mapping.findForward("listarTipoVista");
 	
@@ -88,23 +88,23 @@ public class FicheroResiDetalleLiteHstAction extends GenericAction  {
 		List listInfoAlertas = new ArrayList();
 		if(frbean!=null)
 		{
-			// C - (Número comprimidos)
+			// C - (nÃºmero comprimidos)
 			InfoAlertasBean infoAlertas = new InfoAlertasBean();
-			infoAlertas.setTituloAlerta("C - (Número comprimidos) ");
+			infoAlertas.setTituloAlerta("C - (nÃºmero comprimidos) ");
 			if(frbean.getControlNumComprimidos()!=null && frbean.getControlNumComprimidos().equalsIgnoreCase(SPDConstants.CTRL_NCOMPRIMIDOS_IGUAL))
 			{
 				infoAlertas.setCssAlerta("verde");
-				infoAlertas.setTextoAlerta("Coincide  la previsión de comprimidos según fichero de la residencia (Previsión --> "+frbean.getPrevisionResi()+ ") y lo que se envía a robot (Previsión --> "+frbean.getPrevisionSPD()+ ") ");
+				infoAlertas.setTextoAlerta("Coincide  la previsiÃ³n de comprimidos segÃºn fichero de la residencia (PrevisiÃ³n --> "+frbean.getPrevisionResi()+ ") y lo que se envÃ­a a robot (PrevisiÃ³n --> "+frbean.getPrevisionSPD()+ ") ");
 			}
 			else if(frbean.getControlNumComprimidos()!=null && frbean.getControlNumComprimidos().equalsIgnoreCase(SPDConstants.CTRL_NCOMPRIMIDOS_DIFERENTE))
 			{
 				infoAlertas.setCssAlerta("rojo");
-				infoAlertas.setTextoAlerta("ALERTA - Comprobar comprimidos fichero de la residencia (Previsión --> "+frbean.getPrevisionResi()+ ") y lo que se envía a robot (Previsión --> "+frbean.getPrevisionSPD()+ ") ");
+				infoAlertas.setTextoAlerta("ALERTA - Comprobar comprimidos fichero de la residencia (PrevisiÃ³n --> "+frbean.getPrevisionResi()+ ") y lo que se envÃ­a a robot (PrevisiÃ³n --> "+frbean.getPrevisionSPD()+ ") ");
 			}
 			else
 			{
 				infoAlertas.setCssAlerta("naranja");
-				infoAlertas.setAlertaNumComprimidos("No se detecta el número de comprimidos según fichero o es un tratamiento que no afecta a SPD ");
+				infoAlertas.setAlertaNumComprimidos("No se detecta el nÃºmero de comprimidos segÃºn fichero o es un tratamiento que no afecta a SPD ");
 			}
 			listInfoAlertas.add(infoAlertas);
 			
@@ -133,7 +133,7 @@ public class FicheroResiDetalleLiteHstAction extends GenericAction  {
 				infoAlertas.setCssAlerta("rojo");
 				if(medResiAnterior!=null)
 				{
-					infoAlertas.setTextoAlerta("ALERTA.-  REVISAR bien el tratamiento. Se envía diferente a la anterior producción. <br>"
+					infoAlertas.setTextoAlerta("ALERTA.-  REVISAR bien el tratamiento. Se envÃ­a diferente a la anterior producciÃ³n. <br>"
 							+ "<br>  ANTERIOR --> " + medResiAnterior.getIdTratamientoSPD() 
 							+ "<br>  ACTUAL------> " + frbean.getIdTratamientoSPD());
 				}
@@ -146,23 +146,23 @@ public class FicheroResiDetalleLiteHstAction extends GenericAction  {
 			}
 			listInfoAlertas.add(infoAlertas);
 			
-			// R - (envío a robot) 
+			// R - (envÃ­o a robot) 
 			infoAlertas = new InfoAlertasBean();
-			infoAlertas.setTituloAlerta("R - (envío a robot) ");
+			infoAlertas.setTituloAlerta("R - (envÃ­o a robot) ");
 			if(frbean.getControlRegistroRobot()!=null && frbean.getControlRegistroRobot().equalsIgnoreCase(SPDConstants.CTRL_ROBOT_SE_ENVIA_A_ROBOT))
 			{
 				infoAlertas.setCssAlerta("verde");
-				infoAlertas.setTextoAlerta("Se envía a robot como '" + frbean.getSpdAccionBolsa()+"'");
+				infoAlertas.setTextoAlerta("Se envÃ­a a robot como '" + frbean.getSpdAccionBolsa()+"'");
 			}
 			else if(frbean.getControlRegistroRobot()!=null && frbean.getControlRegistroRobot().equalsIgnoreCase(SPDConstants.CTRL_ROBOT_NO_SE_ENVIA))
 			{
 				infoAlertas.setCssAlerta("gris");
-				infoAlertas.setTextoAlerta("NO se envía a robot porque es '" + frbean.getSpdAccionBolsa()+"'");
+				infoAlertas.setTextoAlerta("NO se envÃ­a a robot porque es '" + frbean.getSpdAccionBolsa()+"'");
 			}
 			else 
 			{
 				infoAlertas.setCssAlerta("blanco");
-				infoAlertas.setTextoAlerta("Revisar acción en bolsa del tratamiento");
+				infoAlertas.setTextoAlerta("Revisar acciÃ³n en bolsa del tratamiento");
 			}		
 			listInfoAlertas.add(infoAlertas);
 			
@@ -177,7 +177,7 @@ public class FicheroResiDetalleLiteHstAction extends GenericAction  {
 			else if(frbean.getControlValidacionDatos()!=null && frbean.getControlValidacionDatos().equalsIgnoreCase(SPDConstants.CTRL_VALIDAR_ALERTA))
 			{
 				infoAlertas.setCssAlerta("naranja");
-				infoAlertas.setTextoAlerta("Necesaria revisión de datos'");
+				infoAlertas.setTextoAlerta("Necesaria revisiÃ³n de datos'");
 			}
 			else 
 			{
@@ -199,7 +199,7 @@ public class FicheroResiDetalleLiteHstAction extends GenericAction  {
 			else if(frbean.getControlPrincipioActivo()!=null && frbean.getControlPrincipioActivo().equalsIgnoreCase(SPDConstants.CTRL_PRINCIPIO_ACTIVO_ALERTA))
 			{
 				infoAlertas.setCssAlerta("amarillo");
-				infoAlertas.setTextoAlerta("El principio activo de este tratamiento está marcado para CONTROL EXTRA  '" + frbean.getSpdNomGtVm()+"'");
+				infoAlertas.setTextoAlerta("El principio activo de este tratamiento estÃ¡ marcado para CONTROL EXTRA  '" + frbean.getSpdNomGtVm()+"'");
 			}
 			else 
 			{
@@ -255,7 +255,7 @@ public class FicheroResiDetalleLiteHstAction extends GenericAction  {
 
 				listInfoAlertas.add(infoAlertas);
 
-				// V - Control de GTVM ÚNICOS (para detectar tratamientos con el mismo GTVM) 
+				// V - Control de GTVM ÃºnicOS (para detectar tratamientos con el mismo GTVM) 
 				infoAlertas = new InfoAlertasBean();
 				infoAlertas.setTituloAlerta("V - Control de principio activo repetido");
 				 if(frbean.getControlUnicoGtvm()!=null && frbean.getControlUnicoGtvm().equalsIgnoreCase(SPDConstants.CTRL_UNICO_GTVM_OK))
@@ -266,7 +266,7 @@ public class FicheroResiDetalleLiteHstAction extends GenericAction  {
 				else if(frbean.getControlUnicoGtvm()!=null && frbean.getControlUnicoGtvm().equalsIgnoreCase(SPDConstants.CTRL_UNICO_GTVM_ALERTA))
 				{
 					infoAlertas.setCssAlerta("rojo");
-					infoAlertas.setTextoAlerta(" El residente tiene asignado más de un medicamento con este mismo principio activo ");
+					infoAlertas.setTextoAlerta(" El residente tiene asignado mÃ¡s de un medicamento con este mismo principio activo ");
 				}
 				else 
 				{
@@ -300,14 +300,14 @@ public class FicheroResiDetalleLiteHstAction extends GenericAction  {
 			{
 				return list(mapping, form, request, response);
 			}
-	   		//Volvemos a poner list porque se quedaría exportExcel en cualquier acción posterior
+	   		//Volvemos a poner list porque se quedarÃ­a exportExcel en cualquier acciÃ³n posterior
 			formulari.setACTIONTODO("list");
 			
 			//recuperamos la cabecera del listado
 			FicheroResiBean cab =  FicheroResiDetalleHelper.getCabeceraFicheroResi(getIdUsuario(), formulari.getIdDivisionResidencia(), formulari.getIdProceso(), false, true);
 			formulari.setListaTomasCabecera(FicheroResiDetalleHelper.getTomasCabeceraYHora(cab));	
 
-		//	inicializamos para que no haya datos de otros módulos
+		//	inicializamos para que no haya datos de otros mÃ³dulos
 			ExcelFicheroResiDetallePlantUnifLite excelCreator = new ExcelFicheroResiDetallePlantUnifLite();
 			List results = dao.getGestFicheroResiBolsa(getIdUsuario(), formulari.getOidFicheroResiDetalle(), formulari, 0, 100000, "", false,  " g.resiCIP, g.resiMedicamento ", true, false );
 			
@@ -324,7 +324,7 @@ public class FicheroResiDetalleLiteHstAction extends GenericAction  {
 			// Lista para definir el orden deseado de las columnas
 	        List<String> ordenColumnas = Arrays.asList("resiToma1", "resiToma2", "resiToma3", "resiToma41", "resiToma5", "resiToma7", "resiToma8", "resiToma6"); // Utilizando Arrays.asList()
 
-	        // Llamar a la función para reorganizar las columnas
+	        // Llamar a la funciÃ³n para reorganizar las columnas
 	        List<FicheroResiBean> resultadosReorganizados = HelperSPD.reordenarMatriz(resultsCab, ordenColumnas);
 
 	        // Imprimir los resultados reorganizados

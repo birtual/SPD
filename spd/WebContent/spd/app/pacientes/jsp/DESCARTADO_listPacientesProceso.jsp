@@ -13,7 +13,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Gesti髇 carga ficheros Robot</title>
+<title>Gesti贸n carga ficheros Robot</title>
 </head>
 
 
@@ -177,7 +177,7 @@
 			<th>Apellido1</th>
 			<th>Apellido2</th>
 			<th>Planta</th>
-			<th>Habitaci髇</th>
+			<th>Habitaci贸n</th>
 			<th>SPD</th>
 			<th>Estado</th>
 			<th>Mensaje</th>
@@ -217,7 +217,7 @@
 	</p> 
 		
 		
-	<!--  paginaci髇  -->
+	<!--  paginaci贸n  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -231,7 +231,7 @@
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginaci髇   -->
+	<!--  paginaci贸n   -->
 		
 	</div>	
 	</html:form>

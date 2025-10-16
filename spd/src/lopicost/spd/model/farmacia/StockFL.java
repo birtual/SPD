@@ -30,7 +30,7 @@ public class StockFL implements Serializable {
 //	  private String proveedor;					//PROVEEDOR 					varchar(255),
 //	  private String lote;						//LOTE		 					varchar(50),
 //	  private String caducidad;					//CADUCIDAD		 				varchar(50),
-//	  private String FechaMaximaPedido;			//CADUCIDAD		- 75 días		varchar(50),
+//	  private String FechaMaximaPedido;			//CADUCIDAD		- 75 dÃ­as		varchar(50),
 //	  private String puv;						//PUV 							float,
 	public Date getFechaInsert() {
 		return fechaInsert;

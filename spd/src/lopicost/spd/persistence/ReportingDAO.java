@@ -20,7 +20,7 @@ public class ReportingDAO {
 	
 	
 /**
- * Devuelve un listado de reports según el usuario y sus privilegios 
+ * Devuelve un listado de reports segÃºn el usuario y sus privilegios 
  * @param usuario
  * @return
  * @throws ClassNotFoundException

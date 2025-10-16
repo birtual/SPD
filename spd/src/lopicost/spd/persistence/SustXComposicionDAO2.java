@@ -182,15 +182,15 @@ public class SustXComposicionDAO2 {
 	
 	
 	/**
-	 * 	Grupo Terapéutico ATC Nivel 3. Permite obtener el listado de medicamentos que tengan su mismo nivel de grupo terapéutico de la ATC (mismo subgrupo farmacológico/terapéutico).
-		Grupo Terapéutico ATC Nivel 4. Permite obtener el listado de medicamentos que tengan su mismo nivel de grupo terapéutico de la ATC (mismo subgrupo farmacológico/terapéutico).
-		Grupo Terapéutico ATC Nivel 5. Permite obtener el listado de medicamentos que tengan su mismo nivel de grupo terapéutico de la ATC (mismo principio activo).
-		Grupo Terapéutico VMP. Permite obtener el listado de medicamentos que tengan su mismo grupo VMP (es decir, igual principio activo, dosis y forma farmacéutica).
-		Grupo Terapéutico VMPP. Permite obtener el listado de medicamentos que tengan su mismo grupo VMMP (es decir, igual principio activo, dosis, forma farmacéutica y número de unidades de dosificación).
-	 * Habrán varias formas de muestra:
-	 * 	- Selección de LAB: Se muestran los ConjHomogéneos que hay disponibles (bdConsejo) para ese LAb
-	 *  - Selección de soloAsignados: Lo mismo que lo anterior pero solo los que tienen LAB - conjHomog asignado
-	 *  - Selección de PActivo / Grupo terap: Se muestran los de la tabla sustitucionXConjHomg ordenados descendentemente por rent/ponderación
+	 * 	Grupo TerapÃ©utico ATC Nivel 3. Permite obtener el listado de medicamentos que tengan su mismo nivel de grupo terapÃ©utico de la ATC (mismo subgrupo farmacolÃ³gico/terapÃ©utico).
+		Grupo TerapÃ©utico ATC Nivel 4. Permite obtener el listado de medicamentos que tengan su mismo nivel de grupo terapÃ©utico de la ATC (mismo subgrupo farmacolÃ³gico/terapÃ©utico).
+		Grupo TerapÃ©utico ATC Nivel 5. Permite obtener el listado de medicamentos que tengan su mismo nivel de grupo terapÃ©utico de la ATC (mismo principio activo).
+		Grupo TerapÃ©utico VMP. Permite obtener el listado de medicamentos que tengan su mismo grupo VMP (es decir, igual principio activo, dosis y forma farmacÃ©utica).
+		Grupo TerapÃ©utico VMPP. Permite obtener el listado de medicamentos que tengan su mismo grupo VMMP (es decir, igual principio activo, dosis, forma farmacÃ©utica y nÃºmero de unidades de dosificaciÃ³n).
+	 * habrÃ¡n varias formas de muestra:
+	 * 	- SelecciÃ³n de LAB: Se muestran los ConjHomogÃ©neos que hay disponibles (bdConsejo) para ese LAb
+	 *  - SelecciÃ³n de soloAsignados: Lo mismo que lo anterior pero solo los que tienen LAB - conjHomog asignado
+	 *  - SelecciÃ³n de PActivo / Grupo terap: Se muestran los de la tabla sustitucionXConjHomg ordenados descendentemente por rent/ponderaciÃ³n
 	 *  
 	 * @param form
 	 * @param count
@@ -207,12 +207,12 @@ public class SustXComposicionDAO2 {
 		String 	select = " distinct  ";
 				//select+=" b.codiLABO, b.nomLabo, ";
 				select+=" b.CodigoGT, b.GrupoTerapeutico,  "; // b.codiPactivo,  b.nomPactivo,  
-				select+=" b.CodGtAtcNivel3, b.NomGtAtcNivel3,   ";		// nivel de grupo terapéutico de la ATC (mismo subgrupo farmacológico/terapéutico).
-				select+=" b.CodGtAtcNivel4, b.NomGtAtcNivel4, 	";		// nivel de grupo terapéutico de la ATC (mismo subgrupo farmacológico/terapéutico).
-				select+=" b.CodGtAtcNivel5, b.NomGtAtcNivel5, 	";		// nivel de grupo terapéutico de la ATC (mismo principio activo)
+				select+=" b.CodGtAtcNivel3, b.NomGtAtcNivel3,   ";		// nivel de grupo terapÃ©utico de la ATC (mismo subgrupo farmacolÃ³gico/terapÃ©utico).
+				select+=" b.CodGtAtcNivel4, b.NomGtAtcNivel4, 	";		// nivel de grupo terapÃ©utico de la ATC (mismo subgrupo farmacolÃ³gico/terapÃ©utico).
+				select+=" b.CodGtAtcNivel5, b.NomGtAtcNivel5, 	";		// nivel de grupo terapÃ©utico de la ATC (mismo principio activo)
 				select+=" b.CodGtVm, b.NomGtVm, ";					// grupo VM (igual principio activo).
-				select+=" b.CodGtVmp, b.NomGtVmp, ";					// grupo VMP (igual principio activo, dosis y forma farmacéutica).
-				select+=" b.CodGtVmpp, b.NomGtVmpp, ";  				// grupo VMMP (igual principio activo, dosis, forma farmacéutica y número de unidades de dosificación).
+				select+=" b.CodGtVmp, b.NomGtVmp, ";					// grupo VMP (igual principio activo, dosis y forma farmacÃ©utica).
+				select+=" b.CodGtVmpp, b.NomGtVmpp, ";  				// grupo VMMP (igual principio activo, dosis, forma farmacÃ©utica y nÃºmero de unidades de dosificaciÃ³n).
 				select+=" g.rentabilidad, g.ponderacion, g.codiLab, g.ultimaModificacion, (g.rentabilidad + g.ponderacion) as nota,  ";
 				select+=" g.comentarios, g.nombreLab, g.fechaCreacion, g.oidSustXComposicion, g.cn6, g.cn7, g.nombreMedicamento, g.sustituible, g.tolva ";
 				

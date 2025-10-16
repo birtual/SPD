@@ -39,7 +39,7 @@ public class PacientesAction extends GenericAction  {
 		log(cLOGGERHEADER + ": inicio listado",Logger.DEBUG);
 		PacientesForm formulari =  (PacientesForm) form;
 		formulari.setOidPaciente("");
-		//paginación
+		//paginaciÃ³n
 		int currpage = actualizaCurrentPage(formulari, dao.getCountBdPacientes(getIdUsuario(), formulari));
 		formulari.setListaDivisionResidencias(DivisionResidenciaDAO.getListaDivisionResidencias(getIdUsuario()));
 //		formulari.setListaEstatusResidente(PacienteDAO.getEstatusResidente(getIdUsuario()));
@@ -245,7 +245,7 @@ public class PacientesAction extends GenericAction  {
 		{
 			if(formulari.getListaProcesosCargados()!=null && formulari.getListaProcesosCargados().size()>0)
 			{
-				//por defecto cargamos la última
+				//por defecto cargamos la Ãºltima
 				FicheroResiBean fic = formulari.getListaProcesosCargados().get(0);
 				idProceso=fic.getIdProceso();
 
@@ -280,7 +280,7 @@ public class PacientesAction extends GenericAction  {
 	public ActionForward listadoProceso(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 	
 		PacientesForm formulari =  (PacientesForm) form;
-		//paginación
+		//paginaciÃ³n
 
 		int currpage = actualizaCurrentPage(formulari, dao.getCountBdPacientesProceso(getIdUsuario(), formulari));
 		formulari.setListaProcesosCargados(FicheroResiCabeceraDAO.getProcesosCargados(getIdUsuario(), formulari.getOidDivisionResidencia()));
@@ -303,7 +303,7 @@ public class PacientesAction extends GenericAction  {
 	
 
 	/**
-	 * método de ayuda a la paginación
+	 * mÃ©todo de ayuda a la paginaciÃ³n
 	 * @param aForm
 	 * @param numberObjects
 	 * @return

@@ -115,7 +115,7 @@ function getContextPath() {
 	
 <table >
 	<tr>
-		<th class="segunda">Fecha creación</th>
+		<th class="segunda">Fecha creaciÃ³n</th>
 		<th class="segunda">Texto</th>
 		<th class="segunda">Fecha inicio</th>
 		<th class="segunda">Fecha fin</th>
@@ -131,7 +131,7 @@ function getContextPath() {
 		<td><bean:write name="data" property="aviso" /></td>
 		<td><bean:write name="data" property="fechaInicio" /></td>
 		<td><bean:write name="data" property="fechaFin" /></td>
-		<td>${data.activo ? 'Sí' : 'No'}</td>
+		<td>${data.activo ? 'SÃ­' : 'No'}</td>
 		<td><bean:write name="data" property="idFarmacia" /></td>
 		<td><bean:write name="data" property="usuarioCreador" /></td>
 		<td><bean:write name="data" property="orden" /></td>

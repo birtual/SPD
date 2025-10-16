@@ -35,7 +35,7 @@ public class DoseDAO
        	dose.setIdDivisionResidencia(idDivisionResidencia);
     	dose.setNombreDose(nomDose);
       	dose.setLang(lang);
-      	dose.setName(nomDose);//es lo que saldr· en la bolsa, ahora coincide con la cabecera, pero en un futuro habrÌa que analizarlo
+      	dose.setName(nomDose);//es lo que saldr√° en la bolsa, ahora coincide con la cabecera, pero en un futuro habr√≠a que analizarlo
       	
   	
         try {
@@ -117,7 +117,7 @@ public class DoseDAO
        	dose.setIdDivisionResidencia(idDivisionResidencia);
     	dose.setNombreDose(nomDose);
       	dose.setLang(lang);
-      	dose.setName(nomDose);//es lo que saldr· en la bolsa, ahora coincide con la cabecera, pero en un futuro habrÌa que analizarlo
+      	dose.setName(nomDose);//es lo que saldr√° en la bolsa, ahora coincide con la cabecera, pero en un futuro habr√≠a que analizarlo
   	
         try {
             final PreparedStatement pstat = con.prepareStatement(qry);
@@ -191,7 +191,7 @@ public class DoseDAO
     }
 
 	public static boolean validateFormat1(String input) {
-        // Utilizar expresiÛn regular para verificar el formato "XXh"
+        // Utilizar expresi√≥n regular para verificar el formato "XXh"
         String regex = "\\d{1,2}h";
         return Pattern.matches(regex, input);
     }

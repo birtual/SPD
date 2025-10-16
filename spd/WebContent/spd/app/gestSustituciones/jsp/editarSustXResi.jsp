@@ -14,7 +14,7 @@
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
 
-<title>Edici髇 sustituci髇 espec韋ica</title>
+<title>Edici贸n sustituci贸n espec铆fica</title>
 
 <script type="text/javascript">	
 		
@@ -32,7 +32,7 @@
 		{
 			var f = document.GestSustitucionesForm;
 			if(f.accionSustXResi.value=='')
-				alert('Falta indicar la acci髇');
+				alert('Falta indicar la acci贸n');
 //			else if(f.formaFarmaceutica.value=='')
 //				alert('Falta indicar la forma');
 			else
@@ -47,7 +47,7 @@
 		
 
 
-		//funci髇 de carga del lookUp
+		//funci贸n de carga del lookUp
 		function doLookUpBdConsejo(){				
 			var loc = '/spd/LookUpBdConsejo.do?parameter=init&'+ 						//url de llamanda				
 				'CallBackID=cnOkSustXResi&'+			  			//Nombre del campo para el valor Id
@@ -68,7 +68,7 @@
 	<!-- mostramos mensajes y errores, si existen -->
 
 	<center>
-		<h2>Edici髇 sustituci髇</h2>
+		<h2>Edici贸n sustituci贸n</h2>
 		<html:form action="/GestSustituciones.do" method="post">	
 
 
@@ -94,7 +94,7 @@
  
 
  
- 	<!-- se pasan par醡etros de los filtros del listado para la vuelta -->
+ 	<!-- se pasan par谩metros de los filtros del listado para la vuelta -->
      <html:hidden property="filtroNombreCorto" />
      <html:hidden property="filtroMedicamentoResi" />
      <html:hidden property="filtroNombreCortoOK" />
@@ -119,7 +119,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>C骴igo CN OK</td>
+		<td>C贸digo CN OK</td>
 		<td><html:text name="dataXResi" property="cnOkSustXResi" styleClass="cnOkSustXResi"/> 
 <logic:notEmpty name="dataXResi" property="bdConsejoSustXResi">
 - <html:text name="bdConsejoSustXResi" property="nombreConsejo" styleClass="nombreConsejo"/> 
@@ -134,7 +134,7 @@
 	</tr>
 
 		<tr>
-		<td>Forma farmac閡tica</td>
+		<td>Forma farmac茅utica</td>
 		<td>			
 		<logic:notEmpty name="dataXResi" property="bdConsejoSustXResi">
 					<bean:write name="bdConsejoSustXResi" property="nombreFormaFarmaceutica"/>
@@ -175,7 +175,7 @@
             <td><bean:write name="bdConsejoSustXResiBiblia" property="nombreLaboratorio" /></td>
 	</tr>
 	<tr>
-		<td>Ponderaci髇 total (Vademecum)</td>         	
+		<td>Ponderaci贸n total (Vademecum)</td>         	
         <td><bean:write name="bdConsejoSustXResiBiblia" property="nota" /></td>
 	</tr>
 	<tr>

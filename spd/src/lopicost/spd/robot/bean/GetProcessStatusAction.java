@@ -22,7 +22,7 @@ public class GetProcessStatusAction extends Action {
                                  HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
-        // Recuperar el estado del proceso desde la sesión
+        // Recuperar el estado del proceso desde la sesiÃ³n
         HttpSession session = request.getSession();
         Integer progress = (Integer) session.getAttribute("processProgress");
         String message = (String) session.getAttribute("processMessage");

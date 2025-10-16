@@ -63,7 +63,7 @@ public class EnlacesHelper {
 		  if (idApartado.equalsIgnoreCase("1_pacientes")) {
     		resultado = "Pacientes";
 	    } else if (idApartado.equalsIgnoreCase("2_bolquers")) {
-	    	resultado = "Pañales";
+	    	resultado = "PaÃ±ales";
 	    } else if (idApartado.equalsIgnoreCase("3_recetas")) {
 	    	resultado = "Tratamientos";
 	    } else if (idApartado.equalsIgnoreCase("4_pedidos")) {

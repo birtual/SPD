@@ -86,13 +86,13 @@ public class ExcelFicheroResiDetallePlantUnifLite {
         sheet.setColumnWidth(25, 600);	//dinar
         sheet.setColumnWidth(26, 600);	//berenar
         sheet.setColumnWidth(27, 600);	//sopar
-        sheet.setColumnWidth(28, 600);	//Ressopó
+        sheet.setColumnWidth(28, 600);	//RessopÃ³
         sheet.setColumnWidth(29, 600);	//21:30h
         sheet.setColumnWidth(30, 600);	//22h
         sheet.setColumnWidth(31, 8000);	//Mensaje INFO
         sheet.setColumnWidth(32, 8000);	//Mensaje ALERTA*/
 
-        	//Periodicidad	¿Es excepción?	Incidencia	Estado linea	Marcado Aut?	ResultLog	Nombre	Apellido1Paciente	Apellido2Paciente	FechaDesde	FechaHasta
+        	//Periodicidad	Â¿Es excepciÃ³n?	Incidencia	Estado linea	Marcado Aut?	ResultLog	Nombre	Apellido1Paciente	Apellido2Paciente	FechaDesde	FechaHasta
 
         /**
          * Style for the header cells.
@@ -140,7 +140,7 @@ public class ExcelFicheroResiDetallePlantUnifLite {
        
         
         List<Dose> doses = formulari.getListaTomasCabecera();
-        int maxDoses = doses.size(); // Número máximo de celdas a mostrar
+        int maxDoses = doses.size(); // NÃºmero mÃ¡ximo de celdas a mostrar
         
         for (int index = 0; index < maxDoses; index++) {
         	sheet.setColumnWidth(nCol, 900);	//Primera hora
@@ -171,7 +171,7 @@ public class ExcelFicheroResiDetallePlantUnifLite {
       
         cell = row.createCell(i);   cell.setCellStyle(cellStyle); cell.setCellValue(new HSSFRichTextString("Mensaje ALERTA"));   i++;       
         cell = row.createCell(i);   cell.setCellStyle(cellStyle); cell.setCellValue(new HSSFRichTextString("Periodicidad"));   i++;       
-        cell = row.createCell(i);   cell.setCellStyle(cellStyle); cell.setCellValue(new HSSFRichTextString("¿Es excepción?"));  i++;
+        cell = row.createCell(i);   cell.setCellStyle(cellStyle); cell.setCellValue(new HSSFRichTextString("Â¿Es excepciÃ³n?"));  i++;
         cell = row.createCell(i);   cell.setCellStyle(cellStyle); cell.setCellValue(new HSSFRichTextString("Incidencia"));  i++;
         cell = row.createCell(i);   cell.setCellStyle(cellStyle); cell.setCellValue(new HSSFRichTextString("Estado linea")) ;     i++;   
         cell = row.createCell(i);   cell.setCellStyle(cellStyle); cell.setCellValue(new HSSFRichTextString("Marcado Aut?")); i++;
@@ -310,7 +310,7 @@ public class ExcelFicheroResiDetallePlantUnifLite {
             cell = row.createCell(i);		cell.setCellStyle(cellStyle);  cell.setCellValue(trat.getResiD7()); i++;
             
             
-            int numTomas = doses.size(); // Número total de tomas
+            int numTomas = doses.size(); // NÃºmero total de tomas
             Class<?> tratClass = trat.getClass();
 
             try {
@@ -325,7 +325,7 @@ public class ExcelFicheroResiDetallePlantUnifLite {
                     		 
                 }
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace(); // Manejo de excepciones, ajusta según tus necesidades
+                e.printStackTrace(); // Manejo de excepciones, ajusta segÃºn tus necesidades
             }
             
             

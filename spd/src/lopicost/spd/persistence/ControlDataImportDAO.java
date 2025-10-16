@@ -233,7 +233,7 @@ public class ControlDataImportDAO
 //hst_CodigosRecetasDispensados
 
 	public static List<ControlDataImportBean> getCodigosRecetasDispensados(String idUsuario, int diasAlerta)  throws Exception {
-		// TODO Esbozo de mÈtodo generado autom·ticamente throws Exception {
+		// TODO Esbozo de m√©todo generado autom√°ticamente throws Exception {
    
     	String query = " select 'hst_CodigosRecetasDispensados' as nombreTabla, f.idFarmacia, f.nombreFarmacia, d.idDivisionResidencia, d.nombreDivisionResidencia,    ";
       	query+=			" p.codigoUPfarmacia as UPfarmacia, max(p.fecha) as ultimaFechaEnOrigen, max(p.FechaHoraInsercion) as ultimaFechaRecogida, count(*) as cuantas ";
@@ -350,7 +350,7 @@ public class ControlDataImportDAO
 		            int dias = getDiasUltimaFecha(c.getUltimaFechaRecogida());
 		            c.setDiasDesdeUltimaFecha(getDiasUltimaFecha(c.getUltimaFechaRecogida()));
 		            String alerta ="rojo";
-		            if(dias<=diasAlerta && dias>-1) alerta ="verde";  //aqui damos m·s margen
+		            if(dias<=diasAlerta && dias>-1) alerta ="verde";  //aqui damos m√°s margen
 		            	
 		            c.setAlerta(alerta);
 		            	if(c!=null)

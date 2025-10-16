@@ -31,17 +31,17 @@ public class SustXComposicion implements Serializable {
 		
 		
 	private String codGtAtcNivel3 =""; 
-	private String nomGtAtcNivel3 ="";		// nivel de grupo terapéutico de la ATC (mismo subgrupo farmacológico/terapéutico).
+	private String nomGtAtcNivel3 ="";		// nivel de grupo terapÃ©utico de la ATC (mismo subgrupo farmacolÃ³gico/terapÃ©utico).
 	private String codGtAtcNivel4 ="";
-	private String nomGtAtcNivel4 ="";		// nivel de grupo terapéutico de la ATC (mismo subgrupo farmacológico/terapéutico).
+	private String nomGtAtcNivel4 ="";		// nivel de grupo terapÃ©utico de la ATC (mismo subgrupo farmacolÃ³gico/terapÃ©utico).
 	private String codGtAtcNivel5 ="";
-	private String nomGtAtcNivel5 ="";		// nivel de grupo terapéutico de la ATC (mismo principio activo)
+	private String nomGtAtcNivel5 ="";		// nivel de grupo terapÃ©utico de la ATC (mismo principio activo)
 	private String codGtVm ="";				//= Principio activo
 	private String nomGtVm =""; 
 	private String codGtVmp ="";			
 	private String nomGtVmp ="";			
 	private String codGtVmpp =""; 			//Es conjunto homog
-	private String nomGtVmpp ="";			// grupo VMP (igual principio activo, dosis y forma farmacéutica).
+	private String nomGtVmpp ="";			// grupo VMP (igual principio activo, dosis y forma farmacÃ©utica).
 	  
 	private String tipoCarga ="";			//masiva o por formulario.
 

@@ -47,15 +47,15 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		List<FicheroResiCabecera> resultList= new ArrayList<FicheroResiCabecera>();
 		FicheroResiForm formulari =  (FicheroResiForm) form;
 		
-		//inicializamos para que no haya datos de otros mÛdulos al venir de un borrado por ejemplo
+		//inicializamos para que no haya datos de otros m√≥dulos al venir de un borrado por ejemplo
 		formulari.setOidFicheroResiCabecera(0);
 		formulari.setIdUsuario(getIdUsuario());
-		//paginaciÛn
+		//paginaci√≥n
 		int currpage = actualizaCurrentPage(formulari, dao.getCountGestFicheroResi(getIdUsuario(), formulari));
 		formulari.setListaDivisionResidenciasCargadas(dao.getListaDivisionResidenciasCargadas(getIdUsuario()));
 	
 		formulari.setListaFicheroResiCabeceraBean(dao.getGestFicheroResi(getIdUsuario(), formulari, currpage*SPDConstants.PAGE_ROWS,(currpage+1)*SPDConstants.PAGE_ROWS, null, false));
-		//control y eliminaciÛn de procesos colgados
+		//control y eliminaci√≥n de procesos colgados
 		IOSpdApi.actualizaEstadosSinFinalizar(); 
 		
 		return mapping.findForward("list");
@@ -64,7 +64,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 
 	public ActionForward detalle(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		FicheroResiForm formulari =  (FicheroResiForm) form;
-		//creaciÛn de log en BBDD
+		//creaci√≥n de log en BBDD
 		try{
 			SpdLogAPI.addLog(getIdUsuario(), "",  formulari.getIdDivisionResidencia(), formulari.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CONSULTA, SpdLogAPI.C_DETALLE, "SpdLog.produccion.consulta.detalle", formulari.getIdProceso() );
 		}catch(Exception e){}	//SpdLog.produccion.consulta.detalle
@@ -81,7 +81,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		boolean result=false;
 		if(errors.isEmpty() && formulari.getACTIONTODO()!=null && formulari.getACTIONTODO().equals("CONFIRMADO_OK"))
 		{
-			//TO-DO pasar a histÛrico con estado "BORRADO"
+			//TO-DO pasar a hist√≥rico con estado "BORRADO"
 			//borramos detalle
 			result=daoDetalle.borrar(getIdUsuario(), formulari.getOidFicheroResiCabecera(), formulari.getOidFicheroResiDetalle(), null);
 			if (!result){
@@ -94,10 +94,10 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		if(result)
 		{
 			errors.add( "Registro borrado correctamente ");
-			//creaciÛn de log en BBDD
+			//creaci√≥n de log en BBDD
 			try{
 				SpdLogAPI.addLog(getIdUsuario(), "", formulari.getIdDivisionResidencia(), formulari.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_BORRADO, "", "SpdLog.produccion.borrado", formulari.getIdProceso() );
-			}catch(Exception e){}	//Borrado de la producciÛn.
+			}catch(Exception e){}	//Borrado de la producci√≥n.
 		}
 		else if (!result){
 			 errors.add( new Date() +  " Error en el borrado del proceso");
@@ -131,7 +131,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		if(fechaHasta==null || fechaHasta.equals("") || fechaHasta.equalsIgnoreCase("null"))
 			fechaHasta = DateUtilities.getDate(HelperSPD.obtenerFechaHasta(cab.getIdProceso()), "yyyyMMdd", "dd/MM/yyyy");  
 		
-		//LÛgica dedicada a extraer una nueva fecha desde y hasta (siempre dentro del rango de fechas escogido) En caso que no existan se indican los escogidos de la carga
+		//l√≥gica dedicada a extraer una nueva fecha desde y hasta (siempre dentro del rango de fechas escogido) En caso que no existan se indican los escogidos de la carga
 		String nuevaFechaDesde = cab.getNuevaFechaDesde();
 		if(nuevaFechaDesde==null || nuevaFechaDesde.equals("") || nuevaFechaDesde.equalsIgnoreCase("null"))
 			nuevaFechaDesde= fechaDesde;
@@ -174,8 +174,8 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			String antesCab= "-->  " 
 					+(cab.getNuevaFechaDesde()!=null ? " | FechaDesde: " + cab.getNuevaFechaDesde():"") 
 					+(cab.getNuevaFechaHasta()!=null ? " | FechaHasta: " + cab.getNuevaFechaHasta():"")
-					+(cab.getNuevaTomaDesde()!=null ? " | toma 1er dÌa desde: " + cab.getNuevaTomaDesde():"")
-					+(cab.getNuevaTomaHasta()!=null ? " | toma ˙ltimo dÌa hasta : " + cab.getNuevaTomaHasta():"")
+					+(cab.getNuevaTomaDesde()!=null ? " | toma 1er d√≠a desde: " + cab.getNuevaTomaDesde():"")
+					+(cab.getNuevaTomaHasta()!=null ? " | toma √∫ltimo d√≠a hasta : " + cab.getNuevaTomaHasta():"")
 					+(cab.getUsuarioEntregaSPD()!=null ? " | usuarioEntregaSPD : " + cab.getUsuarioEntregaSPD():"")
 					+(cab.getFechaEntregaSPD()!=null ? " | fecha entrega SPD : " + cab.getFechaEntregaSPD():"")
 					+(cab.getUsuarioRecogidaSPD()!=null ? " | usuarioRecogidaSPD : " + cab.getUsuarioRecogidaSPD():"")
@@ -183,7 +183,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 					+(cab.getUsuarioDesemblistaSPD()!=null ? " | usuarioDesemblistaSPD : " + cab.getUsuarioDesemblistaSPD():"")
 					+(cab.getFechaDesemblistaSPD()!=null ? " | fecha desemblistado SPD : " + cab.getFechaDesemblistaSPD():"")
 					+(cab.getUsuarioProduccionSPD()!=null ? " | usuarioProduccionSPD : " + cab.getUsuarioProduccionSPD():"")
-					+(cab.getFechaProduccionSPD()!=null ? " | fecha producciÛn SPD : " + cab.getFechaProduccionSPD():"")
+					+(cab.getFechaProduccionSPD()!=null ? " | fecha producci√≥n SPD : " + cab.getFechaProduccionSPD():"")
 					+(cab.getFree1()!=null ? " | Nota 1 : " + cab.getFree1():"")
 					+(cab.getFree2()!=null ? " | Nota 2 : " + cab.getFree2():"")
 					+(cab.getFree3()!=null ? " | Nota 3 : " + cab.getFree3():"");
@@ -192,8 +192,8 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			String despuesCab = "-->  " 
 					+(formulari.getNuevaFechaDesde()!=null ? " | FechaDesde: " + formulari.getNuevaFechaDesde():"") 
 					+(formulari.getNuevaFechaHasta()!=null ? " | FechaHasta: " + formulari.getNuevaFechaHasta():"")
-					+(formulari.getNuevaTomaDesde()!=null ? " | toma 1er dÌa desde: " + formulari.getNuevaTomaDesde():"")
-					+(formulari.getNuevaTomaHasta()!=null ? " | toma ˙ltimo dÌa hasta : " + formulari.getNuevaTomaHasta():"")
+					+(formulari.getNuevaTomaDesde()!=null ? " | toma 1er d√≠a desde: " + formulari.getNuevaTomaDesde():"")
+					+(formulari.getNuevaTomaHasta()!=null ? " | toma √∫ltimo d√≠a hasta : " + formulari.getNuevaTomaHasta():"")
 					+(formulari.getUsuarioEntregaSPD()!=null ? " | usuarioEntregaSPD : " + formulari.getUsuarioEntregaSPD():"")
 					+(formulari.getFechaEntregaSPD()!=null ? " | fecha entrega SPD : " + formulari.getFechaEntregaSPD():"")
 					+(formulari.getUsuarioRecogidaSPD()!=null ? " | usuarioRecogidaSPD : " + formulari.getUsuarioRecogidaSPD():"")
@@ -201,7 +201,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 					+(formulari.getUsuarioDesemblistaSPD()!=null ? " | usuarioDesemblistaSPD : " + formulari.getUsuarioDesemblistaSPD():"")
 					+(formulari.getFechaDesemblistaSPD()!=null ? " | fecha desemblistado SPD : " + formulari.getFechaDesemblistaSPD():"")
 					+(formulari.getUsuarioProduccionSPD()!=null ? " | usuarioProduccionSPD : " + formulari.getUsuarioProduccionSPD():"")
-					+(formulari.getFechaProduccionSPD()!=null ? " | fecha producciÛn SPD : " + formulari.getFechaProduccionSPD():"")
+					+(formulari.getFechaProduccionSPD()!=null ? " | fecha producci√≥n SPD : " + formulari.getFechaProduccionSPD():"")
 					+(formulari.getFree1()!=null ? " | Nota 1 : " + formulari.getFree1():"")
 					+(formulari.getFree2()!=null ? " | Nota 2 : " + formulari.getFree2():"")
 					+(formulari.getFree3()!=null ? " | Nota 3 : " + formulari.getFree3():"");
@@ -219,7 +219,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			}
 			else
 			if (!result){
-				 errors.add( new Date() +  " Error en la ediciÛn del proceso");
+				 errors.add( new Date() +  " Error en la edici√≥n del proceso");
 				 log("[FicheroResiCabeceraAction_BORRABLE] -editar()- ERROR editando la cabecera del proceso: "+formulari.getIdDivisionResidencia() +" - " + formulari.getIdProceso(),Logger.ERROR);
 				throw new Exception("Error al editar la cabecera del proceso");					
 			}
@@ -292,7 +292,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 				try{
 					SpdLogAPI.addLog(getIdUsuario(), "",  formulari.getIdDivisionResidencia(), proceso1, SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_COMPARACION, "", "SpdLog.produccion.comparacion"
 							, formulari.getIdProcesoComparacion() );
-				}catch(Exception e){}	//ComparaciÛn de las producciones @@ y @@.
+				}catch(Exception e){}	//Comparaci√≥n de las producciones @@ y @@.
 				
 				
 			}
@@ -317,7 +317,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			{
 				return list(mapping, form, request, response);
 			}
-	   		//Volvemos a poner list porque se quedarÌa exportExcel en cualquier acciÛn posterior
+	   		//Volvemos a poner list porque se quedar√≠a exportExcel en cualquier acci√≥n posterior
 			formulari.setACTIONTODO("list");
 			
 			//recuperamos la cabecera del listado
@@ -326,7 +326,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			formulari.setOidFicheroResiCabecera(cab.getOidFicheroResiCabecera()); //actualizamos OID
 
 			
-		//	inicializamos para que no haya datos de otros mÛdulos
+		//	inicializamos para que no haya datos de otros m√≥dulos
 			ExcelFicheroResiDetallePlantUnifLite excelCreator = new ExcelFicheroResiDetallePlantUnifLite();
 			//HSSFWorkbook workbook = excelCreator.createWorkbook(formulari, daoDetalle.getGestFicheroResiBolsa(getIdUsuario(), formulari.getOidFicheroResiDetalle(), formulari, 0, 100000, "", false,  " g.resiCIP, g.resiMedicamento ", true, false ));
 			HSSFWorkbook workbook = excelCreator.createWorkbook(formulari, daoDetalle.getGestFicheroResiBolsa(getIdUsuario(), formulari.getOidFicheroResiDetalle(), formulari, 0, 100000, "", false, null, true, false ));
@@ -428,7 +428,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		  		{
 		     		
 		        	IOSpdApi.limpiarCIPIdprocesoAnterior(fila.getIdProceso(), fila.getResiCIP());
-		            //Una vez limpiado, se aÒade como CIP ya tratado para no volver a limpiar datos
+		            //Una vez limpiado, se a√±ade como CIP ya tratado para no volver a limpiar datos
 		            CIPSTratados.put(fila.getResiCIP(), fila.getResiCIP());
 		  		}
 		     	
@@ -436,8 +436,8 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 				if (!result){
 					resultTotal=false;
 					errors.add( new Date() +  " No se ha podido actualizar la fila " + fila.getRow() + " - " + fila.getResiCIP() + " - " + fila.getSpdCnFinal());
-					log("[FicheroResiCabeceraAction_BORRABLE] - actualizarPrevision() - ERROR actualizando previsiÛn de la fila : "+fila.getRow() + " - " + fila.getResiCIP() + " - " + fila.getSpdCnFinal() +" - " + formulari.getIdProceso(),Logger.ERROR);
-					throw new Exception("Error al actualizar previsiÛn de la fila");					
+					log("[FicheroResiCabeceraAction_BORRABLE] - actualizarPrevision() - ERROR actualizando previsi√≥n de la fila : "+fila.getRow() + " - " + fila.getResiCIP() + " - " + fila.getSpdCnFinal() +" - " + formulari.getIdProceso(),Logger.ERROR);
+					throw new Exception("Error al actualizar previsi√≥n de la fila");					
 				}
 			}
 			
@@ -447,11 +447,11 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			if(result)
 			{
 			//	errors.add(SPDConstants.MSG_LEVEL_INFO, new ActionMessage("Registro borrado correctamente Info"));
-				errors.add( "PrevisiÛn de consumo correctamente actualizada ");
-		        // Crea un objeto SimpleDateFormat con el patrÛn de formato deseado
+				errors.add( "Previsi√≥n de consumo correctamente actualizada ");
+		        // Crea un objeto SimpleDateFormat con el patr√≥n de formato deseado
 		        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	
-		        // Formatea la fecha actual seg˙n el patrÛn
+		        // Formatea la fecha actual seg√∫n el patr√≥n
 		        Date fechaFormateada = null;
 		        try {
 		            fechaFormateada = formato.parse(formato.format(new Date()));
@@ -459,7 +459,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		            e.printStackTrace();
 		        }
 		        
-		        //actualizamos el c·lculo de la previsiÛn solo en caso de que no se haya hecho antes, para no sobrecargar  
+		        //actualizamos el c√°lculo de la previsi√≥n solo en caso de que no se haya hecho antes, para no sobrecargar  
 		        if(cab.getFechaCalculoPrevision()==null || cab.getFechaCalculoPrevision().equals(""))
 		        {
 		        	cab.setFechaCalculoPrevision(DateUtilities.getDatetoString("dd/MM/yyyy hh:MM",fechaFormateada));
@@ -473,14 +473,14 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 					//dejamos log
 					try{
 						SpdLogAPI.addLog("AUTO", "",  formulari.getIdDivisionResidencia(), formulari.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CREACION, SpdLogAPI.C_PREVISION, "SpdLog.produccion.creacion.prevision", formulari.getIdProceso() );
-					}catch(Exception e){}	//De forma autom·tica se actualiza la previsiÛn para report de discrepancias de la residencia@@
+					}catch(Exception e){}	//De forma autom√°tica se actualiza la previsi√≥n para report de discrepancias de la residencia@@
 		        }
 			}
 			else
 				if (!result){
-				 errors.add( new Date() +  " Error en la actualizaciÛn de previsiÛn de consumo");
-				 log("[FicheroResiCabeceraAction_BORRABLE] - actualizarPrevision () - actualizando previsiÛn de la fila: "+formulari.getIdDivisionResidencia() +" - " + formulari.getIdProceso(),Logger.ERROR);
-			//	throw new Exception("Error en la actualizaciÛn de previsiÛn de consumo");					
+				 errors.add( new Date() +  " Error en la actualizaci√≥n de previsi√≥n de consumo");
+				 log("[FicheroResiCabeceraAction_BORRABLE] - actualizarPrevision () - actualizando previsi√≥n de la fila: "+formulari.getIdDivisionResidencia() +" - " + formulari.getIdProceso(),Logger.ERROR);
+			//	throw new Exception("Error en la actualizaci√≥n de previsi√≥n de consumo");					
 			}
 		
 			formulari.setErrors(errors);
@@ -519,13 +519,13 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			try{
 				SpdLogAPI.addLog(getIdUsuario(), "",  formulari.getIdDivisionResidencia(), cab.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CREACION, SpdLogAPI.C_FICHERO_HELIUM
 						, "SpdLog.produccion.creacion.ficherohelium", nombreFichero );
-			}catch(Exception e){}	//CreaciÛn del fichero Helium con nombre @@.
+			}catch(Exception e){}	//Creaci√≥n del fichero Helium con nombre @@.
 				
 			
-			//aprovechamos y lanzamos el c·lculo de previsiÛn de comprimidos necesarios. En caso que no se haya calculado previamente
+			//aprovechamos y lanzamos el c√°lculo de previsi√≥n de comprimidos necesarios. En caso que no se haya calculado previamente
 	        if(nombreFichero!=null && !nombreFichero.equals("") && (cab.getFechaCalculoPrevision()==null || cab.getFechaCalculoPrevision().equals("")))
 	        {
-	        	// Crear un hilo para ejecutar el mÈtodo actualizarPrevision()
+	        	// Crear un hilo para ejecutar el m√©todo actualizarPrevision()
 	            Thread actualizarPrevisionThread = new Thread(() -> {
 	                try {
 						actualizarPrevision(cab, formulari);
@@ -533,7 +533,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-               // AquÌ se puede enviar alg˙n tipo de seÒal al cliente, como un mensaje o un cÛdigo de estado
+               // Aqu√≠ se puede enviar alg√∫n tipo de se√±al al cliente, como un mensaje o un c√≥digo de estado
                // response.getWriter().write("Proceso actualizadoPrevision completado");
 	            });
 
@@ -543,7 +543,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
                 // Esperar a que el hilo termine antes de continuar
 	                actualizarPrevisionThread.join();
 	            } catch (InterruptedException e) {
-	                // Manejar la interrupciÛn si es necesario
+	                // Manejar la interrupci√≥n si es necesario
 	                e.printStackTrace();
 	            }
 	        }
@@ -583,7 +583,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		}			
 		catch(Exception e){}
 
-		// Paso1 - Borrado previo de posibles datos del mismo proceso. en caso que sea un  solo paciente, borrarÌa solo los datos del paciente
+		// Paso1 - Borrado previo de posibles datos del mismo proceso. en caso que sea un  solo paciente, borrar√≠a solo los datos del paciente
     	PlantillaUnificadaHelper.borraProcesosResidencia(getIdUsuario(),  cabDetalle, pac);
 			
     	// Paso2 - Recuperamos el orden y nombre de las tomas del proceso  
@@ -600,7 +600,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
     	//Paso7  NO FIABLE porque al eliminar se juntan datos de los procesos concurrentes, con lineasRX iguales
     	//PlantillaUnificadaHelper.eliminarDuplicadosRX(getIdUsuario(), cab);
     	
-    	// Paso7 - CreaciÛn del FiliaDM 
+    	// Paso7 - Creaci√≥n del FiliaDM 
    		FiliaDM filiaDM = PlantillaUnificada.creaFicheroDM(getIdUsuario(), cabDetalle);
    		//FiliaRX filiaRX = PlantillaUnificada.creaFicheroRX(getIdUsuario(), cabDetalle, div);
    		FiliaRX filiaRX = PlantillaUnificada.creaFicheroRX(getIdUsuario(), cabDetalle, div, pac);
@@ -611,7 +611,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
    	    String nombreFicheroFiliaRX="";
    	    if(fileDMGenerated)
    	    {
-   	        // Paso7 - CreaciÛn del FiliaRX
+   	        // Paso7 - Creaci√≥n del FiliaRX
    	   		nombreFicheroFiliaRX=PlantillaUnificadaHelper.generaFicheroRX(cabDetalle, filiaRX,  response);
    	    }
    	    boolean fileRXGenerated = (nombreFicheroFiliaRX != null && !nombreFicheroFiliaRX.isEmpty());
@@ -635,10 +635,10 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
    	    request.setAttribute("filePathRX", path + nombreFicheroFiliaRX); // Ruta del archivo generado
    	    
    	    
-		//aprovechamos y lanzamos el c·lculo de previsiÛn de comprimidos necesarios. En caso que no se haya calculado previamente
+		//aprovechamos y lanzamos el c√°lculo de previsi√≥n de comprimidos necesarios. En caso que no se haya calculado previamente
         if(fileRXGenerated)
         {
-        	//Si no se ha creado previamente, construimos el nombre que tendr· en el robot y actualizamos la cabecera
+        	//Si no se ha creado previamente, construimos el nombre que tendr√° en el robot y actualizamos la cabecera
     		String nombreProduccionRobot = cab.getNombreProduccionRobot();
     		if(nombreProduccionRobot==null || nombreProduccionRobot.isEmpty())
     		{
@@ -648,7 +648,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
     		
        	    if(cab!=null && (cab.getFechaCalculoPrevision()==null || cab.getFechaCalculoPrevision().equals("")) )
         	{
-            	// Crear un hilo para ejecutar el mÈtodo actualizarPrevision()
+            	// Crear un hilo para ejecutar el m√©todo actualizarPrevision()
                 Thread actualizarPrevisionThread = new Thread(() -> {
                     try {
                     	//	System.out.println("");
@@ -658,8 +658,8 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
     					e.printStackTrace();
     				}
 
-                    // AquÌ puedes enviar alg˙n tipo de seÒal al cliente, como un mensaje o un cÛdigo de estado
-                    // (esto depender· de tu lÛgica especÌfica y de cÛmo manejas la respuesta en el cliente)
+                    // Aqu√≠ puedes enviar alg√∫n tipo de se√±al al cliente, como un mensaje o un c√≥digo de estado
+                    // (esto depender√° de tu l√≥gica espec√≠fica y de c√≥mo manejas la respuesta en el cliente)
                     // response.getWriter().write("Proceso actualizadoPrevision completado");
                 });
 
@@ -670,7 +670,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
                     // Esperar a que el hilo termine antes de continuar
                     actualizarPrevisionThread.join();
                 } catch (InterruptedException e) {
-                    // Manejar la interrupciÛn si es necesario
+                    // Manejar la interrupci√≥n si es necesario
                     e.printStackTrace();
                 }
 
@@ -680,7 +680,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 			try{
 				SpdLogAPI.addLog(getIdUsuario(), "",  cab.getIdDivisionResidencia(), cab.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_CREACION, SpdLogAPI.C_FICHERO_ROBOT_UNIFICADA
 						, "SpdLog.produccion.creacion.ficheroRobotUnificada", nombreFicheroFiliaDM + " y " +  nombreFicheroFiliaRX);
-			}catch(Exception e){}	//CreaciÛn del fichero Helium con nombre @@.
+			}catch(Exception e){}	//Creaci√≥n del fichero Helium con nombre @@.
         }
         else 
         {
@@ -722,7 +722,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
   	    formulari.setNuevaFechaHasta(nuevaFechaHasta);
 	    //Fin fechas desde / hasta
 	    
-	    //gestiÛn de las tomas de inicio del primer dÌa y de fÒin del ˙ltimo dÌa
+	    //gesti√≥n de las tomas de inicio del primer d√≠a y de f√≠n del √∫ltimo d√≠a
   		CabecerasXLSBean primerDiaDesdeToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, cab.getNuevaTomaDesde(), null, null, true, false);
 		CabecerasXLSBean ultimoDiaHastaToma = CabecerasXLSDAO.findByFilters(cab.getOidDivisionResidencia(), -1, -1, cab.getNuevaTomaHasta(), null, null, false, true);
 
@@ -737,7 +737,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		}
 
 		
-		//una vez tenemos las tomas de inicio/fin est·ndar, miramos si el gestor ha modificado las tomas en esta producciÛn, que tendrÌan preferencia.
+		//una vez tenemos las tomas de inicio/fin est√°ndar, miramos si el gestor ha modificado las tomas en esta producci√≥n, que tendr√≠an preferencia.
 
 	    String tDesde = (primerDiaDesdeToma!=null?primerDiaDesdeToma.getNombreToma():"");
 	   	String tHasta = (ultimoDiaHastaToma!=null?ultimoDiaHastaToma.getNombreToma():"");
@@ -753,7 +753,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
  
      	}
    		avisos.clear();
-		avisos.add(" Se generar·n los ficheros con las siguientes fechas: ");
+		avisos.add(" Se generar√°n los ficheros con las siguientes fechas: ");
 		avisos.add(" Desde el " + fDesde + " ("+ tDesde + ") ");
 		avisos.add(" hasta el " + fHasta + " ("+ tHasta + ") ");
 
@@ -806,7 +806,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
   	    formulari.setNuevaFechaDesde(nuevaFechaDesde);
   	    formulari.setNuevaFechaHasta(nuevaFechaHasta);
 	    
-	    //gestiÛn de las tomas de inicio del primer dÌa y de fÒin del ˙ltimo dÌa
+	    //gesti√≥n de las tomas de inicio del primer d√≠a y de f√≠n del √∫ltimo d√≠a
   	    String inicioTomaPrimerDia="";
 	   	String finTomaUltimoDia="";
   	    
@@ -835,7 +835,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		String tDesde = (primerDiaDesdeToma!=null?primerDiaDesdeToma.getNombreToma():"");
 		String tHasta = (ultimoDiaHastaToma!=null?ultimoDiaHastaToma.getNombreToma():"");
 	  	  
-		//una vez tenemos las tomas de inicio/fin est·ndar, miramos si el gestor ha modificado las tomas en esta producciÛn, que tendrÌan preferencia.
+		//una vez tenemos las tomas de inicio/fin est√°ndar, miramos si el gestor ha modificado las tomas en esta producci√≥n, que tendr√≠an preferencia.
   	    
  	   	if(cab.getNuevaTomaDesde()==null 
  	   			|| cab.getNuevaTomaDesde().equals("") 
@@ -870,13 +870,13 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
     		fHasta = nuevaFechaHasta;
  
     		avisos.clear();
-    		avisos.add(" AtenciÛn - Las fechas se han modificado en la ediciÛn");
+    		avisos.add(" Atenci√≥n - Las fechas se han modificado en la edici√≥n");
     		avisos.add(" Desde el " + fDesde + " ("+ tDesde + ") ");
     		avisos.add(" hasta el " + fHasta + " ("+ tHasta + ") ");
      	}
     	else
     	{
-    	    //si alguna de las nuevaFecha son diferentes a las escogidas para la carga se envÌa aviso informando el nuevo rango para producciÛn
+    	    //si alguna de las nuevaFecha son diferentes a las escogidas para la carga se env√≠a aviso informando el nuevo rango para producci√≥n
       	    avisos.add("Datos originales en la carga -->  Desde el " + fechaDesde + " ("+(primerDiaDesdeToma!=null?primerDiaDesdeToma.getNombreToma():"") + ") hasta el " +  fechaHasta  +" ("+(ultimoDiaHastaToma!=null?ultimoDiaHastaToma.getNombreToma():"") + ")\n");
     		
     	}
@@ -939,7 +939,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
 		
 		
 		String url = "/Iospd/Iospd.do?parameter=list&fechaDesde=" + cab.getFechaDesde() + "&fechaHasta=" + cab.getFechaHasta() + "&idProceso=" + cab.getIdProceso() + "&idDivisionResidencia=" + cab.getIdDivisionResidencia();
-        // Puedes guardar la URL como un atributo de sesiÛn
+        // Puedes guardar la URL como un atributo de sesi√≥n
         request.getSession().setAttribute("url", url);
         // O puedes guardarla como un atributo en el request
         request.setAttribute("url", url);
@@ -954,10 +954,10 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
             throws Exception {
     		//String idProduccion = request.getParameter("id");
 			
-			// 1. Llamas al DAO para obtener los datos de la producciÛn
+			// 1. Llamas al DAO para obtener los datos de la producci√≥n
 			//InformeSPD informe = informeDao.obtenerInformePorProduccion(idProduccion);
 			
-			// 2. AÒades los datos al request
+			// 2. a√±ades los datos al request
 			//request.setAttribute("paciente", informe.getPaciente());
 			
 			// 3. Devuelves el forward al JSP
@@ -967,7 +967,7 @@ public class FicheroResiCabeceraLiteAction extends GenericAction  {
     
 	
 	/**
-	 * mÈtodo de ayuda a la paginaciÛn
+	 * m√©todo de ayuda a la paginaci√≥n
 	 * @param aForm
 	 * @param numberObjects
 	 * @return

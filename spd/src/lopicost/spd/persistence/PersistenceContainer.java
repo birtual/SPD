@@ -48,7 +48,7 @@ public class PersistenceContainer {
 	 */
 	public PersistenceContainer(String pSql)
 	{
-		// Pasamos la sql a minúsculas y le quitamos los espacios de los extremos.
+		// Pasamos la sql a minÃºsculas y le quitamos los espacios de los extremos.
 		String _origSql= pSql.trim();
 		String _lcSql= _origSql.toLowerCase().trim();
 		int _nextPosition= 0;

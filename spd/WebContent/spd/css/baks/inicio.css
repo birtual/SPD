@@ -1,8 +1,8 @@
-/* Estilos de la página de login e inicio*/
+/* Estilos de la pï¿½gina de login e inicio*/
 
-    /* Estilo para divs con id específicos */		
+    /* Estilo para divs con id especï¿½ficos */		
     div[id="Pacientes"],		
-    div[id="Pañales"],		
+    div[id="PaÃ±ales"],		
     div[id="Recetas"],		
     div[id="Pedidos"],		
     div[id="Producciones"],		
@@ -10,24 +10,24 @@
     div[id="AdminTest"],		
     div[id="-"] {		
       width: 50%; /* Anchura del div al 70% del ancho de la ventana */		
-      border: 0.3em solid #0077cc; /* Borde para los divs específicos */		
-      border-radius: 1em; /* Bordes redondeados para los divs específicos */		
-      padding: 1em; /* Relleno para los divs específicos */		
-      margin: 0.6em auto; /* Margen para separar y centrar los divs específicos horizontalmente */		
+      border: 0.3em solid #0077cc; /* Borde para los divs especï¿½ficos */		
+      border-radius: 1em; /* Bordes redondeados para los divs especï¿½ficos */		
+      padding: 1em; /* Relleno para los divs especï¿½ficos */		
+      margin: 0.6em auto; /* Margen para separar y centrar los divs especï¿½ficos horizontalmente */		
     }		
 
-    /* Estilo para el texto del título */
+    /* Estilo para el texto del tÃ­tulo */
     div[id="Pacientes"] .titulo,
-    div[id="Pañales"] .titulo,
+    div[id="PaÃ±ales"] .titulo,
     div[id="Recetas"] .titulo,
     div[id="Pedidos"] .titulo,
     div[id="Producciones"] .titulo,
     div[id="Admin"] .titulo,
     div[id="AdminTest"] .titulo,
     div[id="-"] .titulo {
-      font-size: 1.3em; /* Tamaño de fuente para el título */
-      font-weight: bold; /* Texto en negrita para el título */
-      color: #0077cc; /* Color del texto para el título */
-      margin-bottom: 0.5em; /* Margen inferior para separar el título del contenido */
+      font-size: 1.3em; /* TamaÃ±o de fuente para el tÃ­tulo */
+      font-weight: bold; /* Texto en negrita para el tÃ­tulo */
+      color: #0077cc; /* Color del texto para el tÃ­tulo */
+      margin-bottom: 0.5em; /* Margen inferior para separar el tÃ­tulo del contenido */
     }
 

@@ -13,12 +13,12 @@ public class Dose {
 
 
 	@XmlAttribute(name = "idDose")
-	private String idDose;				// Identificador ˙nico del centro que referencie a una hora de toma. Su valor puede coincidir con la hora de la toma.
+	private String idDose;				// Identificador √∫nico del centro que referencie a una hora de toma. Su valor puede coincidir con la hora de la toma.
 //	private String codeDose;	
 	@XmlElement
-	private String hour;				// Hora de la toma del paciente en formato ìhh:mmî
+	private String hour;				// Hora de la toma del paciente en formato ‚Äúhh:mm‚Äù
 	@XmlElement
-	private String name;				// DescripciÛn del periodo del dÌa de la toma.
+	private String name;				// Descripci√≥n del periodo del d√≠a de la toma.
 	
 	@XmlTransient	//para que no se muestre en el XML
 	private String idDivisionResidencia;	

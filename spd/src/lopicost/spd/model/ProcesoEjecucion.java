@@ -3,22 +3,22 @@ package lopicost.spd.model;
 import java.util.List;
 
 public class ProcesoEjecucion {
-    private int oidProcesoEjecucion;            // Identificador único de la ejecución de un proceso
-    private int oidProceso;            			// Identificador único del proceso
+    private int oidProcesoEjecucion;            // Identificador Ãºnico de la ejecuciÃ³n de un proceso
+    private int oidProceso;            			// Identificador Ãºnico del proceso
     private String lanzadera;                 	// Nombre de la lanzadera que lo ejecuta
-    private int version;                   		// Versión del proceso
-    private String fechaCreacionEjecucion;        // Fecha de creación del procesoEjecucion
-    private String fechaInicioEjecucion;        // Fecha y hora de inicio de la ejecución
-    private String fechaFinEjecucion;           // Fecha y hora de fin de la ejecución
-    private String estado;                      // Estado del proceso: "En ejecución", "Finalizado", etc.
-    private int duracionSegundos;               // Duración de la ejecución en segundos
-    private String resultado;                   // Resultado de la ejecución
-    private String usuarioEjecucion;        	// Usuario que ejecutó el proceso 
-    private String mensaje;                     // Mensaje adicional de la ejecución
-    private String tipoError;                   // Tipo de error si existió un fallo
-    private String codigoResultado;          	// Código de resultado (0 para éxito, 1 para error, etc.)
-    private String error;                       // Error ocurrido durante la ejecución
-    private int numIntentos;               		// Número de intentos realizados
+    private int version;                   		// VersiÃ³n del proceso
+    private String fechaCreacionEjecucion;        // Fecha de creaciÃ³n del procesoEjecucion
+    private String fechaInicioEjecucion;        // Fecha y hora de inicio de la ejecuciÃ³n
+    private String fechaFinEjecucion;           // Fecha y hora de fin de la ejecuciÃ³n
+    private String estado;                      // Estado del proceso: "En ejecuciÃ³n", "Finalizado", etc.
+    private int duracionSegundos;               // DuraciÃ³n de la ejecuciÃ³n en segundos
+    private String resultado;                   // Resultado de la ejecuciÃ³n
+    private String usuarioEjecucion;        	// Usuario que ejecutÃ³ el proceso 
+    private String mensaje;                     // Mensaje adicional de la ejecuciÃ³n
+    private String tipoError;                   // Tipo de error si existiÃ³ un fallo
+    private String codigoResultado;          	// CÃ³digo de resultado (0 para Ã©xito, 1 para error, etc.)
+    private String error;                       // Error ocurrido durante la ejecuciÃ³n
+    private int numIntentos;               		// nÃºmero de intentos realizados
     private List<ProcesoEjecucionLog> detalleEjecucion; 
 
 	@Override

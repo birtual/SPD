@@ -189,10 +189,10 @@ public class SPDConstants
 	
 	public static final String DIA1 = "lunes";
 	public static final String DIA2 = "martes";
-	public static final String DIA3 = "mi�rcoles";
+	public static final String DIA3 = "miércoles";
 	public static final String DIA4 = "jueves";
 	public static final String DIA5 = "viernes";
-	public static final String DIA6 = "s�bado";
+	public static final String DIA6 = "sábado";
 	public static final String DIA7 = "domingo";
 
 	public static final String DIA1_HELIUM = "monday";
@@ -321,8 +321,8 @@ public class SPDConstants
 	public static final String PROCESO_EJEC_ESTADO_CANCELADO = "CANCELADO";	//acabado manualmente o cancelado por alguna lógica.
 	
 	public static final String PROCESO_EJEC_RESULT_OK= "OK"; //ejecutado correctamente.
-	public static final String PROCESO_EJEC_RESULT_ERROR= "ERROR";	//fallo durante la ejecución.
-	public static final String PROCESO_EJEC_RESULT_CANCEL= "CANCEL";		//ejecución cancelada.
+	public static final String PROCESO_EJEC_RESULT_ERROR= "ERROR";	//fallo durante la ejecutó.
+	public static final String PROCESO_EJEC_RESULT_CANCEL= "CANCEL";		//ejecutó cancelada.
 	
 	public static final String PROCESO_CODE_FINALIZADO_OK		 	= "0";
 	public static final String PROCESO_CODE_ERROR_TIEMPO_EXCEDIDO	= "1";

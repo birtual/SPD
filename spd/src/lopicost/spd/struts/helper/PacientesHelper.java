@@ -51,12 +51,12 @@ public class PacientesHelper  {
 		boolean result = PacienteDAO.nuevo(form);
 		if(result)
 		{
-		//INICIO creación de log en BBDD
+		//INICIO creaciÃ³n de log en BBDD
 			try{
 				SpdLogAPI.addLog(idUsuario, form.getCIP(), form.getIdDivisionResidencia(), null, SpdLogAPI.A_RESIDENTE, SpdLogAPI.B_CREACION, ".", "SpdLog.residentes.creacion.crear", 
 						 new String[]{idUsuario, form.getCIP()} );
 			}catch(Exception e){}	// Cambios--> @@.
-			//FIN creación de log en BBDD
+			//FIN creaciÃ³n de log en BBDD
 		}
 		return result;
 	}
@@ -66,20 +66,20 @@ public class PacientesHelper  {
 		boolean result = PacienteDAO.cambioCIP(form, pac);
 		if(result)
 		{
-		//INICIO creación de log en BBDD
+		//INICIO creaciÃ³n de log en BBDD
 			try{
 				SpdLogAPI.addLog(idUsuario, form.getCIP(), form.getIdDivisionResidencia(), null, SpdLogAPI.A_RESIDENTE, SpdLogAPI.B_CAMBIOCIP, ".", "SpdLog.residentes.cambio.cip", 
 						 new String[]{idUsuario, pac.getCIP(), form.getCIP()} );
 			}catch(Exception e){}	// Cambios--> @@.
-			//FIN creación de log en BBDD
+			//FIN creaciÃ³n de log en BBDD
 		}
 		return result;
 	}
 
 	
 	/**
-	 * Método encargado de actualizar datos del paciente modificado.
-	 * Se llamará a diferentes métodos auxiliares
+	 * MÃ©todo encargado de actualizar datos del paciente modificado.
+	 * Se llamarÃ¡ a diferentes mÃ©todos auxiliares
 	 * @param idUsuario que realiza el grabado 
 	 * @param p PacienteBean sobre el que se realiza el cambio
 	 * @throws SQLException 
@@ -91,7 +91,7 @@ public class PacientesHelper  {
 	
 	
 	/**
-	 * Método encargado de actualizar los estados principales de bd_pacientes, según el estatus escogido en el formulario.
+	 * MÃ©todo encargado de actualizar los estados principales de bd_pacientes, segÃºn el estatus escogido en el formulario.
 	 * Se traspasa de los procedure.sql que se realizaban cada 5 minutos en SPDAC (set_MarcasSPDpanyales_segunESTATUS.sql)
 	 * @param idUsuario que realiza el grabado 
 	 * @param p PacienteBean sobre el que se realiza el cambio
@@ -111,7 +111,7 @@ public class PacientesHelper  {
 		{
 			String estatus=p.getEstatus()!=null?p.getEstatus():"";
 	
-			//en caso que sea baja o similar, spd y pañales pasan a N
+			//en caso que sea baja o similar, spd y paÃ±ales pasan a N
 			if(StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("CENTRODEDIA")
 					|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("HOSPITALIZADO")
 					|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("BAJA")
@@ -149,7 +149,7 @@ public class PacientesHelper  {
 				}
 			
 			
-			//en caso que sea alta, dejamos spd y pañales a elección del gestor.
+			//en caso que sea alta, dejamos spd y paÃ±ales a elecciÃ³n del gestor.
 			if(StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("ALTA"))
 			{
 				if(p.getActivo().equalsIgnoreCase("INACTIVO"))
@@ -172,17 +172,17 @@ public class PacientesHelper  {
 			
 		if(cambios) 
 		{
-			String antesAuto 	=  " | spd: "+ spd + " | pañales: "+ bolquers + " | activo: "+ activo + " | exitus: "+ exitus ;
-			String despuesAuto 	=  " | spd: "+ p.getSpd() + " | pañales: "+ p.getBolquers() + " | activo: "+ p.getActivo() + " | exitus: "+ p.getExitus();
+			String antesAuto 	=  " | spd: "+ spd + " | paÃ±ales: "+ bolquers + " | activo: "+ activo + " | exitus: "+ exitus ;
+			String despuesAuto 	=  " | spd: "+ p.getSpd() + " | paÃ±ales: "+ p.getBolquers() + " | activo: "+ p.getActivo() + " | exitus: "+ p.getExitus();
 			String queryAuto=" UPDATE SPDAC.dbo.bd_pacientes SET " + querySet + "   WHERE  OIDPACIENTE='"+p.getOidPaciente()+"'";
 			
 			cambios = PacienteDAO.edita(queryAuto);
-			//INICIO creación de log automática en base al estado en BBDD
+			//INICIO creaciÃ³n de log automÃ¡tica en base al estado en BBDD
 			try{
 				SpdLogAPI.addLog(idUsuario, p.getCIP(),  p.getIdDivisionResidencia(), null, SpdLogAPI.A_RESIDENTE, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.residente.edicion.automatica.segunEstado", 
 						 new String[]{p.getCIP(), antesAuto, despuesAuto} );
 			}catch(Exception e){}	// Cambios--> @@.
-			//FIN creación de log en BBDD
+			//FIN creaciÃ³n de log en BBDD
 		}
 
 		}
@@ -204,7 +204,7 @@ public class PacientesHelper  {
 		{
 			String estatus=p.getEstatus()!=null?p.getEstatus():"";
 			if( StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("ESTANCIATEMPORAL")
-					|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("pañales_S")
+					|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("paÃ±ales_S")
 					|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("SPD_S")
 				|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("ALTA")
 			)
@@ -278,7 +278,7 @@ public class PacientesHelper  {
 				cambios=true;
 			}
 
-			if(p.getBolquers().equalsIgnoreCase("S") && StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("pañales_N"))
+			if(p.getBolquers().equalsIgnoreCase("S") && StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("paÃ±ales_N"))
 			{
 				p.setBolquers("N"); 
 				if(cambios) querySet+=" , ";
@@ -290,17 +290,17 @@ public class PacientesHelper  {
 			
 		if(cambios) 
 		{
-			String antesAuto 	=  " | spd: "+ spd + " | pañales: "+ bolquers + " | activo: "+ activo + " | exitus: "+ exitus ;
-			String despuesAuto 	=  " | spd: "+ p.getSpd() + " | pañales: "+ p.getBolquers() + " | activo: "+ p.getActivo() + " | exitus: "+ p.getExitus();
+			String antesAuto 	=  " | spd: "+ spd + " | paÃ±ales: "+ bolquers + " | activo: "+ activo + " | exitus: "+ exitus ;
+			String despuesAuto 	=  " | spd: "+ p.getSpd() + " | paÃ±ales: "+ p.getBolquers() + " | activo: "+ p.getActivo() + " | exitus: "+ p.getExitus();
 			String queryAuto=" UPDATE SPDAC.dbo.bd_pacientes SET " + querySet + "   WHERE  OIDPACIENTE='"+p.getOidPaciente()+"'";
 			
 			cambios = PacienteDAO.edita(queryAuto);
-			//INICIO creación de log automática en base al estado en BBDD
+			//INICIO creaciÃ³n de log automÃ¡tica en base al estado en BBDD
 			try{
 				SpdLogAPI.addLog(idUsuario, p.getCIP(),  p.getIdDivisionResidencia(), null, SpdLogAPI.A_RESIDENTE, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.residente.edicion.automatica.segunEstado", 
 						 new String[]{idUsuario, p.getCIP(), antesAuto, despuesAuto} );
 			}catch(Exception e){}	// Cambios--> @@.
-			//FIN creación de log en BBDD
+			//FIN creaciÃ³n de log en BBDD
 		}
 
 		}
@@ -310,7 +310,7 @@ public class PacientesHelper  {
 	
 	
 	/**
-	 * Método encargado de actualizar los estados principales de bd_pacientes, según el estatus escogido en el formulario.
+	 * MÃ©todo encargado de actualizar los estados principales de bd_pacientes, segÃºn el estatus escogido en el formulario.
 	 * Se traspasa de los procedure.sql que se realizaban cada 5 minutos en SPDAC (set_MarcasSPDpanyales_segunESTATUS.sql)
 	 * @param idUsuario que realiza el grabado 
 	 * @param p PacienteBean sobre el que se realiza el cambio
@@ -329,7 +329,7 @@ public class PacientesHelper  {
 				
 					&& 
 					(
-						(estatus.contains("SPD_S") && estatus.contains("pañales_N"))
+						(estatus.contains("SPD_S") && estatus.contains("paÃ±ales_N"))
 						|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("ESTANCIATEMPORAL")
 						|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("ALTA")				
 					)
@@ -337,7 +337,7 @@ public class PacientesHelper  {
 				))
 			{
 				p.setSpd("S");
-				p.setBolquers("S"); if(estatus.contains("pañales_N")) p.setBolquers("N");  
+				p.setBolquers("S"); if(estatus.contains("paÃ±ales_N")) p.setBolquers("N");  
 				p.setActivo("ACTIVO");
 				p.setExitus(0);		
 				cambios=true;
@@ -353,7 +353,7 @@ public class PacientesHelper  {
 						|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("HOSPITALIZADO")
 						|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("BAJAVOLUNTARIA")
 						|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("EXITUS")
-						|| (estatus.contains("SPD_N") && estatus.contains("pañales_S")
+						|| (estatus.contains("SPD_N") && estatus.contains("paÃ±ales_S")
 						|| p.getExitus()==1
 						)
 					))
@@ -379,7 +379,7 @@ public class PacientesHelper  {
 	 * 	public static void actualizaDatosClaveSegunEstatus(String idUsuario, PacienteBean p) {
 		
 		boolean cambios=false;
-		String antes = "Estatus: " + p.getEstatus() + " | SPD: "+ p.getSpd()  + " | Pañales: "+ p.getBolquers()+ " | Exitus: "+(p.getExitus()==1?"SI":"NO" )+ " | Activo: "+ p.getActivo();
+		String antes = "Estatus: " + p.getEstatus() + " | SPD: "+ p.getSpd()  + " | PaÃ±ales: "+ p.getBolquers()+ " | Exitus: "+(p.getExitus()==1?"SI":"NO" )+ " | Activo: "+ p.getActivo();
 		if(p!=null)
 		{
 			String estatus=p.getEstatus()!=null?p.getEstatus():"";
@@ -387,7 +387,7 @@ public class PacientesHelper  {
 				!p.getSpd().equalsIgnoreCase("S")
 					&& 
 					(
-						(estatus.contains("SPD_N") && estatus.contains("pañales_S"))
+						(estatus.contains("SPD_N") && estatus.contains("paÃ±ales_S"))
 						|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("ESTANCIATEMPORAL")
 						|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("ALTA")				
 					)
@@ -410,7 +410,7 @@ public class PacientesHelper  {
 						|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("HOSPITALIZADO")
 						|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("BAJAVOLUNTARIA")
 						|| StringUtil.limpiarTextoEspaciosYAcentos(estatus, true).contains("EXITUS")
-						|| (estatus.contains("SPD_S") && estatus.contains("pañales_N"))
+						|| (estatus.contains("SPD_S") && estatus.contains("paÃ±ales_N"))
 					)
 			)
 			{
@@ -425,13 +425,13 @@ public class PacientesHelper  {
 			
 			if(cambios)
 			{
-				String despues = "Estatus: " + p.getEstatus() + " | SPD: "+ p.getSpd()  + " | Pañales: "+ p.getBolquers()+ " | Exitus: "+(p.getExitus()==1?"SI":"NO" )+ " | Activo: "+ p.getActivo();
-				//INICIO creación de log en BBDD
+				String despues = "Estatus: " + p.getEstatus() + " | SPD: "+ p.getSpd()  + " | PaÃ±ales: "+ p.getBolquers()+ " | Exitus: "+(p.getExitus()==1?"SI":"NO" )+ " | Activo: "+ p.getActivo();
+				//INICIO creaciÃ³n de log en BBDD
 				try{
 					SpdLogAPI.addLog(idUsuario, p.getCIP(),  p.getIdDivisionResidencia(), null, SpdLogAPI.A_RESIDENTE, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.residente.edicion.estados", 
 							 new String[]{idUsuario, p.getCIP(), antes, despues} );
 				}catch(Exception e){}	// Cambios--> @@.
-				//FIN creación de log en BBDD
+				//FIN creaciÃ³n de log en BBDD
 			}
 		}
 	
@@ -441,7 +441,7 @@ public class PacientesHelper  {
 	
 
 	/**
-	 * Método encargado de actualizar los estados principales de bd_pacientes, según el estatus escogido en el formulario.
+	 * MÃ©todo encargado de actualizar los estados principales de bd_pacientes, segÃºn el estatus escogido en el formulario.
 	 * Se traspasa de los procedure.sql que se realizaban cada 5 minutos en SPDAC (actualizaApellidosNombrePacientes.sql)
 	 * @param idUsuario que realiza el grabado 
 	 * @param p PacienteBean sobre el que se realiza el cambio
@@ -459,7 +459,7 @@ public class PacientesHelper  {
 			if(!apellido1.equalsIgnoreCase(apellido1Trim))
 			{
 				cambios =true;
-				if (!querySet.equals(""))  //añadimos la coma en caso que exista uno previo 					
+				if (!querySet.equals(""))  //aÃ±adimos la coma en caso que exista uno previo 					
 					querySet+= ", ";
 				 
 				querySet+= " apellido1 = '"+ apellido1Trim + "'" ;
@@ -472,7 +472,7 @@ public class PacientesHelper  {
 			if(!apellido2.equalsIgnoreCase(apellido2Trim))
 			{
 				cambios =true;
-				if (!querySet.equals(""))  //añadimos la coma en caso que exista uno previo 					
+				if (!querySet.equals(""))  //aÃ±adimos la coma en caso que exista uno previo 					
 					querySet+= ", ";
 				 
 				querySet+= " apellido2 = '"+ apellido2Trim + "'" ;
@@ -485,7 +485,7 @@ public class PacientesHelper  {
 			if(!cognoms.equalsIgnoreCase(cognomsTrim))
 			{
 				cambios =true;
-				if (!querySet.equals(""))  //añadimos la coma en caso que exista uno previo 					
+				if (!querySet.equals(""))  //aÃ±adimos la coma en caso que exista uno previo 					
 					querySet+= ", ";
 				 
 				querySet+= " cognoms = '"+ cognomsTrim + "'" ;
@@ -498,7 +498,7 @@ public class PacientesHelper  {
 			if(!nom.equalsIgnoreCase(nomTrim))
 			{
 				cambios =true;
-				if (!querySet.equals(""))  //añadimos la coma en caso que exista uno previo 					
+				if (!querySet.equals(""))  //aÃ±adimos la coma en caso que exista uno previo 					
 					querySet+= ", ";
 				 
 				querySet+= " nom = '"+ nomTrim + "'" ;
@@ -513,7 +513,7 @@ public class PacientesHelper  {
 			if(!cognomsNom.equalsIgnoreCase(cognomsNomTrim))
 			{
 				cambios =true;
-				if (!querySet.equals(""))  //añadimos la coma en caso que exista uno previo 					
+				if (!querySet.equals(""))  //aÃ±adimos la coma en caso que exista uno previo 					
 					querySet+= ", ";
 				 
 				querySet+= " cognomsNom = '"+ cognomsNomTrim + "'" ;
@@ -564,7 +564,7 @@ public class PacientesHelper  {
 				cambios = true;
 				cambiosNombre = true;
 				if (!querySet.equals("")) 
-					querySet+= ", "; //añadimos la coma en caso que exista uno previo 		
+					querySet+= ", "; //aÃ±adimos la coma en caso que exista uno previo 		
 				 
 				querySet+= " idDivisionResidencia = '"+ f.getIdDivisionResidencia() + "'" ;
 			}
@@ -578,7 +578,7 @@ public class PacientesHelper  {
 				cambios = true;
 				cambiosNombre = true;
 				if (!querySet.equals("")) 
-					querySet+= ", "; //añadimos la coma en caso que exista uno previo 		
+					querySet+= ", "; //aÃ±adimos la coma en caso que exista uno previo 		
 				 
 				querySet+= " NOM = '"+ f.getNombre() + "'" ;
 			}
@@ -778,12 +778,12 @@ public class PacientesHelper  {
 		{
 			String query = " UPDATE SPDAC.dbo.bd_pacientes SET " + querySet + " WHERE  OIDPACIENTE='"+p.getOidPaciente()+"'";
 			cambios = PacienteDAO.edita(query);
-			//INICIO creación de log en BBDD
+			//INICIO creaciÃ³n de log en BBDD
 			try{
 				SpdLogAPI.addLog(idUsuario, p.getCIP(),  p.getIdDivisionResidencia(), null, SpdLogAPI.A_RESIDENTE, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.residente.edicion.general", 
 						 new String[]{idUsuario, p.getCIP(), antes, despues} );
 			}catch(Exception e){}	// Cambios--> @@.
-			//FIN creación de log en BBDD
+			//FIN creaciÃ³n de log en BBDD
 		}
 
 		return cambios;

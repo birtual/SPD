@@ -16,43 +16,43 @@ public class ProcesoHelper2 {
 	private static ProcesoDAO procesoDAO = new ProcesoDAO();
 	
 	public Proceso obtenerProcesoPorId(String idUsuario, int oidProceso) throws SQLException {
-		// TODO Esbozo de método generado automáticamente
+		// TODO Esbozo de mÃ©todo generado automÃ¡ticamente
 		List listado = procesoDAO.findByFilters(idUsuario, null, null, oidProceso);
 		return (listado !=null && listado.size()>0) ? (Proceso) listado.get(0) : null;
 	}
 
 
 	public static String obtenerEstadoProceso(String idUsuario, int oidProceso) throws SQLException {
-		// TODO Esbozo de método generado automáticamente
+		// TODO Esbozo de mÃ©todo generado automÃ¡ticamente
 		List listado = procesoDAO.findByFilters(idUsuario, null, null, oidProceso);
 		return (listado !=null && listado.size()>0) ? ((Proceso) listado.get(0)).getEstado() : null;
 
 	}
 	
-	// Lógica para iniciar el proceso
+	// lÃ³gica para iniciar el proceso
     public void iniciarProceso(String idUsuario, int oidProceso) {
-        // Verificar si el proceso ya está en ejecución
+        // Verificar si el proceso ya estÃ¡ en ejecutÃ³
         if (procesoDAO.estaEnEjecucion(oidProceso)) {
-            System.out.println("El proceso ya está en ejecución.");
+            System.out.println("El proceso ya estÃ¡ en ejecutÃ³.");
             return;
         }
         
-        // Si no está en ejecución, iniciar el proceso
+        // Si no estÃ¡ en ejecutÃ³, iniciar el proceso
         System.out.println("Lanzando proceso con OID: " + oidProceso);
         procesoDAO.iniciarProceso(idUsuario, oidProceso);
     }
 
-    // Lógica para detener el proceso
+    // lÃ³gica para detener el proceso
     public void detenerProceso(String idUsuario, int oidProceso) {
         System.out.println("Deteniendo proceso con OID: " + oidProceso);
         procesoDAO.detenerProceso(idUsuario, oidProceso);
     }
 
-    // Lógica para reiniciar un proceso
+    // lÃ³gica para reiniciar un proceso
     public void reiniciarProceso(String idUsuario, int oidProceso) {
-        // Lógica para reiniciar el proceso
+        // lÃ³gica para reiniciar el proceso
         System.out.println("Reiniciando proceso con OID: " + oidProceso);
-        procesoDAO.actualizarEstadoProceso(oidProceso, "En ejecución");
+        procesoDAO.actualizarEstadoProceso(oidProceso, "En ejecutÃ³");
         procesoDAO.iniciarProceso(idUsuario, oidProceso);
     }
     
@@ -100,7 +100,7 @@ public class ProcesoHelper2 {
 		proceso.setTipoError(form.getTipoError());
 		proceso.setCodigoResultado(form.getCodigoResultado());
 		proceso.setError(form.getError());
-		// Campos opcionales con conversión y validación
+		// Campos opcionales con conversiÃ³n y validaciÃ³n
 		if (form.getFechaCreacion() != null && !form.getFechaCreacion().isEmpty()) {
 	    	Date parsedDate = (Date) timestampFormat.parse(form.getFechaCreacion());
 	    	proceso.setFechaCreacion(parsedDate);
@@ -142,12 +142,12 @@ public class ProcesoHelper2 {
 			
 			String mensaje = proceso.toString();
 
-			//INICIO creación de log en BBDD
+			//INICIO creaciÃ³n de log en BBDD
 			try{
 				SpdLogAPI.addLog(idUsuario, null,  null, null, SpdLogAPI.A_PROCESO, SpdLogAPI.B_CREACION, "", "SpdLog.proceso.creado.general", 
 						mensaje );
 			}catch(Exception e){}	// Cambios--> @@.
-			//FIN creación de log en BBDD
+			//FIN creaciÃ³n de log en BBDD
 			
 		}
 

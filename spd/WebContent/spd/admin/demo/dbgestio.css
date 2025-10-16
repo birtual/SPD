@@ -1,5 +1,4 @@
-/*LOS SIGUIENTES ESTILOS SOLO SE APLICAN EN AQUELLAS PÁGINAS CUYO BODY TENGA UN ID="MODULO",
- QUE SON AQUELLAS QUE FORMAN PARTE DEL MODULO DE GESTIÓN DE FACTURAS*/
+
 
 
 body#modulo {
@@ -43,7 +42,7 @@ body#modulo div#contingut {
 	}	
 
 body#modulo div#fonslt {
-/*Atención a la ruta de la imagen que hace esquina*/
+/*AtenciÃ³n a la ruta de la imagen que hace esquina*/
 	background-image: url(../images/corn_lt.png);
 	background-repeat: no-repeat;
 	width: 10px;
@@ -52,7 +51,7 @@ body#modulo div#fonslt {
 	}
 
 body#modulo div#fonsrt {
-/*Atención a la ruta de la imagen que hace esquina*/
+/*AtenciÃ³n a la ruta de la imagen que hace esquina*/
 	background-image: url(../images/corn_rt.png);
 	background-repeat: no-repeat;
 	background-position: right top;
@@ -61,7 +60,7 @@ body#modulo div#fonsrt {
 	}
 
 body#modulo div#fonslb {
-/*Atención a la ruta de la imagen que hace esquina*/
+/*AtenciÃ³n a la ruta de la imagen que hace esquina*/
 	background-image: url(../images/corn_lb.png);
 	background-repeat: no-repeat;
 	background-position: left bottom;
@@ -71,7 +70,7 @@ body#modulo div#fonslb {
 	}
 
 body#modulo div#fonsrb {
-/*Atención a la ruta de la imagen que hace esquina*/
+/*AtenciÃ³n a la ruta de la imagen que hace esquina*/
 	background-image: url(../images/corn_rb.png);
 	background-repeat: no-repeat;
 	background-position: right bottom;
@@ -103,7 +102,7 @@ body#modulo div#datos {
 	}
 
 body#modulo div#fonslt2 {
-/*Atención a la ruta de la imagen que hace esquina*/
+/*AtenciÃ³n a la ruta de la imagen que hace esquina*/
 	background-image: url(../images/corn_lt2.png);
 	background-repeat: no-repeat;
 	width: 10px;
@@ -112,7 +111,7 @@ body#modulo div#fonslt2 {
 	}
 
 body#modulo div#fonsrt2 {
-/*Atención a la ruta de la imagen que hace esquina*/
+/*AtenciÃ³n a la ruta de la imagen que hace esquina*/
 	background-image: url(../images/corn_rt2.png);
 	background-repeat: no-repeat;
 	background-position: right top;
@@ -120,7 +119,7 @@ body#modulo div#fonsrt2 {
 	}
 
 body#modulo div#fonslb2 {
-/*Atención a la ruta de la imagen que hace esquina*/
+/*AtenciÃ³n a la ruta de la imagen que hace esquina*/
 	background-image: url(../images/corn_lb2.png);
 	background-repeat: no-repeat;
 	background-position: bottom;
@@ -130,7 +129,7 @@ body#modulo div#fonslb2 {
 	}
 
 body#modulo div#fonsrb2 {
-/*Atención a la ruta de la imagen que hace esquina*/
+/*AtenciÃ³n a la ruta de la imagen que hace esquina*/
 	background-image: url(../images/corn_rb2.png);
 	background-repeat: no-repeat;
 	background-position: right bottom;
@@ -331,16 +330,12 @@ background-color: #F8f8f8;
 body#modulo .inpar{
 background-color: #FFFFFF;
 }
-/* això només funx amb navegadors mosk (mozilla opera safari konkeror) */	
+	
 body#modulo tr:hover {
 	background-color: #F1F7FA;
 	}
-/* fi tabular data */
-/*FIN DE LOS ESTILOS QUE SE APLICAN A LAS PÁGINAS CUYO BODY TIENE UN ID="MODULO",
-QUE SON LAS DEL MÓDULO DE GESTIÓN DE FACTURAS*/
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-/*AQUÍ EMPIEZAN LOS ESTILOS DEL DBFORMS*/
 
 body {
 	background-color: #fff;
@@ -553,4 +548,3 @@ input, select,.clsSelectStyle, .clsInputStyle, .clsInputStyleRO, textarea.clsInp
 .clsListScheduledAlert {
 	background-color : #000000;
 }
-/*AQUÍ TERMINAN LOS ESTILOS DEL DBFORMS*/

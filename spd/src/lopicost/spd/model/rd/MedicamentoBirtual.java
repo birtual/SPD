@@ -22,8 +22,8 @@ public class MedicamentoBirtual extends Medicamento{
     private String variante;
     private String observaciones;
     private String comentarios;
-    private String tratamientoInicio;		//fecha inicio según residencia
-    private String tratamientoFin;			//fecha fin según residencia
+    private String tratamientoInicio;		//fecha inicio segÃºn residencia
+    private String tratamientoFin;			//fecha fin segÃºn residencia
     private List<DiaTomas> diaTomas = new ArrayList<DiaTomas>();
     private String pautaResidencia;			
     private String formaFarmaceutica;

@@ -103,7 +103,7 @@ function goInicio()
 
 <div id="conMargenSuperior">
 
-<h3>Actualización de datos</h3>
+<h3>ActualizaciÃ³n de datos</h3>
 	</br>
  	<table style="width:70%">
 		<thead>
@@ -111,18 +111,18 @@ function goInicio()
 		<th>Residentes activos (no mutua)</th>
 		<!-- th class="verde">Cips procesados (trat)</th -->
 		<th class="verde">Tratamientos <br>  (recogidos / No recogidos)</th>
-		<th class="verde">última fecha recogida</th>
+		<th class="verde">Ãºltima fecha recogida</th>
 		<!-- th class="naranja">Cips procesados (pend)</th -->
 		<th nowrap class="naranja">Con ventana activa / Sin ventana activa - No recogidos)</th>
-		<th class="naranja">última fecha recogida</th>					
+		<th class="naranja">Ãºltima fecha recogida</th>					
 		</thead>
 		<logic:iterate id="data" name="formulari" property="listaBeans" type="lopicost.spd.struts.bean.ExtReBean" indexId="position">
 			<tr>
 				<td style="width: 25%; text-align: left;"><bean:write name="data" property="nombreDivisionResidencia" /></td>
 				<td style="width: 10%; text-align: center;"><bean:write name="data" property="cipsActivos" /></td>
 				<%
-				 String porcenTrat = ""; // Inicializar port como un String vacío
-				 String porcenPend = ""; // Inicializar port como un String vacío
+				 String porcenTrat = ""; // Inicializar port como un String vacÃ­o
+				 String porcenPend = ""; // Inicializar port como un String vacÃ­o
 				 int tratSinError = 0;
 				 int tratConError = 0;
 				 int pendSinError = 0;

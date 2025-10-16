@@ -11,14 +11,14 @@ import org.apache.commons.lang.StringUtils;
 
 
 
-/** String Util: recopilaciÛn de utilidades para tratamiento de Strings
+/** String Util: recopilaci√≥n de utilidades para tratamiento de Strings
 
  */
 public class ReemplazarPautasSPD{
 	
 	
 	/**
-	 * MÈtodo para transformar algunos car·cteres de un texto concreto
+	 * M√©todo para transformar algunos car√°cteres de un texto concreto
 	 * @param text
 	 * @return
 	 */
@@ -49,12 +49,12 @@ public class ReemplazarPautasSPD{
 			result=result.replace("X", "999");
 			
 			result=result.replaceAll("[a-zA-Z]", "");
-			result=result.replace("-", "");
-			result=result.replace("_", "");
-			result=result.replace(".", ",");
-			result=result.replace(";", ",");
-			result=result.replace("'", "");
-			result=result.replace("¥", "");
+	         result = result.replace("-", "");
+	         result = result.replace("_", "");
+	         result = result.replace(".", ",");
+	         result = result.replace(";", ",");
+	         result = result.replace("'", "");
+	         result = result.replace("¬¥", "");
 			
 			
 		}
@@ -62,7 +62,7 @@ public class ReemplazarPautasSPD{
 	}
 	
 	/**
-	 * MÈtodo para eliminar algunos car·cteres de un texto concreto
+	 * M√©todo para eliminar algunos car√°cteres de un texto concreto
 	 * @param text
 	 * @return
 	 */
@@ -82,7 +82,7 @@ public class ReemplazarPautasSPD{
 	
 	
 	/**
-	 * MÈtodo para eliminar algunos car·cteres de un texto concreto
+	 * M√©todo para eliminar algunos car√°cteres de un texto concreto
 	 * @param text
 	 * @return
 	 */
@@ -97,13 +97,13 @@ public class ReemplazarPautasSPD{
 			result.replace("_", "");
 			result.replace(";", "");
 			result.replace("'", "");
-			result.replace("¥", "");
+			result.replace("¬¥", "");
 		}
 		return result;
 	}
 
 	/**
-	 * MÈtodo para eliminar todos los espacios de un texto
+	 * M√©todo para eliminar todos los espacios de un texto
 	 * @param text
 	 * @return
 	 */
@@ -121,54 +121,55 @@ public class ReemplazarPautasSPD{
 	
 	
 	/**
-	 * MÈtodo que transforma en may˙sculas, eliminando acentos
+	 * M√©todo que transforma en may√∫sculas, eliminando acentos
 	 * @param q String base
-	 * @return String Retorna un String cuyas letras estar·n todas en may˙sculas y sin acentos
+	 * @return String Retorna un String cuyas letras estar√°n todas en may√∫sculas y sin acentos
 	 */
 	public final static String makeFlat(String q){
-		q = ReemplazarPautasSPD.replaceChar(q,'¡','A');
-		q = ReemplazarPautasSPD.replaceChar(q,'…','E');
-		q = ReemplazarPautasSPD.replaceChar(q,'Õ','I');
-		q = ReemplazarPautasSPD.replaceChar(q,'”','O');
-		q = ReemplazarPautasSPD.replaceChar(q,'⁄','U');
-		q = ReemplazarPautasSPD.replaceChar(q,'¿','A');
-		q = ReemplazarPautasSPD.replaceChar(q,'»','E');
-		q = ReemplazarPautasSPD.replaceChar(q,'Ã','I');
-		q = ReemplazarPautasSPD.replaceChar(q,'“','O');
-		q = ReemplazarPautasSPD.replaceChar(q,'Ÿ','U');
-		q = ReemplazarPautasSPD.replaceChar(q,'ƒ','A');
-		q = ReemplazarPautasSPD.replaceChar(q,'À','E');
-		q = ReemplazarPautasSPD.replaceChar(q,'œ','I');
-		q = ReemplazarPautasSPD.replaceChar(q,'÷','O');
-		q = ReemplazarPautasSPD.replaceChar(q,'‹','U');
-		q = ReemplazarPautasSPD.replaceChar(q,'—','N');
-		q = ReemplazarPautasSPD.replaceChar(q,'«','C');
+		  q = replaceChar(q, '√Å', 'A');
+	      q = replaceChar(q, '√â', 'E');
+	      q = replaceChar(q, '√ç', 'I');
+	      q = replaceChar(q, '√ì', 'O');
+	      q = replaceChar(q, '√ö', 'U');
+	      q = replaceChar(q, '√Ä', 'A');
+	      q = replaceChar(q, '√à', 'E');
+	      q = replaceChar(q, '√å', 'I');
+	      q = replaceChar(q, '√í', 'O');
+	      q = replaceChar(q, '√ô', 'U');
+	      q = replaceChar(q, '√Ñ', 'A');
+	      q = replaceChar(q, '√ã', 'E');
+	      q = replaceChar(q, '√è', 'I');
+	      q = replaceChar(q, '√ñ', 'O');
+	      q = replaceChar(q, '√ú', 'U');
+	      q = replaceChar(q, '√ë', 'N');
+	      q = replaceChar(q, '√á', 'C');
 		
-		q = ReemplazarPautasSPD.replaceChar(q,'·','A');
-		q = ReemplazarPautasSPD.replaceChar(q,'È','E');
-		q = ReemplazarPautasSPD.replaceChar(q,'Ì','I');
-		q = ReemplazarPautasSPD.replaceChar(q,'Û','O');
-		q = ReemplazarPautasSPD.replaceChar(q,'˙','U');
-		q = ReemplazarPautasSPD.replaceChar(q,'‡','A');
-		q = ReemplazarPautasSPD.replaceChar(q,'Ë','E');
-		q = ReemplazarPautasSPD.replaceChar(q,'Ï','I');
-		q = ReemplazarPautasSPD.replaceChar(q,'Ú','O');
-		q = ReemplazarPautasSPD.replaceChar(q,'˘','U');
-		q = ReemplazarPautasSPD.replaceChar(q,'‰','A');
-		q = ReemplazarPautasSPD.replaceChar(q,'Î','E');
-		q = ReemplazarPautasSPD.replaceChar(q,'Ô','I');
-		q = ReemplazarPautasSPD.replaceChar(q,'ˆ','O');
-		q = ReemplazarPautasSPD.replaceChar(q,'¸','U');
-		q = ReemplazarPautasSPD.replaceChar(q,'Ò','N');
-		q = ReemplazarPautasSPD.replaceChar(q,'Á','C');
+	      q = replaceChar(q, '√°', 'A');
+	      q = replaceChar(q, '√©', 'E');
+	      q = replaceChar(q, '√≠', 'I');
+	      q = replaceChar(q, '√≥', 'O');
+	      q = replaceChar(q, '√∫', 'U');
+	      q = replaceChar(q, '√†', 'A');
+	      q = replaceChar(q, '√®', 'E');
+	      q = replaceChar(q, '√¨', 'I');
+	      q = replaceChar(q, '√≤', 'O');
+	      q = replaceChar(q, '√π', 'U');
+	      q = replaceChar(q, '√§', 'A');
+	      q = replaceChar(q, '√´', 'E');
+	      q = replaceChar(q, '√Ø', 'I');
+	      q = replaceChar(q, '√∂', 'O');
+	      q = replaceChar(q, '√º', 'U');
+	      q = replaceChar(q, '√±', 'N');
+	      q = replaceChar(q, '√ß', 'C');
+	      q = replaceChar(q, '"', ' ');
 		
-		q = ReemplazarPautasSPD.replaceChar(q,'\"',' ');
+		q = replaceChar(q,'\"',' ');
 		
 		return q.toUpperCase();
 	}
 
 	
-	 //MÈtodo que reemplaza un car·cter dentro de un String
+	 //M√©todo que reemplaza un car√°cter dentro de un String
 	final static public String replaceChar(String q,char in,char out){
 		int idx;
 		idx=q.indexOf(in);
@@ -177,7 +178,7 @@ public class ReemplazarPautasSPD{
 		return q.replace(in,out);
 	}
 	
-	//Retorna el n˙mero de veces que un car·cter aparece en un String
+	//Retorna el n√∫mero de veces que un car√°cter aparece en un String
 	public final  static int charCount( String str, char c ){
 		int n = 0;
 		for ( int i = 0; i < str.length(); ++i )
@@ -187,10 +188,10 @@ public class ReemplazarPautasSPD{
 	}
 	
 	/** 
-	 * MÈtodo que se encarga de reemplazar un subString por otro <BR>
+	 * M√©todo que se encarga de reemplazar un subString por otro <BR>
 	 * <b>NOTA</b>: OJO CON EL ORDEN DE LOS PARAMS DE ESTE METODO! el string base donde queremos hacer los replaces es el ULTIMO PARAMETRO
 	 * <b>NOTA</b>: ESTE METODO NO ES SEGURO (peta por ej con el string "") --> usar replaceString
-	 * @param substr String cuyo contenido ser· reemplazado
+	 * @param substr String cuyo contenido ser√° reemplazado
 	 * @param newsubstr String cuyo valor es el "reemplazante"
 	 * @param fullstr String base para realizar los cambios
 	 * @return String Retorna el String despues del reemplazo
@@ -210,11 +211,11 @@ public class ReemplazarPautasSPD{
 	}
 		
 	/**
-	 * MÈtodo que reemplaza un car·cter dentro de un String por un String
+	 * M√©todo que reemplaza un car√°cter dentro de un String por un String
 	 * @param q String base
-	 * @param in Car·cter a reemplazar
-	 * @param out Cadena de sustituciÛn
-	 * @return String Nuevo String con el car·cter reemplazado
+	 * @param in car√°cter a reemplazar
+	 * @param out Cadena de sustituci√≥n
+	 * @return String Nuevo String con el car√°cter reemplazado
 	 */
 	public final static  String replaceChar (String q, char in, String out){
 		
@@ -245,9 +246,9 @@ public class ReemplazarPautasSPD{
 	
 	
 	/**
-	 * ibassola: Reemplaza los caracteres no v·lidos de una cadena alfanumÈrcia.
+	 * ibassola: Reemplaza los caracteres no v√°lidos de una cadena alfanum√©rica.
 	 * @param inString cadena de entrada
-	 * @return String Retorna la cadena alfanumÈrica que contiene ˙nicamente caracteres validos.
+	 * @return String Retorna la cadena alfanum√©rica que contiene √∫nicamente caracteres validos.
 	 */    
 	public static String replaceInvalidChars(String inString)
 	{
@@ -255,55 +256,54 @@ public class ReemplazarPautasSPD{
 
 		if (inString== null) return inString;
 		
-		inString = inString.replace('¡','A');
-		inString = inString.replace('…','E');
-		inString = inString.replace('Õ','I');
-		inString = inString.replace('”','O');
-		inString = inString.replace('⁄','U');
-		inString = inString.replace('¿','A');
-		inString = inString.replace('»','E');
-		inString = inString.replace('Ã','I');
-		inString = inString.replace('“','O');
-		inString = inString.replace('Ÿ','U');
-		inString = inString.replace('ƒ','A');
-		inString = inString.replace('À','E');
-		inString = inString.replace('œ','I');
-		inString = inString.replace('÷','O');
-		inString = inString.replace('‹','U');
-		inString = inString.replace('—','N');
-		inString = inString.replace('«','C');
-		inString = inString.replace('¬','A');
-		inString = inString.replace(' ','E');
-		inString = inString.replace('Œ','I');
-		inString = inString.replace('‘','O');
-		inString = inString.replace('€','U');
-		inString = inString.replace('≈','A');
-		inString = inString.replace('∆','A');
-		
-		inString = inString.replace('·','a');
-		inString = inString.replace('È','e');
-		inString = inString.replace('Ì','i');
-		inString = inString.replace('Û','o');
-		inString = inString.replace('˙','u');
-		inString = inString.replace('‡','a');
-		inString = inString.replace('Ë','e');
-		inString = inString.replace('Ï','i');
-		inString = inString.replace('Ú','o');
-		inString = inString.replace('˘','u');
-		inString = inString.replace('‰','a');
-		inString = inString.replace('Î','e');
-		inString = inString.replace('Ô','i');
-		inString = inString.replace('ˆ','o');
-		inString = inString.replace('¸','u');
-		inString = inString.replace('Ò','n');
-		inString = inString.replace('Á','c');
-		inString = inString.replace('‚','a');
-		inString = inString.replace('Í','e');
-		inString = inString.replace('Ó','i');
-		inString = inString.replace('Ù','o');
-		inString = inString.replace('˚','u');
-		inString = inString.replace('Â','a');
-		inString = inString.replace('Ê','a');
+		 inString = inString.replace('√Å', 'A');
+         inString = inString.replace('√â', 'E');
+         inString = inString.replace('√ç', 'I');
+         inString = inString.replace('√ì', 'O');
+         inString = inString.replace('√ö', 'U');
+         inString = inString.replace('√Ä', 'A');
+         inString = inString.replace('√à', 'E');
+         inString = inString.replace('√å', 'I');
+         inString = inString.replace('√í', 'O');
+         inString = inString.replace('√ô', 'U');
+         inString = inString.replace('√Ñ', 'A');
+         inString = inString.replace('√ã', 'E');
+         inString = inString.replace('√è', 'I');
+         inString = inString.replace('√ñ', 'O');
+         inString = inString.replace('√ú', 'U');
+         inString = inString.replace('√ë', 'N');
+         inString = inString.replace('√á', 'C');
+         inString = inString.replace('√Ç', 'A');
+         inString = inString.replace('√ä', 'E');
+         inString = inString.replace('√é', 'I');
+         inString = inString.replace('√î', 'O');
+         inString = inString.replace('√õ', 'U');
+         inString = inString.replace('√Ö', 'A');
+         inString = inString.replace('√Ü', 'A');
+         inString = inString.replace('√°', 'a');
+         inString = inString.replace('√©', 'e');
+         inString = inString.replace('√≠', 'i');
+         inString = inString.replace('√≥', 'o');
+         inString = inString.replace('√∫', 'u');
+         inString = inString.replace('√†', 'a');
+         inString = inString.replace('√®', 'e');
+         inString = inString.replace('√¨', 'i');
+         inString = inString.replace('√≤', 'o');
+         inString = inString.replace('√π', 'u');
+         inString = inString.replace('√§', 'a');
+         inString = inString.replace('√´', 'e');
+         inString = inString.replace('√Ø', 'i');
+         inString = inString.replace('√∂', 'o');
+         inString = inString.replace('√º', 'u');
+         inString = inString.replace('√±', 'n');
+         inString = inString.replace('√ß', 'c');
+         inString = inString.replace('√¢', 'a');
+         inString = inString.replace('√™', 'e');
+         inString = inString.replace('√Æ', 'i');
+         inString = inString.replace('√¥', 'o');
+         inString = inString.replace('√ª', 'u');
+         inString = inString.replace('√•', 'a');
+         inString = inString.replace('√¶', 'a');
 		
 		inString = inString.replaceAll("'\"","");
 		inString = inString.replaceAll("\'","");		
@@ -313,7 +313,7 @@ public class ReemplazarPautasSPD{
 	}
 	
 	 /**
-     * Transforma un String en un Vector de Strings mediante la separaciÛn de un token
+     * Transforma un String en un Vector de Strings mediante la separaci√≥n de un token
      * @param str String base
      * @param token String delimitador
      * @return Vector de Strings
@@ -366,7 +366,7 @@ public class ReemplazarPautasSPD{
 	 /**
 	  * Convierto un decimal a binario.
 	  * Le mete todos los zeros que sean necesarios hasta llegar
-	  * al tamaÒo definido por leadingSize. 
+	  * al tama√±o definido por leadingSize. 
 	  */
 	 public static String decimalToBinary(String decimal, int leadingSize)
 	 {
@@ -483,7 +483,7 @@ public class ReemplazarPautasSPD{
 			fechaString=fechaString.replace(".", "/");
 			fechaString=fechaString.replace(";", "");
 			fechaString=fechaString.replace("'", "");
-			fechaString=fechaString.replace("¥", "");
+			fechaString=fechaString.replace("¬¥", "");
 			fechaString=fechaString.replace("'", "");
 			
 			int day=Integer.parseInt(fechaString.substring(0,2));
@@ -551,7 +551,7 @@ public class ReemplazarPautasSPD{
 */
 	
 	/**
-	 * Elimina los car·cteres "duros o invisibles" 
+	 * Elimina los car√°cteres "duros o invisibles" 
 	 * https://stackoverflow.com/questions/6198986/how-can-i-replace-non-printable-unicode-characters-in-java
 	 * Based on the answers by Op De Cirkel and noackjr, the following is what I do for general string cleaning: 1. trimming leading or trailing whitespaces, 2. dos2unix, 3. mac2unix, 4. removing all "invisible Unicode characters" except whitespaces:
 	 */

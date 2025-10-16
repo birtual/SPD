@@ -7,10 +7,10 @@ import org.apache.struts.util.MessageResourcesFactory;
 import org.apache.struts.util.PropertyMessageResources;
 
 /**
- * Gestió dels literals de struts.
+ * GestiÃ³ dels literals de struts.
  * 
- * Primer va a buscar el literal al fitxer de literals específic del client
- * i en cas que no el trobi després va a buscar al fitxer comú de literals. 
+ * Primer va a buscar el literal al fitxer de literals especÃ­fic del client
+ * i en cas que no el trobi desprÃ©s va a buscar al fitxer comÃº de literals. 
  */
 public class ClientMessageResources extends PropertyMessageResources 
 {
@@ -20,7 +20,7 @@ public class ClientMessageResources extends PropertyMessageResources
 	/**
 	 * @param factory La factoria que ha creat aquest ClientMessageResources
 	 * @param messagesFile nom del fitxer dels literals comuns a tots els clients (sense idioma_pais ni .properties)
-	 * @param specificMessagesFile nom del fitxer dels literals específic del clients (sense idioma_pais ni .properties).
+	 * @param specificMessagesFile nom del fitxer dels literals especÃ­fic del clients (sense idioma_pais ni .properties).
 	 * 								Pot ser null, en aquest cas no hi ha fitxer especific
 	 */
 	public ClientMessageResources(MessageResourcesFactory factory, String messagesFile, String specificMessagesFile) {

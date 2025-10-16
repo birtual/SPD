@@ -93,7 +93,7 @@ function Folder(folderDescription, hreference, target, url_info, target_info, al
   this.subEntries = folderSubEntries 	//ok
   this.outputLink = outputFolderLink 	//ok
 } 
-	//Código del Objeto en HTML y otros
+	//CÃ³digo del Objeto en HTML y otros
 	function initializeFolder(level, lastNode, leftSide){ 
 		var j=0,i=0;
 		var numberOfFolders, numberOfDocs, nc;

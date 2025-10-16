@@ -85,7 +85,7 @@ public class ExcelFilasConInfo {
             /**
              * sustituimos los 1# para que no aparezcan en el Excel
              */
-            // patrón de búsqueda
+            // patrÃ³n de bÃºsqueda
             String patron = "\\d+#";
             // Crear un objeto Pattern y un objeto Matcher
             Pattern pattern = Pattern.compile(patron);

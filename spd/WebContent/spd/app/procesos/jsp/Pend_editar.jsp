@@ -23,7 +23,7 @@
 
 
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Edición aviso</title>
+<title>EdiciÃ³n aviso</title>
 
 </head>
 
@@ -53,7 +53,7 @@
 
 				
 </script>
-		<!-- Configuración de Flatpickr -->
+		<!-- ConfiguraciÃ³n de Flatpickr -->
 		<script>
 		    document.addEventListener("DOMContentLoaded", function () {
 		        flatpickr("#fechaInicio", {
@@ -75,7 +75,7 @@
 <body id="general">
 	<div id="contingut">
 		<center>
-		<h2>Edición aviso</h2>
+		<h2>EdiciÃ³n aviso</h2>
 		<html:form action="/Avisos.do" method="post">	
 
 		<bean:define id="data" name="formulari" property="aviso"/>
@@ -93,7 +93,7 @@
 		
 		<table class="detalleEnlace">
 		<tr>
-			<th class="segunda">Fecha creación</th><td><bean:write name="data" property="fechaInsert" /></td>
+			<th class="segunda">Fecha creaciÃ³n</th><td><bean:write name="data" property="fechaInsert" /></td>
 		</tr>
 		<tr>
 			<th class="segunda">Texto</th><td><html:textarea name="data" property="texto"/></td>
@@ -109,7 +109,7 @@
 			<th class="segunda">Activo</th>
 			<td>
 			    <select name="activo" style="text-align: left;">
-			        <option value="SI" <c:if test="${data.activo == 'SI'}">selected="selected"</c:if>>Sí</option>
+			        <option value="SI" <c:if test="${data.activo == 'SI'}">selected="selected"</c:if>>SÃ</option>
 			        <option value="NO" <c:if test="${data.activo == 'NO'}">selected="selected"</c:if>>No</option>
 			    </select>
 			</td>

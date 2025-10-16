@@ -97,7 +97,7 @@ public class ImportDataGestionAction extends DispatchAction
         List listaRobots= RobotDAO.getListaRobots();
         formulario.setListaRobots(listaRobots);
 
-        //resi escogida para la importaciÛn
+        //resi escogida para la importaci√≥n
         Robot robotElegido = RobotDAO.getRobotById(formulario.getIdRobot());
         
         
@@ -105,7 +105,7 @@ public class ImportDataGestionAction extends DispatchAction
         List lstDivisionResidencias= DivisionResidenciaDAO.getListaDivisionResidencias( spdUsuario);
         formulario.setLstDivisionResidencias(lstDivisionResidencias);
 
-        //resi escogida para la importaciÛn
+        //resi escogida para la importaci√≥n
         DivisionResidencia resiElegida = DivisionResidenciaDAO.getDivisionResidenciaById(spdUsuario, formulario.getIdDivisionResidencia());
 
         
@@ -114,7 +114,7 @@ public class ImportDataGestionAction extends DispatchAction
         
         formulario.setProcess(procesosGestion);
 
-        //proceso escogido para la importaciÛn
+        //proceso escogido para la importaci√≥n
         IOSpdProcess procSelected = IOSpdProcessDAO.findByFields(type, formulario.getIdProcessIospd(), true);
    
         formulario.setDescProcess(procSelected!=null?procSelected.getDescription():"");
@@ -122,7 +122,7 @@ public class ImportDataGestionAction extends DispatchAction
         
         String idreader=null;
          
-        //lector importaciÛn
+        //lector importaci√≥n
         IOSpdConnector readerSelected= IOSpdConnectorDAO.findByFields(idreader, readerType);
         formulario.setDescReader(readerSelected.getDescription());
         
@@ -132,7 +132,7 @@ public class ImportDataGestionAction extends DispatchAction
         ImportDataThread proc=new ImportDataThread();
         
         
-        //comprobaciÛn de existencia de la plantilla de ejemplo para carga
+        //comprobaci√≥n de existencia de la plantilla de ejemplo para carga
        // String url = FileUtil.dameURLBase();
         
        // String nFile = SPDConstants.FILEUPLOAD_REAL_PATH+SPDConstants.FILEUPLOAD_RELATIVE_PATH+SPDConstants.PLANTILLAS_IO_RELATIVE_PATH + "/" + formulario.getIdProcessIospd() + "." +formulario.getFileType();
@@ -187,10 +187,10 @@ public class ImportDataGestionAction extends DispatchAction
                         
                         try
                         {
-                            // Obtenim el nom de la classe que implementar‡ el procËs d'importaciÛ
+                            // Obtenim el nom de la classe que implementar√† el proc√®s d'importaci√≥
                             IOSpdProcess p=(IOSpdProcess)IOSpdProcessDAO.findByFields(exportType, formulario.getIdProcessIospd());
                             String classNameProcess=p.getClassname();
-                            //Obtenim el nom de la classe que implementar‡ el connector de lectura.
+                            //Obtenim el nom de la classe que implementar√† el connector de lectura.
                             IOSpdConnector r=(IOSpdConnector)IOSpdConnectorDAO.findById(readerType);
                             String classNameReader=r.getClassname();
                             
@@ -208,8 +208,8 @@ public class ImportDataGestionAction extends DispatchAction
                              	log = new ProcessLogging(p.getIdprocess(), file.getFileName());                          
                             }
                             
-                            // Inicialitzem el thread indicant-li quin ser‡ el procÈs d'importaciÛ
-                            // i quin ser‡ el format de lectura.
+                            // Inicialitzem el thread indicant-li quin ser√† el proc√©s d'importaci√≥
+                            // i quin ser√† el format de lectura.
                              String idRobot=(robotElegido!=null?robotElegido.getIdRobot():null);
                             String idDivisionResidencia=(resiElegida!=null?resiElegida.getIdDivisionResidencia():null);
                             formulario.setIdDivisionResidencia(idDivisionResidencia);
@@ -304,12 +304,12 @@ public class ImportDataGestionAction extends DispatchAction
         catch (Exception ex)
         {
         	errors.add(" Error en la descarga de la plantilla " +  ex.getMessage());
-        	System.out.println("\nExcepciÛn ex \n" + ex);
+        	System.out.println("\nExcepci√≥n ex \n" + ex);
         }
 
     } 
 
-/* Este mÈtodo creo que est· de m·s en las cargas de tablas. Se usa en ImportDataAction, las cargas de producciones*/
+/* Este m√©todo creo que est√° de m√°s en las cargas de tablas. Se usa en ImportDataAction, las cargas de producciones*/
  /*   
 	private String construyeProceso(ImportDataForm form) {
 		//List errors= new ArrayList();

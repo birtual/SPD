@@ -117,7 +117,7 @@ public class ProcesoBloqueoHorarioDAO extends GenericDAO  {
 	        }
 
 	        /**
-	         * Devuelve el número de bloqueos con la fecha actual según fechaDesde y fechaHasta   
+	         * Devuelve el nÃºmero de bloqueos con la fecha actual segÃºn fechaDesde y fechaHasta   
 	         * @param proceso
 	         * @param count 
 	         * @return
@@ -141,7 +141,7 @@ public class ProcesoBloqueoHorarioDAO extends GenericDAO  {
 			}
 			
 			/**
-	         * Devuelve el listadode bloqueos con la fecha actual según fechaDesde y fechaHasta   
+	         * Devuelve el listadode bloqueos con la fecha actual segÃºn fechaDesde y fechaHasta   
 	         * @param proceso
 	         * @param count 
 	         * @return
@@ -169,7 +169,7 @@ public class ProcesoBloqueoHorarioDAO extends GenericDAO  {
 			}
 			
 	        /**
-	         * Devuelve la query para trabajar con el número de bloqueos o el contenido de ellas, según el count true o false   
+	         * Devuelve la query para trabajar con el nÃºmero de bloqueos o el contenido de ellas, segÃºn el count true o false   
 	         * @param proceso
 	         * @param count 
 	         * @return
@@ -359,10 +359,10 @@ public class ProcesoBloqueoHorarioDAO extends GenericDAO  {
 	            
 	            //if (p.getValorFecha() != null) ps.setDate(6, new java.sql.Date(p.getValorFecha().getTime())); else ps.setNull(6, Types.DATE);
 	            /*try {
-	                sdf.parse(p.getValorFecha().trim()); // Validación
+	                sdf.parse(p.getValorFecha().trim()); // ValidaciÃ³n
 	                ps.setString(7, p.getValorFecha().trim());
 	            } catch (ParseException e) {
-	                // Fecha inválida, puedes registrar un error o lanzar una excepción
+	                // Fecha invÃ¡lida, puedes registrar un error o lanzar una excepciÃ³n
 	                ps.setNull(7, Types.VARCHAR);
 	                e.printStackTrace();
 	            }
@@ -397,10 +397,10 @@ public class ProcesoBloqueoHorarioDAO extends GenericDAO  {
 	            if (p.getValorDia() != null) ps.setInt(6, p.getValorDia()); else ps.setNull(6, Types.INTEGER);
 	            //if (p.getValorFecha() != null) ps.setDate(6, new java.sql.Date(p.getValorFecha().getTime())); else ps.setNull(6, Types.DATE);
 	            try {
-	                sdf.parse(p.getValorFecha().trim()); // Validación
+	                sdf.parse(p.getValorFecha().trim()); // ValidaciÃ³n
 	                ps.setString(7, p.getValorFecha().trim());
 	            } catch (ParseException e) {
-	                // Fecha inválida, puedes registrar un error o lanzar una excepción
+	                // Fecha invÃ¡lida, puedes registrar un error o lanzar una excepciÃ³n
 	                ps.setNull(7, Types.VARCHAR);
 	                e.printStackTrace();
 	            }

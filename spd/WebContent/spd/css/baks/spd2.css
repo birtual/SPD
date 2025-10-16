@@ -454,7 +454,7 @@ li.fitxa a:hover {
 	background-image: url(../images/pdfh.png);	
 }		
 		
-/* això només funx amb navegadors mosk (mozilla opera safari konkeror) */ 		
+/* aixï¿½ nomÃ¡s funx amb navegadors mosk (mozilla opera safari konkeror) */ 		
 		
 		
 .right {		
@@ -479,9 +479,9 @@ li.fitxa a:hover {
 	clear: both;	
 }		
 		
-/* Medios de comunicación */		
+/* Medios de comunicaciÃ³n */		
 @media only screen and (max-width: 76.8em) {		
-	/* Estilos para pantallas más pequeñas */	
+	/* Estilos para pantallas mÃ¡s pequeÃ­as */	
 	.table-responsive {	
 		overflow-x: auto;
 	}	
@@ -495,14 +495,14 @@ li.fitxa a:hover {
 		white-space: nowrap;
 	}	
 		
-	/* Ajustar tamaños de imagen */	
+	/* Ajustar tamaÃ±os de imagen */	
 	.logo img,	
 	.imagelogo {	
 		width: 1.2em;
 		height: 1.2em;
 	}	
 		
-	/* Estilos para acordeón en pantallas más pequeñas */	
+	/* Estilos para acordeï¿½n en pantallas mÃ¡s pequeÃ­as */	
 	.acordeo dt {	
 		height: auto;
 		line-height: 1.5;
@@ -633,7 +633,7 @@ fieldset .avis {
 	padding: 1.5em 0;	
 }		
 		
-/* Estilos para la distribución */		
+/* Estilos para la distribuciÃ³n */		
 .left {		
 	text-align: left;	
 }		
@@ -754,7 +754,7 @@ input[type="checkbox" i] {
 }		
 		
 .botons {		
-  position: relative; /* Asegura que el contenido dentro de .botons esté contenido dentro del espacio del botón */		
+  position: relative; /* Asegura que el contenido dentro de .botons estÃ¡ contenido dentro del espacio del botÃ³n */		
 }		
 		
 		
@@ -837,13 +837,13 @@ input[type="checkbox" i] {
 }		
 		
 .pautasDia {		
-    width: 2em; /* Cambia el valor según tus necesidades */		
+    width: 2em; /* Cambia el valor segÃºn tus necesidades */		
 }		
-        /* Estilos para los iconos de acción */		
+        /* Estilos para los iconos de acciÃ³n */		
         .action-icon {		
             font-size: 1.5em;		
-            font-weight: 100; /* Hace que la fuente sea más fina */		
-            color: #400040; /* Color del ícono */		
+            font-weight: 100; /* Hace que la fuente sea mÃ¡s fina */		
+            color: #400040; /* Color del ï¿½cono */		
             cursor: pointer;		
         }		
 		
@@ -983,7 +983,7 @@ select.select_corto
     padding: 0,5em;		
 }		
 		
-/* Media query para pantallas más pequeñas (móviles) */		
+/* Media query para pantallas mÃ¡s pequeÃ­as (mï¿½viles) */		
 @media screen and (max-width: 768px) {		
     th, td {		
         padding: 0,5em;		

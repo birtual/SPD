@@ -13,7 +13,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>EdiciÛn Cabecera Plantilla Residencia</title>
+<title>Edici√≥n Cabecera Plantilla Residencia</title>
 </head>
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
 
@@ -35,9 +35,9 @@
 		{
 			var horaMinutos = document.getElementById(resiToma).value;
 
-		    // Verificar si el formato es v·lido (hh:mm)
+		    // Verificar si el formato es v√°lido (hh:mm)
 		    if (/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(horaMinutos)) {
-		     // La hora tiene el formato v·lido, puedes enviarla directamente al servidor
+		     // La hora tiene el formato v√°lido, puedes enviarla directamente al servidor
 				
 				var f = document.FicheroResiForm;
 				f.parameter.value='editar';
@@ -50,7 +50,7 @@
 				}
 				window.close();
 		    } else {
-		        // Si el formato no es v·lido, muestra un mensaje de error o realiza alguna acciÛn para informar al usuario.
+		        // Si el formato no es v√°lido, muestra un mensaje de error o realiza alguna acci√≥n para informar al usuario.
 		        alert("El formato de hora debe ser hh:mm");
 		      }
 		}	
@@ -72,7 +72,7 @@
     </ul>
 
 	<center>
-		<h2>EdiciÛn Cabecera Plantilla Residencia</h2>
+		<h2>Edici√≥n Cabecera Plantilla Residencia</h2>
 		<html:form action="/ResiCabecerasXLS.do" >	
 
 
@@ -92,7 +92,7 @@
 	<bean:write name="data" property="idDivisionResidencia"/><br>
 	<th></th><th>NombreToma </th>    
 	<%
-		int numeroDeTomas = data.getNumeroDeTomas(); // Obtener n˙mero de tomas desde el formulario
+		int numeroDeTomas = data.getNumeroDeTomas(); // Obtener n√∫mero de tomas desde el formulario
 		int totalCampos = 24;
 	
 		String fieldName = "";

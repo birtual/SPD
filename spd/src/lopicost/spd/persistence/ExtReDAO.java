@@ -426,7 +426,7 @@ public class ExtReDAO
     }
 
 	public static Object checkControlRecogidaRe(String spdUsuario) {
-		// TODO Esbozo de mÈtodo generado autom·ticamente
+		// TODO Esbozo de m√©todo generado autom√°ticamente
 		return null;
 	}
 
@@ -525,7 +525,7 @@ public class ExtReDAO
     		claseId = "con_mensaje";
     		if(descripcion==null || descripcion.equals(""))
     		{
-    			descripcion="Procesado pero sin datos, revisiÛn manual";
+    			descripcion="Procesado pero sin datos, revisi√≥n manual";
     		}
     	}
     	else if(codigo==null || codigo.equals("") || codigo.equalsIgnoreCase("NULL") || codigo.equalsIgnoreCase("NP"))

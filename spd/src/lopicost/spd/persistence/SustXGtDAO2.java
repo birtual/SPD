@@ -46,7 +46,7 @@ public class SustXGtDAO2 {
 	
 	
 	/**
-	 * Método encargado de recoger los objetos GTVM, GTVMP y GTVMPP relacionados con una serie de filtros
+	 * MÃ©todo encargado de recoger los objetos GTVM, GTVMP y GTVMPP relacionados con una serie de filtros
 	 * @param form
 	 * @param inicio
 	 * @param fin
@@ -70,15 +70,15 @@ public class SustXGtDAO2 {
             while (resultSet.next()) {
             	creaObjeto(resultSet);
              }
-            // Opción 1: Convertir las claves a un ArrayList
+            // OpciÃ³n 1: Convertir las claves a un ArrayList
             ArrayList<String> keysList = new ArrayList<>(tPadres.keySet());
             //System.out.println("Claves: " + keysList);
 
-            // Opción 2: Convertir los valores a un ArrayList
+            // OpciÃ³n 2: Convertir los valores a un ArrayList
             ArrayList<Nivel1> valuesList = new ArrayList<>(tPadres.values());
             // System.out.println("Valores: " + valuesList);
 
-            // Opción 3: Convertir las entradas completas a un ArrayList
+            // OpciÃ³n 3: Convertir las entradas completas a un ArrayList
             ArrayList<Map.Entry<String, Nivel1>> entriesList = new ArrayList<>(tPadres.entrySet());
             //System.out.println("Entradas:");
             for (Map.Entry<String, Nivel1> entry : entriesList) {
@@ -107,7 +107,7 @@ public class SustXGtDAO2 {
 		//String keyPadre = nomGtvmp + "_" + lab;
 		String keyPadre = nomGtvmp;
 		String keyHijo = nomGtvmpp + "_" + lab + "_" + nombreRobot;
-		//si no hemos pasado aún por el GTVMP lo registramos y tratamos 
+		//si no hemos pasado aÃºn por el GTVMP lo registramos y tratamos 
 		if (!tPadres.containsKey(keyPadre)) 
 		{
 			SustXGtvmp padre = creaPadre(codGtvmp, resultSet);
@@ -119,7 +119,7 @@ public class SustXGtDAO2 {
 		else
 		{
 			SustXGtvmp padre = tPadres.get(keyPadre);
-			//si no hemos pasado aún por el GTVMPP lo registramos y tratamos 
+			//si no hemos pasado aÃºn por el GTVMPP lo registramos y tratamos 
 			if (!tHijos.containsKey(keyHijo)) 
 			{
 				SustXGtvmpp hijo = creaHijo(padre, resultSet);
@@ -145,7 +145,7 @@ public class SustXGtDAO2 {
 		String keyPadre = nomGtVm;
 		String keyHijo = nomGtVmp;
 		String keyNieto = nomGtVmpp + "_" + lab + "_" + nombreRobot;
-		//si no hemos pasado aún por el GTVMP lo registramos y tratamos 
+		//si no hemos pasado aÃºn por el GTVMP lo registramos y tratamos 
 
 		if (!tPadres.containsKey(keyPadre))
 		{
@@ -161,7 +161,7 @@ public class SustXGtDAO2 {
 		else
 		{
 			Nivel1 nivel1 = tPadres.get(keyPadre);
-			//si no hemos pasado aún por el GTVMP lo registramos y tratamos 
+			//si no hemos pasado aÃºn por el GTVMP lo registramos y tratamos 
 			if (!tHijos.containsKey(keyHijo)) 
 			{
 				Nivel2 nivel2 = creaGtVmp(resultSet);
@@ -176,7 +176,7 @@ public class SustXGtDAO2 {
 			{
 				Nivel2 nivel2 = tHijos.get(keyHijo);
 				
-				//si no hemos pasado aún por el GTVMPP lo registramos y tratamos 
+				//si no hemos pasado aÃºn por el GTVMPP lo registramos y tratamos 
 				if (!tNietos.containsKey(keyNieto)) 
 				{
 					Nivel3 nivel3 = creaGtVmpp(resultSet);
@@ -238,7 +238,7 @@ public class SustXGtDAO2 {
 
 
 	/**
-	 * Método encargado de construir la query final, en base a parámetros de entrada
+	 * MÃ©todo encargado de construir la query final, en base a parÃ¡metros de entrada
 	 * @param form
 	 * @param count
 	 * @param inicio
@@ -276,7 +276,7 @@ public class SustXGtDAO2 {
 
 	
 	/**
-	 * Método encargado de construir la select de la query final
+	 * MÃ©todo encargado de construir la select de la query final
 	 * @param form
 	 * @param count
 	 * @return
@@ -331,7 +331,7 @@ public class SustXGtDAO2 {
 			if(form.getFiltroCodGtVmp()!=null && !form.getFiltroCodGtVmp().equalsIgnoreCase(""))
 				select+=  " AND b.codGtVmp = '"+form.getFiltroCodGtVmp()+"'";
 				
-				//INICIO OR - en caso de OR abrimos un paréntesis antes de los tres filtros
+				//INICIO OR - en caso de OR abrimos un parÃ¡ntesis antes de los tres filtros
 			if(esOR)
 			{
 				select+=  " AND (  1 = 0 ";
@@ -358,7 +358,7 @@ public class SustXGtDAO2 {
 					select+=  "  b.nomGtVm =  '"+form.getFiltroNomGtVm() +"' ";
 				}
 
-			//FIN OR - en caso de OR cerramos un paréntesis antes de los tres filtros
+			//FIN OR - en caso de OR cerramos un parÃ¡ntesis antes de los tres filtros
 			if(esOR)
 			{
 				select+=  " )";
@@ -404,7 +404,7 @@ public class SustXGtDAO2 {
 			if(form.getFiltroCodGtVmp()!=null && !form.getFiltroCodGtVmp().equalsIgnoreCase(""))
 				select+=  " AND b2.codGtVmp = '"+form.getFiltroCodGtVmp()+"'";
 				
-				//INICIO OR - en caso de OR abrimos un paréntesis antes de los tres filtros
+				//INICIO OR - en caso de OR abrimos un parÃ¡ntesis antes de los tres filtros
 			if(esOR)
 			{
 				select+=  " AND (  1 = 0 ";
@@ -432,7 +432,7 @@ public class SustXGtDAO2 {
 					select+=  "  b2.nomGtVm =  '"+form.getFiltroNomGtVm() +"' ";
 				}
 			
-				//FIN OR - en caso de OR cerramos un paréntesis antes de los tres filtros
+				//FIN OR - en caso de OR cerramos un parÃ¡ntesis antes de los tres filtros
 			if(esOR)
 			{
 				select+=  " )";
@@ -470,7 +470,7 @@ public class SustXGtDAO2 {
 	
 
 	/**
-	 * Fetch es una cláusula que funciona a partir del SqlServer 2008 (no inclusive)
+	 * Fetch es una clÃ¡usula que funciona a partir del SqlServer 2008 (no inclusive)
 	 * @param form
 	 * @param inicio
 	 * @param fin

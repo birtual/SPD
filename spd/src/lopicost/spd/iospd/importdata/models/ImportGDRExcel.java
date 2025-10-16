@@ -238,7 +238,7 @@ public class ImportGDRExcel extends ImportGenericLite
 	
 	/**
 1		 2				3		4			5			6		7				8		  9		10		11			12				13				14
-Resident N� Targ.San.	Tipus	Medicament	Data inici	Data fi	Planificació	Posologia Tipus unitat	Emblistable	Nomás en cas de	Història CAP	Comentari
+Resident Nº Targ.San.	Tipus	Medicament	Data inici	Data fi	Planificació	Posologia Tipus unitat	Emblistable	Nomás en cas de	Història CAP	Comentari
 	 */
 	public List<Integer> getPosicionesAEliminar() {
 		//en GDR no tendremos en cuenta  13 Història CAP

@@ -105,7 +105,7 @@ public class InformeSpdDAO2
 		qry +=  " 	r.horaEmbolsado, r.totalBolsas, r.numeroOrdenBolsa, r.primerIdBolsaSPD, r.ultimoIdBolsaSPD, ";
 		qry +=  " 	r.idBolsa as idBolsaR, r.cantidad, r.lote, r.caducidad, r.codigoBarras, ";
 		qry +=  " 	r.codigoMedicamentoRobot, r.offsetDays, r.numeroTolva, r.fechaInsert, ";
-		qry +=  " 	    -- cálculo de la fecha de la bolsa real ";
+		qry +=  " 	    -- cÃ¡lculo de la fecha de la bolsa real ";
 		qry +=  " 	    CASE  ";
 		qry +=  " 	      WHEN r.offsetDays IS NOT NULL  ";
 		qry +=  " 	           AND ISDATE(CONVERT(varchar(8), r.diaInicioSPD)) = 1 THEN  ";
@@ -169,7 +169,7 @@ public class InformeSpdDAO2
             		
                 	tm_CIPS.put(keyCIP, paciente);
             	}
-            	// Control del tratamiento de la medicación
+            	// Control del tratamiento de la medicaciÃ³n
         	    TratamientoPaciente tratamiento = null;
         	    //MedicamentoPaciente medic = new MedicamentoPaciente();
             	keyTratamiento = keyCIP + "_" +  rs.getString("CN") + "_" +  rs.getString("lote");
@@ -195,7 +195,7 @@ public class InformeSpdDAO2
             		medic = helper.creaMedicamentoPaciente(rs);
             	}
             	*/
-            	// Control del día SPD con un solo CN. Se añade en la medicación, para el report 1 global 
+            	// Control del dÃ­a SPD con un solo CN. Se aÃ±ade en la medicaciÃ³n, para el report 1 global 
                	/*keyTomas =  keyCIP + rs.getString("offsetDays") + rs.getString("cn") + rs.getString("doseTime"); //contiene info de la toma
              	if (tm_DiasTomas.containsKey(keyDiaTomas)) 
  		      	{
@@ -203,22 +203,22 @@ public class InformeSpdDAO2
  		      	}
             	else
             	{
-                   	keyDiaTomas =  keyCIP + rs.getString("offsetDays") + rs.getString("cn") + rs.getString("doseTime"); //contiene solo la info del CN en el día
+                   	keyDiaTomas =  keyCIP + rs.getString("offsetDays") + rs.getString("cn") + rs.getString("doseTime"); //contiene solo la info del CN en el dÃ­a
            		
             		diaTomas = helper.creaDiaTomas(rs);
             	}
              	*/
         	    DiaTomas diaTomas = null;
-            	keyDiaTomas =  keyTratamiento + "_" + rs.getInt("offsetDays"); //contiene el CN y sus días 
+            	keyDiaTomas =  keyTratamiento + "_" + rs.getInt("offsetDays"); //contiene el CN y sus dÃ­as 
             	if (tm_DiasTomas.containsKey(keyDiaTomas)) 
  		      	{
              		diaTomas = tm_DiasTomas.get(keyDiaTomas);
-             		diaTomas.setCantidadDia(diaTomas.getCantidadDia() + rs.getInt("cantidad")); //añadimos cantidad global
+             		diaTomas.setCantidadDia(diaTomas.getCantidadDia() + rs.getInt("cantidad")); //aÃ±adimos cantidad global
  		      	}
             	else
             	{
             		diaTomas = helper.creaDiaTomas(rs);
-            		helper.insertarEnPosicion(tratamiento.getMedicamentoPaciente().getDiaTomas(), rs.getInt("offsetDays"), diaTomas); 	//añadimos el día de tomas en el tratamiento/medicación 
+            		helper.insertarEnPosicion(tratamiento.getMedicamentoPaciente().getDiaTomas(), rs.getInt("offsetDays"), diaTomas); 	//aÃ±adimos el dÃ­a de tomas en el tratamiento/medicaciÃ³n 
             		tm_DiasTomas.put(keyDiaTomas, diaTomas);
             	}
             	int numTomas= tratamiento.getMedicamentoPaciente().getDiaTomas().size();
@@ -234,9 +234,9 @@ public class InformeSpdDAO2
             		
             	}*/
             	
-            	// Control del día SPD con todos los CN. se añade en producción, para el report 2 de detalle bolsas  
+            	// Control del dÃ­a SPD con todos los CN. se aÃ±ade en producciÃ³n, para el report 2 de detalle bolsas  
         	    DiaSPD diaSPD = null;
-        	    keyDiaSPD =  keyCIP + "_" + rs.getInt("offsetDays") ; //contiene todas las bolsas de la producción
+        	    keyDiaSPD =  keyCIP + "_" + rs.getInt("offsetDays") ; //contiene todas las bolsas de la producciÃ³n
 
         	    diaSPD = tm_DiasSPD.get(keyDiaSPD);
          		if(diaSPD.getCantidadDia()<=0) 
@@ -258,7 +258,7 @@ public class InformeSpdDAO2
             	}
              	*/
         	    BolsaSPD bolsaSPD = null;
-             	keyBolsaSPD = keyDiaSPD + "_" +  rs.getString("freeInformation"); //contiene una bolsa de la producción. Ponemos también freeInformation 
+             	keyBolsaSPD = keyDiaSPD + "_" +  rs.getString("freeInformation"); //contiene una bolsa de la producciÃ³n. Ponemos tambiÃ³n freeInformation 
             	if (tm_BolsaSPD.containsKey(keyBolsaSPD)) 
  		      	{
             		bolsaSPD = tm_BolsaSPD.get(keyBolsaSPD);

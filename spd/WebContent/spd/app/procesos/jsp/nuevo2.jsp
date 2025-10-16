@@ -13,10 +13,10 @@
 
 <head>
 	<jsp:include page="/spd/jsp/global/head.jsp"/>
-	<title>Creación de Proceso</title>
+	<title>CreaciÃ³n de Proceso</title>
 </head>
 <script>
-<!-- Configuración de Flatpickr -->
+<!-- ConfiguraciÃ³n de Flatpickr -->
   document.addEventListener("DOMContentLoaded", function () {
     flatpickr("#horaEjecucion", {
       enableTime: true,
@@ -65,11 +65,11 @@
 			else if(f.descripcion.value=='')
 				alert('Falta indicar algo de descripcion sobre el proceso ');
 			else if(f.fechaDesde.value=='')
-				alert('Falta indicar la fecha de activación del proceso');
+				alert('Falta indicar la fecha de activaciÃ³n del proceso');
 			//else if(f.fechaDesde.value=='')
-				//alert('Falta indicar la fecha de desactivación del Proceso ');
+				//alert('Falta indicar la fecha de desactivaciÃ³n del Proceso ');
 			else if(f.horaEjecucion.value=='')
-				alert('Falta indicar la hora de ejecución del proceso ');
+				alert('Falta indicar la hora de ejecutÃ³ del proceso ');
 			else
 			{
 				//f.nombreCorto.value=f.nombreCorto.value;
@@ -111,22 +111,22 @@
 
 		<tr><th class="primera">Nombre del Proceso</th><td><html:text property="nombreProceso"/></td></tr>
 		<tr><th class="primera">Lanzadera</th><td><html:text property="lanzadera"/></td></tr>
-		<tr><th class="segunda">Descripción</th><td><html:textarea property="descripcion" cols="40" rows="3"/></td></tr>
+		<tr><th class="segunda">DescripciÃ³n</th><td><html:textarea property="descripcion" cols="40" rows="3"/></td></tr>
 
 		<tr>
 			<th class="segunda">Activo</th>
 			<td>
 				<select name="activo" style="text-align: left;">>
-				    <option value="SI" ${dat.activo}='SI' ? 'selected="selected"' : ''}>Sí</option>
+				    <option value="SI" ${dat.activo}='SI' ? 'selected="selected"' : ''}>SÃ</option>
 				    <option value="No" ${dat.activo}='NO' ? 'selected="selected"' : ''}>No</option>
 				</select>
 			</td>
 		</tr>
-		<tr><th class="segunda">Parámetros</th><td><html:textarea property="parametros" cols="40" rows="3"/></td></tr>
-		<tr><th class="segunda">Tipo de Ejecución</th>
+		<tr><th class="segunda">ParÃ¡metros</th><td><html:textarea property="parametros" cols="40" rows="3"/></td></tr>
+		<tr><th class="segunda">Tipo de ejecutÃ³</th>
 		<td>
 			<select name="tipoEjecucion" style="text-align: left;">
-			    <option value="AUTOMATICO" ${dat.tipoEjecucion}='AUTOMATICO' ? 'selected="selected"' : ''}>Automático</option>
+			    <option value="AUTOMATICO" ${dat.tipoEjecucion}='AUTOMATICO' ? 'selected="selected"' : ''}>AutomÃ¡tico</option>
 			    <option value="MANUAL" ${dat.tipoEjecucion}='MANUAL' ? 'selected="selected"' : ''}>Manual</option>
 			</select>
 		</td>
@@ -144,46 +144,46 @@
 		
 		</tr>
 		<tr>
-    <th class="segunda">Días de la Semana</th>
+    <th class="segunda">DÃ­as de la Semana</th>
     <td>
 		<html:multibox property="diasSemanaArray" value="Lunes"/> Lunes<br/>
 		<html:multibox property="diasSemanaArray" value="Martes"/> Martes<br/>
-		<html:multibox property="diasSemanaArray" value="Miercoles"/> Miércoles<br/>
+		<html:multibox property="diasSemanaArray" value="Miercoles"/> miÃ©rcoles<br/>
 		<html:multibox property="diasSemanaArray" value="Jueves"/> Jueves<br/>
 		<html:multibox property="diasSemanaArray" value="Viernes"/> Viernes<br/>
-		<html:multibox property="diasSemanaArray" value="Sabado"/> Sábado<br/>
+		<html:multibox property="diasSemanaArray" value="Sabado"/> SÃ¡bado<br/>
 		<html:multibox property="diasSemanaArray" value="Domingo"/> Domingo<br/>
     </td>
 </tr>
 
 
-		<tr><th class="segunda">Hora de Ejecución</th>
+		<tr><th class="segunda">Hora de ejecutÃ³</th>
 			<td><input type="text" id="horaEjecucion" name="horaEjecucion" placeholder="HH:mm"></td>
 			
 		</tr>
-		<tr><th class="segunda">Máx. Reintentos</th>
+		<tr><th class="segunda">mÃ¡x. Reintentos</th>
 			<td>
 				<input type="number" name="maxReintentos" id="maxReintentos" value="<bean:write name='formulari' property='maxReintentos'/>" />
 			</td>
 		</tr>
-		<tr><th class="segunda">Máx. Duración (segundos)</th>
+		<tr><th class="segunda">mÃ¡x. DuraciÃ³n (segundos)</th>
 			<td>
 				<input type="number" name="maxDuracionSegundos" id="maxDuracionSegundos" value="<bean:write name='formulari' property='maxDuracionSegundos'/>" />
 			</td>
 		</tr>
 
 		<tr>
-			<th class="segunda">Fecha desde</th><td><input type="text" id="fechaDesde" name="fechaDesde" value="${fechaDesde}" placeholder="Selecciona fecha de activación"></td>
+			<th class="segunda">Fecha desde</th><td><input type="text" id="fechaDesde" name="fechaDesde" value="${fechaDesde}" placeholder="Selecciona fecha de activaciÃ³n"></td>
 		</tr>
 		<tr>
-			<th class="segunda">Fecha hasta</th><td><input type="text" id="fechaHasta" name="fechaHasta" value="${fechaHasta}" placeholder="Selecciona fecha de desactivación"></td>
+			<th class="segunda">Fecha hasta</th><td><input type="text" id="fechaHasta" name="fechaHasta" value="${fechaHasta}" placeholder="Selecciona fecha de desactivaciÃ³n"></td>
 		</tr>
 
 		<tr>
 			<th class="segunda">Tipo</th>
 			<td>
 				<select name="tipoEjecucion">
-				    <option value="AUTOMATICO" >Automático</option>
+				    <option value="AUTOMATICO" >AutomÃ¡tico</option>
 				    <option value="MANUAL">Manual</option>
 				</select>
 

@@ -13,7 +13,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Edici髇 sustituci髇 lite</title>
+<title>Edici贸n sustituci贸n lite</title>
 
 </head>
 
@@ -21,7 +21,7 @@
 <script language="javaScript" src="/spd/spd/app/gestSustitucionesLite/js/gestSustitucionesLite.js"></script>
 <body id="general">
 		<center>
-		<h2>Creaci髇 sustituci髇 lite a partir de una existente </h2>
+		<h2>Creaci贸n sustituci贸n lite a partir de una existente </h2>
 		<html:form action="/GestSustitucionesLite.do" method="post">	
 
 
@@ -37,7 +37,7 @@
      <html:hidden property="oidGestSustitucionesLite" />   
      <html:hidden property="fieldName1" /> 
 
-	<!-- se pasan par醡etros de los filtros del listado para la vuelta -->
+	<!-- se pasan par谩metros de los filtros del listado para la vuelta -->
      <html:hidden property="filtroNombreCorto" />
      <html:hidden property="filtroMedicamentoResi" />
      <html:hidden property="filtroNombreCortoOK" />
@@ -53,18 +53,18 @@
 		<td><logic:notEmpty name="formulari" property="listaDivisionResidencia">	
 			   	<% String div = formulari.getOidDivisionResidenciaFiltro()+""; %>
 		   	 <html:select property="oidDivisionResidenciaFiltro"  value="<%= div %>"  onchange="submit()"> 			   	
-		   	 	<html:option value="">Selecci髇</html:option>
+		   	 	<html:option value="">Selecci贸n</html:option>
    					<html:optionsCollection name="formulari" property="listaDivisionResidencia" label="nombreDivisionResidencia" value="oidDivisionResidencia" />
 				</html:select>
 		     </logic:notEmpty>	
 			</td>
 	<tr>
 	<tr>
-		<td>C骴igo CN residencia</td>
+		<td>C贸digo CN residencia</td>
 		<td><html:text name="data" property="resiCn" styleId="resiCn"/> - <html:text name="data"  property="resiMedicamento"  styleId="resiMedicamento"/></td>
 	</tr>
 	<tr>
-		<td>C骴igo -  Nombre medicamento </td>
+		<td>C贸digo -  Nombre medicamento </td>
 		<td><html:text name="data" property="spdCn" styleId="spdCn"/> - <html:text name="data" property="spdNombreMedicamento" styleId="spdNombreMedicamento" readonly="true"/>
 		<a href="#" onclick="javascript:doLookUpBdConsejo('<bean:write name="data" property="codGtVm" />');">Buscar</a>
 		</td>
@@ -81,7 +81,7 @@
 
 
 		<tr>
-		<td>Forma farmac閡tica</td>
+		<td>Forma farmac茅utica</td>
 		<td><bean:write name="data" property="spdFormaMedicacion" /></td>
 	</tr>
 

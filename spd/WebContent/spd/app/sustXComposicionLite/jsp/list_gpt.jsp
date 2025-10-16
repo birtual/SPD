@@ -25,44 +25,44 @@
 
 <script type="text/javascript">
 	
-	// funciÛn para borrar un registro
+	// funci√≥n para borrar un registro
 	function borrar(oidSustXComposicion)
 	{
 		var f = document.SustXComposicionForm; // se obtiene el formulario
-		f.parameter.value='borrar'; // se setea el valor del par·metro 'parameter'
+		f.parameter.value='borrar'; // se setea el valor del par√°metro 'parameter'
 		f.ACTIONTODO.value='CONFIRMAR'; // se setea el valor de 'ACTIONTODO'
 		f.oidSustXComposicion.value= oidSustXComposicion; // se setea el valor del ID del registro a borrar
-		f.submit(); // se envÌa el formulario
+		f.submit(); // se env√≠a el formulario
 	}
 	
-	// funciÛn para editar un registro
+	// funci√≥n para editar un registro
 	function editar(oidSustXComposicion)
 	{
 		var f = document.SustXComposicionForm; // se obtiene el formulario
-		f.parameter.value='editar'; // se setea el valor del par·metro 'parameter'
+		f.parameter.value='editar'; // se setea el valor del par√°metro 'parameter'
 		f.ACTIONTODO.value='EDITA'; // se setea el valor de 'ACTIONTODO'
 		f.oidSustXComposicion.value= oidSustXComposicion; // se setea el valor del ID del registro a editar
-		f.submit(); // se envÌa el formulario
+		f.submit(); // se env√≠a el formulario
 	}
 	
-	// funciÛn para buscar registros
+	// funci√≥n para buscar registros
 	function buscar()
 	{
 		var f = document.SustXComposicionForm; // se obtiene el formulario
-		f.parameter.value='list'; // se setea el valor del par·metro 'parameter'
-		f.submit();	// se envÌa el formulario
+		f.parameter.value='list'; // se setea el valor del par√°metro 'parameter'
+		f.submit();	// se env√≠a el formulario
 	}
 	
-	// funciÛn para crear un nuevo registro
+	// funci√≥n para crear un nuevo registro
 	function nuevo()
 	{
 		var f = document.SustXComposicionForm; // se obtiene el formulario
-		f.parameter.value='nuevo'; // se setea el valor del par·metro 'parameter'
+		f.parameter.value='nuevo'; // se setea el valor del par√°metro 'parameter'
 		f.ACTIONTODO.value='NUEVO'; // se setea el valor de 'ACTIONTODO'
-		f.submit(); // se envÌa el formulario
+		f.submit(); // se env√≠a el formulario
 	}	
 	
-	// funciÛn para cargar el lookUp de consejos
+	// funci√≥n para cargar el lookUp de consejos
 	function doLookUpBdConsejo(){				
 		var loc = '/spd/LookUpBdConsejo.do?parameter=init&'+ // se construye la URL para la llamada AJAX
 			'CallBackID=cnOk&'+ // se setea el nombre del campo para el valor ID
@@ -72,7 +72,7 @@
 		window.open(loc, 'LookUpBdConsejo', 'dependent=yes,height=500,width=800,top=50,left=50,resizable=yes,scrollbars=yes' );
 	}	
 	
-	// funciÛn para cargar el lookUp de laboratorios
+	// funci√≥n para cargar el lookUp de laboratorios
 	function doLookUpLabsBdConsejo(){				
 		var loc = '/spd/LookUpLabsBdConsejo.do?parameter=initLabs&'+ // se construye la URL para la llamada AJAX
 			'CallBackID=filtroCodiLaboratorio&'+ // se setea el nombre del campo para el valor ID
@@ -108,11 +108,11 @@
 		        type: 'POST',
 		        data: $(f).serialize(),
 		        success: function(response) {
-		            // Manejar respuesta exitosa aquÌ
-		            console.log('ExportaciÛn exitosa');
+		            // Manejar respuesta exitosa aqu√≠
+		            console.log('Exportaci√≥n exitosa');
 		        },
 		        error: function(xhr, status, error) {
-		            // Manejar errores aquÌ
+		            // Manejar errores aqu√≠
 		            console.error('Error al exportar', error);
 		        }
 		    });
@@ -123,13 +123,13 @@
 	<script>
 function buscarAJAX() {
   var xhr = new XMLHttpRequest(); // crea una instancia del objeto XMLHttpRequest
-  xhr.onreadystatechange = function() { // define la funciÛn de devoluciÛn de llamada
+  xhr.onreadystatechange = function() { // define la funci√≥n de devoluci√≥n de llamada
     if (this.readyState === 4 && this.status === 200) { // verifica que la solicitud haya sido exitosa
       document.getElementById("tablaSustituciones").innerHTML = this.responseText; // actualiza la tabla con la respuesta
     }
   };
-  xhr.open("GET", "/ruta/a/tu/controlador?parameter=list", true); // define la URL del controlador y el mÈtodo HTTP
-  xhr.send(); // envÌa la solicitud AJAX
+  xhr.open("GET", "/ruta/a/tu/controlador?parameter=list", true); // define la URL del controlador y el m√©todo HTTP
+  xhr.send(); // env√≠a la solicitud AJAX
 }
 </script>
 
@@ -187,7 +187,7 @@ function buscarAJAX() {
 			<div>Texto a buscar
 				<html:text property="filtroTextoABuscar" alt="Texto a buscar" title="Texto a buscar" />
 			</div>
-			<div>B˙squeda por medicamento
+			<div>B√∫squeda por medicamento
 				<html:text name="SustXComposicionForm" property="cnOk" styleClass="cnOk" />-<html:text name="SustXComposicionForm" property="nombreConsejo" styleClass="nombreConsejo" />
 				<a href="#" onclick="javascript:doLookUpBdConsejo();">Buscar CN</a>
 			</div>
@@ -208,7 +208,7 @@ function buscarAJAX() {
 						<html:option value="">Todos</html:option>
 						<html:optionsCollection name="SustXComposicionForm" property="listaGtVmp" label="nomGtVmp" value="codGtVmp" />
 					</html:select>
-					(Principio activo, dosis y forma farmacÈutica)
+					(Principio activo, dosis y forma farmac√©utica)
 				</logic:notEmpty>
 			</div>
 			<div>
@@ -218,7 +218,7 @@ function buscarAJAX() {
 						<html:option value="">Todos</html:option>
 						<html:optionsCollection name="SustXComposicionForm" property="listaGtVmpp" label="nomGtVmpp" value="codGtVmpp" />
 					</html:select>
-					(Igual que Conjunto homogÈneo - Principio activo, dosis, forma farmacÈutica y n˙mero de unidades de dosificaciÛn)
+					(Igual que Conjunto homog√©neo - Principio activo, dosis, forma farmac√©utica y n√∫mero de unidades de dosificaci√≥n)
 				</logic:notEmpty>
 			</div>
 		</th>
@@ -244,11 +244,11 @@ function buscarAJAX() {
         <th>ID Robot</th>
         <th>Nombre GT VMPP</th>
         <th>Rentabilidad</th>
-        <th>PonderaciÛn</th>
+        <th>Ponderaci√≥n</th>
         <th>Nota</th>
         <th>Nombre Laboratorio</th>
         <th>Comentarios</th>
-        <th>AcciÛn</th>
+        <th>Acci√≥n</th>
         <th>CN6</th>
         <th>CN7</th>
         <th>Nombre Medicamento</th>
@@ -290,7 +290,7 @@ function buscarAJAX() {
 		  	<input type="button" value="<bean:message key="Export.SustXConj.submit"/>" 	="javascript:document.forms[0].action='/spd/Iospd/ExportData.do?parameter=specificPerform'; document.forms[0].submit();" />
 
 		
-	<!--  paginaciÛn  -->
+	<!--  paginaci√≥n  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -304,7 +304,7 @@ function buscarAJAX() {
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginaciÛn   -->
+	<!--  paginaci√≥n   -->
 		
 		
 		

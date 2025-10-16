@@ -21,7 +21,7 @@ public class FileUtil {
 	/** Crea fichero a partir de InputStream
 	 * @param name nombre del fichero
 	 * @param in InputStream origen
-	 * @param location destino fÌsico
+	 * @param location destino f√≠sico
 	 * @throws Exception FileNotFoundException, IOException
 
 	 */
@@ -78,7 +78,7 @@ public class FileUtil {
 		pre.delete();
 	}
 
-	/** Calcular el tamaÒo de los ficheros de un directorio
+	/** Calcular el tama√±o de los ficheros de un directorio
 	 * Si recurse es true indica que el calculo se haga recursivamente sumando los tamanyos
 	 * de los subdirectorios encontrados
 	 * @param dir objeto File que representa el directorio en cuestion
@@ -95,8 +95,8 @@ public class FileUtil {
 		return aux;
 	}
 
-	/** MËtodo que retorna la lista de ficheros de un directorio concreto.
-	 * ⁄til para tener una lista de los mensajes de un buzÛn, por ejemplo para 
+	/** M√©todo que retorna la lista de ficheros de un directorio concreto.
+	 * √∫til para tener una lista de los mensajes de un buz√≥n, por ejemplo para 
 	 * tener constancia de los recursos de un aula en un area de ficheros
 	 * @param dir objeto File que representa el directorio en cuestion
 	 * @return Vector de Strings, Lista de ficheros que contiene (no de los directorios)*/
@@ -116,9 +116,9 @@ public class FileUtil {
 		return files;
 	}
 
-	/** MËtodo que retorna el nombre del fichero sin extensiÛn
+	/** M√©todo que retorna el nombre del fichero sin extensi√≥n
 	 * @param dir String File que representa el ficheros en cuestion
-	 * @return String fichero sin extensiÛn*/
+	 * @return String fichero sin extensi√≥n*/
 	public static String getFilesSinExt(String fitxer) {
 		String res = "";
 		int quants = StringUtil.charCount(fitxer, '.');
@@ -190,12 +190,12 @@ public class FileUtil {
 	}
 
 	/**
-	 * Ens llegir‡ el contingut d'un fitxer de configuraciÛ i ens retornar‡
+	 * Ens llegir√† el contingut d'un fitxer de configuraci√≥ i ens retornar√†
 	 * un treemap amb aquests valors.<br>
-	 * El fitxer de configuraciÛ contindr‡ linies al estil clau=valor,
-	 * les linies que comencin per # ser‡n comentaris.
+	 * El fitxer de configuraci√≥ contindr√° linies al estil clau=valor,
+	 * les linies que comencin per # s√≥n comentaris.
 	 * 
-	 * @param p_fitxer: String que contindr‡ el nom del fitxer de configuraciÛ.
+	 * @param p_fitxer: String que contindr√† el nom del fitxer de configuraci√≥.
 	 * @return
 	 * @throws Exception
 

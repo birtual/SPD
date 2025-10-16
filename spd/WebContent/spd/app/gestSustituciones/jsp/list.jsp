@@ -163,7 +163,7 @@
 		     </logic:notEmpty>
 		     </div>	
 
-		<div>Medicamentos sustitución
+		<div>Medicamentos sustituciÃ³n
 			<logic:notEmpty name="GestSustitucionesForm" property="listaNombreCortoOK">	
 		   	 <html:select property="filtroNombreCortoOK"  value="<%= formulari.getFiltroNombreCortoOK() %>" onchange="submit()"> 
 		   	 	<html:option value="">Todos</html:option>
@@ -172,7 +172,7 @@
 		     </logic:notEmpty>	
 		     </div>
 
-		<div>Forma farmacéutica
+		<div>Forma farmacÃ©utica
 			<logic:notEmpty name="GestSustitucionesForm" property="listaFormasFarmaceuticas">	
 		   	 <html:select property="filtroFormaFarmaceutica"  value="<%= formulari.getFiltroFormaFarmaceutica() %>" onchange="submit()"> 
 		   	 	<html:option value="">Todos</html:option>
@@ -180,7 +180,7 @@
 				</html:select>
 		     </logic:notEmpty>	
 		</div>
-		<div>Tipo acción SPD
+		<div>Tipo acciÃ³n SPD
 			<logic:notEmpty name="GestSustitucionesForm" property="listaTiposAccion">	
 		   	 <html:select property="filtroAccion"  value="<%= formulari.getFiltroAccion() %>" onchange="submit()"> 
 		   	 	<html:option value="">Todos</html:option>
@@ -220,12 +220,12 @@
         <th>CN (Resi)</th>
         <th>Medicamento (Resi)</th>
         <th>Residencia</th>
-        <th>CN (1ª sust)</th>
-        <th>Medicacmento (1ª sust) </th>
+        <th>CN (1Âª sust)</th>
+        <th>Medicacmento (1Âª sust) </th>
         <th>Nombre bolsa (SPD)</th>
-        <th>Conj Homog (Vmpp - 1ª sust)</th>
-        <th>Forma  (1ª sust) </th>
-        <th>Acción  (SPD)</th>
+        <th>Conj Homog (Vmpp - 1Âª sust)</th>
+        <th>Forma  (1Âª sust) </th>
+        <th>AcciÃ³n  (SPD)</th>
         <th>Comentario</th>
 	<!--	<th>ExisteBibliaRelacionada</th> -->    
 		<th>Sustituible</th>
@@ -233,7 +233,7 @@
 		<th>Medicamento (Vademecum)</th>
 		<th>Conj Homog (Vmpp Vademecum)</th>
 		<th>Laboratorio (Vademecum)</th>
-		<th>Ponderación total (Vademecum)</th>
+		<th>PonderaciÃ³n total (Vademecum)</th>
 		<th></th>
 		<th></th>
      <th WIDTH="50%">Info</th>
@@ -410,7 +410,7 @@ String mensajesAlertaBase =(data.getMensajesAlerta()!=null&&!data.getMensajesAle
     
 </table>
 
-	<!--  paginación  -->
+	<!--  paginaciÃ³n  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -424,7 +424,7 @@ String mensajesAlertaBase =(data.getMensajesAlerta()!=null&&!data.getMensajesAle
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginación   -->
+	<!--  paginaciÃ³n   -->
 		
 		
 </div>	

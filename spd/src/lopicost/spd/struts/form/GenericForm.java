@@ -17,11 +17,11 @@ public class GenericForm extends ActionForm
 	private int numpages=-1;
 	private int currpage=0;
 	private String cleanCache;
-	//private String actiontodo = null; // Constant que identifica la acció a executar.listaDivisionResidencia
+	//private String actiontodo = null; // Constant que identifica la acciÃ³ a executar.listaDivisionResidencia
 	private String sessionid = null;
 	private String contextPath= null;
 
-	private String campoGoogle = "";	//para búsquedas
+	private String campoGoogle = "";	//para bÃºsquedas
 	
 	private String idUsuario = "";
 	private String password = "";
@@ -51,7 +51,7 @@ public class GenericForm extends ActionForm
 
 	private String campoOrder = "";
 
-	private boolean filtroVerDatosPersonales=false; 	//por defecto NO salen asteriscos (TRUE).  SI se quiere que salgan debería ser FALSE 
+	private boolean filtroVerDatosPersonales=false; 	//por defecto NO salen asteriscos (TRUE).  SI se quiere que salgan deberÃ­a ser FALSE 
 
 	
 	private String idTipoAccion= "";
@@ -274,7 +274,7 @@ public class GenericForm extends ActionForm
 	}
 	
 	/**
-	 * Mètode per modificar, o iniciar els valors del paginador i escollir els elements de la llista necessaris
+	 * MÃ©tode per modificar, o iniciar els valors del paginador i escollir els elements de la llista necessaris
 	 * @param listado Llistat complert
 	 * @return Llistat paginat
 	 */

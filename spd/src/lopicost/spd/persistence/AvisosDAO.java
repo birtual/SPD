@@ -150,7 +150,7 @@ public class AvisosDAO extends GenericDAO{
 	}
 
 	public static boolean edita(String query) {
-		// TODO Esbozo de mÈtodo generado autom·ticamente
+		// TODO Esbozo de m√©todo generado autom√°ticamente
 		return false;
 	}
 

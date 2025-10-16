@@ -25,7 +25,7 @@ public class LoginHelper {
 		}
 		// Verifica el password 
 		//if (!PasswordUtil.pass_Validate(password, user.getHashPass())){
-		//Verificación sencilla, sin Hash
+		//VerificaciÃ³n sencilla, sin Hash
 		if (!password.equals(user.getHashPass())){
 			Logger.log(SPDConstants.LOG_ID, "password incorrecto", Logger.DEBUG);
 			return userOK;

@@ -1,11 +1,11 @@
-/* Estilo general de la página */
+/* Estilo general de la pï¿½gina */
 
-@import url(reset.css); /* Estilos de la página de inicio*/
-@import url(inicio.css); /* Estilos de la página de inicio*/
+@import url(reset.css); /* Estilos de la pï¿½gina de inicio*/
+@import url(inicio.css); /* Estilos de la pï¿½gina de inicio*/
 
 
 
-/* deixo aquí els css generals */
+/* deixo aquï¿½ els css generals */
 body {
 	margin: 0 1% 1% 1%;
 	padding: 0;
@@ -240,9 +240,9 @@ td a {
 }
 
 
-/* Medios de comunicación */
+/* Medios de comunicaciÃ³n */
 @media only screen and (max-width: 76.8em) {
-	/* Estilos para pantallas más pequeñas */
+	/* Estilos para pantallas mÃ¡s pequeÃ­as */
 	.table-responsive {
 		overflow-x: auto;
 	}
@@ -256,14 +256,14 @@ td a {
 		white-space: nowrap;
 	}
 
-	/* Ajustar tamaños de imagen */
+	/* Ajustar tamaÃ±os de imagen */
 	.logo img,
 	.imagelogo {
 		width: 1.2em;
 		height: 1.2em;
 	}
 
-	/* Estilos para acordeón en pantallas más pequeñas */
+	/* Estilos para acordeï¿½n en pantallas mÃ¡s pequeÃ­as */
 	.acordeo dt {
 		height: auto;
 		line-height: 1.5;

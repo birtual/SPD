@@ -33,7 +33,7 @@ public class StartProcessAction extends GenericAction {
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        // Obt閚 la sesi髇
+        // Obt茅n la sesi贸n
         HttpSession session = request.getSession();
         //FicheroResiForm formulari =  (FicheroResiForm) form;
 		//FicheroResiBean cab = dao.getCabeceraByFilters(getIdUsuario(), formulari, 0, 1, null, false);
@@ -86,10 +86,10 @@ public class StartProcessAction extends GenericAction {
                                  session.setAttribute("processMessage", "Paso5 - Procesar Excepciones (Falguera)    ");
                                 if (paso6(cabDetalle, div, response)) {
                                 	 session.setAttribute("processProgress", getPorcentaje());
-                                     session.setAttribute("processMessage", "Paso6 - Creaci髇 del FiliaDM    ");
+                                     session.setAttribute("processMessage", "Paso6 - Creaci贸n del FiliaDM    ");
                                      if (paso7(cabDetalle, div, response)) {
                                     	 session.setAttribute("processProgress", getPorcentaje());
-                                         session.setAttribute("processMessage", "Paso - Creaci髇 del FiliaRX   ");
+                                         session.setAttribute("processMessage", "Paso - Creaci贸n del FiliaRX   ");
 
                                      } else {
                                          session.setAttribute("processProgress", 0);
@@ -164,14 +164,14 @@ public class StartProcessAction extends GenericAction {
     	 return PlantillaUnificadaHelper.procesarExcepciones(getIdUsuario(),  cabDetalle);
     }
 
-    // Paso6 - Creaci髇 del FiliaDM 
+    // Paso6 - Creaci贸n del FiliaDM 
     private boolean paso6(FicheroResiBean cabDetalle, DivisionResidencia div, HttpServletResponse response) throws Exception {
 		FiliaDM filiaDM = PlantillaUnificada.creaFicheroDM(getIdUsuario(), cabDetalle);
     	String nombreFicheroFiliaDM=PlantillaUnificadaHelper.generaFicheroDM(cabDetalle, filiaDM,  response);
 		return true;
    	}
 
-    // Paso7 - Creaci髇 del FiliaRX
+    // Paso7 - Creaci贸n del FiliaRX
     private boolean paso7(FicheroResiBean cabDetalle, DivisionResidencia div, HttpServletResponse response) throws Exception {
 		FiliaRX filiaRX = PlantillaUnificada.creaFicheroRX(getIdUsuario(), cabDetalle, div);
 		String nombreFicheroFiliaRX=PlantillaUnificadaHelper.generaFicheroRX(cabDetalle, filiaRX,  response);

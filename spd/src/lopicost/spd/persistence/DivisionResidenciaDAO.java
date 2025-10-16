@@ -176,10 +176,10 @@ public class DivisionResidenciaDAO {
 		switch (numDia) {
 		case 1: res= "lunes"; break;
 		case 2: res= "martes";break;
-		case 3: res= "mi�rcoles";break;
+		case 3: res= "miércoles";break;
 		case 4: res= "jueves";break;
 		case 5: res= "viernes";break;
-		case 6: res= "s�bado";break;
+		case 6: res= "sábado";break;
 		case 7: res= "domingo";break;
 		} 
 		return res;
@@ -256,7 +256,7 @@ public class DivisionResidenciaDAO {
 		            for (i = 0; i < oidVariasDivisionResidencia.length-1; i++) {
 		            	textoIn+= oidVariasDivisionResidencia[i] + ",";
 		            }
-		            textoIn+= oidVariasDivisionResidencia[i]; // la �ltima sin coma final 
+		            textoIn+= oidVariasDivisionResidencia[i]; // la última sin coma final 
 		 	  	  
 		            String qry = " UPDATE dbo.bd_divisionResidencia set  extRE= 1 ";
 		  	   		qry+= " WHERE oidDivisionResidencia IN ( " + VisibilidadHelper.oidDivisionResidenciasVisibles(spdUsuario)  + ")";
@@ -275,7 +275,7 @@ public class DivisionResidenciaDAO {
 		}
 		
 	/**
-	 * M�todo para dar de alta una divisionResidencia,
+	 * Método para dar de alta una divisionResidencia,
 	 * @param spdUsuario
 	 * @param div
 	 * @return

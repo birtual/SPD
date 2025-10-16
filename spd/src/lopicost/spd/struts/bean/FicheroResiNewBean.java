@@ -170,7 +170,7 @@ public class FicheroResiNewBean {
 		 * 1 --> Diario
 		 * 2 --> Semanal
 		 * 3 --> Frecuencia
-		 * 4 --> EnvÌo guide
+		 * 4 --> env√≠o guide
 		 *  
 		 */
 		
@@ -667,8 +667,8 @@ public class FicheroResiNewBean {
 	}
 
 
-	public void setFechaCreacionFicheroXML(Date fechaCreaciÛnFicheroXML) {
-		this.fechaCreacionFicheroXML = fechaCreaciÛnFicheroXML;
+	public void setFechaCreacionFicheroXML(Date fechaCreaci√≥nFicheroXML) {
+		this.fechaCreacionFicheroXML = fechaCreaci√≥nFicheroXML;
 	}
 
 

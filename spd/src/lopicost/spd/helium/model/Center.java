@@ -16,19 +16,19 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Center {
 	@XmlAttribute(name = "idCareHome")
-	private String idCareHome;									// idDivisionResidencia - Identificador ˙nico nacional relacionado con el centro. Puede estar formado por varias claves como un CIF + cÛdigo interno del centro.
+	private String idCareHome;									// idDivisionResidencia - Identificador √∫nico nacional relacionado con el centro. Puede estar formado por varias claves como un CIF + c√≥digo interno del centro.
 	@XmlElement
-	private boolean active;										// bd_residencia.status - Indica si el centro est· o no activo; toma los valores true o false
+	private boolean active;										// bd_residencia.status - Indica si el centro est√° o no activo; toma los valores true o false
 	@XmlElement
 	private String name;										// bd_divisionResidencia.nombreDivisionResidencia  - Nombre del centro
 	@XmlElement
 	private String city;										// Nombre de la ciudad
 	@XmlElement
-	private String cp;											// CÛdigo postal
+	private String cp;											// C√≥digo postal
 	@XmlElement
-	private String province;									// CÛdigo de provincia
+	private String province;									// C√≥digo de provincia
 	@XmlElement
-	private String phone;										// TelÈfono del centro
+	private String phone;										// Tel√©fono del centro
 	@XmlElement
 	private String email;										// Email del centro
 	@XmlElement
@@ -41,7 +41,7 @@ public class Center {
 	@XmlElement(name = "patients")
 	private Patients patients;									// Contenido xml con los pacientes
 	@XmlTransient	//para que no se muestre en el XML
-	private String idProceso;									// guardar· el idProceso que se procesa, se  usar· para construir la salida
+	private String idProceso;									// guardar√° el idProceso que se procesa, se  usar√° para construir la salida
 	
 	//public String getIdCareHome() 								{ 		return idCareHome;				}
 	public void setIdCareHome(String idCareHome) 				{		this.idCareHome = idCareHome;	}

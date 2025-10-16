@@ -13,7 +13,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Gesti髇 carga ficheros Robot</title>
+<title>Gesti贸n carga ficheros Robot</title>
 </head>
 
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
@@ -131,7 +131,7 @@
 		{
 			var f = document.FicheroResiForm;
 			if(f.procesoValido.value=='false'){
-				alert('Existen registros no v醠idos'); 
+				alert('Existen registros no v谩lidos'); 
 				return;				
 			}
 			
@@ -358,7 +358,7 @@
 				</html:select>
 		     </logic:notEmpty>	
 		 </th> 		
-	  <th>acci髇 bolsa</br>
+	  <th>acci贸n bolsa</br>
 	  			<logic:notEmpty name="FicheroResiForm" property="listaSpdAccionBolsa">	
 				<html:select property="seleccionSpdAccionBolsa"  value="<%= formulari.getSeleccionSpdAccionBolsa() %>" onchange="javascript:goSubmit();" styleClass="select_7" >    
     				<html:option value="">Todos</html:option>
@@ -609,7 +609,7 @@
  	
 			<p class="botons">
 				<logic:equal property="editable" name="data" value="true">
-					<input type="button"  class="boton-actualizar" onclick="javascript:refrescar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Actualizar sustituci髇"  />
+					<input type="button"  class="boton-actualizar" onclick="javascript:refrescar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Actualizar sustituci贸n"  />
 					<input type="button" class="boton-editar" onclick="javascript:editar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Editar"  />
 	  				<input type="button"   class="boton-borrar" onclick="borrar('<bean:write name="data" property="oidFicheroResiDetalle" />');" title="Borrar" />
 				</logic:equal>
@@ -759,7 +759,7 @@
 
 		
 		
-	<!--  paginaci髇  
+	<!--  paginaci贸n  
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -773,7 +773,7 @@
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginaci髇   -->
+	<!--  paginaci贸n   -->
 		
 	</div>	
 	</html:form>

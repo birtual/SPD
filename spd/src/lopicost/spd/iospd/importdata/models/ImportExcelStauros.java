@@ -21,7 +21,7 @@ import java.util.Vector;
 public class ImportExcelStauros extends ImportGenericLite
 {
 	int reg = 5;  //numeroCorteCabecera  / celda anterior a la de la primera dose
-	int COLUMNAS = 21; //número de columnas a tratar del fichero 
+	int COLUMNAS = 21; //nÃºmero de columnas a tratar del fichero 
 	
 	public ImportExcelStauros(){
 		super();
@@ -37,14 +37,14 @@ public class ImportExcelStauros extends ImportGenericLite
 			//saltamos cabecera
 			if(getProcessedRows()==0)
 			{
-				//throw new Exception ("No es un tratamiento válido.");
-				throw new LineaDescartadaException("No es un tratamiento válido. ");
+				//throw new Exception ("No es un tratamiento vÃ¡lido.");
+				throw new LineaDescartadaException("No es un tratamiento vÃ¡lido. ");
 			}
 			
 		}catch(Exception e)
 		{
-			//throw new Exception ("No es un tratamiento válido.");
-			throw new LineaDescartadaException("No es un tratamiento válido. ");
+			//throw new Exception ("No es un tratamiento vÃ¡lido.");
+			throw new LineaDescartadaException("No es un tratamiento vÃ¡lido. ");
 		}
     	
     	
@@ -65,7 +65,7 @@ public class ImportExcelStauros extends ImportGenericLite
 		try{medResi.setResiToma3(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; }catch(Exception e){}//dinar 13h
 		try{medResi.setResiToma4(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; }catch(Exception e){}//merienda 16h
 		try{medResi.setResiToma5(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; }catch(Exception e){}//cena 20h
-		try{medResi.setResiToma6(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; }catch(Exception e){}//resopón 24h
+		try{medResi.setResiToma6(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; }catch(Exception e){}//resopÃ³n 24h
 		String resiPauta=medResi.getResiToma1()+"-"+medResi.getResiToma2()+"-"+medResi.getResiToma3()+"-"+medResi.getResiToma4()+"-"+medResi.getResiToma5()+"-"+medResi.getResiToma6();
 		medResi.setResiPauta(resiPauta);
 		
@@ -77,7 +77,7 @@ public class ImportExcelStauros extends ImportGenericLite
 		try{medResi.setResiD6(StringUtil.limpiarTextoyEspacios((String) row.elementAt(i)));i++;}catch(Exception e){}
 		try{medResi.setResiD7(StringUtil.limpiarTextoyEspacios((String) row.elementAt(i)));i++;}catch(Exception e){}
 		
-		int diasSemanaMarcados=HelperSPD.getDiasMarcados(medResi);  //importante!! para que detecte que hay días marcados y no los llene automáticamente.
+		int diasSemanaMarcados=HelperSPD.getDiasMarcados(medResi);  //importante!! para que detecte que hay dÃ­as marcados y no los llene automÃ¡ticamente.
     	medResi.setDiasSemanaMarcados(diasSemanaMarcados);
     	
     	try{medResi.setResiComentarios(StringUtil.limpiarTextoComentarios((String) row.elementAt(i)));i++;}catch(Exception e){}
@@ -99,7 +99,7 @@ public class ImportExcelStauros extends ImportGenericLite
 		
     	try{medResi.setResiFinTratamiento(StringUtil.getStringArregloFecha((String) row.elementAt(i),  "dd/MM/yyyy"));i++;}    	catch(Exception e){}
 
-		medResi.setResiInicioTratamiento(StringUtil.getStringArregloFecha("01/01/2024", "dd/MM/yyyy"));	//no nos envían fecha inicio
+		medResi.setResiInicioTratamiento(StringUtil.getStringArregloFecha("01/01/2024", "dd/MM/yyyy"));	//no nos envÃ­an fecha inicio
 
     	//si no hay CNResi ponemos el nombre de medicamento
 		if(medResi.getResiCn()==null || medResi.getResiCn().equals(""))
@@ -116,14 +116,14 @@ public class ImportExcelStauros extends ImportGenericLite
 		
 
 		
-		//la búsqueda de sustitución se realiza en la carga
+		//la bÃºsqueda de sustituciÃ³n se realiza en la carga
 		if(medResi.getResiCn()!=null && !medResi.getResiCn().equals("") )
     		GestSustitucionesLiteDAO.buscaSustitucionLite(getSpdUsuario(), medResi);
 		
 		if(medResi.getResiSiPrecisa()!=null && medResi.getResiSiPrecisa().equalsIgnoreCase("X")) {
 			medResi.setSpdAccionBolsa(SPDConstants.SPD_ACCIONBOLSA_SI_PRECISA);
 			//medResi.setRevisar("SI");
-			medResi.setValidar(""); //mejor no revisarlo porque cada vez aparecerían en cada producción
+			medResi.setValidar(""); //mejor no revisarlo porque cada vez aparecerÃ­an en cada producciÃ³n
 		}
 		
 		medResi.setIdTratamientoCIP(HelperSPD.getID(medResi));
@@ -131,9 +131,9 @@ public class ImportExcelStauros extends ImportGenericLite
 		actualizaPlantaHabitacion(getSpdUsuario(), medResi);
 		if(existeDuplicado)
 			//this.errors.add(TextManager.getMensaje("ImportData.error.linea")+" " + row);
-			//this.errors.add("Es un tratamiento que está duplicado " );
-			//throw new Exception ("Es un tratamiento que está duplicado ");
-			throw new LineaDuplicadaException("Es un tratamiento que está duplicado ");
+			//this.errors.add("Es un tratamiento que estÃ¡ duplicado " );
+			//throw new Exception ("Es un tratamiento que estÃ¡ duplicado ");
+			throw new LineaDuplicadaException("Es un tratamiento que estÃ¡ duplicado ");
 		System.out.println(" -----  borrarPosibleDuplicado Fin-->  " );
 		
 	}
@@ -141,10 +141,10 @@ public class ImportExcelStauros extends ImportGenericLite
 
 	/**
 1			2		3			4			5			6		7		8		9		10		11		12	13	14	15	16	17	18	19			20			21
-Habitación	CIP	nombrePaciente	CNresi	MEDICAMENTORESI	7h	esmorzar	dinar	berenar	sopar	resopó	L	M	X	J	V	S	d	COMENTARIOS	SI_PRECISA	fecha STOP
+HabitaciÃ³n	CIP	nombrePaciente	CNresi	MEDICAMENTORESI	7h	esmorzar	dinar	berenar	sopar	resopÃ³	L	M	X	J	V	S	d	COMENTARIOS	SI_PRECISA	fecha STOP
 	 */
 	public List<Integer> getPosicionesAEliminar() {
-		//en resiPlus no tendremos en cuenta  1 (Habitación) 
+		//en resiPlus no tendremos en cuenta  1 (HabitaciÃ³n) 
 		List<Integer> result =new ArrayList<Integer>();
 		result.add(1);
 		return result;
@@ -160,13 +160,13 @@ Habitación	CIP	nombrePaciente	CNresi	MEDICAMENTORESI	7h	esmorzar	dinar	berenar	s
 				if(result){
 					String antes=" Planta= '" + medResi.getResiPlanta() + "', habitacion='" + medResi.getResiHabitacion() + "'";
 					String despues=" Planta= '" + medResi.getResiPlanta() + "', habitacion='" + medResi.getResiHabitacion() + "'";
-					//INICIO creación de log en BBDD
+					//INICIO creaciÃ³n de log en BBDD
 					try{
 						SpdLogAPI.addLog(idUsuario, medResi.getResiCIP(),  medResi.getIdDivisionResidencia(), null, SpdLogAPI.A_RESIDENTE, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES,
 								"SpdLog.tratamiento.edicion.auto.plantaHabitacion", 
 							new String[]{idUsuario, medResi.getResiCIP(), antes, despues} );
 					}catch(Exception e){}	// Cambios--> @@.
-					//FIN creación de log en BBDD
+					//FIN creaciÃ³n de log en BBDD
 				}
 					
 			}

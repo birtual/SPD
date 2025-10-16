@@ -60,14 +60,14 @@ public class DescargarArchivosAction extends GenericAction
 				try{
 					SpdLogAPI.addLog(getIdUsuario(), "",  form.getIdDivisionResidencia(), cab.getIdProceso(), SpdLogAPI.A_PRODUCCION, SpdLogAPI.B_DESCARGAFICHERO, SpdLogAPI.C_FICHERO_ROBOT_UNIFICADA
 							, "SpdLog.produccion.descarga.ficheroRobotUnificada", fileName );
-				}catch(Exception e){}	//CreaciÛn del fichero Helium con nombre @@.
+				}catch(Exception e){}	//Creaci√≥n del fichero Helium con nombre @@.
 				*/
 				
 				
 	            // Finalizar sin hacer un forward
 	            return null;
 	        } else {
-	            // En caso de que el archivo no exista, redirigir a una p·gina de error
+	            // En caso de que el archivo no exista, redirigir a una p√°gina de error
 	            return mapping.findForward("error");
 	        }
 	    }

@@ -13,7 +13,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Creaci髇 de sustituci髇</title>
+<title>Creaci贸n de sustituci贸n</title>
 </head>
 
 <bean:define id="formulari" name="GestSustitucionesForm" type="lopicost.spd.struts.form.GestSustitucionesForm" />
@@ -32,15 +32,15 @@
 		{
 			var f = document.GestSustitucionesForm;
 			if(f.idTipoAccion.value=='')
-				alert('Falta indicar la acci髇');
+				alert('Falta indicar la acci贸n');
 			else if(f.formaFarmaceutica.value=='')
 				alert('Falta indicar la forma');
 			else if(f.cnOkSustXResi.value=='')
-				alert('Falta indicar C骴igo CN OK');
+				alert('Falta indicar C贸digo CN OK');
 			else if(f.nombreCortoOK.value=='')
 				alert('Falta indicar el nombre corto ');
 			else if((f.cn_resi.value=='')&&(f.medicamento.value==''))
-				alert('Falta indicar el C骴igo CN residencia o el nombre del medicamento');
+				alert('Falta indicar el C贸digo CN residencia o el nombre del medicamento');
 			else
 			{
 				f.parameter.value='nuevo';
@@ -54,7 +54,7 @@
 
 
 		
-		//funci髇 de carga del lookUp
+		//funci贸n de carga del lookUp
 		function doLookUpBdConsejo(){				
 			var loc = '/spd/LookUpBdConsejo.do?parameter=init&'+ 						//url de llamanda				
 				'CallBackID=cnOkSustXResi&'+			  			//Nombre del campo para el valor Id
@@ -75,7 +75,7 @@
 	<!-- mostramos mensajes y errores, si existen -->
 
 	<center>
-		<h2>Creaci髇 de sustituci髇</h2>
+		<h2>Creaci贸n de sustituci贸n</h2>
 		<html:form action="/GestSustituciones.do" >	
 
 
@@ -99,14 +99,14 @@
 			</td>
 	</tr>
 	<tr>
-		<td>C骴igo CN residencia</td>
+		<td>C贸digo CN residencia</td>
 		<td>
 			<html:text property="cn_resi"  styleClass="cn_resi" />
 			<html:text property="medicamento"  styleClass="medicamentoResi" />
 		</td>
 	</tr>
 	<tr>
-		<td>C骴igo CN OK</td>
+		<td>C贸digo CN OK</td>
 		<td><html:text property="cnOkSustXResi" readonly="true" styleClass="cnOkSustXResi"/>
 		<!-- a href="#" onclick="javascript:window.open('/DispatchActionExample/bdConsejoLookUp.do?parameter=init&fieldName1=cnOkSustXResi','','width=920,height=700,toolbar=no,scrollbars=yes' );">...</a> -->
 		

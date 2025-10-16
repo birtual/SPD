@@ -21,7 +21,7 @@ import java.util.Vector;
 public class ImportSFAssis extends ImportGenericLite
 {
 	int reg = 5;  //numeroCorteCabecera  / celda anterior a la de la primera dose
-	int COLUMNAS = 24; //número de columnas a tratar del fichero 
+	int COLUMNAS = 24; //nÃºmero de columnas a tratar del fichero 
 
 	
 	public ImportSFAssis(){
@@ -30,14 +30,14 @@ public class ImportSFAssis extends ImportGenericLite
 
 	protected void recogerDatosRow(FicheroResiBean medResi, Vector row) throws Exception {
 
-		//para identificar un registro válido una vez sabemos dónde se ubica algún:
+		//para identificar un registro vÃ¡lido una vez sabemos dÃ³nde se ubica algÃºn:
 		//fechaDesde (10 o 12) 
 		//CN:  que ha de llegar si o si --> "cn resi" (3), "CN propuesto" (5), "CN final" (5 o 7) 
-		//miramos si es una fila válida o es cabecera, 
+		//miramos si es una fila vÃ¡lida o es cabecera, 
 
 		/* ya no hace falta este control
 		String esOkFechaDesde = StringUtil.getStringArregloFecha((String) row.elementAt(10), "dd/MM/yyyy");
-		if(!DateUtilities.isDateValid(esOkFechaDesde, "dd/MM/yyyy")) //si no es fecha válida (fecha inicio) se entiende que la fecha inicio es la siguiente columna (+1)
+		if(!DateUtilities.isDateValid(esOkFechaDesde, "dd/MM/yyyy")) //si no es fecha vÃ¡lida (fecha inicio) se entiende que la fecha inicio es la siguiente columna (+1)
 		{	//primera fecha 
 			esOkFechaDesde = StringUtil.getStringArregloFecha((String) row.elementAt(12), "dd/MM/yyyy");
 			if(!DateUtilities.isDateValid(esOkFechaDesde, "dd/MM/yyyy")) 
@@ -48,7 +48,7 @@ public class ImportSFAssis extends ImportGenericLite
 				if(!unCn)	//segundo CN buscado
 					unCn = DataUtil.isNumero((String) row.elementAt(7));
 				if(!unCn)	//tercer CN buscado
-					throw new Exception ("Línea descartada.");
+					throw new Exception ("LÃ­nea descartada.");
 			}
 		}
 		*/
@@ -56,7 +56,7 @@ public class ImportSFAssis extends ImportGenericLite
     	int i = 0;   
        	medResi.setResiCIP(StringUtil.limpiarTextoyEspacios((String) row.elementAt(i)));i++;
        	if(medResi.getResiCIP()!=null && medResi.getResiCIP().equalsIgnoreCase("CIP"))	
-			throw new Exception ("Línea cabecera descartada.");
+			throw new Exception ("LÃ­nea cabecera descartada.");
        	
        	medResi.setResiIdResidente((String) row.elementAt(i));i++;
     	medResi.setNombrePacienteEnFichero((String) row.elementAt(i));i++;
@@ -96,14 +96,14 @@ public class ImportSFAssis extends ImportGenericLite
 		medResi.setResiToma3(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; //dinar 13h
 		medResi.setResiToma4(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; //merienda 16h
 		medResi.setResiToma5(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; //cena 20h
-		medResi.setResiToma6(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; //resopón 24h
+		medResi.setResiToma6(HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i)));i++; //resopÃ³n 24h
 		String resiPauta=medResi.getResiToma1()+"-"+medResi.getResiToma2()+"-"+medResi.getResiToma3()+"-"+medResi.getResiToma4()+"-"+medResi.getResiToma5()+"-"+medResi.getResiToma6();
 		medResi.setResiPauta(resiPauta);
 
 		HelperSPD.getDatosPaciente(medResi);	
 
 
-		int diasSemanaMarcados=HelperSPD.getDiasMarcados(medResi);  //importante!! para que detecte que hay días marcados y no los llene automáticamente.
+		int diasSemanaMarcados=HelperSPD.getDiasMarcados(medResi);  //importante!! para que detecte que hay dÃ­as marcados y no los llene automÃ¡ticamente.
     	medResi.setDiasSemanaMarcados(diasSemanaMarcados);
 
     	String detalleRow = HelperSPD.getDetalleRow(row, COLUMNAS);
@@ -141,7 +141,7 @@ public class ImportSFAssis extends ImportGenericLite
 
 		medResi.setNumeroDeTomas(numeroDoses); // IMPORTANTE PARA TABULAR EL LISTADO!! TO-DO
 		
-		//la búsqueda de sustitución se realiza en la carga. si llega el CN final buscaremos el nombre corto y mantendremos la acción en caso que venga en el Excel.
+		//la bÃºsqueda de sustituciÃ³n se realiza en la carga. si llega el CN final buscaremos el nombre corto y mantendremos la acciÃ³n en caso que venga en el Excel.
 		if(medResi.getSpdCnFinal()!=null && !medResi.getSpdCnFinal().equals(""))
 		{
     		GestSustitucionesLiteDAO.buscaSustitucionLitePorCnFinal(getSpdUsuario(), medResi);
@@ -152,7 +152,7 @@ public class ImportSFAssis extends ImportGenericLite
 		if(medResi.getResiSiPrecisa()!=null && medResi.getResiSiPrecisa().equalsIgnoreCase("X")) {
 			medResi.setSpdAccionBolsa(SPDConstants.SPD_ACCIONBOLSA_SI_PRECISA);
 			//medResi.setRevisar("SI");
-			medResi.setValidar(""); //mejor no revisarlo porque cada vez aparecerían en cada producción
+			medResi.setValidar(""); //mejor no revisarlo porque cada vez aparecerÃ­an en cada producciÃ³n
 		}
 	
 		medResi.setIdProcessIospd(SPDConstants.IDPROCESO_MONTSENY);
@@ -162,19 +162,19 @@ public class ImportSFAssis extends ImportGenericLite
 		boolean existeDuplicado=HelperSPD.borrarPosibleDuplicado(getSpdUsuario(), medResi);
 		if(existeDuplicado)
 			//this.errors.add(TextManager.getMensaje("ImportData.error.linea")+" " + row);
-			//this.errors.add("Es un tratamiento que está duplicado " );
-			//throw new Exception ("Es un tratamiento que está duplicado ");
-			throw new LineaDuplicadaException("Es un tratamiento que está duplicado ");
+			//this.errors.add("Es un tratamiento que estÃ¡ duplicado " );
+			//throw new Exception ("Es un tratamiento que estÃ¡ duplicado ");
+			throw new LineaDuplicadaException("Es un tratamiento que estÃ¡ duplicado ");
 		System.out.println(" -----  borrarPosibleDuplicado Fin-->  " );
 		
 	}
 
 	/**
 1	2	3			4			5		6			7			8		9				10				11				12	13	14	15	16	17	18	19		20			21		22			23		24
-CIP	NHC	Nombre	C.Nacional	Medicamento	Dosis	F. inicio	F. final	Código	Frecuencia/alternancia	Observaciones	LU	MA	MI	JU	VI	SA	DO	Ayunas	Desayuno	Comida	Merienda	Cena	Recena
+CIP	NHC	Nombre	C.Nacional	Medicamento	Dosis	F. inicio	F. final	CÃ³digo	Frecuencia/alternancia	Observaciones	LU	MA	MI	JU	VI	SA	DO	Ayunas	Desayuno	Comida	Merienda	Cena	Recena
 	 */
 	public List<Integer> getPosicionesAEliminar() {
-		//en resiPlus no tendremos en cuenta  2 (NHC) / 6 (Dosis) / (Código)
+		//en resiPlus no tendremos en cuenta  2 (NHC) / 6 (Dosis) / (CÃ³digo)
 		List<Integer> result =new ArrayList<Integer>();
 		result.add(2);
 		result.add(6);

@@ -17,8 +17,8 @@ import java.util.Vector;
 
 public class ImportOnada extends ImportGenericLite
 {
-	int reg = 11;  //numeroCorteCabecera  / celda de la fecha inicio, que es la obligatoria. a partir de aquÌ pueden venir vacÌas
-	//int COLUMNAS = 23; //n˙mero de columnas a tratar del fichero 
+	int reg = 11;  //numeroCorteCabecera  / celda de la fecha inicio, que es la obligatoria. a partir de aqu√≠ pueden venir vac√≠as
+	//int COLUMNAS = 23; //n√∫mero de columnas a tratar del fichero 
 	boolean primeraColumnaFecha =false;
 	
 	public ImportOnada(){
@@ -31,36 +31,36 @@ public class ImportOnada extends ImportGenericLite
 
     	int i = 0;   //Pivote que recorre las celdas. Si existe fecha en la primera columna del excel, moveremos +1 el pivote sobre las celdas
     	System.out.println(" row.size() " + row.size());
-    	int COLUMNAS = 23; //n˙mero de columnas a tratar del fichero 
+    	int COLUMNAS = 23; //n√∫mero de columnas a tratar del fichero 
 
     	
-    	//para saber si existe, cogeremos como v·lido el campo fecha inicio (que es obligatorio en el tratamiento)
-    	//miramos si la columna 1 llega con campo fecha (Data PrescripciÛ) para descartarlo
+    	//para saber si existe, cogeremos como v√°lido el campo fecha inicio (que es obligatorio en el tratamiento)
+    	//miramos si la columna 1 llega con campo fecha (Data Prescripci√≥) para descartarlo
     	String campo0 = (String) row.elementAt(0);
     	String esFecha = "";
     	if(DataUtil.isNumeroGreatherThanZero(campo0))
     	{
     		double numeroDouble = Double.parseDouble(campo0);
     		int parteEntera = (int) numeroDouble;
-    		if(parteEntera>50000) parteEntera=0;//n˙mero de una posible fecha 
+    		if(parteEntera>50000) parteEntera=0;//n√∫mero de una posible fecha 
     		campo0 = String.valueOf(parteEntera);
     		
     	}
     	
     	esFecha = StringUtil.getStringArregloFecha(campo0, "dd/MM/yyyy");
-		if(DateUtilities.isDateValid(esFecha, "dd/MM/yyyy")) //si no es fecha v·lida (fecha inicio) se entiende que la fecha inicio es la siguiente columna (+1)
+		if(DateUtilities.isDateValid(esFecha, "dd/MM/yyyy")) //si no es fecha v√°lida (fecha inicio) se entiende que la fecha inicio es la siguiente columna (+1)
 		{
 			i=1;
 			primeraColumnaFecha =true;
-			COLUMNAS=COLUMNAS+1; //aÒadimos un punto
+			COLUMNAS=COLUMNAS+1; //a√±adimos un punto
 		}
 		
-		//una vez sabemos dÛnde se ubica la fechaDesde (que est· en i+10)  miramos si es una fila v·lida o es cabecera, 
+		//una vez sabemos d√≥nde se ubica la fechaDesde (que est√° en i+10)  miramos si es una fila v√°lida o es cabecera, 
 		String esOkFechaDesde = StringUtil.getStringArregloFecha((String) row.elementAt(i+10), "dd/MM/yyyy");
-		if(!DateUtilities.isDateValid(esOkFechaDesde, "dd/MM/yyyy")) //si no es fecha v·lida (fecha inicio) se entiende que la fecha inicio es la siguiente columna (+1)
+		if(!DateUtilities.isDateValid(esOkFechaDesde, "dd/MM/yyyy")) //si no es fecha v√°lida (fecha inicio) se entiende que la fecha inicio es la siguiente columna (+1)
 		{
-			//throw new Exception ("No es un tratamiento v·lido.");
-			throw new LineaDescartadaException("No es un tratamiento v·lido. ");
+			//throw new Exception ("No es un tratamiento v√°lido.");
+			throw new LineaDescartadaException("No es un tratamiento v√°lido. ");
 		}
 		
 		
@@ -100,7 +100,7 @@ public class ImportOnada extends ImportGenericLite
 		String toma3=HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i));i++; //dinar 13h
 		String toma4=HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i));i++; //merienda 16h
 		String toma5=HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i));i++; //cena 20h
-		String toma6=HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i));i++; //resopÛn 24h
+		String toma6=HelperSPD.getPautaStandard(medResi, (String) row.elementAt(i));i++; //resop√≥n 24h
 		String resiPauta=toma1+"-"+toma2+"-"+toma3+"-"+toma4+"-"+toma5+"-"+toma6;
 
 		medResi.setResiToma1(toma1);
@@ -143,13 +143,13 @@ public class ImportOnada extends ImportGenericLite
 		}catch(Exception e)
 		{}
 
-		//la b˙squeda de sustituciÛn se realiza en la carga
+		//la b√∫squeda de sustituci√≥n se realiza en la carga
 		if(medResi.getResiCn()!=null && !medResi.getResiCn().equals("") )
 			GestSustitucionesLiteDAO.buscaSustitucionLite(getSpdUsuario(), medResi);
    
 		if(medResi.getResiSiPrecisa()!=null && medResi.getResiSiPrecisa().equalsIgnoreCase("X")) {
 			medResi.setSpdAccionBolsa(SPDConstants.SPD_ACCIONBOLSA_SI_PRECISA);
-			medResi.setValidar(""); //mejor no revisarlo porque cada vez aparecerÌan en cada producciÛn
+			medResi.setValidar(""); //mejor no revisarlo porque cada vez aparecer√≠an en cada producci√≥n
 		}
 		
 		medResi.setIdTratamientoCIP(HelperSPD.getID(medResi));
@@ -157,16 +157,16 @@ public class ImportOnada extends ImportGenericLite
 		//en caso de duplicado lo muestra en errores de carga
 		//boolean existeDuplicado=HelperSPD.borrarPosibleDuplicado(getSpdUsuario(), medResi);
 		//if(existeDuplicado)
-		//	throw new Exception ("Es un tratamiento que est· duplicado ");
+		//	throw new Exception ("Es un tratamiento que est√° duplicado ");
 	}
 
 	/**
 	1					2	3		4	5		6	7	8	9	10	11	12			13			14			15			16				17		18	19	20	21	22	23	24
-	Data PrescripciÛ	NSS	Nom	F‡rmac	C.N.	AD	D	C	M	C	N	Data inici	Data final	Si Precisa	Comentaris	Observacions	PerÌode	dl	dm	dc	dj	dv	ds	di
+	Data Prescripci√≥	NSS	Nom	F√†rmac	C.N.	AD	D	C	M	C	N	Data inici	Data final	Si Precisa	Comentaris	Observacions	Per√≠ode	dl	dm	dc	dj	dv	ds	di
 	 */
 	public List<Integer> getPosicionesAEliminar() {
 		
-		//en resiPlus no tendremos en cuenta  1 (Data PrescripciÛ)
+		//en resiPlus no tendremos en cuenta  1 (Data Prescripci√≥)
 		List<Integer> result =new ArrayList<Integer>();
 		if(primeraColumnaFecha)
 			result.add(1);

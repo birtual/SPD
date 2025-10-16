@@ -41,7 +41,7 @@ public class ControladorProcesosHelper {
 	}
 
     /** ok
-     * MÈtodo que se encarga de actualizar la ejecuciÛn en caso de detectar tiempo excedido
+     * M√©todo que se encarga de actualizar la ejecut√≥ en caso de detectar tiempo excedido
      * @param ejec
      * @throws SQLException 
      */
@@ -51,7 +51,7 @@ public class ControladorProcesosHelper {
        	ejec.setResultado(SPDConstants.PROCESO_EJEC_RESULT_ERROR);
         ejec.setFechaFinEjecucion(getAhora());
         ejec.setDuracionSegundos(calcularDuracion(ejec.getFechaInicioEjecucion()));
-        ejec.setMensaje("SuperÛ tiempo m·ximo");
+        ejec.setMensaje("Super√≥ tiempo m√°ximo");
         ejec.setCodigoResultado(SPDConstants.PROCESO_CODE_ERROR_TIEMPO_EXCEDIDO);
         ejec.setTipoError("Timeout");
         ejec.setNumIntentos(ejec.getNumIntentos()+1);
@@ -59,7 +59,7 @@ public class ControladorProcesosHelper {
     }
     
     /** ok
-     * Auxiliar que devuelve en segundos transcurridos desde la fecha de inicio de la ejecuciÛn del proceso
+     * Auxiliar que devuelve en segundos transcurridos desde la fecha de inicio de la ejecut√≥ del proceso
      * @param fechaInicio
      * @return
      */
@@ -76,7 +76,7 @@ public class ControladorProcesosHelper {
     }
 
     /** ok
-	 * MÈtodo encargado de contar los errores de un mismo proceso, a partir de la fecha del ˙ltimo proceso OK  
+	 * M√©todo encargado de contar los errores de un mismo proceso, a partir de la fecha del √∫ltimo proceso OK  
      * @param proceso
      * @return
      * @throws SQLException
@@ -86,7 +86,7 @@ public class ControladorProcesosHelper {
 	}
 
 	/** ok
-	 * MÈtodo que se encarga de actualizar el estado de un proceso seg˙n el nuevoEstado pasado por par·metro
+	 * M√©todo que se encarga de actualizar el estado de un proceso seg√∫n el nuevoEstado pasado por par√°metro
 	 * @param proceso
 	 * @param nuevoEstado
 	 * @throws SQLException
@@ -98,7 +98,7 @@ public class ControladorProcesosHelper {
 	
 
 	/**
-	 * MÈtodo que se encarga de actualizar el estado de una ejecuciÛn de un proceso seg˙n el nuevoEstado pasado por par·metro
+	 * M√©todo que se encarga de actualizar el estado de una ejecut√≥ de un proceso seg√∫n el nuevoEstado pasado por par√°metro
 	 * @param proceso
 	 * @param nuevoEstado
 	 * @return
@@ -113,7 +113,7 @@ public class ControladorProcesosHelper {
 	
 
 	/** ok
-	 * MÈtodo encargado de realizar un control de la ejecuciÛn del proceso que se est· ejecutando, para controlar si el tiempo  
+	 * M√©todo encargado de realizar un control de la ejecut√≥ del proceso que se est√° ejecutando, para controlar si el tiempo  
 	 * @param proceso
 	 * @throws SQLException
 	 */
@@ -128,15 +128,15 @@ public class ControladorProcesosHelper {
             System.out.println(HelperSPD.dameFechaHora() +  " - evaluarYEjecutarProcesos / SI marcarComoExcedido  ");
 
                 marcarComoExcedido(ejec);
-                //proceso.setUltimaEjecucion(null);  //vaciamos la ejecuciÛn del proceso para que se pueda volver a lanzar (si toca)
-                proceso.setEjecucionActiva(null);  //vaciamos la ejecuciÛn del proceso para que se pueda volver a lanzar (si toca)
+                //proceso.setUltimaEjecucion(null);  //vaciamos la ejecut√≥ del proceso para que se pueda volver a lanzar (si toca)
+                proceso.setEjecucionActiva(null);  //vaciamos la ejecut√≥ del proceso para que se pueda volver a lanzar (si toca)
          }
         System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / NO TiempoExcedido  ");
         
 	}
 	
 	/** ok
-	 * MÈtodo encargado de mirar si se ha llegado a los m·ximos intentos de un mismo proceso, a partir del n˙mero de intentos del proceso anterior  
+	 * M√©todo encargado de mirar si se ha llegado a los m√°ximos intentos de un mismo proceso, a partir del n√∫mero de intentos del proceso anterior  
 	 * @param proceso
 	 * @throws SQLException
 	 */
@@ -170,7 +170,7 @@ public class ControladorProcesosHelper {
 	}
 
 	/** ok
-	 * MÈtodo encargado de mirar si se ha llegado a los m·ximos intentos de un mismo proceso, a partir de la fecha del ˙ltimo proceso OK  
+	 * M√©todo encargado de mirar si se ha llegado a los m√°ximos intentos de un mismo proceso, a partir de la fecha del √∫ltimo proceso OK  
 	 * @param proceso
 	 * @throws SQLException
 	 */
@@ -193,10 +193,10 @@ public class ControladorProcesosHelper {
        	}
 
 	/**
-	 * MÈtodo que se encarga de limpiar procesos anteriores al ˙ltimo y que no han quedado bien cerrados
-	 * PrecondiciÛn - En este punto, si existe un proceso que se est· ejecutando que est· dentro de los lÌmites de intentos y segundos, no aparecer· en el listado
-	 * 				  porque la consulta lo excluir·. En caso que no haya ning˙n proceso, se descartaran los anteriores, porque si llega nulo es porque ya no est· activo
-	 * 				  seg˙n los controles del mÈtodo de donde proviene.  
+	 * M√©todo que se encarga de limpiar procesos anteriores al √∫ltimo y que no han quedado bien cerrados
+	 * Precondici√≥n - En este punto, si existe un proceso que se est√° ejecutando que est√° dentro de los l√≠mites de intentos y segundos, no aparecer√° en el listado
+	 * 				  porque la consulta lo excluir√°. En caso que no haya ning√∫n proceso, se descartaran los anteriores, porque si llega nulo es porque ya no est√° activo
+	 * 				  seg√∫n los controles del m√©todo de donde proviene.  
 	 * @param proceso
 	 * @throws SQLException 
 	 */
@@ -209,7 +209,7 @@ public class ControladorProcesosHelper {
 
 	
 	/** ok
-	 * Este mÈtodo devuelve true en caso que la duraciÛn en segundos desde la fecha de inicio de la ejecuciÛn supere el valor m·ximo definido para este proceso
+	 * Este m√©todo devuelve true en caso que la duraci√≥n en segundos desde la fecha de inicio de la ejecut√≥ supere el valor m√°ximo definido para este proceso
 	 * @param ejec
 	 * @param maxSegundos
 	 * @return
@@ -231,13 +231,13 @@ public class ControladorProcesosHelper {
             long duracion = Duration.between(inicio, LocalDateTime.now()).getSeconds();
             return duracion > maxSegundos;
         } catch (DateTimeParseException e) {
-            // AquÌ puedes loguear o manejar el error seg˙n tu necesidad
+            // Aqu√≠ puedes loguear o manejar el error seg√∫n tu necesidad
             return false; // o true si prefieres ser conservador
         }
     }
 
 	/**
-	 * Encargado de descartar los ˙ltimos procesos con estado finalizado o error 
+	 * Encargado de descartar los √∫ltimos procesos con estado finalizado o error 
 	 * @param proceso
 	 */
     /*
@@ -256,8 +256,8 @@ public class ControladorProcesosHelper {
 	*/
 	
     /** ok
-     * Se encarga de controlar si ha de lanzarse o no, seg˙n la programaciÛn.
-     * Por defecto es sÌ, a no ser que la hora y dÌa no 
+     * Se encarga de controlar si ha de lanzarse o no, seg√∫n la programaci√≥n.
+     * Por defecto es s√≠, a no ser que la hora y d√≠a no 
      * @param proceso
      * @return
      */
@@ -290,7 +290,7 @@ public class ControladorProcesosHelper {
         //1 - CONTROL POR HORA
         //para saber si se ha de ejecutar, buscaremos la fecha programada justo anterior a la fecha actual,
     	//para comparar ambas. En caso que los minutos sean menor que el intervalo de minutos 
-        //de consulta (y mayor que 0) se lanzar· el proceso.
+        //de consulta (y mayor que 0) se lanzar√° el proceso.
         /*if(proceso.getUltimaEjecucion()!=null && proceso.getUltimaEjecucion().getEstado().equalsIgnoreCase(SPDConstants.PROCESO_EJEC_ESTADO_FINALIZADO) )
         {
         	if(proceso.getUltimaEjecucion().getFechaFinEjecucion()==null 
@@ -312,8 +312,8 @@ public class ControladorProcesosHelper {
         // System.out.println("** porHora --> " + porHora);
 
         //2 - CONTROL POR DIA SEMANA
-    	// Devuelve el dÌa de la semana como "1" (lunes) a "7" (domingo)
-        // 2. Verificar dÌa de la semana si es semanal
+    	// Devuelve el d√≠a de la semana como "1" (lunes) a "7" (domingo)
+        // 2. Verificar d√≠a de la semana si es semanal
        if (proceso.getTipoPeriodo().equalsIgnoreCase(SPDConstants.PROCESO_FREC_PERIODO_SEMANAS)) 
        {
 	       	String diaHoy = String.valueOf(LocalDate.now().getDayOfWeek().getValue());
@@ -323,7 +323,7 @@ public class ControladorProcesosHelper {
        }
       
         //3 - CONTROL POR DIA MES
-        //Verificar dÌa del mes si es mensual
+        //Verificar d√≠a del mes si es mensual
         if (proceso.getTipoPeriodo().equalsIgnoreCase(SPDConstants.PROCESO_FREC_PERIODO_MESES)) {
             int diaActual = LocalDate.now().getDayOfMonth(); // 1 a 31
 
@@ -350,8 +350,8 @@ public class ControladorProcesosHelper {
     }
 
     /** ok
-     * Se encarga de controlar si ha de lanzarse o no, seg˙n la programaciÛn.
-     * Por defecto es sÌ, a no ser que la hora y dÌa no 
+     * Se encarga de controlar si ha de lanzarse o no, seg√∫n la programaci√≥n.
+     * Por defecto es s√≠, a no ser que la hora y d√≠a no 
      * @param proceso
      * @return
      */
@@ -364,7 +364,7 @@ public class ControladorProcesosHelper {
         //1 - CONTROL POR HORA
         //para saber si se ha de ejecutar, buscaremos la fecha programada justo anterior a la fecha actual,
     	//para comparar ambas. En caso que los minutos sean menor que el intervalo de minutos 
-        //de consulta (y mayor que 0) se lanzar· el proceso.
+        //de consulta (y mayor que 0) se lanzar√° el proceso.
         System.out.println("** LANZADERA --> " + proceso.getLanzadera());
         /*if(proceso.getUltimaEjecucion()!=null && proceso.getUltimaEjecucion().getEstado().equalsIgnoreCase(SPDConstants.PROCESO_EJEC_ESTADO_FINALIZADO) )
         {
@@ -388,8 +388,8 @@ public class ControladorProcesosHelper {
       //  System.out.println("** porHora --> " + porHora);
 
         //2 - CONTROL POR DIA SEMANA
-    	// Devuelve el dÌa de la semana como "1" (lunes) a "7" (domingo)
-        // 2. Verificar dÌa de la semana si es semanal
+    	// Devuelve el d√≠a de la semana como "1" (lunes) a "7" (domingo)
+        // 2. Verificar d√≠a de la semana si es semanal
        if (proceso.getTipoPeriodo().equalsIgnoreCase(SPDConstants.PROCESO_FREC_PERIODO_SEMANAS)) 
        {
 	       	String diaHoy = String.valueOf(LocalDate.now().getDayOfWeek().getValue());
@@ -399,7 +399,7 @@ public class ControladorProcesosHelper {
        }
       
         //3 - CONTROL POR DIA MES
-        //Verificar dÌa del mes si es mensual
+        //Verificar d√≠a del mes si es mensual
         if (proceso.getTipoPeriodo().equalsIgnoreCase(SPDConstants.PROCESO_FREC_PERIODO_MESES)) {
             int diaActual = LocalDate.now().getDayOfMonth(); // 1 a 31
 
@@ -427,7 +427,7 @@ public class ControladorProcesosHelper {
 
 
 	/**
-     * Localiza la primera fecha programada para la ejecuciÛn seg˙n los saltos de frecuencia que es posterior a la fecha actual
+     * Localiza la primera fecha programada para la ejecut√≥ seg√∫n los saltos de frecuencia que es posterior a la fecha actual
      * @param proceso
      * @return
      */
@@ -445,7 +445,7 @@ public class ControladorProcesosHelper {
         int cadaCuantosMinutos = cadaCuantosMinutosSeEjecuta(proceso);
         //  System.out.println("**** cadaCuantosMinutos --> " + cadaCuantosMinutos);
 
-        // Si ya pasÛ, empezamos desde ahÌ e incrementamos
+        // Si ya pas√≥, empezamos desde ah√≠ e incrementamos
         LocalDateTime candidato = inicioHoy;
         //   System.out.println("**** candidato --> " + candidato);
         while(candidato.isBefore(ahora) && cadaCuantosMinutos>0)
@@ -454,7 +454,7 @@ public class ControladorProcesosHelper {
           	//       System.out.println("**** candidato.plusMinutes --> " + candidato);
 
         }
-        if(posterior) // si miramos la primera posterior, aÒadimos un salto m·s
+        if(posterior) // si miramos la primera posterior, a√±adimos un salto m√°s
         {
            	candidato=candidato.plusMinutes(cadaCuantosMinutos);
         }
@@ -476,7 +476,7 @@ public class ControladorProcesosHelper {
 		case SPDConstants.PROCESO_FREC_PERIODO_HORAS:
 			minutos = frecuenciaPeriodo * 60;
 			break;
-		/*En los semanales o mensuales se dejar· que la hora y el dÌa marcado devuelvan si se ha de ejecutar o no
+		/*En los semanales o mensuales se dejar√° que la hora y el d√≠a marcado devuelvan si se ha de ejecutar o no
 		 * case SPDConstants.PROCESO_FREC_PERIODO_DIAS:
 			minutos = frecuenciaPeriodo * 60*24;
 			break;
@@ -492,8 +492,8 @@ public class ControladorProcesosHelper {
 	}
 
 	/** ok
-     * Se encarga de controlar si ha de lanzarse o no, seg˙n la programaciÛn.
-     * Por defecto es sÌ, a no ser que la hora y dÌa no 
+     * Se encarga de controlar si ha de lanzarse o no, seg√∫n la programaci√≥n.
+     * Por defecto es s√≠, a no ser que la hora y d√≠a no 
      * @param proceso
      * @return
      
@@ -501,23 +501,23 @@ public class ControladorProcesosHelper {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime ahora = LocalDateTime.now();
         
-        // 1. Verificar hora de ejecuciÛn
+        // 1. Verificar hora de ejecut√≥
         LocalTime horaProgramada = LocalTime.parse(proceso.getHoraEjecucion()); // asume "HH:mm"
-        if (horaProgramada.isAfter(ahora.toLocalTime())) return false; //a˙n no llega a la hora programada
+        if (horaProgramada.isAfter(ahora.toLocalTime())) return false; //a√∫n no llega a la hora programada
         else
         {
         	LocalDateTime horaAux = ahora.minusSeconds(new Long(SPDConstants.PROCESO_FRECUENCIA_LISTENER).longValue());
         	LocalTime horaAuxAnterior = LocalTime.parse(proceso.getHoraEjecucion()); // asume "HH:mm"
             if (horaAuxAnterior.isBefore(ahora.toLocalTime())) 
         	{
-            	//estamos despuÈs de la hora programada, pero si le restamos la frecuencia listener a˙n no llega, por lo que hay que procesar
+            	//estamos despu√©s de la hora programada, pero si le restamos la frecuencia listener a√∫n no llega, por lo que hay que procesar
         		return true;
         	}
         }
  
-        // 2. Verificar dÌa de la semana si es semanal
+        // 2. Verificar d√≠a de la semana si es semanal
         if (proceso.getTipoPeriodo().equalsIgnoreCase(SPDConstants.PROCESO_FREC_PERIODO_SEMANAS)) {
-        	// Devuelve el dÌa de la semana como "1" (lunes) a "7" (domingo)
+        	// Devuelve el d√≠a de la semana como "1" (lunes) a "7" (domingo)
         	String diaHoy = String.valueOf(LocalDate.now().getDayOfWeek().getValue());
             
             if (proceso.getDiasSemana() != null && proceso.getDiasSemana().toLowerCase().contains(diaHoy)) {
@@ -525,7 +525,7 @@ public class ControladorProcesosHelper {
             }
         }
 
-        // 3. Verificar dÌa del mes si es mensual
+        // 3. Verificar d√≠a del mes si es mensual
         if (proceso.getTipoPeriodo().equalsIgnoreCase(SPDConstants.PROCESO_FREC_PERIODO_MESES)) {
             int diaActual = LocalDate.now().getDayOfMonth(); // 1 a 31
 
@@ -541,15 +541,15 @@ public class ControladorProcesosHelper {
     }
   
 	/** ok
-	 * MÈtodo que se encarga de mirar si se ha de ejecutar el proceso por la programaciÛn realizada en tiempo, frecuencia
-	 * Es necesario que el proceso no tenga una ejecuciÛn en curso (solo se tendr· en cuenta si es null) 
+	 * M√©todo que se encarga de mirar si se ha de ejecutar el proceso por la programaci√≥n realizada en tiempo, frecuencia
+	 * Es necesario que el proceso no tenga una ejecut√≥ en curso (solo se tendr√° en cuenta si es null) 
 	 * @param proceso
 	 * @return true en caso que deba ejecutarse, false en caso contrario o que tenga una ejecucion asignada (no nula)
 	 * @throws SQLException
 	 */
     public boolean debeEjecutarse(String idUsuario, Proceso proceso) throws SQLException {
     	
-    	//si tiene alguna ejecuciÛn no nula, no debe ejecutarse
+    	//si tiene alguna ejecut√≥ no nula, no debe ejecutarse
     	//if(proceso.getUltimaEjecucion()!=null) return false;
     	if(proceso.getEjecucionActiva()!=null) return false;
     	//   System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / debeEjecutarse / SI Activa  ");
@@ -558,7 +558,7 @@ public class ControladorProcesosHelper {
         if(hayBloqueoHorario(proceso)) return false;
         //  System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / debeEjecutarse / NO  hayBloqueoHorario  ");
 
-     	//miramos si por configuraciÛn hay que lanzarse
+     	//miramos si por configuraci√≥n hay que lanzarse
     	//if(!estaEnHoraDiaDeLanzarse(proceso)) return false;
     	
         if (!estaEntreFechasActivacion(proceso)) return false;
@@ -587,7 +587,7 @@ public class ControladorProcesosHelper {
     
     
     /**
-     * MÈtodo que devuelve true en caso que las anterior ejecuciÛn se haya ejecutado ok o que no haya transcurrido m·s del tiempo configurado entre una y otra
+     * M√©todo que devuelve true en caso que las anterior ejecut√≥ se haya ejecutado ok o que no haya transcurrido m√°s del tiempo configurado entre una y otra
      * @param proceso
      * @return
      */
@@ -611,15 +611,15 @@ public class ControladorProcesosHelper {
                 proceso.getUltimaEjecucion().getFechaInicioEjecucion(), SPDConstants.FORMAT_DATETIME_24h);
         }
         
-        // Calcular fecha base de ejecuciÛn a partir de fechaDesde + horaEjecucion
+        // Calcular fecha base de ejecut√≥ a partir de fechaDesde + horaEjecucion
         LocalDate fechaInicio = HelperSPD.parseFecha(proceso.getFechaDesde()); // formato dd/MM/yyyy
         LocalTime horaEjecucion = HelperSPD.parseHora(proceso.getHoraEjecucion()); // formato HH:mm
         if (fechaInicio == null || horaEjecucion == null) return false;
 
  
-        // Calcular prÛxima ejecuciÛn teÛrica desde baseEjecucion hasta ahora
-        //anteriorEjecucion = la ejecuciÛn previa a la siguiente teÛrica
-        //proximaEjecucion = la ejecuciÛn siguiente teÛrica
+        // Calcular pr√°xima ejecut√≥ te√≥rica desde baseEjecucion hasta ahora
+        //anteriorEjecucion = la ejecut√≥ previa a la siguiente te√≥rica
+        //proximaEjecucion = la ejecut√≥ siguiente te√≥rica
         LocalDateTime anteriorEjecucion = dameFechaTeorica( proceso, true); 
         LocalDateTime proximaEjecucion =  dameFechaTeorica( proceso, false); 
       
@@ -647,12 +647,12 @@ public class ControladorProcesosHelper {
        	if(proceso==null) return null;
         LocalDateTime ahora = LocalDateTime.now();
         
-         // Calcular fecha base de ejecuciÛn a partir de fechaDesde + horaEjecucion
+         // Calcular fecha base de ejecut√≥ a partir de fechaDesde + horaEjecucion
         LocalDate fechaInicio = HelperSPD.parseFecha(proceso.getFechaDesde()); // formato dd/MM/yyyy
         LocalTime horaEjecucion = HelperSPD.parseHora(proceso.getHoraEjecucion()); // formato HH:mm
         LocalDateTime baseEjecucion = LocalDateTime.of(fechaInicio, horaEjecucion);
 
-        // Calcular prÛxima ejecuciÛn teÛrica desde baseEjecucion hasta ahora
+        // Calcular pr√°xima ejecut√≥ te√≥rica desde baseEjecucion hasta ahora
         LocalDateTime anteriorEjecucion = baseEjecucion;
         LocalDateTime proximaEjecucion = baseEjecucion;
         while (proximaEjecucion.isBefore(ahora)) {
@@ -670,7 +670,7 @@ public class ControladorProcesosHelper {
             case "SEMANAS":
              	DayOfWeek diaObjetivo = DayOfWeek.of(new Integer(proceso.getDiasSemana()).intValue());
                 proximaEjecucion = proximaEjecucion.plusWeeks(proceso.getFrecuenciaPeriodo());
-             // Ajusta al dÌa de semana correcto
+             // Ajusta al d√≠a de semana correcto
                 proximaEjecucion = proximaEjecucion.with(TemporalAdjusters.nextOrSame(diaObjetivo));
                 break;
             case "MESES":
@@ -694,7 +694,7 @@ public class ControladorProcesosHelper {
     
 
 	/** ok
-     * EjecuciÛn de un proceso
+     * ejecut√≥ de un proceso
      * @param proceso
      * @throws SQLException 
      */
@@ -716,7 +716,7 @@ public class ControladorProcesosHelper {
 
 
     private void guardarHistorico(Proceso proceso) {
-         // Insertar en tabla de histÛrico
+         // Insertar en tabla de hist√≥rico
      }
     
 	private boolean esMomentoDeEjecutar(Proceso proceso) {
@@ -724,7 +724,7 @@ public class ControladorProcesosHelper {
   
         boolean tipoEsMinutos = SPDConstants.PROCESO_FREC_PERIODO_MINUTOS.equalsIgnoreCase(proceso.getTipoPeriodo());
 
-        // Si ya se ejecutÛ al menos una vez
+        // Si ya se ejecut√≥ al menos una vez
         if (!estaEntreFechasActivacion(proceso)) 
         {
         	//  System.out.println(HelperSPD.dameFechaHora() + " - evaluarYEjecutarProcesos / debeEjecutarse / NO estaEntreFechasActivacion" );
@@ -849,8 +849,8 @@ public class ControladorProcesosHelper {
 
         result=result && esEjecutableEnHora(proceso) && !yaProcesado;
         
-        // solo se ejecuta si es ejecutable pero el anterior teÛrico es 
-        // Para otros tipos de periodo, no se validan dÌas concretos
+        // solo se ejecuta si es ejecutable pero el anterior te√≥rico es 
+        // Para otros tipos de periodo, no se validan d√≠as concretos
         return result ;	//
     }
     private boolean estaEntreFechasActivacion(Proceso proceso) {
@@ -867,7 +867,7 @@ public class ControladorProcesosHelper {
                 if (hoy.isAfter(hasta)) return false;
             }
         } catch (DateTimeParseException e) {
-            System.err.println("Formato de fecha inv·lido en proceso: " + proceso.getLanzadera());
+            System.err.println("Formato de fecha inv√°lido en proceso: " + proceso.getLanzadera());
             return false;
         }
 
@@ -875,8 +875,8 @@ public class ControladorProcesosHelper {
     }
 
 	/**
-     * MÈtodo que mira si hay alg˙n bloqueo por hora, dia o fecha, para poder ejecutar los procesos. Para que se puedan ejecutar siempre han de devolver "false"
-     * En caso que exista alg˙n bloqueo devolver· un "true"
+     * M√©todo que mira si hay alg√∫n bloqueo por hora, dia o fecha, para poder ejecutar los procesos. Para que se puedan ejecutar siempre han de devolver "false"
+     * En caso que exista alg√∫n bloqueo devolver√° un "true"
      * @param proceso
      * @return
      * @throws SQLException
@@ -897,7 +897,7 @@ public class ControladorProcesosHelper {
     	ProcesoEjecucion ejecAnterior = proceso.getUltimaEjecucion();
     	
     	//ejec.setEstado(SPDConstants.PROCESO_EJEC_ESTADO_EJECUTANDO);
-    	//inicializamos en pendiente y al lanzar el procedure se actualizar· a ejecutando
+    	//inicializamos en pendiente y al lanzar el procedure se actualizar√° a ejecutando
     	ejec.setEstado(SPDConstants.PROCESO_EJEC_ESTADO_PENDIENTE);
   		
     	Date dFechaCreacionEjecucion = new Date();

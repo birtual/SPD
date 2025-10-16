@@ -73,7 +73,7 @@ public class ImportDataAction extends DispatchAction
         List lstDivisionResidencias= DivisionResidenciaDAO.getListaDivisionResidencias(spdUsuario);
         formulario.setLstDivisionResidencias(lstDivisionResidencias);
 
-        //resi escogida para la importaciÛn
+        //resi escogida para la importaci√≥n
         DivisionResidencia resiElegida = DivisionResidenciaDAO.getDivisionResidenciaById(spdUsuario, formulario.getIdDivisionResidencia());
         String idDivisionResidencia= resiElegida.getIdDivisionResidencia();
         //proceso asociado
@@ -127,7 +127,7 @@ public class ImportDataAction extends DispatchAction
         //buscamos diferentes tipos
         String idreader=null;
        
-        //lector importaciÛn
+        //lector importaci√≥n
         IOSpdConnector readerSelected= IOSpdConnectorDAO.findByFields(idreader, readerType);
         formulario.setDescReader(readerSelected.getDescription());
         
@@ -140,7 +140,7 @@ public class ImportDataAction extends DispatchAction
     	        
     	        // Crear un libro de trabajo de Excel (XSSFWorkbook)
     	        Workbook workbook = new XSSFWorkbook();
-    	        Sheet sheet = workbook.createSheet("Errores de ImportaciÛn");
+    	        Sheet sheet = workbook.createSheet("Errores de Importaci√≥n");
 
     	        // Crea el encabezado de la tabla en Excel
     	        Row headerRow = sheet.createRow(0);
@@ -213,10 +213,10 @@ public class ImportDataAction extends DispatchAction
                         
                         try
                         {
-                            // Obtenim el nom de la classe que implementar‡ el procËs d'importaciÛ
+                            // Obtenim el nom de la classe que implementar√† el proc√®s d'importaci√≥
                             IOSpdProcess p=(IOSpdProcess)IOSpdProcessDAO.findByFields(exportType, idProcessIospd);
                             String classNameProcess=p.getClassname();
-                            //Obtenim el nom de la classe que implementar‡ el connector de lectura.
+                            //Obtenim el nom de la classe que implementar√† el connector de lectura.
                             IOSpdConnector r=(IOSpdConnector)IOSpdConnectorDAO.findById(readerType);
                             String classNameReader=r.getClassname();
                             
@@ -234,8 +234,8 @@ public class ImportDataAction extends DispatchAction
                              	log = new ProcessLogging(p.getIdprocess(), file.getFileName());                          
                             }
                             
-                            // Inicialitzem el thread indicant-li quin ser‡ el procÈs d'importaciÛ
-                            // i quin ser‡ el format de lectura.
+                            // Inicialitzem el thread indicant-li quin ser√† el proc√©s d'importaci√≥
+                            // i quin ser√† el format de lectura.
                             if (proc.initialize(spdUsuario,  formulario, idProceso, null, idDivisionResidencia, path, null,classNameProcess,classNameReader, log, cargaExtra)){
                                  proc.start();
                                 formulario.setOperation("THREADING");
@@ -456,7 +456,7 @@ public class ImportDataAction extends DispatchAction
 	        
 	        // Crear un libro de trabajo de Excel (XSSFWorkbook)
 	        Workbook workbook = new XSSFWorkbook();
-	        Sheet sheet = workbook.createSheet("Errores de ImportaciÛn");
+	        Sheet sheet = workbook.createSheet("Errores de Importaci√≥n");
 
 	        // Crea el encabezado de la tabla en Excel
 	        Row headerRow = sheet.createRow(0);

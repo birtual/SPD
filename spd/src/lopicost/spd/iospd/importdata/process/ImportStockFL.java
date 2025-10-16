@@ -2,6 +2,7 @@
 package lopicost.spd.iospd.importdata.process;
 
 import lopicost.spd.model.BdConsejo;
+import lopicost.spd.model.DivisionResidencia;
 import lopicost.spd.model.farmacia.StockFL;
 import lopicost.spd.persistence.BdConsejoDAO;
 import lopicost.spd.persistence.StockFL_DAO;
@@ -12,7 +13,7 @@ import  lopicost.spd.utils.TextManager;
 import java.util.Vector;
 
 /**
- * Método encargado de importar el stock de Farmalogic, con stock mínimo de farmacias) 
+ * MÃ©todo encargado de importar el stock de Farmalogic, con stock mÃ­nimo de farmacias) 
  * @author CARLOS
  *
  */
@@ -24,7 +25,7 @@ public class ImportStockFL extends ImportProcessImpl
 		super();
 	}
 
-	/**los ficheros han de venir con cabecera. Se tendrá en cuenta a partir de la fila 2**/	
+	/**los ficheros han de venir con cabecera. Se tendrÃ¡ en cuenta a partir de la fila 2**/	
     protected boolean beforeProcesarEntrada(Vector row) throws Exception 
     {
     	return true;
@@ -42,15 +43,16 @@ public class ImportStockFL extends ImportProcessImpl
     /*
       * @see lopicost.spd.iospd.importdata.process.ImportProcessImpl#procesarEntrada(java.lang.String, java.lang.String, java.util.Vector, int)
      */
-    public void procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception 
+    public boolean procesarEntrada(String idRobot, DivisionResidencia div, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception 
     {
+    	boolean result = false;
         if (row!=null && row.size()>=2)
         {
-     		boolean result = creaRegistro(row);
-        
+     		result = creaRegistro(row);
         }
         else 
             throw new Exception (TextManager.getMensaje("ImportData.error.ImportStockFL"));
+        return result;
     }
     
     private boolean creaRegistro(Vector row) throws Exception {

@@ -75,9 +75,9 @@ public class GestSustitucionesDAO {
              
             int oidGestSustitucionesAnterior =0; // la tabla gestSustituciones es 1 a * con gestSustitucionesXResi, para controlar cuando cambia lo guardamos en variable el oid anterior
             int oidGestSustitucionesEnCurso =0; // oidsust que se trata en ek bucle
-            int contadorSustXResi=0; //inicializamos a 0 el n˙mero de filas de sustitucionesXResi que aparecen, para saber la posiciÛn en el arrayList
+            int contadorSustXResi=0; //inicializamos a 0 el n√∫mero de filas de sustitucionesXResi que aparecen, para saber la posici√≥n en el arrayList
            
-            BdConsejo bdConsejo= null;		//CN puente equivalente al CN_Resi. Es un CN v·lido para identificar un cÛdigo de la resi, no es necesario que sea de la biblia.
+            BdConsejo bdConsejo= null;		//CN puente equivalente al CN_Resi. Es un CN v√°lido para identificar un c√≥digo de la resi, no es necesario que sea de la biblia.
             BdConsejo bdConsejoResi= null;		//Objeto que mira si el CNResi equivale a un bdConsejo directamente. PAra poder hacer comprobaciones de posteriores de equivalencias entre cnResi - cnOk.
             BdConsejo bdConsejoBiblia= null;	// CN de la biblia equivalente al CN puente anterior
           	
@@ -91,43 +91,43 @@ public class GestSustitucionesDAO {
             while (resultSet.next()) {
              	//controlamos si es una sust nueva
             	oidGestSustitucionesEnCurso=resultSet.getInt("oidGestSustituciones");
-               	if(oidGestSustitucionesAnterior != oidGestSustitucionesEnCurso)  //si son iguales quiere decir que hay m·s de un registro en sustXResi, actualizamos posiciÛn del list
+               	if(oidGestSustitucionesAnterior != oidGestSustitucionesEnCurso)  //si son iguales quiere decir que hay m√°s de un registro en sustXResi, actualizamos posici√≥n del list
             	{
 
                		if(c!=null)
                		{
-                   		//como vemos que hay cambio de sustituciÛn, cerramos la anterior.
+                   		//como vemos que hay cambio de sustituci√≥n, cerramos la anterior.
            				c.setListaSustitucionesXResi(listaSustitucionesXResi);
-               			//AÒadimos el n˙mero de SustXResi asociadas a esta sustituciÛn.
+               			//A√±adimos el n√∫mero de SustXResi asociadas a esta sustituci√≥n.
                			if(listaSustitucionesXResi!=null && listaSustitucionesXResi.size()>=1 && listaSustitucionesXResi.get(0).getOidGestSustitucionesXResi()>0)
                				c.setSustXResiAsociados(listaSustitucionesXResi.size());
-               				//aÒadimos la sust anterior a la lista y creamos una  nueva
+               				//a√±adimos la sust anterior a la lista y creamos una  nueva
                    	    listaGestSustituciones.add(c);
                		}
                		
-               		//creamos nuevo objeto de sustituciÛn e inicializamos objetos asociados	
+               		//creamos nuevo objeto de sustituci√≥n e inicializamos objetos asociados	
             		c = new GestSustituciones();
                 	bdConsejo= new BdConsejo();
                 	bdConsejoResi= new BdConsejo();
                 	bdConsejoBiblia= new BdConsejo();
                 	
-                	//lista de sustituciones especÌficas por Resi            	
+                	//lista de sustituciones espec√≠ficas por Resi            	
             		listaSustitucionesXResi= new ArrayList<GestSustitucionesXResi>();
                   	contadorSustXResi=0;
             		
             	}	
             	else
             	{
-            		//si es el mismo oidsust aÒadimos al array el sustXResi anterior y creamos uno nuevo
+            		//si es el mismo oidsust a√±adimos al array el sustXResi anterior y creamos uno nuevo
             	//	listaSustitucionesXResi.add(contadorSustXResi, cr);
                		contadorSustXResi++;
                		
             	}
                	
-               	//inicializaciÛn de objeto sustXResi. Siempre ser· unno nuevo en el bucle
+               	//inicializaci√≥n de objeto sustXResi. Siempre ser√° unno nuevo en el bucle
                 GestSustitucionesXResi  cr =new GestSustitucionesXResi();
             	
-        		//creaciÛn del objeto sustituciÛn base
+        		//creaci√≥n del objeto sustituci√≥n base
             	c.setOidGestSustituciones(resultSet.getInt("oidGestSustituciones"));
             	c.setFecha(resultSet.getDate("fechaSust"));
             	c.setCnResi(resultSet.getString("cnResi"));
@@ -142,15 +142,15 @@ public class GestSustitucionesDAO {
             	c.setNomGtVmppOk(resultSet.getString("nomGtVmppOk"));
             	c.setSustituible(resultSet.getString("sustituible"));
             	
-              	//0 - creamos el objeto bdconsejoResi en caso que el cnResi sea un cn v·lido del consejo
+              	//0 - creamos el objeto bdconsejoResi en caso que el cnResi sea un cn v√°lido del consejo
             	bdConsejoResi.setCnConsejo(resultSet.getString("cnConsejoResi"));
                	
             	  
                	if(bdConsejoResi.getCnConsejo()==null || bdConsejoResi.getCnConsejo().equals(""))
                	{
                		c.setExisteBdConsejoResi("NO");
-               		mensajesInfoBase+="- El cÛdigo de la resi NO existe en bbdd Central. </br>";
-               		mensajesInfoXResi+="- El cÛdigo de la resi NO existe en bbdd Central. </br>";
+               		mensajesInfoBase+="- El c√≥digo de la resi NO existe en bbdd Central. </br>";
+               		mensajesInfoXResi+="- El c√≥digo de la resi NO existe en bbdd Central. </br>";
                	}
                	else
                	{
@@ -162,18 +162,18 @@ public class GestSustitucionesDAO {
                		bdConsejoResi.setNomGtVmpp(resultSet.getString("nomGtVmppConsejoResi"));
              		c.setExisteBdConsejoResi("SI");
                	}
-             	String codGtVmppResi= bdConsejoResi.getCodGtVmpp(); //para controlar si hay cÛdigo cruzado
+             	String codGtVmppResi= bdConsejoResi.getCodGtVmpp(); //para controlar si hay c√≥digo cruzado
              	c.setBdConsejo(bdConsejoResi);
               	//FIN 0 -
             	
             	
-             	//1 - creamos el objeto bdconsejo para la sustituciÛn base con los datos base del medicamento
+             	//1 - creamos el objeto bdconsejo para la sustituci√≥n base con los datos base del medicamento
                	bdConsejo.setCnConsejo(resultSet.getString("CODIGO"));
                	
                	if(bdConsejo.getCnConsejo()==null || bdConsejo.getCnConsejo().equals(""))
                	{
                		c.setExisteBdConsejo("NO");
-               		mensajesInfoBase+="- El cÛdigo de la sustituciÛn NO existe en bbdd Central.  <br>";
+               		mensajesInfoBase+="- El c√≥digo de la sustituci√≥n NO existe en bbdd Central.  <br>";
                	}
                	else
                	{
@@ -194,7 +194,7 @@ public class GestSustitucionesDAO {
                	if(bdConsejoBiblia.getCnConsejo()==null || bdConsejoBiblia.getCnConsejo().equals(""))
                	{
                		c.setExisteBdConsejoBiblia("NO");
-               		mensajesInfoBase+="- Falta asignar un cÛdigo Vademecum. <br>";
+               		mensajesInfoBase+="- Falta asignar un c√≥digo Vademecum. <br>";
                	}
                	else
                	{
@@ -211,7 +211,7 @@ public class GestSustitucionesDAO {
                	if(c.getSustituible()!=null  && c.getSustituible().equals("0"))
                		c.setBdConsejoBiblia(bdConsejo);
 
-               	String codGtVmppBiblia = bdConsejo.getCodGtVmpp(); //para controlar si las sustituciones que cuelgan de aquÌ tienen el mismo grupo terapÈutico
+               	String codGtVmppBiblia = bdConsejo.getCodGtVmpp(); //para controlar si las sustituciones que cuelgan de aqu√≠ tienen el mismo grupo terap√©utico
              	//FIN 2 -
              	 
              	
@@ -232,14 +232,14 @@ public class GestSustitucionesDAO {
             	cr.setNomGtVmppOkSustXResi(resultSet.getString("nomGtVmppOkSustXResi"));
                	cr.setSustituibleXResi(resultSet.getString("sustituibleXResi"));
                	
-              	//3 - creamos el objeto bdconsejo para la sustituciÛnXResi con los datos base del medicamento
-            	BdConsejo bdConsejoSustXResi= new BdConsejo();	//CN puente equivalente al CN_Resi especÌfico.
+              	//3 - creamos el objeto bdconsejo para la sustituci√≥nXResi con los datos base del medicamento
+            	BdConsejo bdConsejoSustXResi= new BdConsejo();	//CN puente equivalente al CN_Resi espec√≠fico.
              	BdConsejo bdConsejoSustXResiBiblia= new BdConsejo(); // CN de la biblia equivalente al CN puente anterior
              	bdConsejoSustXResi.setCnConsejo(resultSet.getString("CODIGO2"));
                	if(bdConsejoSustXResi.getCnConsejo()==null || bdConsejoSustXResi.getCnConsejo().equals(""))
                	{
                		cr.setExisteBdConsejoSustXResi("NO");
-               		mensajesInfoXResi+="- El cÛdigo de la sustituciÛn propuesta NO existe en bbdd Central. <br>";
+               		mensajesInfoXResi+="- El c√≥digo de la sustituci√≥n propuesta NO existe en bbdd Central. <br>";
                	}
                	else
                	{
@@ -260,7 +260,7 @@ public class GestSustitucionesDAO {
                	if(bdConsejoSustXResiBiblia.getCnConsejo()==null || bdConsejoSustXResiBiblia.getCnConsejo().equals(""))
                	{
                		cr.setExisteBdConsejoSustXResiBiblia("NO");
-               		mensajesInfoXResi+="- Falta asignar un cÛdigo Vademecum.  <br>";
+               		mensajesInfoXResi+="- Falta asignar un c√≥digo Vademecum.  <br>";
                	}
                	else
                	{
@@ -278,25 +278,25 @@ public class GestSustitucionesDAO {
                	if(cr.getSustituibleXResi()!=null  && cr.getSustituibleXResi().equals("0"))
                		cr.setBdConsejoSustXResiBiblia(bdConsejoSustXResi);
              	
-             	String codGtVmppSustXResiBiblia = bdConsejoSustXResiBiblia.getCodGtVmpp(); //para controlar si las sustituciones que cuelgan de aquÌ tienen el mismo codGtVmpp (Grupo terapÈutico)
+             	String codGtVmppSustXResiBiblia = bdConsejoSustXResiBiblia.getCodGtVmpp(); //para controlar si las sustituciones que cuelgan de aqu√≠ tienen el mismo codGtVmpp (Grupo terap√©utico)
              	//FIN 4 -
              	
              	
-           		//comprobamos que tenga el mismo codGtVmpp (conjunto homogÈneo) que la SustituciÛn madre
+           		//comprobamos que tenga el mismo codGtVmpp (conjunto homog√©neo) que la Sustituci√≥n madre
              	if(codGtVmppSustXResiBiblia!=null && !codGtVmppSustXResiBiblia.equals("") && !Objects.equals(codGtVmppBiblia, codGtVmppSustXResiBiblia))
              	{
              		cr.setGtVmppDiferente(true);
-             		mensajesAlertaXResi+="- El conjunto homogÈneo (GtVmpp) de sustituciÛn Resi es diferente al que figura por defecto.  <br>";
+             		mensajesAlertaXResi+="- El conjunto homog√©neo (GtVmpp) de sustituci√≥n Resi es diferente al que figura por defecto.  <br>";
              	}
-           		//para detectar cÛdigos cruzados, miramos los codGtVmpp de cnResi y cnResiConsejo en caso que exista
+           		//para detectar c√≥digos cruzados, miramos los codGtVmpp de cnResi y cnResiConsejo en caso que exista
              	
              	if(codGtVmppResi!=null && !codGtVmppResi.equals("") && !Objects.equals(codGtVmppResi, codGtVmppBiblia))
              	{
              		c.setGtVmppDiferente(true);
-             		mensajesAlertaBase+="- El conjunto homogÈneo (GtVmpp) del CN de la resi es diferente al del Vademecum (Biblia) .  <br>";
+             		mensajesAlertaBase+="- El conjunto homog√©neo (GtVmpp) del CN de la resi es diferente al del Vademecum (Biblia) .  <br>";
              	}
              	
-             	//si no va en PASTILLERO no hace falta que pongamos alerta en otro color. Traspasamos la informaciÛn a info
+             	//si no va en PASTILLERO no hace falta que pongamos alerta en otro color. Traspasamos la informaci√≥n a info
               	//if(c!=null&& c.getAccion()!=null && (c.getAccion().equals("NO_PINTAR") || c.getAccion().equals("SOLO_INFO"))) {
              		//mensajesInfoBase+=mensajesAlertaBase+ "ES UN NO_PINTAR";
              		//mensajesInfoBase+=mensajesAlertaBase;
@@ -327,19 +327,19 @@ public class GestSustitucionesDAO {
            	    mensajesAlertaXResi="";
            	    mensajesInfoBase="";
            	    mensajesInfoXResi="";
-          		oidGestSustitucionesAnterior = oidGestSustitucionesEnCurso; //actualizamos el dato de la sustituciÛn
+          		oidGestSustitucionesAnterior = oidGestSustitucionesEnCurso; //actualizamos el dato de la sustituci√≥n
 
              }
-            //aÒadimos el ˙ltimo objeto tratado
+            //a√±adimos el √∫ltimo objeto tratado
             if(c!=null)
        		{
-           		//como vemos que hay cambio de sustituciÛn, cerramos la anterior.
+           		//como vemos que hay cambio de sustituci√≥n, cerramos la anterior.
     			c.setListaSustitucionesXResi(listaSustitucionesXResi);
-       			//AÒadimos el n˙mero de SustXResi asociadas a esta sustituciÛn.
+       			//A√±adimos el n√∫mero de SustXResi asociadas a esta sustituci√≥n.
     			if(listaSustitucionesXResi!=null && listaSustitucionesXResi.size()>=1 && listaSustitucionesXResi.get(0).getOidGestSustitucionesXResi()>0)
        				c.setSustXResiAsociados(listaSustitucionesXResi.size());
 
-           		//aÒadimos la sust anterior a la lista y creamos una  nueva
+           		//a√±adimos la sust anterior a la lista y creamos una  nueva
            	    listaGestSustituciones.add(c);
 
                 
@@ -411,7 +411,7 @@ public class GestSustitucionesDAO {
 			where+= " and c.codigo is null ";
 			where+= " and c2.codigo is null ";
 		}
-		else if(condicionBusqueda!=null && condicionBusqueda.equals("2")) //sÛlo los que existen en BdConsejo
+		else if(condicionBusqueda!=null && condicionBusqueda.equals("2")) //s√≥lo los que existen en BdConsejo
 		{
 			from+=  " left join bd_consejo c0 on (c0.codigo =  SUBSTRING(CAST(g.cnResi  AS CHAR(7)),1,6)   )  ";	
 			from+=  " inner join bd_consejo c on (c.codigo =  SUBSTRING(CAST(g.cnOk AS CHAR(7)),1,6)   ) ";
@@ -444,7 +444,7 @@ public class GestSustitucionesDAO {
 		from+=  " 	left join bd_Consejo b3 on( b.codigo=b3.codigo)  ";
 		from+=  "  ) n1 on  ( n1.codConjHomog=c.codConjHomog) ";
 
-		//miramos correspondencia con Biblia la sustituciÛn especÌfica de la resi
+		//miramos correspondencia con Biblia la sustituci√≥n espec√≠fica de la resi
 		from+=  " left join  ";
 		from+=  " ( ";
 		from+=  " 	select distinct bx.nota , bx.codConjHomog, bx.nomConjHomog, bx2.codiLab, bx2.nombreLab, bx.CODIGO as cn  , bx3.NOMBRE+' '+bx3.PRESENTACION   as nombreMedicamentoBiblia";
@@ -488,7 +488,7 @@ public class GestSustitucionesDAO {
 		from+=  " 	)cnLabChNota_1 on (cnLabChNota_1.cn=cons_b2.codigo)";
 		from+=  " ) n1 on  ( n1.codGtVmpp=c.codGtVmpp) ";
 
-		//miramos correspondencia con Biblia la sustituciÛn especÌfica de la resi
+		//miramos correspondencia con Biblia la sustituci√≥n espec√≠fica de la resi
 		from+=  "  left join     ";
 		from+=  " (	";
 				//	-- 1-CN/1-CodiLab/1-codGtVmpp/1-nota + datos CN  
@@ -599,7 +599,7 @@ public class GestSustitucionesDAO {
     	
     	GestSustituciones result=null;
     	
-    	//actualizamos el oid por defecto a 0 para que la select tenga en cuenta la condiciÛn
+    	//actualizamos el oid por defecto a 0 para que la select tenga en cuenta la condici√≥n
     	if(oidGestSustituciones==-1)oidGestSustituciones=0;
     	
     	List<GestSustituciones> sustituciones =getSustituciones(spdUsuario, 0,  oidGestSustituciones, -1, null, null, null, false, 0, 1, "0", null, null, false);
@@ -964,7 +964,7 @@ public class GestSustitucionesDAO {
 	
 	
   /**
-   * TO-DO MÈtodo a revisar para encontrar el por quÈ
+   * TO-DO M√©todo a revisar para encontrar el por qu√©
    * @param gestSustitucionesForm
    * @return
  * @throws Exception 
@@ -1103,8 +1103,8 @@ public class GestSustitucionesDAO {
 
 	
 	/**
-	 * MÈtodo que aÒade informaciÛn de la sustituciÛn de un medicamento de la resi.
-	 * Si tiene especÌficament uno de la residencia (gest_sustitucionesXResi), tendr· preferencia sobre los creados por defecto (gest_sustituciones)
+	 * M√©todo que a√±ade informaci√≥n de la sustituci√≥n de un medicamento de la resi.
+	 * Si tiene espec√≠ficament uno de la residencia (gest_sustitucionesXResi), tendr√° preferencia sobre los creados por defecto (gest_sustituciones)
 	 * @param medResi
 	 * @return
 	 * @throws Exception 
@@ -1148,7 +1148,7 @@ public class GestSustitucionesDAO {
 	        	
 	         //	sustituciones.add(c);
 	        }
-	        //no deberÌa haber m·s de uno, pero en ese caso devolver· el primero de la lista
+	        //no deber√≠a haber m√°s de uno, pero en ese caso devolver√° el primero de la lista
 	    	//if(sustituciones!=null && sustituciones.size()>0)
 	    	//	result=sustituciones.get(0);
 	    	
@@ -1163,8 +1163,8 @@ public class GestSustitucionesDAO {
 	
 	
 	/**
-	 * MÈtodo que aÒade informaciÛn de la sustituciÛn de un medicamento de la resi pero en la Biblia de medicamentos.
-	 * Si tiene especÌficament uno de la residencia (gest_sustitucionesXResi), tendr· preferencia sobre los creados por defecto (gest_sustituciones)
+	 * M√©todo que a√±ade informaci√≥n de la sustituci√≥n de un medicamento de la resi pero en la Biblia de medicamentos.
+	 * Si tiene espec√≠ficament uno de la residencia (gest_sustitucionesXResi), tendr√° preferencia sobre los creados por defecto (gest_sustituciones)
 	 * @param form 
 	 * @param medResi
 	 * @return
@@ -1224,7 +1224,7 @@ public class GestSustitucionesDAO {
 	from+=  "  ) n1 on  ( n1.codGtVmpp=c.codGtVmpp) ";
 
 
-	//miramos correspondencia con Biblia la sustituciÛn especÌfica de la resi
+	//miramos correspondencia con Biblia la sustituci√≥n espec√≠fica de la resi
 	from+=  " left join  ";
 	from+=  " ( ";
 	from+=  " 	select distinct b.nota , b.codGtVmpp, b.nomGtVmpp, b2.codiLab, b2.nombreLab, b.CODIGO as cn  , b3.NOMBRE+' '+b3.PRESENTACION   as nombreMedicamentoBiblia";
@@ -1269,8 +1269,8 @@ public class GestSustitucionesDAO {
 	        	medResi.setSustituible((resultSet.getString("sustituibleXResi")!=null?resultSet.getString("sustituibleXResi"):resultSet.getString("sustituible")));
 	        	
 	        	
-	        	//buscamos el CN por orden de preferencia seg˙n el resultado de la query
-	        	//buscamos el nombre por orden de preferencia seg˙n el resultado de la query
+	        	//buscamos el CN por orden de preferencia seg√∫n el resultado de la query
+	        	//buscamos el nombre por orden de preferencia seg√∫n el resultado de la query
 	        	String cnFinal=resultSet.getString("cnBibliaSustXResi");
 	        	String nombreMedicamento=resultSet.getString("nombreMedicamentoBibliaSustXResi");
 	        	
@@ -1318,7 +1318,7 @@ public class GestSustitucionesDAO {
 
 	         //	sustituciones.add(c);
 	        }
-	        //no deberÌa haber m·s de uno, pero en ese caso devolver· el primero de la lista
+	        //no deber√≠a haber m√°s de uno, pero en ese caso devolver√° el primero de la lista
 	    	//if(sustituciones!=null && sustituciones.size()>0)
 	    	//	result=sustituciones.get(0);
 	        medResi=IOSpdApi.checkTratamientoValido( spdUsuario, medResi);
@@ -1331,7 +1331,7 @@ public class GestSustitucionesDAO {
 	}
 
 	/**
-	 * MÈtodo que devuelve UNA sustituciÛn completa (RESI - CNOK - BIBLIA)
+	 * M√©todo que devuelve UNA sustituci√≥n completa (RESI - CNOK - BIBLIA)
 	 * @param idDivisionResidenciaFiltro
 	 * @param resiCn
 	 * @param resiMedicamento
@@ -1385,7 +1385,7 @@ public class GestSustitucionesDAO {
 			 String sustituible=sustXResi.getSustituibleXResi()!=null&& !sustXResi.getSustituibleXResi().equals("")?sustXResi.getSustituibleXResi():sust.getSustituible();
 			 medResi.setSustituible(sustituible);
 			
-		   	//buscamos el CN por orden de preferencia seg˙n el resultado de la query
+		   	//buscamos el CN por orden de preferencia seg√∫n el resultado de la query
 			 //1-cnBibliaSustXResi / 2-cnBiblia / 3 - cnOkSustXResi / 4 - cnOk
 			String cnFinal=sustXResi!=null && sustXResi.getBdConsejoSustXResiBiblia()!=null ?sustXResi.getBdConsejoSustXResiBiblia().getCnConsejo():null; 	//	1 -	cnBibliaSustXResi 
 			cnFinal = cnFinal==null && sust!=null && sust.getBdConsejoBiblia()!=null ?sust.getBdConsejoBiblia().getCnConsejo():null;						// 	2 -	cnBiblia
@@ -1393,7 +1393,7 @@ public class GestSustitucionesDAO {
 			cnFinal = cnFinal==null && sust!=null ?sust.getCnOk():cnFinal;																					// 	4 - cnOk
 			
 			 
-			//buscamos el nombre por orden de preferencia seg˙n el resultado de la query
+			//buscamos el nombre por orden de preferencia seg√∫n el resultado de la query
 			 //1-nombreMedicamentoBibliaSustXResi / 2-nombreMedicamentoBiblia / 3 - nombreMedicamentoOkSustXResi / 4 - nombreMedicamentoOk
 							 
 			String nombreMedicamento=sustXResi!=null && sustXResi.getBdConsejoSustXResiBiblia()!=null ?sustXResi.getBdConsejoSustXResiBiblia().getNombreMedicamento():null; 	//	1 -	nombreMedicamentoBibliaSustXResi 
@@ -1523,7 +1523,7 @@ public class GestSustitucionesDAO {
 			where+= " and c.codigo is null ";
 			where+= " and c2.codigo is null ";
 		}
-		else if(condicionBusqueda!=null && condicionBusqueda.equals("2")) //sÛlo los que existen en BdConsejo
+		else if(condicionBusqueda!=null && condicionBusqueda.equals("2")) //s√≥lo los que existen en BdConsejo
 		{
 			from+=  " left join bd_consejo c0 on (c0.codigo =  SUBSTRING(CAST(g.cnResi  AS CHAR(7)),1,6)   )  ";	
 			from+=  " inner join bd_consejo c on (c.codigo =  SUBSTRING(CAST(g.cnOk AS CHAR(7)),1,6)   ) ";
@@ -1567,7 +1567,7 @@ public class GestSustitucionesDAO {
 		from+=  " 	)cnLabChNota_1 on (cnLabChNota_1.cn=cons_b2.codigo)";
 		from+=  " ) n1 on  ( n1.codGtVmpp=c.codGtVmpp) ";
 
-		//miramos correspondencia con Biblia la sustituciÛn especÌfica de la resi
+		//miramos correspondencia con Biblia la sustituci√≥n espec√≠fica de la resi
 		from+=  "  left join     ";
 		from+=  " (	";
 				//	-- 1-CN/1-CodiLab/1-codGtVmpp/1-nota + datos CN  
@@ -1640,7 +1640,7 @@ public class GestSustitucionesDAO {
 	}
 
    	/**
-	 * Fetch es una cl·usula que funciona a partir del SqlServer 2008 (no inclusive)
+	 * Fetch es una cl√°usula que funciona a partir del SqlServer 2008 (no inclusive)
 	 * @param form
 	 * @param inicio
 	 * @param fin
@@ -1659,7 +1659,7 @@ public class GestSustitucionesDAO {
 	}
 
 	/**
-	 * Como FETCH es una cl·usula de versiÛn SQLSERVER>2008 se crea una funciÛn un poco m·s engorrosa pero
+	 * Como FETCH es una cl√°usula de versi√≥n SQLSERVER>2008 se crea una funci√≥n un poco m√°s engorrosa pero
 	 * que sirve para todas las versiones (ROW_NUMBER() OVER)
 	 * @param form
 	 * @param inicio

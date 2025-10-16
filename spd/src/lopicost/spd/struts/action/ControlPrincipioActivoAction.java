@@ -58,7 +58,7 @@ public class ControlPrincipioActivoAction extends GenericAction  {
 	public ActionForward nuevo(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-			//inicializamos para que no haya datos de otros módulos
+			//inicializamos para que no haya datos de otros mÃ³dulos
 			ControlPrincipioActivoForm formulario =  (ControlPrincipioActivoForm) form;
 			formulario.setListaDivisionResidencia(DivisionResidenciaDAO.getListaDivisionResidencias(getIdUsuario()));
 
@@ -96,7 +96,7 @@ public class ControlPrincipioActivoAction extends GenericAction  {
 					try{
 						SpdLogAPI.addLog(getIdUsuario(), idFarmacia,  div.getIdDivisionResidencia(), "", SpdLogAPI.A_GESTION_FARMACIA, SpdLogAPI.B_CREACION, SpdLogAPI.C_CONTROL_PRINCIPIO_ACTIVO, "SpdLog.gestionFarmacia.creacion_controlPActivo"
 								,  bdC.getNomGtVm() );
-					}catch(Exception e){}	//Se añade un control extra para el principio activo @@.  
+					}catch(Exception e){}	//Se aÃ±ade un control extra para el principio activo @@.  
 					
 
 				}

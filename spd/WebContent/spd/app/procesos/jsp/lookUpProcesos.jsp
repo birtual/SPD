@@ -82,12 +82,12 @@ if (request.getParameter("fieldName1")!=null)
 		        <th>Versión</th>
 		        <th>Descripción</th>
 		        <th>Parámetros</th>
-		        <th>Tipo ejecución</th>
+		        <th>Tipo ejecutó</th>
 		        <th>Cada</th>
 		        <th>Periodo</th>
 		        <th>Días semana</th>
 		        <th>Días concretos (opcional)</th>
-		        <th>Hora ejecución</th>
+		        <th>Hora ejecutó</th>
 		        <th>Max reintentos</th>
 		        <th>Max duración (s)</th>
 		        <th>Fecha desde</th>

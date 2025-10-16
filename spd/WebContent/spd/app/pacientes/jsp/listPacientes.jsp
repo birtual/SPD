@@ -81,7 +81,7 @@
 					</html:select>	
 			</div> 
 			<div>		
-	    		<label for="campoGoogle" accesskey="e">Pañales</label>		
+	    		<label for="campoGoogle" accesskey="e">PaÃ±ales</label>		
 	    		<html:select property="filtroBolquers"  value="<%= formulari.getFiltroBolquers() %>" onchange="submit()"> 
 	 			    	 <option value='%' ${formulari.filtroBolquers== '%' ? 'selected' : ' '}>Todos</option>   
 	 			    	 <option value='S' ${formulari.filtroBolquers == 'S' ? 'selected' : ' '}>S</option>   
@@ -121,9 +121,9 @@
 					<th>Apellido2 <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 4, true)"> &uarr;</a> <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 4, false)">&darr;</a></th>
 					<th>TSI<a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 5, true)"> &uarr;</a> <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 5, false)">&darr;</a></th> 		
 					<th>Planta <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 6, true)"> &uarr;</a> <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 6, false)">&darr;</a></th>
-					<th>Habitación <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 7, true)"> &uarr;</a> <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 7, false)">&darr;</a></th>
+					<th>HabitaciÃ³n <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 7, true)"> &uarr;</a> <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 7, false)">&darr;</a></th>
 					<th>SPD <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 8, true)"> &uarr;</a> <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 8, false)">&darr;</a></th> 
-					<th>Pañales <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 9, true)"> &uarr;</a> <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 9, false)">&darr;</a></th> 
+					<th>PaÃ±ales <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 9, true)"> &uarr;</a> <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 9, false)">&darr;</a></th> 
 					<!-- th>Activo <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 10, true)"> &uarr;</a> <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 10, false)">&darr;</a></th> -->
 					<th>Estado <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 10, true)"> &uarr;</a> <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 10, false)">&darr;</a></th>
 					<th width="30%">Comentarios <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 11, true)"> &uarr;</a> <a href="#" class="arrow" onclick="sortTable('listaPacientesBean', 11, false)">&darr;</a></th>
@@ -144,7 +144,7 @@
 						<td><bean:write name="data" property="apellido1" /></td>
 						<td><bean:write name="data" property="apellido2" /></td>
 						<td align="left" title="Acceso al detalle de los tratamientos" >
-							<logic:notEqual name="data" property="segSocial" value="···">
+							<logic:notEqual name="data" property="segSocial" value="XXX">
 							<a href="javascript:goTratamientoRct('<bean:write name="data" property="oidPaciente" />')"><bean:write name="data" property="segSocial" /></a>
 							</logic:notEqual>
 						</td> 
@@ -155,7 +155,7 @@
 						<td><bean:write name="data" property="apellido1Mask" /></td>
 						<td><bean:write name="data" property="apellido2Mask" /></td>
 						<td align="left" title="Acceso al detalle de los tratamientos" >
-							<logic:notEqual name="data" property="segSocial" value="···">
+							<logic:notEqual name="data" property="segSocial" value="XXX">
 							<a href="javascript:goTratamientoRct('<bean:write name="data" property="oidPaciente" />')"><bean:write name="data" property="segSocialMask" /></a>
 							</logic:notEqual>
 						</td> 
@@ -164,7 +164,7 @@
 	
 	
 					<!-- td align="left" title="Acceso al detalle de los tratamientos" >
-							<logic:notEqual name="data" property="segSocial" value="···">
+							<logic:notEqual name="data" property="segSocial" value="XXX">
 							<a href="javascript:goTratamientoRct('<bean:write name="data" property="oidPaciente" />')"><bean:write name="data" property="segSocial" /></a>
 							</logic:notEqual>
 					</td --> 
@@ -172,7 +172,7 @@
 					<td><bean:write name="data" property="planta" /></td>
 					<td><bean:write name="data" property="habitacion" /></td>
 					<td align="center"  title="Acceso al detalle de las producciones SPD realizadas" ><a href="javascript:goTratamientosSPD('<bean:write name="data" property="oidPaciente" />')"><bean:write name="data" property="spd" /></a></td> 
-					<td align="center"  title="Acceso al detalle de los pañales" ><a href="javascript:goBolquers('<bean:write name="data" property="oidPaciente" />')"><bean:write name="data" property="bolquers" /></a></td> 
+					<td align="center"  title="Acceso al detalle de los paÃ±ales" ><a href="javascript:goBolquers('<bean:write name="data" property="oidPaciente" />')"><bean:write name="data" property="bolquers" /></a></td> 
 					<!--td><bean:write name="data" property="activo" /></td> -->
 					<td><bean:write name="data" property="estatus" /></td>
 					<td><bean:write name="data" property="comentarios" /></td>
@@ -193,7 +193,7 @@
 	</logic:empty>
 	
 		</fieldset>
-			<!--  paginación  -->
+			<!--  paginaciÃ³n  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -207,7 +207,7 @@
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginación   -->
+	<!--  paginaciÃ³n   -->
 	</div>		
 			
 

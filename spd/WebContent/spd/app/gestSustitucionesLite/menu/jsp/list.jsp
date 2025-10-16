@@ -88,7 +88,7 @@ function abre(loc)
  <tr>
 		<td class="primera">Perfil</td>
 		<td class="primera">Enlace</td>
-		<td class="segunda">Descripción</td>
+		<td class="segunda">DescripciÃ³n</td>
 		<td class="segunda">Asignado</td>
    </tr>
 

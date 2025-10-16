@@ -5,8 +5,8 @@ package lopicost.spd.robot.bean.rd;
 public class TratamientoPaciente {
     private MedicamentoPaciente medicamentoPaciente;
     private MedicamentoReceta medicamentoReceta;
-    private String tratamientoInicio;		//fecha inicio según residencia
-    private String tratamientoFin;			//fecha fin según residencia
+    private String tratamientoInicio;		//fecha inicio segÃºn residencia
+    private String tratamientoFin;			//fecha fin segÃºn residencia
     //private int cantidadTotal;
     private String pautaResidencia;			
     private double cantidadUtilizadaSPD;

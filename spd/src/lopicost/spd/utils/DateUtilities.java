@@ -16,11 +16,11 @@ public class DateUtilities
 {
 	
 	/**
-	 * Este método devuelve un Date, incrementando el número de días y horas indicado.
+	 * Este mÃ©todo devuelve un Date, incrementando el nÃºmero de dÃ­as y horas indicado.
 	 * @param pDate Fecha base.
-	 * @param pMonths Si es diferente de 0, indica el número de meses a incrementar.
-	 * @param pDays Si es diferente de 0, indica el número de días a incrementar.
-	 * @param pHours Si es diferente de 0, indica el número de horas a incrementar.
+	 * @param pMonths Si es diferente de 0, indica el nÃºmero de meses a incrementar.
+	 * @param pDays Si es diferente de 0, indica el nÃºmero de dÃ­as a incrementar.
+	 * @param pHours Si es diferente de 0, indica el nÃºmero de horas a incrementar.
 	 * @return Fecha incrementada.
 	 */
 	public static Date getRealDate(Date pDate, int pMonths, int pDays, int pMinutes)
@@ -38,7 +38,7 @@ public class DateUtilities
 		return _cal.getTime();
 	}
 	/**
-	 * Este método devuelve un Date, con el número de horas, minutos , segundos, ms, inicializados a 0.
+	 * Este mÃ©todo devuelve un Date, con el nÃºmero de horas, minutos , segundos, ms, inicializados a 0.
 	 * @param pDate Fecha base
 	 * @return Date Fecha con los valores inicializados a 0 por lo que respecta al tiempo (hora, minutos,...)
 	 */
@@ -54,7 +54,7 @@ public class DateUtilities
 	}
 
 	/**
-	 * Este método devuelve un Date, con el número de horas, minutos , segundos, ms, al fin del dia.
+	 * Este mÃ©todo devuelve un Date, con el nÃºmero de horas, minutos , segundos, ms, al fin del dia.
 	 * @param pDate Fecha base
 	 * @return Date Fecha con los valores inicializados al fin del dia por lo que respecta al tiempo (hora, minutos,...)
 	 */
@@ -70,9 +70,9 @@ public class DateUtilities
 	}
 
 	/**
-	 * Este método devuelve un booleano dependiendo si la fecha pDate está en el intervalo de pStartDate y pEndDate.
-	 *  Estas comprobaciones se realizan sin tener en cuenta las horas, minutos, ..., sinó que se realizan a nivel de
-	 *  fecha (año, mes y dia)
+	 * Este mÃ©todo devuelve un booleano dependiendo si la fecha pDate estÃ¡ en el intervalo de pStartDate y pEndDate.
+	 *  Estas comprobaciones se realizan sin tener en cuenta las horas, minutos, ..., sinÃ³ que se realizan a nivel de
+	 *  fecha (aÃ±o, mes y dia)
 	 * @param pStartDate
 	 * @param pEndDate
 	 * @param pDate
@@ -131,7 +131,7 @@ public class DateUtilities
 	}
 	
 	/**
-	 * Método que devuelve la fecha en formato deseado, en este caso, entra en un formato y sale con formato  pasado por parámetro
+	 * MÃ©todo que devuelve la fecha en formato deseado, en este caso, entra en un formato y sale con formato  pasado por parÃ¡metro
 	 * @param pszDate
 	 * @param psdfFormatInput
 	 * @param psdfFormatOutput
@@ -163,7 +163,7 @@ public class DateUtilities
 	}
 	
 	/**
-	 * Método que devuelve la fecha en formato deseado, en este caso, entra en un formato y sale con formato  pasado por parámetro. Si no hay fecha se devuelve una por defecto
+	 * MÃ©todo que devuelve la fecha en formato deseado, en este caso, entra en un formato y sale con formato  pasado por parÃ¡metro. Si no hay fecha se devuelve una por defecto
 	 * @param pszDate
 	 * @param psdfFormatInput
 	 * @param psdfFormatOutput
@@ -182,11 +182,11 @@ public class DateUtilities
 	
 	
 	/**
-	 * Este método devuelve el número de minutos a partir de una fecha de 
+	 * Este mÃ©todo devuelve el nÃºmero de minutos a partir de una fecha de 
 	 *  entrada. Se tiene en cuenta los datos referente al tiempo (horas y minutos)
-	 *  y no dias, años, etc.
+	 *  y no dias, aÃ±os, etc.
 	 * @param pDate Fecha de entrada
-	 * @return Long número de minutos que representa el Date
+	 * @return Long nÃºmero de minutos que representa el Date
 	 */
 	public static Long getDateTimeInMinutes (java.util.Date pDate)
 	{
@@ -203,10 +203,10 @@ public class DateUtilities
 	}
 	
 	/**
-	 * Este método devuelve una cadena (String) con el formato deseado.
-	 * @param sdf SimpleDateFormat (formato que será el que se devolverá)
+	 * Este mÃ©todo devuelve una cadena (String) con el formato deseado.
+	 * @param sdf SimpleDateFormat (formato que serÃ¡ el que se devolverÃ¡)
 	 * @param date Fecha de entrada
-	 * @return String Fecha con el formato establecido en el parámetro de entrada sdf
+	 * @return String Fecha con el formato establecido en el parÃ¡metro de entrada sdf
 	 */
 	public static String getDatetoString(SimpleDateFormat sdf, Date date)
 	{
@@ -217,10 +217,10 @@ public class DateUtilities
 	}
 
 	/**
-	 * Este método devuelve una cadena (String) con el formato deseado.
-	 * @param format String (formato que será el que se devolverá)
+	 * Este mÃ©todo devuelve una cadena (String) con el formato deseado.
+	 * @param format String (formato que serÃ¡ el que se devolverÃ¡)
 	 * @param date Fecha de entrada
-	 * @return String Fecha con el formato establecido en el parámetro de entrada sdf
+	 * @return String Fecha con el formato establecido en el parÃ¡metro de entrada sdf
 	 */	
 	public static String getDatetoString(String format, Date date)
 	{
@@ -244,7 +244,7 @@ public class DateUtilities
 	{
 		int timer1 = (int) getDateTimeInMinutes(pStartdate).intValue();
 		int timer2 = (int) getDateTimeInMinutes(pEnddate).intValue();
-		// Duración en milisegundos
+		// DuraciÃ³n en milisegundos
 		long length= pEnddate.getTime()-pStartdate.getTime();
 		// Duracion en segundos 
 		length/=1000;
@@ -259,7 +259,7 @@ public class DateUtilities
 	{
 		int timer1 = (int) getDateTimeInMinutes(pStartdate).intValue();
 		int timer2 = (int) getDateTimeInMinutes(pEnddate).intValue();
-		// Duración en milisegundos
+		// DuraciÃ³n en milisegundos
 		long length= pEnddate.getTime()-pStartdate.getTime();
 		// Duracion en segundos 
 		length/=1000;
@@ -271,7 +271,7 @@ public class DateUtilities
 	public static long getLengthInDays(Date pStartdate, Date pEnddate)
 	{
 		if(pStartdate==null || pEnddate==null) return -1;
-		// Duración en milisegundos
+		// DuraciÃ³n en milisegundos
 		long length= pEnddate.getTime()-pStartdate.getTime();
 		// Duracion en segundos 
 		length/=1000;
@@ -295,7 +295,7 @@ public class DateUtilities
 	
 	public static long getLengthInYears(Date pStartdate, Date pEnddate)
 	{
-		// Duración en milisegundos
+		// DuraciÃ³n en milisegundos
 		long length= pEnddate.getTime()-pStartdate.getTime();
 		// Duracion en segundos 
 		length/=1000;
@@ -610,7 +610,7 @@ public class DateUtilities
 	  public static String convertSerialNumberToDate(long serialNumber, String format) {
 		    Calendar calendar = Calendar.getInstance();
 		    calendar.set(1900, 0, 1); // Establece la fecha base de Excel (1 de enero de 1900)
-		    calendar.add(Calendar.DAY_OF_YEAR, (int) serialNumber - 2); // Suma los días del número de serie (ajustado por el error del año bisiesto)
+		    calendar.add(Calendar.DAY_OF_YEAR, (int) serialNumber - 2); // Suma los dÃ­as del nÃºmero de serie (ajustado por el error del aÃ±o bisiesto)
 		    Date date = calendar.getTime(); // Obtiene la fecha como un objeto Date
 		    SimpleDateFormat sdf = new SimpleDateFormat(format); // Establece el formato de fecha deseado
 		    return sdf.format(date); // Devuelve la fecha como una cadena en el formato deseado
@@ -629,7 +629,7 @@ public class DateUtilities
 			  // Convertir el String a un objeto Date
 			  Date fecha = sdfEntrada.parse(fechaEntrada);
 
-			  // Formatear la fecha según el formato deseado
+			  // Formatear la fecha segÃºn el formato deseado
 			  fechaFormateada = sdfSalida.format(fecha);
 
 	            System.out.println("Fecha formateada: " + fechaFormateada);

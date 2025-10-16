@@ -21,7 +21,7 @@ public class IOSpdReaderDAO {
     private static final Class cClass = IOSpdReader.class;
     
     /**
-     * Metodo que llama a la clase padre con los parametros específicos para
+     * Metodo que llama a la clase padre con los parametros especÃ­ficos para
      * el objeto 
      * @throws SQLException 
      * @throws ClassNotFoundException 

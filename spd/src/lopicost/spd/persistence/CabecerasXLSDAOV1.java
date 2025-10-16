@@ -140,8 +140,8 @@ public class CabecerasXLSDAOV1 {
          int i = 0;
          int numeroDeTomasBase=0; 
          while (resultSet.next()) {
-        	 f.setIdDivisionResidencia(resultSet.getString("idDivisionResidencia")); //será el mismo valor en el bucle 
-        	 i++; // Incrementa i para la próxima llamada
+        	 f.setIdDivisionResidencia(resultSet.getString("idDivisionResidencia")); //serÃ¡ el mismo valor en el bucle 
+        	 i++; // Incrementa i para la prÃ¡xima llamada
         	 
         	 //para detectar las tomas BASE que son las que se reciben en Excel, normalmente 5 o 6, el resto son EXTRAS creadas posteriormente
         	 String tipo = resultSet.getString("tipo"); 
@@ -159,7 +159,7 @@ public class CabecerasXLSDAOV1 {
              
                } catch (Exception e) {
                    e.printStackTrace();
-                  // Manejo de excepciones según sea necesario
+                  // Manejo de excepciones segÃºn sea necesario
                }
             }
          f.setNumeroDeTomasBase(numeroDeTomasBase);
@@ -182,7 +182,7 @@ public class CabecerasXLSDAOV1 {
 		if(numeroDeTomas>0)
 		{
 			String resiTomaX = "ResiToma" + (numeroDeTomas);
-			// Utilizar reflexión para acceder al método getResiTomaX en el formulario
+			// Utilizar reflexiÃ³n para acceder al mÃ©todo getResiTomaX en el formulario
 		    Method getterMethod = formulari.getClass().getMethod("get" + resiTomaX);
 		    String resiTomaXValue = (String) getterMethod.invoke(formulari);
 		    String resiTomaLiteral = formulari.getResiTomaLiteral();
@@ -198,9 +198,9 @@ public class CabecerasXLSDAOV1 {
 				PreparedStatement pstat = con.prepareStatement(qry);
 				result=pstat.executeUpdate();
 			       
-				//actualización de las líneas creadas en la importación 
+				//actualizaciÃ³n de las lÃ­neas creadas en la importaciÃ³n 
 				FicheroResiDetalleDAO.addTomaLineas(spdUsuario, cab);		
-				//actualización de la cabecera creada en la importación 
+				//actualizaciÃ³n de la cabecera creada en la importaciÃ³n 
 				FicheroResiDetalleDAO.addTomaCabecera(spdUsuario, cab, resiTomaX, resiTomaXValue);
 
 			} catch (SQLException e) {
@@ -253,7 +253,7 @@ public class CabecerasXLSDAOV1 {
 		  	  System.out.println(className + "--> borradoDeToma -->" +qry );		
 
 		      		
-		  	  //actualización de la cabecera creada en la importación 
+		  	  //actualizaciÃ³n de la cabecera creada en la importaciÃ³n 
 		  	  FicheroResiDetalleDAO.borraTomaDelProceso(spdUsuario, cab, resiTomaX);
 
 		  	  
@@ -302,7 +302,7 @@ public class CabecerasXLSDAOV1 {
 	
 	
 	/**
-	 * Devuelve el ID de la toma, que acostumbra ser 4 dígitos (la hora sin los :)
+	 * Devuelve el ID de la toma, que acostumbra ser 4 dÃ­gitos (la hora sin los :)
 	 * @param cadena
 	 * @param posicion
 	 * @return
@@ -330,7 +330,7 @@ public class CabecerasXLSDAOV1 {
 
 	/**
 	 * A partir de lo que se devuelva en la select, se construye el resultado. En caso de ser una hora, se devuelve tal cual. En caso de ser un texto que no sigue 
-	 * formato XX:XX se construye una hora a partir de la posición que ocupa, devolviendo formato XX:XX  
+	 * formato XX:XX se construye una hora a partir de la posiciÃ³n que ocupa, devolviendo formato XX:XX  
 	 * @param cadena
 	 * @param posicion
 	 * @return
@@ -343,7 +343,7 @@ public class CabecerasXLSDAOV1 {
 			 result =cadena;
 	        } else {
 	        	 if (posicion < 1 || posicion > 99) {
-	        		 throw new IllegalArgumentException("El número debe estar en el rango de 1 a 99.");
+	        		 throw new IllegalArgumentException("El nÃºmero debe estar en el rango de 1 a 99.");
 	             }
 	        	 result = String.format("%02d:00", posicion, 0);
 	        }

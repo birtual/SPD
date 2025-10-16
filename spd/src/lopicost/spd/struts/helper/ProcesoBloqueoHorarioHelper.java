@@ -42,13 +42,13 @@ public class ProcesoBloqueoHorarioHelper {
   	  		if(result)
   	  		{
                 String mensaje =construyeMensajeLog(bloqueo);
-                //INICIO creación de log en BBDD
+                //INICIO creaciÃ³n de log en BBDD
   	  			try{
-  	  				//INICIO creación de log en BBDD
+  	  				//INICIO creaciÃ³n de log en BBDD
   	  				SpdLogAPI.addLog(idUsuario, null,  null, null, SpdLogAPI.A_PROCESO_BLOQUEO_HORARIO, SpdLogAPI.B_CREACION, "", "SpdLog.procesobloqueo.creado.general", 
   	  						" Creado bloqueo horario --> " + mensaje);
   	  				}catch(Exception e){}	// Cambios--> @@.
-  	  				//FIN creación de log en BBDD
+  	  				//FIN creaciÃ³n de log en BBDD
   	  			
   	  		}
   	  		
@@ -60,13 +60,13 @@ public class ProcesoBloqueoHorarioHelper {
     		result = dao.actualizar(idUsuario, bloqueo);
     	  		if(result)
     	  		{
-    				//INICIO creación de log en BBDD
+    				//INICIO creaciÃ³n de log en BBDD
     				try{
-    					//INICIO creación de log en BBDD
+    					//INICIO creaciÃ³n de log en BBDD
     					SpdLogAPI.addLog(idUsuario, null,  null, null, SpdLogAPI.A_PROCESO_BLOQUEO_HORARIO, SpdLogAPI.B_EDICION, "", "SpdLog.procesobloqueo.edicion.general", 
     							" Modificado bloqueo horario --> ANTES:" + mensajeOrig + " // DESPUES: " + mensajeFinal);
     					}catch(Exception e){}	// Cambios--> @@.
-    					//FIN creación de log en BBDD
+    					//FIN creaciÃ³n de log en BBDD
     		    }
     		
     	}
@@ -75,7 +75,7 @@ public class ProcesoBloqueoHorarioHelper {
 
 
     /**
-     * Chequea que el tipo de bloqueo tengo los campos hora, día o fecha correctamente indicados 
+     * Chequea que el tipo de bloqueo tengo los campos hora, dÃ­a o fecha correctamente indicados 
      * @param bloqueo
      * @param errors
      */
@@ -99,7 +99,7 @@ public class ProcesoBloqueoHorarioHelper {
 			bloqueo.setValorFecha("");
 			if(bloqueo.getValorDia()<=0 || bloqueo.getValorDia().equals(null))
 			{
-				errors.add("Es necesario indicar el día del bloqueo en procesos");
+				errors.add("Es necesario indicar el dÃ­a del bloqueo en procesos");
 				return false; 
 			}
 
@@ -128,12 +128,12 @@ public class ProcesoBloqueoHorarioHelper {
         boolean result = dao.borrar(bloqueo.getOidBloqueoHorario());
         if(result)
         {
-      		//INICIO creación de log en BBDD
+      		//INICIO creaciÃ³n de log en BBDD
             try{
     		SpdLogAPI.addLog(idUsuario, null,  null, null, SpdLogAPI.A_PROCESO_BLOQUEO_HORARIO, SpdLogAPI.B_BORRADO, "", "SpdLog.procesobloqueo.borrado.general", 
     				" Borrado bloqueo horario --> " + mensaje);
     		}catch(Exception e){}	// Cambios--> @@.
-    		//FIN creación de log en BBDD
+    		//FIN creaciÃ³n de log en BBDD
         	
         }
 	}
@@ -205,8 +205,8 @@ public class ProcesoBloqueoHorarioHelper {
 	}
 	
     /**
-     * Método que mira si hay algún bloqueo por hora, dia o fecha, para poder ejecutar los procesos. Para que se puedan ejecutar siempre han de devolver "false"
-     * En caso que exista algún bloqueo devolverá un "true"
+     * MÃ©todo que mira si hay algÃºn bloqueo por hora, dia o fecha, para poder ejecutar los procesos. Para que se puedan ejecutar siempre han de devolver "false"
+     * En caso que exista algÃºn bloqueo devolverÃ¡ un "true"
      * @param proceso
      * @return
      * @throws SQLException

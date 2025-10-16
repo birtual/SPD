@@ -1,3 +1,4 @@
+<%@page import="lopicost.spd.struts.bean.FicheroResiBean"%>
 <%@ page language="java" contentType="application/json; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
@@ -8,12 +9,12 @@
 <%
     boolean mostrarCompletos = Boolean.parseBoolean(request.getParameter("mostrarCompletos"));
     List<FicheroResiBean> listaFicheroResiDetalleBean = (List<FicheroResiBean>)request.getAttribute("listaFicheroResiDetalleBean");
-    List<Map<String, String>> response = new ArrayList<>();
+    List<Map<String, String>> response2 = new ArrayList<>();
     
     for (FicheroResiBean data : listaFicheroResiDetalleBean) {
         Map<String, String> row = new HashMap<>();
         
-        // Definir cómo quieres enmascarar los datos
+        // Definir cÃ³mo quieres enmascarar los datos
         String resiCIP = data.getResiCIP();
         String resiCIPMask = data.getResiCIPMask();
         
@@ -21,7 +22,7 @@
         row.put("resiCIPMask", mostrarCompletos ? "" : resiCIPMask);
         row.put("mostrarCompletos", String.valueOf(mostrarCompletos));
         
-        response.add(row);
+        response2.add(row);
     }
     
     // Responder con los datos en formato JSON

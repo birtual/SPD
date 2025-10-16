@@ -18,7 +18,7 @@
 
 <jsp:include page="/spd/jsp/global/head.jsp"/>
 <head>
-<title>Selección de proceso</title>
+<title>SelecciÃ³n de proceso</title>
    
 </head>
 <bean:define id="formulari" name="FarmaciasForm" type="lopicost.spd.struts.form.FarmaciasForm" />

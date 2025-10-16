@@ -13,7 +13,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Borrado de sustituci髇</title>
+<title>Borrado de sustituci贸n</title>
 </head>
 
 
@@ -48,7 +48,7 @@
 
 <body id="general">
 	<center>
-		<h2>Borrado de sustituci髇</h2>
+		<h2>Borrado de sustituci贸n</h2>
 		<html:form action="/GestSustituciones.do" method="post">	
 
 <div id="contingut">
@@ -60,7 +60,7 @@
      <html:hidden property="parameter" value="borrar"/>
      <html:hidden property="ACTIONTODO" value="CONFIRMAR"/>
      <html:hidden property="oidGestSustituciones" />
-	<!-- se pasan par醡etros de los filtros del listado para la vuelta -->
+	<!-- se pasan par谩metros de los filtros del listado para la vuelta -->
      <html:hidden property="filtroNombreCorto" />
      <html:hidden property="filtroMedicamentoResi" />
      <html:hidden property="filtroNombreCortoOK" />
@@ -77,7 +77,7 @@
 		<td><bean:write name="data" property="idDivisionResidencia"/></td>
 	</tr>
 	<tr>
-		<td>C骴igo residencia</td>
+		<td>C贸digo residencia</td>
 		<td><bean:write name="data" property="cnResi"/></td>
 	</tr>
 	<tr>
@@ -85,7 +85,7 @@
 		<td><bean:write name="data" property="medicamentoResi"/></td>
 	</tr>
 	<tr>
-		<td>C骴igo OK</td>
+		<td>C贸digo OK</td>
 		<td><bean:write name="data" property="cnOk"/></td>
 	</tr>
 	<tr>
@@ -116,7 +116,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>縀xiste en bdConsejo?</td>
+		<td>驴Existe en bdConsejo?</td>
 		<td><bean:write name="data" property="existeBdConsejo"/></td>
 	</tr>
 	<tr>
@@ -136,7 +136,7 @@
             <td><bean:write name="bdConsejoBiblia" property="nombreLaboratorio" /></td>
 	</tr>
 	<tr>
-		<td>Ponderaci髇 total (Vademecum)</td>         	
+		<td>Ponderaci贸n total (Vademecum)</td>         	
         <td><bean:write name="bdConsejoBiblia" property="nota" /></td>
 	</tr>
 	<tr>

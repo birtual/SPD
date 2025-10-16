@@ -19,7 +19,7 @@
 <table class="blueTable" border="1">
 <thead>
 	<tr>
-		<th> <span>nº fila</span>	<a href="javascript:void(0);" onclick="ordenarPor('row asc')" class="arrow">&uarr;</a><a href="javascript:void(0);" onclick="ordenarPor('row desc')" class="arrow">&darr;</a></th>
+		<th> <span>nÂº fila</span>	<a href="javascript:void(0);" onclick="ordenarPor('row asc')" class="arrow">&uarr;</a><a href="javascript:void(0);" onclick="ordenarPor('row desc')" class="arrow">&darr;</a></th>
    		<th>alertas
    			<table>
 		    	<tr>
@@ -129,8 +129,8 @@
 		<a href="javascript:void(0);" onclick="ordenarPor('spdFormaMedicacion asc')" class="arrow">&uarr;</a><a href="javascript:void(0);" onclick="ordenarPor('spdFormaMedicacion desc')" class="arrow">&darr;</a>			
 		</th>
 	
-		<!-- Acción bolsa -->
-		  <th >Acción bolsa
+		<!-- AcciÃ³n bolsa -->
+		  <th >AcciÃ³n bolsa
 			<html:select property="seleccionSpdAccionBolsa"  value="${formulari.seleccionSpdAccionBolsa}" onchange="javascript:goSubmit();" styleClass="ancho_7" >    
 	   			<html:option value="">Todos</html:option>
 	   				<c:forEach items="${FicheroResiForm.listaSpdAccionBolsa}" var="bean"> 
@@ -240,7 +240,7 @@
 		
 	<c:choose>
  	   <c:when test="${not empty FicheroResiForm.listaResiTipoMedicacion}">
-        <th >Tipo medicación
+        <th >Tipo medicaciÃ³n
             <html:select property="seleccionResiTipoMedicacion" value="${formulari.seleccionResiTipoMedicacion}" onchange="javascript:goSubmit();"  styleClass="ancho_17" >   
                 <html:option value="">Todos</html:option>
                 <c:forEach items="${FicheroResiForm.listaResiTipoMedicacion}" var="bean"> 
@@ -255,11 +255,11 @@
 		<!-- inicio-fin tratamiento -->
 		<th >inicio-fin tratamiento</th>
 
-		<!-- Días semana -->
+		<!-- DÃ­as semana -->
 		<th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th><th>D</th>	  
 	
 
-		<!-- Tomas día -->
+		<!-- Tomas dÃ­a -->
 	<logic:notEmpty name="FicheroResiForm" property="listaTomasCabecera">	
 	 	<logic:iterate id="dose" name="FicheroResiForm" property="listaTomasCabecera" type= "lopicost.spd.helium.model.Dose" >
 		 		<th class="<bean:write  name="dose" property="tipo" />"><bean:write  name="dose" property="name" /></th>
@@ -342,7 +342,7 @@
 
  	<td>
 		<p class="botons">
-			<!--  		<input type="button"  class="boton-actualizar" onclick="javascript:refrescar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Actualizar sustitución"  /> -->
+			<!--  		<input type="button"  class="boton-actualizar" onclick="javascript:refrescar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Actualizar sustituciÃ³n"  /> -->
 			<!--  		<input type="button" class="boton-editar" onclick="javascript:editar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Editar"  /> -->
   			<!--  	<input type="button"   class="boton-borrar" onclick="borrar('<bean:write name="data" property="oidFicheroResiDetalle" />');" title="Borrar" / -->
 			
@@ -366,10 +366,10 @@
     if (data != null) {
         if (data!=null && data.getControlNumComprimidos()!=null && data.getControlNumComprimidos().equals(SPDConstants.CTRL_NCOMPRIMIDOS_IGUAL)) {
         	claseCSS_1 = "verde";
-        	altText_1 = "Coincide el número de comprimidos resi-robot";
+        	altText_1 = "Coincide el nÃºmero de comprimidos resi-robot";
         } else if (data!=null && data.getControlNumComprimidos()!=null && data.getControlNumComprimidos().equals(SPDConstants.CTRL_NCOMPRIMIDOS_DIFERENTE)) {
         	claseCSS_1 = "rojo";
-        	altText_1 = "ALERTA: número de comprimidos diferente resi-robot";
+        	altText_1 = "ALERTA: nÃºmero de comprimidos diferente resi-robot";
         }
         else {
         	claseCSS_1 = "naranja";
@@ -389,7 +389,7 @@
         	altText_2 = "REVISAR registro, la salida es igual que la anterior, pero los datos de la resi son diferentes.";
         } else if (data.getControlRegistroAnterior().equals(SPDConstants.CTRL_REGISTRO_ANTERIOR_RI_SD)) {
         	claseCSS_2 = "rojo";
-        	altText_2 = "ALERTA: Revisar bien el tratamiento. Se envía diferente a la anterior producción";
+        	altText_2 = "ALERTA: Revisar bien el tratamiento. Se envÃ­a diferente a la anterior producciÃ³n";
         } else if (data.getControlRegistroAnterior().equals(SPDConstants.CTRL_REGISTRO_ANTERIOR_RD_SD)) {
         	claseCSS_2 = "azul";
         	altText_2 = "Registro nuevo";
@@ -406,13 +406,13 @@
     if (data != null) {
         if (data!=null && data.getControlRegistroRobot()!=null && data.getControlRegistroRobot().equals(SPDConstants.CTRL_ROBOT_SE_ENVIA_A_ROBOT)) {
         	claseCSS_3 = "verde";
-        	altText_3 = "Se envía a robot";
+        	altText_3 = "Se envÃ­a a robot";
         } else if (data!=null && data.getControlRegistroRobot()!=null && data.getControlRegistroRobot().equals(SPDConstants.CTRL_ROBOT_NO_SE_ENVIA)) {
         	claseCSS_3 = "gris";
-        	altText_3 = "No se envía a robot";
+        	altText_3 = "No se envÃ­a a robot";
         } else {
         	claseCSS_3 = "blanco";
-        	altText_3 = "Revisar acción en bolsa del tratamiento";
+        	altText_3 = "Revisar acciÃ³n en bolsa del tratamiento";
         	}
    
     }
@@ -529,7 +529,7 @@
 		        <i class="fa fa-pencil action-icon" onclick="javascript:editar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Editar"></i>
 		        
 		      <logic:notEqual property="spdCnFinal" name="data" value="111111">  
-  				    <i class="fa fa-refresh action-icon" onclick="javascript:reiniciar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Reiniciar sustitución"></i> 
+  				    <i class="fa fa-refresh action-icon" onclick="javascript:reiniciar('<bean:write name="data" property="oidFicheroResiDetalle" />');"  title="Reiniciar sustituciÃ³n"></i> 
 	  		  </logic:notEqual>
 		      </logic:equal>		
 					

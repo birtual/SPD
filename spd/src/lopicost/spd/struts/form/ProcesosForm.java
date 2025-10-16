@@ -30,24 +30,24 @@ public class ProcesosForm extends GenericForm {
     private List procesos;
     private Proceso proceso;
     
-    private String fechaCreacion;               // Fecha de creaciÛn del proceso
-    private String parametros;                  // Par·metros del procedimiento
-    private String diasSemana;                  // DÌas de la semana para ejecuciÛn programada
-    private String diasMes;                 	// DÌas del mes (para procesos mensuales o dÌas de mes puntuales )
+    private String fechaCreacion;               // Fecha de creaci√≥n del proceso
+    private String parametros;                  // Par√°metros del procedimiento
+    private String diasSemana;                  // D√≠as de la semana para ejecut√≥ programada
+    private String diasMes;                 	// D√≠as del mes (para procesos mensuales o d√≠as de mes puntuales )
     private String[] diasSemanaArray;
     
-    private int maxDuracionSegundos=120; 		// M·xima duraciÛn de la ejecuciÛn en segundos
-    private String fechaDesde;               	// Fecha de activaciÛn del proceso
-    private String fechaHasta;                  // Fecha de desactivaciÛn del proceso
-    private String fechaInicioEjecucion;        // Fecha de inicio de la ejecuciÛn (si est· en ejecuciÛn)
-    private String fechaFinEjecucion;           // Fecha de fin de la ejecuciÛn (si est· finalizado)
-    private int duracionSegundos=0; 			// DuraciÛn de la ˙ltima ejecuciÛn en segundos
-    private String resultado;                   // Resultado de la ejecuciÛn
-    private String usuarioEjecucion;        	// Usuario que ejecutÛ el proceso 
-    private String mensaje;                     // Mensaje adicional de la ejecuciÛn
-    private String tipoError;                   // Tipo de error si existiÛ un fallo
-    private String codigoResultado;          	// CÛdigo de resultado (0 para Èxito, 1 para error, etc.)
-    private String error;                       // Error ocurrido durante la ejecuciÛn
+    private int maxDuracionSegundos=120; 		// M√°xima duraci√≥n de la ejecut√≥ en segundos
+    private String fechaDesde;               	// Fecha de activaci√≥n del proceso
+    private String fechaHasta;                  // Fecha de desactivaci√≥n del proceso
+    private String fechaInicioEjecucion;        // Fecha de inicio de la ejecut√≥ (si est√° en ejecut√≥)
+    private String fechaFinEjecucion;           // Fecha de fin de la ejecut√≥ (si est√° finalizado)
+    private int duracionSegundos=0; 			// Duraci√≥n de la √∫ltima ejecut√≥ en segundos
+    private String resultado;                   // Resultado de la ejecut√≥
+    private String usuarioEjecucion;        	// Usuario que ejecut√≥ el proceso 
+    private String mensaje;                     // Mensaje adicional de la ejecut√≥
+    private String tipoError;                   // Tipo de error si existi√≥ un fallo
+    private String codigoResultado;          	// C√≥digo de resultado (0 para √©xito, 1 para error, etc.)
+    private String error;                       // Error ocurrido durante la ejecut√≥
     private String apartado;                 	// Nombre del apartado o entidad para la que se ha creado, a efectos de agruparlo en la vista
     private int orden;	 		                 // Orden que ocupa en el apartado
     private int prioridad;						// 1 'Alta', 2 'Media', 3 'Baja',
@@ -76,7 +76,7 @@ public class ProcesosForm extends GenericForm {
     	String action = request.getParameter("ACTIONTODO");
 
         if ("nuevo".equalsIgnoreCase(action)) {
-            // Solo restablecer si estamos en la acciÛn "nuevo"
+            // Solo restablecer si estamos en la acci√≥n "nuevo"
             // Si no hay datos existentes, se marcan todos
             if (this.diasSemana == null || this.diasSemana.isEmpty()) {
                 this.diasSemanaArray = new String[] {

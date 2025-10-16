@@ -34,12 +34,12 @@ public class CabecerasXLSHelper {
 		
 		//creamos la toma en la plantilla
 		boolean check = CabecerasXLSDAO.addNuevaToma( idUsuario, cab, nuevaToma);
-		//si es ok, la actualizamos en la cabecera de la producci髇
+		//si es ok, la actualizamos en la cabecera de la producci贸n
 		if(check)
 		{
-			//actualizaci髇 de las l韓eas creadas en la importaci髇 
+			//actualizaci贸n de las l铆neas creadas en la importaci贸n 
 			check = FicheroResiDetalleDAO.addTomaLineas(idUsuario, cab);		
-			//actualizaci髇 de la cabecera creada en la importaci髇 
+			//actualizaci贸n de la cabecera creada en la importaci贸n 
 			check = FicheroResiDetalleDAO.addTomaCabecera(idUsuario, cab, nuevaToma.getHoraToma(), nuevaToma.getNombreToma());
 		}
 		return check;
@@ -129,9 +129,9 @@ public class CabecerasXLSHelper {
 			//actualizamos el proceso en curso
 			if(tomaNueva!=null)
 			{
-		   		//actualizaci髇 de la cabecera creada en la importaci髇 del proceso en el que hemos modificado la toma, que es el 鷏timo
+		   		//actualizaci贸n de la cabecera creada en la importaci贸n del proceso en el que hemos modificado la toma, que es el 煤ltimo
 		  		boolean resultEdicion = FicheroResiDetalleDAO.modificaCabeceraTomaDelProceso(idUsuario, tomaAntigua, tomaNueva, cab.getIdProceso());
-		  		//si no se realiza ok, se ha de invertir el proceso para dejarlo como antes de la edici髇 y devolver null
+		  		//si no se realiza ok, se ha de invertir el proceso para dejarlo como antes de la edici贸n y devolver null
 		  		if(!resultEdicion)
 		 		{
 		  			CabecerasXLSDAO.editarToma( idUsuario, tomaNueva, tomaAntigua, horaToma, nombreToma);
@@ -147,7 +147,7 @@ public class CabecerasXLSHelper {
 	}
 
 	/**
-	 * Devuelve el ID de la toma, que acostumbra ser 4 d韌itos (la hora sin los :)
+	 * Devuelve el ID de la toma, que acostumbra ser 4 d铆gitos (la hora sin los :)
 	 * @param cadena
 	 * @param posicion
 	 * @return
@@ -178,7 +178,7 @@ public class CabecerasXLSHelper {
 
 	/**
 	 * A partir de lo que se devuelva en la select, se construye el resultado. En caso de ser una hora, se devuelve tal cual. En caso de ser un texto que no sigue 
-	 * formato XX:XX se construye una hora a partir de la posici髇 que ocupa, devolviendo formato XX:XX  
+	 * formato XX:XX se construye una hora a partir de la posici贸n que ocupa, devolviendo formato XX:XX  
 	 * @param cadena
 	 * @param posicion
 	 * @return
@@ -191,7 +191,7 @@ public class CabecerasXLSHelper {
 			 result =cadena;
 	        } else {
 	        	 if (posicion < 1 || posicion > 99) {
-	        		 throw new IllegalArgumentException("El n鷐ero debe estar en el rango de 1 a 99.");
+	        		 throw new IllegalArgumentException("El n煤mero debe estar en el rango de 1 a 99.");
 	             }
 	        	 result = String.format("%02d:00", posicion, 0);
 	        }

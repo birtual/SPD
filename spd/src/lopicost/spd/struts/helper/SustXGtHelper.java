@@ -27,10 +27,10 @@ public class SustXGtHelper {
 
 
 /**
- * Método que crea o actualiza los GTVMPP de un GTVMP determinado.
+ * MÃ©todo que crea o actualiza los GTVMPP de un GTVMP determinado.
  * Se recuperan todos los GTVMPP hijos  
  * En caso que existan se actualiza la rentabilidad de cada uno
- * En caso que no existan, se crearán con la rentabilidad del form 
+ * En caso que no existan, se crearÃ¡n con la rentabilidad del form 
  * @param idUsuario
  * @param f
  * @return
@@ -84,12 +84,12 @@ public class SustXGtHelper {
 
 			if(result)
 		{
-			//INICIO creación de log en BBDD
+			//INICIO creaciÃ³n de log en BBDD
 			try{
 				SpdLogAPI.addLog(idUsuario, null,  null, null, SpdLogAPI.A_RENTABILIDAD, SpdLogAPI.B_CREACION, "", "SpdLog.rentabilidad.creado.general", 
 						formulari.getFiltroCodGtVm() + "_" + formulari.getFiltroCodGtVmp() );
 			}catch(Exception e){}	// Cambios--> @@.
-			//FIN creación de log en BBDD
+			//FIN creaciÃ³n de log en BBDD
 			
 		}
 

@@ -107,11 +107,11 @@ import java.util.*;
 	}
 
 	/**
-	 * Creación de un registro de log's
+	 * CreaciÃ³n de un registro de log's
 	 * @param tablename Tabla afectada
 	 * @param cl Clase afectada
 	 * @param oidobject Objeto afectado
-	 * @param action Acción efectuado
+	 * @param action AcciÃ³n efectuado
 	 * @return
 	 */
 	//@TODO String subaction, String description 

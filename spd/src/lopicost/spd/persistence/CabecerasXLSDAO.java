@@ -141,8 +141,8 @@ public class CabecerasXLSDAO {
          int i = 0;
          int numeroDeTomasBase=0; 
          while (resultSet.next()) {
-        	 f.setIdDivisionResidencia(resultSet.getString("idDivisionResidencia")); //será el mismo valor en el bucle 
-        	 i++; // Incrementa i para la próxima llamada
+        	 f.setIdDivisionResidencia(resultSet.getString("idDivisionResidencia")); //serÃ¡ el mismo valor en el bucle 
+        	 i++; // Incrementa i para la prÃ¡xima llamada
         	 
         	 //para detectar las tomas BASE que son las que se reciben en Excel, normalmente 5 o 6, el resto son EXTRAS creadas posteriormente
         	 String tipo = resultSet.getString("tipo"); 
@@ -160,7 +160,7 @@ public class CabecerasXLSDAO {
              
                } catch (Exception e) {
                    e.printStackTrace();
-                  // Manejo de excepciones según sea necesario
+                  // Manejo de excepciones segÃºn sea necesario
                }
             }
          f.setNumeroDeTomasBase(numeroDeTomasBase);
@@ -183,7 +183,7 @@ public class CabecerasXLSDAO {
 		if(numeroDeTomas>0)
 		{
 			String resiTomaX = "ResiToma" + (numeroDeTomas);
-			// Utilizar reflexión para acceder al método getResiTomaX en el formulario
+			// Utilizar reflexiÃ³n para acceder al mÃ©todo getResiTomaX en el formulario
 		    Method getterMethod = formulari.getClass().getMethod("get" + resiTomaX);
 		    String resiTomaXValue = (String) getterMethod.invoke(formulari);
 		    String resiTomaLiteral = formulari.getResiTomaLiteral();
@@ -199,9 +199,9 @@ public class CabecerasXLSDAO {
 				PreparedStatement pstat = con.prepareStatement(qry);
 				result=pstat.executeUpdate();
 			       
-				//actualización de las líneas creadas en la importación 
+				//actualizaciÃ³n de las lÃ­neas creadas en la importaciÃ³n 
 				FicheroResiDetalleDAO.addTomaLineas(spdUsuario, cab);		
-				//actualización de la cabecera creada en la importación 
+				//actualizaciÃ³n de la cabecera creada en la importaciÃ³n 
 				FicheroResiDetalleDAO.addTomaCabecera(spdUsuario, cab, resiTomaX, resiTomaXValue);
 
 			} catch (SQLException e) {
@@ -254,7 +254,7 @@ public class CabecerasXLSDAO {
 		  	  System.out.println(className + "--> borradoDeToma -->" +qry );		
 
 		      		
-		  	  //actualización de la cabecera creada en la importación 
+		  	  //actualizaciÃ³n de la cabecera creada en la importaciÃ³n 
 		  	  FicheroResiDetalleDAO.borraTomaDelProceso(spdUsuario, cab, resiTomaX);
 
 		  	  
@@ -477,7 +477,7 @@ public class CabecerasXLSDAO {
 
 
 	/**
-	 * Modificamos la toma de la cabecera para futuras cargas y la cabecera del proceso en el que se ha realizado la modificación, que ha de ser el último global
+	 * Modificamos la toma de la cabecera para futuras cargas y la cabecera del proceso en el que se ha realizado la modificaciÃ³n, que ha de ser el Ãºltimo global
 	 * @param idUsuario
 	 * @param tomaAntigua
 	 * @param tomaNueva
@@ -508,7 +508,7 @@ public class CabecerasXLSDAO {
 	    if(cambiaHora || cambiaNombre)
 		{
 				String qry = " UPDATE dbo.SPD_cabecerasXLS ";
-				qry+= "  SET posicionEnVistas='"+tomaNueva.getPosicionEnVistas()+"' "; //redundante, para poder añadir las que cambian 
+				qry+= "  SET posicionEnVistas='"+tomaNueva.getPosicionEnVistas()+"' "; //redundante, para poder aÃ±adir las que cambian 
 				if(cambiaHora)
 				  qry+=queryHora;
 				if(cambiaNombre)

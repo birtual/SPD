@@ -87,13 +87,13 @@
     <!--    <th>fecha</th> --> 
 		<th>Grupo VM (Principio activo)</th>
 		<th>Grupo VMP (Princ.Activo, dosis y forma)</th>
-        <th>Nombre VMPP (Conjunto Homogéneo)</th>
+        <th>Nombre VMPP (Conjunto HomogÃ©neo)</th>
         <th>Rentabilidad</th>
         <th>Ponderacion</th>
-        <th>Código Lab Asignado</th>
+        <th>CÃ³digo Lab Asignado</th>
         <th>Nombre Lab Asignado</th>
-        <th>Fecha creación</th>
-        <th>última modificacion</th>
+        <th>Fecha creaciÃ³n</th>
+        <th>Ãºltima modificacion</th>
         <th>Comentario</th>
 		<th></th>
 		<th></th>

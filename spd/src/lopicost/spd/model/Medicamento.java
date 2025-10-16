@@ -9,9 +9,9 @@ public abstract class Medicamento {
     
 	private String codGtVm ="";					// grupo VM - Virtual Medicinal  (igual principio activo).  
 	private String nomGtVm ="";				
-	private String codGtVmp ="";					// grupo VMP - Virtual Medicinal Product (igual principio activo, dosis y forma farmacéutica).  
+	private String codGtVmp ="";					// grupo VMP - Virtual Medicinal Product (igual principio activo, dosis y forma farmacÃ©utica).  
 	private String nomGtVmp ="";				
-	private String codGtVmpp =""; 				// grupo VMPP - Virtual Medicinal Product Package (igual principio activo, dosis, forma farmacéutica y número de unidades de dosificación).
+	private String codGtVmpp =""; 				// grupo VMPP - Virtual Medicinal Product Package (igual principio activo, dosis, forma farmacÃ©utica y nÃºmero de unidades de dosificaciÃ³n).
 	private String nomGtVmpp ="";					
 
     private String lab;

@@ -9,9 +9,9 @@ public class BolsaSPD {
     private int numeroOrdenBolsa;		
     private String codigoBarras;
     private int flag;					//0 SOLO_INFO / 1 PASTILLERO
-    private int offsetDays;				//días relativos
-    private String tomaDelDia;			//toma del día	(doseTime)
-    private String fechaEmbolsado;		//día de relleno	(fillDate)
+    private int offsetDays;				//dÃ­as relativos
+    private String tomaDelDia;			//toma del dÃ­a	(doseTime)
+    private String fechaEmbolsado;		//dÃ­a de relleno	(fillDate)
     private String horaEmbolsado;	//inicio hora de relleno (fillTime)
     private String freeInformation;
     private List<LineaBolsaSPD> lineasBolsa = new ArrayList<LineaBolsaSPD>();

@@ -1,7 +1,7 @@
-/* Estilo general de la página */
+/* Estilo general de la pï¿½gina */
 
-@import url(reset.css); /* Estilos de la página de inicio*/
-@import url(inicio.css); /* Estilos de la página de inicio*/
+@import url(reset.css); /* Estilos de la pï¿½gina de inicio*/
+@import url(inicio.css); /* Estilos de la pï¿½gina de inicio*/
 
 
 body {		
@@ -29,25 +29,25 @@ table {
 }	
 
 .a40 {
-  max-width: 4em; /* Establece un ancho máximo para la celda ajustada */
+  max-width: 4em; /* Establece un ancho mÃ¡ximo para la celda ajustada */
 }
 .a90 {
-  max-width: 9em; /* Establece un ancho máximo para la celda ajustada */
+  max-width: 9em; /* Establece un ancho mÃ¡ximo para la celda ajustada */
 }
 .a120 {
-  max-width: 12em; /* Establece un ancho máximo para la celda ajustada */
+  max-width: 12em; /* Establece un ancho mÃ¡ximo para la celda ajustada */
 }
 .a140 {
-  max-width: 14em; /* Establece un ancho máximo para la celda ajustada */
+  max-width: 14em; /* Establece un ancho mÃ¡ximo para la celda ajustada */
 }
 .a150 {
-  max-width: 15em; /* Establece un ancho máximo para la celda ajustada */
+  max-width: 15em; /* Establece un ancho mÃ¡ximo para la celda ajustada */
 }
 .a190 {
-  max-width: 19em; /* Establece un ancho máximo para la celda ajustada */
+  max-width: 19em; /* Establece un ancho mÃ¡ximo para la celda ajustada */
 }
 .a250 {
-  max-width: 25em; /* Establece un ancho máximo para la celda ajustada */
+  max-width: 25em; /* Establece un ancho mÃ¡ximo para la celda ajustada */
 }
 
 
@@ -60,7 +60,7 @@ td {
 	background-color: #EEE; /*#85f1d9*/
 	border: 0.1em solid #000;
 	padding: 0.2em 0.4em;
-	/*white-space: nowrap;  Evita que el contenido se divida en varias líneas */
+	/*white-space: nowrap;  Evita que el contenido se divida en varias lÃ­neas */
     overflow: hidden;    /* Oculta cualquier contenido que desborde la celda */
     text-overflow: ellipsis; /* Muestra puntos suspensivos (...) cuando el contenido se oculta */
 	text-align: left;
@@ -186,11 +186,11 @@ tr.SI_PRECISA td{
 }		
     
 .boton-up {		
-    background-image: url(../../spd/img/up.png); /* URL de la imagen para el botón "arriba" */		
+    background-image: url(../../spd/img/up.png); /* URL de la imagen para el botÃ³n "arriba" */		
 }		
 		
 .boton-down {		
-    background-image: url(../../spd/img/down.png); /* URL de la imagen para el botón "abajo" */		
+    background-image: url(../../spd/img/down.png); /* URL de la imagen para el botÃ³n "abajo" */		
 }		
 	
 .boton-up,		
@@ -198,7 +198,7 @@ tr.SI_PRECISA td{
     width: 1.2em;		
     height: 1.2em;		
     display: inline-block;		
-    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el botón */		
+    background-size: cover; /* Ajusta el tamaÃ±o de la imagen para cubrir todo el botÃ³n */		
     text-indent: -9999px; /* Oculta cualquier texto del enlace */		
 }		
 		

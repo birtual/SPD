@@ -117,7 +117,7 @@ input[type="checkbox" i] {
 }
 
 .botons {
-  position: relative; /* Asegura que el contenido dentro de .botons esté contenido dentro del espacio del botón */
+  position: relative; /* Asegura que el contenido dentro de .botons estÃ¡ contenido dentro del espacio del botÃ³n */
   background-color: white;
 }
 
@@ -169,16 +169,16 @@ input[type="checkbox" i] {
     width: 1.2em;
     height: 1.2em;
     display: inline-block;
-    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el botón */
+    background-size: cover; /* Ajusta el tamaÃ±o de la imagen para cubrir todo el botÃ³n */
     text-indent: -9999px; /* Oculta cualquier texto del enlace */
 }
 
 .boton-up {
-    background-image: url(../../spd/img/up.png); /* URL de la imagen para el botón "arriba" */
+    background-image: url(../../spd/img/up.png); /* URL de la imagen para el botÃ³n "arriba" */
 }
 
 .boton-down {
-    background-image: url(../../spd/img/down.png); /* URL de la imagen para el botón "abajo" */
+    background-image: url(../../spd/img/down.png); /* URL de la imagen para el botÃ³n "abajo" */
 }
 
 /* Estilos para los enlaces */
@@ -220,13 +220,13 @@ input[type="checkbox" i] {
 }
 
 .pautasDia {
-    width: 2em; /* Cambia el valor según tus necesidades */
+    width: 2em; /* Cambia el valor segÃºn tus necesidades */
 }
-    /* Estilos para los iconos de acción */
+    /* Estilos para los iconos de acciÃ³n */
 .action-icon {
     font-size: 1.5em;
-    font-weight: 100; /* Hace que la fuente sea más fina */
-    color: #400040; /* Color del ícono */
+    font-weight: 100; /* Hace que la fuente sea mÃ¡s fina */
+    color: #400040; /* Color del icono */
 	cursor: pointer;
 }
 
@@ -250,8 +250,8 @@ select.select_10
 }		
 
 .columna-ancho-alto {
-    width: 5em; /* Puedes ajustar el ancho según tus necesidades */
-    height: 3em; /* Puedes ajustar la altura según tus necesidades */
+    width: 5em; /* Puedes ajustar el ancho segÃºn tus necesidades */
+    height: 3em; /* Puedes ajustar la altura segÃºn tus necesidades */
 }
 
 
@@ -307,8 +307,8 @@ th.columna-ancho {
 .botons input[type="button"]:disabled {
     background-color: grey; /* Color de fondo para botones desactivados */
     color: lightgrey; /* Color del texto para botones desactivados */
-    cursor: not-allowed; /* Cursor para indicar que el botón está deshabilitado */
-    border: 1px solid grey; /* Opcional: añade un borde gris para botones desactivados */
+    cursor: not-allowed; /* Cursor para indicar que el botÃ³n estÃ¡ deshabilitado */
+    border: 1px solid grey; /* Opcional: aÃ±ade un borde gris para botones desactivados */
 }
 
 select.ancho_5 
@@ -337,28 +337,28 @@ select.ancho_23
 
 
 
-/* Media query para pantallas más pequeñas (móviles) */
+/* Media query para pantallas mÃ¡s pequeÃ­as (mÃ³viles) */
 @media screen and (max-width: 768px) {
     th, td {
         padding: 0,5em;
     }
 }
 
-    /* Estilo para divs con id específicos */
+    /* Estilo para divs con id especÃ­ficos */
     div[id="menu"]{
       width: 50%; /* Anchura del div al 70% del ancho de la ventana */
-      border: 0.3em solid #0077cc; /* Borde para los divs específicos */
-      border-radius: 1em; /* Bordes redondeados para los divs específicos */
-      padding: 1em; /* Relleno para los divs específicos */
-      margin: 0.6em auto; /* Margen para separar y centrar los divs específicos horizontalmente */
+      border: 0.3em solid #0077cc; /* Borde para los divs especÃ­ficos */
+      border-radius: 1em; /* Bordes redondeados para los divs especÃ­ficos */
+      padding: 1em; /* Relleno para los divs especÃ­ficos */
+      margin: 0.6em auto; /* Margen para separar y centrar los divs especÃ­ficos horizontalmente */
     }
 
-    /* Estilo para el texto del título */
+    /* Estilo para el texto del tÃ­tulo */
       div[id="menu"] .titulo {
-      font-size: 1.3em; /* Tamaño de fuente para el título */
-      font-weight: bold; /* Texto en negrita para el título */
-      color: #0077cc; /* Color del texto para el título */
-      margin-bottom: 0.5em; /* Margen inferior para separar el título del contenido */
+      font-size: 1.3em; /* TamaÃ±o de fuente para el tÃ­tulo */
+      font-weight: bold; /* Texto en negrita para el tÃ­tulo */
+      color: #0077cc; /* Color del texto para el tÃ­tulo */
+      margin-bottom: 0.5em; /* Margen inferior para separar el tÃ­tulo del contenido */
     }
 
     /* Estilo para los elementos de la lista (li) */
@@ -480,7 +480,7 @@ select.ancho_23
 
 
  .arrow {
-     font-size: 1.5em; /* Tamaño de la flecha */
+     font-size: 1.5em; /* TamaÃ±o de la flecha */
      color: black; /* Color de la flecha */
      text-decoration: none; /* Eliminar subrayado de los enlaces */
      float: center;

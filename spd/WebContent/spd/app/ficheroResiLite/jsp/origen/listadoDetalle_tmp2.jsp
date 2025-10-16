@@ -14,7 +14,7 @@
 <head>
     <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
 <script type="text/javascript">
-        // Función para hacer AJAX y cambiar la visibilidad de los datos
+        // FunciÃ³n para hacer AJAX y cambiar la visibilidad de los datos
         function toggleVerDatos() {
             var mostrarDatosCompletos = document.getElementById("verDatos").value === "true";
             
@@ -50,7 +50,7 @@
 </head>
 
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
-    <!-- Botón para alternar entre mostrar/ocultar datos completos o enmascarados -->
+    <!-- botÃ³n para alternar entre mostrar/ocultar datos completos o enmascarados -->
      <button type="button" onclick="toggleVerDatos()">Ver Datos Completos/Enmascarados</button>
 
 <table class="blueTable" border="1">
@@ -117,7 +117,7 @@
             </tr>
         </thead>
         <tbody>
-           <!-- Si verDatos es true, el botón será 'Ver Datos Completos', si es false será 'Ver Datos Enmascarados' -->
+           <!-- Si verDatos es true, el botÃ³n serÃ¡ 'Ver Datos Completos', si es false serÃ¡ 'Ver Datos Enmascarados' -->
     <input type="hidden" name="verDatos" value="${sessionScope.verDatos ? 'false' : 'true'}" />
     <input type="submit" value="${sessionScope.verDatos ? 'Ver Datos Enmascarados' : 'Ver Datos Completos'}" />
         
@@ -132,7 +132,7 @@
         </div>
     </logic:iterate>
 
-    <!-- Valor oculto que guarda el estado del botón (si se están mostrando los datos completos o no) -->
+    <!-- Valor oculto que guarda el estado del botÃ³n (si se estÃ¡n mostrando los datos completos o no) -->
     <input type="hidden" id="verDatos" value="false" />
         </tbody>
     </table>

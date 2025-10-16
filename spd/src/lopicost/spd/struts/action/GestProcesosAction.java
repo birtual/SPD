@@ -49,7 +49,7 @@ public class GestProcesosAction extends GenericAction  {
 		if(user==null) 
 		{
 			List errors = new ArrayList();
-	    	errors.add( "Error sesiÛn usuario, es necesario volver a hacer login");
+	    	errors.add( "Error sesi√≥n usuario, es necesario volver a hacer login");
 			return mapping.findForward("errorSession");
 		}
     	List<Proceso> procesos = helper.list(user.getIdUsuario());
@@ -75,7 +75,7 @@ public class GestProcesosAction extends GenericAction  {
 		Usuario user = UsuarioDAO.findByIdUser(getIdUsuario());
 		if(user==null) 
 		{
-	    	errors.add( "Error sesiÛn usuario, es necesario volver a hacer login");
+	    	errors.add( "Error sesi√≥n usuario, es necesario volver a hacer login");
 			return mapping.findForward("errorSession");
 		}	
 		
@@ -166,7 +166,7 @@ public class GestProcesosAction extends GenericAction  {
 		f.setErrors(errors);
 		if(!proceso.getActivo().equalsIgnoreCase(SPDConstants.PROCESO_ACTIVO)) 
 		{
-			errors.add("El proceso est· " + proceso.getActivo() + " Es necesario activarlo primero.");
+			errors.add("El proceso est√° " + proceso.getActivo() + " Es necesario activarlo primero.");
 			list( mapping,  form,  request,  response);
 			return mapping.findForward("list");
 		}
@@ -188,23 +188,23 @@ public class GestProcesosAction extends GenericAction  {
 		if(result)
 		{
 			errors.add( "Proceso lanzado correctamente ");
-			//INICIO creaciÛn de log en BBDD
+			//INICIO creaci√≥n de log en BBDD
 			try{
 				SpdLogAPI.addLog(getIdUsuario(), null,  null, null, SpdLogAPI.A_PROCESO, SpdLogAPI.B_LANZAMIENTO, "", "SpdLog.proceso.lanzado.manual", 
 						   proceso.getLanzadera() );
 			}catch(Exception e){}	// Cambios--> @@.
-			//FIN creaciÛn de log en BBDD
+			//FIN creaci√≥n de log en BBDD
 			
 		}
 		else errors.add( "No se ha lanzado el proceso");
 			
 			*/
-		//INICIO creaciÛn de log en BBDD
+		//INICIO creaci√≥n de log en BBDD
 		try{
 			SpdLogAPI.addLog(getIdUsuario(), null,  null, null, SpdLogAPI.A_PROCESO, SpdLogAPI.B_LANZAMIENTO, "", "SpdLog.proceso.lanzado.manual", 
 					   proceso.getLanzadera() );
 		}catch(Exception e){}	// Cambios--> @@.
-		//FIN creaciÛn de log en BBDD
+		//FIN creaci√≥n de log en BBDD
 		list( mapping,  form,  request,  response);
 		return mapping.findForward("list");
 		
@@ -257,7 +257,7 @@ public class GestProcesosAction extends GenericAction  {
 		Usuario user = UsuarioDAO.findByIdUser(getIdUsuario());
 		if(user==null) 
 		{
-	    	errors.add( "Error sesiÛn usuario, es necesario volver a hacer login");
+	    	errors.add( "Error sesi√≥n usuario, es necesario volver a hacer login");
 			return mapping.findForward("errorSession");
 		}
 		Aviso aviso=AvisosDAO.findByOid(getIdUsuario(), formulari.getOidAviso());
@@ -293,14 +293,14 @@ public class GestProcesosAction extends GenericAction  {
 		
 		
 		/*	
-    // Este mÈtodo gestiona la creaciÛn y actualizaciÛn de procesos.
+    // Este m√©todo gestiona la creaci√≥n y actualizaci√≥n de procesos.
     public ActionForward gestionarProcesos(ActionMapping mapping, ActionForm form, 
                                            HttpServletRequest request, HttpServletResponse response) throws Exception {
         // Obtener los datos del formulario
         ProcesosForm procesosForm = (ProcesosForm) form;
         ProcesoDAO procesosDAO = new ProcesoDAO();
 
-        // AquÌ se guardan o actualizan los procesos en la base de datos
+        // Aqu√≠ se guardan o actualizan los procesos en la base de datos
         Proceso proceso = new Proceso();
         proceso.setNombreProceso(procesosForm.getNombreProceso());
         proceso.setDescripcion(procesosForm.getDescripcion());
@@ -319,11 +319,11 @@ public class GestProcesosAction extends GenericAction  {
         // Insertar el proceso en la base de datos
      // procesosDAO.insertarProceso(proceso);
 
-        // Redirigir a la p·gina de confirmaciÛn o lista de procesos
+        // Redirigir a la p√°gina de confirmaci√≥n o lista de procesos
         return mapping.findForward("procesosGuardados");
     }
 
-    // Este mÈtodo maneja la visualizaciÛn del historial de un proceso.
+    // Este m√©todo maneja la visualizaci√≥n del historial de un proceso.
     
     public ActionForward verHistorial(ActionMapping mapping, ActionForm form,
                                       HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -332,15 +332,15 @@ public class GestProcesosAction extends GenericAction  {
         ProcesoHistoricoDAO historialDAO = new ProcesoHistoricoDAO();
         List<ProcesoHistorico> historial = historialDAO.obtenerPorProceso(oidProceso);
 
-        // Colocar el historial en el contexto para su visualizaciÛn en la JSP
+        // Colocar el historial en el contexto para su visualizaci√≥n en la JSP
         request.setAttribute("historial", historial);
 
-        // Redirigir a la p·gina que muestra el historial
+        // Redirigir a la p√°gina que muestra el historial
         return mapping.findForward("verHistorial");
     }
     
 
-    // Este mÈtodo maneja las acciones de inicio, parada o reinicio de un proceso.
+    // Este m√©todo maneja las acciones de inicio, parada o reinicio de un proceso.
     public ActionForward accionProceso(ActionMapping mapping, ActionForm form,
                                       HttpServletRequest request, HttpServletResponse response) throws Exception {
         ProcesosForm procesosForm = (ProcesosForm) form;
@@ -356,7 +356,7 @@ public class GestProcesosAction extends GenericAction  {
                 // Verificar estado antes de iniciar
                 String estado = procesoHelper.obtenerEstadoProceso(getIdUsuario(), proceso.getOidProceso());
                 if ("EN_EJECUCION".equals(estado)) {
-                    System.out.println("El proceso ya est· en ejecuciÛn.");
+                    System.out.println("El proceso ya est√° en ejecut√≥.");
                     break;
                 }
                 procesoHelper.iniciarProceso(getIdUsuario(), proceso.getOidProceso());
@@ -376,7 +376,7 @@ public class GestProcesosAction extends GenericAction  {
 
         return mapping.findForward("list"); // O la vista que desees mostrar
     }
-   // MÈtodo para convertir String a Timestamp
+   // M√©todo para convertir String a Timestamp
     private Timestamp convertirStringToTimestamp(String fechaStr) {
         try {
             // Suponiendo que el formato de fecha es "yyyy-MM-dd HH:mm:ss"
@@ -385,11 +385,11 @@ public class GestProcesosAction extends GenericAction  {
             return new Timestamp(date.getTime());  // Convertimos el Date a Timestamp
         } catch (Exception e) {
             e.printStackTrace();
-            return null;  // Devolver null si hay un error en la conversiÛn
+            return null;  // Devolver null si hay un error en la conversi√≥n
         }
     }
 	
-    // MÈtodo para convertir String a Time
+    // M√©todo para convertir String a Time
     private Time convertirStringToTime(String horaStr) {
         try {
             // Suponiendo que el formato de fecha es "yyyy-MM-dd HH:mm:ss"
@@ -398,7 +398,7 @@ public class GestProcesosAction extends GenericAction  {
             return new Time(date.getTime());  // Convertimos el Date a Timestamp
         } catch (Exception e) {
             e.printStackTrace();
-            return null;  // Devolver null si hay un error en la conversiÛn
+            return null;  // Devolver null si hay un error en la conversi√≥n
         }
     }
 	*/

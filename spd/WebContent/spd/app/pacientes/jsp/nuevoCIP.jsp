@@ -13,7 +13,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Creación de usuario SPD</title>
+<title>CreaciÃ³n de usuario SPD</title>
 </head>
 
 <bean:define id="formulari" name="PacientesForm" type="lopicost.spd.struts.form.PacientesForm" />

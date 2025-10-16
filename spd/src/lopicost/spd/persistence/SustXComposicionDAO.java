@@ -182,15 +182,15 @@ public class SustXComposicionDAO {
 	
 	
 	/**
-	 * 	Grupo TerapÈutico ATC Nivel 3. Permite obtener el listado de medicamentos que tengan su mismo nivel de grupo terapÈutico de la ATC (mismo subgrupo farmacolÛgico/terapÈutico).
-		Grupo TerapÈutico ATC Nivel 4. Permite obtener el listado de medicamentos que tengan su mismo nivel de grupo terapÈutico de la ATC (mismo subgrupo farmacolÛgico/terapÈutico).
-		Grupo TerapÈutico ATC Nivel 5. Permite obtener el listado de medicamentos que tengan su mismo nivel de grupo terapÈutico de la ATC (mismo principio activo).
-		Grupo TerapÈutico VMP. Permite obtener el listado de medicamentos que tengan su mismo grupo VMP (es decir, igual principio activo, dosis y forma farmacÈutica).
-		Grupo TerapÈutico VMPP. Permite obtener el listado de medicamentos que tengan su mismo grupo VMMP (es decir, igual principio activo, dosis, forma farmacÈutica y n˙mero de unidades de dosificaciÛn).
-	 * Habr·n varias formas de muestra:
-	 * 	- SelecciÛn de LAB: Se muestran los ConjHomogÈneos que hay disponibles (bdConsejo) para ese LAb
-	 *  - SelecciÛn de soloAsignados: Lo mismo que lo anterior pero solo los que tienen LAB - conjHomog asignado
-	 *  - SelecciÛn de PActivo / Grupo terap: Se muestran los de la tabla sustitucionXConjHomg ordenados descendentemente por rent/ponderaciÛn
+	 * 	Grupo Terap√©utico ATC Nivel 3. Permite obtener el listado de medicamentos que tengan su mismo nivel de grupo terap√©utico de la ATC (mismo subgrupo farmacol√≥gico/terap√©utico).
+		Grupo Terap√©utico ATC Nivel 4. Permite obtener el listado de medicamentos que tengan su mismo nivel de grupo terap√©utico de la ATC (mismo subgrupo farmacol√≥gico/terap√©utico).
+		Grupo Terap√©utico ATC Nivel 5. Permite obtener el listado de medicamentos que tengan su mismo nivel de grupo terap√©utico de la ATC (mismo principio activo).
+		Grupo Terap√©utico VMP. Permite obtener el listado de medicamentos que tengan su mismo grupo VMP (es decir, igual principio activo, dosis y forma farmac√©utica).
+		Grupo Terap√©utico VMPP. Permite obtener el listado de medicamentos que tengan su mismo grupo VMMP (es decir, igual principio activo, dosis, forma farmac√©utica y n√∫mero de unidades de dosificaci√≥n).
+	 * Habr√°n varias formas de muestra:
+	 * 	- Selecci√≥n de LAB: Se muestran los ConjHomog√©neos que hay disponibles (bdConsejo) para ese LAb
+	 *  - Selecci√≥n de soloAsignados: Lo mismo que lo anterior pero solo los que tienen LAB - conjHomog asignado
+	 *  - Selecci√≥n de PActivo / Grupo terap: Se muestran los de la tabla sustitucionXConjHomg ordenados descendentemente por rent/ponderaci√≥n
 	 *  
 	 * @param form
 	 * @param count
@@ -207,12 +207,12 @@ public class SustXComposicionDAO {
 		String 	select = " distinct  ";
 				//select+=" b.codiLABO, b.nomLabo, ";
 				select+=" b.CodigoGT, b.GrupoTerapeutico,  "; // b.codiPactivo,  b.nomPactivo,  
-				select+=" b.CodGtAtcNivel3, b.NomGtAtcNivel3,   ";		// nivel de grupo terapÈutico de la ATC (mismo subgrupo farmacolÛgico/terapÈutico).
-				select+=" b.CodGtAtcNivel4, b.NomGtAtcNivel4, 	";		// nivel de grupo terapÈutico de la ATC (mismo subgrupo farmacolÛgico/terapÈutico).
-				select+=" b.CodGtAtcNivel5, b.NomGtAtcNivel5, 	";		// nivel de grupo terapÈutico de la ATC (mismo principio activo)
+				select+=" b.CodGtAtcNivel3, b.NomGtAtcNivel3,   ";		// nivel de grupo terap√©utico de la ATC (mismo subgrupo farmacol√≥gico/terap√©utico).
+				select+=" b.CodGtAtcNivel4, b.NomGtAtcNivel4, 	";		// nivel de grupo terap√©utico de la ATC (mismo subgrupo farmacol√≥gico/terap√©utico).
+				select+=" b.CodGtAtcNivel5, b.NomGtAtcNivel5, 	";		// nivel de grupo terap√©utico de la ATC (mismo principio activo)
 				select+=" b.CodGtVm, b.NomGtVm, ";					// grupo VM (igual principio activo).
-				select+=" b.CodGtVmp, b.NomGtVmp, ";					// grupo VMP (igual principio activo, dosis y forma farmacÈutica).
-				select+=" b.CodGtVmpp, b.NomGtVmpp, ";  				// grupo VMMP (igual principio activo, dosis, forma farmacÈutica y n˙mero de unidades de dosificaciÛn).
+				select+=" b.CodGtVmp, b.NomGtVmp, ";					// grupo VMP (igual principio activo, dosis y forma farmac√©utica).
+				select+=" b.CodGtVmpp, b.NomGtVmpp, ";  				// grupo VMMP (igual principio activo, dosis, forma farmac√©utica y n√∫mero de unidades de dosificaci√≥n).
 				select+=" g.rentabilidad, g.ponderacion, g.codiLab, g.ultimaModificacion, (g.rentabilidad + g.ponderacion) as nota,  ";
 				select+=" g.comentarios, g.nombreLab, g.fechaCreacion, g.oidSustXComposicion, g.cn6, g.cn7, g.nombreMedicamento, g.sustituible, g.tolva ";
 				
@@ -594,15 +594,15 @@ public class SustXComposicionDAO {
 		if(count)  
 			select = "select count(distinct coalesce(g.codGtVmpp,'')+coalesce(b.CodGtVmp,'')+coalesce(g.nombreLab,'')) as quants";
 		else if(!count) 
-			select = "select * from ( select  distinct ROW_NUMBER() OVER(ORDER BY g.nomGtVmpp, (g.rentabilidad + g.ponderacion) desc) AS ROWNUM, g.idrobot, b.CodGtVmp,  b.NomGtVmp, g.sustituible, g.tolva, "; // grupo VMP (igual ConjHomog - principio activo, dosis y forma farmacÈutica).
+			select = "select * from ( select  distinct ROW_NUMBER() OVER(ORDER BY g.nomGtVmpp, (g.rentabilidad + g.ponderacion) desc) AS ROWNUM, g.idrobot, b.CodGtVmp,  b.NomGtVmp, g.sustituible, g.tolva, "; // grupo VMP (igual ConjHomog - principio activo, dosis y forma farmac√©utica).
 		
 		
 		//select+=" b.codiLABO, b.nomLabo, ";
 		select+=" b.CodigoGT, b.GrupoTerapeutico,  b.CodGtVm,  b.NomGtVm, "; // b.codiPactivo,  b.nomPactivo,  
-		select+=" b.CodGtAtcNivel3, b.NomGtAtcNivel3,   ";		// nivel de grupo terapÈutico de la ATC (mismo subgrupo farmacolÛgico/terapÈutico).
-		select+=" b.CodGtAtcNivel4, b.NomGtAtcNivel4, 	";		// nivel de grupo terapÈutico de la ATC (mismo subgrupo farmacolÛgico/terapÈutico).
-		select+=" b.CodGtAtcNivel5, b.NomGtAtcNivel5, 	";		// nivel de grupo terapÈutico de la ATC (mismo principio activo)
-		select+=" coalesce(b.CodGtVmpp, g.CodGtVmpp) as codGtVmpp, coalesce(b.NomGtVmpp, g.NomGtVmpp) as nomGtVmpp, ";  				// grupo VMMP (igual principio activo, dosis, forma farmacÈutica y n˙mero de unidades de dosificaciÛn).
+		select+=" b.CodGtAtcNivel3, b.NomGtAtcNivel3,   ";		// nivel de grupo terap√©utico de la ATC (mismo subgrupo farmacol√≥gico/terap√©utico).
+		select+=" b.CodGtAtcNivel4, b.NomGtAtcNivel4, 	";		// nivel de grupo terap√©utico de la ATC (mismo subgrupo farmacol√≥gico/terap√©utico).
+		select+=" b.CodGtAtcNivel5, b.NomGtAtcNivel5, 	";		// nivel de grupo terap√©utico de la ATC (mismo principio activo)
+		select+=" coalesce(b.CodGtVmpp, g.CodGtVmpp) as codGtVmpp, coalesce(b.NomGtVmpp, g.NomGtVmpp) as nomGtVmpp, ";  				// grupo VMMP (igual principio activo, dosis, forma farmac√©utica y n√∫mero de unidades de dosificaci√≥n).
 		select+=" g.rentabilidad, g.ponderacion, g.codiLab, g.ultimaModificacion, (g.rentabilidad + g.ponderacion) as nota,  ";
 		select+=" g.comentarios, g.nombreLab, g.fechaCreacion, g.oidSustXComposicion, g.cn6, g.cn7, g.nombreMedicamento ";
 		return select;
@@ -636,8 +636,8 @@ public class SustXComposicionDAO {
 			where+=  "  OR g.nombreLab  like '%"+form.getFiltroTextoABuscar() +"%' ";
 			where+=  "  OR g.comentarios  like '%"+form.getFiltroTextoABuscar() +"%' ";
 			where+=  "  OR b.CODIGO ='"+form.getFiltroTextoABuscar() +"'";
-	// 		where+=  "  OR b.NOMBRE like '%"+form.getFiltroTextoABuscar() +"%' ";			Da problemas. Muestra m·s registros de la cuenta
-	//		where+=  "  OR b.PRESENTACION like '%"+form.getFiltroTextoABuscar() +"%' ";		Da problemas. Muestra m·s registros de la cuenta
+	// 		where+=  "  OR b.NOMBRE like '%"+form.getFiltroTextoABuscar() +"%' ";			Da problemas. Muestra m√°s registros de la cuenta
+	//		where+=  "  OR b.PRESENTACION like '%"+form.getFiltroTextoABuscar() +"%' ";		Da problemas. Muestra m√°s registros de la cuenta
 			where+=  " ) ";
 		}
 		if(form.getFiltroRobot()!=null && !form.getFiltroRobot().equals(""))
@@ -714,7 +714,7 @@ public class SustXComposicionDAO {
 	}
 
 	/**
-	 * Fetch es una cl·usula que funciona a partir del SqlServer 2008 (no inclusive)
+	 * Fetch es una cl√°usula que funciona a partir del SqlServer 2008 (no inclusive)
 	 * @param form
 	 * @param inicio
 	 * @param fin
@@ -733,7 +733,7 @@ public class SustXComposicionDAO {
 	}
 
 	/**
-	 * Como FETCH es una cl·usula de versiÛn SQLSERVER>2008 se crea una funciÛn un poco m·s engorrosa pero
+	 * Como FETCH es una cl√°usula de versi√≥n SQLSERVER>2008 se crea una funci√≥n un poco m√°s engorrosa pero
 	 * que sirve para todas las versiones (ROW_NUMBER() OVER)
 	 * @param form
 	 * @param inicio

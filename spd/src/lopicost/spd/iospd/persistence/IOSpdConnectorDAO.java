@@ -20,7 +20,7 @@ public class IOSpdConnectorDAO {
     private static final Class cClass = IOSpdConnector.class;
     
     /**
-     * Metodo que llama a la clase padre con los parametros específicos para
+     * Metodo que llama a la clase padre con los parametros especÃ­ficos para
      * el objeto 
      * @throws SQLException 
      * @throws ClassNotFoundException 

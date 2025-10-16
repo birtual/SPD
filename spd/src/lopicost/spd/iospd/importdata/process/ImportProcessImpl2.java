@@ -149,7 +149,7 @@ public abstract class ImportProcessImpl2 implements ImportProcess
 			//xxxxxwhile ((rowInProcess!=null ||  (rowInProcess=conector.getNextRow())!=null)   && !rowInProcess.isEmpty()) 
 		    int totalFilas = conector.getFilasTotales();
 		    boolean fin = false;
-//		    boolean cargaAnexa = conector.isCargaAnexa();  //en caso que se añada un fichero a un proceso ya existente 
+//		    boolean cargaAnexa = conector.isCargaAnexa();  //en caso que se aÃ±ada un fichero a un proceso ya existente 
 		    //while ( totalFilas>=count && (rowInProcess=conector.getNextRow())!=null )
 		    while ( totalFilas>=count && !fin)
 			{
@@ -181,7 +181,7 @@ public abstract class ImportProcessImpl2 implements ImportProcess
 ////////////////////                        errores+= " --> "+rowInProcess.toString();
 						//writeError(rowInProcess, e.getMessage());                                   
 			        }
-					//Incrementem el número de files processades
+					//Incrementem el nÃºmero de files processades
 					this.setProcessedRows(this.getProcessedRows()+1);
 					// 3.- En caso de errores escribirlo en la salida
 					if(errores!=null)
@@ -227,7 +227,7 @@ public abstract class ImportProcessImpl2 implements ImportProcess
 	 */
 	private void writeError(Vector row, String error)  throws IOException, ClassNotFoundException, SQLException
 	{
-		//Añado un log en BDD para poder relanzar los erroneos y tenerlo mejor detectados.
+		//aÃ±ado un log en BDD para poder relanzar los erroneos y tenerlo mejor detectados.
 		SpdLogAPI.addLog(getSpdUsuario(), getIdDivisionResidencia(), getIdProceso(), SpdLogAPI.A_IOSPD, getLogSubAccion(), (getProcessedRows()+1)+"", error,row.toString());
 		
 		row.add(error);
@@ -261,7 +261,7 @@ public abstract class ImportProcessImpl2 implements ImportProcess
 			try {
 				log.top( statistics );
 				//jpapell 26/09/2007
-				//Añado un log en BDD para poder controlar los processos lanzados .
+				//aÃ±ado un log en BDD para poder controlar los processos lanzados .
 				SpdLogAPI.addLog(getSpdUsuario(), getIdDivisionResidencia(), getIdProceso(), SpdLogAPI.A_IOSPD, getLogAccion(), SpdLogAPI.C_START,
 						"0", "["+new Date().toString()+"] Lanzado proceso IOSGA ");
 				
@@ -290,7 +290,7 @@ public abstract class ImportProcessImpl2 implements ImportProcess
 			try {
 				log.bottom( statistics );
 				//jpapell 26/09/2007
-				//Añado un log en BDD para poder controlar los processos lanzados .
+				//aÃ±ado un log en BDD para poder controlar los processos lanzados .
 				SpdLogAPI.addLog(getSpdUsuario(), getIdDivisionResidencia(), getIdProceso(), SpdLogAPI.A_IOSPD, getLogAccion(), SpdLogAPI.C_END,
 						"0", "["+new Date().toString()+"] Lanzado proceso IOSGA-> procesados:["+statistics.getProcessedRowsCount()+"] ok:["+statistics.getOkRowsCount()+"] ko:["+statistics.getErrorsRowsCount()+"]");
 				

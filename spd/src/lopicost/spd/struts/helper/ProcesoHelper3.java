@@ -55,7 +55,7 @@ public class ProcesoHelper3 {
 		proceso.setTipoPeriodo(form.getTipoPeriodo());
 		proceso.setDiasSemana(form.getDiasSemana());
 		proceso.setDiasMes(form.getDiasMes());
-		// Campos opcionales con conversiÛn y validaciÛn
+		// Campos opcionales con conversi√≥n y validaci√≥n
 		if (form.getHoraEjecucion() != null && !form.getHoraEjecucion().isEmpty()) {
 		    proceso.setHoraEjecucion(form.getHoraEjecucion());
 		}
@@ -83,15 +83,15 @@ public class ProcesoHelper3 {
 			
 			String mensaje = proceso.toString();
 
-			//INICIO creaciÛn de historico en BBDD
+			//INICIO creaci√≥n de historico en BBDD
 			boolean historico = creaProcesoHistoricoPorLanzadera(proceso.getLanzadera());
 			
-			//INICIO creaciÛn de log en BBDD
+			//INICIO creaci√≥n de log en BBDD
 			try{
 				SpdLogAPI.addLog(idUsuario, null,  null, null, SpdLogAPI.A_PROCESO, SpdLogAPI.B_CREACION, "", "SpdLog.proceso.creado.general", 
-						" Creado histÛrico --> " + historico  + " / Datos proceso " +  proceso.toString() );
+						" Creado hist√≥rico --> " + historico  + " / Datos proceso " +  proceso.toString() );
 			}catch(Exception e){}	// Cambios--> @@.
-			//FIN creaciÛn de log en BBDD
+			//FIN creaci√≥n de log en BBDD
 		}
 		return result;
 	}
@@ -118,49 +118,49 @@ public class ProcesoHelper3 {
 	
 /**
 	-------------------------------------------------------------------------------------------------------------------
-	---------------------------- M…TODOS DE EJECUCI”N ----------------------------------------------------------------- 
+	---------------------------- M√©todoS DE ejecut√≥ ----------------------------------------------------------------- 
 	-------------------------------------------------------------------------------------------------------------------
  */
 	
 	
 	public Proceso obtenerProcesoPorId(String idUsuario, int oidProceso, boolean soloAutomaticos) throws SQLException {
-		// TODO Esbozo de mÈtodo generado autom·ticamente
+		// TODO Esbozo de m√©todo generado autom√°ticamente
 		List listado = procDAO.findByFilters(idUsuario, null, oidProceso, false, soloAutomaticos);
 		return (listado !=null && listado.size()>0) ? (Proceso) listado.get(0) : null;
 	}
 
 /*
 	public static String obtenerEstadoProceso(String idUsuario, int oidProceso) throws SQLException {
-		// TODO Esbozo de mÈtodo generado autom·ticamente
+		// TODO Esbozo de m√©todo generado autom√°ticamente
 		List listado = procesoDAO.findByFilters(idUsuario, null, null, oidProceso);
 		return (listado !=null && listado.size()>0) ? ((Proceso) listado.get(0)).getEstado() : null;
 
 	}
 	
-	// LÛgica para iniciar el proceso
+	// l√≥gica para iniciar el proceso
     public void iniciarProceso(String idUsuario, int oidProceso) {
-        // Verificar si el proceso ya est· en ejecuciÛn
+        // Verificar si el proceso ya est√° en ejecut√≥
         if (procesoDAO.estaEnEjecucion(oidProceso)) {
-            System.out.println("El proceso ya est· en ejecuciÛn.");
+            System.out.println("El proceso ya est√° en ejecut√≥.");
             return;
         }
         
-        // Si no est· en ejecuciÛn, iniciar el proceso
+        // Si no est√° en ejecut√≥, iniciar el proceso
         System.out.println("Lanzando proceso con OID: " + oidProceso);
         procesoDAO.iniciarProceso(idUsuario, oidProceso);
     }
 
-    // LÛgica para detener el proceso
+    // l√≥gica para detener el proceso
     public void detenerProceso(String idUsuario, int oidProceso) {
         System.out.println("Deteniendo proceso con OID: " + oidProceso);
         procesoDAO.detenerProceso(idUsuario, oidProceso);
     }
 
-    // LÛgica para reiniciar un proceso
+    // l√≥gica para reiniciar un proceso
     public void reiniciarProceso(String idUsuario, int oidProceso) {
-        // LÛgica para reiniciar el proceso
+        // l√≥gica para reiniciar el proceso
         System.out.println("Reiniciando proceso con OID: " + oidProceso);
-        procesoDAO.actualizarEstadoProceso(oidProceso, "En ejecuciÛn");
+        procesoDAO.actualizarEstadoProceso(oidProceso, "En ejecut√≥");
         procesoDAO.iniciarProceso(idUsuario, oidProceso);
     }
 
@@ -181,16 +181,16 @@ public class ProcesoHelper3 {
 
 				cambios =true;
 				if (!querySet.equals("")) 
-					querySet+= ", "; //aÒadimos la coma en caso que exista uno previo 		
+					querySet+= ", "; //a√±adimos la coma en caso que exista uno previo 		
 				 
 				querySet+= " activo = '"+ f.getActivo() + "'" ;
 			}
 		
-			/*  INICIO Par·metros*/
+			/*  INICIO Par√°metros*/
 			if (!Objects.equals(proceso.getParametros(), f.getParametros())) 
 			{
-				antes+=  " | Par·metros: "+ proceso.getParametros();
-				despues+=" | Par·metros: "+ f.getParametros();
+				antes+=  " | Par√°metros: "+ proceso.getParametros();
+				despues+=" | Par√°metros: "+ f.getParametros();
 
 				if (!querySet.equals(""))  	querySet+= ", ";
 				 
@@ -302,12 +302,12 @@ public class ProcesoHelper3 {
 				cambios = ProcesoDAO.update(query);
 				boolean historico = creaProcesoHistoricoPorLanzadera(proceso.getLanzadera());
 
-				//INICIO creaciÛn de log en BBDD
+				//INICIO creaci√≥n de log en BBDD
 				try{
 					SpdLogAPI.addLog(idUsuario, null,  null, null, SpdLogAPI.A_PROCESO, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.proceso.edicion.general", 
 							 new String[]{antes, despues} );
 				}catch(Exception e){}	// Cambios--> @@.
-				//FIN creaciÛn de log en BBDD
+				//FIN creaci√≥n de log en BBDD
 			}
 	}
 		return cambios;
@@ -328,13 +328,13 @@ public class ProcesoHelper3 {
 	public String consultaEstadoEjecucion(String idUsuario, Proceso proceso) throws SQLException {
 		ProcesoEjecucion ejec = procEjecDAO.obtenerUltimaEjecucion(idUsuario, proceso);
 		return idUsuario;
-		// TODO Esbozo de mÈtodo generado autom·ticamente
+		// TODO Esbozo de m√©todo generado autom√°ticamente
 		
 	}
 
 
 	public static String obtenerEstadoProceso(String idUsuario, int oidProceso) {
-		// TODO Esbozo de mÈtodo generado autom·ticamente
+		// TODO Esbozo de m√©todo generado autom√°ticamente
 		return null;
 	}
 
@@ -360,7 +360,7 @@ public class ProcesoHelper3 {
                 ejec.setFechaFinEjecucion(obtenerAhora());
                 ejec.setDuracionSegundos(transcurrido);
                 ejec.setCodigoResultado(SPDConstants.PROCESO_CODE_ERROR_TIEMPO_EXCEDIDO);
-                ejec.setMensaje("DuraciÛn m·xima superada");
+                ejec.setMensaje("Duraci√≥n m√°xima superada");
                 ejec.setTipoError("Timeout");
 
                 ProcesoEjecucionDAO.actualizarEjecucion(ejec);
@@ -378,7 +378,7 @@ public class ProcesoHelper3 {
     }
 
 */	public void finactualizarEstadosPendientes() {
-		// TODO Esbozo de mÈtodo generado autom·ticamente
+		// TODO Esbozo de m√©todo generado autom√°ticamente
 		
 	}
 
@@ -387,7 +387,7 @@ public class ProcesoHelper3 {
 
     
     /** ok
-     * MÈtodo que se encarga de actualizar la ejecuciÛn en caso de detectar tiempo excedido
+     * M√©todo que se encarga de actualizar la ejecut√≥ en caso de detectar tiempo excedido
      * @param ejec
      * @throws SQLException 
      */
@@ -396,7 +396,7 @@ public class ProcesoHelper3 {
     	ejec.setEstado(SPDConstants.PROCESO_EJEC_ERROR);
         ejec.setFechaFinEjecucion(getAhora());
         ejec.setDuracionSegundos(calcularDuracion(ejec.getFechaInicioEjecucion()));
-        ejec.setMensaje("SuperÛ tiempo m·ximo");
+        ejec.setMensaje("Super√≥ tiempo m√°ximo");
         ejec.setCodigoResultado(SPDConstants.PROCESO_CODE_ERROR_TIEMPO_EXCEDIDO);
         ejec.setTipoError("Timeout");
         return procEjecDAO.actualizarEjecucion(ejec);
@@ -417,7 +417,7 @@ public class ProcesoHelper3 {
 	}
 
 	/** ok
-	 * MÈtodo que se encarga de actualizar el estado de un proceso seg˙n el nuevoEstado pasado por par·metro
+	 * M√©todo que se encarga de actualizar el estado de un proceso seg√∫n el nuevoEstado pasado por par√°metro
 	 * @param proceso
 	 * @param nuevoEstado
 	 * @throws SQLException
@@ -428,7 +428,7 @@ public class ProcesoHelper3 {
 	}
 
 	/** ok
-	 * MÈtodo encargado de realizar un control de la ejecuciÛn del proceso que se est· ejecutando, para controlar si el tiempo  
+	 * M√©todo encargado de realizar un control de la ejecut√≥ del proceso que se est√° ejecutando, para controlar si el tiempo  
 	 * @param proceso
 	 * @throws SQLException
 	 */
@@ -440,12 +440,12 @@ public class ProcesoHelper3 {
         		&& duracionExcedida(ejec, proceso.getMaxDuracionSegundos())
         	){
                 marcarComoExcedido(ejec);
-                proceso.setUltimaEjecucion(null);  //vaciamos la ejecuciÛn del proceso para que se pueda volver a lanzar (si toca)
+                proceso.setUltimaEjecucion(null);  //vaciamos la ejecut√≥ del proceso para que se pueda volver a lanzar (si toca)
          }
 	}
 	
 	/** ok
-	 * MÈtodo encargado de mirar si se ha llegado a los m·ximos intentos de un mismo proceso, a partir de la fecha del ˙ltimo proceso OK  
+	 * M√©todo encargado de mirar si se ha llegado a los m√°ximos intentos de un mismo proceso, a partir de la fecha del √∫ltimo proceso OK  
 	 * @param proceso
 	 * @throws SQLException
 	 */
@@ -463,7 +463,7 @@ public class ProcesoHelper3 {
 	}
 
 	/** ok
-	 * Este mÈtodo devuelve true en caso que la duraciÛn en segundos desde la fecha de inicio de la ejecuciÛn supere el valor m·ximo definido para este proceso
+	 * Este m√©todo devuelve true en caso que la duraci√≥n en segundos desde la fecha de inicio de la ejecut√≥ supere el valor m√°ximo definido para este proceso
 	 * @param ejec
 	 * @param maxSegundos
 	 * @return
@@ -475,8 +475,8 @@ public class ProcesoHelper3 {
 
     
     /** ok
-     * Se encarga de controlar si ha de lanzarse o no, seg˙n la programaciÛn.
-     * Por defecto es sÌ, a no ser que la hora y dÌa no 
+     * Se encarga de controlar si ha de lanzarse o no, seg√∫n la programaci√≥n.
+     * Por defecto es s√≠, a no ser que la hora y d√≠a no 
      * @param proceso
      * @return
      */
@@ -484,13 +484,13 @@ public class ProcesoHelper3 {
         LocalDateTime ahora = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-        // 1. Verificar hora de ejecuciÛn
+        // 1. Verificar hora de ejecut√≥
         LocalTime horaProgramada = LocalTime.parse(proceso.getHoraEjecucion()); // asume "HH:mm"
         if (ahora.toLocalTime().isBefore(horaProgramada)) return false;
 
-        // 2. Verificar dÌa de la semana si es semanal
+        // 2. Verificar d√≠a de la semana si es semanal
         if (proceso.getTipoPeriodo().equalsIgnoreCase(SPDConstants.PER_SEMANAL)) {
-        	// Devuelve el dÌa de la semana como "1" (lunes) a "7" (domingo)
+        	// Devuelve el d√≠a de la semana como "1" (lunes) a "7" (domingo)
         	String diaHoy = String.valueOf(LocalDate.now().getDayOfWeek().getValue());
             
             if (proceso.getDiasSemana() == null || !proceso.getDiasSemana().toLowerCase().contains(diaHoy)) {
@@ -498,7 +498,7 @@ public class ProcesoHelper3 {
             }
         }
 
-        // 3. Verificar dÌa del mes si es mensual
+        // 3. Verificar d√≠a del mes si es mensual
         if (proceso.getTipoPeriodo().equalsIgnoreCase(SPDConstants.PER_MENSUAL)) {
             int diaActual = LocalDate.now().getDayOfMonth(); // 1 a 31
 
@@ -515,17 +515,17 @@ public class ProcesoHelper3 {
 
     
 	/** ok
-	 * MÈtodo que se encarga de mirar si se ha de ejecutar el proceso por la programaciÛn realizada en tiempo, frecuencia
-	 * Es necesario que el proceso no tenga una ejecuciÛn en curso (solo se tendr· en cuenta si es null) 
+	 * M√©todo que se encarga de mirar si se ha de ejecutar el proceso por la programaci√≥n realizada en tiempo, frecuencia
+	 * Es necesario que el proceso no tenga una ejecut√≥ en curso (solo se tendr√° en cuenta si es null) 
 	 * @param proceso
 	 * @return true en caso que deba ejecutarse, false en caso contrario o que tenga una ejecucion asignada (no nula)
 	 * @throws SQLException
 	 */
     public boolean debeEjecutarse(Proceso proceso) throws SQLException {
-    	//si tiene alguna ejecuciÛn no nula, no debe ejecutarse
+    	//si tiene alguna ejecut√≥ no nula, no debe ejecutarse
     	if(proceso.getUltimaEjecucion()!=null) return false;
     	
-    	//miramos si por configuraciÛn hay que lanzarse
+    	//miramos si por configuraci√≥n hay que lanzarse
         if(estaEnHoraDeLanzarse(proceso)) return false;
 
         return true;

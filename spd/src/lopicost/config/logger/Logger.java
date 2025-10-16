@@ -81,7 +81,7 @@ public class Logger
 	 * El problema de llamar a los metodos log de esta clase es que en los logs aparece
 	 * siempre la misma traza (lopicost.config.logger.Logger) y no ayuda. Haciendo log sobre el
 	 * Logger devuelto por este metodo conseguimos que en la traza aparezca el nombre de la
-	 * clase que est· generando el log. 
+	 * clase que est√° generando el log. 
 	 */
 	public static org.apache.log4j.Logger get()
 	{
@@ -94,7 +94,7 @@ public class Logger
 	 * El problema de llamar a los metodos log de esta clase es que en los logs aparece
 	 * siempre la misma traza (lopicost.config.logger.Logger) y no ayuda. Haciendo log sobre el
 	 * Logger devuelto por este metodo conseguimos que en la traza aparezca el nombre de la
-	 * clase que est· generando el log. 
+	 * clase que est√° generando el log. 
 	 */
 	public static org.apache.log4j.Logger get( String logId )
 	{

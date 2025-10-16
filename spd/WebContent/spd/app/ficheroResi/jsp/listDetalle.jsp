@@ -13,7 +13,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Gesti髇 carga ficheros Robot</title>
+<title>Gesti贸n carga ficheros Robot</title>
 </head>
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
 
@@ -139,7 +139,7 @@
 			}
 		//	alert(f.procesoValido.value);
 			if(f.procesoValido.value=='false'){
-				alert('Existen registros no v醠idos'); 
+				alert('Existen registros no v谩lidos'); 
 				return;				
 			}
 			
@@ -259,7 +259,7 @@
 			<p><a href="javascript:generarFicherosRobot();">Generar ficheros robot</a></p> 
 			<p><a href="javascript:limpiarFiltrosResi();">Limpiar filtros listado</a></p> 
 	<!--	
- 			<p><html:link page="/Iospd/Iospd.do?parameter=list&operation=FILTER">Gesti髇 de carga de ficheros resi</html:link></p> 
+ 			<p><html:link page="/Iospd/Iospd.do?parameter=list&operation=FILTER">Gesti贸n de carga de ficheros resi</html:link></p> 
 		
 			
     <p class="botonBuscar">
@@ -412,7 +412,7 @@
 		     </logic:notEmpty>	
 	</th>
 	<th nowrap>inicio-fin tratamiento</th></br>
-	<th nowrap>inicio-fin producci髇</th></br>
+	<th nowrap>inicio-fin producci贸n</th></br>
 	<!--th nowrap>Producir SPD Desde - Hasta</th></br-->
 	  <th>L</th>	  
 	  <th>M</th>	  
@@ -510,7 +510,7 @@
 				<th>24h</th>
 			</logic:equal>
 	  <!-- 
-	  <th>via administraci髇</br>
+	  <th>via administraci贸n</br>
 	  <logic:notEmpty name="FicheroResiForm" property="listaResiViaAdministracion">	
 		<html:select property="seleccionResiViaAdministracion"  value="<%= formulari.getSeleccionResiViaAdministracion() %>" onchange="submit()"> 
 			<html:option value="">Todos</html:option>
@@ -587,7 +587,7 @@
 				</html:select>
 		     </logic:notEmpty>	
 		 </th> 		
-	  <th>acci髇 bolsa</br>
+	  <th>acci贸n bolsa</br>
 	  			<logic:notEmpty name="FicheroResiForm" property="listaSpdAccionBolsa">	
 				<html:select property="seleccionSpdAccionBolsa"  value="<%= formulari.getSeleccionSpdAccionBolsa() %>" onchange="submit()"> 
     				<html:option value="">Todos</html:option>
@@ -597,7 +597,7 @@
 				</html:select>
 		     </logic:notEmpty>	
 		 </th> 	
-	  <th>縀s excepci髇? 
+	  <th>驴Es excepci贸n? 
 	 </br>	
 	  <logic:notEmpty name="FicheroResiForm" property="listaEsExcepcion">	
 				<html:select property="seleccionEsExcepcion"  value="<%= formulari.getSeleccionEsExcepcion() %>" onchange="submit()"> 
@@ -794,7 +794,7 @@ String mensajesAlerta =(data.getMensajesAlerta()!=null&&!data.getMensajesAlerta(
 
 		
 		
-	<!--  paginaci髇 
+	<!--  paginaci贸n 
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -808,7 +808,7 @@ String mensajesAlerta =(data.getMensajesAlerta()!=null&&!data.getMensajesAlerta(
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginaci髇   -->
+	<!--  paginaci贸n   -->
 		
 	</div>	
 	</html:form>

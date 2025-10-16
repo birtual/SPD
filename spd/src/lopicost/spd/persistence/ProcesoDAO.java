@@ -32,7 +32,7 @@ public class ProcesoDAO extends GenericDAO{
 	}
 	
 	/**
-	 * Retorna un proceso seg˙n su OID
+	 * Retorna un proceso seg√∫n su OID
 	 * @param idUsuario
 	 * @param oidProceso
 	 * @return
@@ -47,7 +47,7 @@ public class ProcesoDAO extends GenericDAO{
 	}
 	
 	/** ok
-	 * Retorna un listado de procesos seg˙n filtros
+	 * Retorna un listado de procesos seg√∫n filtros
 	 * @param idUsuario
 	 * @param idProceso
 	 * @param lanzadera
@@ -75,7 +75,7 @@ public class ProcesoDAO extends GenericDAO{
         	sql+= " 	fechaHasta +1 >= CONVERT(datetime, getDate(), 120)";
         	sql+= " ) ";
         }
-        else	//no se mosrtar·n nunca los descartados. 
+        else	//no se mosrtar√°n nunca los descartados. 
         {
         	sql+= " AND activo <>  '"+SPDConstants.PROCESO_DESCARTADO+"'";
         }
@@ -97,7 +97,7 @@ public class ProcesoDAO extends GenericDAO{
 		    	while (resultSet.next()) {
 		    		proceso = creaProceso(resultSet);
 		    		proceso.setUltimaEjecucion(procEjecDAO.obtenerUltimaEjecucion(idUsuario, proceso));
-		    		//si la ˙ltima ejecuciÛn no tiene fecha la incorporamos como activa
+		    		//si la √∫ltima ejecut√≥ no tiene fecha la incorporamos como activa
 		    		if(proceso.getUltimaEjecucion()!=null)
 		    		{
 		    			String estado = proceso.getUltimaEjecucion().getEstado();
@@ -133,7 +133,7 @@ public class ProcesoDAO extends GenericDAO{
 				        ") ";
 			  String parametros = sql;
 
-			  // AÒadimos para sustituir
+			  // a√±adimos para sustituir
 			  sql +=  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			  
 				PreparedStatement ps = con.prepareStatement(sql);
@@ -155,7 +155,7 @@ public class ProcesoDAO extends GenericDAO{
 			  	parametros += ", '" + proceso.getEstado() + "'"; // estado
 			  	//Fin Estado
 			  	*/
-			  	//inicio par·metros
+			  	//inicio par√°metros
 			  	String param = proceso.getParametros();
 			  	if(param.equals(""))
 			  	{
@@ -166,7 +166,7 @@ public class ProcesoDAO extends GenericDAO{
 				  	parametros += ", '" + param + "'"; // parametros
 
 			  	ps.setString(4, param);	
-			  	//fin par·metros
+			  	//fin par√°metros
 
 			  	//inicio tipoEjecucion
 			  	String tipoEjecucion = proceso.getTipoEjecucion();
@@ -218,7 +218,7 @@ public class ProcesoDAO extends GenericDAO{
 			  	parametros += ", " + proceso.getMaxReintentos(); // maxReintentos
 
 			  	if(proceso.getMaxDuracionSegundos()==null || proceso.getMaxDuracionSegundos().equals(""))
-			  		proceso.setMaxDuracionSegundos(SPDConstants.MAX_DURACIONSEGUNDOS_PROCESO); //si no hay lÌmite de segundos ponemos uno
+			  		proceso.setMaxDuracionSegundos(SPDConstants.MAX_DURACIONSEGUNDOS_PROCESO); //si no hay l√≠mite de segundos ponemos uno
 				else proceso.setMaxDuracionSegundos(proceso.getMaxDuracionSegundos());
 
 			  	
@@ -226,7 +226,7 @@ public class ProcesoDAO extends GenericDAO{
 			  	parametros += ", " + proceso.getMaxDuracionSegundos(); // maxDuracionSegundos
 
 			  	
-			  	//Inicio fechaFin (ActivaciÛn)
+			  	//Inicio fechaFin (Activaci√≥n)
 			  	String fechaDesde = proceso.getFechaDesde();
 		  		//Date dFechaDesde = new Date();
 		  		LocalDate dFechaDesde = LocalDate.now();
@@ -246,7 +246,7 @@ public class ProcesoDAO extends GenericDAO{
 			  	//LocalDate localDate = LocalDate.of(2099, 12, 31);
 			  	//fechaFin = java.sql.Date.valueOf(localDate);
 
-			  	//Inicio fechaFin (DesctivaciÛn)
+			  	//Inicio fechaFin (Desctivaci√≥n)
 			  	String fechaHasta = proceso.getFechaHasta();
 			  	LocalDateTime dFechaHasta = null;
 			  	
@@ -303,7 +303,7 @@ public class ProcesoDAO extends GenericDAO{
 		}
 
 	/**
-	 * MÈtodo que se encarga de actualizar el estado de un proceso seg˙n el nuevoEstado pasado por par·metro
+	 * M√©todo que se encarga de actualizar el estado de un proceso seg√∫n el nuevoEstado pasado por par√°metro
 	 * @param proceso
 	 * @param nuevoEstado
 	 * @return
@@ -314,7 +314,7 @@ public class ProcesoDAO extends GenericDAO{
 		if(proceso==null )
 			return false;
 
-		System.out.println(" ActualizaciÛn de estado de proceso ");
+		System.out.println(" Actualizaci√≥n de estado de proceso ");
 		int result=0;
 		Connection con = null;
 		con = Conexion.conectar();
@@ -328,7 +328,7 @@ public class ProcesoDAO extends GenericDAO{
 		}
 
 	/** ok
-	 * MÈtodo que se encarga de construir un bean a partir de un registro de procesoEjecuciÛn de la bbdd
+	 * M√©todo que se encarga de construir un bean a partir de un registro de procesoejecut√≥ de la bbdd
 	 * @param rs
 	 * @return
 	 * @throws SQLException
@@ -374,14 +374,14 @@ public class ProcesoDAO extends GenericDAO{
 	 
 /*	 
 -------------------------------------------------------------------------------------------------------------------
----------------------------- M…TODOS DE EJECUCI”N ----------------------------------------------------------------- 
+---------------------------- M√©todoS DE ejecut√≥ ----------------------------------------------------------------- 
 -------------------------------------------------------------------------------------------------------------------
 *//*
 		public void resetearProcesosEnEjecucion() throws SQLException {
 			System.out.println(" Limpieza de procesos");
 			Connection con = null;
 			con = Conexion.conectar();
-			    String sql = "UPDATE SPD_procesos SET estado = 'No iniciado' WHERE estado = 'En ejecuciÛn'";
+			    String sql = "UPDATE SPD_procesos SET estado = 'No iniciado' WHERE estado = 'En ejecut√≥'";
 			    try (PreparedStatement ps = con.prepareStatement(sql)) {
 			        ps.executeUpdate();
 			    }
@@ -423,22 +423,22 @@ public class ProcesoDAO extends GenericDAO{
 	    }
 
 		public Proceso obtenerProcesoPorId(int oidProceso) {
-			// TODO Esbozo de mÈtodo generado autom·ticamente
+			// TODO Esbozo de m√©todo generado autom√°ticamente
 			return null;
 		}
 
 
 		public void detenerProceso(String idUsuario, int oidProceso) {
-			// TODO Esbozo de mÈtodo generado autom·ticamente
+			// TODO Esbozo de m√©todo generado autom√°ticamente
 			
 		}
 
 		public void reiniciarProceso(int oidProceso) {
-			// TODO Esbozo de mÈtodo generado autom·ticamente
+			// TODO Esbozo de m√©todo generado autom√°ticamente
 			
 		}
 /*
-		 // MÈtodo para consultar el estado de ejecuciÛn de un proceso
+		 // M√©todo para consultar el estado de ejecut√≥ de un proceso
 	    private String obtenerEstadoProceso(int oidProceso) {
 	        String sql = "SELECT estado FROM SPD_procesos WHERE oidProceso = ?";
 	        Connection con = null;
@@ -458,7 +458,7 @@ public class ProcesoDAO extends GenericDAO{
 	    }
 	    */
 
-	    // MÈtodo para verificar si el procedimiento almacenado est· en ejecuciÛn
+	    // M√©todo para verificar si el procedimiento almacenado est√° en ejecut√≥
 	    public boolean estaEnEjecucion(int oidProceso) {
 	        String sql = "SELECT COUNT(*) FROM sys.dm_exec_requests WHERE status = 'running' AND command = 'EXEC' AND blocking_session_id = 0";
 	        Connection con = null;
@@ -476,7 +476,7 @@ public class ProcesoDAO extends GenericDAO{
 	    }
 /*
 		public void actualizarEstadoProceso(int oidProceso, String string) {
-			// TODO Esbozo de mÈtodo generado autom·ticamente
+			// TODO Esbozo de m√©todo generado autom√°ticamente
 			
 		}
 
@@ -496,14 +496,14 @@ public class ProcesoDAO extends GenericDAO{
 
 	                System.out.println("Proceso lanzado correctamente.");
 
-	                // Consultar el estado del proceso despuÈs de ejecutar el procedure
+	                // Consultar el estado del proceso despu√©s de ejecutar el procedure
 	                String estado = ProcesoHelper.obtenerEstadoProceso(idUsuario, oidProceso);
 
 	                // Verificar si el proceso ha finalizado o ha ocurrido un error
 	                if ("Finalizado".equalsIgnoreCase(estado)) {
 	                    System.out.println("El proceso con OID " + oidProceso + " ha finalizado correctamente.");
 	                } else {
-	                    System.out.println("El proceso con OID " + oidProceso + " est· en estado: " + estado);
+	                    System.out.println("El proceso con OID " + oidProceso + " est√° en estado: " + estado);
 	                }
 
 	            } catch (SQLException e) {
@@ -517,7 +517,7 @@ public class ProcesoDAO extends GenericDAO{
 */
 
 	    	
-	        //String sql = "UPDATE Procesos SET estado = 'En ejecuciÛn', fechaInicio = CURRENT_TIMESTAMP WHERE oidProceso = ?";
+	        //String sql = "UPDATE Procesos SET estado = 'En ejecut√≥', fechaInicio = CURRENT_TIMESTAMP WHERE oidProceso = ?";
 
 
 	 

@@ -281,7 +281,7 @@ public class FicheroResiBean implements Serializable, Cloneable  {
 		        }
 		    }
 		  
-		  //importante para limpiar el texto, sin espacios, ni acentos, ni caracteres extra�os y en UPPER
+		  //importante para limpiar el texto, sin espacios, ni acentos, ni caracteres extraños y en UPPER
 			public String getDetalleRow() 				{
 				if(detalleRow!=null && detalleRow.length()>900)
 					detalleRow=detalleRow.substring(0, 900);

@@ -44,7 +44,7 @@ public class BdConsejoDAO {
 }
     
     /**
-	 * Método encargado de retornar un objeto BdConsejo mediante un CN
+	 * MÃ©todo encargado de retornar un objeto BdConsejo mediante un CN
 	 * @param codigoCN
 	 * @return
 	 */
@@ -228,7 +228,7 @@ public class BdConsejoDAO {
 	}
 
 	/**
-	 * Fetch es una cláusula que funciona a partir del SqlServer 2008 (no inclusive)
+	 * Fetch es una clÃ¡usula que funciona a partir del SqlServer 2008 (no inclusive)
 	 * @param form
 	 * @param inicio
 	 * @param fin
@@ -633,7 +633,7 @@ public class BdConsejoDAO {
 	
 	
 	/**
-	 * Método encargado de crear un objeto BdConsejo según el resultSet
+	 * MÃ©todo encargado de crear un objeto BdConsejo segÃºn el resultSet
 	 * @param resultSet
 	 * @return
 	 * @throws SQLException
@@ -653,8 +653,8 @@ public class BdConsejoDAO {
         	c.setNombreLaboratorio(resultSet.getString("nomLABO"));
 //        	c.setCodigoPrincipioActivo(resultSet.getInt("codiPactivo"));
 //        	c.setNombrePrincipioActivo(resultSet.getString("nomPactivo"));
-        	c.setCodGtVm(resultSet.getString("CodGtVm")); 	// TODO 20201001 - ahora es GTVM. Cuando exista la tabla en Consejo se debería cambiar. De momento la seguimos pillando de codiPactivo
-        	c.setNomGtVm(resultSet.getString("NomGtVm"));	// TODO 20201001 - ahora es GTVM. Cuando exista la tabla en Consejo se debería cambiar. De momento la seguimos pillando de nomPactivo
+        	c.setCodGtVm(resultSet.getString("CodGtVm")); 	// TODO 20201001 - ahora es GTVM. Cuando exista la tabla en Consejo se deberÃ­a cambiar. De momento la seguimos pillando de codiPactivo
+        	c.setNomGtVm(resultSet.getString("NomGtVm"));	// TODO 20201001 - ahora es GTVM. Cuando exista la tabla en Consejo se deberÃ­a cambiar. De momento la seguimos pillando de nomPactivo
         	c.setCodGtVmp(resultSet.getString("CodGtVmp"));
            	c.setNomGtVmp(resultSet.getString("NomGtVmp"));
         	c.setCodGtVmpp(resultSet.getString("CodGtVmpp"));
@@ -744,7 +744,7 @@ public class BdConsejoDAO {
 			qry+=  " c.NomGtVmpp, emblistable, sustituible, pvl ";
   			qry+=  " from dbo.bd_consejo c ";
   			qry+=  " where 1=1 ";
-  			//qry+=  " and coalesce(c.nombre, '') + ' - ' + coalesce(c.presentacion, '') = '"+nombrePresentacion+"' "; //importante conservar el guión y espacios ' - '
+  			//qry+=  " and coalesce(c.nombre, '') + ' - ' + coalesce(c.presentacion, '') = '"+nombrePresentacion+"' "; //importante conservar el guiÃ³n y espacios ' - '
 
   			qry+=  " AND ( ";
   			qry+=  " 	    REPLACE(UPPER(COALESCE(c.nombre, '') + '-' + COALESCE(c.presentacion, '')), ' ', '') LIKE ";

@@ -21,8 +21,8 @@ public abstract class ClientMessageResourcesFactory extends MessageResourcesFact
 
 	/**
 	 * Retorna el nom del fitxer de literals especific.
-	 * Es passa per par‡metre el nom del fitxer de literals com˙ per si es vol
-	 * concatenar alguna cosa per tal d'identificar autom‡ticament el fitxer especific
+	 * Es passa per par√†metre el nom del fitxer de literals com√∫ per si es vol
+	 * concatenar alguna cosa per tal d'identificar autom√†ticament el fitxer especific
 	 * Retorna NULL en cas que no hi hagi fitxer especific
 	 */
 	public abstract String getSpecificMessagesFile(String messagesFile);

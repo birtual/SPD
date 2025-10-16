@@ -153,7 +153,7 @@
 			    <td>
 			        <p class="botons">
 			        <logic:notEqual name="padre" property="oidSustXComposicion" value="0">    
-			            <input type="button" onclick="javascript:nuevo('<bean:write name="padre" property="oidSustXComposicion" />');" value="añadir" />
+			            <input type="button" onclick="javascript:nuevo('<bean:write name="padre" property="oidSustXComposicion" />');" value="aÃ±adir" />
 			        </logic:notEqual>
 			        </p>
 			    </td>
@@ -182,7 +182,7 @@
 	</table>
 
 
-	<!--  paginación  -->
+	<!--  paginaciÃ³n  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -196,7 +196,7 @@
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginación   -->
+	<!--  paginaciÃ³n   -->
 		
 		
 		

@@ -76,7 +76,7 @@ public class SpdProduccionDetalle {
 
 	  private String spdPeriodo;
 	  private Date spdPeriodoAPartirDeFecha;
-	  private String spdPeriodoDíasConcretos;
+	  private String spdPeriodoDÃ­asConcretos;
 	  private String spdCIP;
 	  
 	  private boolean persistir=true;
@@ -1135,16 +1135,16 @@ public class SpdProduccionDetalle {
 
 
 
-	public String getSpdPeriodoDíasConcretos() {
-		return spdPeriodoDíasConcretos;
+	public String getSpdPeriodoDÃ­asConcretos() {
+		return spdPeriodoDÃ­asConcretos;
 	}
 
 
 
 
 
-	public void setSpdPeriodoDíasConcretos(String spdPeriodoDíasConcretos) {
-		this.spdPeriodoDíasConcretos = spdPeriodoDíasConcretos;
+	public void setSpdPeriodoDÃ­asConcretos(String spdPeriodoDÃ­asConcretos) {
+		this.spdPeriodoDÃ­asConcretos = spdPeriodoDÃ­asConcretos;
 	}
 
 

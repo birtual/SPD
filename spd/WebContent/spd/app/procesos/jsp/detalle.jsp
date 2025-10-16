@@ -82,12 +82,12 @@
 			</tr>
 			<tr><th class="segunda">Días de la Semana</th><td><bean:write  name="data" property="diasSemana" /></td></tr>
 			<tr><th class="segunda">Días concretos</th><td><bean:write  name="data" property="diasMes" /></td></tr>
-	 		<tr><th class="segunda">Hora de Ejecución</th><td><bean:write  name="data" property="horaEjecucion" /></td></tr>
+	 		<tr><th class="segunda">Hora de ejecutó</th><td><bean:write  name="data" property="horaEjecucion" /></td></tr>
 			<tr><th class="segunda">Máx. Reintentos</th><td><bean:write  name="data" property="maxReintentos" /></td></tr>
 			<tr><th class="segunda">Máx. Duración (segundos)</th><td><bean:write  name="data" property="maxDuracionSegundos" /></td></tr>
 			<tr><th class="segunda">Fecha desde</th><td><bean:write  name="data" property="fechaDesde" /></td></tr>
 			<tr><th class="segunda">Fecha hasta</th><td><bean:write  name="data" property="fechaHasta" /></td></tr>
-			<tr><th class="segunda">Tipo de Ejecución</th><td><bean:write  name="data" property="tipoEjecucion" /></td></tr>
+			<tr><th class="segunda">Tipo de ejecutó</th><td><bean:write  name="data" property="tipoEjecucion" /></td></tr>
 			<tr><th class="segunda">Orden</th><td><bean:write  name="data" property="orden" /></td></tr>
 			<c:if test="${not empty data.nombreOriginal}">
 				<tr><td colspan=2 align="center">(Nombre original: <bean:write name="data"  property="nombreOriginal"/>)</td></tr>

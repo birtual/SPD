@@ -315,7 +315,7 @@
 							
 							<logic:notEmpty name="ImportIOSpdForm" property="errors">
 								<font color="red"><ul>
-								<u>Descripción errores"/></u>
+								<u>DescripciÃ³n errores"/></u>
 								<logic:iterate id="error" name="ImportIOSpdForm" property="errors" type="java.lang.String">
 									<li><bean:write name="error"/></li>
 								</logic:iterate>

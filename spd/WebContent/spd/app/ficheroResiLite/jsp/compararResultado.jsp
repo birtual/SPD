@@ -14,7 +14,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Gestión carga ficheros Robot</title>
+<title>GestiÃ³n carga ficheros Robot</title>
 </head>
 
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
@@ -74,18 +74,18 @@
 
 
 <%
-// Crear un HashMap para mapear los valores de tipoRegistro a clases CSS únicas
+// Crear un HashMap para mapear los valores de tipoRegistro a clases CSS Ãºnicas
 HashMap<String, String> tipoRegistroCssMap = new HashMap<String, String>();
-// Contador para asignar valores únicos a cada tipoRegistro
+// Contador para asignar valores Ãºnicos a cada tipoRegistro
 int counter = 1;
-// Iterar sobre la lista para asignar clases CSS únicas a cada tipoRegistro
+// Iterar sobre la lista para asignar clases CSS Ãºnicas a cada tipoRegistro
 for (lopicost.spd.struts.bean.FicheroResiBean data : formulari.getListaFicheroResiDetalleBean()) {
     String tipoRegistro = data.getTipoRegistro();
-    // Verificar si el tipoRegistro ya está en el HashMap
+    // Verificar si el tipoRegistro ya estÃ¡ en el HashMap
     if (!tipoRegistroCssMap.containsKey(tipoRegistro)) {
-        // Asignar una clase CSS única para este tipoRegistro
+        // Asignar una clase CSS Ãºnica para este tipoRegistro
         tipoRegistroCssMap.put(tipoRegistro, "clase-" + counter);
-        // Incrementar el contador para la siguiente clase CSS única
+        // Incrementar el contador para la siguiente clase CSS Ãºnica
         counter++;
     }
 }

@@ -13,7 +13,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Asignar Lab a una sustituci髇 X GtVmpp (Conjunto Homog閚eo)</title>
+<title>Asignar Lab a una sustituci贸n X GtVmpp (Conjunto Homog茅neo)</title>
 
 </head>
 
@@ -34,7 +34,7 @@
 			var f = document.SustXComposicionForm;
 
 			if(f.filtroCodGtVmpp.value=='')
-				alert('Falta indicar el GtVmpp (conjunto homog閚eo)');
+				alert('Falta indicar el GtVmpp (conjunto homog茅neo)');
 			if(f.filtroCodiLaboratorio.value=='')
 				alert('Falta indicar el laboratorio');
 		
@@ -42,7 +42,7 @@
 			f.ACTIONTODO.value='NUEVO_OK';
 			f.submit();
 		}	
-		//funci髇 de carga del lookUp
+		//funci贸n de carga del lookUp
 		function doLookUpLabsBdConsejo(){				
 			var loc = '/spd/LookUpLabsBdConsejo.do?parameter=initLabs&'+ 						//url de llamanda				
 				'CallBackID=filtroCodiLaboratorio&'+			  			//Nombre del campo para el valor Id
@@ -53,7 +53,7 @@
 			window.open(loc, 'LookUpLabsBdConsejo', 'dependent=yes,height=500,width=800,top=50,left=50,resizable=yes,scrollbars=yes' );
 		}	
 		
-		//funci髇 de carga del lookUp
+		//funci贸n de carga del lookUp
 			
 		
 		
@@ -86,7 +86,7 @@
 <body id="general">
 	<!-- mostramos mensajes y errores, si existen -->
 	<center>
-		<h2>Edici髇 sustituci髇</h2>
+		<h2>Edici贸n sustituci贸n</h2>
 		<html:form action="/SustXComposicion.do" method="post">	
 
 
@@ -111,7 +111,7 @@
 		</td>	
 	</tr>
 		<tr>
-			<td>Grupo VMPP  (Princ.Activo, dosis, forma y n鷐ero de unidades) equivale al conjunto homog閚eo</td>
+			<td>Grupo VMPP  (Princ.Activo, dosis, forma y n煤mero de unidades) equivale al conjunto homog茅neo</td>
 			<td>		
 			<logic:notEmpty name="SustXComposicionForm" property="listaGtVmpp">	
 		   	 <html:select property="listaGtVmpp"  value="<%= formulari.getFiltroCodGtVmpp() %>" onchange="submit()"> 

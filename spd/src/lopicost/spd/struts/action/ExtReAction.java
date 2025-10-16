@@ -58,8 +58,8 @@ public class ExtReAction extends GenericAction  {
 			//boolean result = DivisionResidenciaDAO.updateACeroResisUser(user.getIdUsuario());
 			boolean result = DivisionResidenciaDAO.updateACeroResisUser(getIdUsuario());
 			result = DivisionResidenciaDAO.updateAUnoSeleccionadas(getIdUsuario(), formulario);
-			if(!result) errors.add( "Ha ocurrido un error en la peticiÛn de actualizaciÛn de datos");	
-			else 		errors.add( "Datos enviados. Por la noche se lanzar· el proceso y por la maÒana estar·n disponibles los datos.");
+			if(!result) errors.add( "Ha ocurrido un error en la petici√≥n de actualizaci√≥n de datos");	
+			else 		errors.add( "Datos enviados. Por la noche se lanzar√° el proceso y por la ma√±ana estar√°n disponibles los datos.");
 			
 			formulario.setOidVariasDivisionResidencia(null);
 

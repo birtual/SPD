@@ -15,10 +15,10 @@
 <head>
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
  <style>
-        /* Estilos para los iconos de acción */
+        /* Estilos para los iconos de acciÃ³n */
         .action-icon {
             font-size: 20px;
-            color: #0000a0; /* Color del ícono */
+            color: #0000a0; /* Color del icono */
             cursor: pointer;
         }
 

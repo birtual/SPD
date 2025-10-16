@@ -13,7 +13,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Edición de residencia</title>
+<title>EdiciÃ³n de residencia</title>
 </head>
 
 <bean:define id="formulari" name="DivResidenciasForm" type="lopicost.spd.struts.form.DivResidenciasForm" />

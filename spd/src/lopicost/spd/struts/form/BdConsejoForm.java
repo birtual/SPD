@@ -18,7 +18,7 @@ public class BdConsejoForm  extends GenericForm {
 	//private String filtroListaPrincipioActivo 	= "";		// se cambia a GtVm -- 
 	private String filtroCodGtVm 					= "";
 	private String filtroNomGtVm 					= "";
-	//private String filtroListaConjuntosHomogeneos ="";		// se cambia a GtVmp -- Conjunto homogéneo
+	//private String filtroListaConjuntosHomogeneos ="";		// se cambia a GtVmp -- Conjunto homogÃ©neo
 	private String filtroCodGtVmp ="";	
 	private String filtroNomGtVmp ="";	
 	private String filtroCodGtVmpp  				= "";		//GtVmp + Presentacion

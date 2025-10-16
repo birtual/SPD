@@ -78,7 +78,7 @@
 <tr>
 	<th>
 	Dessignar la Rentabilidad Y Ponderacion del laboratorio <html:text name="SustXComposicionForm" property="nombreLab" styleClass="nombreLab" />
-	de los siguientes conjuntos homogéneos 
+	de los siguientes conjuntos homogÃ©neos 
 	</th>
 </tr>
 
@@ -89,13 +89,13 @@
     <tr>
     <!--    <th>fecha</th> --> 
 		<th>Grupo VM (Principio activo)</th>
-		<th>Grupo VMPP (Princ.Activo, dosis, forma y número unidades) - (Conjunto Homogéneo)</th>
+		<th>Grupo VMPP (Princ.Activo, dosis, forma y nÃºmero unidades) - (Conjunto HomogÃ©neo)</th>
         <th>Rentabilidad</th>
         <th>Ponderacion</th>
-        <th>Código Lab Asignado</th>
+        <th>CÃ³digo Lab Asignado</th>
         <th>Nombre Lab Asignado</th>
-        <th>Fecha creación</th>
-        <th>última modificacion</th>
+        <th>Fecha creaciÃ³n</th>
+        <th>Ãºltima modificacion</th>
         <th>Comentario</th>
 		<th></th>
 		<th></th>

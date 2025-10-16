@@ -89,12 +89,12 @@ public class AvisoHelper {
 				{
 					String query = " UPDATE SPDAC.dbo.SPD_Avisos SET " + querySet + " WHERE  OIDAVISO='"+aviso.getOidAviso()+"'";
 					cambios = AvisosDAO.update(query);
-					//INICIO creaci髇 de log en BBDD
+					//INICIO creaci贸n de log en BBDD
 					try{
 						SpdLogAPI.addLog(idUsuario, null,  null, null, SpdLogAPI.A_AVISO, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.aviso.edicion.general", 
 								 new String[]{aviso.getTexto(), antes, despues} );
 					}catch(Exception e){}	// Cambios--> @@.
-					//FIN creaci髇 de log en BBDD
+					//FIN creaci贸n de log en BBDD
 				}
 		}
 			return cambios;
@@ -103,19 +103,19 @@ public class AvisoHelper {
 	public static boolean borrar(String idUsuario, Aviso aviso) throws SQLException {
 
 		String mensaje = "Aviso : Oid: " + aviso.getOidAviso() + "  /";
-		mensaje+= " Fecha creaci髇: " + aviso.getFechaInsert() + " / Creador:  "+aviso.getUsuarioCreador()+ " / Farmacia:  "+aviso.getIdFarmacia()+ " /";
+		mensaje+= " Fecha creaci贸n: " + aviso.getFechaInsert() + " / Creador:  "+aviso.getUsuarioCreador()+ " / Farmacia:  "+aviso.getIdFarmacia()+ " /";
 		mensaje+= " FechaInicio:  "+aviso.getFechaInicio()+ " / FechaFin:  "+aviso.getFechaFin() + " / texto:  "+aviso.getTexto() + " ";
 		String query = " DELETE SPDAC.dbo.SPD_Avisos WHERE  OIDAVISO='"+aviso.getOidAviso()+"'";
 		boolean result =  AvisosDAO.delete(query);
 
 		if(result)
 		{
-			//INICIO creaci髇 de log en BBDD
+			//INICIO creaci贸n de log en BBDD
 			try{
 				SpdLogAPI.addLog(idUsuario, null,  null, null, SpdLogAPI.A_AVISO, SpdLogAPI.B_BORRADO, "", "SpdLog.aviso.borrado.general", 
 						mensaje );
 			}catch(Exception e){}	// Cambios--> @@.
-			//FIN creaci髇 de log en BBDD
+			//FIN creaci贸n de log en BBDD
 			
 		}
 
@@ -137,19 +137,19 @@ public class AvisoHelper {
 		aviso.setUsuarioCreador(idUsuario);
 		
 		String mensaje = "Aviso : ";
-		mensaje+= " Fecha creaci髇: " + aviso.getFechaInsert() + " / Creador:  "+aviso.getUsuarioCreador()+ " / Farmacia:  "+aviso.getIdFarmacia()+ " /";
+		mensaje+= " Fecha creaci贸n: " + aviso.getFechaInsert() + " / Creador:  "+aviso.getUsuarioCreador()+ " / Farmacia:  "+aviso.getIdFarmacia()+ " /";
 		mensaje+= " FechaInicio:  "+aviso.getFechaInicio()+ " / FechaFin:  "+aviso.getFechaFin() + " /  Texto:  "+aviso.getTexto() + " /";
 
 		
 		boolean result =  AvisosDAO.nuevo(idUsuario, aviso);
 		if(result)
 		{
-			//INICIO creaci髇 de log en BBDD
+			//INICIO creaci贸n de log en BBDD
 			try{
 				SpdLogAPI.addLog(idUsuario, null,  null, null, SpdLogAPI.A_AVISO, SpdLogAPI.B_CREACION, "", "SpdLog.aviso.creado.general", 
 						mensaje );
 			}catch(Exception e){}	// Cambios--> @@.
-			//FIN creaci髇 de log en BBDD
+			//FIN creaci贸n de log en BBDD
 			
 		}
 		return result;

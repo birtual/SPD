@@ -5,30 +5,30 @@ import java.util.*;
 
 
 public class Proceso {
-    private int oidProceso;                     // Identificador 鷑ico del proceso
-    private int version		;                   // Versi髇 del proceso
-    private String fechaCreacion;              	// Fecha de creaci髇 del proceso
+    private int oidProceso;                     // Identificador 煤nico del proceso
+    private int version		;                   // Versi贸n del proceso
+    private String fechaCreacion;              	// Fecha de creaci贸n del proceso
     private String usuarioCreacion;				// Usuario que crea el proceso
     private String lanzadera;                 	// Nombre de la lanzadera que lo ejecuta
     private String nombreProceso;               // Nombre del procedimiento o proceso
     private String nombreOriginal;          	// Nombre del proceso en su origen
-    private String descripcion;                 // Descripci髇 del proceso
+    private String descripcion;                 // Descripci贸n del proceso
     private String activo;                      // SI/NO
-    private String parametros;                  // Par醡etros del procedimiento
+    private String parametros;                  // Par谩metros del procedimiento
     private String tipoEjecucion;               // "Manual", "Programada"
     private int frecuenciaPeriodo;             	    // Frecuencia cada periodo
-    private String tipoPeriodo;                 // Frecuencia de ejecuci髇 ("Diaria", "Semanal", etc.)
-    private String diasSemana;                  // D韆s de la semana para ejecuci髇 programada
-    private String diasMes;                 	// D韆s del mes (para procesos mensuales o d韆s de mes puntuales )
-    private String horaEjecucion;          		// Hora de ejecuci髇 si es programado
-    private int maxReintentos;                  // M醲imos reintentos en caso de fallo
-    private Integer maxDuracionSegundos; 		// M醲ima duraci髇 de la ejecuci髇 en segundos
-    private String fechaDesde;               	// Fecha de activaci髇 del proceso
-    private String fechaHasta;                  // Fecha de desactivaci髇 del proceso
-    private ProcesoEjecucion ultimaEjecucion;	// 鷏tima ejecuci髇 del proceso
-    private ProcesoEjecucion ejecucionActiva;	// ejecuci髇 activa del proceso
-    private ProcesoEjecucion ejecucion;			// ejecuci髇 
-    private List<ProcesoEjecucion> listadoEjecuciones;	// Listado de las 鷏timas ejecuciones
+    private String tipoPeriodo;                 // Frecuencia de ejecut贸 ("Diaria", "Semanal", etc.)
+    private String diasSemana;                  // D铆as de la semana para ejecut贸 programada
+    private String diasMes;                 	// D铆as del mes (para procesos mensuales o d铆as de mes puntuales )
+    private String horaEjecucion;          		// Hora de ejecut贸 si es programado
+    private int maxReintentos;                  // M谩ximos reintentos en caso de fallo
+    private Integer maxDuracionSegundos; 		// M谩xima duraci贸n de la ejecut贸 en segundos
+    private String fechaDesde;               	// Fecha de activaci贸n del proceso
+    private String fechaHasta;                  // Fecha de desactivaci贸n del proceso
+    private ProcesoEjecucion ultimaEjecucion;	// 煤ltima ejecut贸 del proceso
+    private ProcesoEjecucion ejecucionActiva;	// ejecut贸 activa del proceso
+    private ProcesoEjecucion ejecucion;			// ejecut贸 
+    private List<ProcesoEjecucion> listadoEjecuciones;	// Listado de las 煤ltimas ejecuciones
     private String apartado;                 	// Nombre del apartado o entidad para la que se ha creado, a efectos de agruparlo en la vista
     private int orden;	 		                // Orden que ocupa en el apartado
     private int prioridad;						// 1 'Alta', 2 'Media', 3 'Baja',

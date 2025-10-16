@@ -46,12 +46,12 @@ public class DivResidenciasHelper  {
 		boolean result = false;// DivisionResidenciaDAO.nuevo(form);
 		if(result)
 		{
-		//INICIO creaci髇 de log en BBDD
+		//INICIO creaci贸n de log en BBDD
 			try{
 				SpdLogAPI.addLog(idUsuario, null, form.getIdDivisionResidencia(), null, SpdLogAPI.A_RESIDENCIA, SpdLogAPI.B_CREACION, ".", "SpdLog.residencia.creacion.crear", 
 						 new String[]{idUsuario, form.getIdDivisionResidencia()} );
 			}catch(Exception e){}	// Cambios--> @@.
-			//FIN creaci髇 de log en BBDD
+			//FIN creaci贸n de log en BBDD
 		}
 		return result;
 	}
@@ -76,12 +76,12 @@ public class DivResidenciasHelper  {
 				//String query = " UPDATE SPDAC.dbo.bd_pacientes SET " + querySet + " WHERE  OIDPACIENTE='"+p.getOidPaciente()+"'";
 				//cambios = PacienteDAO.edita(query);
 
-				//INICIO creaci髇 de log en BBDD
+				//INICIO creaci贸n de log en BBDD
 				try{
 					SpdLogAPI.addLog(idUsuario, null,  p.getIdDivisionResidencia(), null, SpdLogAPI.A_RESIDENTE, SpdLogAPI.B_EDICION, SpdLogAPI.C_DATOSGENERALES, "SpdLog.residente.edicion.general", 
 							 new String[]{idUsuario, p.getIdDivisionResidencia(), antes, despues} );
 				}catch(Exception e){}	// Cambios--> @@.
-				//FIN creaci髇 de log en BBDD
+				//FIN creaci贸n de log en BBDD
 			}
 		}
 		return cambiosEstado;

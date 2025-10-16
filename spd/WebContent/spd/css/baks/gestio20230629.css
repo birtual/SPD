@@ -1,6 +1,6 @@
 
 
-/* deixo aquí els css generals */
+/* deixo aquï¿½ els css generals */
 body {
 	margin: 0 7px 7px 10px;
 	padding: 0;
@@ -440,7 +440,7 @@ li.fitxa a:link, li.fitxa a:visited {
 li.fitxa a:hover {
 	background-image: url(../images/pdfh.png);
 	}
-/* això només funx amb navegadors mosk (mozilla opera safari konkeror) */	
+/* aixï¿½ nomÃ¡s funx amb navegadors mosk (mozilla opera safari konkeror) */	
 tr:hover {
 	background-color: #EFEFEF;
 	}
@@ -541,7 +541,7 @@ fieldset .avis {
 	padding: 15px 0;
 }
 
-/* distribució */
+/* distribuciÃ³ */
 .left {
 	text-align: left;
 }

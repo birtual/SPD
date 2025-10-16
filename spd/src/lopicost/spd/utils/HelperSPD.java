@@ -66,7 +66,7 @@ public class HelperSPD{
 			result=quitaEspacios(result);
 			result=result.replace("S/P", "999");
 			result=result.replace("sp", "999");
-			result=result.replace("�", "0,5");
+			result=result.replace("½", "0,5");
 			result=result.replace("1/2", "0,5");
 			result=result.replace("1/2", "0,5");
 			result = result.replaceAll("(\\d+)\\.$", "$1");  //elimina un punto al final
@@ -215,7 +215,7 @@ public class HelperSPD{
 				            break;
 				        // Puedes agregar más casos según sea necesario
 				        default:
-				            // Acciones si la fecha no coincide con ning�n caso
+				            // Acciones si la fecha no coincide con ningún caso
 				    }
 				}
 			}catch(Exception e){
@@ -236,8 +236,8 @@ public class HelperSPD{
 			//result=result.replace(",", ".");
 			result=result.replace(";", ".");
 			result=result.replace("'", "");
-			result=result.replace("�", "");
-			result=result.replace("�", "");		//s�mbolo que llega en conversión del Excel,es un espacio
+	        result = result.replace("´", "");
+	        result = result.replace("ÿ", "");	//símbolo que llega en conversión del Excel,es un espacio
 			result=result.replaceAll("[a-zA-Z]", "_"); //lo modificamos por "_" por si se ha de localizar posteriormente
 			
 			if(contieneNumeros(result)) 
@@ -259,7 +259,7 @@ public class HelperSPD{
 	public static String convertirNumeroAFecha(String numeroDeDias) {
         int dias = Integer.parseInt(numeroDeDias);
         
-        // Ajustar la fecha base a "30/12/1899" para que "45047" d� como resultado "01/05"
+        // Ajustar la fecha base a "30/12/1899" para que "45047" dará como resultado "01/05"
         LocalDate fechaBase = LocalDate.of(1899, 12, 30);
         LocalDate fechaCalculada = fechaBase.plusDays(dias);
 
@@ -337,7 +337,7 @@ public class HelperSPD{
 			result.replace("_", "");
 			result.replace(";", "");
 			result.replace("'", "");
-			result.replace("�", "");
+			result.replace("´", "");
 		}
 		return result;
 	}
@@ -3572,7 +3572,7 @@ public static void eliminaTomasCero(FicheroResiBean f) {
             Method getterMethod = FicheroResiBean.class.getMethod(getterMethodName);
             String currentValue = (String) getterMethod.invoke(f);
 
-            // Verifica si el valor es "0" y establece "0" si es as�
+            // Verifica si el valor es "0" y establece "0" si es así
             if (currentValue != null && currentValue.equals("0")) {
                 Method setterMethod = FicheroResiBean.class.getMethod(setterMethodName, String.class);
                 setterMethod.invoke(f, "");
@@ -3599,7 +3599,7 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 	
 	if(medResi.getSpdAccionBolsa()!=null && medResi.getSpdAccionBolsa().equalsIgnoreCase(SPDConstants.SPD_ACCIONBOLSA_PASTILLERO))
 	{
-		//si no hay descuadre ser� por comprobación posterior
+		//si no hay descuadre será por comprobación posterior
 		medResi.setCuadraPrevision(false);
 		float resi = 0;
 		float spd = 0;
@@ -3880,7 +3880,7 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 				if(row.size()>COLUMNAS) 
 		   	 		detalleRow = row.subList(0, COLUMNAS).toString();
 			}
-	        // Procesa la cadena de Excel y convi�rtela en un arreglo o lista, por ejemplo
+	        // Procesa la cadena de Excel y conviértela en un arreglo o lista, por ejemplo
 	       detalleRow = StringUtil.quitaEspaciosYAcentos(detalleRow.toString().replaceAll("[\\[\\]]", "").replaceAll("'", " "), true);
 	       //detalleRow = detalleRow.toString().replaceAll("[\\[\\]]", "").replaceAll("'", " ");
 			return detalleRow;

@@ -13,7 +13,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Borrado de sustituci髇 X Conjunto Homog閚eo/LAB</title>
+<title>Borrado de sustituci贸n X Conjunto Homog茅neo/LAB</title>
 
 </head>
 
@@ -48,7 +48,7 @@
 
 <body id="general">
 	<center>
-		<h2>Borrado de sustituci髇 X Conjunto Homog閚eo</h2>
+		<h2>Borrado de sustituci贸n X Conjunto Homog茅neo</h2>
 		<html:form action="/SustXComposicion.do" method="post">	
 
 <div id="contingut">
@@ -63,7 +63,7 @@
 
 	<h3>Confirmar borrado</h3>
 	<tr>
-		<td>C骴igo Conj Homog (GTVMPP)</td>
+		<td>C贸digo Conj Homog (GTVMPP)</td>
 		<td><bean:write name="data" property="codGtVmpp"/></td>
 	</tr>
 	<tr>
@@ -79,7 +79,7 @@
 		<td><bean:write name="data" property="ponderacion"/></td>
 	</tr>	
 	<tr>
-		<td>C骴igo Lab</td>
+		<td>C贸digo Lab</td>
 		<td><bean:write name="data" property="codiLab"/></td>
 	</tr>	
 	<tr>
@@ -88,11 +88,11 @@
 		
 	</tr>	
 	<tr>
-		<td>Fecha creaci髇</td>
+		<td>Fecha creaci贸n</td>
 		<td><bean:write name="data" property="fechaCreacion"/></td>
 	</tr>	
 	<tr>
-		<td>鷏tima modificacion</td>
+		<td>煤ltima modificacion</td>
 		<td><bean:write name="data" property="ultimaModificacion"/></td>
 	</tr>	
 	<tr>

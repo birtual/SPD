@@ -55,7 +55,7 @@ public class PlantillaUnificadaHelper {
 	}
 */	
 	public static boolean bloqueaProcesoResidencia(String idUsuario, FicheroResiBean cab) throws ClassNotFoundException, SQLException {
-		//limpiamos procesos colgados de más de 30 minutos
+		//limpiamos procesos colgados de mÃ¡s de 30 minutos
 		XMLRobotDao.limpiarBloqueosAntiguos(idUsuario);
 		//comprobamos que existe registro
 		if(!XMLRobotDao.existeRegitroBloqueo(idUsuario,  cab, false))
@@ -299,12 +299,12 @@ public class PlantillaUnificadaHelper {
 	                   while ((bytesRead = fis.read(buffer)) != -1) {
 	                       outputStream.write(buffer, 0, bytesRead);
 
-	                       // Diagnóstico para verificar las iteraciones
+	                       // DiagnÃ³stico para verificar las iteraciones
 	                       iteration++;
-	                       System.out.println("Iteración: " + iteration + ", bytesRead: " + bytesRead);
+	                       System.out.println("IteraciÃ³n: " + iteration + ", bytesRead: " + bytesRead);
 	                   }
 
-	                   // Asegúrate de vaciar el buffer del OutputStream
+	                   // AsegÃºrate de vaciar el buffer del OutputStream
 	                   outputStream.flush();
 
 	            } catch (FileNotFoundException e) {
@@ -430,7 +430,7 @@ public class PlantillaUnificadaHelper {
                 	response.getOutputStream().write(buffer, 0, bytesRead);
                 }
 
-                //outputStream.flush(); // Asegúrate de vaciar el buffer
+                //outputStream.flush(); // AsegÃºrate de vaciar el buffer
                 response.getOutputStream().flush(); 
             	System.out.println("Escritura completada exitosamente.");
 
@@ -562,31 +562,31 @@ public class PlantillaUnificadaHelper {
 */
 	
 	/**
-	 * Método encargardo de contruir el orderNumber, que es un string numérico de 36 dígitos, uno por CIP.
-	 * Se compone del año+mes+dia+milis+aleatorio de 18 caracteres 
+	 * MÃ©todo encargardo de contruir el orderNumber, que es un string numÃ©rico de 36 dÃ­gitos, uno por CIP.
+	 * Se compone del aÃ±o+mes+dia+milis+aleatorio de 18 caracteres 
 	 * @return 
 	 */
 	public static String getOrderNumber() {
 
-        // Obtén la fecha y hora actual
+        // ObtÃ©n la fecha y hora actual
         LocalDateTime now = LocalDateTime.now();
         // Formatea la fecha y los milisegundos a yyyyMMddHHmmssSSS
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
         String formattedDateTime = now.format(formatter);
-        // Genera un número aleatorio de 18 dígitos
+        // Genera un nÃºmero aleatorio de 18 dÃ­gitos
         Random random = new Random();
         long randomNumber = 100000000000000000L + (long)(random.nextDouble() * 900000000000000000L);
-        // Convierte el número aleatorio a una cadena con 14 dígitos
+        // Convierte el nÃºmero aleatorio a una cadena con 14 dÃ­gitos
         String randomDigits = String.format("%018d", randomNumber);
-        // Concatena la fecha formateada con los 18 dígitos aleatorios
+        // Concatena la fecha formateada con los 18 dÃ­gitos aleatorios
         String result = formattedDateTime + randomDigits;
         
 		return result;
 	}
 	
 	/**
-	 * étodo encargado de generar un id para la producción del paciente. No ha de ser aleatorio como antes del RD porque es posible que el proceso de generar los datos que 
-	 * se envían a robot se realice posteriormente, para precisamente generar los datos. 
+	 * Ã©todo encargado de generar un id para la producciÃ³n del paciente. No ha de ser aleatorio como antes del RD porque es posible que el proceso de generar los datos que 
+	 * se envÃ­an a robot se realice posteriormente, para precisamente generar los datos. 
 	 * @param bean
 	 * @param cabeceraTop
 	 * @return
@@ -618,7 +618,7 @@ public class PlantillaUnificadaHelper {
 	}
 	
 	/**
-	 * Para no sobrecargar los inserts de generación del fichero, se realiza a posteriori un update cruzado con bd_consejo
+	 * Para no sobrecargar los inserts de generaciÃ³n del fichero, se realiza a posteriori un update cruzado con bd_consejo
 	 * @param idUsuario
 	 * @param cab
 	 * @param cabDetalle
@@ -662,7 +662,7 @@ public class PlantillaUnificadaHelper {
 	}
 
 	/**
-	 * Eliminamos una cadena final de otra cadena y también un "_" en caso que esté al final
+	 * Eliminamos una cadena final de otra cadena y tambiÃ³n un "_" en caso que estÃ¡ al final
 	 * @param original
 	 * @param sufijo
 	 * @return

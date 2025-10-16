@@ -134,8 +134,8 @@ public class ExcelFicheroResiDetalleLite {
         cell = row.createCell(48);      cell.setCellValue(new HSSFRichTextString("spdCnFinal")); 
         cell = row.createCell(49);      cell.setCellValue(new HSSFRichTextString("Nombre en bolsa")); 
         cell = row.createCell(50);      cell.setCellValue(new HSSFRichTextString("forma Medicacion")); 
-        cell = row.createCell(51);      cell.setCellValue(new HSSFRichTextString("acción bolsa")); 
-        cell = row.createCell(52);      cell.setCellValue(new HSSFRichTextString("¿Es excepción?")); 
+        cell = row.createCell(51);      cell.setCellValue(new HSSFRichTextString("acciÃ³n bolsa")); 
+        cell = row.createCell(52);      cell.setCellValue(new HSSFRichTextString("Â¿Es excepciÃ³n?")); 
         cell = row.createCell(53);      cell.setCellValue(new HSSFRichTextString("Incidencia")); 
         cell = row.createCell(54);      cell.setCellValue(new HSSFRichTextString("Estado linea")) ;       
          

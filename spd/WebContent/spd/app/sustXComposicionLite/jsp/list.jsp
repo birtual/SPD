@@ -93,7 +93,7 @@
 		<div>&nbsp;</div>`
 		<div>Texto a buscar 
 		</div>
-		<div>Búsqueda por medicamento
+		<div>BÃºsqueda por medicamento
 		 </div>	
 
 
@@ -166,7 +166,7 @@ x			Grupo VMP
 </table>
 
 
-	<!--  paginación  -->
+	<!--  paginaciÃ³n  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 			<p align="center">
@@ -180,7 +180,7 @@ x			Grupo VMP
 			</p>
 		</logic:greaterThan>
 	</div>
-	<!--  paginación   -->
+	<!--  paginaciÃ³n   -->
 		
 		
 		

@@ -24,7 +24,7 @@ public class SustXGtAction extends GenericAction  {
 	public ActionForward list(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 	
 		SustXGtForm formulari =  (SustXGtForm) form;
-	//	inicializamos para que no haya datos de otros m骴ulos
+	//	inicializamos para que no haya datos de otros m贸dulos
 		formulari.setOidSustXComposicion(0);
 		formulari.setListaRobots(RobotDAO.getListaRobots());
 		
@@ -46,7 +46,7 @@ public class SustXGtAction extends GenericAction  {
 	}
 	
 	/**
-	 * Creaci髇 de un GTVM (principio activo)
+	 * Creaci贸n de un GTVM (principio activo)
 	 * Se crean todos los hijos (GTVMP) y nietos (GTVMPP) que se deriven
 	 * @param mapping
 	 * @param form
@@ -82,7 +82,7 @@ public class SustXGtAction extends GenericAction  {
 	
 	
 	public ActionForward nuevoDesdeNivel2(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//inicializamos para que no haya datos de otros m骴ulos
+		//inicializamos para que no haya datos de otros m贸dulos
 		SustXGtForm formulari =  (SustXGtForm) form;
 		//formulari.setListaGtVm(BdConsejoDAO.getListaGtVmDeConsejo());
 		//formulari.setListaPresentacion(BdConsejoDAO.getListaPresentacion());
@@ -109,7 +109,7 @@ public class SustXGtAction extends GenericAction  {
 			else errors.add( "No se ha podido crear el registro");
 			
 			formulari.setErrors(errors);
-			//formulari.setFiltroCodGtVmp("");  //dejamos lo que hab韆 filtrado en el listado
+			//formulari.setFiltroCodGtVmp("");  //dejamos lo que hab铆a filtrado en el listado
 			list( mapping,  form,  request,  response);
 			return mapping.findForward("list");
 		}
@@ -118,7 +118,7 @@ public class SustXGtAction extends GenericAction  {
 	
 	
 	public ActionForward nuevoDesdeNivel3(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//inicializamos para que no haya datos de otros m骴ulos
+		//inicializamos para que no haya datos de otros m贸dulos
 		SustXGtForm formulari =  (SustXGtForm) form;
 		Nivel3 nivel3 = SustXGtDAO.getNivel3ById(formulari.getFiltroCodGtVmpp());
 		formulari.setNivel3(nivel3);
@@ -143,7 +143,7 @@ public class SustXGtAction extends GenericAction  {
 			else errors.add( "No se ha podido crear el registro");
 			
 			formulari.setErrors(errors);
-			//formulari.setFiltroCodGtVmp("");  //dejamos lo que hab韆 filtrado en el listado
+			//formulari.setFiltroCodGtVmp("");  //dejamos lo que hab铆a filtrado en el listado
 			list( mapping,  form,  request,  response);
 			return mapping.findForward("list");
 		}

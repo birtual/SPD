@@ -23,12 +23,12 @@
 <title>Info de control de alertas</title>
 </head>
 <script>
-    // Este script manejar· la respuesta del servidor y actualizar· o redireccionar· seg˙n sea necesario
+    // Este script manejar√° la respuesta del servidor y actualizar√° o redireccionar√° seg√∫n sea necesario
     function handleServerResponse(responseText) {
-        // Puedes mostrar una alerta, actualizar la p·gina o redirigir seg˙n tus necesidades
+        // Puedes mostrar una alerta, actualizar la p√°gina o redirigir seg√∫n tus necesidades
         alert(responseText);
-        // window.location.reload();  // Para recargar la p·gina
-        // window.location.href = '/tuApp/list';  // Para redirigir a un mapeo especÌfico
+        // window.location.reload();  // Para recargar la p√°gina
+        // window.location.href = '/tuApp/list';  // Para redirigir a un mapeo espec√≠fico
     }
 </script>
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />

@@ -153,11 +153,11 @@ function getContextPath() {
         <!-- <th>Versión</th> -->
         <!-- <th>Descripción</th> -->
         <th>Parámetros</th>
-        <!--<th>Tipo ejecución</th> -->
+        <!--<th>Tipo ejecutó</th> -->
         <!--<th>Cada</th> -->
         <!--<th>Periodo</th> -->
         <th>Frecuencia</th>
-        <th>Hora ejecución</th>
+        <th>Hora ejecutó</th>
         <th>Días semana</th>
         <th>Días concretos (opcional)</th>
        <!--  <th>Max reintentos</th> -->
@@ -165,7 +165,7 @@ function getContextPath() {
        <!--  <th>Fecha desde</th> -->
        <!--  <th>Fecha hasta</th> -->
         <th>Activo</th>
-        <td>Última ejecución</td>
+        <td>Última ejecutó</td>
         <td>Resultado</td>
         <td>Fecha inicio</td>
         <td>Fecha fin</td>

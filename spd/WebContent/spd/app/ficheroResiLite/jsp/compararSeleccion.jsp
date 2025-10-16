@@ -14,15 +14,15 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>GestiÛn carga ficheros Robot (lite)</title>
+<title>Gesti√≥n carga ficheros Robot (lite)</title>
 </head>
 <script>
-    // Este script manejar· la respuesta del servidor y actualizar· o redireccionar· seg˙n sea necesario
+    // Este script manejar√° la respuesta del servidor y actualizar√° o redireccionar√° seg√∫n sea necesario
     function handleServerResponse(responseText) {
-        // Puedes mostrar una alerta, actualizar la p·gina o redirigir seg˙n tus necesidades
+        // Puedes mostrar una alerta, actualizar la p√°gina o redirigir seg√∫n tus necesidades
         alert(responseText);
-        // window.location.reload();  // Para recargar la p·gina
-        // window.location.href = '/tuApp/list';  // Para redirigir a un mapeo especÌfico
+        // window.location.reload();  // Para recargar la p√°gina
+        // window.location.href = '/tuApp/list';  // Para redirigir a un mapeo espec√≠fico
     }
 </script>
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
@@ -68,14 +68,14 @@
 			<tr>
 			 	<!-- th>Residencia</th> -->
 				<th>Id Proceso</th>
-				<th>Fecha CreaciÛn</th>
+				<th>Fecha Creaci√≥n</th>
 				<th>Filas totales</th>
-				<th>n∫ Errores</th>
+				<th>n¬∫ Errores</th>
 				<th>Cips Fichero</th>
 				<th>Cips Resi</th>
 				<th>Creador carga</th>
 				<th>Revisiones</th>
-				<th>PrevisiÛn actualizada</th>
+				<th>Previsi√≥n actualizada</th>
 				<!-- <th>Nota1</th>-->
 				<!-- <th>Nota2</th>-->
 				<!-- <th>Nota3</th>-->
@@ -108,7 +108,7 @@
 	     	</tbody>  
 		</table>
 	</fieldset>
-	<!--  paginaciÛn  -->
+	<!--  paginaci√≥n  -->
 	<div>
 		<logic:greaterThan name="formulari" property="numpages" value="1">
 		<table border="0" width="100%">
@@ -126,7 +126,7 @@
 		</table>
 		</logic:greaterThan>
 	</div>
-	<!--  paginaciÛn   -->
+	<!--  paginaci√≥n   -->
 </div>	
 </html:form>
 </body>

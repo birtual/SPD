@@ -10,7 +10,7 @@
 <BODY>
 
 <H3>Farmacia</H3>
-<p><html:link page="/Iospd/Iospd.do?parameter=list&operation=FILTER">Gestión de carga de ficheros resi</html:link></p> 
+<p><html:link page="/Iospd/Iospd.do?parameter=list&operation=FILTER">GestiÃ³n de carga de ficheros resi</html:link></p> 
 
 
 </html:html>

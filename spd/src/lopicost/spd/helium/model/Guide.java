@@ -8,11 +8,11 @@ import org.w3c.dom.Element;
 @XmlRootElement(name = "guide")
 public class Guide {
 	@XmlAttribute(name = "idGuide")
-	private String idGuide;						// Identificador único del patrón a aplicar para esta toma de este paciente. Si no se dispone de esta clave se puede coger la clave de “idLine” y añadir un contador incremental.
+	private String idGuide;						// Identificador Ãºnico del patrÃ³n a aplicar para esta toma de este paciente. Si no se dispone de esta clave se puede coger la clave de â€œidLineâ€ y aÃ±adir un contador incremental.
 	private int number;							// Es un contador entero que indica el orden de la etiqueta; el contador empieza siempre por 1.
-	private int periods;						// Este valor es un numérico entero e indica el número de periodos sobre los que se aplicará esta restricción.
-	private String periodtype;					// Este valor indica el tipo de periodo; este puede tomar los valores “DAYS”, “WEEKS” o “MONTHS”
-	private boolean active;						// Este valor indica si sobre este periodo de tiempo el paciente ha de tomar o no el medicamento; si es sí toma el valor true, en caso contrario tiene el valor false.
+	private int periods;						// Este valor es un numÃ©rico entero e indica el nÃºmero de periodos sobre los que se aplicarÃ¡ esta restricciÃ³n.
+	private String periodtype;					// Este valor indica el tipo de periodo; este puede tomar los valores â€œDAYSâ€, â€œWEEKSâ€ o â€œMONTHSâ€
+	private boolean active;						// Este valor indica si sobre este periodo de tiempo el paciente ha de tomar o no el medicamento; si es sÃ­ toma el valor true, en caso contrario tiene el valor false.
 	
 	
 	//public String getIdGuide() 					{		return idGuide;					}

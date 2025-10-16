@@ -98,17 +98,17 @@ public class ExtReBean {
 	
 	public int getPercentTrat() {
         if (this.cipsActivos == 0) {
-            return 0; // Evitar división por cero
+            return 0; // Evitar divisiÃ³n por cero
         }
-        //return (int) Math.round((double) (this.cipsProcesadosTrat-this.cipsProcesadosTratNo) / this.cipsActivos * 100); // Redondear al entero más cercano
-        return (int) Math.round((double) (this.cipsProcesadosTrat+this.cipsProcesadosTratNo) / this.cipsActivos * 100); // Redondear al entero más cercano
+        //return (int) Math.round((double) (this.cipsProcesadosTrat-this.cipsProcesadosTratNo) / this.cipsActivos * 100); // Redondear al entero mÃ¡s cercano
+        return (int) Math.round((double) (this.cipsProcesadosTrat+this.cipsProcesadosTratNo) / this.cipsActivos * 100); // Redondear al entero mÃ¡s cercano
 	}
 	public int getPercentRecPend() {
         if (this.cipsActivos == 0) {
-            return 0; // Evitar división por cero
+            return 0; // Evitar divisiÃ³n por cero
         }
-      //  return (int) Math.round((double) (this.cipsProcesadosRecPend-this.cipsProcesadosRecPendNo) / this.cipsActivos * 100); // Redondear al entero más cercano
-        return (int) Math.round((double) (this.cipsProcesadosRecPend + this.cipsProcesadosRecPendNo) / this.cipsActivos * 100); // Redondear al entero más cercano
+      //  return (int) Math.round((double) (this.cipsProcesadosRecPend-this.cipsProcesadosRecPendNo) / this.cipsActivos * 100); // Redondear al entero mÃ¡s cercano
+        return (int) Math.round((double) (this.cipsProcesadosRecPend + this.cipsProcesadosRecPendNo) / this.cipsActivos * 100); // Redondear al entero mÃ¡s cercano
 	}
 
 	
@@ -122,7 +122,7 @@ public class ExtReBean {
 
 		
 	/**
-	 * control de la recogida, para detectar la última fecha 
+	 * control de la recogida, para detectar la Ãºltima fecha 
 	 * @return
 	 
 	public boolean checkFecha(int diasMax, String fecha) {
@@ -135,18 +135,18 @@ public class ExtReBean {
 		LocalDate inputDate = LocalDate.parse(fecha, SPDConstants.FORMAT_DATETIME_24h);
 	    // Obtener la fecha actual
 	    LocalDate today = LocalDate.now();
-        // Calcular la diferencia en días
+        // Calcular la diferencia en dÃ­as
         long daysBetween = ChronoUnit.DAYS.between(inputDate, today);
 				
         if (daysBetween > diasMax) return true;
-            //System.out.println("La fecha excede el número máximo de días.");
+            //System.out.println("La fecha excede el nÃºmero mÃ¡ximo de dÃ­as.");
         else 
-        	//System.out.println("La fecha está dentro del límite.");
+        	//System.out.println("La fecha estÃ¡ dentro del lÃ­mite.");
         	return false;
 	}*/
 	
 	/**
-	 * control de la recogida, para detectar la última fecha 
+	 * control de la recogida, para detectar la Ãºltima fecha 
 	 * @param diasMax
 	 * @param fecha
 	 * @return
@@ -166,15 +166,15 @@ public class ExtReBean {
 	        try {
 	            inputDate = LocalDate.parse(fecha, formatterSoloFecha);
 	        } catch (DateTimeParseException e2) {
-	            // Formato inválido
-	            throw new IllegalArgumentException("Formato de fecha inválido: " + fecha);
+	            // Formato invÃ¡lido
+	            throw new IllegalArgumentException("Formato de fecha invÃ¡lido: " + fecha);
 	        }
 	    }
 
 	    // Obtener la fecha actual
 	    LocalDate today = LocalDate.now();
 
-	    // Calcular la diferencia en días
+	    // Calcular la diferencia en dÃ­as
 	    long daysBetween = ChronoUnit.DAYS.between(inputDate, today);
 
 	    return daysBetween > diasMax;

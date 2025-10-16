@@ -12,7 +12,6 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.poi.ss.usermodel.DateUtil;
 
 
@@ -60,13 +59,13 @@ public class StringUtil{
 		if(result!=null&&!result.equals(""))
 		{ 
 			result=result.replace("'", "");
-			result=result.replace("�", "");			
+			result=result.replace("´", "");			
 			result=result.replace("`", "");
 			result=result.replace(".", "");
 			result=result.replace("-", "");
 			result=result.replace(",", "");
 			result=result.replace(";", "");
-			result=result.replace("�", "");
+			result=result.replace("ÿ", "");
 			result=result.replaceAll("\\t","");
 			result=result.trim();
 		}
@@ -82,13 +81,13 @@ public class StringUtil{
 		if(result!=null&&!result.equals(""))
 		{ 
 			result=result.replace("'", " ");
-			result=result.replace("�", " ");			
+			result=result.replace("´", " ");			
 			result=result.replace("`", " ");
 			result=result.replace(".", " ");
 			result=result.replace("-", " ");
 			result=result.replace(",", " ");
 			result=result.replace(";", " ");
-			result=result.replace("�", " ");
+			result=result.replace("ÿ", " ");
 			result=result.replaceAll("\\t","");
 			result=result.trim();
 		}
@@ -128,7 +127,7 @@ public class StringUtil{
 			result=result.replace("_", " ");
 			result=result.replace(";", ",");
 			result=result.replace("'", ",");
-			result=result.replace("�", " ");
+			result=result.replace("´", " ");
 			if(quitaEspacios) result=quitaEspacios(result);
 			
 			
@@ -167,9 +166,9 @@ public class StringUtil{
 	}
 	
 	/**
-	 * método que transforma en may�sculas, eliminando acentos
+	 * método que transforma en mayúsculas, eliminando acentos
 	 * @param q String base
-	 * @return String Retorna un String cuyas letras estarán todas en may�sculas y sin acentos
+	 * @return String Retorna un String cuyas letras estarán todas en mayúsculas y sin acentos
 	 */
 	public final static String makeFlat(String q, boolean upper){
 		if(q==null) return "";
@@ -208,8 +207,8 @@ public class StringUtil{
 		q = StringUtil.replaceChar(q,'ü','u');
 		q = StringUtil.replaceChar(q,'ñ','n');
 		q = StringUtil.replaceChar(q,'ç','c');
-		q = StringUtil.replaceChar(q,'�','.');
-		q = StringUtil.replaceChar(q,'�','.');
+		q = StringUtil.replaceChar(q,'ª','.');
+		q = StringUtil.replaceChar(q,'º','.');
 		
 		q = StringUtil.replaceChar(q,'\"',' ');
 		
@@ -240,7 +239,7 @@ public class StringUtil{
 	 * método que se encarga de reemplazar un subString por otro <BR>
 	 * <b>NOTA</b>: OJO CON EL ORDEN DE LOS PARAMS DE ESTE METODO! el string base donde queremos hacer los replaces es el ULTIMO PARAMETRO
 	 * <b>NOTA</b>: ESTE METODO NO ES SEGURO (peta por ej con el string "") --> usar replaceString
-	 * @param substr String cuyo contenido ser� reemplazado
+	 * @param substr String cuyo contenido será reemplazado
 	 * @param newsubstr String cuyo valor es el "reemplazante"
 	 * @param fullstr String base para realizar los cambios
 	 * @return String Retorna el String despues del reemplazo
@@ -309,7 +308,7 @@ public class StringUtil{
 	/**
 	 * Reemplaza los caracteres no válidos de una cadena alfanumércia.
 	 * @param inString cadena de entrada
-	 * @return String Retorna la cadena alfanumérica que contiene �nicamente caracteres validos.
+	 * @return String Retorna la cadena alfanumérica que contiene únicamente caracteres validos.
 	 */    
 	public static String replaceInvalidChars(String inString)
 	{
@@ -367,8 +366,9 @@ public class StringUtil{
 		inString = inString.replace('å','a');
 		inString = inString.replace('æ','a');
 		inString = inString.replace('¢','o');
+		inString = inString.replace('ª','.');
+		inString = inString.replace('º','.');
 		inString = inString.replace('\'',',');
-		
 		inString = inString.replaceAll("'\"","");
 		inString = inString.replaceAll("\'","");		
 
@@ -430,7 +430,7 @@ public class StringUtil{
 	 /**
 	  * Convierto un decimal a binario.
 	  * Le mete todos los zeros que sean necesarios hasta llegar
-	  * al tama�o definido por leadingSize. 
+	  * al tamaño definido por leadingSize. 
 	  */
 	 public static String decimalToBinary(String decimal, int leadingSize)
 	 {
@@ -547,7 +547,7 @@ public class StringUtil{
 			fechaString=fechaString.replace(".", "/");
 			fechaString=fechaString.replace(";", "");
 			fechaString=fechaString.replace("'", "");
-			fechaString=fechaString.replace("�", "");
+			fechaString=fechaString.replace("´", "");
 			fechaString=fechaString.replace("'", "");
 			
 			//Date javaDate= DateUtil.getJavaDate((double) new Double(fechaString).doubleValue());
@@ -640,7 +640,7 @@ public class StringUtil{
 	
 	/**
 	 * Dejamos la fecha en formato STRING DD/MM/YYYY. 
-	 * Utilizado para producciones SPD no se aceptará fecha con a�o erráneo o fecha no válida
+	 * Utilizado para producciones SPD no se aceptará fecha con año erráneo o fecha no válida
 	 * @param fechaString
 	 * @return
 	 */
@@ -665,15 +665,15 @@ public class StringUtil{
 			}
 			
 			
-			//Arreglo s�mbolos
+			//Arreglo símbolos
 			fechaString=quitaEspacios(fechaString);
 			fechaString=fechaString.replace("_", "/");
 			fechaString=fechaString.replace("-", "/");
 			fechaString=fechaString.replace(".", "/");
 			fechaString=fechaString.replace(";", "");
 			fechaString=fechaString.replace("'", "");
-			fechaString=fechaString.replace("�", "");		//s�mbolo que llega en conversión del Excel,es un espacio
-			fechaString=fechaString.replace("�", "");
+			fechaString=fechaString.replace("ÿ", "");		//símbolo que llega en conversión del Excel,es un espacio
+			fechaString=fechaString.replace("´", "");
 			fechaString=fechaString.replace("'", "");
 			fechaString=fechaString.replace("//", "/");
 			fechaString=fechaString.replace("  ", "");		//dos espacios	
@@ -694,7 +694,7 @@ public class StringUtil{
             //getting the current year from the current_date
             int current_Year = current_date.getYear();
            
-            if (anyo>=current_Year+120 || anyo<=current_Year-120) return ""; //Devolvemos nulo por a�o fuera de un rango lógico
+            if (anyo>=current_Year+120 || anyo<=current_Year-120) return ""; //Devolvemos nulo por año fuera de un rango lógico
 			
 
             java.util.Calendar c=java.util.Calendar.getInstance();	
@@ -736,7 +736,7 @@ public class StringUtil{
 			fechaString=fechaString.replace(".", "/");
 			fechaString=fechaString.replace(";", "");
 			fechaString=fechaString.replace("'", "");
-			fechaString=fechaString.replace("�", "");
+			fechaString=fechaString.replace("´", "");
 			fechaString=fechaString.replace("'", "");
 			
 			int day=Integer.parseInt(fechaString.substring(0,2));
@@ -821,11 +821,11 @@ public class StringUtil{
         Pattern pattern = Pattern.compile("\\p{M}");
         String result = pattern.matcher(normalized).replaceAll("");
 
-        // Reemplazar '�' y '�' por 'N' y 'n'
-        result = result.replace('�', 'N').replace('�', 'n');
-        result = result.replace('�', 'C').replace('�', 'c');
-        result = result.replace('�', '.').replace('�', '.');
-        result = result.replace('�', '.').replace('�', '.');
+        // Reemplazar 'Ñ' y 'ñ' por 'N' y 'n'
+        result = result.replace('Ñ', 'N').replace('ñ', 'n');
+        result = result.replace('Ç', 'C').replace('ç', 'c');
+        result = result.replace('ª', '.').replace('ª', '.');
+        result = result.replace('º', '.').replace('º', '.');
 
         return result;
     }
@@ -852,7 +852,7 @@ public class StringUtil{
         if (input == null) {
             return ""; // 
         }
-        int start = Math.max(0, input.length() - length); // Asegura que no haya �ndices negativos
+        int start = Math.max(0, input.length() - length); // Asegura que no haya índices negativos
         return input.substring(start);
     }
 

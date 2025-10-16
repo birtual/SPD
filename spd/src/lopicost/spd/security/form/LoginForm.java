@@ -25,7 +25,7 @@ public class LoginForm extends GenericForm {
 
 	/** idUsuario property */
 	private String idUsuario;
-	/**par·metros SSO*/
+	/**par√°metros SSO*/
 	private String codigo;
 	private String fecha;	
 	/** dominios property */

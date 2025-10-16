@@ -98,7 +98,7 @@
 			<th>spdCnFinal</th>
 			<th >Nombre en bolsa</th>
 			<th>Forma medicacion</th>
-			<th>Acción bolsa</th> 	
+			<th>AcciÃ³n bolsa</th> 	
 			<th>Si Precisa</th>	 
 			<th>Identificador residente</th>	
 			<th>Nombre </th>	
@@ -108,7 +108,7 @@
 			<th>Variante</th>	
 			<th>Observaciones</th>	
 			<th>Comentarios</th>
-	        <th > Tipo medicación</th>
+	        <th > Tipo medicaciÃ³n</th>
 			<th >inicio-fin tratamiento
 			<th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th><th>D</th>	  
 			<logic:notEmpty name="PacientesForm" property="listaTomasCabecera">	

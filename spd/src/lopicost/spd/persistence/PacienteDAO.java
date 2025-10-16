@@ -89,7 +89,7 @@ public class PacienteDAO extends GenericDAO{
 	}
 */
 	/**
-	 * FunciÛn que construye la query de pacientes, ya sea para mostrar los de la residencia que se pase por par·metro
+	 * Funci√≥n que construye la query de pacientes, ya sea para mostrar los de la residencia que se pase por par√°metro
 	 * @param oidDivisionResidencia - Obligatorio 
 	 * @param oidPaciente	- Opcional
 	 * @param cip	- Opcional
@@ -97,9 +97,9 @@ public class PacienteDAO extends GenericDAO{
 	 * @param apellido1	- Opcional
 	 * @param apellido2	- Opcional
 	 * @param campoOrder	- en caso de ordenarlo por cualquier campo de Pacientes
-	 * @param count		-	Si es para contar registros, para paginaciÛn
-	 * @param inicio	- inicio para pagin·ciÛn
-	 * @param fin		- fin para paginaciÛn 
+	 * @param count		-	Si es para contar registros, para paginaci√≥n
+	 * @param inicio	- inicio para paginaci√≥n
+	 * @param fin		- fin para paginaci√≥n 
 	 * @param seleccionCampo	-	en caso de querer mostrar un campo determinado (normalmente para listados).
 	 * @return
 	 * @throws Exception 
@@ -129,7 +129,7 @@ public class PacienteDAO extends GenericDAO{
 		if(oidPaciente!=null && !oidPaciente.equals(""))
 			qryWhere+=  " and CAST( p.oidPaciente as CHAR) ='" +oidPaciente+"' ";			
 		
-		//forzamos que siempre sea una resi v·lida
+		//forzamos que siempre sea una resi v√°lida
 		if(oidDivisionResidencia>0)
 			qryWhere+=  " and  d.oidDivisionResidencia ='"+oidDivisionResidencia+"' ";
 	
@@ -202,7 +202,7 @@ public class PacienteDAO extends GenericDAO{
 	
 
 	/**
-	 * Fetch es una cl·usula que funciona a partir del SqlServer 2008 (no inclusive)
+	 * Fetch es una cl√°usula que funciona a partir del SqlServer 2008 (no inclusive)
 	 * @param form
 	 * @param inicio
 	 * @param fin
@@ -221,7 +221,7 @@ public class PacienteDAO extends GenericDAO{
 	}
 
 	/**
-	 * Como FETCH es una cl·usula de versiÛn SQLSERVER>2008 se crea una funciÛn un poco m·s engorrosa pero
+	 * Como FETCH es una cl√°usula de versi√≥n SQLSERVER>2008 se crea una funci√≥n un poco m√°s engorrosa pero
 	 * que sirve para todas las versiones (ROW_NUMBER() OVER)
 	 * @param form
 	 * @param inicio
@@ -245,7 +245,7 @@ public class PacienteDAO extends GenericDAO{
 	
 	
 	/**
-	 * FunciÛn que construye la query de pacientes, para mostrar los de la residencia que tienen un tratamiento en un fichero de resi para SPD
+	 * Funci√≥n que construye la query de pacientes, para mostrar los de la residencia que tienen un tratamiento en un fichero de resi para SPD
 	 * @param oidDivisionResidencia - Obligatorio 
 	 * @param oidPaciente	- Opcional
 	 * @param cip	- Opcional
@@ -253,9 +253,9 @@ public class PacienteDAO extends GenericDAO{
 	 * @param apellido1	- Opcional
 	 * @param apellido2	- Opcional
 	 * @param campoOrder	- en caso de ordenarlo por cualquier campo de Pacientes
-	 * @param count		-	Si es para contar registros, para paginaciÛn
-	 * @param inicio	- inicio para pagin·ciÛn
-	 * @param fin		- fin para paginaciÛn 
+	 * @param count		-	Si es para contar registros, para paginaci√≥n
+	 * @param inicio	- inicio para paginaci√≥n
+	 * @param fin		- fin para paginaci√≥n 
 	 * @param seleccionCampo	-	en caso de querer mostrar un campo determinado (normalmente para listados).
 	 * @param idProceso	-	Enlace con un proceso determinado. OBLIGATORIO
 	 * @param string3 
@@ -275,7 +275,7 @@ public class PacienteDAO extends GenericDAO{
 				qryFrom+=	" full outer join SPD_ficheroResiDetalle rd ";
 				qryFrom+=	" on ( rd.resiCIP is not null and rd.resiCIP=p.CIP)";
 		
-	  	//forzamos que siempre sea una resi v·lida
+	  	//forzamos que siempre sea una resi v√°lida
 				  	String qryWhere=  " WHERE p.idDivisionResidencia IN ( " + VisibilidadHelper.divisionResidenciasVisibles(spdUsuario)  + ")";
 				qryWhere+= 	" and (p.CIP is not null or rd.resiCIP is not null) ";
     			qryWhere+=  " and (rd.idProceso='"+idProceso+"' OR d.oiddivisionResidencia = '"+oidDivisionResidencia+"') ";
@@ -298,15 +298,15 @@ public class PacienteDAO extends GenericDAO{
     			{
     				qryWhere+=" and bolquers like '"+bolquers+"' ";
     			}
-    			if(estadoSPD!=null && !estadoSPD.equals(""))	//puede ser vacÌo
+    			if(estadoSPD!=null && !estadoSPD.equals(""))	//puede ser vac√≠o
     			{
     				qryWhere+=" and spd like '"+estadoSPD+"' ";
     			}
-    			if(estadoResidente!=null && !estadoResidente.equals("")) //puede ser vacÌo
+    			if(estadoResidente!=null && !estadoResidente.equals("")) //puede ser vac√≠o
     			{
     				qryWhere+=" and ACTIVO like '"+estadoResidente+"' ";
     			}
-    			if(estatusResidente!=null  && !estatusResidente.equals("")) //puede ser vacÌo
+    			if(estatusResidente!=null  && !estatusResidente.equals("")) //puede ser vac√≠o
     			{
     				qryWhere+=" and ( UPPER(estatus) = '"+estatusResidente.toUpperCase()+"' OR ACTIVO + ' - ' + estatus = '"+estatusResidente+"'  )";
     			}
@@ -382,7 +382,7 @@ public class PacienteDAO extends GenericDAO{
     	//proceso Obligatorio
     	qryWhere+=  " and (rd.idProceso='"+idProceso+"' OR rd.idProceso is null) ";
 
-    	//forzamos que siempre sea una resi v·lida
+    	//forzamos que siempre sea una resi v√°lida
     	if(oidDivisionResidencia!=null && !oidDivisionResidencia.equals(""))
     	qryWhere+=  " and  d.oidDivisionResidencia ='"+oidDivisionResidencia+"' ";
     		
@@ -432,7 +432,7 @@ public class PacienteDAO extends GenericDAO{
 
 	  
 	  /**
-	   * MÈtodo que retorna un listado de pacientes junto con sus tratamientos recibidos en un fichero y ya cargados en el sistema bajo un idProceso/residencia determinado
+	   * M√©todo que retorna un listado de pacientes junto con sus tratamientos recibidos en un fichero y ya cargados en el sistema bajo un idProceso/residencia determinado
 	   * @param form
 	   * @param inicio
 	   * @param fin
@@ -457,7 +457,7 @@ public class PacienteDAO extends GenericDAO{
 	    		 PreparedStatement pstat = con.prepareStatement(qry);
 	    		 resultSet = pstat.executeQuery();
 	    		 
-	    		 //la query ha de estar ordenada por CIP. DespuÈs comparamos Cips para incluir los tratamientos en cada uno de ellos
+	    		 //la query ha de estar ordenada por CIP. Despu√©s comparamos Cips para incluir los tratamientos en cada uno de ellos
 	    		 String idPacienteAnterior="-999";
 	    		 String idPacienteEnCurso="-1";
     			 PacienteBean  c =new PacienteBean();
@@ -595,7 +595,7 @@ public class PacienteDAO extends GenericDAO{
 		 String apellido2=resultSet.getString("apellido2");
 		 String apellidos=resultSet.getString("cognoms");
 		 
-		 if(apellido1==null || apellido1.equals("")){ //en caso que estÈ vacÌo utilizamos el campo "cognoms" para el primer apellido. 
+		 if(apellido1==null || apellido1.equals("")){ //en caso que est√° vac√≠o utilizamos el campo "cognoms" para el primer apellido. 
 			 apellido1=apellidos;
 			 apellido2="";
 		 }
@@ -825,13 +825,13 @@ public class PacienteDAO extends GenericDAO{
 		
 		List<BolquersDetalleBean> bolquers = new ArrayList<>();
 	
-		//consulta del report BIRT de paÒales detalle
+		//consulta del report BIRT de pa√±ales detalle
         String sql = " select v.IDDIVISIONRESIDENCIA, PROCESOTRACTAMENT,  v.CIP, COGNOMS_NOM, v.PLANTA, v.HABITACIO, CN, NOM_MEDICAMENT, LAB, PVL, PVP ";
         	sql+= " , PRINCIPI_ACTIU, PA_PRES, GRUP_TERAPEUTIC, PRESENTACIO, UNITATS, PACKS_ENVAS, CODI_CONJUNT_HOMOG, NOM_CONJUNT_HOMOG ";
         	sql+= " , CODI_FORMA_FARMACEUTICA, NOM_FORMA_FARMACEUTICA, TRACTAMENT_INICI, TRACTAMENT_FI, TRACT_QUANTITAT, TRACT_PAUTA, TRACT_CRONIC ";
         	sql+= " , TRACT_DOSI_ESMORZAR, TRACT_DOSI_DINAR, TRACT_DOSI_BERENAR, TRACT_DOSI_SOPAR, TRACT_DOSI_RESSOPO, CODI_SUST, NOM_MEDICAMENT_SUST ";
         	sql+= " , NOM_CURT_SUST, LAB_SUST, PVL_SUST, PVP_SUST, UNITATS_SUST, PACKS_ENVAS_SUST, PRIORITAT, TIPO_SPD, CODI_FORMA_FARMACEUTICA_SUST";
-        	sql+= " , NOM_FORMA_FARMACEUTICA_SUST, CODIGO_SIGUIENTE_RECETA, v.SPD, v.SERVIR_PA—ALES, v.EXITUS ";
+        	sql+= " , NOM_FORMA_FARMACEUTICA_SUST, CODIGO_SIGUIENTE_RECETA, v.SPD, v.SERVIR_Pa√±aLES, v.EXITUS ";
         	sql+= " from SPDAC.dbo.v_previsionReceta v  left join bd_pacientes p on v.CIP = p.CIP ";
         	sql+= " WHERE 1=1 ";
         	sql+= " and ( v.GRUP_TERAPEUTIC  like 'O02%' OR v.GRUP_TERAPEUTIC  like '23%')  ";
@@ -850,7 +850,7 @@ public class PacienteDAO extends GenericDAO{
 	            	bolquer.setIdDivisionResidencia(resultSet.getString("IDDIVISIONRESIDENCIA"));
 	            	bolquer.setFechaProceso(resultSet.getDate("PROCESOTRACTAMENT"));
 	            	bolquer.setCIP(resultSet.getString("CIP"));
-	            	bolquer.setServirBolquers(resultSet.getString("SERVIR_PA—ALES"));
+	            	bolquer.setServirBolquers(resultSet.getString("SERVIR_Pa√±aLES"));
 	            	bolquer.setApellidosNombre(resultSet.getString("COGNOMS_NOM"));
 	            	bolquer.setCn(resultSet.getString("CN"));
 	            	bolquer.setMedicamento(resultSet.getString("NOM_MEDICAMENT"));

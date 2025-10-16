@@ -81,7 +81,7 @@ public class ImportDataThread extends Thread
 
 	
 	/**
-	 * Método que devuelve el estado actual del thread
+	 * MÃ©todo que devuelve el estado actual del thread
 	 * @return int estado en que se encuentra el thread
 	 */
 	public int checkStatus()

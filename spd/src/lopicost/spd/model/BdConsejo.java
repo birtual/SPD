@@ -19,8 +19,8 @@ public class BdConsejo implements Serializable {
 	  private float pvp;							//PVP                   float,
 	  private int unidades;							//UNIDADES              int,
 	  private int unidadesEnvase;					//UdsEnvase             int,
-//	  private int codigoPrincipioActivo;			//codiPactivo           smallint,		//TODO 20201001  - Se debería sustituir por codGtVm. a día de hoy no existe aún la tabla GTVM en Consejo
-//	  private String nombrePrincipioActivo;			//nomPactivo            varchar(255),	//TODO 20201001  - Se debería sustituir por nomGtVm. a día de hoy no existe aún la tabla GTVM en Consejo
+//	  private int codigoPrincipioActivo;			//codiPactivo           smallint,		//TODO 20201001  - Se deberÃ­a sustituir por codGtVm. a dÃ­a de hoy no existe aÃºn la tabla GTVM en Consejo
+//	  private String nombrePrincipioActivo;			//nomPactivo            varchar(255),	//TODO 20201001  - Se deberÃ­a sustituir por nomGtVm. a dÃ­a de hoy no existe aÃºn la tabla GTVM en Consejo
 	  private Date fechaAlta;						//FechaALTA             datetime,
 	  private Date fechaBaja;						//FechaBAJA             datetime,
 
@@ -38,20 +38,20 @@ public class BdConsejo implements Serializable {
 	  private String descripBolsa;					//DescripBolsa          varchar(250)
 	  private String nombreConsejo;					//nombreConsejo  + PRESENTACION
 
-	  private String codGtAtcNivel3 =""; 			// nivel de grupo terapéutico de la ATC (mismo subgrupo farmacológico/terapéutico).
+	  private String codGtAtcNivel3 =""; 			// nivel de grupo terapÃ©utico de la ATC (mismo subgrupo farmacolÃ³gico/terapÃ©utico).
 	  private String nomGtAtcNivel3 ="";		
-	  private String codGtAtcNivel4 ="";			// nivel de grupo terapéutico de la ATC (mismo subgrupo farmacológico/terapéutico).
+	  private String codGtAtcNivel4 ="";			// nivel de grupo terapÃ©utico de la ATC (mismo subgrupo farmacolÃ³gico/terapÃ©utico).
 	  private String nomGtAtcNivel4 ="";		
-	  private String codGtAtcNivel5 ="";			// nivel de grupo terapéutico de la ATC (mismo principio activo)
+	  private String codGtAtcNivel5 ="";			// nivel de grupo terapÃ©utico de la ATC (mismo principio activo)
 	  private String nomGtAtcNivel5 ="";			
 
 	  private String codGtVm ="";					// grupo VM - Virtual Medicinal  (igual principio activo).  
 	  private String nomGtVm ="";				
-	  private String codGtVmp ="";					// grupo VMP - Virtual Medicinal Product (igual principio activo, dosis y forma farmacéutica).  
+	  private String codGtVmp ="";					// grupo VMP - Virtual Medicinal Product (igual principio activo, dosis y forma farmacÃ©utica).  
 	  private String nomGtVmp ="";				
-	  private String codGtVmpp =""; 				// grupo VMPP - Virtual Medicinal Product Package (igual principio activo, dosis, forma farmacéutica y número de unidades de dosificación).
+	  private String codGtVmpp =""; 				// grupo VMPP - Virtual Medicinal Product Package (igual principio activo, dosis, forma farmacÃ©utica y nÃºmero de unidades de dosificaciÃ³n).
 	  private String nomGtVmpp ="";					
-	  private int nota;					//campo auxiliar para mostrar la ponderación+rentabilidad de la biblia,
+	  private int nota;					//campo auxiliar para mostrar la ponderaciÃ³n+rentabilidad de la biblia,
 				
 	  public int getNota() {
 			return nota;

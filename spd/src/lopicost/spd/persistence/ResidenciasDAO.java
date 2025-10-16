@@ -122,7 +122,7 @@ public class ResidenciasDAO
             if(user!=null)
             {
             	enlace.setUsuario(user);
-                //Par·metro para control en apps
+                //Par√°metro para control en apps
                 if (enlace.getParamsEnlace()!=null && enlace.getParamsEnlace().contains("free1")) {
                     enlace.setParamsEnlace(enlace.getParamsEnlace().concat(user.getFree1()));
                 }

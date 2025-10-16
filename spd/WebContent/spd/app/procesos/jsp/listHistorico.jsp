@@ -34,7 +34,7 @@
 
 function borrar(oidProceso) {
     // Mostrar un cuadro de confirmación
-    var confirmacion = window.confirm("�estás seguro de que deseas borrar este proceso?");
+    var confirmacion = window.confirm("¿estás seguro de que deseas borrar este proceso?");
     
     // Si el usuario hace clic en "Aceptar" (true)
     if (confirmacion) {
@@ -130,20 +130,20 @@ function getContextPath() {
         <th>Descripción</th>
         <th>Estado</th>
         <th>Parámetros</th>
-        <th>Tipo ejecución</th>
+        <th>Tipo ejecutó</th>
         <th>Veces</th>
         <th>Periodo</th>
         <th>Días semana</th>
-        <th>Hora ejecución</th>
+        <th>Hora ejecutó</th>
         <th>Max reintentos</th>
         <th>Max duración (s)</th>
         <th>Fecha desde</th>
         <th>Fecha hasta</th>
-        <th>inicio ejecución</th>
-        <th>fin ejecución</th>  
+        <th>inicio ejecutó</th>
+        <th>fin ejecutó</th>  
         <th>Último duración (s)</th>
         <th>Último resultado</th>
-        <th>Último usuario ejecución</th>
+        <th>Último usuario ejecutó</th>
         <th>Último mensaje</th>
         <th>Último tipo error</th>
         <th>Último código resultado</th>

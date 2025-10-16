@@ -33,7 +33,7 @@
 <h2>Reports Lopicost </h2>
  <table class="CSS_Table_Example" >
  <tr>
-		<td class="primera">Número</td>
+		<td class="primera">nÃºmero</td>
 		<td class="primera">Tipo</td>
 		<td class="segunda">Nombre report</td>
    </tr>
@@ -48,7 +48,7 @@
 			</tr>	
 		</logic:present>	
 		<logic:notPresent name="data" property="usuario">
-		Usuario no válido
+		Usuario no vÃ¡lido
 		</logic:notPresent>
 	</logic:iterate>
 

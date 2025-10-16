@@ -35,12 +35,12 @@ import lopicost.spd.struts.bean.PacienteBean;
 import lopicost.spd.struts.form.FicheroResiForm;
 
 
-/** String Util: recopilaciÛn de utilidades para tratamiento de Strings
+/** String Util: recopilaci√≥n de utilidades para tratamiento de Strings
  */
 public class HelperSPD2{
 	
 	/**
-	 * Devuelve el String defaultValue en caso que str  sea nulo o vacÌo o cero
+	 * Devuelve el String defaultValue en caso que str  sea nulo o vac√≠o o cero
 	 *
 	 */
 	public final static String isNull(String str, String defaultValue) {
@@ -51,7 +51,7 @@ public class HelperSPD2{
 	
 	
 	/**
-	 * MÈtodo para transformar algunos car·cteres de un texto concreto
+	 * M√©todo para transformar algunos car√°cteres de un texto concreto
 	 * @param string 
 	 * @param medResi 
 	 * @param text
@@ -66,7 +66,7 @@ public class HelperSPD2{
 			result=quitaEspacios(result);
 			result=result.replace("S/P", "999");
 			result=result.replace("sp", "999");
-			result=result.replace("Ω", "0,5");
+			result=result.replace("¬Ω", "0,5");
 			result=result.replace("1/2", "0,5");
 			result=result.replace("1/2", "0,5");
 			result = result.replaceAll("(\\d+)\\.$", "$1");  //elimina un punto al final
@@ -213,9 +213,9 @@ public class HelperSPD2{
 				        case "04/05":
 				            result = "4,5";
 				            break;
-				        // Puedes agregar m·s casos seg˙n sea necesario
+				        // Puedes agregar m√°s casos seg√∫n sea necesario
 				        default:
-				            // Acciones si la fecha no coincide con ning˙n caso
+				            // Acciones si la fecha no coincide con ning√∫n caso
 				    }
 				}
 			}catch(Exception e){
@@ -236,8 +236,8 @@ public class HelperSPD2{
 			//result=result.replace(",", ".");
 			result=result.replace(";", ".");
 			result=result.replace("'", "");
-			result=result.replace("¥", "");
-			result=result.replace("ˇ", "");		//sÌmbolo que llega en conversiÛn del Excel,es un espacio
+			result=result.replace("¬¥", "");
+			result=result.replace("√ø", "");		//s√≠mbolo que llega en conversi√≥n del Excel,es un espacio
 			result=result.replaceAll("[a-zA-Z]", "_"); //lo modificamos por "_" por si se ha de localizar posteriormente
 			
 			if(contieneNumeros(result)) 
@@ -247,7 +247,7 @@ public class HelperSPD2{
 			//if(!StringUtils.isNumeric(result.replace(",", "")))
 			if(result!=null && !result.equalsIgnoreCase("") && !DataUtil.isNumero(result.replace(",", "")))
 			{
-				result="999"; //si no es vacÌo o nulo, no conseguimos saber el n˙mero, se ponen asteriscos
+				result="999"; //si no es vac√≠o o nulo, no conseguimos saber el n√∫mero, se ponen asteriscos
 				confirmarPauta=true;
 			}
 			if(confirmarPauta) medResi.setMensajesInfo(medResi.getMensajesInfo() + SPDConstants.INFO_INTERNA_CONFIRMAR_SUSTITUCION_PAUTA);
@@ -259,11 +259,11 @@ public class HelperSPD2{
 	public static String convertirNumeroAFecha(String numeroDeDias) {
         int dias = Integer.parseInt(numeroDeDias);
         
-        // Ajustar la fecha base a "30/12/1899" para que "45047" dÈ como resultado "01/05"
+        // Ajustar la fecha base a "30/12/1899" para que "45047" d√© como resultado "01/05"
         LocalDate fechaBase = LocalDate.of(1899, 12, 30);
         LocalDate fechaCalculada = fechaBase.plusDays(dias);
 
-        // Utilizar el formato "dd/MM" solo si el dÌa es mayor que 0
+        // Utilizar el formato "dd/MM" solo si el d√≠a es mayor que 0
         String resultado = fechaCalculada.getDayOfMonth() > 0
                 ? fechaCalculada.format(DateTimeFormatter.ofPattern("dd/MM"))
                 : "";
@@ -301,7 +301,7 @@ public class HelperSPD2{
     
     
 	/**
-	 * MÈtodo para eliminar algunos car·cteres de un texto concreto
+	 * M√©todo para eliminar algunos car√°cteres de un texto concreto
 	 * @param text
 	 * @return
 	 */
@@ -321,7 +321,7 @@ public class HelperSPD2{
 	
 	
 	/**
-	 * MÈtodo para eliminar algunos car·cteres de un texto concreto
+	 * M√©todo para eliminar algunos car√°cteres de un texto concreto
 	 * @param text
 	 * @return
 	 */
@@ -337,13 +337,13 @@ public class HelperSPD2{
 			result.replace("_", "");
 			result.replace(";", "");
 			result.replace("'", "");
-			result.replace("¥", "");
+			result.replace("¬¥", "");
 		}
 		return result;
 	}
 
 	/**
-	 * MÈtodo para eliminar todos los espacios de un texto
+	 * M√©todo para eliminar todos los espacios de un texto
 	 * @param text
 	 * @return
 	 */
@@ -361,46 +361,46 @@ public class HelperSPD2{
 	
 	
 	/**
-	 * MÈtodo que transforma en may˙sculas, eliminando acentos
+	 * M√©todo que transforma en may√∫sculas, eliminando acentos
 	 * @param q String base
-	 * @return String Retorna un String cuyas letras estar·n todas en may˙sculas y sin acentos
+	 * @return String Retorna un String cuyas letras estar√°n todas en may√∫sculas y sin acentos
 	 */
 	public final static String makeFlat(String q){
-		q = HelperSPD2.replaceChar(q,'¡','A');
-		q = HelperSPD2.replaceChar(q,'…','E');
-		q = HelperSPD2.replaceChar(q,'Õ','I');
-		q = HelperSPD2.replaceChar(q,'”','O');
-		q = HelperSPD2.replaceChar(q,'⁄','U');
-		q = HelperSPD2.replaceChar(q,'¿','A');
-		q = HelperSPD2.replaceChar(q,'»','E');
-		q = HelperSPD2.replaceChar(q,'Ã','I');
-		q = HelperSPD2.replaceChar(q,'“','O');
-		q = HelperSPD2.replaceChar(q,'Ÿ','U');
-		q = HelperSPD2.replaceChar(q,'ƒ','A');
-		q = HelperSPD2.replaceChar(q,'À','E');
-		q = HelperSPD2.replaceChar(q,'œ','I');
-		q = HelperSPD2.replaceChar(q,'÷','O');
-		q = HelperSPD2.replaceChar(q,'‹','U');
-		q = HelperSPD2.replaceChar(q,'—','N');
-		q = HelperSPD2.replaceChar(q,'«','C');
+		q = HelperSPD2.replaceChar(q,'√Å','A');
+		q = HelperSPD2.replaceChar(q,'√â','E');
+		q = HelperSPD2.replaceChar(q,'√ç','I');
+		q = HelperSPD2.replaceChar(q,'√ì','O');
+		q = HelperSPD2.replaceChar(q,'√ö','U');
+		q = HelperSPD2.replaceChar(q,'√Ä','A');
+		q = HelperSPD2.replaceChar(q,'√à','E');
+		q = HelperSPD2.replaceChar(q,'√å','I');
+		q = HelperSPD2.replaceChar(q,'√í','O');
+		q = HelperSPD2.replaceChar(q,'√ô','U');
+		q = HelperSPD2.replaceChar(q,'√Ñ','A');
+		q = HelperSPD2.replaceChar(q,'√ã','E');
+		q = HelperSPD2.replaceChar(q,'√è','I');
+		q = HelperSPD2.replaceChar(q,'√ñ','O');
+		q = HelperSPD2.replaceChar(q,'√ú','U');
+		q = HelperSPD2.replaceChar(q,'√ë','N');
+		q = HelperSPD2.replaceChar(q,'√á','C');
 		
-		q = HelperSPD2.replaceChar(q,'·','A');
-		q = HelperSPD2.replaceChar(q,'È','E');
-		q = HelperSPD2.replaceChar(q,'Ì','I');
-		q = HelperSPD2.replaceChar(q,'Û','O');
-		q = HelperSPD2.replaceChar(q,'˙','U');
-		q = HelperSPD2.replaceChar(q,'‡','A');
-		q = HelperSPD2.replaceChar(q,'Ë','E');
-		q = HelperSPD2.replaceChar(q,'Ï','I');
-		q = HelperSPD2.replaceChar(q,'Ú','O');
-		q = HelperSPD2.replaceChar(q,'˘','U');
-		q = HelperSPD2.replaceChar(q,'‰','A');
-		q = HelperSPD2.replaceChar(q,'Î','E');
-		q = HelperSPD2.replaceChar(q,'Ô','I');
-		q = HelperSPD2.replaceChar(q,'ˆ','O');
-		q = HelperSPD2.replaceChar(q,'¸','U');
-		q = HelperSPD2.replaceChar(q,'Ò','N');
-		q = HelperSPD2.replaceChar(q,'Á','C');
+		q = HelperSPD2.replaceChar(q,'√°','A');
+		q = HelperSPD2.replaceChar(q,'√©','E');
+		q = HelperSPD2.replaceChar(q,'√≠','I');
+		q = HelperSPD2.replaceChar(q,'√≥','O');
+		q = HelperSPD2.replaceChar(q,'√∫','U');
+		q = HelperSPD2.replaceChar(q,'√†','A');
+		q = HelperSPD2.replaceChar(q,'√®','E');
+		q = HelperSPD2.replaceChar(q,'√¨','I');
+		q = HelperSPD2.replaceChar(q,'√≤','O');
+		q = HelperSPD2.replaceChar(q,'√π','U');
+		q = HelperSPD2.replaceChar(q,'√§','A');
+		q = HelperSPD2.replaceChar(q,'√´','E');
+		q = HelperSPD2.replaceChar(q,'√Ø','I');
+		q = HelperSPD2.replaceChar(q,'√∂','O');
+		q = HelperSPD2.replaceChar(q,'√º','U');
+		q = HelperSPD2.replaceChar(q,'√±','N');
+		q = HelperSPD2.replaceChar(q,'√ß','C');
 		
 		q = HelperSPD2.replaceChar(q,'\"',' ');
 		
@@ -408,7 +408,7 @@ public class HelperSPD2{
 	}
 
 	
-	 //MÈtodo que reemplaza un car·cter dentro de un String
+	 //M√©todo que reemplaza un car√°cter dentro de un String
 	final static public String replaceChar(String q,char in,char out){
 		int idx;
 		idx=q.indexOf(in);
@@ -417,7 +417,7 @@ public class HelperSPD2{
 		return q.replace(in,out);
 	}
 	
-	//Retorna el n˙mero de veces que un car·cter aparece en un String
+	//Retorna el n√∫mero de veces que un car√°cter aparece en un String
 	public final  static int charCount( String str, char c ){
 		int n = 0;
 		for ( int i = 0; i < str.length(); ++i )
@@ -427,10 +427,10 @@ public class HelperSPD2{
 	}
 	
 	/** 
-	 * MÈtodo que se encarga de reemplazar un subString por otro <BR>
+	 * M√©todo que se encarga de reemplazar un subString por otro <BR>
 	 * <b>NOTA</b>: OJO CON EL ORDEN DE LOS PARAMS DE ESTE METODO! el string base donde queremos hacer los replaces es el ULTIMO PARAMETRO
 	 * <b>NOTA</b>: ESTE METODO NO ES SEGURO (peta por ej con el string "") --> usar replaceString
-	 * @param substr String cuyo contenido ser· reemplazado
+	 * @param substr String cuyo contenido ser√° reemplazado
 	 * @param newsubstr String cuyo valor es el "reemplazante"
 	 * @param fullstr String base para realizar los cambios
 	 * @return String Retorna el String despues del reemplazo
@@ -450,11 +450,11 @@ public class HelperSPD2{
 	}
 		
 	/**
-	 * MÈtodo que reemplaza un car·cter dentro de un String por un String
+	 * M√©todo que reemplaza un car√°cter dentro de un String por un String
 	 * @param q String base
-	 * @param in Car·cter a reemplazar
-	 * @param out Cadena de sustituciÛn
-	 * @return String Nuevo String con el car·cter reemplazado
+	 * @param in Car√°cter a reemplazar
+	 * @param out Cadena de sustituci√≥n
+	 * @return String Nuevo String con el car√°cter reemplazado
 	 */
 	public final static  String replaceChar (String q, char in, String out){
 		
@@ -485,9 +485,9 @@ public class HelperSPD2{
 	
 	
 	/**
-	 * ibassola: Reemplaza los caracteres no v·lidos de una cadena alfanumÈrcia.
+	 * ibassola: Reemplaza los caracteres no v√°lidos de una cadena alfanum√©rcia.
 	 * @param inString cadena de entrada
-	 * @return String Retorna la cadena alfanumÈrica que contiene ˙nicamente caracteres validos.
+	 * @return String Retorna la cadena alfanum√©rica que contiene √∫nicamente caracteres validos.
 	 */    
 	public static String replaceInvalidChars(String inString)
 	{
@@ -495,55 +495,55 @@ public class HelperSPD2{
 
 		if (inString== null) return inString;
 		
-		inString = inString.replace('¡','A');
-		inString = inString.replace('…','E');
-		inString = inString.replace('Õ','I');
-		inString = inString.replace('”','O');
-		inString = inString.replace('⁄','U');
-		inString = inString.replace('¿','A');
-		inString = inString.replace('»','E');
-		inString = inString.replace('Ã','I');
-		inString = inString.replace('“','O');
-		inString = inString.replace('Ÿ','U');
-		inString = inString.replace('ƒ','A');
-		inString = inString.replace('À','E');
-		inString = inString.replace('œ','I');
-		inString = inString.replace('÷','O');
-		inString = inString.replace('‹','U');
-		inString = inString.replace('—','N');
-		inString = inString.replace('«','C');
-		inString = inString.replace('¬','A');
-		inString = inString.replace(' ','E');
-		inString = inString.replace('Œ','I');
-		inString = inString.replace('‘','O');
-		inString = inString.replace('€','U');
-		inString = inString.replace('≈','A');
-		inString = inString.replace('∆','A');
+		inString = inString.replace('√Å','A');
+		inString = inString.replace('√â','E');
+		inString = inString.replace('√ç','I');
+		inString = inString.replace('√ì','O');
+		inString = inString.replace('√ö','U');
+		inString = inString.replace('√Ä','A');
+		inString = inString.replace('√à','E');
+		inString = inString.replace('√å','I');
+		inString = inString.replace('√í','O');
+		inString = inString.replace('√ô','U');
+		inString = inString.replace('√Ñ','A');
+		inString = inString.replace('√ã','E');
+		inString = inString.replace('√è','I');
+		inString = inString.replace('√ñ','O');
+		inString = inString.replace('√ú','U');
+		inString = inString.replace('√ë','N');
+		inString = inString.replace('√á','C');
+		inString = inString.replace('√Ç','A');
+		inString = inString.replace('√ä','E');
+		inString = inString.replace('√é','I');
+		inString = inString.replace('√î','O');
+		inString = inString.replace('√õ','U');
+		inString = inString.replace('√Ö','A');
+		inString = inString.replace('√Ü','A');
 		
-		inString = inString.replace('·','a');
-		inString = inString.replace('È','e');
-		inString = inString.replace('Ì','i');
-		inString = inString.replace('Û','o');
-		inString = inString.replace('˙','u');
-		inString = inString.replace('‡','a');
-		inString = inString.replace('Ë','e');
-		inString = inString.replace('Ï','i');
-		inString = inString.replace('Ú','o');
-		inString = inString.replace('˘','u');
-		inString = inString.replace('‰','a');
-		inString = inString.replace('Î','e');
-		inString = inString.replace('Ô','i');
-		inString = inString.replace('ˆ','o');
-		inString = inString.replace('¸','u');
-		inString = inString.replace('Ò','n');
-		inString = inString.replace('Á','c');
-		inString = inString.replace('‚','a');
-		inString = inString.replace('Í','e');
-		inString = inString.replace('Ó','i');
-		inString = inString.replace('Ù','o');
-		inString = inString.replace('˚','u');
-		inString = inString.replace('Â','a');
-		inString = inString.replace('Ê','a');
+		inString = inString.replace('√°','a');
+		inString = inString.replace('√©','e');
+		inString = inString.replace('√≠','i');
+		inString = inString.replace('√≥','o');
+		inString = inString.replace('√∫','u');
+		inString = inString.replace('√†','a');
+		inString = inString.replace('√®','e');
+		inString = inString.replace('√¨','i');
+		inString = inString.replace('√≤','o');
+		inString = inString.replace('√π','u');
+		inString = inString.replace('√§','a');
+		inString = inString.replace('√´','e');
+		inString = inString.replace('√Ø','i');
+		inString = inString.replace('√∂','o');
+		inString = inString.replace('√º','u');
+		inString = inString.replace('√±','n');
+		inString = inString.replace('√ß','c');
+		inString = inString.replace('√¢','a');
+		inString = inString.replace('√™','e');
+		inString = inString.replace('√Æ','i');
+		inString = inString.replace('√¥','o');
+		inString = inString.replace('√ª','u');
+		inString = inString.replace('√•','a');
+		inString = inString.replace('√¶','a');
 		
 		inString = inString.replaceAll("'\"","");
 		inString = inString.replaceAll("\'","");		
@@ -553,7 +553,7 @@ public class HelperSPD2{
 	}
 	
 	 /**
-     * Transforma un String en un Vector de Strings mediante la separaciÛn de un token
+     * Transforma un String en un Vector de Strings mediante la separaci√≥n de un token
      * @param str String base
      * @param token String delimitador
      * @return Vector de Strings
@@ -606,7 +606,7 @@ public class HelperSPD2{
 	 /**
 	  * Convierto un decimal a binario.
 	  * Le mete todos los zeros que sean necesarios hasta llegar
-	  * al tamaÒo definido por leadingSize. 
+	  * al tama√±o definido por leadingSize. 
 	  */
 	 public static String decimalToBinary(String decimal, int leadingSize)
 	 {
@@ -723,7 +723,7 @@ public class HelperSPD2{
 			fechaString=fechaString.replace(".", "/");
 			fechaString=fechaString.replace(";", "");
 			fechaString=fechaString.replace("'", "");
-			fechaString=fechaString.replace("¥", "");
+			fechaString=fechaString.replace("¬¥", "");
 			fechaString=fechaString.replace("'", "");
 			
 			int day=Integer.parseInt(fechaString.substring(0,2));
@@ -791,7 +791,7 @@ public class HelperSPD2{
 */
 	
 	/**
-	 * Elimina los car·cteres "duros o invisibles" 
+	 * Elimina los car√°cteres "duros o invisibles" 
 	 * https://stackoverflow.com/questions/6198986/how-can-i-replace-non-printable-unicode-characters-in-java
 	 * Based on the answers by Op De Cirkel and noackjr, the following is what I do for general string cleaning: 1. trimming leading or trailing whitespaces, 2. dos2unix, 3. mac2unix, 4. removing all "invisible Unicode characters" except whitespaces:
 	 */
@@ -896,7 +896,7 @@ public class HelperSPD2{
 
 
 	/**
-	 * Devuelve el total de dÌas marcados en el tratamiento, Una utilidad para calcular la previsiÛn de comprimidos
+	 * Devuelve el total de d√≠as marcados en el tratamiento, Una utilidad para calcular la previsi√≥n de comprimidos
 	 * @param fila
 	 * @return
 	 */
@@ -920,7 +920,7 @@ public class HelperSPD2{
 		return dias;
 	}
 	/**
-	 * MÈtodo auxiliar
+	 * M√©todo auxiliar
 	 * @param dia
 	 * @return
 	 */
@@ -929,7 +929,7 @@ public class HelperSPD2{
 	}
 
 	/**
-	 * Devuelve el total de comprimidos o pauta que toma al dÌa, Una utilidad para calcular la previsiÛn de comprimidos
+	 * Devuelve el total de comprimidos o pauta que toma al d√≠a, Una utilidad para calcular la previsi√≥n de comprimidos
 	 * @param fila
 	 * @return
 	 */
@@ -974,7 +974,7 @@ public class HelperSPD2{
 	}
 
 	/**
-	 * MÈtodo auxiliar
+	 * M√©todo auxiliar
 	 * @param resiToma
 	 * @return
 	 */
@@ -1053,7 +1053,7 @@ public class HelperSPD2{
 			if(medResi.getSpdNombreBolsa()!=null && (medResi.getSpdNombreBolsa().toUpperCase().contains("SINTROM") || medResi.getSpdNombreBolsa().toUpperCase().contains("ALDOCUMAR"))
 					|| (medResi.getResiMedicamento()!=null && (medResi.getResiMedicamento().toUpperCase().contains("SINTROM") || medResi.getResiMedicamento().toUpperCase().contains("ALDOCUMAR")) ) )
 			{
-		           int numTomas = 24; // N˙mero total de tomas
+		           int numTomas = 24; // N√∫mero total de tomas
 		            Class<?> tratClass = medResi.getClass();
 
 		            try {
@@ -1072,7 +1072,7 @@ public class HelperSPD2{
 		                
 		                }
 		            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-		                e.printStackTrace(); // Manejo de excepciones, ajusta seg˙n tus necesidades
+		                e.printStackTrace(); // Manejo de excepciones, ajusta seg√∫n tus necesidades
 		            }
 
 			}
@@ -1081,7 +1081,7 @@ public class HelperSPD2{
 		}
 	   
 	   /**
-	    * MÈtodo que mira si se trata de un tratamiento de sintrom
+	    * M√©todo que mira si se trata de un tratamiento de sintrom
 	    * @param medResi
 	    * @return
 	    * @throws ClassNotFoundException
@@ -1098,7 +1098,7 @@ public class HelperSPD2{
 			
 
 	   /**
-	    * MÈtodo que mira si se trata de un tratamiento de trazodona o deprax
+	    * M√©todo que mira si se trata de un tratamiento de trazodona o deprax
 	    * @param medResi
 	    * @return
 	    * @throws ClassNotFoundException
@@ -1114,7 +1114,7 @@ public class HelperSPD2{
 	   
 	   
 	   /**
-	    * MÈtodo que soluciona transforma un tratamiento de trazodona (o deprax) de la siguiente forma:
+	    * M√©todo que soluciona transforma un tratamiento de trazodona (o deprax) de la siguiente forma:
 	    * en caso que solo existan 0,5 en la pauta, lo que hace es transformarlo al CN 111111 (tolva de medias trazodona) y como si fuera 1 comprimido
 	    * en caso que existan 0,5 mezclados con enteros o pautas de 1,5, se desdobla en dos tratamientos, la parte entera a trazodona y la parte decimal a comprimidos de medias pastillas (CN 111111)   
 	    * @param medResi
@@ -1125,8 +1125,8 @@ public class HelperSPD2{
 			FicheroResiDetalleDAO.borrarHijosTrazodonas(spdUsuario, medResi);
 		
             Class<?> tratClass = medResi.getClass();
-	           //int numTomas = 24; // N˙mero total de tomas
-	           int numTomas =  medResi.getNumeroDeTomas(); // N˙mero total de tomas
+	           //int numTomas = 24; // N√∫mero total de tomas
+	           int numTomas =  medResi.getNumeroDeTomas(); // N√∫mero total de tomas
 	           
 	            boolean enteras=false;
 	            boolean medias=false;
@@ -1178,7 +1178,7 @@ public class HelperSPD2{
 	                    //no hay que hacer nada, son enteras
                     	//if(enteras && !medias  && !enterasYmedias)
                     	//	break;
-                    	// hay  hacer poner media en todo y cÛdigo 111111
+                    	// hay  hacer poner media en todo y c√≥digo 111111
 	                	//if(!enteras && medias  && !enterasYmedias)
                        	if(!enteras && medias  && !enterasYmedias)
                        	{
@@ -1331,7 +1331,7 @@ public class HelperSPD2{
 	                    }
 
 	            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-	                e.printStackTrace(); // Manejo de excepciones, ajusta seg˙n tus necesidades
+	                e.printStackTrace(); // Manejo de excepciones, ajusta seg√∫n tus necesidades
 	            }
 
 
@@ -1373,7 +1373,7 @@ public class HelperSPD2{
    			+"_"+medResi.getResiObservaciones()
    			+"_"+medResi.getResiComentarios()
    			+"_"+medResi.getResiSiPrecisa()
-   			//+"_"+medResi.getResiPeriodo() Mejor no poner porque puede cambiar antes de la ediciÛn
+   			//+"_"+medResi.getResiPeriodo() Mejor no poner porque puede cambiar antes de la edici√≥n
    			+"_"+medResi.getResiD1()+"_"+medResi.getResiD2()+"_"+medResi.getResiD3()+"_"+medResi.getResiD4()+"_"+medResi.getResiD5()+"_"+medResi.getResiD6()+"_"+medResi.getResiD7()
    			+"_"+medResi.getResiToma1()+"_"+medResi.getResiToma2()+"_"+medResi.getResiToma3()+"_"+medResi.getResiToma4()+"_"+medResi.getResiToma5()+"_"+medResi.getResiToma6()
    			+"_"+medResi.getResiToma7()+"_"+medResi.getResiToma8()+"_"+medResi.getResiToma9()+"_"+medResi.getResiToma10()+"_"+medResi.getResiToma11()+"_"+medResi.getResiToma12()
@@ -1384,15 +1384,15 @@ public class HelperSPD2{
 		{
    			keyOk+="_"+medResi.getResiVariante();
 		}
-   	   	//quitamos todos los caracteres que no son letras/n˙meros 
+   	   	//quitamos todos los caracteres que no son letras/n√∫meros 
    	   	String keyAntigua = keyOk.replaceAll("[^a-zA-Z0-9]", "");
    	   	
    	   	
    		
-   	//quitamos todos los caracteres que no son letras/n˙meros 
+   	//quitamos todos los caracteres que no son letras/n√∫meros 
    	 keyOk = keyOk.replaceAll("[^a-zA-Z0-9_]", "");
 
-	   	FicheroResiDetalleDAO.actualizarKeyAntiguaAKeyNueva(keyAntigua, keyOk);	//he cambiado el formato para conservar el guiÛn bajo
+	   	FicheroResiDetalleDAO.actualizarKeyAntiguaAKeyNueva(keyAntigua, keyOk);	//he cambiado el formato para conservar el gui√≥n bajo
 	    
 	   	System.out.println("----- getID --> " + keyOk);
    	return keyOk;
@@ -1400,7 +1400,7 @@ public class HelperSPD2{
 
    
    /**
-    * MÈtodo que crea un ID de lo que se envÌa a robot 
+    * M√©todo que crea un ID de lo que se env√≠a a robot 
     * @param medResi
     * @return
     * @throws Exception
@@ -1465,9 +1465,9 @@ public class HelperSPD2{
                     idTratamientoSPD+= isNull(String.valueOf(medResi.getResiFrecuencia()), "_") + "|";
                 }
 	   	
-	   	   	//quitamos todos los caracteres que no son letras/n˙meros 
+	   	   	//quitamos todos los caracteres que no son letras/n√∫meros 
 	   	  // idTratamientoSPD = idTratamientoSPD.replaceAll("[^a-zA-Z0-9]", "");
-	   		idTratamientoSPD = idTratamientoSPD.replace("|0|", "|_|");  //para no tener en cuenta si se ha puesto '0' o es vacÌo
+	   		idTratamientoSPD = idTratamientoSPD.replace("|0|", "|_|");  //para no tener en cuenta si se ha puesto '0' o es vac√≠o
 	   	   	
 		    
 		   	System.out.println("----- getIDTratamientoSPD --> " + idTratamientoSPD);
@@ -1491,14 +1491,14 @@ public class HelperSPD2{
 	 * @param spdUsuario
 	 * @param medResi
 	 * @param medResiAnterior
-	 * @param chequearPeriodicas - Boolean para indicar si es preciso chequeo de tratamientos periÛdicos al recuperar informaciÛn del tratamiento reutilizado
+	 * @param chequearPeriodicas - Boolean para indicar si es preciso chequeo de tratamientos peri√≥dicos al recuperar informaci√≥n del tratamiento reutilizado
 	 * @throws Exception
 	 */
 	public static void actualizaCamposDelAnterior(String spdUsuario, FicheroResiBean medResi, FicheroResiBean medResiAnterior, boolean chequearPeriodicas ) throws Exception {
 		System.out.println("INIT actualizaCamposDelAnterior");
 		if(medResiAnterior!=null)
 		{
-			//ponemos la informaciÛn del ˙ltimo registro editado
+			//ponemos la informaci√≥n del √∫ltimo registro editado
 			medResi.setResiSiPrecisa(medResiAnterior.getResiSiPrecisa());
 			medResi.setResiPeriodo(medResiAnterior.getResiPeriodo());
 			medResi.setSpdCnFinal(medResiAnterior.getSpdCnFinal());
@@ -1553,7 +1553,7 @@ public class HelperSPD2{
 			medResi.setConfirmar(medResiAnterior.getConfirmar()); 
 	
 			medResi.setConfirmaciones(medResiAnterior.getConfirmaciones()); 
-			if(medResi.getConfirmar().equalsIgnoreCase(SPDConstants.REGISTRO_CONFIRMADO)) //para control del n˙mero de validaciones
+			if(medResi.getConfirmar().equalsIgnoreCase(SPDConstants.REGISTRO_CONFIRMADO)) //para control del n√∫mero de validaciones
 			{
 				int confirmaciones = medResiAnterior.getConfirmaciones();
 				int nConfirmaciones = SPDConstants.CTRL_PRINCIPIO_ACTIVO_N_VALIDACIONES;
@@ -1572,7 +1572,7 @@ public class HelperSPD2{
 			medResi.setTipoEnvioHelium(medResiAnterior.getTipoEnvioHelium());
 			medResi.setEditable(true);
 			
-			// Quitamos este cÛdigo porque entr·bamos en bucle infinito ya que se accede aquÌ desde chequeoTratamientoMensual o quincenal
+			// Quitamos este c√≥digo porque entr√°bamos en bucle infinito ya que se accede aqu√≠ desde chequeoTratamientoMensual o quincenal
 			if (chequearPeriodicas && medResi.getResiPeriodo()!=null && medResi.getResiPeriodo().equalsIgnoreCase(SPDConstants.SPD_PERIODO_MENSUAL) ) 
 			{
 				HelperSPD2.chequeoTratamientoMensual(spdUsuario, medResi);
@@ -1597,8 +1597,8 @@ public class HelperSPD2{
 	}
 	
 	/**
-	 * Se realiza un copia de los valores de las resiTomaX de la anterior cabecerea en caso que ya exista un registro anterior con m·s dosis.
-	 * Damos por hecho que la cabecera ya se ha actualizado en caso que la anterior producciÛn hay sido modificada
+	 * Se realiza un copia de los valores de las resiTomaX de la anterior cabecerea en caso que ya exista un registro anterior con m√°s dosis.
+	 * Damos por hecho que la cabecera ya se ha actualizado en caso que la anterior producci√≥n hay sido modificada
 	 * @param medResi
 	 * @param medResiAnterior
 	 * @throws ClassNotFoundException
@@ -1646,11 +1646,11 @@ public class HelperSPD2{
 	}
 
 	/**
-	 * MÈtodo que buscar· los dÌas de toma concretos del mes para los casos que la frecuencia sea mensual o quincenal
+	 * M√©todo que buscar√° los d√≠as de toma concretos del mes para los casos que la frecuencia sea mensual o quincenal
 	 * @param spdUsuario
 	 * @param medResi
-	 * @param porDetallRow - Indica si la b˙squeda del reutilizado se realiza por detalleRow
-	 * @param chequearPeriodicas - Boolean para indicar si es preciso chequeo de tratamientos periÛdicos al recuperar informaciÛn del tratamiento reutilizado
+	 * @param porDetallRow - Indica si la b√∫squeda del reutilizado se realiza por detalleRow
+	 * @param chequearPeriodicas - Boolean para indicar si es preciso chequeo de tratamientos peri√≥dicos al recuperar informaci√≥n del tratamiento reutilizado
 	 * @return
 	 * @throws Exception 
 	 */
@@ -1683,13 +1683,13 @@ public class HelperSPD2{
 
 
 	/**
-	 * FunciÛn que intenta detectar el periodo
+	 * Funci√≥n que intenta detectar el periodo
 	 * @param medResi
 	 * @throws Exception 
 	 */
 	   public static void detectarPeriodoEdicion(String spdUsuario, FicheroResiBean medResi) throws Exception {
 		   
-		   //la variante no la miramos en la ediciÛn, se mira en el alta
+		   //la variante no la miramos en la edici√≥n, se mira en el alta
 	        /*String resiVariante = "";
 	        try 
 	        {
@@ -1725,7 +1725,7 @@ public class HelperSPD2{
 				medResi.setResiPeriodo(SPDConstants.SPD_PERIODO_DIAS_SEMANA_CONCRETOS);
     			//medResi.setSecuenciaGuide("");
 			}
-			//aqui ya miramos lo que hay en variante, pero despuÈs de mirar los dias anteriores
+			//aqui ya miramos lo que hay en variante, pero despu√©s de mirar los dias anteriores
 	       // String resultVariante=tratarVariante(medResi);
 
 			if (medResi.getResiPeriodo().equalsIgnoreCase(SPDConstants.SPD_PERIODO_SEMANAL) ) 
@@ -1958,7 +1958,7 @@ public class HelperSPD2{
 		    	HelperSPD2.borrarTratamientosSecuencialesPrevios(spdUsuario, medResi);
 
 		    	String[] numerosMes = getDiasConcretosMes(medResi.getDiasMesConcretos());
-				//en caso que solo haya un n˙mero de mes
+				//en caso que solo haya un n√∫mero de mes
 				int diaMes=getDiasConcretosMesPorPosicion(medResi.getDiasMesConcretos(), 1);
 				if(diaMes==0) diaMes=diaMesDefecto;
 				String fechaMes = obtenerFechaEnRango(medResi.getFechaDesde(), medResi.getFechaHasta(), diaMes);
@@ -1968,15 +1968,15 @@ public class HelperSPD2{
 				if(medResi.getResiFinTratamiento()!=null && !medResi.getResiFinTratamiento().equalsIgnoreCase(""))
 					fechaFinTratamiento=DateUtilities.getDate(medResi.getResiFinTratamiento(), "dd/MM/yyyy");
 				
-				//si encontramos que la fecha est· en el rango....
-		        // Verificar si fecha1Date est· dentro del rango del tratamiento
+				//si encontramos que la fecha est√° en el rango....
+		        // Verificar si fecha1Date est√° dentro del rango del tratamiento
 		        if (fechaMes!=null && fechaMesDate.compareTo(fechaInicioTratamiento) >= 0 && (fechaFinTratamiento == null || fechaMesDate.compareTo(fechaFinTratamiento) <= 0)) 
 		        {
 		            medResi.setResiInicioTratamientoParaSPD(fechaMes);	//actualizamos las fechas inicio y fin para que solo se produzca un dia
 		            medResi.setResiFinTratamientoParaSPD(fechaMes);
 		           // medResi.setDiasMesConcretos(diaMes+"");
 		        }
-		        else //ponemos una fecha inicio/fin con el dÌa elegido aunque sea fuera de rango
+		        else //ponemos una fecha inicio/fin con el d√≠a elegido aunque sea fuera de rango
 		        {
 		            medResi.setResiInicioTratamientoParaSPD(obtenerFechaDia(new Date(), diaMes));	//actualizamos las fechas inicio y fin para que solo se produzca un dia
 		            medResi.setResiFinTratamientoParaSPD(obtenerFechaDia(new Date(), diaMes));
@@ -1986,10 +1986,10 @@ public class HelperSPD2{
 		        	//String sufijo= medResi.getResiCn() + "_" + SPDConstants.PREFIJO_REGISTRO_SECUENCIA_GUIDE ;
 					String sufijo=  SPDConstants.PREFIJO_REGISTRO_SECUENCIA_GUIDE ;
 					
-					//bucle de los n˙meros en los que se desea tner pauta en el mes
+					//bucle de los n√∫meros en los que se desea tner pauta en el mes
 					for(int i=2; i<=numerosMes.length;i++)
 					{
-						//si hay m·s de uno, hemos de crear un nuevo FicheroBean
+						//si hay m√°s de uno, hemos de crear un nuevo FicheroBean
 						FicheroResiBean nuevoDiaMes = medResi.clone();
 						 diaMes=getDiasConcretosMesPorPosicion(nuevoDiaMes.getDiasMesConcretos(), i);
 						if(diaMes==0) diaMes=diaMesDefecto;
@@ -2000,22 +2000,22 @@ public class HelperSPD2{
 						if(nuevoDiaMes.getResiFinTratamiento()!=null && !nuevoDiaMes.getResiFinTratamiento().equalsIgnoreCase(""))
 							fechaFinTratamiento=DateUtilities.getDate(nuevoDiaMes.getResiFinTratamiento(), "dd/MM/yyyy");
 						
-						//si encontramos que la fecha est· en el rango....
-				        // Verificar si fecha1Date est· dentro del rango del tratamiento
+						//si encontramos que la fecha est√° en el rango....
+				        // Verificar si fecha1Date est√° dentro del rango del tratamiento
 				        if (fechaMes!=null && fechaMesDate.compareTo(fechaInicioTratamiento) >= 0 && (fechaFinTratamiento == null || fechaMesDate.compareTo(fechaFinTratamiento) <= 0)) 
 				        {
 				        	nuevoDiaMes.setResiInicioTratamientoParaSPD(fechaMes);	//actualizamos las fechas inicio y fin para que solo se produzca un dia
 				        	nuevoDiaMes.setResiFinTratamientoParaSPD(fechaMes);
 				        	//nuevoDiaMes.setDiasMesConcretos(diaMes+"");
 				        }
-				        else //ponemos una fecha inicio/fin con el dÌa elegido aunque sea fuera de rango
+				        else //ponemos una fecha inicio/fin con el d√≠a elegido aunque sea fuera de rango
 				        {
 
 					     	nuevoDiaMes.setResiInicioTratamientoParaSPD(obtenerFechaDia(new Date(), diaMes));	//actualizamos las fechas inicio y fin para que solo se produzca un dia
 					     	nuevoDiaMes.setResiFinTratamientoParaSPD(obtenerFechaDia(new Date(), diaMes));
 
 					    }
-				        nuevoDiaMes.setResiCn(nuevoDiaMes.getResiCn()+"_"+sufijo+"_"+i); //cambiamos el CN aÒadiendo CN_seq_j para que no sea el idTramiento idÈntico al medResi
+				        nuevoDiaMes.setResiCn(nuevoDiaMes.getResiCn()+"_"+sufijo+"_"+i); //cambiamos el CN a√±adiendo CN_seq_j para que no sea el idTramiento id√©ntico al medResi
 						nuevoDiaMes.setIdTratamientoCIP(getID(nuevoDiaMes));
 						 
 				        nuevoDiaMes.setIdEstado(SPDConstants.REGISTRO_CREADO_AUTOM_SECUENCIA_GUIDE);
@@ -2053,12 +2053,12 @@ public class HelperSPD2{
 				Date fechaFinTratamiento=null;
 				if(medResi.getResiFinTratamiento()!=null && !medResi.getResiFinTratamiento().equalsIgnoreCase(""))
 					fechaFinTratamiento=DateUtilities.getDate(medResi.getResiFinTratamiento(), "dd/MM/yyyy");
-				//si encontramos que la fecha est· en el rango....
-		        // Verificar si fecha1Date est· dentro del rango del tratamiento
+				//si encontramos que la fecha est√° en el rango....
+		        // Verificar si fecha1Date est√° dentro del rango del tratamiento
 		        if (fechaMes!=null && fechaMesDate.compareTo(fechaInicioTratamiento) >= 0 && (fechaFinTratamiento == null || fechaMesDate.compareTo(fechaFinTratamiento) <= 0)) 
 		        {
 		        	/*
-		        	String mensaje="Fechas SPD se actualizan al dÌa elegido: " + diaMes;
+		        	String mensaje="Fechas SPD se actualizan al d√≠a elegido: " + diaMes;
 		            if(!medResi.getMensajesInfo().contains(mensaje))
 		            	medResi.setMensajesInfo( medResi.getMensajesInfo() + mensaje);
 		            
@@ -2067,13 +2067,13 @@ public class HelperSPD2{
 		            medResi.setDiasMesConcretos(diaMes+"");
 
 		        		
-					//medResi.setMensajesInfo( "Tratamiento: " + medResi.getResiInicioTratamiento() + "-" + medResi.getResiFinTratamiento()+ ". Se actualiza al dÌa elegido: " + diaMes);
+					//medResi.setMensajesInfo( "Tratamiento: " + medResi.getResiInicioTratamiento() + "-" + medResi.getResiFinTratamiento()+ ". Se actualiza al d√≠a elegido: " + diaMes);
 			    	
 		        }
-		        else //ponemos una fecha inicio/fin con el dÌa elegido aunque sea fuera de rango
+		        else //ponemos una fecha inicio/fin con el d√≠a elegido aunque sea fuera de rango
 		        {
-					//medResi.setMensajesInfo( "Tratamiento: " + medResi.getResiInicioTratamiento() + "-" + medResi.getResiFinTratamiento()+ ".  Fuera de rango de producciÛn pero se actualiza al dÌa elegido: " + diaMes);
-		        	/*String mensaje="Fechas SPD se actualizan al dÌa elegido: " + diaMes;
+					//medResi.setMensajesInfo( "Tratamiento: " + medResi.getResiInicioTratamiento() + "-" + medResi.getResiFinTratamiento()+ ".  Fuera de rango de producci√≥n pero se actualiza al d√≠a elegido: " + diaMes);
+		        	/*String mensaje="Fechas SPD se actualizan al d√≠a elegido: " + diaMes;
 		            if(!medResi.getMensajesInfo().contains(mensaje))
 		            	medResi.setMensajesInfo( medResi.getMensajesInfo() + mensaje);
 		            
@@ -2094,7 +2094,7 @@ public class HelperSPD2{
 
 
 	/**
-	 * MÈtodo que actualiza los datos en tratamientos quincenales, en contrato la fecha de inicio y fin para que la producciÛn se realice en esos dÌas concretos.
+	 * M√©todo que actualiza los datos en tratamientos quincenales, en contrato la fecha de inicio y fin para que la producci√≥n se realice en esos d√≠as concretos.
 	 * @param medResi
 	 * @throws Exception 
 	 */
@@ -2121,24 +2121,24 @@ public class HelperSPD2{
 			fechaFinTratamiento=DateUtilities.getDate(medResi.getResiFinTratamiento(), "dd/MM/yyyy");
 			
 			
-		//si encontramos que la fecha est· en el rango....
-	     // Verificar si fecha1Date est· dentro del rango del tratamiento
+		//si encontramos que la fecha est√° en el rango....
+	     // Verificar si fecha1Date est√° dentro del rango del tratamiento
 	    if (fecha1!=null && fecha1Date.compareTo(fechaInicioTratamiento) >= 0 && (fechaFinTratamiento == null || fecha1Date.compareTo(fechaFinTratamiento) <= 0)) 
 	    {
-	    	//medResi.setMensajesInfo( "Tratamiento: " + medResi.getResiInicioTratamiento() + "-" + medResi.getResiFinTratamiento()+ ". Se actualiza al dÌa elegido: " + dia1);
-        	/*String mensaje="Fechas SPD se actualizan al dÌa elegido: " + dia1;
+	    	//medResi.setMensajesInfo( "Tratamiento: " + medResi.getResiInicioTratamiento() + "-" + medResi.getResiFinTratamiento()+ ". Se actualiza al d√≠a elegido: " + dia1);
+        	/*String mensaje="Fechas SPD se actualizan al d√≠a elegido: " + dia1;
             if(!medResi.getMensajesInfo().contains(mensaje))
             	medResi.setMensajesInfo( medResi.getMensajesInfo() + mensaje);
             */
 	        medResi.setResiInicioTratamientoParaSPD(fecha1);	//actualizamos las fechas inicio y fin para que solo se produzca un dia
 	        medResi.setResiFinTratamientoParaSPD(fecha1);
-			//si encontramos que la segunda fecha est· tambiÈn en el rango....
-		    // Verificar si fecha2Date est· dentro del rango del tratamiento
+			//si encontramos que la segunda fecha est√° tambi√©n en el rango....
+		    // Verificar si fecha2Date est√° dentro del rango del tratamiento
 			if (fecha2!=null  &&  fecha2Date.compareTo(fechaInicioTratamiento) >= 0 && (fechaFinTratamiento == null || fecha2Date.compareTo(fechaFinTratamiento) <= 0)) 
 			{
 			   FicheroResiBean medResiClone = medResi.clone();	//hemos de duplicar el registro para poner la otra fecha
-			   //medResiClone.setMensajesInfo( "Tratamiento: " + medResi.getResiInicioTratamiento() + "-" + medResi.getResiFinTratamiento()+ ". Se actualiza al dÌa elegido: " + dia2);
-		      /*	mensaje="Fechas SPD se actualizan al dÌa elegido: " + dia2;
+			   //medResiClone.setMensajesInfo( "Tratamiento: " + medResi.getResiInicioTratamiento() + "-" + medResi.getResiFinTratamiento()+ ". Se actualiza al d√≠a elegido: " + dia2);
+		      /*	mensaje="Fechas SPD se actualizan al d√≠a elegido: " + dia2;
 	            if(!medResiClone.getMensajesInfo().contains(mensaje))
 	            	medResiClone.setMensajesInfo( medResi.getMensajesInfo() + mensaje);
 	            */
@@ -2160,11 +2160,11 @@ public class HelperSPD2{
 			medResi.setTipoEnvioHelium("3");
 	    }else
 	    {
-	      	//si encontramos que solo la segunda fecha est· en el rango....// Verificar si fecha2Date est· dentro del rango del tratamiento
+	      	//si encontramos que solo la segunda fecha est√° en el rango....// Verificar si fecha2Date est√° dentro del rango del tratamiento
 	      	if (fecha2!=null  &&  fecha2Date.compareTo(fechaInicioTratamiento) >= 0 && (fechaFinTratamiento == null || fecha2Date.compareTo(fechaFinTratamiento) <= 0)) 
 	      	{
-				//medResi.setMensajesInfo( "Tratamiento: " + medResi.getResiInicioTratamiento() + "-" + medResi.getResiFinTratamiento()+ ". Se actualiza al dÌa elegido: " + dia2);
-	        	/*String mensaje="Fechas SPD se actualizan al dÌa elegido: " + dia2;
+				//medResi.setMensajesInfo( "Tratamiento: " + medResi.getResiInicioTratamiento() + "-" + medResi.getResiFinTratamiento()+ ". Se actualiza al d√≠a elegido: " + dia2);
+	        	/*String mensaje="Fechas SPD se actualizan al d√≠a elegido: " + dia2;
 	            if(!medResi.getMensajesInfo().contains(mensaje))
 	            	medResi.setMensajesInfo( medResi.getMensajesInfo() + mensaje);
 	            */
@@ -2177,7 +2177,7 @@ public class HelperSPD2{
 		        medResi.setResiFinTratamientoParaSPD(obtenerFechaDia(new Date(), dia1));
 	      	}
 		}
-        if (fecha1==null && fecha2==null) //ponemos una fecha inicio/fin con el dÌa elegido aunque sea fuera de rango
+        if (fecha1==null && fecha2==null) //ponemos una fecha inicio/fin con el d√≠a elegido aunque sea fuera de rango
 	    {
 	    	medResi.setResiInicioTratamientoParaSPD(obtenerFechaDia(new Date(), dia1));	//actualizamos las fechas inicio y fin para que solo se produzca un dia
 	        medResi.setResiFinTratamientoParaSPD(obtenerFechaDia(new Date(), dia1));
@@ -2190,7 +2190,7 @@ public class HelperSPD2{
 	}
 
 	/**
-	 * MÈtodo encargado de devolver el n˙mero de una cadena, segÒun la posiciÛn indicada por par·metro
+	 * M√©todo encargado de devolver el n√∫mero de una cadena, seg√±un la posici√≥n indicada por par√°metro
 	 * @param i
 	 * @param medResi
 	 * @return
@@ -2216,7 +2216,7 @@ public class HelperSPD2{
 
 	
 	/**
-	 * MÈtodo encargado de devolver el n˙mero de una cadena, segÒun la posiciÛn indicada por par·metro
+	 * M√©todo encargado de devolver el n√∫mero de una cadena, seg√±un la posici√≥n indicada por par√°metro
 	 * @param i
 	 * @param medResi
 	 * @return
@@ -2235,7 +2235,7 @@ public class HelperSPD2{
 	}
 
 /**
- * obtenerFechaDesde utiliza una expresiÛn regular simple \\d{8} para encontrar un grupo de 8 dÌgitos que corresponde a la fecha fechaDesde.
+ * obtenerFechaDesde utiliza una expresi√≥n regular simple \\d{8} para encontrar un grupo de 8 d√≠gitos que corresponde a la fecha fechaDesde.
  * @param idProceso
  * @return
  */
@@ -2247,7 +2247,7 @@ public class HelperSPD2{
         }
         return null;
     }
-	/**La funciÛn obtenerFechaHasta utiliza una expresiÛn regular \\d{8}_(\\d{8})_ para encontrar el grupo de 8 dÌgitos que corresponde a la fecha fechaHasta dentro de la cadena.
+	/**La funci√≥n obtenerFechaHasta utiliza una expresi√≥n regular \\d{8}_(\\d{8})_ para encontrar el grupo de 8 d√≠gitos que corresponde a la fecha fechaHasta dentro de la cadena.
 	 * 
 	 * @param idProceso
 	 * @return
@@ -2288,7 +2288,7 @@ public class HelperSPD2{
         }
         catch(Exception e) {return false;}
  
-        // Verificar si la fecha a verificar est· dentro del rango
+        // Verificar si la fecha a verificar est√° dentro del rango
         return verificar.isAfter(desde.minusDays(1)) && verificar.isBefore(hasta.plusDays(1));
          //  return !verificar.isBefore(desde) && !verificar.isAfter(hasta);
     }
@@ -2297,7 +2297,7 @@ public class HelperSPD2{
         // Convertir la cadena de fecha en un objeto LocalDate
         LocalDate fecha = LocalDate.parse(fechaString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-        // Obtener el dÌa del mes
+        // Obtener el d√≠a del mes
         return fecha.getDayOfMonth();
     } 
     
@@ -2330,7 +2330,7 @@ public class HelperSPD2{
 
 	
 	/**
-	 * MÈtodo que avisa en el campo "validar" en caso que existan comentarios/observaciones y sea un registro no reutilizado.  
+	 * M√©todo que avisa en el campo "validar" en caso que existan comentarios/observaciones y sea un registro no reutilizado.  
 	 * @param medResi
 	 */
 	public static void chequeoRevisionAlta(FicheroResiBean medResi) {
@@ -2413,12 +2413,12 @@ public class HelperSPD2{
 	}
 
     /**
-     * Detectamos el tipo de envÌo Helium	
+     * Detectamos el tipo de env√≠o Helium	
 		0 --> Otros (no_pintar, Si_precisa, pauta 0,1)
 		1 --> Diario
-		2 --> DÌas concretos
+		2 --> D√≠as concretos
 		3 --> Frecuencia quincenal o mensual
-		4 --> EnvÌo guide
+		4 --> Env√≠o guide
      * @param medResi
      * @throws ClassNotFoundException 
      */
@@ -2433,7 +2433,7 @@ public class HelperSPD2{
 		}
 		else 
 		{
-			// Tipo 2 --> DÌas concretos
+			// Tipo 2 --> D√≠as concretos
 			if(medResi.getResiPeriodo().equalsIgnoreCase(SPDConstants.SPD_PERIODO_DIAS_SEMANA_CONCRETOS))
 			{
 				medResi.setTipoEnvioHelium("2");
@@ -2446,7 +2446,7 @@ public class HelperSPD2{
 			else if(medResi.getResiPeriodo().equalsIgnoreCase(SPDConstants.SPD_PERIODO_QUINCENAL) || medResi.getResiPeriodo().equalsIgnoreCase(SPDConstants.SPD_PERIODO_MENSUAL) )
 			{
 				medResi.setTipoEnvioHelium("3");
-				//el perÌodo ya viene marcado anteriormente
+				//el per√≠odo ya viene marcado anteriormente
 			}
 			//Tipo 1 --> Diario 
 			else if(medResi.getResiPeriodo().equalsIgnoreCase(SPDConstants.SPD_PERIODO_DIARIO))
@@ -2455,7 +2455,7 @@ public class HelperSPD2{
 				medResi.setResiInicioTratamientoParaSPD(medResi.getResiInicioTratamiento());
 				medResi.setResiFinTratamientoParaSPD(medResi.getResiFinTratamiento());
 			}
-			//Tipo 4 --> EnvÌo guide (siempre se revisar· si no existe Guide)
+			//Tipo 4 --> Env√≠o guide (siempre se revisar√° si no existe Guide)
 			else //if(medResi.getResiPeriodo().equalsIgnoreCase("especial") || medResi.getResiPeriodo().equalsIgnoreCase("especial"))
 			{
 				medResi.setTipoEnvioHelium("4");
@@ -2528,7 +2528,7 @@ public class HelperSPD2{
 				}
 				else
 				{
-					cambios+="ResiInicioTratamiento: " + frb.getResiInicioTratamiento() + " - nuevo --> fecha vacÌa| "; 
+					cambios+="ResiInicioTratamiento: " + frb.getResiInicioTratamiento() + " - nuevo --> fecha vac√≠a| "; 
 					frb.setMensajesAlerta(SPDConstants.ALERTA_REVISION_FECHAINICIO);
 					frb.setIncidencia("SI");
 				}
@@ -2545,7 +2545,7 @@ public class HelperSPD2{
 				}
 				else
 				{
-					cambios+="ResiFinTratamiento: " + frb.getResiInicioTratamiento() + " - nuevo --> fecha vacÌa | "; 
+					cambios+="ResiFinTratamiento: " + frb.getResiInicioTratamiento() + " - nuevo --> fecha vac√≠a | "; 
 					frb.setMensajesAlerta(SPDConstants.ALERTA_REVISION_FECHAFIN);
 					frb.setIncidencia("SI");
 				}
@@ -2566,7 +2566,7 @@ public class HelperSPD2{
 			if(existenDiferencias(frb.getResiSiPrecisa(), formulari.getResiSiPrecisa())) {
 				
 				frb.setResiSiPrecisa(formulari.getResiSiPrecisa());
-				//control del check SI PRECISA con el desplegable de la acciÛn en bolsa
+				//control del check SI PRECISA con el desplegable de la acci√≥n en bolsa
 				if(frb.getResiSiPrecisa()!=null && frb.getResiSiPrecisa().equalsIgnoreCase("X")) 
 				{
 					cambios+="ResiSiPrecisa: " + frb.getResiSiPrecisa() + "  cambiado a: " + formulari.getResiSiPrecisa() + " | "; 
@@ -2621,11 +2621,11 @@ public class HelperSPD2{
 				cambios+="SpdAccionBolsa: " + frb.getSpdAccionBolsa() + "  cambiado a: " + formulari.getSpdAccionBolsa() + " | "; 
 				frb.setSpdAccionBolsa(formulari.getSpdAccionBolsa());
 
-				//control del check SI PRECISA con el desplegable de la acciÛn en bolsa
+				//control del check SI PRECISA con el desplegable de la acci√≥n en bolsa
 				if(frb.getSpdAccionBolsa()!=null && !frb.getSpdAccionBolsa().isEmpty() && frb.getSpdAccionBolsa().equalsIgnoreCase(SPDConstants.SPD_ACCIONBOLSA_SI_PRECISA)
 						&& !frb.getResiSiPrecisa().equalsIgnoreCase("X")) 
 				{
-					cambios+=" Como consecuencia del SpdAccionBolsa a SI PRECISA, se aÒade la X a SI_PRECISA | "; 
+					cambios+=" Como consecuencia del SpdAccionBolsa a SI PRECISA, se a√±ade la X a SI_PRECISA | "; 
 					frb.setResiSiPrecisa("X");
 				}
 				else frb.setResiSiPrecisa("");
@@ -2635,17 +2635,17 @@ public class HelperSPD2{
 				{
 					for (int i = 1; i <= 7; i++) {
 					    try {
-					        // ObtÈn el mÈtodo getResiToma correspondiente
+					        // Obt√©n el m√©todo getResiToma correspondiente
 					        Method getMethod = frb.getClass().getMethod("getResiD" + i);
 					        Method setMethod = frb.getClass().getMethod("setResiD" + i, String.class);
 					        
-					        // ObtÈn el valor de frb y formulari para la toma actual
+					        // Obt√©n el valor de frb y formulari para la toma actual
 					        String frbValue = (String) getMethod.invoke(frb);
 					        String formulariValue = (String) formulari.getClass().getMethod("getResiD" + i).invoke(formulari);
 					        String text="" ;
 					        // Comprueba si hay diferencias y actualiza
 					        if (existenDiferencias(frbValue, formulariValue)) {
-					            cambios += "DÌa " +i + ":  Cambiado de ''" + frbValue + "'' a: ''" + formulariValue + "'' | ";
+					            cambios += "D√≠a " +i + ":  Cambiado de ''" + frbValue + "'' a: ''" + formulariValue + "'' | ";
 					            setMethod.invoke(frb, formulariValue); // Establece el nuevo valor en frb
 					        }
 					    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
@@ -2658,11 +2658,11 @@ public class HelperSPD2{
 			
 			for (int i = 1; i <= 24; i++) {
 			    try {
-			        // ObtÈn el mÈtodo getResiToma correspondiente
+			        // Obt√©n el m√©todo getResiToma correspondiente
 			        Method getMethod = frb.getClass().getMethod("getResiToma" + i);
 			        Method setMethod = frb.getClass().getMethod("setResiToma" + i, String.class);
 			        
-			        // ObtÈn el valor de frb y formulari para la toma actual
+			        // Obt√©n el valor de frb y formulari para la toma actual
 			        String frbValue = (String) getMethod.invoke(frb);
 			        String formulariValue = (String) formulari.getClass().getMethod("getResiToma" + i).invoke(formulari);
 			        String text="" ;
@@ -2703,7 +2703,7 @@ public class HelperSPD2{
 
 	public static boolean hayNumerosAsteriscos(FicheroResiBean medResi) {
 		
-        int numTomas = 24; // N˙mero total de tomas
+        int numTomas = 24; // N√∫mero total de tomas
         Class<?> tratClass = medResi.getClass();
         medResi.setAsteriscos("NO");
         try {
@@ -2719,7 +2719,7 @@ public class HelperSPD2{
                 }
             }
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-           // e.printStackTrace(); // Manejo de excepciones, ajusta seg˙n tus necesidades
+           // e.printStackTrace(); // Manejo de excepciones, ajusta seg√∫n tus necesidades
             return false;
         }
         
@@ -2790,7 +2790,7 @@ public class HelperSPD2{
 		if(medResi.getResiCn()==null || medResi.getResiCn().isEmpty()|| medResi.getResiCn().equals("")|| medResi.getResiCn().equals("0"))
 		{
 			medResi.setMensajesAlerta(medResi.getMensajesAlerta() + SPDConstants.ALERTA_NO_CODIGO);
-			medResi.setResiCn(StringUtil.limpiarTextoyEspacios(medResi.getResiMedicamento())); //se aÒade como CN la descripciÛn para poder realizar la consulta
+			medResi.setResiCn(StringUtil.limpiarTextoyEspacios(medResi.getResiMedicamento())); //se a√±ade como CN la descripci√≥n para poder realizar la consulta
 		}
 		//medResi.setResiInicioTratamientoParaSPD(medResi.getResiInicioTratamiento());
 		//medResi.setResiFinTratamientoParaSPD(medResi.getResiFinTratamiento());
@@ -2825,7 +2825,7 @@ public class HelperSPD2{
     	if(medResi.getMensajesAlerta()!=null && !medResi.getMensajesAlerta().equals(""))
     		medResi.setIncidencia("SI");
     	
-    	//en caso que tenga 999 y PASTILLERO se pone como SOLO_INFO y se aÒade mensaje 
+    	//en caso que tenga 999 y PASTILLERO se pone como SOLO_INFO y se a√±ade mensaje 
     	if(medResi.getAsteriscos()!=null && medResi.getAsteriscos().equalsIgnoreCase("SI")&& medResi.getSpdAccionBolsa()!=null && medResi.getSpdAccionBolsa().equalsIgnoreCase(SPDConstants.SPD_ACCIONBOLSA_PASTILLERO))
     	{
     		medResi.setSpdAccionBolsa(SPDConstants.SPD_ACCIONBOLSA_SOLO_INFO);
@@ -2856,7 +2856,7 @@ public class HelperSPD2{
 			if(medResi.getSpdAccionBolsa()!=null && medResi.getSpdAccionBolsa().equalsIgnoreCase(SPDConstants.SPD_ACCIONBOLSA_PASTILLERO))
 	    	{
 	       		float totalcomprimidos=HelperSPD2.getTotalComprimidosDia(medResi, SPDConstants.NUM_TOMAS_SPD);
-	    		if(totalcomprimidos>(SPDConstants.CTRL_MAX_COMPRIMIDOS_DIA) && (medResi.getEditado()==null || medResi.getEditado().equalsIgnoreCase("NO"))) //ponemos un lÌmite de pastillas para mostrar un mensaje y validar pauta mientras sea un registro nuevo
+	    		if(totalcomprimidos>(SPDConstants.CTRL_MAX_COMPRIMIDOS_DIA) && (medResi.getEditado()==null || medResi.getEditado().equalsIgnoreCase("NO"))) //ponemos un l√≠mite de pastillas para mostrar un mensaje y validar pauta mientras sea un registro nuevo
 	    		{
 	    	   		String mensaje =SPDConstants.INFO_INTERNA_REVISION_COMPRIMIDOS + "("+totalcomprimidos+")";
 	        		if((medResi.getMensajesInfo()==null || medResi.getMensajesInfo().equals("")) )
@@ -2897,7 +2897,7 @@ public class HelperSPD2{
             }
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             // Manejar las excepciones adecuadamente
-            System.err.println("Error al acceder a los mÈtodos de resiToma: " + e.getMessage());
+            System.err.println("Error al acceder a los m√©todos de resiToma: " + e.getMessage());
         }
 
         System.out.println("La suma de las resiTomas es: " + suma);
@@ -2907,7 +2907,7 @@ public class HelperSPD2{
 
 
 	/**
-	 * Borrado de un registro con el mismo idTratamiento que el que se est· cargando.
+	 * Borrado de un registro con el mismo idTratamiento que el que se est√° cargando.
 	 * @param medResi
 	 * @throws Exception 
 	 */
@@ -2942,19 +2942,19 @@ public class HelperSPD2{
 			//String sufijo= SPDConstants.PREFIJO_REGISTRO_SECUENCIA_GUIDE + "_"+medResi.getOidFicheroResiDetalle();
 			//String sufijo= medResi.getResiCn() + "_" + SPDConstants.PREFIJO_REGISTRO_SECUENCIA_GUIDE ;
 			
-			// Dividir la cadena usando el guiÛn "-"
+			// Dividir la cadena usando el gui√≥n "-"
 	       if(secuenciaGuide!=null && !secuenciaGuide.equals("")) 
 	       {
 		        // Verificar si se han dividido las partes correctamente
 	    	   try{
 	 	    	   	String[] partes = secuenciaGuide.split("-");
-	 	    	   	int periodosConToma 		= new Integer(partes[0]).intValue(); // primero miramos i=pares (periodoSI  con medicaciÛn)
-	 	    	   	int periodosConDescanso	= new Integer(partes[1]).intValue(); // Segunda parte (n˙mero)
+	 	    	   	int periodosConToma 		= new Integer(partes[0]).intValue(); // primero miramos i=pares (periodoSI  con medicaci√≥n)
+	 	    	   	int periodosConDescanso	= new Integer(partes[1]).intValue(); // Segunda parte (n√∫mero)
 	 	    	   	String periodoGuide = partes[partes.length-1];   //  parte (texto) DIAS, SEMANAS, MESES
 			       
 	 	    	   	int factorMultiplicador=getFactor(periodoGuide);
 
-	 	    	   	//buscamos el total de dÌas que engloba la secuencia, periodosSi+periodosNo
+	 	    	   	//buscamos el total de d√≠as que engloba la secuencia, periodosSi+periodosNo
 	 	    	   	int diasTotales=getDiasTotales(partes, factorMultiplicador);
 
 	 	    	 //buscamos fecha inicio tratatmiento SPD, solo en caso que no haya fecha fin SPD. Esto es para poder hacer limpio en un cambio de secuencia editando una que tenga inicio/fin SPD que ya no convenga
@@ -2970,25 +2970,25 @@ public class HelperSPD2{
 			       	Date fechaInicioSPD = DateUtilities.getDate(DateUtilities.getDate(medResi.getFechaDesde(), "yyyyMMdd", "dd/MM/yyyy"), "dd/MM/yyyy");
 			       	Date fechaFinSPD = DateUtilities.getDate(DateUtilities.getDate(medResi.getFechaHasta(), "yyyyMMdd", "dd/MM/yyyy"), "dd/MM/yyyy");
 		    	   
-			       //buscamos la diferencia de dÌas entre fechaInicioTratamiento y fechaInicioSPD
+			       //buscamos la diferencia de d√≠as entre fechaInicioTratamiento y fechaInicioSPD
 		    	   
 			       	int diasDesdeFechaInicioCalculos = (int) DateUtilities.getLengthInDays(fechaInicioCalculos, fechaInicioSPD);
-			       	// Realizar la resta hasta que el n˙mero sea menor a 10
-			       	int diaPrimerDiaSecuencia = diasDesdeFechaInicioCalculos % diasTotales; //dias m·s cercanos a la fecha actual donde empezarÌa la secuenciaGuide
-			       	Date fechaInicioSecuenciaGuide=DateUtilities.addDate(fechaInicioSPD,  -diaPrimerDiaSecuencia); //buscamos el dÌa de comienzo de la secuencia, mirando atr·s desde el inicioSPD
+			       	// Realizar la resta hasta que el n√∫mero sea menor a 10
+			       	int diaPrimerDiaSecuencia = diasDesdeFechaInicioCalculos % diasTotales; //dias m√°s cercanos a la fecha actual donde empezar√≠a la secuenciaGuide
+			       	Date fechaInicioSecuenciaGuide=DateUtilities.addDate(fechaInicioSPD,  -diaPrimerDiaSecuencia); //buscamos el d√≠a de comienzo de la secuencia, mirando atr√°s desde el inicioSPD
 			       	int periodos=partes.length;
 
 					Date fechaSpd=fechaInicioSecuenciaGuide;
 
 					//inicio tratamiento de medResi y de la primera pareja periodoSi, periodoNo
-					//Primero ponemos la fecha de inicio de la secuencia en medResi (aunque no estÈ dentro del periodo). A partir de aquÌ iremos clonando medResi para aÒadir en caso que estÈn dentro del perÌodo
+					//Primero ponemos la fecha de inicio de la secuencia en medResi (aunque no est√© dentro del periodo). A partir de aqu√≠ iremos clonando medResi para a√±adir en caso que est√©n dentro del per√≠odo
 					medResi.setResiInicioTratamientoParaSPD(DateUtilities.getDatetoString("dd/MM/yyyy" ,fechaInicioSecuenciaGuide));
-					//actualizamos el dÌa de la fechaSPD sumando los perÌdodos de SI (siempre que sea > 0)
+					//actualizamos el d√≠a de la fechaSPD sumando los per√≠dodos de SI (siempre que sea > 0)
 					if(periodosConToma>0)
-						fechaSpd=DateUtilities.addDate(fechaSpd, (periodosConToma*factorMultiplicador)-1); //nos situamos en el siguiente dÌa con toma
+						fechaSpd=DateUtilities.addDate(fechaSpd, (periodosConToma*factorMultiplicador)-1); //nos situamos en el siguiente d√≠a con toma
 					medResi.setResiFinTratamientoParaSPD(DateUtilities.getDatetoString("dd/MM/yyyy" ,fechaSpd));
-					//actualizamos el dÌa de la fechaSPD sumando los perÌdodos de NO
-					fechaSpd=DateUtilities.addDate(fechaSpd, (periodosConDescanso*factorMultiplicador)+1); //nos situamos en el siguiente dÌa con toma
+					//actualizamos el d√≠a de la fechaSPD sumando los per√≠dodos de NO
+					fechaSpd=DateUtilities.addDate(fechaSpd, (periodosConDescanso*factorMultiplicador)+1); //nos situamos en el siguiente d√≠a con toma
 					medResi.setTipoRegistro(SPDConstants.REGISTRO_LINEA); //ha de ser LINEA
 					 
 					int diasSi=1;
@@ -2996,15 +2996,15 @@ public class HelperSPD2{
 					{
 						 FicheroResiBean medResiDiaSi = medResi.clone();
 						 medResiDiaSi.setResiInicioTratamientoParaSPD(DateUtilities.getDatetoString("dd/MM/yyyy" ,fechaSpd));
-						//actualizamos el dÌa de la fechaSPD sumando los perÌdodos de SI
+						//actualizamos el d√≠a de la fechaSPD sumando los per√≠dodos de SI
 						if(periodosConToma>0)
-							fechaSpd=DateUtilities.addDate(fechaSpd, (periodosConToma*factorMultiplicador)-1); //nos situamos en el siguiente dÌa con toma
+							fechaSpd=DateUtilities.addDate(fechaSpd, (periodosConToma*factorMultiplicador)-1); //nos situamos en el siguiente d√≠a con toma
 						 medResiDiaSi.setResiFinTratamientoParaSPD(DateUtilities.getDatetoString("dd/MM/yyyy" , fechaSpd));//restamos 1 para no contar el dia inicio
-						//actualizamos el dÌa de la fechaSPD sumando los perÌdodos de NO
-						 fechaSpd=DateUtilities.addDate(fechaSpd, (periodosConDescanso*factorMultiplicador)+1); //nos situamos en el siguiente dÌa con toma
+						//actualizamos el d√≠a de la fechaSPD sumando los per√≠dodos de NO
+						 fechaSpd=DateUtilities.addDate(fechaSpd, (periodosConDescanso*factorMultiplicador)+1); //nos situamos en el siguiente d√≠a con toma
 
-						// medResiDiaSi.setMensajesInfo( "Fechas SPD se actualizan al dÌa de la primera secuencia ");
-						 medResiDiaSi.setResiCn(medResi.getResiCn()+"_"+SPDConstants.PREFIJO_REGISTRO_SECUENCIA_GUIDE+"_"+ diasSi  +"_"+medResi.getRow()); //cambiamos el CN aÒadiendo CN_seq_j_row para que no sea el idTramiento idÈntico al medResi (row por si hay dos tratamientos iguales, como RESINCALCIO de Ceritania)
+						// medResiDiaSi.setMensajesInfo( "Fechas SPD se actualizan al d√≠a de la primera secuencia ");
+						 medResiDiaSi.setResiCn(medResi.getResiCn()+"_"+SPDConstants.PREFIJO_REGISTRO_SECUENCIA_GUIDE+"_"+ diasSi  +"_"+medResi.getRow()); //cambiamos el CN a√±adiendo CN_seq_j_row para que no sea el idTramiento id√©ntico al medResi (row por si hay dos tratamientos iguales, como RESINCALCIO de Ceritania)
 						 medResiDiaSi.setIdTratamientoCIP(getID(medResiDiaSi));
 						 medResiDiaSi.setIdEstado(SPDConstants.REGISTRO_CREADO_AUTOM_SECUENCIA_GUIDE);
 						 medResiDiaSi.setTipoRegistro(SPDConstants.REGISTRO_LINEA_SEC_GUIDE);
@@ -3016,7 +3016,7 @@ public class HelperSPD2{
 						 FicheroResiDetalleDAO.nuevo(medResiDiaSi.getIdDivisionResidencia(), medResiDiaSi.getIdProceso(), medResiDiaSi);
 						 diasSi++;
 					}
-					//CONTROL PASTILLAS - actualizamos la dosis que entra en esta producciÛn para comparar con lo recibido
+					//CONTROL PASTILLAS - actualizamos la dosis que entra en esta producci√≥n para comparar con lo recibido
 					float totalDiaResi = HelperSPD2.getTotalComprimidosDia(medResi, SPDConstants.NUM_TOMAS_DEFAULT_RESI);
 					float totalDiaSPD = HelperSPD2.getTotalComprimidosDia(medResi, SPDConstants.NUM_TOMAS_SPD);
 					medResi.setPrevisionResi( diasSi * totalDiaResi );
@@ -3028,18 +3028,18 @@ public class HelperSPD2{
 			       for(int i=2;i<periodos-1;i++)
 			       {
 			    	   	FicheroResiBean medResiDiaSi = medResi.clone();
-			    	    periodosConToma 	= new Integer(partes[i]).intValue(); // primero miramos i=pares (periodoSI  con medicaciÛn)
-		 	    	    periodosConDescanso	= new Integer(partes[i]).intValue(); // Segunda parte (n˙mero)
+			    	    periodosConToma 	= new Integer(partes[i]).intValue(); // primero miramos i=pares (periodoSI  con medicaci√≥n)
+		 	    	    periodosConDescanso	= new Integer(partes[i]).intValue(); // Segunda parte (n√∫mero)
 
 						 medResiDiaSi.setResiInicioTratamientoParaSPD(DateUtilities.getDatetoString("dd/MM/yyyy" ,fechaSpd));
-							//actualizamos el dÌa de la fechaSPD sumando los perÌdodos de SI
-						 fechaSpd=DateUtilities.addDate(fechaSpd, (periodosConToma*factorMultiplicador)-1); //nos situamos en el siguiente dÌa con toma
+							//actualizamos el d√≠a de la fechaSPD sumando los per√≠dodos de SI
+						 fechaSpd=DateUtilities.addDate(fechaSpd, (periodosConToma*factorMultiplicador)-1); //nos situamos en el siguiente d√≠a con toma
 						 medResiDiaSi.setResiFinTratamientoParaSPD(DateUtilities.getDatetoString("dd/MM/yyyy" , fechaSpd));
-							//actualizamos el dÌa de la fechaSPD sumando los perÌdodos de NO
-						 fechaSpd=DateUtilities.addDate(fechaSpd, (periodosConDescanso*factorMultiplicador)+1); //nos situamos en el siguiente dÌa con toma
+							//actualizamos el d√≠a de la fechaSPD sumando los per√≠dodos de NO
+						 fechaSpd=DateUtilities.addDate(fechaSpd, (periodosConDescanso*factorMultiplicador)+1); //nos situamos en el siguiente d√≠a con toma
 
-						 //medResiDiaSi.setMensajesInfo( "Fechas SPD se actualizan al dÌa del resto de secuencias ");
-						 medResiDiaSi.setResiCn(medResiDiaSi.getResiCn()+"_"+SPDConstants.PREFIJO_REGISTRO_SECUENCIA_GUIDE+"_"+i+"_"+j2+"_"+medResi.getRow()); //cambiamos el CN aÒadiendo CN_seq_j para que no sea el idTramiento idÈntico al medResi
+						 //medResiDiaSi.setMensajesInfo( "Fechas SPD se actualizan al d√≠a del resto de secuencias ");
+						 medResiDiaSi.setResiCn(medResiDiaSi.getResiCn()+"_"+SPDConstants.PREFIJO_REGISTRO_SECUENCIA_GUIDE+"_"+i+"_"+j2+"_"+medResi.getRow()); //cambiamos el CN a√±adiendo CN_seq_j para que no sea el idTramiento id√©ntico al medResi
 						 medResiDiaSi.setIdTratamientoCIP(getID(medResiDiaSi));
 						 medResiDiaSi.setIdEstado(SPDConstants.REGISTRO_CREADO_AUTOM_SECUENCIA_GUIDE);
 						 medResiDiaSi.setTipoRegistro(SPDConstants.REGISTRO_LINEA_SEC_GUIDE);
@@ -3131,8 +3131,8 @@ public class HelperSPD2{
 		 System.out.println("iguales" + iguales);
 		if(!iguales)
 		{
-			//preparamos el nuevo info2 y lo aÒadimos
-			String mensajeNuevoInfo1 ="1# -  Corregir CÛdigo nacional -  El CN " + medResi.getResiCn() + " pertenece a " + gtvmpResi + ". Si se trata de " + gtvmpSpd + " sugerimos cambiarlo por el CN " + medResi.getSpdCnFinal() + " - 1#";
+			//preparamos el nuevo info2 y lo a√±adimos
+			String mensajeNuevoInfo1 ="1# -  Corregir C√≥digo nacional -  El CN " + medResi.getResiCn() + " pertenece a " + gtvmpResi + ". Si se trata de " + gtvmpSpd + " sugerimos cambiarlo por el CN " + medResi.getSpdCnFinal() + " - 1#";
 			mensaje=mensaje + " " +  mensajeNuevoInfo1;
 			medResi.setRevisar("SI");
 			medResi.setControlDiferentesGtvmp(SPDConstants.CTRL_DIFERENTE_GTVMP_ALERTA);
@@ -3173,7 +3173,7 @@ public class HelperSPD2{
 	*/
 
 	/**
-	 * MÈtodo que sustituye un texto que empieza y acaba con un separador, en un mensaje determinado. 
+	 * M√©todo que sustituye un texto que empieza y acaba con un separador, en un mensaje determinado. 
 	 * @param mensaje
 	 * @param separador
 	 * @return
@@ -3184,10 +3184,10 @@ public class HelperSPD2{
 			if(mensaje==null || mensaje.equalsIgnoreCase("null")) mensaje="";
 			//System.out.println("mensaje: " + mensaje);
 			//System.out.println("Pre patron");
-		    // Combina el patrÛn en una expresiÛn regular
+		    // Combina el patr√≥n en una expresi√≥n regular
 		    String patron = Pattern.quote(separador) + "(.*?)" + Pattern.quote(separador);
 		    //System.out.println("patron2: " + patron);
-		    // Utiliza la expresiÛn regular para encontrar la subcadena
+		    // Utiliza la expresi√≥n regular para encontrar la subcadena
 		    // System.out.println("Pre pattern " );
 		    Pattern pattern = Pattern.compile(patron);
 		    // System.out.println("pattern2: " + pattern);
@@ -3200,7 +3200,7 @@ public class HelperSPD2{
 		        // Obtiene la subcadena encontrada
 		        String subcadenaEncontrada = matcher.group();
 		        //System.out.println("subcadenaEncontrada: " + subcadenaEncontrada);
-		        // Realiza la sustituciÛn
+		        // Realiza la sustituci√≥n
 		        String nuevaSubcadena = "";
 		        // Realiza el reemplazo en la cadena original
 		        mensaje = mensaje.replace(subcadenaEncontrada, nuevaSubcadena);
@@ -3217,7 +3217,7 @@ public class HelperSPD2{
 	
 	
 	/**
-	 * MÈtodo que guarda el c·lculo de previsiÛn seg˙n la producciÛn del Excel
+	 * M√©todo que guarda el c√°lculo de previsi√≥n seg√∫n la producci√≥n del Excel
 	 * @param SpdUsuario 
 	 * @param row
 	 * @return
@@ -3252,7 +3252,7 @@ public class HelperSPD2{
 		
 			//fila.setDiasSemanaMarcados(HelperSPD.getDiasMarcados(fila));
 			
-			//B˙squeda de BDConsejo
+			//B√∫squeda de BDConsejo
 			BdConsejo bdConsejo=BdConsejoDAO.getByCN(fila.getSpdCnFinal()); 
 			if(bdConsejo!=null)
 			{
@@ -3274,7 +3274,7 @@ public class HelperSPD2{
 	    	
 	    	//fila.setSpdComentarioLopicost(StringUtil.replaceInvalidChars((String) row.elementAt(15)));	de momento no lo guardamos
 	    	
-			//no hace falta comprobar si es v·lido, porque solo se podr· enviar cuando no haya errorres.
+			//no hace falta comprobar si es v√°lido, porque solo se podr√° enviar cuando no haya errorres.
 	     	//IOSpdApi.compruebaTratamiento(SpdUsuario, fila);
 	     	resultPrevision=FicheroMedResiConPrevisionDAO.nuevo(fila);
 	 		result=FicheroMedResiDAO.nuevo(fila);
@@ -3282,7 +3282,7 @@ public class HelperSPD2{
 	 		
 			if(!resultPrevision)
 			{
-				throw new Exception ("No se ha podido crear el registro de previsiÛn  (SPD_resiMedicacion)");
+				throw new Exception ("No se ha podido crear el registro de previsi√≥n  (SPD_resiMedicacion)");
 				//errors.add( "Registro sust creado correctamente ");
 			}
 			if(!result)
@@ -3291,7 +3291,7 @@ public class HelperSPD2{
 				//errors.add( "Registro sust creado correctamente ");
 			}
 			
-			//FIN importaciÛn en ctl_medicacioResi
+			//FIN importaci√≥n en ctl_medicacioResi
 
 		return resultPrevision&&result;
 		}
@@ -3371,7 +3371,7 @@ public class HelperSPD2{
 
 
 	/**
-	 * MÈtodo que guarda el c·lculo de previsiÛn seg˙n la producciÛn del Excel
+	 * M√©todo que guarda el c√°lculo de previsi√≥n seg√∫n la producci√≥n del Excel
 	 * @param SpdUsuario 
 	 * @param row
 	 * @return
@@ -3416,7 +3416,7 @@ public class HelperSPD2{
 				 
 			//}
 			
-			//B˙squeda de BDConsejo
+			//B√∫squeda de BDConsejo
 			BdConsejo bdConsejo=BdConsejoDAO.getByCN(fila.getSpdCnFinal()); 
 			if(bdConsejo!=null)
 			{
@@ -3438,7 +3438,7 @@ public class HelperSPD2{
 	    	
 	    	//fila.setSpdComentarioLopicost(StringUtil.replaceInvalidChars((String) row.elementAt(15)));	de momento no lo guardamos
 	    	
-			//no hace falta comprobar si es v·lido, porque solo se podr· enviar cuando no haya errorres.
+			//no hace falta comprobar si es v√°lido, porque solo se podr√° enviar cuando no haya errorres.
 	     	//IOSpdApi.compruebaTratamiento(SpdUsuario, fila);
 	     	resultPrevision=FicheroMedResiConPrevisionDAO.nuevo(fila);
 	 		result=FicheroMedResiDAO.nuevo(fila);
@@ -3446,7 +3446,7 @@ public class HelperSPD2{
 	 		
 			if(!resultPrevision)
 			{
-				throw new Exception ("No se ha podido crear el registro de previsiÛn  (SPD_resiMedicacion)");
+				throw new Exception ("No se ha podido crear el registro de previsi√≥n  (SPD_resiMedicacion)");
 				//errors.add( "Registro sust creado correctamente ");
 			}
 			if(!result)
@@ -3455,7 +3455,7 @@ public class HelperSPD2{
 				//errors.add( "Registro sust creado correctamente ");
 			}
 			
-			//FIN importaciÛn en ctl_medicacioResi
+			//FIN importaci√≥n en ctl_medicacioResi
 
 
 		    
@@ -3470,7 +3470,7 @@ public class HelperSPD2{
 
 	    // Reorganizar las columnas
 	    for (Map<String, Object> fila : results) {
-	        Map<String, Object> filaReorganizada = new LinkedHashMap<>(); // Mantener el orden de inserciÛn
+	        Map<String, Object> filaReorganizada = new LinkedHashMap<>(); // Mantener el orden de inserci√≥n
 
 	        // Mantener las columnas originales
 	        for (Map.Entry<String, Object> entry : fila.entrySet()) {
@@ -3549,7 +3549,7 @@ private static FicheroResiBean construirFilaDesdeFila(FicheroResiBean fila, List
  * @return
  */
 	private static boolean isExcelDateFormat(String excelDate) {
-	    // Utiliza una expresiÛn regular para comprobar si el valor tiene el formato "dd-MMM-yyyy"
+	    // Utiliza una expresi√≥n regular para comprobar si el valor tiene el formato "dd-MMM-yyyy"
 	    //Pattern dateFormatPattern = Pattern.compile("\\d{1,2}-[a-zA-Z]+-\\d{4}");
 	    Pattern dateFormatPattern = Pattern.compile("\\d{1,2} [a-zA-Z]+ \\d{4}");
 	    Matcher matcher = dateFormatPattern.matcher(excelDate);
@@ -3568,17 +3568,17 @@ public static void eliminaTomasCero(FicheroResiBean f) {
         String setterMethodName = "setResiToma" + i;
 
         try {
-            // ObtÈn el valor actual de la toma usando reflection
+            // Obt√©n el valor actual de la toma usando reflection
             Method getterMethod = FicheroResiBean.class.getMethod(getterMethodName);
             String currentValue = (String) getterMethod.invoke(f);
 
-            // Verifica si el valor es "0" y establece "0" si es asÌ
+            // Verifica si el valor es "0" y establece "0" si es as√≠
             if (currentValue != null && currentValue.equals("0")) {
                 Method setterMethod = FicheroResiBean.class.getMethod(setterMethodName, String.class);
                 setterMethod.invoke(f, "");
             }
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace(); // Maneja las excepciones seg˙n tus necesidades
+            e.printStackTrace(); // Maneja las excepciones seg√∫n tus necesidades
         }
     }
 }
@@ -3599,17 +3599,17 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 	
 	if(medResi.getSpdAccionBolsa()!=null && medResi.getSpdAccionBolsa().equalsIgnoreCase(SPDConstants.SPD_ACCIONBOLSA_PASTILLERO))
 	{
-		//si no hay descuadre ser· por comprobaciÛn posterior
+		//si no hay descuadre ser√° por comprobaci√≥n posterior
 		medResi.setCuadraPrevision(false);
 		float resi = 0;
 		float spd = 0;
 		try{
-			resi = (medResi!=null?medResi.getPrevisionResi():0) ;
+			resi = (medResi!=null√≠medResi.getPrevisionResi():0) ;
 		}catch(Exception e){			
 		}
 		
 		try{
-			 spd =(medResi!=null?medResi.getPrevisionSPD():0) ;
+			 spd =(medResi!=null√≠medResi.getPrevisionSPD():0) ;
 				if(resi!=spd) medResi.setCuadraPrevision(false);
 		}catch(Exception e){			
 		}
@@ -3634,7 +3634,7 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 			" | Observaciones --> " + medResi.getResiObservaciones() + 
 			" | TipoMedicacion --> " + medResi.getResiTipoMedicacion() +
 			" | DetalleRow --> " + medResi.getDetalleRow();  */
-			result = "|  <br>  SPD Robot --> " + medResi.getSpdCnFinal() + " - " + medResi.getSpdNombreBolsa() + "| AcciÛnRobot --> " + medResi.getSpdAccionBolsa()+ " <br> " +
+			result = "|  <br>  SPD Robot --> " + medResi.getSpdCnFinal() + " - " + medResi.getSpdNombreBolsa() + "| Acci√≥nRobot --> " + medResi.getSpdAccionBolsa()+ " <br> " +
 			" Dias --> " + medResi.getResiD1() + "|" + medResi.getResiD2() + "|" + medResi.getResiD3()+ "|" + medResi.getResiD4()+ "|" + medResi.getResiD5()+ "|" + medResi.getResiD6()+ "|" + medResi.getResiD7() + "|" + 
 			" Tomas --> " + getTextoTomas(medResi) + 
 			"  <br> Resi&nbsp;&nbsp; fecha Desde-Hasta --> " + medResi.getFechaDesde() + "-" + medResi.getFechaDesde() + " " +  
@@ -3694,7 +3694,7 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 	            }
 	        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
 	            // Manejar las excepciones adecuadamente
-	            System.err.println("Error al acceder a los mÈtodos de resiToma: " + e.getMessage());
+	            System.err.println("Error al acceder a los m√©todos de resiToma: " + e.getMessage());
 	        }
 
 	       // System.out.println("La suma de las resiTomas es: " + suma);
@@ -3702,7 +3702,7 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 	    }
 
 	/**
-	 * Como FETCH es una cl·usula de versiÛn SQLSERVER>2008 se crea una funciÛn un poco m·s engorrosa pero
+	 * Como FETCH es una cl√°usula de versi√≥n SQLSERVER>2008 se crea una funci√≥n un poco m√°s engorrosa pero
 	 * que sirve para todas las versiones (ROW_NUMBER() OVER)
 	 * @param form
 	 * @param inicio
@@ -3724,9 +3724,9 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 
 
 	 public static String getDetalleRowFechasOk(String cadena) {
-	        // ExpresiÛn regular para encontrar n˙meros de fecha que comienzan con 3 o 4 y tienen 5 cifras
-		 	// Fechas del siglo XX (1900-1999): N˙meros de serie de 1 a 36525 (31/12/1999).
-		 	// Fechas del siglo XXI (2000-): N˙meros de serie de 36526 en adelante.
+	        // Expresi√≥n regular para encontrar n√∫meros de fecha que comienzan con 3 o 4 y tienen 5 cifras
+		 	// Fechas del siglo XX (1900-1999): N√∫meros de serie de 1 a 36525 (31/12/1999).
+		 	// Fechas del siglo XXI (2000-): N√∫meros de serie de 36526 en adelante.
 	        String regex = "\\b[3-4]\\d{4}\\b";
 	        Pattern pattern = Pattern.compile(regex);
 	        Matcher matcher = pattern.matcher(cadena!=null?cadena:"");
@@ -3750,9 +3750,9 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 	    }
 
 /**
- * MÈtodo UNICAMENTE de momento para detalleRowKeyLiteFechas, para poder comparar las cargas con el anterior.
- * Devuelve las fechas en formato dd/mm/yyyy pero no est· puesto para el resto para no alterar los detalleRow y dem·s actuales, porque 
- * provocarÌa muchas diferencias en cargas posteriores al cambiar el valor del campo
+ * M√©todo UNICAMENTE de momento para detalleRowKeyLiteFechas, para poder comparar las cargas con el anterior.
+ * Devuelve las fechas en formato dd/mm/yyyy pero no est√° puesto para el resto para no alterar los detalleRow y dem√°s actuales, porque 
+ * provocar√≠a muchas diferencias en cargas posteriores al cambiar el valor del campo
  * @param cadena
  * @return
  */
@@ -3763,7 +3763,7 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 		    String regex =
 		        "\\b(\\d{1,2})[-/](\\d{1,2})[-/](\\d{2,4})\\b" + // dd-mm-yy, dd/mm/yyyy
 		        "|\\b(\\d{4})[-/](\\d{1,2})[-/](\\d{1,2})\\b" +   // yyyy-mm-dd
-		        "|\\b([3-4]\\d{4})\\b" +                              // Fechas numÈricas de Excel
+		        "|\\b([3-4]\\d{4})\\b" +                              // Fechas num√©ricas de Excel
 		        "|\\b(\\d{2})(\\d{2})(\\d{2,4})\\b";              // ddmmyy o ddmmyyyy
 
 		    Pattern pattern = Pattern.compile(regex);
@@ -3782,7 +3782,7 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 		                    Integer.parseInt(matcher.group(5)),
 		                    Integer.parseInt(matcher.group(6))
 		                ).format(outputFormatter);
-		            } else if (matcher.group(7) != null) { // Fecha numÈrica de Excel
+		            } else if (matcher.group(7) != null) { // Fecha num√©rica de Excel
 		                int diasDesde1900 = Integer.parseInt(matcher.group(7));
 		                reemplazo = LocalDate.of(1900, 1, 1)
 		                    .plusDays(diasDesde1900 - 2)
@@ -3819,15 +3819,15 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 		}
     
 	  public static LocalDate convertirFechaNumerica(int fechaNumerica) {
-	        // La fecha base de Excel es el 1 de enero de 1900 con un error de 1 dÌa
+	        // La fecha base de Excel es el 1 de enero de 1900 con un error de 1 d√≠a
 	        LocalDate fechaBaseExcel = LocalDate.of(1899, 12, 30);
 
-	        // Sumar el n˙mero de dÌas a la fecha base de Excel
+	        // Sumar el n√∫mero de d√≠as a la fecha base de Excel
 	        return fechaBaseExcel.plusDays(fechaNumerica);
 	    }
 
 	    public static String convertirAFechaNumerica(String cadena) {
-	        // ExpresiÛn regular para encontrar fechas en formato "dd/MM/yyyy"
+	        // Expresi√≥n regular para encontrar fechas en formato "dd/MM/yyyy"
 	        String regex = "\\b\\d{2}/\\d{2}/\\d{4}\\b";
 	        Pattern pattern = Pattern.compile(regex);
 	        Matcher matcher = pattern.matcher(cadena);
@@ -3835,7 +3835,7 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 	        // Formato de fecha "dd/MM/yyyy"
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-	        // Iterar sobre las coincidencias y reemplazarlas con la fecha convertida a formato numÈrico
+	        // Iterar sobre las coincidencias y reemplazarlas con la fecha convertida a formato num√©rico
 	        StringBuffer sb = new StringBuffer();
 	        while (matcher.find()) {
 	            String fechaStr = matcher.group();
@@ -3852,14 +3852,14 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 	        // La fecha base de Excel es el 30 de diciembre de 1899
 	        LocalDate fechaBaseExcel = LocalDate.of(1899, 12, 30);
 
-	        // Calcular la diferencia total de dÌas entre las dos fechas
+	        // Calcular la diferencia total de d√≠as entre las dos fechas
 	        long diasTranscurridos = ChronoUnit.DAYS.between(fechaBaseExcel, fecha);
 
 	        return (int) diasTranscurridos;
 	    }
 	  
 	    public static StringBuilder convertirListSecuencia(List aHistorico) {
-	       //creamos la secuencia de oid a pasar a histÛrico
+	       //creamos la secuencia de oid a pasar a hist√≥rico
 		  StringBuilder valores = new StringBuilder();
 		  for (int i = 0; i < aHistorico.size(); i++) {
 		      valores.append(aHistorico.get(i));
@@ -3880,7 +3880,7 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 				if(row.size()>COLUMNAS) 
 		   	 		detalleRow = row.subList(0, COLUMNAS).toString();
 			}
-	        // Procesa la cadena de Excel y conviÈrtela en un arreglo o lista, por ejemplo
+	        // Procesa la cadena de Excel y convi√©rtela en un arreglo o lista, por ejemplo
 	       detalleRow = StringUtil.quitaEspaciosYAcentos(detalleRow.toString().replaceAll("[\\[\\]]", "").replaceAll("'", " "), true);
 	       //detalleRow = detalleRow.toString().replaceAll("[\\[\\]]", "").replaceAll("'", " ");
 			return detalleRow;
@@ -3897,7 +3897,7 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 	        return sb.toString();
 	    }
 	    
-	    // MÈtodos para enmascarar los campos
+	    // M√©todos para enmascarar los campos
 	    public static String enmascararCIP(String cip) {
 	        if (cip != null && cip.length() > 10) {
 	            return cip.substring(0, 5) + "*****" + cip.substring(cip.length() - 1);
@@ -3925,7 +3925,7 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 	            } else {
 	                resultado.append(palabra); // Si la palabra tiene 3 o menos caracteres, no se enmascara
 	            }
-	            resultado.append(" "); // AÒade un espacio entre palabras
+	            resultado.append(" "); // A√±ade un espacio entre palabras
 	        }
 
 	        return resultado.toString().trim(); // Elimina el espacio extra al final
@@ -3957,7 +3957,7 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 	            	//System.out.println("4");
                 resultado.append(palabra); // Si la palabra tiene  "inicio" caracteres, no se enmascara
 	            }	  
-	            resultado.append(" "); // AÒade un espacio entre palabras
+	            resultado.append(" "); // A√±ade un espacio entre palabras
 	        }
 
 	        return resultado.toString().trim(); // Elimina el espacio extra al final

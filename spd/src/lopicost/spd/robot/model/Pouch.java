@@ -16,7 +16,7 @@ public class Pouch {
     private String doseTime;
     private String layout;
     private String freeInformation;
-    private List<DrugRX> drugs = new ArrayList<DrugRX>(); //inicializadas paa añadir directamente
+    private List<DrugRX> drugs = new ArrayList<DrugRX>(); //inicializadas paa aÃ±adir directamente
     private List<Print> prints= new ArrayList<Print>();;
 
     @XmlAttribute

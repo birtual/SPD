@@ -14,7 +14,7 @@
 
 <head>
 <jsp:include page="/spd/jsp/global/head.jsp"/>
-<title>Avisos de importación</title>
+<title>Avisos de importaciÃ³n</title>
 </head>
 
 <bean:define id="formulari" name="FicheroResiForm" type="lopicost.spd.struts.form.FicheroResiForm" />
@@ -22,7 +22,7 @@
 
 <body id="general">
 	<center>
-		<h2>Avisos de importación</h2>
+		<h2>Avisos de importaciÃ³n</h2>
 		<html:form action="/FicheroResiCabeceraLite.do" method="post">	
 
 	<bean:define id="data" name="formulari" property="ficheroResiDetalleBean" />

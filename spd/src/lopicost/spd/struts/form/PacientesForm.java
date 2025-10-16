@@ -51,8 +51,8 @@ public class PacientesForm   extends GenericForm {
 	private String fechaAltaPaciente;				//fechaAltaPaciente     varchar(30) DEFAULT getdate(),
 	private String idFarmatic="";					//idFarmatic            varchar(15),
 	private String codigoUP;						//codigoUP				varchar(15),
-	private List ficheroResiCabecera;				//Listado de los tratamiento cargado del paciente para una producciÛn 				
-	private int oidFicheroResiCabecera;				//tratamiento cargado del paciente para una producciÛn 				
+	private List ficheroResiCabecera;				//Listado de los tratamiento cargado del paciente para una producci√≥n 				
+	private int oidFicheroResiCabecera;				//tratamiento cargado del paciente para una producci√≥n 				
 
 
 	private String filtroEstadosResidente = "";
@@ -81,19 +81,19 @@ public class PacientesForm   extends GenericForm {
         super.reset(mapping, request);
         // Re-inicializa con la fecha actual cada vez que se resetea el formulario
         inicializarFechaAlta();
-       // Inicializar el EstadosSPD con 'S' si no est· establecido
+       // Inicializar el EstadosSPD con 'S' si no est√° establecido
        if (this.filtroEstadosSPD == null || this.filtroEstadosSPD.isEmpty()) {
            this.filtroEstadosSPD = "%";
        }
-       // Inicializar el paÒales con 'S' si no est· establecido
+       // Inicializar el pa√±ales con 'S' si no est√° establecido
        if (this.filtroBolquers == null || this.filtroBolquers.isEmpty()) {
            this.filtroBolquers = "%";
        }    
-       // Inicializar el estado a ACTIVO si no est· establecido
+       // Inicializar el estado a ACTIVO si no est√° establecido
        if (this.filtroEstadosResidente == null || this.filtroEstadosResidente.isEmpty()) {
            this.filtroEstadosResidente = "ACTIVO";
        }    
-       // Inicializar el estado a ACTIVO si no est· establecido
+       // Inicializar el estado a ACTIVO si no est√° establecido
        if (this.filtroEstatusResidente == null || this.filtroEstatusResidente.isEmpty()) {
            this.filtroEstatusResidente = "";
        }    

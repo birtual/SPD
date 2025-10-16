@@ -37,7 +37,7 @@ public class AvisosAction extends GenericAction  {
 		Usuario user = UsuarioDAO.findByIdUser(getIdUsuario());
 		if(user==null) 
 		{
-	    	errors.add( "Error sesión usuario, es necesario volver a hacer login");
+	    	errors.add( "Error sesiÃ³n usuario, es necesario volver a hacer login");
 			return mapping.findForward("errorSession");
 		}
 		
@@ -91,7 +91,7 @@ public class AvisosAction extends GenericAction  {
 		Usuario user = UsuarioDAO.findByIdUser(getIdUsuario());
 		if(user==null) 
 		{
-	    	errors.add( "Error sesión usuario, es necesario volver a hacer login");
+	    	errors.add( "Error sesiÃ³n usuario, es necesario volver a hacer login");
 			return mapping.findForward("errorSession");
 		}
 		Aviso aviso=AvisosDAO.findByOid(getIdUsuario(), formulari.getOidAviso());
@@ -125,7 +125,7 @@ public class AvisosAction extends GenericAction  {
 		Usuario user = UsuarioDAO.findByIdUser(getIdUsuario());
 		if(user==null) 
 		{
-	    	errors.add( "Error sesión usuario, es necesario volver a hacer login");
+	    	errors.add( "Error sesiÃ³n usuario, es necesario volver a hacer login");
 			return mapping.findForward("errorSession");
 		}	
 		
@@ -148,7 +148,7 @@ public class AvisosAction extends GenericAction  {
 				list( mapping,  form,  request,  response);
 				return mapping.findForward("list");
 			}
-			else errors.add( "No se ha podido crear el registro, revisa que el IDENLACE sea único");
+			else errors.add( "No se ha podido crear el registro, revisa que el IDENLACE sea Ãºnico");
 	
 			
 			f.setErrors(errors);

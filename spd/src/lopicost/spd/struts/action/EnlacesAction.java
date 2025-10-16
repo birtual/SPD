@@ -95,7 +95,7 @@ public class EnlacesAction extends GenericAction  {
 
     
 	public ActionForward nuevo(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//inicializamos para que no haya datos de otros m�dulos
+		//inicializamos para que no haya datos de otros módulos
 		
 		EnlacesForm f =  (EnlacesForm) form;
 		Usuario user = UsuarioDAO.findByIdUser(f.getIdUsuario());

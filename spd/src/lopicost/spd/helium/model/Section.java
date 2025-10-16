@@ -6,8 +6,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "section")
 public class Section {
 	@XmlAttribute(name = "idSection")
-	private String idSection;							// Identificador único de la sección
-	private String name;								// Nombre de la sección
+	private String idSection;							// Identificador Ãºnico de la secciÃ³n
+	private String name;								// Nombre de la secciÃ³n
 	private String observations;						// Observaciones
 	
 	

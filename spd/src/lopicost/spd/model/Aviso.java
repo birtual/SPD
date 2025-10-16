@@ -26,7 +26,7 @@ public class Aviso implements Serializable
         try {
             return dateStr != null && !dateStr.isEmpty() ? DATE_FORMAT.parse(dateStr) : null;
         } catch (Exception e) {
-            return null; // Manejar la excepción adecuadamente si el formato es incorrecto
+            return null; // Manejar la excepciÃ³n adecuadamente si el formato es incorrecto
         }
     }
    

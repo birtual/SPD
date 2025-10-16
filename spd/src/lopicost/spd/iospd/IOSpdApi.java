@@ -23,7 +23,7 @@ import java.util.Vector;
 
 public class IOSpdApi 
 {
-    private String caracteresValidos = "[A-Z|a-z|º|ª|ñ|Ñ|á|é|í|ó|ä|ë|ö|ü|ç|à|è|ì|ò|ù|,]";
+    private String caracteresValidos = "[A-Z|a-z|Âº|Âª|Ã±|Ã‘|Ã¡|Ã©|Ã­|Ã³|Ã¤|Ã«|Ã¶|Ã¼|Ã§|Ã |Ã¨|Ã¬|Ã²|Ã¹|,]";
     
     public static final String ERRORCODE_REGISTRATION_GENERIC			= "E01";
 	
@@ -51,12 +51,12 @@ public class IOSpdApi
 	
     /**
      * 20211029_NO USADO porque conservamos los datos de ficheros por procesos
-     * Método encargado de realizar un borrado de los datos idproceso-CIP-CN de la tabla principal y guardarlos en 
-     * la tabla de histórico  
+     * MÃ©todo encargado de realizar un borrado de los datos idproceso-CIP-CN de la tabla principal y guardarlos en 
+     * la tabla de histÃ³rico  
      * @param medResi
      * @throws Exception 
 	public void limpiarCIPIdprocesoAnterior(String spdUsuario, FicheroResiBean medResi) throws Exception {
-		//GUARDAMOS HISTÓRICO 
+		//GUARDAMOS HISTÃ“RICO 
 		FicheroResiDetalleDAO.generarHistoricoProcesoAnterior(spdUsuario,  medResi, true);
 		//BORRAMOS
 		FicheroResiDetalleDAO.limpiarCIPIdproceso(spdUsuario,  medResi, true);
@@ -64,8 +64,8 @@ public class IOSpdApi
 	}
 */	
 	/**
-	 * Método encargardo de chequear si los datos que se reciben son correctos y es
-	 * un tratamiento válido
+	 * MÃ©todo encargardo de chequear si los datos que se reciben son correctos y es
+	 * un tratamiento vÃ¡lido
 	 * @param medResi
 	 * @param row 
 	 * @return
@@ -79,10 +79,10 @@ public class IOSpdApi
 
 	
 	/**
-	 * Método que retorna si una linea de tratamiento recibida por iospd es válido. 
-	 * Se tendrá en cuenta únicamente si: 
+	 * MÃ©todo que retorna si una linea de tratamiento recibida por iospd es vÃ¡lido. 
+	 * Se tendrÃ¡ en cuenta Ãºnicamente si: 
 	 *  - Se recibe alguna de las tomas con datos, 
-	 *  - Se recibe  CIP y nombre de paciente (con uno de los dos sería suficiente)
+	 *  - Se recibe  CIP y nombre de paciente (con uno de los dos serÃ­a suficiente)
 	 *  - Se recibe un CN o un nmbre de medicamento
 	 * @param medResi
 	 * @return 
@@ -113,12 +113,12 @@ public static FicheroResiBean checkTratamientoValido(String spdUsuario, FicheroR
 		if(b.getSpdNombreBolsa()==null || b.getSpdNombreBolsa().equals("") )
 			mensaje += "  <br> Falta Nombre medicamento Robot. ";
 		if(b.getSpdAccionBolsa()==null || b.getSpdAccionBolsa().equals("") )
-			mensaje += "  <br> Falta Acción en bolsa. ";
+			mensaje += "  <br> Falta AcciÃ³n en bolsa. ";
 		
 		if(mensaje!=null && !mensaje.equals(""))
 		{
 			b.setIncidencia("SI");
-			b.setResultLog(" <br> Registro con incidencias el día " + DateUtilities.actualDate());
+			b.setResultLog(" <br> Registro con incidencias el dÃ­a " + DateUtilities.actualDate());
 			if(!b.getMensajesAlerta().contains(mensaje))
 				b.setMensajesAlerta(b.getMensajesAlerta() + " - " +  mensaje);
 		}
@@ -135,7 +135,7 @@ public static FicheroResiBean checkTratamientoValido(String spdUsuario, FicheroR
 	
 /*
 	private FicheroResiBean checkTratamientoValido(FicheroResiBean medResi) {
-		//pautas, que ya vienen "limpias" de espacios y demás
+		//pautas, que ya vienen "limpias" de espacios y demÃ¡s
 		if(
 			(
 					//viene sin CIP y sin nombre
@@ -153,7 +153,7 @@ public static FicheroResiBean checkTratamientoValido(String spdUsuario, FicheroR
 		{
 			medResi.setIncidencia("SI");
 			medResi.setPersistir(true);
-			medResi.setResultLog(" * Registro sin datos válidos. ");
+			medResi.setResultLog(" * Registro sin datos vÃ¡lidos. ");
 		}
 		
 		return medResi;
@@ -288,7 +288,7 @@ public static FicheroResiBean checkTratamientoValido(String spdUsuario, FicheroR
 
 
 	public void limpiarCIPsInactivos() throws ClassNotFoundException, SQLException {
-		//GUARDAMOS HISTÓRICO 
+		//GUARDAMOS HISTÃ“RICO 
 		FicheroMedResiDAO.creaHistoricoPacientesInactivos();
     	FicheroMedResiConPrevisionDAO.creaHistoricoPacientesInactivos();
 		FicheroMedResiDAO.borraProcesosPacientesInactivos();
@@ -299,7 +299,7 @@ public static FicheroResiBean checkTratamientoValido(String spdUsuario, FicheroR
 	public static void limpiarCIPIdprocesoAnterior(String idProceso, String resiCIP) throws ClassNotFoundException, SQLException {
 		FicheroMedResiDAO.limpiarDatosHistoricoProcesosAnterioresCIP( idProceso, resiCIP);		//limpiamos datos del hst para no redundar CIP-idProcesos-CN ya que se necesita consultar producciones
 		FicheroMedResiDAO.creaHistoricoProcesosAnterioresCIP(resiCIP);				//creamos el hst del CIP-idProceso anteriores
-		FicheroMedResiDAO.limpiarDatosCIP(resiCIP);			//borramos el CIP-idProceso que ya está en hst
+		FicheroMedResiDAO.limpiarDatosCIP(resiCIP);			//borramos el CIP-idProceso que ya estÃ¡ en hst
 		FicheroMedResiConPrevisionDAO.limpiarDatosHistoricoProcesosAnterioresCIP( idProceso, resiCIP);
 		FicheroMedResiConPrevisionDAO.creaHistoricoProcesosAnterioresCIP( resiCIP);
 		FicheroMedResiConPrevisionDAO.limpiarDatosCIP(resiCIP);
@@ -332,7 +332,7 @@ public static FicheroResiBean checkTratamientoValido(String spdUsuario, FicheroR
 	}
 
 	/**
-	 * Se encarga de eliminar filas huérfanas de detalle sin que tengan oidFicheroResiCabecera asociadas
+	 * Se encarga de eliminar filas huÃ©rfanas de detalle sin que tengan oidFicheroResiCabecera asociadas
 	 * @return
 	 * @throws Exception
 	 */
@@ -342,7 +342,7 @@ public static FicheroResiBean checkTratamientoValido(String spdUsuario, FicheroR
 	}
 
 	/**
-	 * Si quedan procesos que no suben correctamente y que no pasan a estado validado, se actualizará a descartado si han pasado dos dias desde la subida
+	 * Si quedan procesos que no suben correctamente y que no pasan a estado validado, se actualizarÃ¡ a descartado si han pasado dos dias desde la subida
 	 * @return
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
@@ -354,7 +354,7 @@ public static FicheroResiBean checkTratamientoValido(String spdUsuario, FicheroR
 
 	
 	/**
-	 * Método encargado de vaciar un poco la gestión de producciones para enviar a histórico las que llevan un tiempo determinado.
+	 * MÃ©todo encargado de vaciar un poco la gestiÃ³n de producciones para enviar a histÃ³rico las que llevan un tiempo determinado.
 	 * @return
 	 * @throws Exception
 	 */
@@ -363,14 +363,14 @@ public static FicheroResiBean checkTratamientoValido(String spdUsuario, FicheroR
 		Connection conn = null;
 	    boolean result = false;
 	    try {
-	        conn = Conexion.conectar(); // Obtener la conexión a la base de datos
-	        conn.setAutoCommit(false); // Desactivar el modo de autocommit para iniciar una transacción
+	        conn = Conexion.conectar(); // Obtener la conexiÃ³n a la base de datos
+	        conn.setAutoCommit(false); // Desactivar el modo de autocommit para iniciar una transacciÃ³n
 
 	        List aHistorico = FicheroResiCabeceraDAO.getCabecerasProcesosAnterioresAHistorico();
 
 	        if(aHistorico!=null && aHistorico.size()>0)
 	        {
-		        // Realizar las operaciones de borrado dentro de la transacción
+		        // Realizar las operaciones de borrado dentro de la transacciÃ³n
 		        result = FicheroResiCabeceraDAO.cabecerasProcesosAnterioresAHistorico(conn, aHistorico);
 		        result &= FicheroResiDetalleDAO.detalleProcesosAnterioresAHistorico(conn, aHistorico);
 		        result &= FicheroResiDetalleDAO.borrarDetalleYaEnHistorico(conn, aHistorico);
@@ -382,18 +382,18 @@ public static FicheroResiBean checkTratamientoValido(String spdUsuario, FicheroR
 	        if (result) {
 	            conn.commit();
 	        } else {
-	            // Si alguna operación falla, realizar rollback
+	            // Si alguna operaciÃ³n falla, realizar rollback
 	            conn.rollback();
 	        }
 	    } catch (SQLException ex) {
-	        // Manejar la excepción
+	        // Manejar la excepciÃ³n
 	        //ex.printStackTrace();
-	        // Realizar rollback en caso de excepción
+	        // Realizar rollback en caso de excepciÃ³n
 	        if (conn != null) {
 	            conn.rollback();
 	        }
 	    } finally {
-	        // Cerrar la conexión
+	        // Cerrar la conexiÃ³n
 	        if (conn != null) {
 	            conn.setAutoCommit(true); // Restaurar el modo de autocommit
 	            conn.close();

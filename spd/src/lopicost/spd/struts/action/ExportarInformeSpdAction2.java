@@ -36,7 +36,7 @@ public class ExportarInformeSpdAction2 extends GenericAction {
 	    f.setCabecera(cab);
 
 	    InformeHelper helper = new InformeHelper();
-	    List<ProduccionPaciente> producciones = helper.findByIdResidenciaCarga(getIdUsuario(), cab);
+	    List<ProduccionPaciente> producciones = helper.findByIdResidenciaCarga(getIdUsuario(), cab, false);
 	    f.setProducciones(producciones);
 
 	    return mapping.findForward(forwardName);
@@ -46,7 +46,7 @@ public class ExportarInformeSpdAction2 extends GenericAction {
    
     public ActionForward globalLiteAll(ActionMapping mapping, ActionForm form,
                                  HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // 1. Obtener datos desde tu servicio igual que en la acción de HTML
+        // 1. Obtener datos desde tu servicio igual que en la acciÃ³n de HTML
         InformeSpdForm formulario = (InformeSpdForm) form;
 
    

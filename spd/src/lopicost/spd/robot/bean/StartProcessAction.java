@@ -130,7 +130,7 @@ public class StartProcessAction extends GenericAction {
 	// Paso1 - Borrado previo de posibles datos del mismo proceso  
     private boolean paso1(FicheroResiBean cabDetalle, DivisionResidencia div) throws ClassNotFoundException, SQLException, ParseException {
     	setPorcentaje(5);
-    	PlantillaUnificadaHelper.borraProceso(getIdUsuario(),  cabDetalle);
+    	//antipete PlantillaUnificadaHelper.borraProceso(getIdUsuario(),  cabDetalle);
       	return true;
     }
 
@@ -147,7 +147,7 @@ public class StartProcessAction extends GenericAction {
 	// Paso3 - Recuperamos la lista de detalleTomas ya ordenada
     private List<DetallesTomasBean> paso3(FicheroResiBean cabDetalle) throws ClassNotFoundException, SQLException, ParseException {
     	setPorcentaje(15);
-    	setDetalleTomas(PlantillaUnificadaHelper.getDetalleTomasRobot(getIdUsuario(),  cabDetalle, getTomasOrdenadas()));
+    	//antipete setDetalleTomas(PlantillaUnificadaHelper.getDetalleTomasRobot(getIdUsuario(),  cabDetalle, getTomasOrdenadas()));
       	return getDetalleTomas();
     }
    
@@ -161,7 +161,8 @@ public class StartProcessAction extends GenericAction {
 
      // Paso5 - Procesar Excepciones (Falguera) 
     private boolean paso5(FicheroResiBean cabDetalle, DivisionResidencia div) throws ClassNotFoundException, SQLException, ParseException {
-    	 return PlantillaUnificadaHelper.procesarExcepciones(getIdUsuario(),  cabDetalle);
+    	//antipete return PlantillaUnificadaHelper.procesarExcepciones(getIdUsuario(),  cabDetalle);
+    	return false;
     }
 
     // Paso6 - Creación del FiliaDM 
@@ -173,7 +174,7 @@ public class StartProcessAction extends GenericAction {
 
     // Paso7 - Creación del FiliaRX
     private boolean paso7(FicheroResiBean cabDetalle, DivisionResidencia div, HttpServletResponse response) throws Exception {
-		FiliaRX filiaRX = PlantillaUnificada.creaFicheroRX(getIdUsuario(), cabDetalle, div);
+		FiliaRX filiaRX = PlantillaUnificada.creaFicheroRX(getIdUsuario(), cabDetalle, div, null);
 		String nombreFicheroFiliaRX=PlantillaUnificadaHelper.generaFicheroRX(cabDetalle, filiaRX,  response);
 		return true;
 

@@ -58,35 +58,44 @@
 				</p> 
 			</div> 
 			
-		<logic:notEmpty  name="formulari" property="listaDivisionResidencia">
+			
+		<c:if test="${not empty formulari.listaDivisionResidencia}">
+		
 			<table  id="listaDivisionResidencia" align="center" border="1">
 				<tr>
 					<th>idDivisionResidencia</th>
-				 	<th>nombreDivisionResidencia</th>
+				 	<th>Residencia</th>
 					<th>Farmacia</th>
 					<th>idLayout</th>
-					<th>nombreBolsa</th>
-					<th>aplicativo</th>
 					<th>idProcessIospd</th> 		
-					<th>tipoCLIfarmatic</th>
-					<th>locationId</th>
-					<th>Servir ""Si Precisa"</th>
+					<th>nombre en bolsa</th>
+					<th>nombre en robot</th>
+					<th>Servir Si Precisa?</th>
+					<th>cargar solo CIPS existentes</th>
 					<th>Acciones</th>
 			   </tr>
-		
-		
-		 	<logic:iterate id="data" name="formulari" property="listaDivisionResidencia" type="lopicost.spd.model.DivisionResidencia" indexId="position">
-				<tr>
-					<td><bean:write name="data" property="idDivisionResidencia" /></td>
-					<td><bean:write name="data" property="nombreDivisionResidencia" /></td>
-					<td><bean:write name="data" property="idFarmacia" /></td>
-					<td><bean:write name="data" property="idLayout" /></td>
-					<td><bean:write name="data" property="nombreBolsa" /></td>
-					<td>aplicativo</td>
-					<td><bean:write name="data" property="idProcessIospd" /></td>
-					<td><bean:write name="data" property="tipoCLIfarmatic" /></td>
-					<td><bean:write name="data" property="locationId" /></td>
-					<td>Servir ""Si Precisa"</td>
+		 
+		 <c:forEach items="${formulari.listaDivisionResidencia}" var="data"> 
+			<tr>
+					<td>${data.idDivisionResidencia}</td>
+					<td>${data.nombreDivisionResidencia}</td>
+					<td>${data.nombreFarmacia}</td>
+					<td>${data.idLayout}</td>
+					<td>${data.idProcessIospd}</td>
+					<td>${data.nombreBolsa}</td>
+					<td>${data.locationId}</td>
+					<td>					    
+						<select name="servirSiPrecisa" id="servirSiPrecisa">
+					      <option value="1" <c:if test="${data.servirSiPrecisa == 1}">selected</c:if>>Sí</option>
+					      <option value="0" <c:if test="${data.servirSiPrecisa == 0}">selected</c:if>>No</option>
+					    </select>
+					    </td>
+					<td>    
+					    <select name="cargarSoloCipsExistentes" id="cargarSoloCipsExistentes">
+					      <option value="1" <c:if test="${data.cargarSoloCipsExistentes == 1}">selected</c:if>>Sí</option>
+					      <option value="0" <c:if test="${data.cargarSoloCipsExistentes == 0}">selected</c:if>>No</option>
+					    </select>
+    				</td>
 					<td>
 						<p class="botons">
 							<input type="button" onclick="javascript:goDetalle('<bean:write name="data" property="oidDivisionResidencia" />');"  value="Detalle"  />
@@ -94,10 +103,10 @@
 						</p>
 					</td>
 				</tr>
-		    </logic:iterate>
+		    </c:forEach> 
 		</table>
 
-	</logic:notEmpty>
+	</c:if> 
 
 	<logic:empty  name="formulari" property="listaDivisionResidencia">
 		<div>No existen registros a mostrar</div>

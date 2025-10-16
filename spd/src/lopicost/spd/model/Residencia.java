@@ -23,7 +23,7 @@ public class Residencia implements Serializable {
 	  private String status="";
 	  private String layoutBolsa="";
 	  private String locationID;
-	  private String servirSiPrecisa;
+	  private int servirSiPrecisa;
 	  private int cargarSoloCipsExistentes ;							//cargarSoloCipsExistentes 'Indica si solo deben cargarse los CIPs que ya existen en el sistema (1 = sí, 0 = no)', ,
 
 	public Residencia() {
@@ -182,11 +182,11 @@ public class Residencia implements Serializable {
 		this.locationID = locationID;
 	}
 
-	public String getServirSiPrecisa() {
+	public int getServirSiPrecisa() {
 		return servirSiPrecisa;
 	}
 
-	public void setServirSiPrecisa(String servirSiPrecisa) {
+	public void setServirSiPrecisa(int servirSiPrecisa) {
 		this.servirSiPrecisa = servirSiPrecisa;
 	}
 

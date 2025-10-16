@@ -11,6 +11,7 @@ import lopicost.spd.iospd.statistics.DefaultStatistics;
 import lopicost.spd.iospd.statistics.ProcessStatistics;
 import lopicost.spd.model.DivisionResidencia;
 import lopicost.spd.persistence.DivisionResidenciaDAO;
+import lopicost.spd.utils.DateUtilities;
 import lopicost.spd.utils.MessageManager;
 import lopicost.spd.utils.StringUtil;
 import lopicost.spd.utils.TextManager;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
-import java.util.regex.Pattern;
+
 
 
 public abstract class ImportProcessImpl implements ImportProcess
@@ -189,7 +190,12 @@ public abstract class ImportProcessImpl implements ImportProcess
 			            	int filasExcel = this.getProcessedRows()+1 ;
 			            	//errores= TextManager.getMensaje("ImportData.error.linea")+" " + rowInProcess.toString();
 			            	//errores= TextManager.getMensaje("ImportData.error.linea")+" " + rowInProcess;
-	                        errores= "Fila " +filasExcel + " descartada: "  + rowInProcess;
+	                        //errores= "<B><FONT COLOR='black'>"+DateUtilities.getDatetoString("ddMMyyyy_Hmm", new Date()) + "</FONT></B> -  Fila " +filasExcel + " descartada: "  + rowInProcess;
+	                        errores = "<B><FONT COLOR='black'>"
+	                        	    + DateUtilities.getDatetoString("dd/MM/yyyy HH:mm", new Date())
+	                        	    + " ⟶ </FONT></B>  Fila " + filasExcel 
+	                        	    + " <u>descartada</u>: " + rowInProcess;
+	                        
 	                        if(e.getMessage()!=null && !e.getMessage().equalsIgnoreCase("") && !e.getMessage().equalsIgnoreCase("null")) 
 	                        	errores+= " - " +  e.getMessage();
 			            }

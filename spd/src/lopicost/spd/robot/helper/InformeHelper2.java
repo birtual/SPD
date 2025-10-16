@@ -160,7 +160,8 @@ public class InformeHelper2 {
 
 	public List<ProduccionPaciente> findByIdResidenciaCarga(String spdUsuario, FicheroResiBean cab) throws Exception {
 		//return InformeSpdDAO.findByIdResidenciaCarga(spdUsuario, cab);
-		return InformeSpdDAO.findLiteByResidenciaCarga(spdUsuario, cab);
+    	//antipete return InformeSpdDAO.findLiteByResidenciaCarga(spdUsuario, cab);
+		return null;
 		
 		
 	}

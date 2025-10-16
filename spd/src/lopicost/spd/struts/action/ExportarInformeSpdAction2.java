@@ -36,8 +36,8 @@ public class ExportarInformeSpdAction2 extends GenericAction {
 	    f.setCabecera(cab);
 
 	    InformeHelper helper = new InformeHelper();
-	    List<ProduccionPaciente> producciones = helper.findByIdResidenciaCarga(getIdUsuario(), cab, false);
-	    f.setProducciones(producciones);
+    	//antipete List<ProduccionPaciente> producciones = helper.findByIdResidenciaCarga(getIdUsuario(), cab, false);
+    	//antipete f.setProducciones(producciones);
 
 	    return mapping.findForward(forwardName);
 	}
@@ -55,13 +55,13 @@ public class ExportarInformeSpdAction2 extends GenericAction {
     	f.setCabecera(cab);
 
         InformeHelper helper = new InformeHelper();
-        List<ProduccionPaciente> producciones =  helper.findByIdResidenciaCarga("admin", cab);
+    	//antipete List<ProduccionPaciente> producciones =  helper.findByIdResidenciaCarga("admin", cab);
        
-        f.setProducciones(producciones);
+    	//antipete f.setProducciones(producciones);
 
         
         
-        request.setAttribute("producciones", producciones); // igual que en el JSP
+    	//antipete request.setAttribute("producciones", producciones); // igual que en el JSP
 
         // 2. Renderizar el JSP a HTML
         //String html = renderJspToHtml("/spd/app/robot/informeSpd/jsp/PDFInformeGlobal.jsp", request, response);

@@ -283,8 +283,8 @@ public class SustXGtDAO2 {
 	 */
 	private static  String getSelect(SustXGtForm form, boolean count) 
 	{
-		boolean esOR = (form.getFiltroLogico()!=null && form.getFiltroLogico().equalsIgnoreCase("OR")?true:false);
-		
+		//antipete boolean esOR = (form.getFiltroLogico()!=null && form.getFiltroLogico().equalsIgnoreCase("OR")?true:false);
+		boolean esOR =false;
 		String select = "";
 		//si es contador inicializo la query
 		if(count)  

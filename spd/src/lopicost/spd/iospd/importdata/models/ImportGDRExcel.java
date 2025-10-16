@@ -189,9 +189,9 @@ public class ImportGDRExcel extends ImportGenericLite
 		
 		if(existeDuplicado)
 			//this.errors.add(TextManager.getMensaje("ImportData.error.linea")+" " + row);
-			//this.errors.add("Es un tratamiento que está duplicado " );
+			this.errors.add("Es un tratamiento que está duplicado " );
 			//throw new Exception ("Es un tratamiento que está duplicado ");
-			throw new LineaDuplicadaException("Es un tratamiento que está duplicado ");
+			//throw new LineaDuplicadaException("Es un tratamiento que está duplicado ");
 		System.out.println(" -----  borrarPosibleDuplicado Fin-->  " );
 		
 	}

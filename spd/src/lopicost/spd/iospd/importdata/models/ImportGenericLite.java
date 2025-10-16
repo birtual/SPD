@@ -48,6 +48,7 @@ public class ImportGenericLite extends ImportProcessImpl
 
     protected boolean beforeProcesarEntrada(Vector row) throws Exception 
     {
+     	
     	//comprobación de que no es linea vacía, solo tendría dos caracteres, "[" y "]".
     	if(row!=null)
     	{
@@ -116,6 +117,10 @@ public class ImportGenericLite extends ImportProcessImpl
      	//if (row!=null && row.size()>=reg+1) así está en resi+
     	if (row!=null && row.size()>=reg && nulasSeguidas<SPDConstants.MAX_LINEAS_NULAS_CARGA)  //20250901 - Control de máx líneas nulas 
         {
+    		if(!cargaAnexa && div.getCargarSoloCipsExistentes()==1)
+    		{
+    			throw new Exception (" - <u>DESCARTADO</u>. Carga de " + (div.getNombreDivisionResidencia()!=null?div.getNombreDivisionResidencia().toUpperCase():"la residencia")  + " estricta a CIPS existentes en la gestión bIRTUAL ");
+    		}
     		if (this.rowsTratados.containsKey(String.valueOf(row))) {
     			throw new Exception ("Es un tratamiento que está duplicado ");
     		}
@@ -210,6 +215,9 @@ public class ImportGenericLite extends ImportProcessImpl
 
 	protected boolean beforeStart(String filein) throws Exception 
     {
+	   	cipsFicheroAnexo =new TreeMap<>();//inicialización
+
+
 		boolean result=false;
 		try {
 			if(isCargaAnexa())

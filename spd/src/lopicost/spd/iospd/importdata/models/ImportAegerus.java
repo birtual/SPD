@@ -93,10 +93,6 @@ public class ImportAegerus extends ImportProcessImpl
 					}catch(Exception e){} // Inicio de la carga de fichero.
 				}
 			}
-			
-			
-			
-			
 		} catch (ClassNotFoundException e) {
 			throw new Exception ("Error en la carga del fichero");
 		}
@@ -157,7 +153,7 @@ public class ImportAegerus extends ImportProcessImpl
        	System.out.println( "--> procesarEntrada. INICIO row  "  + new Date() );		
  
        	this.idProceso=idProceso;
-       	this.idDivisionResidencia=div!=null?idDivisionResidencia:null;
+       	this.idDivisionResidencia=div!=null?div.getIdDivisionResidencia():null;
         	 
         if (row != null && row.size() >= 12) {
         	

@@ -238,9 +238,9 @@ var clicks=0;  //para impedir que se ejecute dos cllicks en el proceso
 				<logic:notEmpty name="ImportIOSpdForm" property="errors">
 					<%request.setAttribute("listaErrores", formulari.getErrors());  %>
 						<font color="red"><ul>
-							<u>Descripción avisos"/></u>
+							<u>Descripción avisos</u>
 								<logic:iterate id="error" name="ImportIOSpdForm" property="errors" type="java.lang.String">
-									<li><bean:write name="error"/></li>
+									<li><bean:write name="error" filter="false"/></li>
 								</logic:iterate>
 								
 								<!--  <input type="button" class="clsButtonStyle" value="Exportar Errores" onclick="javascript:erroresExcel();" align="right">  -->

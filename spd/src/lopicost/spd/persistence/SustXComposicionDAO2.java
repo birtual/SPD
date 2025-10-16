@@ -497,8 +497,8 @@ public class SustXComposicionDAO2 {
 		query+= "'"+ form.getFiltroCodiLaboratorio()+"',   CONVERT(datetime, getdate(), 120), 'cargaMasiva', ";
 		query+= "'" + getNombreLaboratorio(form.getFiltroCodiLaboratorio())+"',   CONVERT(datetime, getdate(), 120) ";
   				
-		query+= getFrom(form);
-		query+= getWhere(form);
+		//antipete query+= getFrom(form);
+		//antipete query+= getWhere(form);
 			
 	/*	query+= "AND NOT EXISTS (SELECT codConjHomog, codiLab FROM dbo.SPD_sustXComposicion ";
 		query+= "WHERE codConjHomog=b.codConjHomog AND  codiLab='"+ form.getFiltroCodiLaboratorio()+"')";

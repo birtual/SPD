@@ -18,18 +18,27 @@ public class DivisionResidenciaDAO {
 	
 	static String className = "DivisionResidenciaDAO";
 	  
+	private static String getQueryBase(String spdUsuario) throws Exception {
+        String qry = "SELECT d.*, r.*, f.nombreFarmacia ";
+        	qry+= " from dbo.bd_divisionResidencia d ";
+			qry+= " INNER JOIN dbo.bd_residencia r  ON d.idResidencia=r.idResidencia ";
+			qry+= " INNER JOIN dbo.bd_farmacia f  ON f.idFarmacia=d.idFarmacia ";
+			qry+= " WHERE d.oidDivisionResidencia IN ( " + VisibilidadHelper.oidDivisionResidenciasVisibles(spdUsuario)  + ")";
+
+		return qry;
+	}
+	
+	
+	
     public static DivisionResidencia getDivisionResidenciaByOid(String spdUsuario, int oid) throws Exception {
      	
     	Connection con = Conexion.conectar();
         DivisionResidencia  c =new DivisionResidencia();
         if(oid>0)
 		{
-			String qry = "SELECT d.*, r.* FROM dbo.bd_divisionResidencia d  ";
-			qry+= " INNER JOIN dbo.bd_residencia r  ON d.idResidencia=r.idResidencia ";
-			qry+= " WHERE d.oidDivisionResidencia IN ( " + VisibilidadHelper.oidDivisionResidenciasVisibles(spdUsuario)  + ")";
-			qry+= " AND d.oidDivisionResidencia = '"+oid+"' ";
+			String qry = getQueryBase(spdUsuario);
+				qry+= " AND d.oidDivisionResidencia = '"+oid+"' ";
 
-			
 			System.out.println(className + "  - getDivisionResidenciaByOid -->  " +qry );		
 	         ResultSet resultSet = null;
 	       try {
@@ -57,16 +66,12 @@ public class DivisionResidenciaDAO {
         DivisionResidencia  c =new DivisionResidencia();
 		if(id!=null && !id.equals(""))
 		{
-			String qry = "SELECT d.*, r.* FROM dbo.bd_divisionResidencia d  ";
-			qry+= " INNER JOIN dbo.bd_residencia r  ON d.idResidencia=r.idResidencia ";
-			qry+= " WHERE 1=1 ";
-			qry+= " AND d.oidDivisionResidencia IN ( " + VisibilidadHelper.oidDivisionResidenciasVisibles(spdUsuario)  + ")";
+			String qry = getQueryBase(spdUsuario);
 			qry+= " AND d.idDivisionResidencia = '"+id+"' ";
 
-
-		 	   System.out.println(className + "  - getDivisionResidenciaById -->  " +qry );		
-	         ResultSet resultSet = null;
-	       try {
+			System.out.println(className + "  - getDivisionResidenciaById -->  " +qry );		
+	        ResultSet resultSet = null;
+	        try {
 	            PreparedStatement pstat = con.prepareStatement(qry);
 	            resultSet = pstat.executeQuery();
 
@@ -87,14 +92,12 @@ public class DivisionResidenciaDAO {
 	public static List<DivisionResidencia> getListaDivisionResidencias(String spdUsuario) throws Exception {
 	  	
 		   Connection con = Conexion.conectar();
-	        String qry = "SELECT d.*, r.* from dbo.bd_divisionResidencia d ";
-				qry+= " INNER JOIN dbo.bd_residencia r  ON d.idResidencia=r.idResidencia ";
-				qry+= " WHERE d.oidDivisionResidencia IN ( " + VisibilidadHelper.oidDivisionResidenciasVisibles(spdUsuario)  + ")";
-				qry+= " ORDER BY d.nombreDivisionResidencia";
-		 	   System.out.println(className + "  - getListaDivisionResidencias -->  " +qry );		
+		   String qry = getQueryBase(spdUsuario);
+		   qry+= " ORDER BY d.nombreDivisionResidencia";
+		   System.out.println(className + "  - getListaDivisionResidencias -->  " +qry );		
 	        	
-	         ResultSet resultSet = null;
-	 		List<DivisionResidencia> listaDivisionResidencias= new ArrayList<DivisionResidencia>();
+		   ResultSet resultSet = null;
+		   List<DivisionResidencia> listaDivisionResidencias= new ArrayList<DivisionResidencia>();
 	       try {
 	            PreparedStatement pstat = con.prepareStatement(qry);
 	            resultSet = pstat.executeQuery();
@@ -112,12 +115,14 @@ public class DivisionResidenciaDAO {
 }
 
     
+
+
+
+
 	public static List<DivisionResidencia> getListaDivisionResidenciasSinSustXResi(String spdUsuario, int oidGestSustituciones) throws Exception {
 	  	
 		   Connection con = Conexion.conectar();
-	        String qry = "SELECT d.*, r.* FROM dbo.bd_divisionResidencia d.";
-				qry+= " INNER JOIN dbo.bd_residencia r  ON d.idResidencia=r.idResidencia ";
-	        	qry+= " WHERE d.oidDivisionResidencia IN ( " + VisibilidadHelper.oidDivisionResidenciasVisibles(spdUsuario)  + ")";
+	        String qry = getQueryBase(spdUsuario);
 	        	qry+= " AND d.oidDivisionResidencia NOT IN ";
 	        	qry+= "		 (SELECT gr.oidDivisionResidencia FROM dbo.gest_sustitucionesXResi gr WHERE gr.oidGestSustituciones='" +oidGestSustituciones+ "' )";
 	        	qry+= " ORDER BY d.nombreDivisionResidencia";
@@ -164,7 +169,9 @@ public class DivisionResidenciaDAO {
 	    	c.setExtRE_diaSemanaLiteral(getDiaLiteral(resultSet.getInt("extRE_diaSemana")));
 	    	c.setIdLayout(resultSet.getString("layoutBolsa"));
 	    	c.setLocationId(resultSet.getString("locationID"));
+	    	c.setServirSiPrecisa(resultSet.getInt("servirSiPrecisa"));
 	    	c.setCargarSoloCipsExistentes(resultSet.getInt("cargarSoloCipsExistentes"));
+	    	c.setNombreFarmacia(resultSet.getString("nombreFarmacia"));
 			
 		}
     	return c;
@@ -189,9 +196,7 @@ public class DivisionResidenciaDAO {
 	public static List<DivisionResidencia> getSecurityListaDivisionResidencias(String spdUsuario) throws Exception {
 	  	
 		   Connection con = Conexion.conectar();
-	        String qry = "SELECT d.*, r.* FROM dbo.bd_divisionResidencia d";
-			qry+= " INNER JOIN dbo.bd_residencia r  ON d.idResidencia=r.idResidencia ";
-			qry+= " WHERE d.oidDivisionResidencia IN ( " + VisibilidadHelper.oidDivisionResidenciasVisibles(spdUsuario)  + ")";
+		   String qry = getQueryBase(spdUsuario);
    	        qry+= " ORDER BY d.nombreDivisionResidencia";
 
  	  	     System.out.println(className + "  - getSecurityListaDivisionResidencias -->  " +qry );		

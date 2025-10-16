@@ -17,15 +17,18 @@ public class ProcesoHelper2 {
 	
 	public Proceso obtenerProcesoPorId(String idUsuario, int oidProceso) throws SQLException {
 		// TODO Esbozo de método generado automáticamente
-		List listado = procesoDAO.findByFilters(idUsuario, null, null, oidProceso);
+    	//antipete List listado = procesoDAO.findByFilters(idUsuario, null, null, oidProceso);
+		List listado = null;
 		return (listado !=null && listado.size()>0) ? (Proceso) listado.get(0) : null;
 	}
 
 
 	public static String obtenerEstadoProceso(String idUsuario, int oidProceso) throws SQLException {
 		// TODO Esbozo de método generado automáticamente
-		List listado = procesoDAO.findByFilters(idUsuario, null, null, oidProceso);
-		return (listado !=null && listado.size()>0) ? ((Proceso) listado.get(0)).getEstado() : null;
+    	//antipete List listado = procesoDAO.findByFilters(idUsuario, null, null, oidProceso);
+		List listado = null;
+    	//antipete 	return (listado !=null && listado.size()>0) ? ((Proceso) listado.get(0)).getEstado() : null;
+		return null;
 
 	}
 	
@@ -39,7 +42,7 @@ public class ProcesoHelper2 {
         
         // Si no está en ejecutó, iniciar el proceso
         System.out.println("Lanzando proceso con OID: " + oidProceso);
-        procesoDAO.iniciarProceso(idUsuario, oidProceso);
+    	//antipete procesoDAO.iniciarProceso(idUsuario, oidProceso);
     }
 
     // lógica para detener el proceso
@@ -52,8 +55,8 @@ public class ProcesoHelper2 {
     public void reiniciarProceso(String idUsuario, int oidProceso) {
         // lógica para reiniciar el proceso
         System.out.println("Reiniciando proceso con OID: " + oidProceso);
-        procesoDAO.actualizarEstadoProceso(oidProceso, "En ejecutó");
-        procesoDAO.iniciarProceso(idUsuario, oidProceso);
+    	//antipete  procesoDAO.actualizarEstadoProceso(oidProceso, "En ejecutó");
+    	//antipete  procesoDAO.iniciarProceso(idUsuario, oidProceso);
     }
     
     public void copiarProcesoAHistoricoPorOid(int oidProceso) {
@@ -89,21 +92,21 @@ public class ProcesoHelper2 {
 		proceso.setNombreProceso(form.getNombreProceso()); 
 		proceso.setLanzadera(form.getLanzadera());
 		proceso.setDescripcion(form.getDescripcion());
-		proceso.setEstado(form.getEstado());
+    	//antipete proceso.setEstado(form.getEstado());
 		proceso.setParametros(form.getParametros());
 		proceso.setTipoEjecucion(form.getTipoEjecucion());
 		proceso.setTipoPeriodo(form.getTipoPeriodo());
 		proceso.setDiasSemana(form.getDiasSemana());
-		proceso.setResultado(form.getResultado());
-		proceso.setUsuarioEjecucion(form.getUsuarioEjecucion());
-		proceso.setMensaje(form.getMensaje());
-		proceso.setTipoError(form.getTipoError());
-		proceso.setCodigoResultado(form.getCodigoResultado());
-		proceso.setError(form.getError());
+    	//antipete proceso.setResultado(form.getResultado());
+    	//antipete proceso.setUsuarioEjecucion(form.getUsuarioEjecucion());
+    	//antipete proceso.setMensaje(form.getMensaje());
+    	//antipete proceso.setTipoError(form.getTipoError());
+    	//antipete proceso.setCodigoResultado(form.getCodigoResultado());
+    	//antipete proceso.setError(form.getError());
 		// Campos opcionales con conversión y validación
 		if (form.getFechaCreacion() != null && !form.getFechaCreacion().isEmpty()) {
 	    	Date parsedDate = (Date) timestampFormat.parse(form.getFechaCreacion());
-	    	proceso.setFechaCreacion(parsedDate);
+	    	//antipete proceso.setFechaCreacion(parsedDate);
 		}
 		
 		if (form.getHoraEjecucion() != null && !form.getHoraEjecucion().isEmpty()) {
@@ -131,9 +134,9 @@ public class ProcesoHelper2 {
 		    proceso.setFechaHasta(fechaHastaFormateada);
 		}
 
-		if (form.getDuracionSegundos()>0) {
-		    proceso.setDuracionSegundos(form.getDuracionSegundos());
-		}
+    	//antipete 	if (form.getDuracionSegundos()>0) {
+	    	//antipete 	    proceso.setDuracionSegundos(form.getDuracionSegundos());
+    	//antipete 	}
 		
 
 		boolean result =  procesoDAO.nuevo(idUsuario, proceso);
@@ -162,7 +165,8 @@ public class ProcesoHelper2 {
 			errors.add( "No se ha informado de la lanzadera. ");
 			return false;
 		}
-		List procesos = ProcesoDAO.findByFilters(idUsuario, null, form.getLanzadera(), -1);
+    	//antipete List procesos = ProcesoDAO.findByFilters(idUsuario, null, form.getLanzadera(), -1);
+		List procesos=null;
 		if(procesos!=null && procesos.size()>0)
 		{
 			errors.add( "Ya existe una lanzadera con el mismo nombre. ");

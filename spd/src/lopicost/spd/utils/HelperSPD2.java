@@ -3604,12 +3604,12 @@ public static void chequearPrevisionResiSPD(FicheroResiBean medResi) {
 		float resi = 0;
 		float spd = 0;
 		try{
-			resi = (medResi!=nullímedResi.getPrevisionResi():0) ;
+	    	//antipete 	resi = (medResi!=nullímedResi.getPrevisionResi():0) ;
 		}catch(Exception e){			
 		}
 		
 		try{
-			 spd =(medResi!=nullímedResi.getPrevisionSPD():0) ;
+	    	//antipete  spd =(medResi!=nullímedResi.getPrevisionSPD():0) ;
 				if(resi!=spd) medResi.setCuadraPrevision(false);
 		}catch(Exception e){			
 		}

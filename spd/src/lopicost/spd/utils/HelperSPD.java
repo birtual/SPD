@@ -2915,9 +2915,9 @@ public class HelperSPD{
 	   	System.out.println("----- borrarPosibleDuplicado INIT --");
 		if(FicheroResiDetalleDAO.existeRegistro(spdUsuario, medResi.getIdDivisionResidencia(), medResi.getIdProceso(), medResi))
 		{
-			return true;
+			//return true;
+			return FicheroResiDetalleDAO.borrar(spdUsuario, medResi.getOidFicheroResiCabecera(), medResi.getOidFicheroResiDetalle(), medResi.getIdTratamientoCIP());
 		}
-		FicheroResiDetalleDAO.borrar(spdUsuario, medResi.getOidFicheroResiCabecera(), medResi.getOidFicheroResiDetalle(), medResi.getIdTratamientoCIP());
 	   	System.out.println("----- borrarPosibleDuplicado EXIT --");
 
 		return false;

@@ -339,11 +339,11 @@ public class ProcesoHelper3 {
 	}
 
 
-	public boolean actualizarEstadoEjecucion(Proceso proceso, String nuevoEstado) throws SQLException {
-		boolean result = procEjecDAO.actualizarEstadoEjecucion(proceso, nuevoEstado);
-		return result;
+	//antipete 	public boolean actualizarEstadoEjecucion(Proceso proceso, String nuevoEstado) throws SQLException {
+	//antipete 	boolean result = procEjecDAO.actualizarEstadoEjecucion(proceso, nuevoEstado);
+	//antipete 	return result;
 		
-	}
+	//antipete 	}
 
 /*
     public static void controlEjecucionesEnCurso() {
@@ -393,7 +393,7 @@ public class ProcesoHelper3 {
      */
     public boolean marcarComoExcedido(ProcesoEjecucion ejec) throws SQLException {
         
-    	ejec.setEstado(SPDConstants.PROCESO_EJEC_ERROR);
+    	//antipete ejec.setEstado(SPDConstants.PROCESO_EJEC_ERROR);
         ejec.setFechaFinEjecucion(getAhora());
         ejec.setDuracionSegundos(calcularDuracion(ejec.getFechaInicioEjecucion()));
         ejec.setMensaje("Superó tiempo máximo");

@@ -11,6 +11,7 @@ public class DivisionResidencia extends Residencia implements Serializable {
 	  private Farmacia farmacia;
 	  private Robot robot;
 	  private String idFarmacia;
+	  private String nombreFarmacia;
 	  private String idRobot;
 	  private String idLayout;
 	  private String nombreBolsa;
@@ -25,6 +26,16 @@ public class DivisionResidencia extends Residencia implements Serializable {
 	  
 	public DivisionResidencia() {
 		super();
+	}
+
+
+	public String getNombreFarmacia() {
+		return nombreFarmacia;
+	}
+
+
+	public void setNombreFarmacia(String nombreFarmacia) {
+		this.nombreFarmacia = nombreFarmacia;
 	}
 
 

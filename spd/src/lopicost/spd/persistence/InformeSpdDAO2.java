@@ -180,7 +180,7 @@ public class InformeSpdDAO2
  		      	}
             	else
             	{
-                	tratamiento = helper.creaTratamientoPaciente(rs);
+                	//tratamiento = helper.creaTratamientoPaciente(rs);
                 	produccionPaciente.getTratamientosPaciente().add(tratamiento);
                 	tm_Tratamientos.put(keyTratamiento, tratamiento);
             	}

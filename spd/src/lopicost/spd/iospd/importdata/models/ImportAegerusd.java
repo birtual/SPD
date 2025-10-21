@@ -1,7 +1,6 @@
-
 package lopicost.spd.iospd.importdata.models;
 
-import lopicost.spd.controller.SpdLogAPI;
+import lopicost.spd.controller.SpdLogAPI; 
 import lopicost.spd.excepciones.ColumnasInsuficientesException;
 import lopicost.spd.excepciones.LineaDescartadaException;
 import lopicost.spd.excepciones.LineaDuplicadaException;
@@ -36,7 +35,7 @@ import java.util.Vector;
  *
  */
 
-public class ImportAegerus extends ImportProcessImpl
+public class ImportAegerusd extends ImportProcessImpl
 {
 	int reg = 11;  //numeroCorteCabecera  / celda de la fecha inicio, que es la obligatoria. a partir de aquí pueden venir vacías
 	int nulasSeguidas=0;
@@ -53,6 +52,8 @@ public class ImportAegerus extends ImportProcessImpl
 	TreeMap tFechasProduccionTeorico =new TreeMap();		//fechas que se eligen como inicio / fin para producir
 	TreeMap tFechasProduccionFichero =new TreeMap();		//fechas que se detectan que se reciben en el fichero Aegerus
 	TreeMap tFechasProduccionSPD =new TreeMap();			//fechas intersección de las dos anteriores, que serán las que se envíen a robot
+	TreeMap<String, String>  cipsDescartadosPorRestriccion =new TreeMap<>(); // se guardan los CIPS que se descartan si la residencia tiene activada la restricción y no está dado de alta en bIRTUAL
+
 	TreeMap<String, String>  cipsFicheroAnexo =new TreeMap<>(); // se guardan los CIPS que se cargan de nuevo, para borrar previamente el tratamiento y cargarlo con el nuevo fichero
 
 	
@@ -64,7 +65,7 @@ public class ImportAegerus extends ImportProcessImpl
     String diasRangoSPD= null;
     long diasProduccionSPD =0;
  
-	public ImportAegerus(){
+	public ImportAegerusd(){
 		super();
 	}
 
@@ -552,7 +553,7 @@ public class ImportAegerus extends ImportProcessImpl
 
 			
 			//result=ioSpdApi.editaFinCargaFicheroResi(this.getIdDivisionResidencia(), this.getIdProceso(), filasTotales, cipsTotales, cipsActivosSPD, porcent, this.errors);
-			result=FicheroResiDetalleHelper.editaFinCargaFicheroResi(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso(), filasTotales, cipsTotales, cipsActivosSPD, porcent, this.errors);
+			result=FicheroResiDetalleHelper.editaFinCargaFicheroResi(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso(), filasTotales, cipsTotales, cipsActivosSPD, porcent, this.errors, cipsDescartadosPorRestriccion);
 
 			if(result)
 			{
@@ -613,6 +614,8 @@ public class ImportAegerus extends ImportProcessImpl
      	   		HelperSPD.chequeoTratamientoMensual(getSpdUsuario(), medResi);
     	  		HelperSPD.chequearPrevisionResiSPD(medResi);
            	}
+
+	PacienteBean paciente = PacienteDAO.getPacientePorCIP(medResi.getResiCIP());
 
      		if((medResi.getResiCIP()==null || medResi.getResiCIP().equals("")) && medResi.getResiNombrePaciente()!=null && !medResi.getResiNombrePaciente().equals("")) //en caso que no exista CIP  ponemos el nombre
      		{

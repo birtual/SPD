@@ -1,6 +1,7 @@
+
 package lopicost.spd.iospd.importdata.models;
 
-import lopicost.spd.controller.SpdLogAPI; 
+import lopicost.spd.controller.SpdLogAPI;
 import lopicost.spd.excepciones.ColumnasInsuficientesException;
 import lopicost.spd.excepciones.LineaDescartadaException;
 import lopicost.spd.excepciones.LineaDuplicadaException;
@@ -9,13 +10,9 @@ import lopicost.spd.helper.FicheroResiDetalleHelper;
 
 import lopicost.spd.iospd.importdata.process.ImportProcessImpl;
 import lopicost.spd.model.DivisionResidencia;
-import lopicost.spd.persistence.DivisionResidenciaDAO;
 import lopicost.spd.persistence.FicheroResiDetalleDAO;
 import lopicost.spd.persistence.GestSustitucionesLiteDAO;
-import lopicost.spd.persistence.PacienteDAO;
 import lopicost.spd.struts.bean.FicheroResiBean;
-import lopicost.spd.struts.bean.PacienteBean;
-import lopicost.spd.struts.helper.PacientesHelper;
 import lopicost.spd.utils.AegerusHelper;
 
 import lopicost.spd.utils.HelperSPD;
@@ -49,7 +46,6 @@ public class ImportAegerus extends ImportProcessImpl
    	int celdaFinal=30; //seráa un valor tope cuando encontremos la fecha final que coincide con fecha hasta
 
 
-	DivisionResidencia divisionResidencia = null;
 
     TreeMap CIPSTratados =new TreeMap();
     TreeMap CNSTratados =new TreeMap();
@@ -57,8 +53,6 @@ public class ImportAegerus extends ImportProcessImpl
 	TreeMap tFechasProduccionTeorico =new TreeMap();		//fechas que se eligen como inicio / fin para producir
 	TreeMap tFechasProduccionFichero =new TreeMap();		//fechas que se detectan que se reciben en el fichero Aegerus
 	TreeMap tFechasProduccionSPD =new TreeMap();			//fechas intersección de las dos anteriores, que serán las que se envíen a robot
-	TreeMap<String, String>  cipsDescartadosPorRestriccion =new TreeMap<>(); // se guardan los CIPS que se descartan si la residencia tiene activada la restricción y no está dado de alta en bIRTUAL
-
 	TreeMap<String, String>  cipsFicheroAnexo =new TreeMap<>(); // se guardan los CIPS que se cargan de nuevo, para borrar previamente el tratamiento y cargarlo con el nuevo fichero
 
 	
@@ -77,9 +71,6 @@ public class ImportAegerus extends ImportProcessImpl
 
 	protected boolean beforeStart(String filein) throws Exception 
    {
-	   cipsFicheroAnexo =new TreeMap<>();//inicialización
-	   divisionResidencia = DivisionResidenciaDAO.getDivisionResidenciaById(getSpdUsuario(), this.getIdDivisionResidencia());
-
 		boolean result=false;
 		try {
 			if(isCargaAnexa())
@@ -170,8 +161,6 @@ public class ImportAegerus extends ImportProcessImpl
         	{
             	
                 this.creaRegistro(row, count);
-                
-                
                 //return finalizar;
         	}
         	else
@@ -308,20 +297,6 @@ public class ImportAegerus extends ImportProcessImpl
           	medResi.setResiMedicamento(StringUtil.replaceInvalidChars((String) row.elementAt(i))); i++;	
     		medResi.setResiCn(StringUtil.replaceInvalidChars((String) row.elementAt(i))); i++;
     		medResi.setResiCIP(StringUtil.replaceInvalidChars((String) row.elementAt(i))); i++;	
-    		
-    		
-     		
-    	   	PacienteBean paciente = PacientesHelper.getPacientePorCIP(medResi.getResiCIP());
-           	//controlamos larestricción de carga de CIPs dados de alta. Dejamos carga anexa para cargarlos en caso de necesidad
-        	if(!isCargaAnexa() && paciente==null && divisionResidencia.getCargarSoloCipsExistentes()==1)
-        	{
-        		if(!cipsDescartadosPorRestriccion.containsKey(medResi.getResiCIP()))
-            	{
-        			cipsDescartadosPorRestriccion.put(medResi.getResiCIP(), medResi.getResiCIP() );
-            	}
-            	throw new LineaDescartadaException (" - <u>DESCARTADO</u>. Carga de " + (divisionResidencia.getNombreDivisionResidencia()!=null?divisionResidencia.getNombreDivisionResidencia().toUpperCase():"la residencia")  + " estricta a CIPS existentes en la gestión bIRTUAL ");
-        	}
-        		
     		medResi.setNombrePacienteEnFichero((String) row.elementAt(i));i++;
          	HelperSPD.getDatosPaciente(medResi);
          	medResi.setResiHabitacion((String) row.elementAt(i)); i++;
@@ -564,7 +539,6 @@ public class ImportAegerus extends ImportProcessImpl
 
 			int cipsActivosSPD= ioSpdApi.getCipsActivosSPD(getSpdUsuario(), this.getIdDivisionResidencia());
 			int cipsTotales= ioSpdApi.getCipsTotalesCargaFichero(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso());
-			int cipsDescartadosRestriccion = cipsDescartadosPorRestriccion.size();
 			int filasTotales= this.processedRows;
 
 			result=ioSpdApi.borraDetalleSinCabecera();
@@ -578,7 +552,7 @@ public class ImportAegerus extends ImportProcessImpl
 
 			
 			//result=ioSpdApi.editaFinCargaFicheroResi(this.getIdDivisionResidencia(), this.getIdProceso(), filasTotales, cipsTotales, cipsActivosSPD, porcent, this.errors);
-			result=FicheroResiDetalleHelper.editaFinCargaFicheroResi(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso(), filasTotales, cipsTotales+cipsDescartadosRestriccion, cipsActivosSPD, porcent, this.errors, cipsDescartadosPorRestriccion);
+			result=FicheroResiDetalleHelper.editaFinCargaFicheroResi(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso(), filasTotales, cipsTotales, cipsActivosSPD, porcent, this.errors);
 
 			if(result)
 			{
@@ -640,13 +614,12 @@ public class ImportAegerus extends ImportProcessImpl
     	  		HelperSPD.chequearPrevisionResiSPD(medResi);
            	}
 
-      		if((medResi.getResiCIP()==null || medResi.getResiCIP().equals("")) && medResi.getResiNombrePaciente()!=null && !medResi.getResiNombrePaciente().equals("")) //en caso que no exista CIP  ponemos el nombre
+     		if((medResi.getResiCIP()==null || medResi.getResiCIP().equals("")) && medResi.getResiNombrePaciente()!=null && !medResi.getResiNombrePaciente().equals("")) //en caso que no exista CIP  ponemos el nombre
      		{
      			FicheroResiDetalleHelper.actualizaCIP(getSpdUsuario(), medResi);
      			
      		}   
-
-        		
+     		
         	//tratamos los casos de un segundo fichero de carga.
         	//localización de los CIPS a tratar, se borrará lo que se haya cargado previamente y se mete en un TreeMap para no borrarlo de nuevo e insertar los nuevos. 
         	if(isCargaAnexa())

@@ -30,7 +30,19 @@
 
     <html:hidden property="parameter" value="editar"/>
 	<html:hidden property="oidDivisionResidencia"/>
-
+	
+	<!-- mostramos mensajes y errores, si existen -->
+	<c:if test="${not empty formulari.errors}">
+		<ul>
+		<font color="red">
+			<u>Mensaje:</u>
+			<c:forEach items="${formulari.errors}" var="error"> 
+				<li>${error}</li>
+			</c:forEach> 
+		</font>
+		</ul>
+	</c:if>
+	
 		
   		<table class="editar">
 

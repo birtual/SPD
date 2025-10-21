@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.Date; 
 import java.util.Iterator;
 import java.util.List;
-
+import java.util.TreeMap;
 
 import lopicost.spd.helium.helper.HeliumHelper;
 import lopicost.spd.helium.model.Dose;
@@ -466,11 +466,11 @@ public class FicheroResiDetalleHelper {
 		return oid;
 	}
 	
-	public static boolean editaFinCargaFicheroResi(String spdUsuario, String idDivisionResidencia, String idProceso, int processedRows,  int cipsTotales, int cipsActivosSPD, int porcent, List errors)  throws Exception {
-		String resumenCIPSFichero = getResumenCIPSFichero(spdUsuario, idDivisionResidencia, idProceso);
+	public static boolean editaFinCargaFicheroResi(String spdUsuario, String idDivisionResidencia, String idProceso, int processedRows,  int cipsTotales, int cipsActivosSPD, int porcent, List errors, TreeMap<String, String> descartadosPorRestriccion)  throws Exception {
+		String resumenCIPSFichero = getResumenCIPSFichero(spdUsuario, idDivisionResidencia, idProceso, descartadosPorRestriccion);
 		return FicheroResiCabeceraDAO.editaFinCargaFicheroResi(idDivisionResidencia, idProceso, processedRows,  cipsTotales, cipsActivosSPD, porcent, errors, resumenCIPSFichero);
 	}
-	public static String getResumenCIPSFichero(String spdUsuario, String idDivisionResidencia, String idProceso) throws Exception
+	public static String getResumenCIPSFichero(String spdUsuario, String idDivisionResidencia, String idProceso, TreeMap<String, String> descartadosPorRestriccion) throws Exception
 	{
 		List<PacienteBean> cipsFicheroSiGestionSPDNo = FicheroResiDetalleDAO.getCipsFicheroSiGestionSPDNo(spdUsuario, idProceso );
 		List<PacienteBean> cipsFicheroSiGestionNo = FicheroResiDetalleDAO.getCipsFicheroSiGestionNo(spdUsuario, idDivisionResidencia, idProceso );
@@ -512,6 +512,16 @@ public class FicheroResiDetalleHelper {
 				PacienteBean pac3 = (PacienteBean) it_3.next();
 				result+= "<li>"+pac3.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac3.getApellidosNombre()) + "</li>";
 				//System.out.println("3 - Se añade Diferencia CIP: " + pac3.getCIP() + " - " + StringUtil.limpiarTextoComentarios(pac3.getApellidosNombre()));
+			}
+			result+="</ul><br/>";
+			
+		}
+		if(!descartadosPorRestriccion.isEmpty())
+		{
+			result+="<span class=''textoRojo''><b>Descartados por restricción de altas</b></span><br/> <ul>";
+			
+			for (String value : descartadosPorRestriccion.values()) {
+				result+= "<li>"+value+ "</li>";
 			}
 			result+="</ul><br/>";
 			

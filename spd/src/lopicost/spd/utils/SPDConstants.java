@@ -297,7 +297,7 @@ public class SPDConstants
 	public static final int DIAS_CONSULTA_LOG = 180;		//días atrás para consulta de logs
 
 	public static final int DIAS_MAX_PROCESOS_IMPORT = 7;
-	public static final int DIAS_MAX_RECOGIDA_IOFWIN= 1;	//días máximos para dar alerta en caso de que no se recojan datos de iofwin
+	public static final int DIAS_MAX_RECOGIDA_IOFWIN= 0;	//días máximos para dar alerta en caso de que no se recojan datos de iofwin
 	public static final int PERCENT_MIN_RECOGIDA_DATOS_IOFWIN= 85;	//% Mínimo de datos recogidos  OK, para que no salte alarma
 
 	//public static final String REGISTRO_ENPROCESO_CONFIRMACION = "EN PROCESO DE CONFIRMACION";;

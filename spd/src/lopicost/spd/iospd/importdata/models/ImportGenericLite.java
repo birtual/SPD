@@ -8,11 +8,13 @@ import lopicost.spd.excepciones.MaxLineasNulasException;
 import lopicost.spd.helper.FicheroResiDetalleHelper;
 import lopicost.spd.iospd.importdata.process.ImportProcessImpl;
 import lopicost.spd.model.DivisionResidencia;
+import lopicost.spd.persistence.DivisionResidenciaDAO;
 import lopicost.spd.persistence.FicheroResiCabeceraDAO;
 import lopicost.spd.persistence.FicheroResiDetalleDAO;
 import lopicost.spd.persistence.PacienteDAO;
 import lopicost.spd.struts.bean.FicheroResiBean;
 import lopicost.spd.struts.bean.PacienteBean;
+import lopicost.spd.struts.helper.PacientesHelper;
 import lopicost.spd.utils.DataUtil;
 import lopicost.spd.utils.DateUtilities;
 import lopicost.spd.utils.HelperSPD;
@@ -35,9 +37,11 @@ public class ImportGenericLite extends ImportProcessImpl
 	String CIPanterior="";
 	int nulasSeguidas=0;
 	int numeroDoses=0;
+	DivisionResidencia divisionResidencia = null;
 	int oidFicheroResiCabecera= 0;
 	int reg = 11;  //numeroCorteCabecera  / celda de la fecha inicio, que es la obligatoria. a partir de aquí pueden venir vacías
 	TreeMap rowsTratados =new TreeMap();
+	TreeMap<String, String>  cipsDescartadosPorRestriccion =new TreeMap<>(); // se guardan los CIPS que se descartan si la residencia tiene activada la restricción y no está dado de alta en bIRTUAL
 	TreeMap<String, String>  cipsFicheroAnexo =new TreeMap<>(); // se guardan los CIPS que se cargan de nuevo, para borrar previamente el tratamiento y cargarlo con el nuevo fichero
 	
 	Map<String, Set<String>> mapaCipCn = new HashMap<>();	//guardamos CIP Set de Cn para recorrido posterior de interacciones
@@ -108,7 +112,7 @@ public class ImportGenericLite extends ImportProcessImpl
     //public boolean procesarEntrada(String idRobot, String idDivisionResidencia, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception
     public boolean procesarEntrada(String idRobot, DivisionResidencia div, String idProceso, Vector row, int count, boolean cargaAnexa) throws Exception
     {	
-    	if(div==null) return false;
+    	if(divisionResidencia==null) return false;
        	boolean finalizar = false;
        //	System.out.println( "--> procesarEntrada. INICIO row  "  + new Date() ); 		
        	
@@ -117,10 +121,7 @@ public class ImportGenericLite extends ImportProcessImpl
      	//if (row!=null && row.size()>=reg+1) así está en resi+
     	if (row!=null && row.size()>=reg && nulasSeguidas<SPDConstants.MAX_LINEAS_NULAS_CARGA)  //20250901 - Control de máx líneas nulas 
         {
-    		if(!cargaAnexa && div.getCargarSoloCipsExistentes()==1)
-    		{
-    			throw new Exception (" - <u>DESCARTADO</u>. Carga de " + (div.getNombreDivisionResidencia()!=null?div.getNombreDivisionResidencia().toUpperCase():"la residencia")  + " estricta a CIPS existentes en la gestión bIRTUAL ");
-    		}
+
     		if (this.rowsTratados.containsKey(String.valueOf(row))) {
     			throw new Exception ("Es un tratamiento que está duplicado ");
     		}
@@ -159,10 +160,20 @@ public class ImportGenericLite extends ImportProcessImpl
         		}
         		
         	}
+        	PacienteBean paciente = PacientesHelper.getPacientePorCIP(medResi.getResiCIP());
         	
-        	
-        	desarrollarRegistro(medResi);
-       	 
+        	//controlamos larestricción de carga de CIPs dados de alta. Dejamos carga anexa para cargarlos en caso de necesidad
+    		if(!cargaAnexa && paciente==null && divisionResidencia.getCargarSoloCipsExistentes()==1)
+    		{
+    			if(!cipsDescartadosPorRestriccion.containsKey(medResi.getResiCIP()))
+        		{
+    				cipsDescartadosPorRestriccion.put(medResi.getResiCIP(), medResi.getResiCIP() );
+        		}
+        		throw new Exception (" - <u>DESCARTADO</u>. Carga de " + (div.getNombreDivisionResidencia()!=null?div.getNombreDivisionResidencia().toUpperCase():"la residencia")  + " estricta a CIPS existentes en la gestión bIRTUAL ");
+    		}
+
+    		desarrollarRegistro(medResi);
+    		
   	   		//miramos si existe, para no duplicar
   	       	boolean existe = false;
   		    existe= FicheroResiDetalleDAO.existeRegistro(getSpdUsuario(), medResi.getIdDivisionResidencia(), medResi.getIdProceso(), medResi);
@@ -215,7 +226,8 @@ public class ImportGenericLite extends ImportProcessImpl
 
 	protected boolean beforeStart(String filein) throws Exception 
     {
-	   	cipsFicheroAnexo =new TreeMap<>();//inicialización
+	   cipsFicheroAnexo =new TreeMap<>();//inicialización
+	   divisionResidencia = DivisionResidenciaDAO.getDivisionResidenciaById(getSpdUsuario(), this.getIdDivisionResidencia());
 
 
 		boolean result=false;
@@ -261,16 +273,17 @@ public class ImportGenericLite extends ImportProcessImpl
 		try {
 			int cipsActivosSPD= ioSpdApi.getCipsActivosSPD(getSpdUsuario(), this.getIdDivisionResidencia());
 			int cipsTotales= ioSpdApi.getCipsTotalesCargaFichero(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso());
+			int cipsDescartadosRestriccion = cipsDescartadosPorRestriccion.size();
 			int filasTotales= this.processedRows;
 			
 			if(isCargaAnexa())
 				filasTotales= ioSpdApi.getLineasProceso(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso());
 			int porcent = 0;
-			try { porcent =(cipsTotales*100/cipsActivosSPD);				}catch(Exception e){porcent =0;}
+			try { porcent =((cipsTotales+cipsDescartadosRestriccion)*100/cipsActivosSPD);				}catch(Exception e){porcent =0;}
 
 			
 			//result=ioSpdApi.editaFinCargaFicheroResi(this.getIdDivisionResidencia(), this.getIdProceso(), filasTotales, cipsTotales, cipsActivosSPD, porcent, this.errors);
-			result=FicheroResiDetalleHelper.editaFinCargaFicheroResi(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso(), filasTotales, cipsTotales, cipsActivosSPD, porcent, this.errors);
+			result=FicheroResiDetalleHelper.editaFinCargaFicheroResi(getSpdUsuario(), this.getIdDivisionResidencia(), this.getIdProceso(), filasTotales, cipsTotales+cipsDescartadosRestriccion, cipsActivosSPD, porcent, this.errors, cipsDescartadosPorRestriccion);
 			if(result)
 			{
 				//creación de log en BBDD

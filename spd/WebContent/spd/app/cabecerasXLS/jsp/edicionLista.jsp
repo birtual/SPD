@@ -239,7 +239,7 @@
 				<td>Posición en bbdd (solo visible para admins)<br></td>
 		</tr>	
 		</c:if>
-		
+		 
 		<tr>
 			<td></td>
 			<c:forEach items="${formulari.listaTomasCabecera}" var="toma"> 
